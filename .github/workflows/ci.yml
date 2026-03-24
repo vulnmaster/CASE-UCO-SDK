@@ -68,7 +68,7 @@ jobs:
           python-version: "3.12"
 
       - name: Download generated sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: generated-sources
           path: .
@@ -91,7 +91,7 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Download generated sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: generated-sources
           path: .
@@ -115,7 +115,7 @@ jobs:
           java-version: "17"
 
       - name: Download generated sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: generated-sources
           path: .
@@ -135,7 +135,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
 
       - name: Download generated sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: generated-sources
           path: .
