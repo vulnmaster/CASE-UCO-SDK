@@ -1,6 +1,7 @@
 //! Auto-generated uco-tool types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 use crate::uco::configuration::Configuration;
 use crate::uco::identity::Identity;
@@ -32,6 +33,11 @@ impl AnalyticToolBuilder {
             class_iri: AnalyticTool::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for AnalyticTool {
+    fn class_iri() -> &'static str { AnalyticTool::CLASS_IRI }
+    fn type_name() -> &'static str { "AnalyticTool" }
 }
 
 /// A build facet is a grouping of characteristics unique to a particular version of a software.
@@ -71,6 +77,11 @@ impl BuildFacetBuilder {
             build_information: self.build_information,
         }
     }
+}
+
+impl CaseObject for BuildFacet {
+    fn class_iri() -> &'static str { BuildFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "BuildFacet" }
 }
 
 /// A build information type is a grouping of characteristics that describe how a particular version of software was converted from source code to executable code.
@@ -212,6 +223,11 @@ impl BuildInformationTypeBuilder {
     }
 }
 
+impl CaseObject for BuildInformationType {
+    fn class_iri() -> &'static str { BuildInformationType::CLASS_IRI }
+    fn type_name() -> &'static str { "BuildInformationType" }
+}
+
 /// A build utility type characterizes the tool used to convert from source code to executable code for a particular version of software.
 #[derive(Debug, Clone, Serialize)]
 pub struct BuildUtilityType {
@@ -269,6 +285,11 @@ impl BuildUtilityTypeBuilder {
             swid: self.swid,
         }
     }
+}
+
+impl CaseObject for BuildUtilityType {
+    fn class_iri() -> &'static str { BuildUtilityType::CLASS_IRI }
+    fn type_name() -> &'static str { "BuildUtilityType" }
 }
 
 /// A compiler type is a grouping of characteristics unique to a specific program that translates computer code written in one programming language (the source language) into another language (the target 
@@ -330,6 +351,11 @@ impl CompilerTypeBuilder {
     }
 }
 
+impl CaseObject for CompilerType {
+    fn class_iri() -> &'static str { CompilerType::CLASS_IRI }
+    fn type_name() -> &'static str { "CompilerType" }
+}
+
 /// A ConfiguredTool is a Tool that is known to be configured to run in a more specified manner than some unconfigured or less-configured Tool.
 #[derive(Debug, Clone, Serialize)]
 pub struct ConfiguredTool {
@@ -379,6 +405,11 @@ impl ConfiguredToolBuilder {
     }
 }
 
+impl CaseObject for ConfiguredTool {
+    fn class_iri() -> &'static str { ConfiguredTool::CLASS_IRI }
+    fn type_name() -> &'static str { "ConfiguredTool" }
+}
+
 /// A defensive tool is an artifact of hardware and/or software utilized to accomplish a task or purpose of guarding.
 #[derive(Debug, Clone, Serialize)]
 pub struct DefensiveTool {
@@ -406,6 +437,11 @@ impl DefensiveToolBuilder {
             class_iri: DefensiveTool::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for DefensiveTool {
+    fn class_iri() -> &'static str { DefensiveTool::CLASS_IRI }
+    fn type_name() -> &'static str { "DefensiveTool" }
 }
 
 /// A library type is a grouping of characteristics unique to a collection of resources incorporated into the build of a software.
@@ -457,6 +493,11 @@ impl LibraryTypeBuilder {
     }
 }
 
+impl CaseObject for LibraryType {
+    fn class_iri() -> &'static str { LibraryType::CLASS_IRI }
+    fn type_name() -> &'static str { "LibraryType" }
+}
+
 /// A malicious tool is an artifact of hardware and/or software utilized to accomplish a malevolent task or purpose.
 #[derive(Debug, Clone, Serialize)]
 pub struct MaliciousTool {
@@ -484,6 +525,11 @@ impl MaliciousToolBuilder {
             class_iri: MaliciousTool::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for MaliciousTool {
+    fn class_iri() -> &'static str { MaliciousTool::CLASS_IRI }
+    fn type_name() -> &'static str { "MaliciousTool" }
 }
 
 /// A tool is an element of hardware and/or software utilized to carry out a particular function.
@@ -563,4 +609,9 @@ impl ToolBuilder {
             version: self.version,
         }
     }
+}
+
+impl CaseObject for Tool {
+    fn class_iri() -> &'static str { Tool::CLASS_IRI }
+    fn type_name() -> &'static str { "Tool" }
 }

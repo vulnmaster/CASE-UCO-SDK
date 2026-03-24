@@ -1,6 +1,7 @@
 //! Auto-generated uco-location types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// A GPS coordinates facet is a grouping of characteristics unique to the expression of quantified dilution of precision (DOP) for an asserted set of geolocation coordinates typically associated with sat
 #[derive(Debug, Clone, Serialize)]
@@ -71,6 +72,11 @@ impl GPSCoordinatesFacetBuilder {
     }
 }
 
+impl CaseObject for GPSCoordinatesFacet {
+    fn class_iri() -> &'static str { GPSCoordinatesFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "GPSCoordinatesFacet" }
+}
+
 /// A lat long coordinates facet is a grouping of characteristics unique to the expression of a geolocation as the intersection of specific latitude, longitude, and altitude values.
 #[derive(Debug, Clone, Serialize)]
 pub struct LatLongCoordinatesFacet {
@@ -130,6 +136,11 @@ impl LatLongCoordinatesFacetBuilder {
     }
 }
 
+impl CaseObject for LatLongCoordinatesFacet {
+    fn class_iri() -> &'static str { LatLongCoordinatesFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "LatLongCoordinatesFacet" }
+}
+
 /// A location is a geospatial place, site, or position.
 #[derive(Debug, Clone, Serialize)]
 pub struct Location {
@@ -157,6 +168,11 @@ impl LocationBuilder {
             class_iri: Location::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Location {
+    fn class_iri() -> &'static str { Location::CLASS_IRI }
+    fn type_name() -> &'static str { "Location" }
 }
 
 /// A simple address facet is a grouping of characteristics unique to a geolocation expressed as an administrative address.
@@ -246,4 +262,9 @@ impl SimpleAddressFacetBuilder {
             street: self.street,
         }
     }
+}
+
+impl CaseObject for SimpleAddressFacet {
+    fn class_iri() -> &'static str { SimpleAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SimpleAddressFacet" }
 }

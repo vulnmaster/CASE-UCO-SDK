@@ -1,6 +1,7 @@
 //! Auto-generated uco-observable types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 use crate::uco::configuration::Configuration;
 use crate::uco::core::UcoObject;
@@ -63,6 +64,11 @@ impl APIBuilder {
     }
 }
 
+impl CaseObject for API {
+    fn class_iri() -> &'static str { API::CLASS_IRI }
+    fn type_name() -> &'static str { "API" }
+}
+
 /// An ARP cache is a collection of Address Resolution Protocol (ARP) entries (mostly dynamic) that are created when an IP address is resolved to a MAC address (so the computer can effectively communicate
 #[derive(Debug, Clone, Serialize)]
 pub struct ARPCache {
@@ -90,6 +96,11 @@ impl ARPCacheBuilder {
             class_iri: ARPCache::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ARPCache {
+    fn class_iri() -> &'static str { ARPCache::CLASS_IRI }
+    fn type_name() -> &'static str { "ARPCache" }
 }
 
 /// An ARP cache entry is a single Address Resolution Protocol (ARP) response record that is created when an IP address is resolved to a MAC address (so the computer can effectively communicate with the I
@@ -121,6 +132,11 @@ impl ARPCacheEntryBuilder {
     }
 }
 
+impl CaseObject for ARPCacheEntry {
+    fn class_iri() -> &'static str { ARPCacheEntry::CLASS_IRI }
+    fn type_name() -> &'static str { "ARPCacheEntry" }
+}
+
 /// An account is an arrangement with an entity to enable and control the provision of some capability or service.
 #[derive(Debug, Clone, Serialize)]
 pub struct Account {
@@ -148,6 +164,11 @@ impl AccountBuilder {
             class_iri: Account::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Account {
+    fn class_iri() -> &'static str { Account::CLASS_IRI }
+    fn type_name() -> &'static str { "Account" }
 }
 
 /// An account authentication facet is a grouping of characteristics unique to the mechanism of accessing an account.
@@ -207,6 +228,11 @@ impl AccountAuthenticationFacetBuilder {
             password_type: self.password_type,
         }
     }
+}
+
+impl CaseObject for AccountAuthenticationFacet {
+    fn class_iri() -> &'static str { AccountAuthenticationFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AccountAuthenticationFacet" }
 }
 
 /// An account facet is a grouping of characteristics unique to an arrangement with an entity to enable and control the provision of some capability or service.
@@ -318,6 +344,11 @@ impl AccountFacetBuilder {
     }
 }
 
+impl CaseObject for AccountFacet {
+    fn class_iri() -> &'static str { AccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AccountFacet" }
+}
+
 /// An adaptor is a device that physically converts the pin outputs but does not alter the underlying protocol (e.g. uSD to SD, CF to ATA, etc.)
 #[derive(Debug, Clone, Serialize)]
 pub struct Adaptor {
@@ -345,6 +376,11 @@ impl AdaptorBuilder {
             class_iri: Adaptor::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Adaptor {
+    fn class_iri() -> &'static str { Adaptor::CLASS_IRI }
+    fn type_name() -> &'static str { "Adaptor" }
 }
 
 /// An address is an identifier assigned to enable routing and management of information.
@@ -376,6 +412,11 @@ impl AddressBuilder {
     }
 }
 
+impl CaseObject for Address {
+    fn class_iri() -> &'static str { Address::CLASS_IRI }
+    fn type_name() -> &'static str { "Address" }
+}
+
 /// An alternate data stream is data content stored within an NTFS file that is independent of the standard content stream of the file and is hidden from access by default NTFS file viewing mechanisms.
 #[derive(Debug, Clone, Serialize)]
 pub struct AlternateDataStream {
@@ -403,6 +444,11 @@ impl AlternateDataStreamBuilder {
             class_iri: AlternateDataStream::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for AlternateDataStream {
+    fn class_iri() -> &'static str { AlternateDataStream::CLASS_IRI }
+    fn type_name() -> &'static str { "AlternateDataStream" }
 }
 
 /// An alternate data stream facet is a grouping of characteristics unique to data content stored within an NTFS file that is independent of the standard content stream of the file and is hidden from acce
@@ -464,6 +510,11 @@ impl AlternateDataStreamFacetBuilder {
     }
 }
 
+impl CaseObject for AlternateDataStreamFacet {
+    fn class_iri() -> &'static str { AlternateDataStreamFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AlternateDataStreamFacet" }
+}
+
 /// An Android device is a device running the Android operating system. [based on https://en.wikipedia.org/wiki/Android_(operating_system)]
 #[derive(Debug, Clone, Serialize)]
 pub struct AndroidDevice {
@@ -491,6 +542,11 @@ impl AndroidDeviceBuilder {
             class_iri: AndroidDevice::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for AndroidDevice {
+    fn class_iri() -> &'static str { AndroidDevice::CLASS_IRI }
+    fn type_name() -> &'static str { "AndroidDevice" }
 }
 
 /// An Android device facet is a grouping of characteristics unique to an Android device. [based on https://en.wikipedia.org/wiki/Android_(operating_system)]
@@ -572,6 +628,11 @@ impl AndroidDeviceFacetBuilder {
     }
 }
 
+impl CaseObject for AndroidDeviceFacet {
+    fn class_iri() -> &'static str { AndroidDeviceFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AndroidDeviceFacet" }
+}
+
 /// An android phone is a smart phone that applies the Android mobile operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct AndroidPhone {
@@ -599,6 +660,11 @@ impl AndroidPhoneBuilder {
             class_iri: AndroidPhone::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for AndroidPhone {
+    fn class_iri() -> &'static str { AndroidPhone::CLASS_IRI }
+    fn type_name() -> &'static str { "AndroidPhone" }
 }
 
 /// An antenna alignment facet contains the metadata surrounding the cell tower's antenna position.
@@ -690,6 +756,11 @@ impl AntennaFacetBuilder {
     }
 }
 
+impl CaseObject for AntennaFacet {
+    fn class_iri() -> &'static str { AntennaFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AntennaFacet" }
+}
+
 /// An apple device is a smart device that applies either the MacOS or iOS operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct AppleDevice {
@@ -717,6 +788,11 @@ impl AppleDeviceBuilder {
             class_iri: AppleDevice::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for AppleDevice {
+    fn class_iri() -> &'static str { AppleDevice::CLASS_IRI }
+    fn type_name() -> &'static str { "AppleDevice" }
 }
 
 /// An appliance is a purpose-built computer with software or firmware that is designed to provide a specific computing capability or resource. [based on https://en.wikipedia.org/wiki/Computer_appliance]
@@ -748,6 +824,11 @@ impl ApplianceBuilder {
     }
 }
 
+impl CaseObject for Appliance {
+    fn class_iri() -> &'static str { Appliance::CLASS_IRI }
+    fn type_name() -> &'static str { "Appliance" }
+}
+
 /// An application is a particular software program designed for end users.
 #[derive(Debug, Clone, Serialize)]
 pub struct Application {
@@ -777,6 +858,11 @@ impl ApplicationBuilder {
     }
 }
 
+impl CaseObject for Application {
+    fn class_iri() -> &'static str { Application::CLASS_IRI }
+    fn type_name() -> &'static str { "Application" }
+}
+
 /// An application account is an account within a particular software program designed for end users.
 #[derive(Debug, Clone, Serialize)]
 pub struct ApplicationAccount {
@@ -804,6 +890,11 @@ impl ApplicationAccountBuilder {
             class_iri: ApplicationAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ApplicationAccount {
+    fn class_iri() -> &'static str { ApplicationAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "ApplicationAccount" }
 }
 
 /// An application account facet is a grouping of characteristics unique to an account within a particular software program designed for end users.
@@ -843,6 +934,11 @@ impl ApplicationAccountFacetBuilder {
             application: self.application,
         }
     }
+}
+
+impl CaseObject for ApplicationAccountFacet {
+    fn class_iri() -> &'static str { ApplicationAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ApplicationAccountFacet" }
 }
 
 /// An application facet is a grouping of characteristics unique to a particular software program designed for end users.
@@ -924,6 +1020,11 @@ impl ApplicationFacetBuilder {
     }
 }
 
+impl CaseObject for ApplicationFacet {
+    fn class_iri() -> &'static str { ApplicationFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ApplicationFacet" }
+}
+
 /// An application version is a grouping of characteristics unique to a particular software program version.
 #[derive(Debug, Clone, Serialize)]
 pub struct ApplicationVersion {
@@ -983,6 +1084,11 @@ impl ApplicationVersionBuilder {
     }
 }
 
+impl CaseObject for ApplicationVersion {
+    fn class_iri() -> &'static str { ApplicationVersion::CLASS_IRI }
+    fn type_name() -> &'static str { "ApplicationVersion" }
+}
+
 /// An archive file is a file that is composed of one or more computer files along with metadata.
 #[derive(Debug, Clone, Serialize)]
 pub struct ArchiveFile {
@@ -1010,6 +1116,11 @@ impl ArchiveFileBuilder {
             class_iri: ArchiveFile::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ArchiveFile {
+    fn class_iri() -> &'static str { ArchiveFile::CLASS_IRI }
+    fn type_name() -> &'static str { "ArchiveFile" }
 }
 
 /// An archive file facet is a grouping of characteristics unique to a file that is composed of one or more computer files along with metadata.
@@ -1071,6 +1182,11 @@ impl ArchiveFileFacetBuilder {
     }
 }
 
+impl CaseObject for ArchiveFileFacet {
+    fn class_iri() -> &'static str { ArchiveFileFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ArchiveFileFacet" }
+}
+
 /// Audio is a digital representation of sound.
 #[derive(Debug, Clone, Serialize)]
 pub struct Audio {
@@ -1098,6 +1214,11 @@ impl AudioBuilder {
             class_iri: Audio::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Audio {
+    fn class_iri() -> &'static str { Audio::CLASS_IRI }
+    fn type_name() -> &'static str { "Audio" }
 }
 
 /// An audio facet is a grouping of characteristics unique to a digital representation of sound.
@@ -1169,6 +1290,11 @@ impl AudioFacetBuilder {
     }
 }
 
+impl CaseObject for AudioFacet {
+    fn class_iri() -> &'static str { AudioFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AudioFacet" }
+}
+
 /// An autonomous system is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that 
 #[derive(Debug, Clone, Serialize)]
 pub struct AutonomousSystem {
@@ -1196,6 +1322,11 @@ impl AutonomousSystemBuilder {
             class_iri: AutonomousSystem::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for AutonomousSystem {
+    fn class_iri() -> &'static str { AutonomousSystem::CLASS_IRI }
+    fn type_name() -> &'static str { "AutonomousSystem" }
 }
 
 /// An autonomous system facet is a grouping of characteristics unique to a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of 
@@ -1257,6 +1388,11 @@ impl AutonomousSystemFacetBuilder {
     }
 }
 
+impl CaseObject for AutonomousSystemFacet {
+    fn class_iri() -> &'static str { AutonomousSystemFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AutonomousSystemFacet" }
+}
+
 /// A blackberry phone is a smart phone that applies the Blackberry OS mobile operating system. (Blackberry 10 re-introduces Blackberry OS, prior to that the OS was Android.)
 #[derive(Debug, Clone, Serialize)]
 pub struct BlackberryPhone {
@@ -1284,6 +1420,11 @@ impl BlackberryPhoneBuilder {
             class_iri: BlackberryPhone::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for BlackberryPhone {
+    fn class_iri() -> &'static str { BlackberryPhone::CLASS_IRI }
+    fn type_name() -> &'static str { "BlackberryPhone" }
 }
 
 /// A block device node is a UNIX filesystem special file that serves as a conduit to communicate with devices, providing buffered randomly accesible input and output. Block device nodes are used to apply
@@ -1315,6 +1456,11 @@ impl BlockDeviceNodeBuilder {
     }
 }
 
+impl CaseObject for BlockDeviceNode {
+    fn class_iri() -> &'static str { BlockDeviceNode::CLASS_IRI }
+    fn type_name() -> &'static str { "BlockDeviceNode" }
+}
+
 /// A Bluetooth address is a Bluetooth standard conformant identifier assigned to a Bluetooth device to enable routing and management of Bluetooth standards conformant communication to or from that device
 #[derive(Debug, Clone, Serialize)]
 pub struct BluetoothAddress {
@@ -1342,6 +1488,11 @@ impl BluetoothAddressBuilder {
             class_iri: BluetoothAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for BluetoothAddress {
+    fn class_iri() -> &'static str { BluetoothAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "BluetoothAddress" }
 }
 
 /// A Bluetooth address facet is a grouping of characteristics unique to a Bluetooth standard conformant identifier assigned to a Bluetooth device to enable routing and management of Bluetooth standards c
@@ -1373,6 +1524,11 @@ impl BluetoothAddressFacetBuilder {
     }
 }
 
+impl CaseObject for BluetoothAddressFacet {
+    fn class_iri() -> &'static str { BluetoothAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "BluetoothAddressFacet" }
+}
+
 /// A bot configuration is a set of contextual settings for a software application that runs automated tasks (scripts) over the Internet at a much higher rate than would be possible for a human alone.
 #[derive(Debug, Clone, Serialize)]
 pub struct BotConfiguration {
@@ -1402,6 +1558,11 @@ impl BotConfigurationBuilder {
     }
 }
 
+impl CaseObject for BotConfiguration {
+    fn class_iri() -> &'static str { BotConfiguration::CLASS_IRI }
+    fn type_name() -> &'static str { "BotConfiguration" }
+}
+
 /// A browser bookmark is a saved shortcut that directs a WWW (World Wide Web) browser software program to a particular WWW accessible resource. [based on https://techterms.com/definition/bookmark]
 #[derive(Debug, Clone, Serialize)]
 pub struct BrowserBookmark {
@@ -1429,6 +1590,11 @@ impl BrowserBookmarkBuilder {
             class_iri: BrowserBookmark::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for BrowserBookmark {
+    fn class_iri() -> &'static str { BrowserBookmark::CLASS_IRI }
+    fn type_name() -> &'static str { "BrowserBookmark" }
 }
 
 /// A browser bookmark facet is a grouping of characteristics unique to a saved shortcut that directs a WWW (World Wide Web) browser software program to a particular WWW accessible resource. [based on htt
@@ -1530,6 +1696,11 @@ impl BrowserBookmarkFacetBuilder {
     }
 }
 
+impl CaseObject for BrowserBookmarkFacet {
+    fn class_iri() -> &'static str { BrowserBookmarkFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "BrowserBookmarkFacet" }
+}
+
 /// A browser cookie is a piece of of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. [based on https://en.wikipedia.org/wiki/HTTP_cookie]
 #[derive(Debug, Clone, Serialize)]
 pub struct BrowserCookie {
@@ -1557,6 +1728,11 @@ impl BrowserCookieBuilder {
             class_iri: BrowserCookie::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for BrowserCookie {
+    fn class_iri() -> &'static str { BrowserCookie::CLASS_IRI }
+    fn type_name() -> &'static str { "BrowserCookie" }
 }
 
 /// A browser cookie facet is a grouping of characteristics unique to a piece of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. [based on 
@@ -1668,6 +1844,11 @@ impl BrowserCookieFacetBuilder {
     }
 }
 
+impl CaseObject for BrowserCookieFacet {
+    fn class_iri() -> &'static str { BrowserCookieFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "BrowserCookieFacet" }
+}
+
 /// A calendar is a collection of appointments, meetings, and events.
 #[derive(Debug, Clone, Serialize)]
 pub struct Calendar {
@@ -1697,6 +1878,11 @@ impl CalendarBuilder {
     }
 }
 
+impl CaseObject for Calendar {
+    fn class_iri() -> &'static str { Calendar::CLASS_IRI }
+    fn type_name() -> &'static str { "Calendar" }
+}
+
 /// A calendar entry is an appointment, meeting or event within a collection of appointments, meetings and events.
 #[derive(Debug, Clone, Serialize)]
 pub struct CalendarEntry {
@@ -1724,6 +1910,11 @@ impl CalendarEntryBuilder {
             class_iri: CalendarEntry::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for CalendarEntry {
+    fn class_iri() -> &'static str { CalendarEntry::CLASS_IRI }
+    fn type_name() -> &'static str { "CalendarEntry" }
 }
 
 /// A calendar entry facet is a grouping of characteristics unique to an appointment, meeting, or event within a collection of appointments, meetings, and events.
@@ -1905,6 +2096,11 @@ impl CalendarEntryFacetBuilder {
     }
 }
 
+impl CaseObject for CalendarEntryFacet {
+    fn class_iri() -> &'static str { CalendarEntryFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "CalendarEntryFacet" }
+}
+
 /// A calendar facet is a grouping of characteristics unique to a collection of appointments, meetings, and events.
 #[derive(Debug, Clone, Serialize)]
 pub struct CalendarFacet {
@@ -1954,6 +2150,11 @@ impl CalendarFacetBuilder {
     }
 }
 
+impl CaseObject for CalendarFacet {
+    fn class_iri() -> &'static str { CalendarFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "CalendarFacet" }
+}
+
 /// A call is a connection as part of a realtime cyber communication between one or more parties.
 #[derive(Debug, Clone, Serialize)]
 pub struct Call {
@@ -1981,6 +2182,11 @@ impl CallBuilder {
             class_iri: Call::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Call {
+    fn class_iri() -> &'static str { Call::CLASS_IRI }
+    fn type_name() -> &'static str { "Call" }
 }
 
 /// A call facet is a grouping of characteristics unique to a connection as part of a realtime cyber communication between one or more parties.
@@ -2092,6 +2298,11 @@ impl CallFacetBuilder {
     }
 }
 
+impl CaseObject for CallFacet {
+    fn class_iri() -> &'static str { CallFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "CallFacet" }
+}
+
 /// CapturedTelecommunicationsInformation
 #[derive(Debug, Clone, Serialize)]
 pub struct CapturedTelecommunicationsInformation {
@@ -2119,6 +2330,11 @@ impl CapturedTelecommunicationsInformationBuilder {
             class_iri: CapturedTelecommunicationsInformation::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for CapturedTelecommunicationsInformation {
+    fn class_iri() -> &'static str { CapturedTelecommunicationsInformation::CLASS_IRI }
+    fn type_name() -> &'static str { "CapturedTelecommunicationsInformation" }
 }
 
 /// A captured telecommunications information facet represents certain information within captured or intercepted telecommunications data.
@@ -2190,6 +2406,11 @@ impl CapturedTelecommunicationsInformationFacetBuilder {
     }
 }
 
+impl CaseObject for CapturedTelecommunicationsInformationFacet {
+    fn class_iri() -> &'static str { CapturedTelecommunicationsInformationFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "CapturedTelecommunicationsInformationFacet" }
+}
+
 /// CellSite
 #[derive(Debug, Clone, Serialize)]
 pub struct CellSite {
@@ -2217,6 +2438,11 @@ impl CellSiteBuilder {
             class_iri: CellSite::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for CellSite {
+    fn class_iri() -> &'static str { CellSite::CLASS_IRI }
+    fn type_name() -> &'static str { "CellSite" }
 }
 
 /// A cell site facet contains the metadata surrounding the cell site.
@@ -2298,6 +2524,11 @@ impl CellSiteFacetBuilder {
     }
 }
 
+impl CaseObject for CellSiteFacet {
+    fn class_iri() -> &'static str { CellSiteFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "CellSiteFacet" }
+}
+
 /// A character device node is a UNIX filesystem special file that serves as a conduit to communicate with devices, providing only a serial stream of input or accepting a serial stream of output. Characte
 #[derive(Debug, Clone, Serialize)]
 pub struct CharacterDeviceNode {
@@ -2327,6 +2558,11 @@ impl CharacterDeviceNodeBuilder {
     }
 }
 
+impl CaseObject for CharacterDeviceNode {
+    fn class_iri() -> &'static str { CharacterDeviceNode::CLASS_IRI }
+    fn type_name() -> &'static str { "CharacterDeviceNode" }
+}
+
 /// Code is a direct representation (source, byte or binary) of a collection of computer instructions that form software which tell a computer how to work. [based on https://en.wikipedia.org/wiki/Software
 #[derive(Debug, Clone, Serialize)]
 pub struct Code {
@@ -2354,6 +2590,11 @@ impl CodeBuilder {
             class_iri: Code::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Code {
+    fn class_iri() -> &'static str { Code::CLASS_IRI }
+    fn type_name() -> &'static str { "Code" }
 }
 
 /// A compressed stream facet is a grouping of characteristics unique to the application of a size-reduction process to a body of data content.
@@ -2405,6 +2646,11 @@ impl CompressedStreamFacetBuilder {
     }
 }
 
+impl CaseObject for CompressedStreamFacet {
+    fn class_iri() -> &'static str { CompressedStreamFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "CompressedStreamFacet" }
+}
+
 /// A computer is an electronic device for storing and processing data, typically in binary, according to instructions given to it in a variable program. [based on 'Computer.' Oxford English Dictionary, O
 #[derive(Debug, Clone, Serialize)]
 pub struct Computer {
@@ -2434,6 +2680,11 @@ impl ComputerBuilder {
     }
 }
 
+impl CaseObject for Computer {
+    fn class_iri() -> &'static str { Computer::CLASS_IRI }
+    fn type_name() -> &'static str { "Computer" }
+}
+
 /// A computer specification is the hardware and software of a programmable electronic device that can store, retrieve, and process data. {based on merriam-webster.com/dictionary/computer]
 #[derive(Debug, Clone, Serialize)]
 pub struct ComputerSpecification {
@@ -2461,6 +2712,11 @@ impl ComputerSpecificationBuilder {
             class_iri: ComputerSpecification::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ComputerSpecification {
+    fn class_iri() -> &'static str { ComputerSpecification::CLASS_IRI }
+    fn type_name() -> &'static str { "ComputerSpecification" }
 }
 
 /// A computer specificaiton facet is a grouping of characteristics unique to the hardware and software of a programmable electronic device that can store, retrieve, and process data. [based on merriam-we
@@ -2692,6 +2948,11 @@ impl ComputerSpecificationFacetBuilder {
     }
 }
 
+impl CaseObject for ComputerSpecificationFacet {
+    fn class_iri() -> &'static str { ComputerSpecificationFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ComputerSpecificationFacet" }
+}
+
 /// A ConfiguredSoftware is a Software that is known to be configured to run in a more specified manner than some unconfigured or less-configured Software.
 #[derive(Debug, Clone, Serialize)]
 pub struct ConfiguredSoftware {
@@ -2741,6 +3002,11 @@ impl ConfiguredSoftwareBuilder {
     }
 }
 
+impl CaseObject for ConfiguredSoftware {
+    fn class_iri() -> &'static str { ConfiguredSoftware::CLASS_IRI }
+    fn type_name() -> &'static str { "ConfiguredSoftware" }
+}
+
 /// A contact is a set of identification and communication related details for a single entity.
 #[derive(Debug, Clone, Serialize)]
 pub struct Contact {
@@ -2768,6 +3034,11 @@ impl ContactBuilder {
             class_iri: Contact::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Contact {
+    fn class_iri() -> &'static str { Contact::CLASS_IRI }
+    fn type_name() -> &'static str { "Contact" }
 }
 
 /// A contact address is a grouping of characteristics unique to a geolocation address of a contact entity.
@@ -2817,6 +3088,11 @@ impl ContactAddressBuilder {
             geolocation_address: self.geolocation_address,
         }
     }
+}
+
+impl CaseObject for ContactAddress {
+    fn class_iri() -> &'static str { ContactAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactAddress" }
 }
 
 /// A contact affiliation is a grouping of characteristics unique to details of an organizational affiliation for a single contact entity.
@@ -2938,6 +3214,11 @@ impl ContactAffiliationBuilder {
     }
 }
 
+impl CaseObject for ContactAffiliation {
+    fn class_iri() -> &'static str { ContactAffiliation::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactAffiliation" }
+}
+
 /// A contact email is a grouping of characteristics unique to details for contacting a contact entity by email.
 #[derive(Debug, Clone, Serialize)]
 pub struct ContactEmail {
@@ -2985,6 +3266,11 @@ impl ContactEmailBuilder {
             email_address: self.email_address,
         }
     }
+}
+
+impl CaseObject for ContactEmail {
+    fn class_iri() -> &'static str { ContactEmail::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactEmail" }
 }
 
 /// A contact facet is a grouping of characteristics unique to a set of identification and communication related details for a single entity.
@@ -3246,6 +3532,11 @@ impl ContactFacetBuilder {
     }
 }
 
+impl CaseObject for ContactFacet {
+    fn class_iri() -> &'static str { ContactFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactFacet" }
+}
+
 /// A contact list is a set of multiple individual contacts such as that found in a digital address book.
 #[derive(Debug, Clone, Serialize)]
 pub struct ContactList {
@@ -3273,6 +3564,11 @@ impl ContactListBuilder {
             class_iri: ContactList::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ContactList {
+    fn class_iri() -> &'static str { ContactList::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactList" }
 }
 
 /// A contact list facet is a grouping of characteristics unique to a set of multiple individual contacts such as that found in a digital address book.
@@ -3324,6 +3620,11 @@ impl ContactListFacetBuilder {
     }
 }
 
+impl CaseObject for ContactListFacet {
+    fn class_iri() -> &'static str { ContactListFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactListFacet" }
+}
+
 /// A contact messaging is a grouping of characteristics unique to details for contacting a contact entity by digital messaging.
 #[derive(Debug, Clone, Serialize)]
 pub struct ContactMessaging {
@@ -3371,6 +3672,11 @@ impl ContactMessagingBuilder {
             messaging_address: self.messaging_address,
         }
     }
+}
+
+impl CaseObject for ContactMessaging {
+    fn class_iri() -> &'static str { ContactMessaging::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactMessaging" }
 }
 
 /// A contact phone is a grouping of characteristics unique to details for contacting a contact entity by telephone.
@@ -3422,6 +3728,11 @@ impl ContactPhoneBuilder {
     }
 }
 
+impl CaseObject for ContactPhone {
+    fn class_iri() -> &'static str { ContactPhone::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactPhone" }
+}
+
 /// A contact profile is a grouping of characteristics unique to details for contacting a contact entity by online service.
 #[derive(Debug, Clone, Serialize)]
 pub struct ContactProfile {
@@ -3469,6 +3780,11 @@ impl ContactProfileBuilder {
             profile: self.profile,
         }
     }
+}
+
+impl CaseObject for ContactProfile {
+    fn class_iri() -> &'static str { ContactProfile::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactProfile" }
 }
 
 /// A contact SIP is a grouping of characteristics unique to details for contacting a contact entity by Session Initiation Protocol (SIP).
@@ -3520,6 +3836,11 @@ impl ContactSIPBuilder {
     }
 }
 
+impl CaseObject for ContactSIP {
+    fn class_iri() -> &'static str { ContactSIP::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactSIP" }
+}
+
 /// A contact URL is a grouping of characteristics unique to details for contacting a contact entity by Uniform Resource Locator (URL).
 #[derive(Debug, Clone, Serialize)]
 pub struct ContactURL {
@@ -3569,6 +3890,11 @@ impl ContactURLBuilder {
     }
 }
 
+impl CaseObject for ContactURL {
+    fn class_iri() -> &'static str { ContactURL::CLASS_IRI }
+    fn type_name() -> &'static str { "ContactURL" }
+}
+
 /// Content data is a block of digital data.
 #[derive(Debug, Clone, Serialize)]
 pub struct ContentData {
@@ -3596,6 +3922,11 @@ impl ContentDataBuilder {
             class_iri: ContentData::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ContentData {
+    fn class_iri() -> &'static str { ContentData::CLASS_IRI }
+    fn type_name() -> &'static str { "ContentData" }
 }
 
 /// A content data facet is a grouping of characteristics unique to a block of digital data.
@@ -3727,6 +4058,11 @@ impl ContentDataFacetBuilder {
     }
 }
 
+impl CaseObject for ContentDataFacet {
+    fn class_iri() -> &'static str { ContentDataFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ContentDataFacet" }
+}
+
 /// A cookie history is the stored web cookie history for a particular web browser.
 #[derive(Debug, Clone, Serialize)]
 pub struct CookieHistory {
@@ -3754,6 +4090,11 @@ impl CookieHistoryBuilder {
             class_iri: CookieHistory::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for CookieHistory {
+    fn class_iri() -> &'static str { CookieHistory::CLASS_IRI }
+    fn type_name() -> &'static str { "CookieHistory" }
 }
 
 /// A credential is a single specific login and password combination for authorization of access to a digital account or system.
@@ -3785,6 +4126,11 @@ impl CredentialBuilder {
     }
 }
 
+impl CaseObject for Credential {
+    fn class_iri() -> &'static str { Credential::CLASS_IRI }
+    fn type_name() -> &'static str { "Credential" }
+}
+
 /// A credential dump is a collection (typically forcibly extracted from a system) of specific login and password combinations for authorization of access to a digital account or system.
 #[derive(Debug, Clone, Serialize)]
 pub struct CredentialDump {
@@ -3812,6 +4158,11 @@ impl CredentialDumpBuilder {
             class_iri: CredentialDump::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for CredentialDump {
+    fn class_iri() -> &'static str { CredentialDump::CLASS_IRI }
+    fn type_name() -> &'static str { "CredentialDump" }
 }
 
 /// An DNS cache is a temporary locally stored collection of previous Domain Name System (DNS) query results (created when an domain name is resolved to a IP address) for a particular computer.
@@ -3843,6 +4194,11 @@ impl DNSCacheBuilder {
     }
 }
 
+impl CaseObject for DNSCache {
+    fn class_iri() -> &'static str { DNSCache::CLASS_IRI }
+    fn type_name() -> &'static str { "DNSCache" }
+}
+
 /// A DNS record is a single Domain Name System (DNS) artifact specifying information of a particular type (routing, authority, responsibility, security, etc.) for a specific Internet domain name.
 #[derive(Debug, Clone, Serialize)]
 pub struct DNSRecord {
@@ -3870,6 +4226,11 @@ impl DNSRecordBuilder {
             class_iri: DNSRecord::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for DNSRecord {
+    fn class_iri() -> &'static str { DNSRecord::CLASS_IRI }
+    fn type_name() -> &'static str { "DNSRecord" }
 }
 
 /// A data range facet is a grouping of characteristics unique to a particular contiguous scope within a block of digital data.
@@ -3931,6 +4292,11 @@ impl DataRangeFacetBuilder {
     }
 }
 
+impl CaseObject for DataRangeFacet {
+    fn class_iri() -> &'static str { DataRangeFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DataRangeFacet" }
+}
+
 /// A defined effect facet is a grouping of characteristics unique to the effect of an observable action in relation to one or more observable objects.
 #[derive(Debug, Clone, Serialize)]
 pub struct DefinedEffectFacet {
@@ -3960,6 +4326,11 @@ impl DefinedEffectFacetBuilder {
     }
 }
 
+impl CaseObject for DefinedEffectFacet {
+    fn class_iri() -> &'static str { DefinedEffectFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DefinedEffectFacet" }
+}
+
 /// A device is a piece of equipment or a mechanism designed to serve a special purpose or perform a special function. [based on https://www.merriam-webster.com/dictionary/device]
 #[derive(Debug, Clone, Serialize)]
 pub struct Device {
@@ -3987,6 +4358,11 @@ impl DeviceBuilder {
             class_iri: Device::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Device {
+    fn class_iri() -> &'static str { Device::CLASS_IRI }
+    fn type_name() -> &'static str { "Device" }
 }
 
 /// A device facet is a grouping of characteristics unique to a piece of equipment or a mechanism designed to serve a special purpose or perform a special function. [based on https://www.merriam-webster.c
@@ -4068,6 +4444,11 @@ impl DeviceFacetBuilder {
     }
 }
 
+impl CaseObject for DeviceFacet {
+    fn class_iri() -> &'static str { DeviceFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DeviceFacet" }
+}
+
 /// A digital account is an arrangement with an entity to enable and control the provision of some capability or service within the digital domain.
 #[derive(Debug, Clone, Serialize)]
 pub struct DigitalAccount {
@@ -4095,6 +4476,11 @@ impl DigitalAccountBuilder {
             class_iri: DigitalAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for DigitalAccount {
+    fn class_iri() -> &'static str { DigitalAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "DigitalAccount" }
 }
 
 /// A digital account facet is a grouping of characteristics unique to an arrangement with an entity to enable and control the provision of some capability or service within the digital domain.
@@ -4176,6 +4562,11 @@ impl DigitalAccountFacetBuilder {
     }
 }
 
+impl CaseObject for DigitalAccountFacet {
+    fn class_iri() -> &'static str { DigitalAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DigitalAccountFacet" }
+}
+
 /// A digital address is an identifier assigned to enable routing and management of digital communication.
 #[derive(Debug, Clone, Serialize)]
 pub struct DigitalAddress {
@@ -4203,6 +4594,11 @@ impl DigitalAddressBuilder {
             class_iri: DigitalAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for DigitalAddress {
+    fn class_iri() -> &'static str { DigitalAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "DigitalAddress" }
 }
 
 /// A digital address facet is a grouping of characteristics unique to an identifier assigned to enable routing and management of digital communication.
@@ -4254,6 +4650,11 @@ impl DigitalAddressFacetBuilder {
     }
 }
 
+impl CaseObject for DigitalAddressFacet {
+    fn class_iri() -> &'static str { DigitalAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DigitalAddressFacet" }
+}
+
 /// A digital camera is a camera that captures photographs in digital memory as opposed to capturing images on photographic film.
 #[derive(Debug, Clone, Serialize)]
 pub struct DigitalCamera {
@@ -4283,6 +4684,11 @@ impl DigitalCameraBuilder {
     }
 }
 
+impl CaseObject for DigitalCamera {
+    fn class_iri() -> &'static str { DigitalCamera::CLASS_IRI }
+    fn type_name() -> &'static str { "DigitalCamera" }
+}
+
 /// A digital signature info is a value calculated via a mathematical scheme for demonstrating the authenticity of an electronic message or document.
 #[derive(Debug, Clone, Serialize)]
 pub struct DigitalSignatureInfo {
@@ -4310,6 +4716,11 @@ impl DigitalSignatureInfoBuilder {
             class_iri: DigitalSignatureInfo::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for DigitalSignatureInfo {
+    fn class_iri() -> &'static str { DigitalSignatureInfo::CLASS_IRI }
+    fn type_name() -> &'static str { "DigitalSignatureInfo" }
 }
 
 /// A digital signature info facet is a grouping of characteristics unique to a value calculated via a mathematical scheme for demonstrating the authenticity of an electronic message or document.
@@ -4391,6 +4802,11 @@ impl DigitalSignatureInfoFacetBuilder {
     }
 }
 
+impl CaseObject for DigitalSignatureInfoFacet {
+    fn class_iri() -> &'static str { DigitalSignatureInfoFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DigitalSignatureInfoFacet" }
+}
+
 /// A directory is a file system cataloging structure which contains references to other computer files, and possibly other directories. On many computers, directories are known as folders, or drawers, an
 #[derive(Debug, Clone, Serialize)]
 pub struct Directory {
@@ -4420,6 +4836,11 @@ impl DirectoryBuilder {
     }
 }
 
+impl CaseObject for Directory {
+    fn class_iri() -> &'static str { Directory::CLASS_IRI }
+    fn type_name() -> &'static str { "Directory" }
+}
+
 /// A disk is a storage mechanism where data is recorded by various electronic, magnetic, optical, or mechanical changes to a surface layer of one or more rotating disks.
 #[derive(Debug, Clone, Serialize)]
 pub struct Disk {
@@ -4447,6 +4868,11 @@ impl DiskBuilder {
             class_iri: Disk::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Disk {
+    fn class_iri() -> &'static str { Disk::CLASS_IRI }
+    fn type_name() -> &'static str { "Disk" }
 }
 
 /// A disk facet is a grouping of characteristics unique to a storage mechanism where data is recorded by various electronic, magnetic, optical, or mechanical changes to a surface layer of one or more rot
@@ -4518,6 +4944,11 @@ impl DiskFacetBuilder {
     }
 }
 
+impl CaseObject for DiskFacet {
+    fn class_iri() -> &'static str { DiskFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DiskFacet" }
+}
+
 /// A disk partition is a particular managed region on a storage mechanism where data is recorded by various electronic, magnetic, optical, or mechanical changes to a surface layer of one or more rotating
 #[derive(Debug, Clone, Serialize)]
 pub struct DiskPartition {
@@ -4545,6 +4976,11 @@ impl DiskPartitionBuilder {
             class_iri: DiskPartition::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for DiskPartition {
+    fn class_iri() -> &'static str { DiskPartition::CLASS_IRI }
+    fn type_name() -> &'static str { "DiskPartition" }
 }
 
 /// A disk partition facet is a grouping of characteristics unique to a particular managed region on a storage mechanism.
@@ -4666,6 +5102,11 @@ impl DiskPartitionFacetBuilder {
     }
 }
 
+impl CaseObject for DiskPartitionFacet {
+    fn class_iri() -> &'static str { DiskPartitionFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DiskPartitionFacet" }
+}
+
 /// A domain name is an identification string that defines a realm of administrative autonomy, authority or control within the Internet. [based on https://en.wikipedia.org/wiki/Domain_name]
 #[derive(Debug, Clone, Serialize)]
 pub struct DomainName {
@@ -4693,6 +5134,11 @@ impl DomainNameBuilder {
             class_iri: DomainName::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for DomainName {
+    fn class_iri() -> &'static str { DomainName::CLASS_IRI }
+    fn type_name() -> &'static str { "DomainName" }
 }
 
 /// A domain name facet is a grouping of characteristics unique to an identification string that defines a realm of administrative autonomy, authority or control within the Internet. [based on https://en.
@@ -4744,6 +5190,11 @@ impl DomainNameFacetBuilder {
     }
 }
 
+impl CaseObject for DomainNameFacet {
+    fn class_iri() -> &'static str { DomainNameFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "DomainNameFacet" }
+}
+
 /// A drone, unmanned aerial vehicle (UAV), is an aircraft without a human pilot, crew, or passengers that typically involve a ground-based controller and a system for communications with the UAV.
 #[derive(Debug, Clone, Serialize)]
 pub struct Drone {
@@ -4771,6 +5222,11 @@ impl DroneBuilder {
             class_iri: Drone::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Drone {
+    fn class_iri() -> &'static str { Drone::CLASS_IRI }
+    fn type_name() -> &'static str { "Drone" }
 }
 
 /// An EXIF (exchangeable image file format) facet is a grouping of characteristics unique to the formats for images, sound, and ancillary tags used by digital cameras (including smartphones), scanners an
@@ -4812,6 +5268,11 @@ impl EXIFFacetBuilder {
     }
 }
 
+impl CaseObject for EXIFFacet {
+    fn class_iri() -> &'static str { EXIFFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "EXIFFacet" }
+}
+
 /// An email account is an arrangement with an entity to enable and control the provision of electronic mail (email) capabilities or services.
 #[derive(Debug, Clone, Serialize)]
 pub struct EmailAccount {
@@ -4839,6 +5300,11 @@ impl EmailAccountBuilder {
             class_iri: EmailAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for EmailAccount {
+    fn class_iri() -> &'static str { EmailAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "EmailAccount" }
 }
 
 /// An email account facet is a grouping of characteristics unique to an arrangement with an entity to enable and control the provision of electronic mail (email) capabilities or services.
@@ -4880,6 +5346,11 @@ impl EmailAccountFacetBuilder {
     }
 }
 
+impl CaseObject for EmailAccountFacet {
+    fn class_iri() -> &'static str { EmailAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "EmailAccountFacet" }
+}
+
 /// An email address is an identifier for an electronic mailbox to which electronic mail messages (conformant to the Simple Mail Transfer Protocol (SMTP)) are sent from and delivered to.
 #[derive(Debug, Clone, Serialize)]
 pub struct EmailAddress {
@@ -4907,6 +5378,11 @@ impl EmailAddressBuilder {
             class_iri: EmailAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for EmailAddress {
+    fn class_iri() -> &'static str { EmailAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "EmailAddress" }
 }
 
 /// An email address facet is a grouping of characteristics unique to an identifier for an electronic mailbox to which electronic mail messages (conformant to the Simple Mail Transfer Protocol (SMTP)) are
@@ -4938,6 +5414,11 @@ impl EmailAddressFacetBuilder {
     }
 }
 
+impl CaseObject for EmailAddressFacet {
+    fn class_iri() -> &'static str { EmailAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "EmailAddressFacet" }
+}
+
 /// An email message is a message that is an instance of an electronic mail correspondence conformant to the internet message format described in RFC 5322 and related RFCs.
 #[derive(Debug, Clone, Serialize)]
 pub struct EmailMessage {
@@ -4965,6 +5446,11 @@ impl EmailMessageBuilder {
             class_iri: EmailMessage::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for EmailMessage {
+    fn class_iri() -> &'static str { EmailMessage::CLASS_IRI }
+    fn type_name() -> &'static str { "EmailMessage" }
 }
 
 /// An email message facet is a grouping of characteristics unique to a message that is an instance of an electronic mail correspondence conformant to the internet message format described in RFC 5322 and
@@ -5286,6 +5772,11 @@ impl EmailMessageFacetBuilder {
     }
 }
 
+impl CaseObject for EmailMessageFacet {
+    fn class_iri() -> &'static str { EmailMessageFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "EmailMessageFacet" }
+}
+
 /// An embedded device is a highly specialized microprocessor device meant for one or very few specific purposes and is usually embedded or included within another object or as part of a larger system. Ex
 #[derive(Debug, Clone, Serialize)]
 pub struct EmbeddedDevice {
@@ -5313,6 +5804,11 @@ impl EmbeddedDeviceBuilder {
             class_iri: EmbeddedDevice::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for EmbeddedDevice {
+    fn class_iri() -> &'static str { EmbeddedDevice::CLASS_IRI }
+    fn type_name() -> &'static str { "EmbeddedDevice" }
 }
 
 /// An encoded stream facet is a grouping of characteristics unique to the conversion of a body of data content from one form to another form.
@@ -5352,6 +5848,11 @@ impl EncodedStreamFacetBuilder {
             encoding_method: self.encoding_method,
         }
     }
+}
+
+impl CaseObject for EncodedStreamFacet {
+    fn class_iri() -> &'static str { EncodedStreamFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "EncodedStreamFacet" }
 }
 
 /// An encrypted stream facet is a grouping of characteristics unique to the conversion of a body of data content from one form to another obfuscated form in such a way that reversing the conversion to ob
@@ -5423,6 +5924,11 @@ impl EncryptedStreamFacetBuilder {
     }
 }
 
+impl CaseObject for EncryptedStreamFacet {
+    fn class_iri() -> &'static str { EncryptedStreamFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "EncryptedStreamFacet" }
+}
+
 /// An environment variable is a grouping of characteristics unique to a dynamic-named value that can affect the way running processes will behave on a computer. [based on https://en.wikipedia.org/wiki/En
 #[derive(Debug, Clone, Serialize)]
 pub struct EnvironmentVariable {
@@ -5472,6 +5978,11 @@ impl EnvironmentVariableBuilder {
     }
 }
 
+impl CaseObject for EnvironmentVariable {
+    fn class_iri() -> &'static str { EnvironmentVariable::CLASS_IRI }
+    fn type_name() -> &'static str { "EnvironmentVariable" }
+}
+
 /// An event log is a collection of event records.
 #[derive(Debug, Clone, Serialize)]
 pub struct EventLog {
@@ -5501,6 +6012,11 @@ impl EventLogBuilder {
     }
 }
 
+impl CaseObject for EventLog {
+    fn class_iri() -> &'static str { EventLog::CLASS_IRI }
+    fn type_name() -> &'static str { "EventLog" }
+}
+
 /// An event record is something that happens in a digital context (e.g., operating system events).
 #[derive(Debug, Clone, Serialize)]
 pub struct EventRecord {
@@ -5528,6 +6044,11 @@ impl EventRecordBuilder {
             class_iri: EventRecord::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for EventRecord {
+    fn class_iri() -> &'static str { EventRecord::CLASS_IRI }
+    fn type_name() -> &'static str { "EventRecord" }
 }
 
 /// An event record facet is a grouping of characteristics unique to something that happens in a digital context (e.g., operating system events).
@@ -5689,6 +6210,11 @@ impl EventRecordFacetBuilder {
     }
 }
 
+impl CaseObject for EventRecordFacet {
+    fn class_iri() -> &'static str { EventRecordFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "EventRecordFacet" }
+}
+
 /// An extInode facet is a grouping of characteristics unique to a file system object (file, directory, etc.) conformant to the extended file system (EXT or related derivations) specification.
 #[derive(Debug, Clone, Serialize)]
 pub struct ExtInodeFacet {
@@ -5808,6 +6334,11 @@ impl ExtInodeFacetBuilder {
     }
 }
 
+impl CaseObject for ExtInodeFacet {
+    fn class_iri() -> &'static str { ExtInodeFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ExtInodeFacet" }
+}
+
 /// An extracted string is a grouping of characteristics unique to a series of characters pulled from an observable object.
 #[derive(Debug, Clone, Serialize)]
 pub struct ExtractedString {
@@ -5897,6 +6428,11 @@ impl ExtractedStringBuilder {
     }
 }
 
+impl CaseObject for ExtractedString {
+    fn class_iri() -> &'static str { ExtractedString::CLASS_IRI }
+    fn type_name() -> &'static str { "ExtractedString" }
+}
+
 /// An extracted strings facet is a grouping of characteristics unique to one or more sequences of characters pulled from an observable object.
 #[derive(Debug, Clone, Serialize)]
 pub struct ExtractedStringsFacet {
@@ -5936,6 +6472,11 @@ impl ExtractedStringsFacetBuilder {
     }
 }
 
+impl CaseObject for ExtractedStringsFacet {
+    fn class_iri() -> &'static str { ExtractedStringsFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ExtractedStringsFacet" }
+}
+
 /// A file is a computer resource for recording data discretely on a computer storage device.
 #[derive(Debug, Clone, Serialize)]
 pub struct File {
@@ -5963,6 +6504,11 @@ impl FileBuilder {
             class_iri: File::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for File {
+    fn class_iri() -> &'static str { File::CLASS_IRI }
+    fn type_name() -> &'static str { "File" }
 }
 
 /// A file facet is a grouping of characteristics unique to the storage of a file (computer resource for recording data discretely in a computer storage device) on a file system (process that manages how 
@@ -6094,6 +6640,11 @@ impl FileFacetBuilder {
     }
 }
 
+impl CaseObject for FileFacet {
+    fn class_iri() -> &'static str { FileFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "FileFacet" }
+}
+
 /// A file permissions facet is a grouping of characteristics unique to the access rights (e.g., view, change, navigate, execute) of a file on a file system.
 #[derive(Debug, Clone, Serialize)]
 pub struct FilePermissionsFacet {
@@ -6133,6 +6684,11 @@ impl FilePermissionsFacetBuilder {
     }
 }
 
+impl CaseObject for FilePermissionsFacet {
+    fn class_iri() -> &'static str { FilePermissionsFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "FilePermissionsFacet" }
+}
+
 /// A file system is the process that manages how and where data on a storage medium is stored, accessed and managed. [based on https://www.techopedia.com/definition/5510/file-system]
 #[derive(Debug, Clone, Serialize)]
 pub struct FileSystem {
@@ -6160,6 +6716,11 @@ impl FileSystemBuilder {
             class_iri: FileSystem::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for FileSystem {
+    fn class_iri() -> &'static str { FileSystem::CLASS_IRI }
+    fn type_name() -> &'static str { "FileSystem" }
 }
 
 /// A file system facet is a grouping of characteristics unique to the process that manages how and where data on a storage medium is stored, accessed and managed. [based on https://www.techopedia.com/def
@@ -6211,6 +6772,11 @@ impl FileSystemFacetBuilder {
     }
 }
 
+impl CaseObject for FileSystemFacet {
+    fn class_iri() -> &'static str { FileSystemFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "FileSystemFacet" }
+}
+
 /// A file system object is an informational object represented and managed within a file system.
 #[derive(Debug, Clone, Serialize)]
 pub struct FileSystemObject {
@@ -6238,6 +6804,11 @@ impl FileSystemObjectBuilder {
             class_iri: FileSystemObject::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for FileSystemObject {
+    fn class_iri() -> &'static str { FileSystemObject::CLASS_IRI }
+    fn type_name() -> &'static str { "FileSystemObject" }
 }
 
 /// A forum post is message submitted by a user account to an online forum where the message content (and typically metadata including who posted it and when) is viewable by any party with viewing permiss
@@ -6269,6 +6840,11 @@ impl ForumPostBuilder {
     }
 }
 
+impl CaseObject for ForumPost {
+    fn class_iri() -> &'static str { ForumPost::CLASS_IRI }
+    fn type_name() -> &'static str { "ForumPost" }
+}
+
 /// A forum private message (aka PM or DM (direct message)) is a one-to-one message from one specific user account to another specific user account on an online form where transmission is managed by the o
 #[derive(Debug, Clone, Serialize)]
 pub struct ForumPrivateMessage {
@@ -6296,6 +6872,11 @@ impl ForumPrivateMessageBuilder {
             class_iri: ForumPrivateMessage::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ForumPrivateMessage {
+    fn class_iri() -> &'static str { ForumPrivateMessage::CLASS_IRI }
+    fn type_name() -> &'static str { "ForumPrivateMessage" }
 }
 
 /// A fragment facet is a grouping of characteristics unique to an individual piece of the content of a file.
@@ -6347,6 +6928,11 @@ impl FragmentFacetBuilder {
     }
 }
 
+impl CaseObject for FragmentFacet {
+    fn class_iri() -> &'static str { FragmentFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "FragmentFacet" }
+}
+
 /// A GUI is a graphical user interface that allows users to interact with electronic devices through graphical icons and audio indicators such as primary notation, instead of text-based user interfaces, 
 #[derive(Debug, Clone, Serialize)]
 pub struct GUI {
@@ -6374,6 +6960,11 @@ impl GUIBuilder {
             class_iri: GUI::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for GUI {
+    fn class_iri() -> &'static str { GUI::CLASS_IRI }
+    fn type_name() -> &'static str { "GUI" }
 }
 
 /// A gaming console (video game console or game console) is an electronic system that connects to a display, typically a TV or computer monitor, for the primary purpose of playing video games.
@@ -6405,6 +6996,11 @@ impl GamingConsoleBuilder {
     }
 }
 
+impl CaseObject for GamingConsole {
+    fn class_iri() -> &'static str { GamingConsole::CLASS_IRI }
+    fn type_name() -> &'static str { "GamingConsole" }
+}
+
 /// A generic observable object is an article or unit within the digital domain.
 #[derive(Debug, Clone, Serialize)]
 pub struct GenericObservableObject {
@@ -6434,6 +7030,11 @@ impl GenericObservableObjectBuilder {
     }
 }
 
+impl CaseObject for GenericObservableObject {
+    fn class_iri() -> &'static str { GenericObservableObject::CLASS_IRI }
+    fn type_name() -> &'static str { "GenericObservableObject" }
+}
+
 /// A geolocation entry is a single application-specific geolocation entry.
 #[derive(Debug, Clone, Serialize)]
 pub struct GeoLocationEntry {
@@ -6461,6 +7062,11 @@ impl GeoLocationEntryBuilder {
             class_iri: GeoLocationEntry::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for GeoLocationEntry {
+    fn class_iri() -> &'static str { GeoLocationEntry::CLASS_IRI }
+    fn type_name() -> &'static str { "GeoLocationEntry" }
 }
 
 /// A geolocation entry facet is a grouping of characteristics unique to a single application-specific geolocation entry.
@@ -6522,6 +7128,11 @@ impl GeoLocationEntryFacetBuilder {
     }
 }
 
+impl CaseObject for GeoLocationEntryFacet {
+    fn class_iri() -> &'static str { GeoLocationEntryFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "GeoLocationEntryFacet" }
+}
+
 /// A geolocation log is a record containing geolocation tracks and/or geolocation entries.
 #[derive(Debug, Clone, Serialize)]
 pub struct GeoLocationLog {
@@ -6549,6 +7160,11 @@ impl GeoLocationLogBuilder {
             class_iri: GeoLocationLog::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for GeoLocationLog {
+    fn class_iri() -> &'static str { GeoLocationLog::CLASS_IRI }
+    fn type_name() -> &'static str { "GeoLocationLog" }
 }
 
 /// A geolocation log facet is a grouping of characteristics unique to a record containing geolocation tracks and/or geolocation entries.
@@ -6600,6 +7216,11 @@ impl GeoLocationLogFacetBuilder {
     }
 }
 
+impl CaseObject for GeoLocationLogFacet {
+    fn class_iri() -> &'static str { GeoLocationLogFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "GeoLocationLogFacet" }
+}
+
 /// A geolocation track is a set of contiguous geolocation entries representing a path/track taken.
 #[derive(Debug, Clone, Serialize)]
 pub struct GeoLocationTrack {
@@ -6627,6 +7248,11 @@ impl GeoLocationTrackBuilder {
             class_iri: GeoLocationTrack::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for GeoLocationTrack {
+    fn class_iri() -> &'static str { GeoLocationTrack::CLASS_IRI }
+    fn type_name() -> &'static str { "GeoLocationTrack" }
 }
 
 /// A geolocation track facet is a grouping of characteristics unique to a set of contiguous geolocation entries representing a path/track taken.
@@ -6698,6 +7324,11 @@ impl GeoLocationTrackFacetBuilder {
     }
 }
 
+impl CaseObject for GeoLocationTrackFacet {
+    fn class_iri() -> &'static str { GeoLocationTrackFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "GeoLocationTrackFacet" }
+}
+
 /// A global flag type is a grouping of characteristics unique to the Windows systemwide global variable named NtGlobalFlag that enables various internal debugging, tracing, and validation support in the 
 #[derive(Debug, Clone, Serialize)]
 pub struct GlobalFlagType {
@@ -6767,6 +7398,11 @@ impl GlobalFlagTypeBuilder {
     }
 }
 
+impl CaseObject for GlobalFlagType {
+    fn class_iri() -> &'static str { GlobalFlagType::CLASS_IRI }
+    fn type_name() -> &'static str { "GlobalFlagType" }
+}
+
 /// An HTTP connection is network connection that is conformant to the Hypertext Transfer Protocol (HTTP) standard.
 #[derive(Debug, Clone, Serialize)]
 pub struct HTTPConnection {
@@ -6794,6 +7430,11 @@ impl HTTPConnectionBuilder {
             class_iri: HTTPConnection::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for HTTPConnection {
+    fn class_iri() -> &'static str { HTTPConnection::CLASS_IRI }
+    fn type_name() -> &'static str { "HTTPConnection" }
 }
 
 /// An HTTP connection facet is a grouping of characteristics unique to portions of a network connection that are conformant to the Hypertext Transfer Protocol (HTTP) standard.
@@ -6885,6 +7526,11 @@ impl HTTPConnectionFacetBuilder {
     }
 }
 
+impl CaseObject for HTTPConnectionFacet {
+    fn class_iri() -> &'static str { HTTPConnectionFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "HTTPConnectionFacet" }
+}
+
 /// A hostname is a label that is assigned to a device connected to a computer network and that is used to identify the device in various forms of electronic communication, such as the World Wide Web. A h
 #[derive(Debug, Clone, Serialize)]
 pub struct Hostname {
@@ -6914,6 +7560,11 @@ impl HostnameBuilder {
     }
 }
 
+impl CaseObject for Hostname {
+    fn class_iri() -> &'static str { Hostname::CLASS_IRI }
+    fn type_name() -> &'static str { "Hostname" }
+}
+
 /// An ICMP connection is a network connection that is conformant to the Internet Control Message Protocol (ICMP) standard.
 #[derive(Debug, Clone, Serialize)]
 pub struct ICMPConnection {
@@ -6941,6 +7592,11 @@ impl ICMPConnectionBuilder {
             class_iri: ICMPConnection::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ICMPConnection {
+    fn class_iri() -> &'static str { ICMPConnection::CLASS_IRI }
+    fn type_name() -> &'static str { "ICMPConnection" }
 }
 
 /// An ICMP connection facet is a grouping of characteristics unique to portions of a network connection that are conformant to the Internet Control Message Protocol (ICMP) standard.
@@ -6992,6 +7648,11 @@ impl ICMPConnectionFacetBuilder {
     }
 }
 
+impl CaseObject for ICMPConnectionFacet {
+    fn class_iri() -> &'static str { ICMPConnectionFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ICMPConnectionFacet" }
+}
+
 /// An IComHandler action type is a grouping of characteristics unique to a Windows Task-related action that fires a Windows COM handler (smart code in the client address space that can optimize calls bet
 #[derive(Debug, Clone, Serialize)]
 pub struct IComHandlerActionType {
@@ -7039,6 +7700,11 @@ impl IComHandlerActionTypeBuilder {
             com_data: self.com_data,
         }
     }
+}
+
+impl CaseObject for IComHandlerActionType {
+    fn class_iri() -> &'static str { IComHandlerActionType::CLASS_IRI }
+    fn type_name() -> &'static str { "IComHandlerActionType" }
 }
 
 /// An IExec action type is a grouping of characteristics unique to an action that executes a command-line operation on a Windows operating system. [based on https://docs.microsoft.com/en-us/windows/win32
@@ -7110,6 +7776,11 @@ impl IExecActionTypeBuilder {
     }
 }
 
+impl CaseObject for IExecActionType {
+    fn class_iri() -> &'static str { IExecActionType::CLASS_IRI }
+    fn type_name() -> &'static str { "IExecActionType" }
+}
+
 /// An IP address is an Internet Protocol (IP) standards conformant identifier assigned to a device to enable routing and management of IP standards conformant communication to or from that device.
 #[derive(Debug, Clone, Serialize)]
 pub struct IPAddress {
@@ -7137,6 +7808,11 @@ impl IPAddressBuilder {
             class_iri: IPAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for IPAddress {
+    fn class_iri() -> &'static str { IPAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "IPAddress" }
 }
 
 /// An IP address facet is a grouping of characteristics unique to an Internet Protocol (IP) standards conformant identifier assigned to a device to enable routing and management of IP standards conforman
@@ -7168,6 +7844,11 @@ impl IPAddressFacetBuilder {
     }
 }
 
+impl CaseObject for IPAddressFacet {
+    fn class_iri() -> &'static str { IPAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "IPAddressFacet" }
+}
+
 /// An IP netmask is a 32-bit 'mask' used to divide an IP address into subnets and specify the network's available hosts.
 #[derive(Debug, Clone, Serialize)]
 pub struct IPNetmask {
@@ -7195,6 +7876,11 @@ impl IPNetmaskBuilder {
             class_iri: IPNetmask::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for IPNetmask {
+    fn class_iri() -> &'static str { IPNetmask::CLASS_IRI }
+    fn type_name() -> &'static str { "IPNetmask" }
 }
 
 /// An iPhone is a smart phone that applies the iOS mobile operating system.
@@ -7226,6 +7912,11 @@ impl IPhoneBuilder {
     }
 }
 
+impl CaseObject for IPhone {
+    fn class_iri() -> &'static str { IPhone::CLASS_IRI }
+    fn type_name() -> &'static str { "IPhone" }
+}
+
 /// An IPv4 (Internet Protocol version 4) address is an IPv4 standards conformant identifier assigned to a device to enable routing and management of IPv4 standards conformant communication to or from tha
 #[derive(Debug, Clone, Serialize)]
 pub struct IPv4Address {
@@ -7253,6 +7944,11 @@ impl IPv4AddressBuilder {
             class_iri: IPv4Address::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for IPv4Address {
+    fn class_iri() -> &'static str { IPv4Address::CLASS_IRI }
+    fn type_name() -> &'static str { "IPv4Address" }
 }
 
 /// An IPv4 (Internet Protocol version 4) address facet is a grouping of characteristics unique to an IPv4 standards conformant identifier assigned to a device to enable routing and management of IPv4 sta
@@ -7284,6 +7980,11 @@ impl IPv4AddressFacetBuilder {
     }
 }
 
+impl CaseObject for IPv4AddressFacet {
+    fn class_iri() -> &'static str { IPv4AddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "IPv4AddressFacet" }
+}
+
 /// An IPv6 (Internet Protocol version 6) address is an IPv6 standards conformant identifier assigned to a device to enable routing and management of IPv6 standards conformant communication to or from tha
 #[derive(Debug, Clone, Serialize)]
 pub struct IPv6Address {
@@ -7313,6 +8014,11 @@ impl IPv6AddressBuilder {
     }
 }
 
+impl CaseObject for IPv6Address {
+    fn class_iri() -> &'static str { IPv6Address::CLASS_IRI }
+    fn type_name() -> &'static str { "IPv6Address" }
+}
+
 /// An IPv6 (Internet Protocol version 6) address facet is a grouping of characteristics unique to an IPv6 standards conformant identifier assigned to a device to enable routing and management of IPv6 sta
 #[derive(Debug, Clone, Serialize)]
 pub struct IPv6AddressFacet {
@@ -7340,6 +8046,11 @@ impl IPv6AddressFacetBuilder {
             class_iri: IPv6AddressFacet::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for IPv6AddressFacet {
+    fn class_iri() -> &'static str { IPv6AddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "IPv6AddressFacet" }
 }
 
 /// An IShow message action type is a grouping of characteristics unique to an action that shows a message box when a task is activate. [based on https://docs.microsoft.com/en-us/windows/win32/api/tasksch
@@ -7391,6 +8102,11 @@ impl IShowMessageActionTypeBuilder {
     }
 }
 
+impl CaseObject for IShowMessageActionType {
+    fn class_iri() -> &'static str { IShowMessageActionType::CLASS_IRI }
+    fn type_name() -> &'static str { "IShowMessageActionType" }
+}
+
 /// An image is a complete copy of a hard disk, memory, or other digital media.
 #[derive(Debug, Clone, Serialize)]
 pub struct Image {
@@ -7418,6 +8134,11 @@ impl ImageBuilder {
             class_iri: Image::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Image {
+    fn class_iri() -> &'static str { Image::CLASS_IRI }
+    fn type_name() -> &'static str { "Image" }
 }
 
 /// An image facet is a grouping of characteristics unique to a complete copy of a hard disk, memory, or other digital media.
@@ -7459,6 +8180,11 @@ impl ImageFacetBuilder {
     }
 }
 
+impl CaseObject for ImageFacet {
+    fn class_iri() -> &'static str { ImageFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ImageFacet" }
+}
+
 /// InstantMessagingAddress
 #[derive(Debug, Clone, Serialize)]
 pub struct InstantMessagingAddress {
@@ -7486,6 +8212,11 @@ impl InstantMessagingAddressBuilder {
             class_iri: InstantMessagingAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for InstantMessagingAddress {
+    fn class_iri() -> &'static str { InstantMessagingAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "InstantMessagingAddress" }
 }
 
 /// An instant messaging address facet is a grouping of characteristics unique to an identifier assigned to enable routing and management of instant messaging digital communication.
@@ -7517,6 +8248,11 @@ impl InstantMessagingAddressFacetBuilder {
     }
 }
 
+impl CaseObject for InstantMessagingAddressFacet {
+    fn class_iri() -> &'static str { InstantMessagingAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "InstantMessagingAddressFacet" }
+}
+
 /// A junction is a specific NTFS (New Technology File System) reparse point to redirect a directory access to another directory which can be on the same volume or another volume. A junction is similar to
 #[derive(Debug, Clone, Serialize)]
 pub struct Junction {
@@ -7544,6 +8280,11 @@ impl JunctionBuilder {
             class_iri: Junction::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Junction {
+    fn class_iri() -> &'static str { Junction::CLASS_IRI }
+    fn type_name() -> &'static str { "Junction" }
 }
 
 /// A laptop, laptop computer, or notebook computer is a small, portable personal computer with a screen and alphanumeric keyboard. These typically have a clam shell form factor with the screen mounted on
@@ -7575,6 +8316,11 @@ impl LaptopBuilder {
     }
 }
 
+impl CaseObject for Laptop {
+    fn class_iri() -> &'static str { Laptop::CLASS_IRI }
+    fn type_name() -> &'static str { "Laptop" }
+}
+
 /// A library is a suite of data and programming code that is used to develop software programs and applications. [based on https://www.techopedia.com/definition/3828/software-library]
 #[derive(Debug, Clone, Serialize)]
 pub struct Library {
@@ -7602,6 +8348,11 @@ impl LibraryBuilder {
             class_iri: Library::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Library {
+    fn class_iri() -> &'static str { Library::CLASS_IRI }
+    fn type_name() -> &'static str { "Library" }
 }
 
 /// A library facet is a grouping of characteristics unique to a suite of data and programming code that is used to develop software programs and applications. [based on https://www.techopedia.com/definit
@@ -7643,6 +8394,11 @@ impl LibraryFacetBuilder {
     }
 }
 
+impl CaseObject for LibraryFacet {
+    fn class_iri() -> &'static str { LibraryFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "LibraryFacet" }
+}
+
 /// A MAC address is a media access control standards conformant identifier assigned to a network interface to enable routing and management of communications at the data link layer of a network segment.
 #[derive(Debug, Clone, Serialize)]
 pub struct MACAddress {
@@ -7670,6 +8426,11 @@ impl MACAddressBuilder {
             class_iri: MACAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for MACAddress {
+    fn class_iri() -> &'static str { MACAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "MACAddress" }
 }
 
 /// A MAC address facet is a grouping of characteristics unique to a media access control standards conformant identifier assigned to a network interface to enable routing and management of communications
@@ -7701,6 +8462,11 @@ impl MACAddressFacetBuilder {
     }
 }
 
+impl CaseObject for MACAddressFacet {
+    fn class_iri() -> &'static str { MACAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MACAddressFacet" }
+}
+
 /// Memory is a particular region of temporary information storage (e.g., RAM (random access memory), ROM (read only memory)) on a digital device.
 #[derive(Debug, Clone, Serialize)]
 pub struct Memory {
@@ -7728,6 +8494,11 @@ impl MemoryBuilder {
             class_iri: Memory::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Memory {
+    fn class_iri() -> &'static str { Memory::CLASS_IRI }
+    fn type_name() -> &'static str { "Memory" }
 }
 
 /// A memory facet is a grouping of characteristics unique to a particular region of temporary information storage (e.g., RAM (random access memory), ROM (read only memory)) on a digital device.
@@ -7839,6 +8610,11 @@ impl MemoryFacetBuilder {
     }
 }
 
+impl CaseObject for MemoryFacet {
+    fn class_iri() -> &'static str { MemoryFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MemoryFacet" }
+}
+
 /// A message is a discrete unit of electronic communication intended by the source for consumption by some recipient or group of recipients. [based on https://en.wikipedia.org/wiki/Message]
 #[derive(Debug, Clone, Serialize)]
 pub struct Message {
@@ -7866,6 +8642,11 @@ impl MessageBuilder {
             class_iri: Message::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Message {
+    fn class_iri() -> &'static str { Message::CLASS_IRI }
+    fn type_name() -> &'static str { "Message" }
 }
 
 /// A message facet is a grouping of characteristics unique to a discrete unit of electronic communication intended by the source for consumption by some recipient or group of recipients. [based on https:
@@ -7977,6 +8758,11 @@ impl MessageFacetBuilder {
     }
 }
 
+impl CaseObject for MessageFacet {
+    fn class_iri() -> &'static str { MessageFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MessageFacet" }
+}
+
 /// A message thread is a running commentary of electronic messages pertaining to one topic or question.
 #[derive(Debug, Clone, Serialize)]
 pub struct MessageThread {
@@ -8004,6 +8790,11 @@ impl MessageThreadBuilder {
             class_iri: MessageThread::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for MessageThread {
+    fn class_iri() -> &'static str { MessageThread::CLASS_IRI }
+    fn type_name() -> &'static str { "MessageThread" }
 }
 
 /// A message thread facet is a grouping of characteristics unique to a running commentary of electronic messages pertaining to one topic or question.
@@ -8063,6 +8854,11 @@ impl MessageThreadFacetBuilder {
             visibility: self.visibility,
         }
     }
+}
+
+impl CaseObject for MessageThreadFacet {
+    fn class_iri() -> &'static str { MessageThreadFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MessageThreadFacet" }
 }
 
 /// An MFT record facet is a grouping of characteristics unique to the details of a single file as managed in an NTFS (new technology filesystem) master file table (which is a collection of information ab
@@ -8214,6 +9010,11 @@ impl MftRecordFacetBuilder {
     }
 }
 
+impl CaseObject for MftRecordFacet {
+    fn class_iri() -> &'static str { MftRecordFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MftRecordFacet" }
+}
+
 /// A mime part type is a grouping of characteristics unique to a component of a multi-part email body.
 #[derive(Debug, Clone, Serialize)]
 pub struct MimePartType {
@@ -8283,6 +9084,11 @@ impl MimePartTypeBuilder {
     }
 }
 
+impl CaseObject for MimePartType {
+    fn class_iri() -> &'static str { MimePartType::CLASS_IRI }
+    fn type_name() -> &'static str { "MimePartType" }
+}
+
 /// A mobile account is an arrangement with an entity to enable and control the provision of some capability or service on a portable computing device. [based on https://www.lexico.com/definition/mobile_d
 #[derive(Debug, Clone, Serialize)]
 pub struct MobileAccount {
@@ -8310,6 +9116,11 @@ impl MobileAccountBuilder {
             class_iri: MobileAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for MobileAccount {
+    fn class_iri() -> &'static str { MobileAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "MobileAccount" }
 }
 
 /// A mobile account facet is a grouping of characteristics unique to an arrangement with an entity to enable and control the provision of some capability or service on a portable computing device. [based
@@ -8371,6 +9182,11 @@ impl MobileAccountFacetBuilder {
     }
 }
 
+impl CaseObject for MobileAccountFacet {
+    fn class_iri() -> &'static str { MobileAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MobileAccountFacet" }
+}
+
 /// A mobile device is a portable computing device. [based on https://www.lexico.com.definition/mobile_device]
 #[derive(Debug, Clone, Serialize)]
 pub struct MobileDevice {
@@ -8398,6 +9214,11 @@ impl MobileDeviceBuilder {
             class_iri: MobileDevice::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for MobileDevice {
+    fn class_iri() -> &'static str { MobileDevice::CLASS_IRI }
+    fn type_name() -> &'static str { "MobileDevice" }
 }
 
 /// A mobile device facet is a grouping of characteristics unique to a portable computing device. [based on https://www.lexico.com/definition/mobile_device]
@@ -8519,6 +9340,11 @@ impl MobileDeviceFacetBuilder {
     }
 }
 
+impl CaseObject for MobileDeviceFacet {
+    fn class_iri() -> &'static str { MobileDeviceFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MobileDeviceFacet" }
+}
+
 /// A mobile phone is a portable telephone that at least can make and receive calls over a radio frequency link while the user is moving within a telephone service area. This category encompasses all type
 #[derive(Debug, Clone, Serialize)]
 pub struct MobilePhone {
@@ -8548,6 +9374,11 @@ impl MobilePhoneBuilder {
     }
 }
 
+impl CaseObject for MobilePhone {
+    fn class_iri() -> &'static str { MobilePhone::CLASS_IRI }
+    fn type_name() -> &'static str { "MobilePhone" }
+}
+
 /// A mutex is a mechanism that enforces limits on access to a resource when there are many threads of execution. A mutex is designed to enforce a mutual exclusion concurrency control policy, and with a v
 #[derive(Debug, Clone, Serialize)]
 pub struct Mutex {
@@ -8575,6 +9406,11 @@ impl MutexBuilder {
             class_iri: Mutex::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Mutex {
+    fn class_iri() -> &'static str { Mutex::CLASS_IRI }
+    fn type_name() -> &'static str { "Mutex" }
 }
 
 /// A mutex facet is a grouping of characteristics unique to a mechanism that enforces limits on access to a resource when there are many threads of execution. A mutex is designed to enforce a mutual excl
@@ -8626,6 +9462,11 @@ impl MutexFacetBuilder {
     }
 }
 
+impl CaseObject for MutexFacet {
+    fn class_iri() -> &'static str { MutexFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "MutexFacet" }
+}
+
 /// An NTFS file is a New Technology File System (NTFS) file.
 #[derive(Debug, Clone, Serialize)]
 pub struct NTFSFile {
@@ -8653,6 +9494,11 @@ impl NTFSFileBuilder {
             class_iri: NTFSFile::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for NTFSFile {
+    fn class_iri() -> &'static str { NTFSFile::CLASS_IRI }
+    fn type_name() -> &'static str { "NTFSFile" }
 }
 
 /// An NTFS file facet is a grouping of characteristics unique to a file on an NTFS (new technology filesystem) file system.
@@ -8714,6 +9560,11 @@ impl NTFSFileFacetBuilder {
     }
 }
 
+impl CaseObject for NTFSFileFacet {
+    fn class_iri() -> &'static str { NTFSFileFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "NTFSFileFacet" }
+}
+
 /// An NTFS file permissions facet is a grouping of characteristics unique to the access rights (e.g., view, change, navigate, execute) of a file on an NTFS (new technology filesystem) file system.
 #[derive(Debug, Clone, Serialize)]
 pub struct NTFSFilePermissionsFacet {
@@ -8741,6 +9592,11 @@ impl NTFSFilePermissionsFacetBuilder {
             class_iri: NTFSFilePermissionsFacet::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for NTFSFilePermissionsFacet {
+    fn class_iri() -> &'static str { NTFSFilePermissionsFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "NTFSFilePermissionsFacet" }
 }
 
 /// A named pipe is a mechanism for FIFO (first-in-first-out) inter-process communication. It is persisted as a filesystem object (that can be deleted like any other file), can be written to or read from 
@@ -8772,6 +9628,11 @@ impl NamedPipeBuilder {
     }
 }
 
+impl CaseObject for NamedPipe {
+    fn class_iri() -> &'static str { NamedPipe::CLASS_IRI }
+    fn type_name() -> &'static str { "NamedPipe" }
+}
+
 /// A network appliance is a purpose-built computer with software or firmware that is designed to provide a specific network management function.
 #[derive(Debug, Clone, Serialize)]
 pub struct NetworkAppliance {
@@ -8801,6 +9662,11 @@ impl NetworkApplianceBuilder {
     }
 }
 
+impl CaseObject for NetworkAppliance {
+    fn class_iri() -> &'static str { NetworkAppliance::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkAppliance" }
+}
+
 /// A network connection is a connection (completed or attempted) across a digital network (a group of two or more computer systems linked together). [based on https://www.webopedia.com/TERM/N/network.htm
 #[derive(Debug, Clone, Serialize)]
 pub struct NetworkConnection {
@@ -8828,6 +9694,11 @@ impl NetworkConnectionBuilder {
             class_iri: NetworkConnection::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for NetworkConnection {
+    fn class_iri() -> &'static str { NetworkConnection::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkConnection" }
 }
 
 /// A network connection facet is a grouping of characteristics unique to a connection (complete or attempted) accross a digital network (a group of two or more computer systems linked together). [based o
@@ -8939,6 +9810,11 @@ impl NetworkConnectionFacetBuilder {
     }
 }
 
+impl CaseObject for NetworkConnectionFacet {
+    fn class_iri() -> &'static str { NetworkConnectionFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkConnectionFacet" }
+}
+
 /// A network flow is a sequence of data transiting one or more digital network (a group or two or more computer systems linked together) connections. [based on https://www.webopedia.com/TERM/N/network.ht
 #[derive(Debug, Clone, Serialize)]
 pub struct NetworkFlow {
@@ -8966,6 +9842,11 @@ impl NetworkFlowBuilder {
             class_iri: NetworkFlow::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for NetworkFlow {
+    fn class_iri() -> &'static str { NetworkFlow::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkFlow" }
 }
 
 /// A network flow facet is a grouping of characteristics unique to a sequence of data transiting one or more digital network (a group of two or more computer systems linked together) connections. [based 
@@ -9067,6 +9948,11 @@ impl NetworkFlowFacetBuilder {
     }
 }
 
+impl CaseObject for NetworkFlowFacet {
+    fn class_iri() -> &'static str { NetworkFlowFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkFlowFacet" }
+}
+
 /// A network interface is a software or hardware interface between two pieces of equipment or protocol layers in a computer network.
 #[derive(Debug, Clone, Serialize)]
 pub struct NetworkInterface {
@@ -9094,6 +9980,11 @@ impl NetworkInterfaceBuilder {
             class_iri: NetworkInterface::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for NetworkInterface {
+    fn class_iri() -> &'static str { NetworkInterface::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkInterface" }
 }
 
 /// A network interface facet is a grouping of characteristics unique to a software or hardware interface between two pieces of equipment or protocol layers in a computer network.
@@ -9195,6 +10086,11 @@ impl NetworkInterfaceFacetBuilder {
     }
 }
 
+impl CaseObject for NetworkInterfaceFacet {
+    fn class_iri() -> &'static str { NetworkInterfaceFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkInterfaceFacet" }
+}
+
 /// A network protocol is an established set of structured rules that determine how data is transmitted between different devices in the same network. Essentially, it allows connected devices to communica
 #[derive(Debug, Clone, Serialize)]
 pub struct NetworkProtocol {
@@ -9222,6 +10118,11 @@ impl NetworkProtocolBuilder {
             class_iri: NetworkProtocol::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for NetworkProtocol {
+    fn class_iri() -> &'static str { NetworkProtocol::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkProtocol" }
 }
 
 /// A network route is a specific path (of specific network nodes, connections and protocols) for traffic in a network or between or across multiple networks.
@@ -9253,6 +10154,11 @@ impl NetworkRouteBuilder {
     }
 }
 
+impl CaseObject for NetworkRoute {
+    fn class_iri() -> &'static str { NetworkRoute::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkRoute" }
+}
+
 /// A network subnet is a logical subdivision of an IP network. [based on https://en.wikipedia.org/wiki/Subnetwork]
 #[derive(Debug, Clone, Serialize)]
 pub struct NetworkSubnet {
@@ -9282,6 +10188,11 @@ impl NetworkSubnetBuilder {
     }
 }
 
+impl CaseObject for NetworkSubnet {
+    fn class_iri() -> &'static str { NetworkSubnet::CLASS_IRI }
+    fn type_name() -> &'static str { "NetworkSubnet" }
+}
+
 /// A note is a brief textual record.
 #[derive(Debug, Clone, Serialize)]
 pub struct Note {
@@ -9309,6 +10220,11 @@ impl NoteBuilder {
             class_iri: Note::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Note {
+    fn class_iri() -> &'static str { Note::CLASS_IRI }
+    fn type_name() -> &'static str { "Note" }
 }
 
 /// A note facet is a grouping of characteristics unique to a brief textual record.
@@ -9380,6 +10296,11 @@ impl NoteFacetBuilder {
     }
 }
 
+impl CaseObject for NoteFacet {
+    fn class_iri() -> &'static str { NoteFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "NoteFacet" }
+}
+
 /// An observable is a characterizable item or action within the digital domain.
 #[derive(Debug, Clone, Serialize)]
 pub struct Observable {
@@ -9409,6 +10330,11 @@ impl ObservableBuilder {
     }
 }
 
+impl CaseObject for Observable {
+    fn class_iri() -> &'static str { Observable::CLASS_IRI }
+    fn type_name() -> &'static str { "Observable" }
+}
+
 /// An observable action is a grouping of characteristics unique to something that may be done or performed within the digital domain.
 #[derive(Debug, Clone, Serialize)]
 pub struct ObservableAction {
@@ -9436,6 +10362,11 @@ impl ObservableActionBuilder {
             class_iri: ObservableAction::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ObservableAction {
+    fn class_iri() -> &'static str { ObservableAction::CLASS_IRI }
+    fn type_name() -> &'static str { "ObservableAction" }
 }
 
 /// An observable object is a grouping of characteristics unique to a distinct article or unit within the digital domain.
@@ -9487,6 +10418,11 @@ impl ObservableObjectBuilder {
     }
 }
 
+impl CaseObject for ObservableObject {
+    fn class_iri() -> &'static str { ObservableObject::CLASS_IRI }
+    fn type_name() -> &'static str { "ObservableObject" }
+}
+
 /// An observable pattern is a grouping of characteristics unique to a logical pattern composed of observable object and observable action properties.
 #[derive(Debug, Clone, Serialize)]
 pub struct ObservablePattern {
@@ -9514,6 +10450,11 @@ impl ObservablePatternBuilder {
             class_iri: ObservablePattern::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ObservablePattern {
+    fn class_iri() -> &'static str { ObservablePattern::CLASS_IRI }
+    fn type_name() -> &'static str { "ObservablePattern" }
 }
 
 /// An observable relationship is a grouping of characteristics unique to an assertion of an association between two observable objects.
@@ -9565,6 +10506,11 @@ impl ObservableRelationshipBuilder {
     }
 }
 
+impl CaseObject for ObservableRelationship {
+    fn class_iri() -> &'static str { ObservableRelationship::CLASS_IRI }
+    fn type_name() -> &'static str { "ObservableRelationship" }
+}
+
 /// An observation is a temporal perception of an observable.
 #[derive(Debug, Clone, Serialize)]
 pub struct Observation {
@@ -9604,6 +10550,11 @@ impl ObservationBuilder {
     }
 }
 
+impl CaseObject for Observation {
+    fn class_iri() -> &'static str { Observation::CLASS_IRI }
+    fn type_name() -> &'static str { "Observation" }
+}
+
 /// An online service is a particular provision mechanism of information access, distribution or manipulation over the Internet.
 #[derive(Debug, Clone, Serialize)]
 pub struct OnlineService {
@@ -9631,6 +10582,11 @@ impl OnlineServiceBuilder {
             class_iri: OnlineService::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for OnlineService {
+    fn class_iri() -> &'static str { OnlineService::CLASS_IRI }
+    fn type_name() -> &'static str { "OnlineService" }
 }
 
 /// An online service facet is a grouping of characteristics unique to a particular provision mechanism of information access, distribution or manipulation over the Internet.
@@ -9692,6 +10648,11 @@ impl OnlineServiceFacetBuilder {
     }
 }
 
+impl CaseObject for OnlineServiceFacet {
+    fn class_iri() -> &'static str { OnlineServiceFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "OnlineServiceFacet" }
+}
+
 /// An operating system is the software that manages computer hardware, software resources, and provides common services for computer programs. [based on https://en.wikipedia.org/wiki/Operating_system]
 #[derive(Debug, Clone, Serialize)]
 pub struct OperatingSystem {
@@ -9719,6 +10680,11 @@ impl OperatingSystemBuilder {
             class_iri: OperatingSystem::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for OperatingSystem {
+    fn class_iri() -> &'static str { OperatingSystem::CLASS_IRI }
+    fn type_name() -> &'static str { "OperatingSystem" }
 }
 
 /// An operating system facet is a grouping of characteristics unique to the software that manages computer hardware, software resources, and provides common services for computer programs. [based on http
@@ -9820,6 +10786,11 @@ impl OperatingSystemFacetBuilder {
     }
 }
 
+impl CaseObject for OperatingSystemFacet {
+    fn class_iri() -> &'static str { OperatingSystemFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "OperatingSystemFacet" }
+}
+
 /// A PDF file is a Portable Document Format (PDF) file.
 #[derive(Debug, Clone, Serialize)]
 pub struct PDFFile {
@@ -9847,6 +10818,11 @@ impl PDFFileBuilder {
             class_iri: PDFFile::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for PDFFile {
+    fn class_iri() -> &'static str { PDFFile::CLASS_IRI }
+    fn type_name() -> &'static str { "PDFFile" }
 }
 
 /// A PDF file facet is a grouping of characteristics unique to a PDF (Portable Document Format) file.
@@ -9948,6 +10924,11 @@ impl PDFFileFacetBuilder {
     }
 }
 
+impl CaseObject for PDFFileFacet {
+    fn class_iri() -> &'static str { PDFFileFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "PDFFileFacet" }
+}
+
 /// A path relation facet is a grouping of characteristics unique to the location of one object within another containing object.
 #[derive(Debug, Clone, Serialize)]
 pub struct PathRelationFacet {
@@ -9987,6 +10968,11 @@ impl PathRelationFacetBuilder {
     }
 }
 
+impl CaseObject for PathRelationFacet {
+    fn class_iri() -> &'static str { PathRelationFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "PathRelationFacet" }
+}
+
 /// A payment card is a physical token that is part of a payment system issued by financial institutions, such as a bank, to a customer that enables its owner (the cardholder) to access the funds in the c
 #[derive(Debug, Clone, Serialize)]
 pub struct PaymentCard {
@@ -10016,6 +11002,11 @@ impl PaymentCardBuilder {
     }
 }
 
+impl CaseObject for PaymentCard {
+    fn class_iri() -> &'static str { PaymentCard::CLASS_IRI }
+    fn type_name() -> &'static str { "PaymentCard" }
+}
+
 /// A phone account is an arrangement with an entity to enable and control the provision of a telephony capability or service.
 #[derive(Debug, Clone, Serialize)]
 pub struct PhoneAccount {
@@ -10043,6 +11034,11 @@ impl PhoneAccountBuilder {
             class_iri: PhoneAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for PhoneAccount {
+    fn class_iri() -> &'static str { PhoneAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "PhoneAccount" }
 }
 
 /// A phone account facet is a grouping of characteristics unique to an arrangement with an entity to enable and control the provision of a telephony capability or service.
@@ -10084,6 +11080,11 @@ impl PhoneAccountFacetBuilder {
     }
 }
 
+impl CaseObject for PhoneAccountFacet {
+    fn class_iri() -> &'static str { PhoneAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "PhoneAccountFacet" }
+}
+
 /// A pipe is a mechanism for one-way inter-process communication using message passing where data written by one process is buffered by the operating system until it is read by the next process, and this
 #[derive(Debug, Clone, Serialize)]
 pub struct Pipe {
@@ -10111,6 +11112,11 @@ impl PipeBuilder {
             class_iri: Pipe::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Pipe {
+    fn class_iri() -> &'static str { Pipe::CLASS_IRI }
+    fn type_name() -> &'static str { "Pipe" }
 }
 
 /// A post is message submitted to an online discussion/publishing site (forum, blog, etc.).
@@ -10142,6 +11148,11 @@ impl PostBuilder {
     }
 }
 
+impl CaseObject for Post {
+    fn class_iri() -> &'static str { Post::CLASS_IRI }
+    fn type_name() -> &'static str { "Post" }
+}
+
 /// A process is an instance of a computer program executed on an operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct Process {
@@ -10169,6 +11180,11 @@ impl ProcessBuilder {
             class_iri: Process::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Process {
+    fn class_iri() -> &'static str { Process::CLASS_IRI }
+    fn type_name() -> &'static str { "Process" }
 }
 
 /// A process facet is a grouping of characteristics unique to an instance of a computer program executed on an operating system.
@@ -10320,6 +11336,11 @@ impl ProcessFacetBuilder {
     }
 }
 
+impl CaseObject for ProcessFacet {
+    fn class_iri() -> &'static str { ProcessFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ProcessFacet" }
+}
+
 /// A process thread is the smallest sequence of programmed instructions that can be managed independently by a scheduler on a computer, which is typically a part of the operating system. It is a componen
 #[derive(Debug, Clone, Serialize)]
 pub struct ProcessThread {
@@ -10349,6 +11370,11 @@ impl ProcessThreadBuilder {
     }
 }
 
+impl CaseObject for ProcessThread {
+    fn class_iri() -> &'static str { ProcessThread::CLASS_IRI }
+    fn type_name() -> &'static str { "ProcessThread" }
+}
+
 /// A profile is an explicit digital representation of identity and characteristics of the owner of a single user account associated with an online service or application. [based on https://en.wikipedia.o
 #[derive(Debug, Clone, Serialize)]
 pub struct Profile {
@@ -10376,6 +11402,11 @@ impl ProfileBuilder {
             class_iri: Profile::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Profile {
+    fn class_iri() -> &'static str { Profile::CLASS_IRI }
+    fn type_name() -> &'static str { "Profile" }
 }
 
 /// A profile facet is a grouping of characteristics unique to an explicit digital representation of identity and characteristics of the owner of a single user account associated with an online service or
@@ -10537,6 +11568,11 @@ impl ProfileFacetBuilder {
     }
 }
 
+impl CaseObject for ProfileFacet {
+    fn class_iri() -> &'static str { ProfileFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ProfileFacet" }
+}
+
 /// A properties enumerated effect facet is a grouping of characteristics unique to the effects of actions upon observable objects where a characteristic of the observable object is enumerated. An example
 #[derive(Debug, Clone, Serialize)]
 pub struct PropertiesEnumeratedEffectFacet {
@@ -10574,6 +11610,11 @@ impl PropertiesEnumeratedEffectFacetBuilder {
             properties: self.properties,
         }
     }
+}
+
+impl CaseObject for PropertiesEnumeratedEffectFacet {
+    fn class_iri() -> &'static str { PropertiesEnumeratedEffectFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "PropertiesEnumeratedEffectFacet" }
 }
 
 /// A properties read effect facet is a grouping of characteristics unique to the effects of actions upon observable objects where a characteristic is read from an observable object. An example of this wo
@@ -10625,6 +11666,11 @@ impl PropertyReadEffectFacetBuilder {
     }
 }
 
+impl CaseObject for PropertyReadEffectFacet {
+    fn class_iri() -> &'static str { PropertyReadEffectFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "PropertyReadEffectFacet" }
+}
+
 /// A protocol converter is a device that converts from one protocol to another (e.g. SD to USB, SATA to USB, etc.
 #[derive(Debug, Clone, Serialize)]
 pub struct ProtocolConverter {
@@ -10654,6 +11700,11 @@ impl ProtocolConverterBuilder {
     }
 }
 
+impl CaseObject for ProtocolConverter {
+    fn class_iri() -> &'static str { ProtocolConverter::CLASS_IRI }
+    fn type_name() -> &'static str { "ProtocolConverter" }
+}
+
 /// A raster picture is a raster (or bitmap) image.
 #[derive(Debug, Clone, Serialize)]
 pub struct RasterPicture {
@@ -10681,6 +11732,11 @@ impl RasterPictureBuilder {
             class_iri: RasterPicture::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for RasterPicture {
+    fn class_iri() -> &'static str { RasterPicture::CLASS_IRI }
+    fn type_name() -> &'static str { "RasterPicture" }
 }
 
 /// A raster picture facet is a grouping of characteristics unique to a raster (or bitmap) image.
@@ -10772,6 +11828,11 @@ impl RasterPictureFacetBuilder {
     }
 }
 
+impl CaseObject for RasterPictureFacet {
+    fn class_iri() -> &'static str { RasterPictureFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "RasterPictureFacet" }
+}
+
 /// An observable object that was the result of a recovery operation.
 #[derive(Debug, Clone, Serialize)]
 pub struct RecoveredObject {
@@ -10799,6 +11860,11 @@ impl RecoveredObjectBuilder {
             class_iri: RecoveredObject::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for RecoveredObject {
+    fn class_iri() -> &'static str { RecoveredObject::CLASS_IRI }
+    fn type_name() -> &'static str { "RecoveredObject" }
 }
 
 /// Recoverability status of name, metadata, and content.
@@ -10860,6 +11926,11 @@ impl RecoveredObjectFacetBuilder {
     }
 }
 
+impl CaseObject for RecoveredObjectFacet {
+    fn class_iri() -> &'static str { RecoveredObjectFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "RecoveredObjectFacet" }
+}
+
 /// A reparse point is a type of NTFS (New Technology File System) object which is an optional attribute of files and directories meant to define some sort of preprocessing before accessing the said file 
 #[derive(Debug, Clone, Serialize)]
 pub struct ReparsePoint {
@@ -10889,6 +11960,11 @@ impl ReparsePointBuilder {
     }
 }
 
+impl CaseObject for ReparsePoint {
+    fn class_iri() -> &'static str { ReparsePoint::CLASS_IRI }
+    fn type_name() -> &'static str { "ReparsePoint" }
+}
+
 /// A SIM card is a subscriber identification module card intended to securely store the international mobile subscriber identity (IMSI) number and its related key, which are used to identify and authenti
 #[derive(Debug, Clone, Serialize)]
 pub struct SIMCard {
@@ -10916,6 +11992,11 @@ impl SIMCardBuilder {
             class_iri: SIMCard::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for SIMCard {
+    fn class_iri() -> &'static str { SIMCard::CLASS_IRI }
+    fn type_name() -> &'static str { "SIMCard" }
 }
 
 /// A SIM card facet is a grouping of characteristics unique to a subscriber identification module card intended to securely store the international mobile subscriber identity (IMSI) number and its relate
@@ -11027,6 +12108,11 @@ impl SIMCardFacetBuilder {
     }
 }
 
+impl CaseObject for SIMCardFacet {
+    fn class_iri() -> &'static str { SIMCardFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SIMCardFacet" }
+}
+
 /// A SIP address is an identifier for Session Initiation Protocol (SIP) communication.
 #[derive(Debug, Clone, Serialize)]
 pub struct SIPAddress {
@@ -11054,6 +12140,11 @@ impl SIPAddressBuilder {
             class_iri: SIPAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for SIPAddress {
+    fn class_iri() -> &'static str { SIPAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "SIPAddress" }
 }
 
 /// A SIP address facet is a grouping of characteristics unique to a Session Initiation Protocol (SIP) standards conformant identifier assigned to a user to enable routing and management of SIP standards 
@@ -11085,6 +12176,11 @@ impl SIPAddressFacetBuilder {
     }
 }
 
+impl CaseObject for SIPAddressFacet {
+    fn class_iri() -> &'static str { SIPAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SIPAddressFacet" }
+}
+
 /// An SMS message is a message conformant to the short message service (SMS) communication protocol standards.
 #[derive(Debug, Clone, Serialize)]
 pub struct SMSMessage {
@@ -11112,6 +12208,11 @@ impl SMSMessageBuilder {
             class_iri: SMSMessage::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for SMSMessage {
+    fn class_iri() -> &'static str { SMSMessage::CLASS_IRI }
+    fn type_name() -> &'static str { "SMSMessage" }
 }
 
 /// A SMS message facet is a grouping of characteristics unique to a message conformant to the short message service (SMS) communication protocol standards.
@@ -11153,6 +12254,11 @@ impl SMSMessageFacetBuilder {
     }
 }
 
+impl CaseObject for SMSMessageFacet {
+    fn class_iri() -> &'static str { SMSMessageFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SMSMessageFacet" }
+}
+
 /// An SQLite blob is a blob (binary large object) of data within an SQLite database. [based on https://en.wikipedia.org/wiki/SQLite]
 #[derive(Debug, Clone, Serialize)]
 pub struct SQLiteBlob {
@@ -11180,6 +12286,11 @@ impl SQLiteBlobBuilder {
             class_iri: SQLiteBlob::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for SQLiteBlob {
+    fn class_iri() -> &'static str { SQLiteBlob::CLASS_IRI }
+    fn type_name() -> &'static str { "SQLiteBlob" }
 }
 
 /// An SQLite blob facet is a grouping of characteristics unique to a blob (binary large object) of data within an SQLite database. [based on https://en.wikipedia.org/wiki/SQLite]
@@ -11251,6 +12362,11 @@ impl SQLiteBlobFacetBuilder {
     }
 }
 
+impl CaseObject for SQLiteBlobFacet {
+    fn class_iri() -> &'static str { SQLiteBlobFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SQLiteBlobFacet" }
+}
+
 /// A security appliance is a purpose-built computer with software or firmware that is designed to provide a specific security function to protect computer networks.
 #[derive(Debug, Clone, Serialize)]
 pub struct SecurityAppliance {
@@ -11280,6 +12396,11 @@ impl SecurityApplianceBuilder {
     }
 }
 
+impl CaseObject for SecurityAppliance {
+    fn class_iri() -> &'static str { SecurityAppliance::CLASS_IRI }
+    fn type_name() -> &'static str { "SecurityAppliance" }
+}
+
 /// A semaphore is a variable or abstract data type used to control access to a common resource by multiple processes and avoid critical section problems in a concurrent system such as a multitasking oper
 #[derive(Debug, Clone, Serialize)]
 pub struct Semaphore {
@@ -11307,6 +12428,11 @@ impl SemaphoreBuilder {
             class_iri: Semaphore::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Semaphore {
+    fn class_iri() -> &'static str { Semaphore::CLASS_IRI }
+    fn type_name() -> &'static str { "Semaphore" }
 }
 
 /// A send control code effect facet is a grouping of characteristics unique to the effects of actions upon observable objects where a control code, or other control-oriented communication signal, is sent
@@ -11348,6 +12474,11 @@ impl SendControlCodeEffectFacetBuilder {
     }
 }
 
+impl CaseObject for SendControlCodeEffectFacet {
+    fn class_iri() -> &'static str { SendControlCodeEffectFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SendControlCodeEffectFacet" }
+}
+
 /// A server is a server rack-mount based computer, minicomputer, supercomputer, etc.
 #[derive(Debug, Clone, Serialize)]
 pub struct Server {
@@ -11375,6 +12506,11 @@ impl ServerBuilder {
             class_iri: Server::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Server {
+    fn class_iri() -> &'static str { Server::CLASS_IRI }
+    fn type_name() -> &'static str { "Server" }
 }
 
 /// A shop listing is a listing of offered products on an online marketplace/shop.
@@ -11406,6 +12542,11 @@ impl ShopListingBuilder {
     }
 }
 
+impl CaseObject for ShopListing {
+    fn class_iri() -> &'static str { ShopListing::CLASS_IRI }
+    fn type_name() -> &'static str { "ShopListing" }
+}
+
 /// A smart device is a microprocessor IoT device that is expected to be connected directly to cloud-based networks or via smartphone
 #[derive(Debug, Clone, Serialize)]
 pub struct SmartDevice {
@@ -11433,6 +12574,11 @@ impl SmartDeviceBuilder {
             class_iri: SmartDevice::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for SmartDevice {
+    fn class_iri() -> &'static str { SmartDevice::CLASS_IRI }
+    fn type_name() -> &'static str { "SmartDevice" }
 }
 
 /// A smartphone is a portable device that combines mobile telephone and computing functions into one unit.  Examples include iPhone, Samsung Galaxy, Huawei, Blackberry. (Inferred by model and OperatingSy
@@ -11464,6 +12610,11 @@ impl SmartPhoneBuilder {
     }
 }
 
+impl CaseObject for SmartPhone {
+    fn class_iri() -> &'static str { SmartPhone::CLASS_IRI }
+    fn type_name() -> &'static str { "SmartPhone" }
+}
+
 /// A snapshot is a file system object representing a snapshot of the contents of a part of a file system at a point in time.
 #[derive(Debug, Clone, Serialize)]
 pub struct Snapshot {
@@ -11491,6 +12642,11 @@ impl SnapshotBuilder {
             class_iri: Snapshot::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Snapshot {
+    fn class_iri() -> &'static str { Snapshot::CLASS_IRI }
+    fn type_name() -> &'static str { "Snapshot" }
 }
 
 /// A socket is a special file used for inter-process communication, which enables communication between two processes. In addition to sending data, processes can send file descriptors across a Unix domai
@@ -11522,6 +12678,11 @@ impl SocketBuilder {
     }
 }
 
+impl CaseObject for Socket {
+    fn class_iri() -> &'static str { Socket::CLASS_IRI }
+    fn type_name() -> &'static str { "Socket" }
+}
+
 /// A socket address (combining and IP address and a port number) is a composite identifier for a network socket endpoint supporting internet protocol communications.
 #[derive(Debug, Clone, Serialize)]
 pub struct SocketAddress {
@@ -11551,6 +12712,11 @@ impl SocketAddressBuilder {
     }
 }
 
+impl CaseObject for SocketAddress {
+    fn class_iri() -> &'static str { SocketAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "SocketAddress" }
+}
+
 /// Software is a definitely scoped instance of a collection of data or computer instructions that tell the computer how to work. [based on https://en.wikipedia.org/wiki/Software]
 #[derive(Debug, Clone, Serialize)]
 pub struct Software {
@@ -11578,6 +12744,11 @@ impl SoftwareBuilder {
             class_iri: Software::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Software {
+    fn class_iri() -> &'static str { Software::CLASS_IRI }
+    fn type_name() -> &'static str { "Software" }
 }
 
 /// A software facet is a grouping of characteristics unique to a software program (a definitively scoped instance of a collection of data or computer instructions that tell the computer how to work). [ba
@@ -11659,6 +12830,11 @@ impl SoftwareFacetBuilder {
     }
 }
 
+impl CaseObject for SoftwareFacet {
+    fn class_iri() -> &'static str { SoftwareFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SoftwareFacet" }
+}
+
 /// A state change effect facet is a grouping of characteristics unique to the effects of actions upon observable objects where a state of the observable object is changed.
 #[derive(Debug, Clone, Serialize)]
 pub struct StateChangeEffectFacet {
@@ -11708,6 +12884,11 @@ impl StateChangeEffectFacetBuilder {
     }
 }
 
+impl CaseObject for StateChangeEffectFacet {
+    fn class_iri() -> &'static str { StateChangeEffectFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "StateChangeEffectFacet" }
+}
+
 /// A storage medium is any digital storage device that applies electromagnetic or optical surfaces, or depends solely on electronic circuits as solid state storage, for storing digital data. Examples inc
 #[derive(Debug, Clone, Serialize)]
 pub struct StorageMedium {
@@ -11735,6 +12916,11 @@ impl StorageMediumBuilder {
             class_iri: StorageMedium::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for StorageMedium {
+    fn class_iri() -> &'static str { StorageMedium::CLASS_IRI }
+    fn type_name() -> &'static str { "StorageMedium" }
 }
 
 /// A storage medium facet is a grouping of characteristics unique to a the storage capabilities of a piece of equipment or a mechanism designed to serve a special purpose or perform a special function.
@@ -11776,6 +12962,11 @@ impl StorageMediumFacetBuilder {
     }
 }
 
+impl CaseObject for StorageMediumFacet {
+    fn class_iri() -> &'static str { StorageMediumFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "StorageMediumFacet" }
+}
+
 /// A symbolic link is a file that contains a reference to another file or directory in the form of an absolute or relative path and that affects pathname resolution. [based on https://en.wikipedia.org/wi
 #[derive(Debug, Clone, Serialize)]
 pub struct SymbolicLink {
@@ -11803,6 +12994,11 @@ impl SymbolicLinkBuilder {
             class_iri: SymbolicLink::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for SymbolicLink {
+    fn class_iri() -> &'static str { SymbolicLink::CLASS_IRI }
+    fn type_name() -> &'static str { "SymbolicLink" }
 }
 
 /// A symbolic link facet is a grouping of characteristics unique to a file that contains a reference to another file or directory in the form of an absolute or relative path and that affects pathname res
@@ -11844,6 +13040,11 @@ impl SymbolicLinkFacetBuilder {
     }
 }
 
+impl CaseObject for SymbolicLinkFacet {
+    fn class_iri() -> &'static str { SymbolicLinkFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "SymbolicLinkFacet" }
+}
+
 /// A TCP connection is a network connection that is conformant to the Transfer 
 #[derive(Debug, Clone, Serialize)]
 pub struct TCPConnection {
@@ -11871,6 +13072,11 @@ impl TCPConnectionBuilder {
             class_iri: TCPConnection::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for TCPConnection {
+    fn class_iri() -> &'static str { TCPConnection::CLASS_IRI }
+    fn type_name() -> &'static str { "TCPConnection" }
 }
 
 /// A TCP connection facet is a grouping of characteristics unique to portions of a network connection that are conformant to the Transmission Control Protocl (TCP) standard.
@@ -11922,6 +13128,11 @@ impl TCPConnectionFacetBuilder {
     }
 }
 
+impl CaseObject for TCPConnectionFacet {
+    fn class_iri() -> &'static str { TCPConnectionFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "TCPConnectionFacet" }
+}
+
 /// A database table field and its associated value contained within a relational database.
 #[derive(Debug, Clone, Serialize)]
 pub struct TableField {
@@ -11949,6 +13160,11 @@ impl TableFieldBuilder {
             class_iri: TableField::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for TableField {
+    fn class_iri() -> &'static str { TableField::CLASS_IRI }
+    fn type_name() -> &'static str { "TableField" }
 }
 
 /// A database record facet contains properties associated with a specific table record value from a database.
@@ -12040,6 +13256,11 @@ impl TableFieldFacetBuilder {
     }
 }
 
+impl CaseObject for TableFieldFacet {
+    fn class_iri() -> &'static str { TableFieldFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "TableFieldFacet" }
+}
+
 /// A tablet is a mobile computer that is primarily operated by touching the screen. (Devices categorized by their manufacturer as a Tablet)
 #[derive(Debug, Clone, Serialize)]
 pub struct Tablet {
@@ -12067,6 +13288,11 @@ impl TabletBuilder {
             class_iri: Tablet::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Tablet {
+    fn class_iri() -> &'static str { Tablet::CLASS_IRI }
+    fn type_name() -> &'static str { "Tablet" }
 }
 
 /// A task action type is a grouping of characteristics for a scheduled action to be completed.
@@ -12156,6 +13382,11 @@ impl TaskActionTypeBuilder {
             i_show_message_action: self.i_show_message_action,
         }
     }
+}
+
+impl CaseObject for TaskActionType {
+    fn class_iri() -> &'static str { TaskActionType::CLASS_IRI }
+    fn type_name() -> &'static str { "TaskActionType" }
 }
 
 /// A trigger type is a grouping of characterizes unique to a set of criteria that, when met, starts the execution of a task within a Windows operating system. [based on https://docs.microsoft.com/en-us/w
@@ -12267,6 +13498,11 @@ impl TriggerTypeBuilder {
     }
 }
 
+impl CaseObject for TriggerType {
+    fn class_iri() -> &'static str { TriggerType::CLASS_IRI }
+    fn type_name() -> &'static str { "TriggerType" }
+}
+
 /// A tweet is message submitted by a Twitter user account to the Twitter microblogging platform.
 #[derive(Debug, Clone, Serialize)]
 pub struct Tweet {
@@ -12294,6 +13530,11 @@ impl TweetBuilder {
             class_iri: Tweet::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Tweet {
+    fn class_iri() -> &'static str { Tweet::CLASS_IRI }
+    fn type_name() -> &'static str { "Tweet" }
 }
 
 /// A twitter profile facet is a grouping of characteristics unique to an explicit digital representation of identity and characteristics of the owner of a single Twitter user account. [based on https://e
@@ -12485,6 +13726,11 @@ impl TwitterProfileFacetBuilder {
     }
 }
 
+impl CaseObject for TwitterProfileFacet {
+    fn class_iri() -> &'static str { TwitterProfileFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "TwitterProfileFacet" }
+}
+
 /// A UNIX account is an account on a UNIX operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct UNIXAccount {
@@ -12512,6 +13758,11 @@ impl UNIXAccountBuilder {
             class_iri: UNIXAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for UNIXAccount {
+    fn class_iri() -> &'static str { UNIXAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "UNIXAccount" }
 }
 
 /// A UNIX account facet is a grouping of characteristics unique to an account on a UNIX operating system.
@@ -12563,6 +13814,11 @@ impl UNIXAccountFacetBuilder {
     }
 }
 
+impl CaseObject for UNIXAccountFacet {
+    fn class_iri() -> &'static str { UNIXAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "UNIXAccountFacet" }
+}
+
 /// A UNIX file is a file pertaining to the UNIX operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct UNIXFile {
@@ -12590,6 +13846,11 @@ impl UNIXFileBuilder {
             class_iri: UNIXFile::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for UNIXFile {
+    fn class_iri() -> &'static str { UNIXFile::CLASS_IRI }
+    fn type_name() -> &'static str { "UNIXFile" }
 }
 
 /// A UNIX file permissions facet is a grouping of characteristics unique to the access rights (e.g., view, change, navigate, execute) of a file on a UNIX file system.
@@ -12621,6 +13882,11 @@ impl UNIXFilePermissionsFacetBuilder {
     }
 }
 
+impl CaseObject for UNIXFilePermissionsFacet {
+    fn class_iri() -> &'static str { UNIXFilePermissionsFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "UNIXFilePermissionsFacet" }
+}
+
 /// A UNIX process is an instance of a computer program executed on a UNIX operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct UNIXProcess {
@@ -12648,6 +13914,11 @@ impl UNIXProcessBuilder {
             class_iri: UNIXProcess::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for UNIXProcess {
+    fn class_iri() -> &'static str { UNIXProcess::CLASS_IRI }
+    fn type_name() -> &'static str { "UNIXProcess" }
 }
 
 /// A UNIX process facet is a grouping of characteristics unique to an instance of a computer program executed on a UNIX operating system.
@@ -12699,6 +13970,11 @@ impl UNIXProcessFacetBuilder {
     }
 }
 
+impl CaseObject for UNIXProcessFacet {
+    fn class_iri() -> &'static str { UNIXProcessFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "UNIXProcessFacet" }
+}
+
 /// A UNIX volume facet is a grouping of characteristics unique to a single accessible storage area (volume) with a single UNIX file system. [based on https://en.wikipedia.org/wiki/Volume_(computing)]
 #[derive(Debug, Clone, Serialize)]
 pub struct UNIXVolumeFacet {
@@ -12748,6 +14024,11 @@ impl UNIXVolumeFacetBuilder {
     }
 }
 
+impl CaseObject for UNIXVolumeFacet {
+    fn class_iri() -> &'static str { UNIXVolumeFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "UNIXVolumeFacet" }
+}
+
 /// A URL is a uniform resource locator (URL) acting as a resolvable address to a particular WWW (World Wide Web) accessible resource.
 #[derive(Debug, Clone, Serialize)]
 pub struct URL {
@@ -12775,6 +14056,11 @@ impl URLBuilder {
             class_iri: URL::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for URL {
+    fn class_iri() -> &'static str { URL::CLASS_IRI }
+    fn type_name() -> &'static str { "URL" }
 }
 
 /// A URL facet is a grouping of characteristics unique to a uniform resource locator (URL) acting as a resolvable address to a particular WWW (World Wide Web) accessible resource.
@@ -12896,6 +14182,11 @@ impl URLFacetBuilder {
     }
 }
 
+impl CaseObject for URLFacet {
+    fn class_iri() -> &'static str { URLFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "URLFacet" }
+}
+
 /// A URL history characterizes the stored URL history for a particular web browser
 #[derive(Debug, Clone, Serialize)]
 pub struct URLHistory {
@@ -12923,6 +14214,11 @@ impl URLHistoryBuilder {
             class_iri: URLHistory::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for URLHistory {
+    fn class_iri() -> &'static str { URLHistory::CLASS_IRI }
+    fn type_name() -> &'static str { "URLHistory" }
 }
 
 /// A URL history entry is a grouping of characteristics unique to the properties of a single URL history entry for a particular browser.
@@ -13064,6 +14360,11 @@ impl URLHistoryEntryBuilder {
     }
 }
 
+impl CaseObject for URLHistoryEntry {
+    fn class_iri() -> &'static str { URLHistoryEntry::CLASS_IRI }
+    fn type_name() -> &'static str { "URLHistoryEntry" }
+}
+
 /// A URL history facet is a grouping of characteristics unique to the stored URL history for a particular web browser
 #[derive(Debug, Clone, Serialize)]
 pub struct URLHistoryFacet {
@@ -13113,6 +14414,11 @@ impl URLHistoryFacetBuilder {
     }
 }
 
+impl CaseObject for URLHistoryFacet {
+    fn class_iri() -> &'static str { URLHistoryFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "URLHistoryFacet" }
+}
+
 /// A URL visit characterizes the properties of a visit of a URL within a particular browser.
 #[derive(Debug, Clone, Serialize)]
 pub struct URLVisit {
@@ -13140,6 +14446,11 @@ impl URLVisitBuilder {
             class_iri: URLVisit::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for URLVisit {
+    fn class_iri() -> &'static str { URLVisit::CLASS_IRI }
+    fn type_name() -> &'static str { "URLVisit" }
 }
 
 /// A URL visit facet is a grouping of characteristics unique to the properties of a visit of a URL within a particular browser.
@@ -13231,6 +14542,11 @@ impl URLVisitFacetBuilder {
     }
 }
 
+impl CaseObject for URLVisitFacet {
+    fn class_iri() -> &'static str { URLVisitFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "URLVisitFacet" }
+}
+
 /// A user account is an account controlling a user's access to a network, system or platform.
 #[derive(Debug, Clone, Serialize)]
 pub struct UserAccount {
@@ -13258,6 +14574,11 @@ impl UserAccountBuilder {
             class_iri: UserAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for UserAccount {
+    fn class_iri() -> &'static str { UserAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "UserAccount" }
 }
 
 /// A user account facet is a grouping of characteristics unique to an account controlling a user's access to a network, system, or platform.
@@ -13329,6 +14650,11 @@ impl UserAccountFacetBuilder {
     }
 }
 
+impl CaseObject for UserAccountFacet {
+    fn class_iri() -> &'static str { UserAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "UserAccountFacet" }
+}
+
 /// A user session is a temporary and interactive information interchange between two or more communicating devices within the managed scope of a single user. [based on https://en.wikipedia.org/wiki/Sessi
 #[derive(Debug, Clone, Serialize)]
 pub struct UserSession {
@@ -13356,6 +14682,11 @@ impl UserSessionBuilder {
             class_iri: UserSession::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for UserSession {
+    fn class_iri() -> &'static str { UserSession::CLASS_IRI }
+    fn type_name() -> &'static str { "UserSession" }
 }
 
 /// A user session facet is a grouping of characteristics unique to a temporary and interactive information interchange between two or more communicating devices within the managed scope of a single user.
@@ -13437,6 +14768,11 @@ impl UserSessionFacetBuilder {
     }
 }
 
+impl CaseObject for UserSessionFacet {
+    fn class_iri() -> &'static str { UserSessionFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "UserSessionFacet" }
+}
+
 /// A values enumerated effect facet is a grouping of characteristics unique to the effects of actions upon observable objects where a value of the observable object is enumerated. An example of this woul
 #[derive(Debug, Clone, Serialize)]
 pub struct ValuesEnumeratedEffectFacet {
@@ -13476,6 +14812,11 @@ impl ValuesEnumeratedEffectFacetBuilder {
     }
 }
 
+impl CaseObject for ValuesEnumeratedEffectFacet {
+    fn class_iri() -> &'static str { ValuesEnumeratedEffectFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ValuesEnumeratedEffectFacet" }
+}
+
 /// A volume is a single accessible storage area (volume) with a single file system. [based on https://en.wikipedia.org/wiki/Volume_(computing)]
 #[derive(Debug, Clone, Serialize)]
 pub struct Volume {
@@ -13503,6 +14844,11 @@ impl VolumeBuilder {
             class_iri: Volume::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Volume {
+    fn class_iri() -> &'static str { Volume::CLASS_IRI }
+    fn type_name() -> &'static str { "Volume" }
 }
 
 /// A volume facet is a grouping of characteristics unique to a single accessible storage area (volume) with a single file system. [based on https://en.wikipedia.org/wiki/Volume_(computing)]
@@ -13554,6 +14900,11 @@ impl VolumeFacetBuilder {
     }
 }
 
+impl CaseObject for VolumeFacet {
+    fn class_iri() -> &'static str { VolumeFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "VolumeFacet" }
+}
+
 /// A wearable device is an electronic device that is designed to be worn on a person's body.
 #[derive(Debug, Clone, Serialize)]
 pub struct WearableDevice {
@@ -13581,6 +14932,11 @@ impl WearableDeviceBuilder {
             class_iri: WearableDevice::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WearableDevice {
+    fn class_iri() -> &'static str { WearableDevice::CLASS_IRI }
+    fn type_name() -> &'static str { "WearableDevice" }
 }
 
 /// A web page is a specific collection of information provided by a website and displayed to a user in a web browser. A website typically consists of many web pages linked together in a coherent fashion.
@@ -13612,6 +14968,11 @@ impl WebPageBuilder {
     }
 }
 
+impl CaseObject for WebPage {
+    fn class_iri() -> &'static str { WebPage::CLASS_IRI }
+    fn type_name() -> &'static str { "WebPage" }
+}
+
 /// WhoIs is a response record conformant to the WHOIS protocol standard (RFC 3912). [based on https://en.wikipedia.org/wiki/WHOIS]
 #[derive(Debug, Clone, Serialize)]
 pub struct WhoIs {
@@ -13639,6 +15000,11 @@ impl WhoIsBuilder {
             class_iri: WhoIs::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WhoIs {
+    fn class_iri() -> &'static str { WhoIs::CLASS_IRI }
+    fn type_name() -> &'static str { "WhoIs" }
 }
 
 /// A whois facet is a grouping of characteristics unique to a response record conformant to the WHOIS protocol standard (RFC 3912). [based on https://en.wikipedia.org/wiki/WHOIS]
@@ -13840,6 +15206,11 @@ impl WhoIsFacetBuilder {
     }
 }
 
+impl CaseObject for WhoIsFacet {
+    fn class_iri() -> &'static str { WhoIsFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WhoIsFacet" }
+}
+
 /// A Whois contact type is a grouping of characteristics unique to contact-related information present in a response record conformant to the WHOIS protocol standard (RFC 3912). [based on https://en.wiki
 #[derive(Debug, Clone, Serialize)]
 pub struct WhoisContactFacet {
@@ -13877,6 +15248,11 @@ impl WhoisContactFacetBuilder {
             whois_contact_type: self.whois_contact_type,
         }
     }
+}
+
+impl CaseObject for WhoisContactFacet {
+    fn class_iri() -> &'static str { WhoisContactFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WhoisContactFacet" }
 }
 
 /// A Whois registrar info type is a grouping of characteristics unique to registrar-related information present in a response record conformant to the WHOIS protocol standard (RFC 3912). [based on https:
@@ -13988,6 +15364,11 @@ impl WhoisRegistrarInfoTypeBuilder {
     }
 }
 
+impl CaseObject for WhoisRegistrarInfoType {
+    fn class_iri() -> &'static str { WhoisRegistrarInfoType::CLASS_IRI }
+    fn type_name() -> &'static str { "WhoisRegistrarInfoType" }
+}
+
 /// A Wi-Fi address is a media access control (MAC) standards-conformant identifier assigned to a device network interface to enable routing and management of IEEE 802.11 standards-conformant communicatio
 #[derive(Debug, Clone, Serialize)]
 pub struct WifiAddress {
@@ -14015,6 +15396,11 @@ impl WifiAddressBuilder {
             class_iri: WifiAddress::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WifiAddress {
+    fn class_iri() -> &'static str { WifiAddress::CLASS_IRI }
+    fn type_name() -> &'static str { "WifiAddress" }
 }
 
 /// A Wi-Fi address facet is a grouping of characteristics unique to a media access control (MAC) standards conformant identifier assigned to a device network interface to enable routing and management of
@@ -14046,6 +15432,11 @@ impl WifiAddressFacetBuilder {
     }
 }
 
+impl CaseObject for WifiAddressFacet {
+    fn class_iri() -> &'static str { WifiAddressFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WifiAddressFacet" }
+}
+
 /// A wiki is an online hypertext publication collaboratively edited and managed by its own audience directly using a web browser. A typical wiki contains multiple pages/articles for the subjects or scope
 #[derive(Debug, Clone, Serialize)]
 pub struct Wiki {
@@ -14073,6 +15464,11 @@ impl WikiBuilder {
             class_iri: Wiki::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Wiki {
+    fn class_iri() -> &'static str { Wiki::CLASS_IRI }
+    fn type_name() -> &'static str { "Wiki" }
 }
 
 /// A wiki article is one or more pages in a wiki focused on characterizing a particular topic.
@@ -14104,6 +15500,11 @@ impl WikiArticleBuilder {
     }
 }
 
+impl CaseObject for WikiArticle {
+    fn class_iri() -> &'static str { WikiArticle::CLASS_IRI }
+    fn type_name() -> &'static str { "WikiArticle" }
+}
+
 /// A Windows account is a user account on a Windows operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsAccount {
@@ -14131,6 +15532,11 @@ impl WindowsAccountBuilder {
             class_iri: WindowsAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsAccount {
+    fn class_iri() -> &'static str { WindowsAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsAccount" }
 }
 
 /// A Windows account facet is a grouping of characteristics unique to a user account on a Windows operating system.
@@ -14172,6 +15578,11 @@ impl WindowsAccountFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsAccountFacet {
+    fn class_iri() -> &'static str { WindowsAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsAccountFacet" }
+}
+
 /// A Windows Active Directory account is an account managed by directory-based identity-related services of a Windows operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsActiveDirectoryAccount {
@@ -14199,6 +15610,11 @@ impl WindowsActiveDirectoryAccountBuilder {
             class_iri: WindowsActiveDirectoryAccount::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsActiveDirectoryAccount {
+    fn class_iri() -> &'static str { WindowsActiveDirectoryAccount::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsActiveDirectoryAccount" }
 }
 
 /// A Windows Active Directory account facet is a grouping of characteristics unique to an account managed by directory-based identity-related services of a Windows operating system.
@@ -14250,6 +15666,11 @@ impl WindowsActiveDirectoryAccountFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsActiveDirectoryAccountFacet {
+    fn class_iri() -> &'static str { WindowsActiveDirectoryAccountFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsActiveDirectoryAccountFacet" }
+}
+
 /// A Windows computer specification is the hardware ans software of a programmable electronic device that can store, retrieve, and process data running a Microsoft Windows operating system. [based on mer
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsComputerSpecification {
@@ -14277,6 +15698,11 @@ impl WindowsComputerSpecificationBuilder {
             class_iri: WindowsComputerSpecification::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsComputerSpecification {
+    fn class_iri() -> &'static str { WindowsComputerSpecification::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsComputerSpecification" }
 }
 
 /// A Windows computer specification facet is a grouping of characteristics unique to the hardware and software of a programmable electronic device that can store, retrieve, and process data running a Mic
@@ -14438,6 +15864,11 @@ impl WindowsComputerSpecificationFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsComputerSpecificationFacet {
+    fn class_iri() -> &'static str { WindowsComputerSpecificationFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsComputerSpecificationFacet" }
+}
+
 /// A Windows critical section is a Windows object that provides synchronization similar to that provided by a mutex object, except that a critical section can be used only by the threads of a single proc
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsCriticalSection {
@@ -14465,6 +15896,11 @@ impl WindowsCriticalSectionBuilder {
             class_iri: WindowsCriticalSection::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsCriticalSection {
+    fn class_iri() -> &'static str { WindowsCriticalSection::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsCriticalSection" }
 }
 
 /// A Windows event is a notification record of an occurance of interest (system, security, application, etc.) on a Windows operating system.
@@ -14496,6 +15932,11 @@ impl WindowsEventBuilder {
     }
 }
 
+impl CaseObject for WindowsEvent {
+    fn class_iri() -> &'static str { WindowsEvent::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsEvent" }
+}
+
 /// A Windows file mapping is the association of a file's contents with a portion of the virtual address space of a process within a Windows operating system. The system creates a file mapping object (als
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsFilemapping {
@@ -14523,6 +15964,11 @@ impl WindowsFilemappingBuilder {
             class_iri: WindowsFilemapping::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsFilemapping {
+    fn class_iri() -> &'static str { WindowsFilemapping::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsFilemapping" }
 }
 
 /// A Windows handle is an abstract reference to a resource within the Windows operating system, such as a window, memory, an open file or a pipe. It is the mechanism by which applications interact with s
@@ -14554,6 +16000,11 @@ impl WindowsHandleBuilder {
     }
 }
 
+impl CaseObject for WindowsHandle {
+    fn class_iri() -> &'static str { WindowsHandle::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsHandle" }
+}
+
 /// A Windows hook is a mechanism by which an application can intercept events, such as messages, mouse actions, and keystrokes within the Windows operating system. A function that intercepts a particular
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsHook {
@@ -14581,6 +16032,11 @@ impl WindowsHookBuilder {
             class_iri: WindowsHook::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsHook {
+    fn class_iri() -> &'static str { WindowsHook::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsHook" }
 }
 
 /// A Windows mailslot is is a pseudofile that resides in memory, and may be accessed using standard file functions. The data in a mailslot message can be in any form, but cannot be larger than 424 bytes 
@@ -14612,6 +16068,11 @@ impl WindowsMailslotBuilder {
     }
 }
 
+impl CaseObject for WindowsMailslot {
+    fn class_iri() -> &'static str { WindowsMailslot::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsMailslot" }
+}
+
 /// A Windows network share is a Windows computer resource made available from one host to other hosts on a computer network. It is a device or piece of information on a computer that can be remotely acce
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsNetworkShare {
@@ -14641,6 +16102,11 @@ impl WindowsNetworkShareBuilder {
     }
 }
 
+impl CaseObject for WindowsNetworkShare {
+    fn class_iri() -> &'static str { WindowsNetworkShare::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsNetworkShare" }
+}
+
 /// A Windows PE binary file is a Windows portable executable (PE) file.
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsPEBinaryFile {
@@ -14668,6 +16134,11 @@ impl WindowsPEBinaryFileBuilder {
             class_iri: WindowsPEBinaryFile::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsPEBinaryFile {
+    fn class_iri() -> &'static str { WindowsPEBinaryFile::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsPEBinaryFile" }
 }
 
 /// A Windows PE binary file facet is a grouping of characteristics unique to a Windows portable executable (PE) file.
@@ -14819,6 +16290,11 @@ impl WindowsPEBinaryFileFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsPEBinaryFileFacet {
+    fn class_iri() -> &'static str { WindowsPEBinaryFileFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsPEBinaryFileFacet" }
+}
+
 /// A Windows PE file header is a grouping of characteristics unique to the 'header' of a Windows PE (Portable Executable) file, consisting of a collection of metadata about the overall nature and structu
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsPEFileHeader {
@@ -14856,6 +16332,11 @@ impl WindowsPEFileHeaderBuilder {
             time_date_stamp: self.time_date_stamp,
         }
     }
+}
+
+impl CaseObject for WindowsPEFileHeader {
+    fn class_iri() -> &'static str { WindowsPEFileHeader::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsPEFileHeader" }
 }
 
 /// A Windows PE optional header is a grouping of characteristics unique to the 'optional header' of a Windows PE (Portable Executable) file, consisting of a collection of metadata about the executable co
@@ -15177,6 +16658,11 @@ impl WindowsPEOptionalHeaderBuilder {
     }
 }
 
+impl CaseObject for WindowsPEOptionalHeader {
+    fn class_iri() -> &'static str { WindowsPEOptionalHeader::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsPEOptionalHeader" }
+}
+
 /// A Windows PE section is a grouping of characteristics unique to a specific default or custom-defined region of a Windows PE (Portable Executable) file, consisting of an individual portion of the actua
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsPESection {
@@ -15246,6 +16732,11 @@ impl WindowsPESectionBuilder {
     }
 }
 
+impl CaseObject for WindowsPESection {
+    fn class_iri() -> &'static str { WindowsPESection::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsPESection" }
+}
+
 /// The Windows prefetch contains entries in a Windows prefetch file (used to speed up application startup starting with Windows XP).
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsPrefetch {
@@ -15273,6 +16764,11 @@ impl WindowsPrefetchBuilder {
             class_iri: WindowsPrefetch::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsPrefetch {
+    fn class_iri() -> &'static str { WindowsPrefetch::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsPrefetch" }
 }
 
 /// A Windows prefetch facet is a grouping of characteristics unique to entries in the Windows prefetch file (used to speed up application startup starting with Windows XP).
@@ -15384,6 +16880,11 @@ impl WindowsPrefetchFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsPrefetchFacet {
+    fn class_iri() -> &'static str { WindowsPrefetchFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsPrefetchFacet" }
+}
+
 /// A Windows process is a program running on a Windows operating system.
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsProcess {
@@ -15411,6 +16912,11 @@ impl WindowsProcessBuilder {
             class_iri: WindowsProcess::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsProcess {
+    fn class_iri() -> &'static str { WindowsProcess::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsProcess" }
 }
 
 /// A Windows process facet is a grouping of characteristics unique to a program running on a Windows operating system.
@@ -15502,6 +17008,11 @@ impl WindowsProcessFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsProcessFacet {
+    fn class_iri() -> &'static str { WindowsProcessFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsProcessFacet" }
+}
+
 /// The Windows registry hive is a particular logical group of keys, subkeys, and values in a Windows registry (a hierarchical database that stores low-level settings for the Microsoft Windows operating s
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsRegistryHive {
@@ -15529,6 +17040,11 @@ impl WindowsRegistryHiveBuilder {
             class_iri: WindowsRegistryHive::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsRegistryHive {
+    fn class_iri() -> &'static str { WindowsRegistryHive::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsRegistryHive" }
 }
 
 /// A Windows registry hive facet is a grouping of characteristics unique to a particular logical group of keys, subkeys, and values in a Windows registry (a hierarchical database that stores low-level se
@@ -15570,6 +17086,11 @@ impl WindowsRegistryHiveFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsRegistryHiveFacet {
+    fn class_iri() -> &'static str { WindowsRegistryHiveFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsRegistryHiveFacet" }
+}
+
 /// A Windows registry key is a particular key within a Windows registry (a hierarchical database that stores low-level settings for the Microsoft Windows operating system and for applications that opt to
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsRegistryKey {
@@ -15597,6 +17118,11 @@ impl WindowsRegistryKeyBuilder {
             class_iri: WindowsRegistryKey::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsRegistryKey {
+    fn class_iri() -> &'static str { WindowsRegistryKey::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsRegistryKey" }
 }
 
 /// A Windows registry key facet is a grouping of characteristics unique to a particular key within a Windows registry (A hierarchical database that stores low-level settings for the Microsoft Windows ope
@@ -15678,6 +17204,11 @@ impl WindowsRegistryKeyFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsRegistryKeyFacet {
+    fn class_iri() -> &'static str { WindowsRegistryKeyFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsRegistryKeyFacet" }
+}
+
 /// A Windows registry value is a grouping of characteristics unique to a particular value within a Windows registry (a hierarchical database that stores low-level settings for the Microsoft Windows opera
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsRegistryValue {
@@ -15737,6 +17268,11 @@ impl WindowsRegistryValueBuilder {
     }
 }
 
+impl CaseObject for WindowsRegistryValue {
+    fn class_iri() -> &'static str { WindowsRegistryValue::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsRegistryValue" }
+}
+
 /// A Windows service is a specific Windows service (a computer program that operates in the background of a Windows operating system, similar to the way a UNIX daemon runs on UNIX). [based on https://en.
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsService {
@@ -15764,6 +17300,11 @@ impl WindowsServiceBuilder {
             class_iri: WindowsService::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsService {
+    fn class_iri() -> &'static str { WindowsService::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsService" }
 }
 
 /// A Windows service facet is a grouping of characteristics unique to a specific Windows service (a computer program that operates in the background of a Windows operating system, similar to the way a UN
@@ -15875,6 +17416,11 @@ impl WindowsServiceFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsServiceFacet {
+    fn class_iri() -> &'static str { WindowsServiceFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsServiceFacet" }
+}
+
 /// A Windows system restore is a capture of a Windows computer's state (including system files, installed applications, Windows Registry, and system settings) at a particular point in time such that the 
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsSystemRestore {
@@ -15904,6 +17450,11 @@ impl WindowsSystemRestoreBuilder {
     }
 }
 
+impl CaseObject for WindowsSystemRestore {
+    fn class_iri() -> &'static str { WindowsSystemRestore::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsSystemRestore" }
+}
+
 /// A Windows task is a process that is scheduled to execute on a Windows operating system by the Windows Task Scheduler. [based on http://msdn.microsoft.com/en-us/library/windows/desktop/aa381311(v=vs.85
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsTask {
@@ -15931,6 +17482,11 @@ impl WindowsTaskBuilder {
             class_iri: WindowsTask::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsTask {
+    fn class_iri() -> &'static str { WindowsTask::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsTask" }
 }
 
 /// A Windows Task facet is a grouping of characteristics unique to a Windows Task (a process that is scheduled to execute on a Windows operating system by the Windows Task Scheduler). [based on http://ms
@@ -16162,6 +17718,11 @@ impl WindowsTaskFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsTaskFacet {
+    fn class_iri() -> &'static str { WindowsTaskFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsTaskFacet" }
+}
+
 /// A Windows thread is a single thread of execution within a Windows process.
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsThread {
@@ -16189,6 +17750,11 @@ impl WindowsThreadBuilder {
             class_iri: WindowsThread::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WindowsThread {
+    fn class_iri() -> &'static str { WindowsThread::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsThread" }
 }
 
 /// A Windows thread facet is a grouping os characteristics unique to a single thread of execution within a Windows process.
@@ -16330,6 +17896,11 @@ impl WindowsThreadFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsThreadFacet {
+    fn class_iri() -> &'static str { WindowsThreadFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsThreadFacet" }
+}
+
 /// A Windows volume facet is a grouping of characteristics unique to a single accessible storage area (volume) with a single Windows file system. [based on https://en.wikipedia.org/wiki/Volume_(computing
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsVolumeFacet {
@@ -16389,6 +17960,11 @@ impl WindowsVolumeFacetBuilder {
     }
 }
 
+impl CaseObject for WindowsVolumeFacet {
+    fn class_iri() -> &'static str { WindowsVolumeFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsVolumeFacet" }
+}
+
 /// A Windows waitable timer is a synchronization object within the Windows operating system whose state is set to signaled when a specified due time arrives. There are two types of waitable timers that c
 #[derive(Debug, Clone, Serialize)]
 pub struct WindowsWaitableTime {
@@ -16418,6 +17994,11 @@ impl WindowsWaitableTimeBuilder {
     }
 }
 
+impl CaseObject for WindowsWaitableTime {
+    fn class_iri() -> &'static str { WindowsWaitableTime::CLASS_IRI }
+    fn type_name() -> &'static str { "WindowsWaitableTime" }
+}
+
 /// A wireless network connection is a connection (completed or attempted) across an IEEE 802.11 standards-confromant digital network (a group of two or more computer systems linked together). [based on h
 #[derive(Debug, Clone, Serialize)]
 pub struct WirelessNetworkConnection {
@@ -16445,6 +18026,11 @@ impl WirelessNetworkConnectionBuilder {
             class_iri: WirelessNetworkConnection::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for WirelessNetworkConnection {
+    fn class_iri() -> &'static str { WirelessNetworkConnection::CLASS_IRI }
+    fn type_name() -> &'static str { "WirelessNetworkConnection" }
 }
 
 /// A wireless network connection facet is a grouping of characteristics unique to a connection (completed or attempted) across an IEEE 802.11 standards-conformant digital network (a group of two or more 
@@ -16516,6 +18102,11 @@ impl WirelessNetworkConnectionFacetBuilder {
     }
 }
 
+impl CaseObject for WirelessNetworkConnectionFacet {
+    fn class_iri() -> &'static str { WirelessNetworkConnectionFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "WirelessNetworkConnectionFacet" }
+}
+
 /// A write blocker is a device that allows read-only access to storage mediums in order to preserve the integrity of the data being analyzed. Examples include Tableau, Cellibrite, Talon, etc.
 #[derive(Debug, Clone, Serialize)]
 pub struct WriteBlocker {
@@ -16545,6 +18136,11 @@ impl WriteBlockerBuilder {
     }
 }
 
+impl CaseObject for WriteBlocker {
+    fn class_iri() -> &'static str { WriteBlocker::CLASS_IRI }
+    fn type_name() -> &'static str { "WriteBlocker" }
+}
+
 /// A X.509 certificate is a public key digital identity certificate conformant to the X.509 PKI (Public Key Infrastructure) standard.
 #[derive(Debug, Clone, Serialize)]
 pub struct X509Certificate {
@@ -16572,6 +18168,11 @@ impl X509CertificateBuilder {
             class_iri: X509Certificate::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for X509Certificate {
+    fn class_iri() -> &'static str { X509Certificate::CLASS_IRI }
+    fn type_name() -> &'static str { "X509Certificate" }
 }
 
 /// A X.509 certificate facet is a grouping of characteristics unique to a public key digital identity certificate conformant to the X.509 PKI (Public Key Infrastructure) standard. 
@@ -16763,6 +18364,11 @@ impl X509CertificateFacetBuilder {
     }
 }
 
+impl CaseObject for X509CertificateFacet {
+    fn class_iri() -> &'static str { X509CertificateFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "X509CertificateFacet" }
+}
+
 /// An X.509 v3 certificate is a public key digital identity certificate conformant to the X.509 v3 PKI (Public Key Infrastructure) standard. 
 #[derive(Debug, Clone, Serialize)]
 pub struct X509V3Certificate {
@@ -16790,6 +18396,11 @@ impl X509V3CertificateBuilder {
             class_iri: X509V3Certificate::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for X509V3Certificate {
+    fn class_iri() -> &'static str { X509V3Certificate::CLASS_IRI }
+    fn type_name() -> &'static str { "X509V3Certificate" }
 }
 
 /// An X.509 v3 certificate extensions facet is a grouping of characteristics unique to a public key digital identity certificate conformant to the X.509 v3 PKI (Public Key Infrastructure) standard.
@@ -16979,4 +18590,9 @@ impl X509V3ExtensionsFacetBuilder {
             subject_key_identifier: self.subject_key_identifier,
         }
     }
+}
+
+impl CaseObject for X509V3ExtensionsFacet {
+    fn class_iri() -> &'static str { X509V3ExtensionsFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "X509V3ExtensionsFacet" }
 }

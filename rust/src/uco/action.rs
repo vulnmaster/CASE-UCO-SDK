@@ -1,6 +1,7 @@
 //! Auto-generated uco-action types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 use crate::uco::core::UcoObject;
 use crate::uco::location::Location;
@@ -164,6 +165,11 @@ impl ActionBuilder {
     }
 }
 
+impl CaseObject for Action {
+    fn class_iri() -> &'static str { Action::CLASS_IRI }
+    fn type_name() -> &'static str { "Action" }
+}
+
 /// An action argument facet is a grouping of characteristics unique to a single parameter of an action.
 #[derive(Debug, Clone, Serialize)]
 pub struct ActionArgumentFacet {
@@ -211,6 +217,11 @@ impl ActionArgumentFacetBuilder {
             value: self.value.expect("missing required field: value"),
         }
     }
+}
+
+impl CaseObject for ActionArgumentFacet {
+    fn class_iri() -> &'static str { ActionArgumentFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ActionArgumentFacet" }
 }
 
 /// An action estimation facet is a grouping of characteristics unique to decision-focused approximation aspects for an action that may potentially be performed.
@@ -282,6 +293,11 @@ impl ActionEstimationFacetBuilder {
     }
 }
 
+impl CaseObject for ActionEstimationFacet {
+    fn class_iri() -> &'static str { ActionEstimationFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ActionEstimationFacet" }
+}
+
 /// An action frequency facet is a grouping of characteristics unique to the frequency of occurrence for an action.
 #[derive(Debug, Clone, Serialize)]
 pub struct ActionFrequencyFacet {
@@ -349,6 +365,11 @@ impl ActionFrequencyFacetBuilder {
             units: self.units.expect("missing required field: units"),
         }
     }
+}
+
+impl CaseObject for ActionFrequencyFacet {
+    fn class_iri() -> &'static str { ActionFrequencyFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ActionFrequencyFacet" }
 }
 
 /// An action lifecycle is an action pattern consisting of an ordered set of multiple actions or subordinate action lifecycles.
@@ -430,6 +451,11 @@ impl ActionLifecycleBuilder {
     }
 }
 
+impl CaseObject for ActionLifecycle {
+    fn class_iri() -> &'static str { ActionLifecycle::CLASS_IRI }
+    fn type_name() -> &'static str { "ActionLifecycle" }
+}
+
 /// An action pattern is a grouping of characteristics unique to a combination of actions forming a consistent or characteristic arrangement.
 #[derive(Debug, Clone, Serialize)]
 pub struct ActionPattern {
@@ -457,6 +483,11 @@ impl ActionPatternBuilder {
             class_iri: ActionPattern::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ActionPattern {
+    fn class_iri() -> &'static str { ActionPattern::CLASS_IRI }
+    fn type_name() -> &'static str { "ActionPattern" }
 }
 
 /// An array of action is an ordered list of references to things that may be done or performed.
@@ -496,4 +527,9 @@ impl ArrayOfActionBuilder {
             action: self.action,
         }
     }
+}
+
+impl CaseObject for ArrayOfAction {
+    fn class_iri() -> &'static str { ArrayOfAction::CLASS_IRI }
+    fn type_name() -> &'static str { "ArrayOfAction" }
 }

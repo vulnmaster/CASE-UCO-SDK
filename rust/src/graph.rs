@@ -5,10 +5,18 @@ use serde_json::{json, Map, Value};
 use std::collections::HashMap;
 use uuid::Uuid;
 
+/// Trait implemented by generated CASE/UCO types so that `CaseGraph::create`
+/// can read the class IRI and type name without manual arguments.
+pub trait CaseObject {
+    fn class_iri() -> &'static str;
+    fn type_name() -> &'static str;
+}
+
 /// Build a CASE/UCO JSON-LD graph with typed objects.
 pub struct CaseGraph {
     context: HashMap<String, String>,
     objects: Vec<Value>,
+    id_map: HashMap<String, String>,
 }
 
 impl CaseGraph {
@@ -19,6 +27,7 @@ impl CaseGraph {
         CaseGraph {
             context,
             objects: Vec::new(),
+            id_map: HashMap::new(),
         }
     }
 
@@ -26,7 +35,17 @@ impl CaseGraph {
         self.context.insert(prefix.to_string(), iri.to_string());
     }
 
-    /// Add a serializable object to the graph. Returns the assigned @id.
+    /// Add a generated CASE/UCO object to the graph. Returns the assigned @id.
+    ///
+    /// This is the preferred API — the type name and class IRI are read from
+    /// the [`CaseObject`] trait that the code generator implements on every
+    /// generated struct.
+    pub fn create<T: CaseObject + Serialize>(&mut self, instance: &T) -> String {
+        self.add(T::type_name(), T::class_iri(), instance)
+    }
+
+    /// Add a serializable object to the graph with explicit type info.
+    /// Returns the assigned @id.
     pub fn add<T: Serialize>(&mut self, type_name: &str, class_iri: &str, instance: &T) -> String {
         let id = format!("kb:{}-{}", type_name, Uuid::new_v4());
         let compact_type = self.compact_iri(class_iri);
@@ -44,8 +63,17 @@ impl CaseGraph {
         id
     }
 
+    /// Retrieve the @id that was assigned to an object by a previous
+    /// `create` / `add` call, looked up by the id string itself.
+    pub fn get_id(&self, id: &str) -> Option<&String> {
+        self.id_map.get(id)
+    }
+
     /// Serialize the graph to a JSON-LD string.
-    pub fn serialize(&self) -> String {
+    ///
+    /// Returns `Err` if the internal structure cannot be serialized
+    /// (should not happen under normal use).
+    pub fn serialize(&self) -> Result<String, serde_json::Error> {
         let context_value: Map<String, Value> = self
             .context
             .iter()
@@ -57,12 +85,13 @@ impl CaseGraph {
             "@graph": self.objects,
         });
 
-        serde_json::to_string_pretty(&doc).unwrap_or_default()
+        serde_json::to_string_pretty(&doc)
     }
 
     /// Write the graph to a file.
     pub fn write(&self, path: &str) -> std::io::Result<()> {
-        std::fs::write(path, self.serialize())
+        let json = self.serialize().map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+        std::fs::write(path, json)
     }
 
     fn compact_iri(&self, iri: &str) -> String {

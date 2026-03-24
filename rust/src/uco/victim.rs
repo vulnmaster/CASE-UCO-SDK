@@ -1,6 +1,7 @@
 //! Auto-generated uco-victim types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// A victim is a role played by a person or organization that is/was the target of some malicious action.
 #[derive(Debug, Clone, Serialize)]
@@ -31,6 +32,11 @@ impl VictimBuilder {
     }
 }
 
+impl CaseObject for Victim {
+    fn class_iri() -> &'static str { Victim::CLASS_IRI }
+    fn type_name() -> &'static str { "Victim" }
+}
+
 /// A victim targeting is a grouping of characteristics unique to people or organizations that are the target of some malicious activity.
 #[derive(Debug, Clone, Serialize)]
 pub struct VictimTargeting {
@@ -58,4 +64,9 @@ impl VictimTargetingBuilder {
             class_iri: VictimTargeting::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for VictimTargeting {
+    fn class_iri() -> &'static str { VictimTargeting::CLASS_IRI }
+    fn type_name() -> &'static str { "VictimTargeting" }
 }

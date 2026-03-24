@@ -31,13 +31,27 @@ class ToolCapability:
     CLASS_IRI: str = "https://example.org/ontology/toolcap/ToolCapability"
     NAMESPACE_PREFIX: str = "toolcap"
 
-    tool: Optional[Tool] = None
-    application: Optional[ObservableObject] = None
-    supported_platform: list[str] = field(default_factory=list)
-    parsed_observable_type: list[str] = field(default_factory=list)
-    tool_version: Optional[str] = None
-    is_verified: Optional[bool] = None
-    last_tested_date: Optional[str] = None
+    tool: Optional[Tool] = field(default=None, metadata={
+        'jsonld_key': 'toolcap:tool', 'required': True, 'cardinality': 'exactly_one',
+        'range_iri': 'https://ontology.unifiedcyberontology.org/uco/tool/Tool', 'alternate_range_iris': []})
+    application: Optional[ObservableObject] = field(default=None, metadata={
+        'jsonld_key': 'toolcap:application', 'required': True, 'cardinality': 'exactly_one',
+        'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
+    supported_platform: list[str] = field(default_factory=list, metadata={
+        'jsonld_key': 'toolcap:supportedPlatform', 'required': False, 'cardinality': 'zero_or_more',
+        'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    parsed_observable_type: list[str] = field(default_factory=list, metadata={
+        'jsonld_key': 'toolcap:parsedObservableType', 'required': False, 'cardinality': 'zero_or_more',
+        'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    tool_version: Optional[str] = field(default=None, metadata={
+        'jsonld_key': 'toolcap:toolVersion', 'required': False, 'cardinality': 'zero_or_one',
+        'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    is_verified: Optional[bool] = field(default=None, metadata={
+        'jsonld_key': 'toolcap:isVerified', 'required': False, 'cardinality': 'zero_or_one',
+        'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    last_tested_date: Optional[str] = field(default=None, metadata={
+        'jsonld_key': 'toolcap:lastTestedDate', 'required': False, 'cardinality': 'zero_or_one',
+        'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -47,8 +61,12 @@ class CapabilityMatrix:
     CLASS_IRI: str = "https://example.org/ontology/toolcap/CapabilityMatrix"
     NAMESPACE_PREFIX: str = "toolcap"
 
-    matrix_name: Optional[str] = None
-    matrix_version: Optional[str] = None
+    matrix_name: Optional[str] = field(default=None, metadata={
+        'jsonld_key': 'toolcap:matrixName', 'required': False, 'cardinality': 'zero_or_one',
+        'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    matrix_version: Optional[str] = field(default=None, metadata={
+        'jsonld_key': 'toolcap:matrixVersion', 'required': False, 'cardinality': 'zero_or_one',
+        'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 def main():

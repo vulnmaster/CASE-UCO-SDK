@@ -1,6 +1,7 @@
 //! Auto-generated uco-pattern types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// A logical pattern is a grouping of characteristics unique to an informational pattern expressed via a structured pattern expression following the rules of logic.
 #[derive(Debug, Clone, Serialize)]
@@ -41,6 +42,11 @@ impl LogicalPatternBuilder {
     }
 }
 
+impl CaseObject for LogicalPattern {
+    fn class_iri() -> &'static str { LogicalPattern::CLASS_IRI }
+    fn type_name() -> &'static str { "LogicalPattern" }
+}
+
 /// A pattern is a combination of properties, acts, tendencies, etc., forming a consistent or characteristic arrangement.
 #[derive(Debug, Clone, Serialize)]
 pub struct Pattern {
@@ -70,6 +76,11 @@ impl PatternBuilder {
     }
 }
 
+impl CaseObject for Pattern {
+    fn class_iri() -> &'static str { Pattern::CLASS_IRI }
+    fn type_name() -> &'static str { "Pattern" }
+}
+
 /// A pattern expression is a grouping of characteristics unique to an explicit logical expression defining a pattern (e.g., regular expression, SQL Select expression, etc.).
 #[derive(Debug, Clone, Serialize)]
 pub struct PatternExpression {
@@ -97,4 +108,9 @@ impl PatternExpressionBuilder {
             class_iri: PatternExpression::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for PatternExpression {
+    fn class_iri() -> &'static str { PatternExpression::CLASS_IRI }
+    fn type_name() -> &'static str { "PatternExpression" }
 }

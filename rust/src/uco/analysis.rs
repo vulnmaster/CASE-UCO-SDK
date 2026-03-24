@@ -1,6 +1,7 @@
 //! Auto-generated uco-analysis types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// An analytic result facet is a grouping of characteristics unique to the results of an analysis action.
 #[derive(Debug, Clone, Serialize)]
@@ -29,6 +30,11 @@ impl AnalyticResultFacetBuilder {
             class_iri: AnalyticResultFacet::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for AnalyticResultFacet {
+    fn class_iri() -> &'static str { AnalyticResultFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "AnalyticResultFacet" }
 }
 
 /// An artifact classification is a single specific assertion that a particular class of a classification taxonomy applies to something.
@@ -80,6 +86,11 @@ impl ArtifactClassificationBuilder {
     }
 }
 
+impl CaseObject for ArtifactClassification {
+    fn class_iri() -> &'static str { ArtifactClassification::CLASS_IRI }
+    fn type_name() -> &'static str { "ArtifactClassification" }
+}
+
 /// An artifact classification result facet is a grouping of characteristics unique to the results of an artifact classification analysis action.
 #[derive(Debug, Clone, Serialize)]
 pub struct ArtifactClassificationResultFacet {
@@ -117,4 +128,9 @@ impl ArtifactClassificationResultFacetBuilder {
             classification: self.classification,
         }
     }
+}
+
+impl CaseObject for ArtifactClassificationResultFacet {
+    fn class_iri() -> &'static str { ArtifactClassificationResultFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ArtifactClassificationResultFacet" }
 }

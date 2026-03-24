@@ -26,7 +26,6 @@ UCO_CORE = "https://ontology.unifiedcyberontology.org/uco/core/"
 CASE_INVESTIGATION = "https://ontology.caseontology.org/case/investigation/"
 
 FACET_IRI = UCO_CORE + "Facet"
-UCO_INHERENT_IRI = UCO_CORE + "UcoInherentCharacterizationThing"
 
 # Namespace prefix -> ontology module name mapping
 PREFIX_TO_MODULE: dict[str, tuple[str, str]] = {

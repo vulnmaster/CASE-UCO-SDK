@@ -1,6 +1,7 @@
 //! Auto-generated uco-types types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// A controlled dictionary is a list of (term/key, value) pairs where each term/key exists no more than once and is constrained to an explicitly defined set of values.
 #[derive(Debug, Clone, Serialize)]
@@ -41,6 +42,11 @@ impl ControlledDictionaryBuilder {
     }
 }
 
+impl CaseObject for ControlledDictionary {
+    fn class_iri() -> &'static str { ControlledDictionary::CLASS_IRI }
+    fn type_name() -> &'static str { "ControlledDictionary" }
+}
+
 /// A controlled dictionary entry is a single (term/key, value) pair where the term/key is constrained to an explicitly defined set of values.
 #[derive(Debug, Clone, Serialize)]
 pub struct ControlledDictionaryEntry {
@@ -68,6 +74,11 @@ impl ControlledDictionaryEntryBuilder {
             class_iri: ControlledDictionaryEntry::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ControlledDictionaryEntry {
+    fn class_iri() -> &'static str { ControlledDictionaryEntry::CLASS_IRI }
+    fn type_name() -> &'static str { "ControlledDictionaryEntry" }
 }
 
 /// A dictionary is list of (term/key, value) pairs with each term/key having an expectation to exist no more than once.  types:Dictionary alone does not validate this expectation, but validation is avail
@@ -107,6 +118,11 @@ impl DictionaryBuilder {
             entry: self.entry,
         }
     }
+}
+
+impl CaseObject for Dictionary {
+    fn class_iri() -> &'static str { Dictionary::CLASS_IRI }
+    fn type_name() -> &'static str { "Dictionary" }
 }
 
 /// A dictionary entry is a single (term/key, value) pair.
@@ -158,6 +174,11 @@ impl DictionaryEntryBuilder {
     }
 }
 
+impl CaseObject for DictionaryEntry {
+    fn class_iri() -> &'static str { DictionaryEntry::CLASS_IRI }
+    fn type_name() -> &'static str { "DictionaryEntry" }
+}
+
 /// A hash is a grouping of characteristics unique to the result of applying a mathematical algorithm that maps data of arbitrary size to a bit string (the 'hash') and is a one-way function, that is, a fu
 #[derive(Debug, Clone, Serialize)]
 pub struct Hash {
@@ -207,6 +228,11 @@ impl HashBuilder {
     }
 }
 
+impl CaseObject for Hash {
+    fn class_iri() -> &'static str { Hash::CLASS_IRI }
+    fn type_name() -> &'static str { "Hash" }
+}
+
 /// ImproperDictionary
 #[derive(Debug, Clone, Serialize)]
 pub struct ImproperDictionary {
@@ -246,6 +272,11 @@ impl ImproperDictionaryBuilder {
     }
 }
 
+impl CaseObject for ImproperDictionary {
+    fn class_iri() -> &'static str { ImproperDictionary::CLASS_IRI }
+    fn type_name() -> &'static str { "ImproperDictionary" }
+}
+
 /// A proper dictionary is list of (term/key, value) pairs with each term/key existing no more than once.
 #[derive(Debug, Clone, Serialize)]
 pub struct ProperDictionary {
@@ -273,6 +304,11 @@ impl ProperDictionaryBuilder {
             class_iri: ProperDictionary::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ProperDictionary {
+    fn class_iri() -> &'static str { ProperDictionary::CLASS_IRI }
+    fn type_name() -> &'static str { "ProperDictionary" }
 }
 
 /// A semi-ordered array of items, that can be present in multiple copies.  Implemetation of a UCO Thread is similar to a Collections Ontology List, except a Thread may fork and merge - that is, one of it
@@ -304,6 +340,11 @@ impl ThreadBuilder {
     }
 }
 
+impl CaseObject for Thread {
+    fn class_iri() -> &'static str { Thread::CLASS_IRI }
+    fn type_name() -> &'static str { "Thread" }
+}
+
 /// A ThreadItem is a member of a thread.
 #[derive(Debug, Clone, Serialize)]
 pub struct ThreadItem {
@@ -331,4 +372,9 @@ impl ThreadItemBuilder {
             class_iri: ThreadItem::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ThreadItem {
+    fn class_iri() -> &'static str { ThreadItem::CLASS_IRI }
+    fn type_name() -> &'static str { "ThreadItem" }
 }

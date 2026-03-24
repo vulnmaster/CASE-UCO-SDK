@@ -1,6 +1,7 @@
 //! Auto-generated uco-configuration types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 use crate::uco::core::UcoObject;
 
@@ -61,6 +62,11 @@ impl ConfigurationBuilder {
             usage_context_assumptions: self.usage_context_assumptions,
         }
     }
+}
+
+impl CaseObject for Configuration {
+    fn class_iri() -> &'static str { Configuration::CLASS_IRI }
+    fn type_name() -> &'static str { "Configuration" }
 }
 
 /// A configuration entry is a grouping of characteristics unique to a particular parameter or initial setting for the use of a tool, application, software, or other cyber object.
@@ -142,6 +148,11 @@ impl ConfigurationEntryBuilder {
     }
 }
 
+impl CaseObject for ConfigurationEntry {
+    fn class_iri() -> &'static str { ConfigurationEntry::CLASS_IRI }
+    fn type_name() -> &'static str { "ConfigurationEntry" }
+}
+
 /// A dependency is a grouping of characteristics unique to something that a tool or other software relies on to function as intended.
 #[derive(Debug, Clone, Serialize)]
 pub struct Dependency {
@@ -189,4 +200,9 @@ impl DependencyBuilder {
             dependency_type: self.dependency_type,
         }
     }
+}
+
+impl CaseObject for Dependency {
+    fn class_iri() -> &'static str { Dependency::CLASS_IRI }
+    fn type_name() -> &'static str { "Dependency" }
 }

@@ -1,6 +1,7 @@
 //! Auto-generated uco-role types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// A benevolent role is a role with positive and/or beneficial intent.
 #[derive(Debug, Clone, Serialize)]
@@ -29,6 +30,11 @@ impl BenevolentRoleBuilder {
             class_iri: BenevolentRole::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for BenevolentRole {
+    fn class_iri() -> &'static str { BenevolentRole::CLASS_IRI }
+    fn type_name() -> &'static str { "BenevolentRole" }
 }
 
 /// A malicious role is a role with malevolent intent.
@@ -60,6 +66,11 @@ impl MaliciousRoleBuilder {
     }
 }
 
+impl CaseObject for MaliciousRole {
+    fn class_iri() -> &'static str { MaliciousRole::CLASS_IRI }
+    fn type_name() -> &'static str { "MaliciousRole" }
+}
+
 /// A neutral role is a role with impartial intent.
 #[derive(Debug, Clone, Serialize)]
 pub struct NeutralRole {
@@ -89,6 +100,11 @@ impl NeutralRoleBuilder {
     }
 }
 
+impl CaseObject for NeutralRole {
+    fn class_iri() -> &'static str { NeutralRole::CLASS_IRI }
+    fn type_name() -> &'static str { "NeutralRole" }
+}
+
 /// A role is a usual or customary function based on contextual perspective.
 #[derive(Debug, Clone, Serialize)]
 pub struct Role {
@@ -116,4 +132,9 @@ impl RoleBuilder {
             class_iri: Role::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Role {
+    fn class_iri() -> &'static str { Role::CLASS_IRI }
+    fn type_name() -> &'static str { "Role" }
 }

@@ -1,6 +1,7 @@
 //! Auto-generated uco-marking types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// A granular marking is a grouping of characteristics unique to specification of marking definitions (restrictions, permissions, and other guidance for how data can be used and shared) that apply to par
 #[derive(Debug, Clone, Serialize)]
@@ -49,6 +50,11 @@ impl GranularMarkingBuilder {
             marking: self.marking,
         }
     }
+}
+
+impl CaseObject for GranularMarking {
+    fn class_iri() -> &'static str { GranularMarking::CLASS_IRI }
+    fn type_name() -> &'static str { "GranularMarking" }
 }
 
 /// A license marking is a grouping of characteristics unique to the expression of data marking definitions (restrictions, permissions, and other guidance for how data can be used and shared) to convey de
@@ -100,6 +106,11 @@ impl LicenseMarkingBuilder {
     }
 }
 
+impl CaseObject for LicenseMarking {
+    fn class_iri() -> &'static str { LicenseMarking::CLASS_IRI }
+    fn type_name() -> &'static str { "LicenseMarking" }
+}
+
 /// A marking definition is a grouping of characteristics unique to the expression of a specific data marking conveying restrictions, permissions, and other guidance for how marked data can be used and sh
 #[derive(Debug, Clone, Serialize)]
 pub struct MarkingDefinition {
@@ -149,6 +160,11 @@ impl MarkingDefinitionBuilder {
     }
 }
 
+impl CaseObject for MarkingDefinition {
+    fn class_iri() -> &'static str { MarkingDefinition::CLASS_IRI }
+    fn type_name() -> &'static str { "MarkingDefinition" }
+}
+
 /// A marking model is a grouping of characteristics unique to the expression of a particular form of data marking definitions (restrictions, permissions, and other guidance for how data can be used and s
 #[derive(Debug, Clone, Serialize)]
 pub struct MarkingModel {
@@ -176,6 +192,11 @@ impl MarkingModelBuilder {
             class_iri: MarkingModel::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for MarkingModel {
+    fn class_iri() -> &'static str { MarkingModel::CLASS_IRI }
+    fn type_name() -> &'static str { "MarkingModel" }
 }
 
 /// A release-to marking is a grouping of characteristics unique to the expression of data marking definitions (restrictions, permissions, and other guidance for how data can be used and shared) to convey
@@ -227,6 +248,11 @@ impl ReleaseToMarkingBuilder {
     }
 }
 
+impl CaseObject for ReleaseToMarking {
+    fn class_iri() -> &'static str { ReleaseToMarking::CLASS_IRI }
+    fn type_name() -> &'static str { "ReleaseToMarking" }
+}
+
 /// A statement marking is a grouping of characteristics unique to the expression of data marking definitions (restrictions, permissions, and other guidance for how data can be used and shared) to convey 
 #[derive(Debug, Clone, Serialize)]
 pub struct StatementMarking {
@@ -276,6 +302,11 @@ impl StatementMarkingBuilder {
     }
 }
 
+impl CaseObject for StatementMarking {
+    fn class_iri() -> &'static str { StatementMarking::CLASS_IRI }
+    fn type_name() -> &'static str { "StatementMarking" }
+}
+
 /// A terms of use marking is a grouping of characteristics unique to the expression of data marking definitions (restrictions, permissions, and other guidance for how data can be used and shared) to conv
 #[derive(Debug, Clone, Serialize)]
 pub struct TermsOfUseMarking {
@@ -323,4 +354,9 @@ impl TermsOfUseMarkingBuilder {
             terms_of_use: self.terms_of_use.expect("missing required field: terms_of_use"),
         }
     }
+}
+
+impl CaseObject for TermsOfUseMarking {
+    fn class_iri() -> &'static str { TermsOfUseMarking::CLASS_IRI }
+    fn type_name() -> &'static str { "TermsOfUseMarking" }
 }

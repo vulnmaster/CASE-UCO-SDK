@@ -1,6 +1,7 @@
 //! Auto-generated case-investigation types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 /// Attorney is a role involved in preparing, interpreting, and applying law.
 #[derive(Debug, Clone, Serialize)]
@@ -29,6 +30,11 @@ impl AttorneyBuilder {
             class_iri: Attorney::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Attorney {
+    fn class_iri() -> &'static str { Attorney::CLASS_IRI }
+    fn type_name() -> &'static str { "Attorney" }
 }
 
 /// An authorization is a grouping of characteristics unique to some form of authoritative permission identified for investigative action.
@@ -100,6 +106,11 @@ impl AuthorizationBuilder {
     }
 }
 
+impl CaseObject for Authorization {
+    fn class_iri() -> &'static str { Authorization::CLASS_IRI }
+    fn type_name() -> &'static str { "Authorization" }
+}
+
 /// Examiner is a role involved in providing scientific evaluations of evidence that are used to aid law enforcement investigations and court cases.
 #[derive(Debug, Clone, Serialize)]
 pub struct Examiner {
@@ -127,6 +138,11 @@ impl ExaminerBuilder {
             class_iri: Examiner::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Examiner {
+    fn class_iri() -> &'static str { Examiner::CLASS_IRI }
+    fn type_name() -> &'static str { "Examiner" }
 }
 
 /// An investigation is a grouping of characteristics unique to an exploration of the facts involved in a cyber-relevant set of suspicious activity.
@@ -218,6 +234,11 @@ impl InvestigationBuilder {
     }
 }
 
+impl CaseObject for Investigation {
+    fn class_iri() -> &'static str { Investigation::CLASS_IRI }
+    fn type_name() -> &'static str { "Investigation" }
+}
+
 /// An investigative action is something that may be done or performed within the context of an investigation, typically to examine or analyze evidence or other data.
 #[derive(Debug, Clone, Serialize)]
 pub struct InvestigativeAction {
@@ -257,6 +278,11 @@ impl InvestigativeActionBuilder {
     }
 }
 
+impl CaseObject for InvestigativeAction {
+    fn class_iri() -> &'static str { InvestigativeAction::CLASS_IRI }
+    fn type_name() -> &'static str { "InvestigativeAction" }
+}
+
 /// Investigator is a role involved in coordinating an investigation.
 #[derive(Debug, Clone, Serialize)]
 pub struct Investigator {
@@ -284,6 +310,11 @@ impl InvestigatorBuilder {
             class_iri: Investigator::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Investigator {
+    fn class_iri() -> &'static str { Investigator::CLASS_IRI }
+    fn type_name() -> &'static str { "Investigator" }
 }
 
 /// A provenance record is a grouping of characteristics unique to the provenantial (chronology of the ownership, custody or location) connection between an investigative action and a set of observations 
@@ -335,6 +366,11 @@ impl ProvenanceRecordBuilder {
     }
 }
 
+impl CaseObject for ProvenanceRecord {
+    fn class_iri() -> &'static str { ProvenanceRecord::CLASS_IRI }
+    fn type_name() -> &'static str { "ProvenanceRecord" }
+}
+
 /// Subject is a role whose conduct is within the scope of an investigation.
 #[derive(Debug, Clone, Serialize)]
 pub struct Subject {
@@ -362,6 +398,11 @@ impl SubjectBuilder {
             class_iri: Subject::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Subject {
+    fn class_iri() -> &'static str { Subject::CLASS_IRI }
+    fn type_name() -> &'static str { "Subject" }
 }
 
 /// A subject action lifecycle is an action pattern consisting of an ordered set of multiple actions or subordinate action-lifecycles performed by an entity acting in a role whose conduct may be within th
@@ -393,6 +434,11 @@ impl SubjectActionLifecycleBuilder {
     }
 }
 
+impl CaseObject for SubjectActionLifecycle {
+    fn class_iri() -> &'static str { SubjectActionLifecycle::CLASS_IRI }
+    fn type_name() -> &'static str { "SubjectActionLifecycle" }
+}
+
 /// A victim action lifecycle is an action pattern consisting of an ordered set of multiple actions or subordinate action-lifecycles performed by an entity acting in a role characterized by its potential 
 #[derive(Debug, Clone, Serialize)]
 pub struct VictimActionLifecycle {
@@ -420,4 +466,9 @@ impl VictimActionLifecycleBuilder {
             class_iri: VictimActionLifecycle::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for VictimActionLifecycle {
+    fn class_iri() -> &'static str { VictimActionLifecycle::CLASS_IRI }
+    fn type_name() -> &'static str { "VictimActionLifecycle" }
 }

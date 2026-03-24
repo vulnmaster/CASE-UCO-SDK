@@ -23,7 +23,10 @@ build-java:
 build-rust:
 	cd rust && cargo build
 
-test: test-python test-csharp test-java test-rust
+test: test-generator test-python test-csharp test-java test-rust
+
+test-generator:
+	PYTHONPATH=generator/src python -m pytest generator/tests/ -v
 
 test-python:
 	cd python && python -m pytest tests/ -v

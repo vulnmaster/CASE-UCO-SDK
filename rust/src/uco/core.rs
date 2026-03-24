@@ -1,6 +1,7 @@
 //! Auto-generated uco-core types for the CASE/UCO ontology.
 
 use serde::Serialize;
+use crate::graph::CaseObject;
 
 use crate::uco::types::Dictionary;
 
@@ -43,6 +44,11 @@ impl AnnotationBuilder {
     }
 }
 
+impl CaseObject for Annotation {
+    fn class_iri() -> &'static str { Annotation::CLASS_IRI }
+    fn type_name() -> &'static str { "Annotation" }
+}
+
 /// An assertion is a statement declared to be true.
 #[derive(Debug, Clone, Serialize)]
 pub struct Assertion {
@@ -80,6 +86,11 @@ impl AssertionBuilder {
             statement: self.statement,
         }
     }
+}
+
+impl CaseObject for Assertion {
+    fn class_iri() -> &'static str { Assertion::CLASS_IRI }
+    fn type_name() -> &'static str { "Assertion" }
 }
 
 /// An attributed name is a name of an entity issued by some attributed naming authority.
@@ -121,6 +132,11 @@ impl AttributedNameBuilder {
     }
 }
 
+impl CaseObject for AttributedName {
+    fn class_iri() -> &'static str { AttributedName::CLASS_IRI }
+    fn type_name() -> &'static str { "AttributedName" }
+}
+
 /// A bundle is a container for a grouping of UCO content with no presumption of shared context.
 #[derive(Debug, Clone, Serialize)]
 pub struct Bundle {
@@ -150,6 +166,11 @@ impl BundleBuilder {
     }
 }
 
+impl CaseObject for Bundle {
+    fn class_iri() -> &'static str { Bundle::CLASS_IRI }
+    fn type_name() -> &'static str { "Bundle" }
+}
+
 /// A compilation is a grouping of things.
 #[derive(Debug, Clone, Serialize)]
 pub struct Compilation {
@@ -177,6 +198,11 @@ impl CompilationBuilder {
             class_iri: Compilation::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Compilation {
+    fn class_iri() -> &'static str { Compilation::CLASS_IRI }
+    fn type_name() -> &'static str { "Compilation" }
 }
 
 /// A confidence is a grouping of characteristics unique to an asserted level of certainty in the accuracy of some information.
@@ -218,6 +244,11 @@ impl ConfidenceFacetBuilder {
     }
 }
 
+impl CaseObject for ConfidenceFacet {
+    fn class_iri() -> &'static str { ConfidenceFacet::CLASS_IRI }
+    fn type_name() -> &'static str { "ConfidenceFacet" }
+}
+
 /// A contextual compilation is a grouping of things sharing some context (e.g., a set of network connections observed on a given day, all accounts associated with a given person).
 #[derive(Debug, Clone, Serialize)]
 pub struct ContextualCompilation {
@@ -255,6 +286,11 @@ impl ContextualCompilationBuilder {
             object: self.object,
         }
     }
+}
+
+impl CaseObject for ContextualCompilation {
+    fn class_iri() -> &'static str { ContextualCompilation::CLASS_IRI }
+    fn type_name() -> &'static str { "ContextualCompilation" }
 }
 
 /// A controlled vocabulary is an explicitly constrained set of string values.
@@ -316,6 +352,11 @@ impl ControlledVocabularyBuilder {
     }
 }
 
+impl CaseObject for ControlledVocabulary {
+    fn class_iri() -> &'static str { ControlledVocabulary::CLASS_IRI }
+    fn type_name() -> &'static str { "ControlledVocabulary" }
+}
+
 /// An enclosing compilation is a container for a grouping of things.
 #[derive(Debug, Clone, Serialize)]
 pub struct EnclosingCompilation {
@@ -353,6 +394,11 @@ impl EnclosingCompilationBuilder {
             object: self.object,
         }
     }
+}
+
+impl CaseObject for EnclosingCompilation {
+    fn class_iri() -> &'static str { EnclosingCompilation::CLASS_IRI }
+    fn type_name() -> &'static str { "EnclosingCompilation" }
 }
 
 /// An Event is a noteworthy occurrence (something that happens or might happen).
@@ -434,6 +480,11 @@ impl EventBuilder {
     }
 }
 
+impl CaseObject for Event {
+    fn class_iri() -> &'static str { Event::CLASS_IRI }
+    fn type_name() -> &'static str { "Event" }
+}
+
 /// Characteristics of a reference to a resource outside of the UCO.
 #[derive(Debug, Clone, Serialize)]
 pub struct ExternalReference {
@@ -493,6 +544,11 @@ impl ExternalReferenceBuilder {
     }
 }
 
+impl CaseObject for ExternalReference {
+    fn class_iri() -> &'static str { ExternalReference::CLASS_IRI }
+    fn type_name() -> &'static str { "ExternalReference" }
+}
+
 /// A facet is a grouping of characteristics singularly unique to a particular inherent aspect of a UCO domain object.
 #[derive(Debug, Clone, Serialize)]
 pub struct Facet {
@@ -520,6 +576,11 @@ impl FacetBuilder {
             class_iri: Facet::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for Facet {
+    fn class_iri() -> &'static str { Facet::CLASS_IRI }
+    fn type_name() -> &'static str { "Facet" }
 }
 
 /// A grouping is a compilation of referenced UCO content with a shared context.
@@ -561,6 +622,11 @@ impl GroupingBuilder {
     }
 }
 
+impl CaseObject for Grouping {
+    fn class_iri() -> &'static str { Grouping::CLASS_IRI }
+    fn type_name() -> &'static str { "Grouping" }
+}
+
 /// An identity abstraction is a grouping of identifying characteristics unique to an individual or organization. This class is an ontological structural abstraction for this concept. Implementations of t
 #[derive(Debug, Clone, Serialize)]
 pub struct IdentityAbstraction {
@@ -588,6 +654,11 @@ impl IdentityAbstractionBuilder {
             class_iri: IdentityAbstraction::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for IdentityAbstraction {
+    fn class_iri() -> &'static str { IdentityAbstraction::CLASS_IRI }
+    fn type_name() -> &'static str { "IdentityAbstraction" }
 }
 
 /// An item is a distinct article or unit.
@@ -619,6 +690,11 @@ impl ItemBuilder {
     }
 }
 
+impl CaseObject for Item {
+    fn class_iri() -> &'static str { Item::CLASS_IRI }
+    fn type_name() -> &'static str { "Item" }
+}
+
 /// A marking definition abstraction is a grouping of characteristics unique to the expression of a specific data marking conveying restrictions, permissions, and other guidance for how marked data can be
 #[derive(Debug, Clone, Serialize)]
 pub struct MarkingDefinitionAbstraction {
@@ -648,6 +724,11 @@ impl MarkingDefinitionAbstractionBuilder {
     }
 }
 
+impl CaseObject for MarkingDefinitionAbstraction {
+    fn class_iri() -> &'static str { MarkingDefinitionAbstraction::CLASS_IRI }
+    fn type_name() -> &'static str { "MarkingDefinitionAbstraction" }
+}
+
 /// A modus operandi is a particular method of operation (how a particular entity behaves or the resources they use).
 #[derive(Debug, Clone, Serialize)]
 pub struct ModusOperandi {
@@ -675,6 +756,11 @@ impl ModusOperandiBuilder {
             class_iri: ModusOperandi::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for ModusOperandi {
+    fn class_iri() -> &'static str { ModusOperandi::CLASS_IRI }
+    fn type_name() -> &'static str { "ModusOperandi" }
 }
 
 /// A relationship is a grouping of characteristics unique to an assertion that one or more objects are related to another object in some way.
@@ -766,6 +852,11 @@ impl RelationshipBuilder {
     }
 }
 
+impl CaseObject for Relationship {
+    fn class_iri() -> &'static str { Relationship::CLASS_IRI }
+    fn type_name() -> &'static str { "Relationship" }
+}
+
 /// A UCO inherent characterization thing is a grouping of characteristics unique to a particular inherent aspect of a UCO domain object.
 #[derive(Debug, Clone, Serialize)]
 pub struct UcoInherentCharacterizationThing {
@@ -793,6 +884,11 @@ impl UcoInherentCharacterizationThingBuilder {
             class_iri: UcoInherentCharacterizationThing::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for UcoInherentCharacterizationThing {
+    fn class_iri() -> &'static str { UcoInherentCharacterizationThing::CLASS_IRI }
+    fn type_name() -> &'static str { "UcoInherentCharacterizationThing" }
 }
 
 /// A UCO object is a representation of a fundamental concept either directly inherent to the cyber domain or indirectly related to the cyber domain and necessary for contextually characterizing cyber dom
@@ -934,6 +1030,11 @@ impl UcoObjectBuilder {
     }
 }
 
+impl CaseObject for UcoObject {
+    fn class_iri() -> &'static str { UcoObject::CLASS_IRI }
+    fn type_name() -> &'static str { "UcoObject" }
+}
+
 /// UcoThing is the top-level class within UCO.
 #[derive(Debug, Clone, Serialize)]
 pub struct UcoThing {
@@ -961,4 +1062,9 @@ impl UcoThingBuilder {
             class_iri: UcoThing::CLASS_IRI,
         }
     }
+}
+
+impl CaseObject for UcoThing {
+    fn class_iri() -> &'static str { UcoThing::CLASS_IRI }
+    fn type_name() -> &'static str { "UcoThing" }
 }

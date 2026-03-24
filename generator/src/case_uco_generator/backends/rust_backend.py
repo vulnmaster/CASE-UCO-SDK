@@ -81,6 +81,7 @@ class RustBackend(CodegenBackend):
         lines.append(f"//! Auto-generated {top}-{mod} types for the CASE/UCO ontology.")
         lines.append("")
         lines.append("use serde::Serialize;")
+        lines.append("use crate::graph::CaseObject;")
         imports = self._collect_imports(current_module, classes, vocabs)
         if imports:
             lines.append("")
@@ -235,6 +236,12 @@ class RustBackend(CodegenBackend):
                 lines.append(f"            {field_name}: self.{field_name},")
         lines.append("        }")
         lines.append("    }")
+        lines.append("}")
+        lines.append("")
+
+        lines.append(f"impl CaseObject for {cls.name} {{")
+        lines.append(f'    fn class_iri() -> &\'static str {{ {cls.name}::CLASS_IRI }}')
+        lines.append(f'    fn type_name() -> &\'static str {{ "{cls.name}" }}')
         lines.append("}")
 
         return lines
