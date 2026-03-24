@@ -93,10 +93,8 @@ namespace CaseUco
                 if (value is IList listValue && listValue.Count == 0)
                     continue;
 
-                var declaringType = prop.DeclaringType ?? type;
-                var nsField = declaringType.GetField("NamespacePrefix");
-                var ns = nsField != null ? (string)nsField.GetValue(null) : "uco-core";
-                var propKey = $"{ns}:{char.ToLower(prop.Name[0])}{prop.Name.Substring(1)}";
+                var attribute = prop.GetCustomAttribute<JsonLdPropertyAttribute>(inherit: true);
+                var propKey = attribute != null ? attribute.Key : InferPropertyKey(prop, type);
                 result[propKey] = ConvertValue(value);
             }
 
@@ -159,6 +157,14 @@ namespace CaseUco
                     return $"{kv.Key}:{iri.Substring(kv.Value.Length)}";
             }
             return iri;
+        }
+
+        private string InferPropertyKey(PropertyInfo prop, Type fallbackType)
+        {
+            var declaringType = prop.DeclaringType ?? fallbackType;
+            var nsField = declaringType.GetField("NamespacePrefix");
+            var ns = nsField != null ? (string)nsField.GetValue(null) : "uco-core";
+            return $"{ns}:{char.ToLower(prop.Name[0])}{prop.Name.Substring(1)}";
         }
 
         private static readonly Dictionary<string, string> DefaultContext = new Dictionary<string, string>
