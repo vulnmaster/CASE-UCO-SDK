@@ -32,13 +32,6 @@ DEFAULT_CONTEXT: dict[str, str] = {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 }
 
-# Map Python types to XSD type IRIs for JSON-LD typed values
-_PYTHON_TYPE_TO_XSD = {
-    int: "xsd:integer",
-    float: "xsd:decimal",
-    bool: "xsd:boolean",
-}
-
 _RANGE_IRI_TO_TYPED_LITERAL = {
     "http://www.w3.org/2001/XMLSchema#boolean": "xsd:boolean",
     "http://www.w3.org/2001/XMLSchema#integer": "xsd:integer",

@@ -37,7 +37,7 @@ def test_create_tool():
 
 def test_create_observable_with_facet():
     graph = CASEGraph()
-    obs = graph.create(
+    _obs = graph.create(
         ObservableObject,
         has_facet=[ApplicationFacet(application_identifier="com.tencent.mm")]
     )
@@ -49,7 +49,7 @@ def test_create_observable_with_facet():
 
 def test_create_investigative_action():
     graph = CASEGraph()
-    action = graph.create(
+    _action = graph.create(
         InvestigativeAction,
         name="Parse WeChat data",
     )
@@ -121,13 +121,13 @@ def test_extension_handling():
 def test_multiple_objects():
     graph = CASEGraph()
 
-    axiom = graph.create(Tool, name="Magnet AXIOM")
-    cellebrite = graph.create(Tool, name="Cellebrite Physical Analyzer")
-    wechat = graph.create(
+    _axiom = graph.create(Tool, name="Magnet AXIOM")
+    _cellebrite = graph.create(Tool, name="Cellebrite Physical Analyzer")
+    _wechat = graph.create(
         ObservableObject,
         has_facet=[ApplicationFacet(application_identifier="com.tencent.mm")]
     )
-    telegram = graph.create(
+    _telegram = graph.create(
         ObservableObject,
         has_facet=[ApplicationFacet(application_identifier="org.telegram.messenger")]
     )
@@ -160,7 +160,7 @@ def test_custom_kb_prefix():
 
 def test_device_facet():
     graph = CASEGraph()
-    device = graph.create(
+    _device = graph.create(
         ObservableObject,
         has_facet=[DeviceFacet(manufacturer="Apple", model="iPhone 15")]
     )
@@ -172,7 +172,7 @@ def test_device_facet():
 
 def test_analytic_tool_subclass():
     graph = CASEGraph()
-    tool = graph.create(AnalyticTool, name="Custom Analyzer")
+    _tool = graph.create(AnalyticTool, name="Custom Analyzer")
 
     output = json.loads(graph.serialize())
     obj = output["@graph"][0]

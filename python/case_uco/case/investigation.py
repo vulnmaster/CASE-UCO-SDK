@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Optional
 
 from case_uco.uco.action import Action
 from case_uco.uco.action import ActionLifecycle

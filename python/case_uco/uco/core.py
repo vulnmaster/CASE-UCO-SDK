@@ -3,10 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Optional
-
-if TYPE_CHECKING:
-    from case_uco.uco.types import Dictionary
+from typing import Optional
 
 
 @dataclass

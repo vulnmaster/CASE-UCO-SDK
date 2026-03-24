@@ -92,21 +92,28 @@ class PythonBackend(CodegenBackend):
         lines.append("")
         lines.append("from __future__ import annotations")
         lines.append("")
-        lines.append("from dataclasses import dataclass, field")
-        lines.append("from typing import TYPE_CHECKING, Any, Optional")
+
+        needs_field = any(prop for cls in classes for prop in cls.properties)
+        needs_optional = any(
+            not prop.cardinality.is_list and not prop.cardinality.is_required
+            for cls in classes
+            for prop in cls.properties
+        )
+
+        dc_parts = ["dataclass"]
+        if needs_field:
+            dc_parts.append("field")
+        lines.append(f"from dataclasses import {', '.join(dc_parts)}")
+
+        if needs_optional:
+            lines.append("from typing import Optional")
+
         lines.append("")
 
-        # Collect cross-module imports needed by parent classes and property types
-        runtime_imports, type_imports = self._collect_imports(current_module, classes)
+        runtime_imports = self._collect_imports(current_module, classes)
         for imp in sorted(runtime_imports):
             lines.append(imp)
         if runtime_imports:
-            lines.append("")
-
-        if type_imports:
-            lines.append("if TYPE_CHECKING:")
-            for imp in sorted(type_imports):
-                lines.append(f"    {imp}")
             lines.append("")
 
         lines.append("")
@@ -126,38 +133,29 @@ class PythonBackend(CodegenBackend):
 
     def _collect_imports(
         self, current_module: str, classes: list[OntologyClass]
-    ) -> tuple[set[str], set[str]]:
-        """Collect import statements for cross-module references.
+    ) -> set[str]:
+        """Collect runtime import statements for cross-module parent classes.
 
-        Returns (runtime_imports, type_checking_imports) to avoid circular imports.
-        Runtime imports are for parent class inheritance (required at class definition).
-        Type-checking imports are for property type annotations (only needed for mypy).
+        Only the parent class actually used as the Python base class is imported.
+        Property-type annotations are left as forward-reference strings
+        (``from __future__ import annotations`` is always present).
         """
         runtime_imports: set[str] = set()
-        type_imports: set[str] = set()
         local_names = {c.name for c in classes}
 
         for cls in classes:
-            # Parent classes from other modules — MUST be runtime imports
-            for parent_iri in cls.parent_iris:
-                parent_cls = self.schema.resolve_class(parent_iri)
-                if parent_cls and parent_cls.name not in local_names:
-                    parent_top, parent_mod = parent_cls.module.split(".", 1)
-                    runtime_imports.add(
-                        f"from case_uco.{parent_top}.{parent_mod} import {parent_cls.name}"
-                    )
+            parent_name = cls.all_parent_names[0] if cls.all_parent_names else None
+            if parent_name and parent_name not in local_names:
+                for parent_iri in cls.parent_iris:
+                    parent_cls = self.schema.resolve_class(parent_iri)
+                    if parent_cls and parent_cls.name == parent_name:
+                        parent_top, parent_mod = parent_cls.module.split(".", 1)
+                        runtime_imports.add(
+                            f"from case_uco.{parent_top}.{parent_mod} import {parent_cls.name}"
+                        )
+                        break
 
-            # Property types from other modules — can be TYPE_CHECKING only
-            for prop in cls.properties:
-                if prop.range_is_class:
-                    range_cls = self.schema.resolve_class(prop.range_iri)
-                    if range_cls and range_cls.name not in local_names:
-                        range_top, range_mod = range_cls.module.split(".", 1)
-                        imp = f"from case_uco.{range_top}.{range_mod} import {range_cls.name}"
-                        if imp not in runtime_imports:
-                            type_imports.add(imp)
-
-        return runtime_imports, type_imports
+        return runtime_imports
 
     def _topo_sort(
         self, classes: list[OntologyClass], current_module: str

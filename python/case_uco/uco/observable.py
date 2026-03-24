@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Optional
 
 from case_uco.uco.action import Action
 from case_uco.uco.core import Facet
@@ -11,17 +11,6 @@ from case_uco.uco.core import Item
 from case_uco.uco.core import Relationship
 from case_uco.uco.core import UcoInherentCharacterizationThing
 from case_uco.uco.core import UcoObject
-
-if TYPE_CHECKING:
-    from case_uco.uco.configuration import Configuration
-    from case_uco.uco.core import UcoObject
-    from case_uco.uco.identity import Identity
-    from case_uco.uco.identity import Organization
-    from case_uco.uco.location import Location
-    from case_uco.uco.types import ControlledDictionary
-    from case_uco.uco.types import Dictionary
-    from case_uco.uco.types import Hash
-    from case_uco.uco.types import Thread
 
 
 class WhoisDNSSECTypeVocab:

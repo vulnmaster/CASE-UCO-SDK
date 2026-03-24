@@ -3,13 +3,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Optional
 
 from case_uco.uco.core import Facet
 from case_uco.uco.core import IdentityAbstraction
-
-if TYPE_CHECKING:
-    from case_uco.uco.location import Location
 
 
 @dataclass

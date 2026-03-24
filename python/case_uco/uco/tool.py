@@ -3,15 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Optional
 
 from case_uco.uco.core import Facet
 from case_uco.uco.core import UcoInherentCharacterizationThing
 from case_uco.uco.core import UcoObject
-
-if TYPE_CHECKING:
-    from case_uco.uco.configuration import Configuration
-    from case_uco.uco.identity import Identity
 
 
 @dataclass

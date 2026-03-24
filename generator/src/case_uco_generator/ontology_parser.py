@@ -123,8 +123,8 @@ def _classify_module(iri: str) -> tuple[str, str]:
     ns = iri_namespace(iri)
     if ns in PREFIX_TO_MODULE:
         return PREFIX_TO_MODULE[ns]
-    # Fallback: try to infer from IRI path
-    if "caseontology.org" in iri:
+    # Fallback: try to infer from IRI host
+    if iri.startswith("https://ontology.caseontology.org/"):
         return ("case", "investigation")
     return ("uco", "core")
 
@@ -359,7 +359,6 @@ def parse_ontology(ontology_root: Path) -> OntologySchema:
     vocab_results = g.query(VOCABS_QUERY)
     for row in vocab_results:
         vocab_iri = str(row.vocab)
-        label = str(row.label) if row.label else iri_local_name(vocab_iri)
         members = _extract_vocab_members(g, vocab_iri)
 
         schema.vocabs[vocab_iri] = OntologyVocab(
