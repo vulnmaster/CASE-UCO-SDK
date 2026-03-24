@@ -18,7 +18,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jena.version>4.10.0</jena.version>
+        <jena.version>6.0.0</jena.version>
     </properties>
     <dependencies>
         <dependency>
