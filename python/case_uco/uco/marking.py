@@ -27,7 +27,6 @@ class MarkingModel(UcoInherentCharacterizationThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/marking/MarkingModel"
     NAMESPACE_PREFIX: str = "uco-marking"
 
-    pass
 
 
 @dataclass

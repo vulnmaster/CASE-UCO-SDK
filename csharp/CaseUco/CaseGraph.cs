@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 
 namespace CaseUco
@@ -81,11 +82,10 @@ namespace CaseUco
                 result["@type"] = CompactIri(iri);
             }
 
-            foreach (var prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            foreach (var prop in type
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(prop => prop.GetIndexParameters().Length == 0))
             {
-                if (prop.GetIndexParameters().Length > 0)
-                    continue;
-
                 var value = prop.GetValue(instance);
                 if (value == null)
                     continue;
@@ -151,10 +151,9 @@ namespace CaseUco
 
         private string CompactIri(string iri)
         {
-            foreach (var kv in _context)
+            foreach (var kv in _context.Where(kv => iri.StartsWith(kv.Value)))
             {
-                if (iri.StartsWith(kv.Value))
-                    return $"{kv.Key}:{iri.Substring(kv.Value.Length)}";
+                return $"{kv.Key}:{iri.Substring(kv.Value.Length)}";
             }
             return iri;
         }

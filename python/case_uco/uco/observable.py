@@ -49,7 +49,6 @@ class Observable(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Observable"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -70,7 +69,6 @@ class API(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/API"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -80,7 +78,6 @@ class ARPCache(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ARPCache"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -90,7 +87,6 @@ class ARPCacheEntry(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ARPCacheEntry"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -100,7 +96,6 @@ class Account(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Account"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -139,7 +134,6 @@ class Device(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Device"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -149,7 +143,6 @@ class Adaptor(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Adaptor"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -159,7 +152,6 @@ class Address(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Address"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -169,7 +161,6 @@ class AlternateDataStream(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/AlternateDataStream"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -191,7 +182,6 @@ class AndroidDevice(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/AndroidDevice"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -215,7 +205,6 @@ class Computer(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Computer"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -225,7 +214,6 @@ class MobileDevice(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/MobileDevice"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -235,7 +223,6 @@ class MobilePhone(MobileDevice):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/MobilePhone"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -245,7 +232,6 @@ class SmartDevice(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SmartDevice"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -255,7 +241,6 @@ class SmartPhone(Computer):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SmartPhone"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -265,7 +250,6 @@ class AndroidPhone(AndroidDevice):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/AndroidPhone"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -290,7 +274,6 @@ class AppleDevice(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/AppleDevice"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -300,7 +283,6 @@ class Appliance(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Appliance"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -310,7 +292,6 @@ class Application(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Application"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -320,7 +301,6 @@ class DigitalAccount(Account):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DigitalAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -330,7 +310,6 @@ class ApplicationAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ApplicationAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -376,7 +355,6 @@ class FileSystemObject(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/FileSystemObject"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -386,7 +364,6 @@ class File(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/File"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -396,7 +373,6 @@ class ArchiveFile(File):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ArchiveFile"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -418,7 +394,6 @@ class Audio(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Audio"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -441,7 +416,6 @@ class AutonomousSystem(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/AutonomousSystem"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -463,7 +437,6 @@ class BlackberryPhone(SmartPhone):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/BlackberryPhone"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -473,7 +446,6 @@ class BlockDeviceNode(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/BlockDeviceNode"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -483,7 +455,6 @@ class DigitalAddress(Address):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DigitalAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -493,7 +464,6 @@ class MACAddress(DigitalAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/MACAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -503,7 +473,6 @@ class BluetoothAddress(MACAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/BluetoothAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -524,7 +493,6 @@ class MACAddressFacet(DigitalAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/MACAddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -534,7 +502,6 @@ class BluetoothAddressFacet(MACAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/BluetoothAddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -544,7 +511,6 @@ class BotConfiguration(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/BotConfiguration"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -554,7 +520,6 @@ class BrowserBookmark(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/BrowserBookmark"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -580,7 +545,6 @@ class BrowserCookie(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/BrowserCookie"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -607,7 +571,6 @@ class Calendar(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Calendar"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -617,7 +580,6 @@ class CalendarEntry(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/CalendarEntry"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -662,7 +624,6 @@ class Call(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Call"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -689,7 +650,6 @@ class CapturedTelecommunicationsInformation(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/CapturedTelecommunicationsInformation"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -712,7 +672,6 @@ class CellSite(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/CellSite"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -736,7 +695,6 @@ class CharacterDeviceNode(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/CharacterDeviceNode"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -746,7 +704,6 @@ class Code(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Code"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -767,7 +724,6 @@ class ComputerSpecification(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ComputerSpecification"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -806,7 +762,6 @@ class Software(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Software"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -827,7 +782,6 @@ class Contact(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Contact"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -909,7 +863,6 @@ class ContactList(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ContactList"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -985,7 +938,6 @@ class ContentData(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ContentData"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1014,7 +966,6 @@ class CookieHistory(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/CookieHistory"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1024,7 +975,6 @@ class Credential(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Credential"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1034,7 +984,6 @@ class CredentialDump(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/CredentialDump"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1044,7 +993,6 @@ class DNSCache(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DNSCache"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1054,7 +1002,6 @@ class DNSRecord(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DNSRecord"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1076,7 +1023,6 @@ class DefinedEffectFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DefinedEffectFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1114,7 +1060,6 @@ class DigitalCamera(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DigitalCamera"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1124,7 +1069,6 @@ class DigitalSignatureInfo(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DigitalSignatureInfo"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1148,7 +1092,6 @@ class Directory(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Directory"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1158,7 +1101,6 @@ class Disk(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Disk"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1181,7 +1123,6 @@ class DiskPartition(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DiskPartition"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1209,7 +1150,6 @@ class DomainName(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/DomainName"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1230,7 +1170,6 @@ class Drone(MobileDevice):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Drone"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1250,7 +1189,6 @@ class EmailAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/EmailAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1270,7 +1208,6 @@ class EmailAddress(DigitalAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/EmailAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1280,7 +1217,6 @@ class EmailAddressFacet(DigitalAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/EmailAddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1290,7 +1226,6 @@ class Message(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Message"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1300,7 +1235,6 @@ class EmailMessage(Message):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/EmailMessage"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1348,7 +1282,6 @@ class EmbeddedDevice(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/EmbeddedDevice"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1392,7 +1325,6 @@ class EventLog(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/EventLog"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1402,7 +1334,6 @@ class EventRecord(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/EventRecord"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1506,7 +1437,6 @@ class FileSystem(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/FileSystem"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1527,7 +1457,6 @@ class ForumPost(Message):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ForumPost"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1537,7 +1466,6 @@ class ForumPrivateMessage(Message):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ForumPrivateMessage"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1558,7 +1486,6 @@ class GUI(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/GUI"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1568,7 +1495,6 @@ class GamingConsole(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/GamingConsole"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1578,7 +1504,6 @@ class GenericObservableObject(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/GenericObservableObject"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1588,7 +1513,6 @@ class GeoLocationEntry(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/GeoLocationEntry"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1610,7 +1534,6 @@ class GeoLocationLog(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/GeoLocationLog"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1631,7 +1554,6 @@ class GeoLocationTrack(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/GeoLocationTrack"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1667,7 +1589,6 @@ class NetworkConnection(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NetworkConnection"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1677,7 +1598,6 @@ class HTTPConnection(NetworkConnection):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/HTTPConnection"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1702,7 +1622,6 @@ class Hostname(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Hostname"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1712,7 +1631,6 @@ class ICMPConnection(NetworkConnection):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ICMPConnection"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1757,7 +1675,6 @@ class IPAddress(DigitalAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1767,7 +1684,6 @@ class IPAddressFacet(DigitalAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPAddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1777,7 +1693,6 @@ class IPNetmask(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPNetmask"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1787,7 +1702,6 @@ class IPhone(AppleDevice):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPhone"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1797,7 +1711,6 @@ class IPv4Address(IPAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPv4Address"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1807,7 +1720,6 @@ class IPv4AddressFacet(IPAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPv4AddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1817,7 +1729,6 @@ class IPv6Address(IPAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPv6Address"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1827,7 +1738,6 @@ class IPv6AddressFacet(IPAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/IPv6AddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1848,7 +1758,6 @@ class Image(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Image"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1868,7 +1777,6 @@ class InstantMessagingAddress(DigitalAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/InstantMessagingAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1878,7 +1786,6 @@ class InstantMessagingAddressFacet(DigitalAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/InstantMessagingAddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1888,7 +1795,6 @@ class Junction(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Junction"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1898,7 +1804,6 @@ class Laptop(Computer):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Laptop"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1908,7 +1813,6 @@ class Library(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Library"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1928,7 +1832,6 @@ class Memory(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Memory"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -1972,7 +1875,6 @@ class MessageThread(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/MessageThread"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2028,7 +1930,6 @@ class MobileAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/MobileAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2068,7 +1969,6 @@ class Mutex(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Mutex"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2089,7 +1989,6 @@ class NTFSFile(File):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NTFSFile"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2111,7 +2010,6 @@ class NTFSFilePermissionsFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NTFSFilePermissionsFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2121,7 +2019,6 @@ class NamedPipe(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NamedPipe"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2131,7 +2028,6 @@ class NetworkAppliance(Appliance):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NetworkAppliance"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2158,7 +2054,6 @@ class NetworkFlow(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NetworkFlow"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2184,7 +2079,6 @@ class NetworkInterface(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NetworkInterface"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2210,7 +2104,6 @@ class NetworkProtocol(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NetworkProtocol"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2220,7 +2113,6 @@ class NetworkRoute(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NetworkRoute"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2230,7 +2122,6 @@ class NetworkSubnet(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/NetworkSubnet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2240,7 +2131,6 @@ class Note(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Note"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2263,7 +2153,6 @@ class ObservableAction(Action):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ObservableAction"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2273,7 +2162,6 @@ class ObservablePattern(Observable):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ObservablePattern"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2304,7 +2192,6 @@ class OnlineService(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/OnlineService"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2326,7 +2213,6 @@ class OperatingSystem(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/OperatingSystem"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2352,7 +2238,6 @@ class PDFFile(File):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/PDFFile"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2388,7 +2273,6 @@ class PaymentCard(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/PaymentCard"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2398,7 +2282,6 @@ class PhoneAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/PhoneAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2418,7 +2301,6 @@ class Pipe(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Pipe"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2428,7 +2310,6 @@ class Post(Message):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Post"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2438,7 +2319,6 @@ class Process(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Process"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2469,7 +2349,6 @@ class ProcessThread(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ProcessThread"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2479,7 +2358,6 @@ class Profile(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Profile"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2532,7 +2410,6 @@ class ProtocolConverter(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ProtocolConverter"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2542,7 +2419,6 @@ class RasterPicture(File):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/RasterPicture"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2567,7 +2443,6 @@ class RecoveredObject(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/RecoveredObject"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2589,7 +2464,6 @@ class ReparsePoint(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ReparsePoint"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2599,7 +2473,6 @@ class SIMCard(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SIMCard"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2626,7 +2499,6 @@ class SIPAddress(DigitalAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SIPAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2636,7 +2508,6 @@ class SIPAddressFacet(DigitalAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SIPAddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2646,7 +2517,6 @@ class SMSMessage(Message):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SMSMessage"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2666,7 +2536,6 @@ class SQLiteBlob(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SQLiteBlob"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2689,7 +2558,6 @@ class SecurityAppliance(Appliance):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SecurityAppliance"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2699,7 +2567,6 @@ class Semaphore(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Semaphore"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2719,7 +2586,6 @@ class Server(Computer):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Server"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2729,7 +2595,6 @@ class ShopListing(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ShopListing"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2739,7 +2604,6 @@ class Snapshot(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Snapshot"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2749,7 +2613,6 @@ class Socket(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Socket"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2759,7 +2622,6 @@ class SocketAddress(Address):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SocketAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2794,7 +2656,6 @@ class StorageMedium(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/StorageMedium"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2814,7 +2675,6 @@ class SymbolicLink(FileSystemObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/SymbolicLink"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2834,7 +2694,6 @@ class TCPConnection(NetworkConnection):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/TCPConnection"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2855,7 +2714,6 @@ class TableField(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/TableField"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2880,7 +2738,6 @@ class Tablet(Computer):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Tablet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2922,7 +2779,6 @@ class Tweet(Message):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Tweet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2957,7 +2813,6 @@ class UNIXAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/UNIXAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2978,7 +2833,6 @@ class UNIXFile(File):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/UNIXFile"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2988,7 +2842,6 @@ class UNIXFilePermissionsFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/UNIXFilePermissionsFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -2998,7 +2851,6 @@ class UNIXProcess(Process):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/UNIXProcess"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3030,7 +2882,6 @@ class URL(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/URL"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3058,7 +2909,6 @@ class URLHistory(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/URLHistory"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3099,7 +2949,6 @@ class URLVisit(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/URLVisit"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3124,7 +2973,6 @@ class UserAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/UserAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3147,7 +2995,6 @@ class UserSession(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/UserSession"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3181,7 +3028,6 @@ class Volume(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Volume"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3202,7 +3048,6 @@ class WearableDevice(SmartDevice):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WearableDevice"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3212,7 +3057,6 @@ class WebPage(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WebPage"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3222,7 +3066,6 @@ class WhoIs(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WhoIs"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3285,7 +3128,6 @@ class WifiAddress(MACAddress):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WifiAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3295,7 +3137,6 @@ class WifiAddressFacet(MACAddressFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WifiAddressFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3305,7 +3146,6 @@ class Wiki(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/Wiki"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3315,7 +3155,6 @@ class WikiArticle(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WikiArticle"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3325,7 +3164,6 @@ class WindowsAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3345,7 +3183,6 @@ class WindowsActiveDirectoryAccount(DigitalAccount):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsActiveDirectoryAccount"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3366,7 +3203,6 @@ class WindowsComputerSpecification(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsComputerSpecification"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3398,7 +3234,6 @@ class WindowsCriticalSection(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsCriticalSection"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3408,7 +3243,6 @@ class WindowsEvent(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsEvent"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3418,7 +3252,6 @@ class WindowsFilemapping(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsFilemapping"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3428,7 +3261,6 @@ class WindowsHandle(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsHandle"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3438,7 +3270,6 @@ class WindowsHook(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsHook"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3448,7 +3279,6 @@ class WindowsMailslot(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsMailslot"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3458,7 +3288,6 @@ class WindowsNetworkShare(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsNetworkShare"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3468,7 +3297,6 @@ class WindowsPEBinaryFile(File):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsPEBinaryFile"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3560,7 +3388,6 @@ class WindowsPrefetch(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsPrefetch"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3587,7 +3414,6 @@ class WindowsProcess(Process):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsProcess"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3612,7 +3438,6 @@ class WindowsRegistryHive(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsRegistryHive"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3632,7 +3457,6 @@ class WindowsRegistryKey(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsRegistryKey"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3668,7 +3492,6 @@ class WindowsService(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsService"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3695,7 +3518,6 @@ class WindowsSystemRestore(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsSystemRestore"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3705,7 +3527,6 @@ class WindowsTask(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsTask"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3744,7 +3565,6 @@ class WindowsThread(ProcessThread):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsThread"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3786,7 +3606,6 @@ class WindowsWaitableTime(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WindowsWaitableTime"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3796,7 +3615,6 @@ class WirelessNetworkConnection(NetworkConnection):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WirelessNetworkConnection"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3819,7 +3637,6 @@ class WriteBlocker(Device):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WriteBlocker"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3829,7 +3646,6 @@ class X509Certificate(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/X509Certificate"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass
@@ -3864,7 +3680,6 @@ class X509V3Certificate(ObservableObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/X509V3Certificate"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    pass
 
 
 @dataclass

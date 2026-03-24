@@ -15,7 +15,6 @@ class Role(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/role/Role"
     NAMESPACE_PREFIX: str = "uco-role"
 
-    pass
 
 
 @dataclass
@@ -25,7 +24,6 @@ class BenevolentRole(Role):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/role/BenevolentRole"
     NAMESPACE_PREFIX: str = "uco-role"
 
-    pass
 
 
 @dataclass
@@ -35,7 +33,6 @@ class MaliciousRole(Role):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/role/MaliciousRole"
     NAMESPACE_PREFIX: str = "uco-role"
 
-    pass
 
 
 @dataclass
@@ -45,5 +42,4 @@ class NeutralRole(Role):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/role/NeutralRole"
     NAMESPACE_PREFIX: str = "uco-role"
 
-    pass
 

@@ -16,7 +16,6 @@ class UcoThing:
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/UcoThing"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -76,7 +75,6 @@ class Compilation(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/Compilation"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -96,7 +94,6 @@ class Bundle(EnclosingCompilation):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/Bundle"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -106,7 +103,6 @@ class UcoInherentCharacterizationThing(UcoThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/UcoInherentCharacterizationThing"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -116,7 +112,6 @@ class Facet(UcoInherentCharacterizationThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/Facet"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -194,7 +189,6 @@ class IdentityAbstraction(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/IdentityAbstraction"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -204,7 +198,6 @@ class Item(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/Item"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -214,7 +207,6 @@ class MarkingDefinitionAbstraction(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/MarkingDefinitionAbstraction"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass
@@ -224,7 +216,6 @@ class ModusOperandi(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/ModusOperandi"
     NAMESPACE_PREFIX: str = "uco-core"
 
-    pass
 
 
 @dataclass

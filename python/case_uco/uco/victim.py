@@ -15,7 +15,6 @@ class Victim(NeutralRole):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/victim/Victim"
     NAMESPACE_PREFIX: str = "uco-victim"
 
-    pass
 
 
 @dataclass
@@ -25,5 +24,4 @@ class VictimTargeting(Victim):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/victim/VictimTargeting"
     NAMESPACE_PREFIX: str = "uco-victim"
 
-    pass
 

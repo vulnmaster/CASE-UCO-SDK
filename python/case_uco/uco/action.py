@@ -94,7 +94,6 @@ class ActionPattern(Action):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/action/ActionPattern"
     NAMESPACE_PREFIX: str = "uco-action"
 
-    pass
 
 
 @dataclass

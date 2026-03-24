@@ -47,7 +47,6 @@ class ControlledDictionaryEntry(DictionaryEntry):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/types/ControlledDictionaryEntry"
     NAMESPACE_PREFIX: str = "uco-types"
 
-    pass
 
 
 @dataclass
@@ -78,7 +77,6 @@ class ProperDictionary(Dictionary):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/types/ProperDictionary"
     NAMESPACE_PREFIX: str = "uco-types"
 
-    pass
 
 
 @dataclass
@@ -88,7 +86,6 @@ class Thread(UcoThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/types/Thread"
     NAMESPACE_PREFIX: str = "uco-types"
 
-    pass
 
 
 @dataclass
@@ -98,5 +95,4 @@ class ThreadItem(UcoThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/types/ThreadItem"
     NAMESPACE_PREFIX: str = "uco-types"
 
-    pass
 

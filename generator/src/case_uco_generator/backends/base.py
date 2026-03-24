@@ -19,7 +19,7 @@ class CodegenBackend(ABC):
     @abstractmethod
     def generate(self) -> list[Path]:
         """Generate all source files. Returns list of created file paths."""
-        ...
+        raise NotImplementedError
 
     @staticmethod
     def to_snake_case(name: str) -> str:

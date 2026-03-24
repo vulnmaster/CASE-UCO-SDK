@@ -41,7 +41,6 @@ class Location(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/location/Location"
     NAMESPACE_PREFIX: str = "uco-location"
 
-    pass
 
 
 @dataclass

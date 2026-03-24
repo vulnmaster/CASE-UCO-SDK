@@ -35,7 +35,6 @@ class AnalyticTool(Tool):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/tool/AnalyticTool"
     NAMESPACE_PREFIX: str = "uco-tool"
 
-    pass
 
 
 @dataclass
@@ -110,7 +109,6 @@ class DefensiveTool(Tool):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/tool/DefensiveTool"
     NAMESPACE_PREFIX: str = "uco-tool"
 
-    pass
 
 
 @dataclass
@@ -131,5 +129,4 @@ class MaliciousTool(Tool):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/tool/MaliciousTool"
     NAMESPACE_PREFIX: str = "uco-tool"
 
-    pass
 

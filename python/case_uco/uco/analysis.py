@@ -16,7 +16,6 @@ class AnalyticResultFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/analysis/AnalyticResultFacet"
     NAMESPACE_PREFIX: str = "uco-analysis"
 
-    pass
 
 
 @dataclass

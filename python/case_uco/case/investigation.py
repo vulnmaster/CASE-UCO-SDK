@@ -19,7 +19,6 @@ class Attorney(Role):
     CLASS_IRI: str = "https://ontology.caseontology.org/case/investigation/Attorney"
     NAMESPACE_PREFIX: str = "case-investigation"
 
-    pass
 
 
 @dataclass
@@ -42,7 +41,6 @@ class Examiner(Role):
     CLASS_IRI: str = "https://ontology.caseontology.org/case/investigation/Examiner"
     NAMESPACE_PREFIX: str = "case-investigation"
 
-    pass
 
 
 @dataclass
@@ -77,7 +75,6 @@ class Investigator(Role):
     CLASS_IRI: str = "https://ontology.caseontology.org/case/investigation/Investigator"
     NAMESPACE_PREFIX: str = "case-investigation"
 
-    pass
 
 
 @dataclass
@@ -98,7 +95,6 @@ class Subject(Role):
     CLASS_IRI: str = "https://ontology.caseontology.org/case/investigation/Subject"
     NAMESPACE_PREFIX: str = "case-investigation"
 
-    pass
 
 
 @dataclass
@@ -108,7 +104,6 @@ class SubjectActionLifecycle(ActionLifecycle):
     CLASS_IRI: str = "https://ontology.caseontology.org/case/investigation/SubjectActionLifecycle"
     NAMESPACE_PREFIX: str = "case-investigation"
 
-    pass
 
 
 @dataclass
@@ -118,5 +113,4 @@ class VictimActionLifecycle(ActionLifecycle):
     CLASS_IRI: str = "https://ontology.caseontology.org/case/investigation/VictimActionLifecycle"
     NAMESPACE_PREFIX: str = "case-investigation"
 
-    pass
 

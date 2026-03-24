@@ -19,7 +19,6 @@ class IdentityFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/IdentityFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -39,7 +38,6 @@ class AffiliationFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/AffiliationFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -59,7 +57,6 @@ class CountryOfResidenceFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/CountryOfResidenceFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -69,7 +66,6 @@ class EventsFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/EventsFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -79,7 +75,6 @@ class IdentifierFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/IdentifierFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -89,7 +84,6 @@ class Identity(IdentityAbstraction):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/Identity"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -99,7 +93,6 @@ class LanguagesFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/LanguagesFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -109,7 +102,6 @@ class NationalityFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/NationalityFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -119,7 +111,6 @@ class OccupationFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/OccupationFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -129,7 +120,6 @@ class Organization(Identity):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/Organization"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -139,7 +129,6 @@ class OrganizationDetailsFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/OrganizationDetailsFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -149,7 +138,6 @@ class Person(Identity):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/Person"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -159,7 +147,6 @@ class PersonalDetailsFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/PersonalDetailsFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -169,7 +156,6 @@ class PhysicalInfoFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/PhysicalInfoFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -179,7 +165,6 @@ class QualificationFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/QualificationFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -189,7 +174,6 @@ class RelatedIdentityFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/RelatedIdentityFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 
 
 @dataclass
@@ -212,5 +196,4 @@ class VisaFacet(IdentityFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/identity/VisaFacet"
     NAMESPACE_PREFIX: str = "uco-identity"
 
-    pass
 

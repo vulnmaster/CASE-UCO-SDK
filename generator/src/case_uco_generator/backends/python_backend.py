@@ -234,9 +234,6 @@ class PythonBackend(CodegenBackend):
             metadata = self._field_metadata(prop)
             lines.append(f"    {field_name}: {type_str} = {default}{metadata}")
 
-        if not cls.properties:
-            lines.append("    pass")
-
         lines.append("")
         return lines
 

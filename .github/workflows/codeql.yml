@@ -40,6 +40,7 @@ jobs:
           languages: ${{ matrix.language }}
           queries: security-and-quality
           build-mode: ${{ matrix.build-mode }}
+          config-file: ./.github/codeql/codeql-config.yml
 
       - name: Autobuild
         if: matrix.build-mode == 'autobuild'

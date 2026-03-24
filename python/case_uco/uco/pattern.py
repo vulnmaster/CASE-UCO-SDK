@@ -16,7 +16,6 @@ class Pattern(UcoObject):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/pattern/Pattern"
     NAMESPACE_PREFIX: str = "uco-pattern"
 
-    pass
 
 
 @dataclass
@@ -36,5 +35,4 @@ class PatternExpression(UcoInherentCharacterizationThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/pattern/PatternExpression"
     NAMESPACE_PREFIX: str = "uco-pattern"
 
-    pass
 
