@@ -48,17 +48,12 @@ class CSharpBackend(CodegenBackend):
     def _render_module(
         self, top: str, mod: str, classes: list[OntologyClass], vocabs: list[OntologyVocab]
     ) -> str:
-        ns = f"CaseUco.{self.to_pascal_case(top)}.{self.to_pascal_case(mod)}"
-        current_module = f"{top}.{mod}"
+        ns = self._namespace_for_module(f"{top}.{mod}")
         lines: list[str] = []
         lines.append("// Auto-generated CASE/UCO ontology classes — do not edit manually.")
         lines.append(f"// Module: {top}-{mod}")
         lines.append("")
-        lines.append("using System;")
         lines.append("using System.Collections.Generic;")
-        imports = self._collect_imports(current_module, classes, vocabs)
-        for imp in sorted(imports):
-            lines.append(imp)
         lines.append("")
         lines.append(f"namespace {ns}")
         lines.append("{")
@@ -73,53 +68,6 @@ class CSharpBackend(CodegenBackend):
 
         lines.append("}")
         return "\n".join(lines)
-
-    def _collect_imports(
-        self,
-        current_module: str,
-        classes: list[OntologyClass],
-        vocabs: list[OntologyVocab],
-    ) -> set[str]:
-        imports: set[str] = set()
-        local_names = {cls.name for cls in classes} | {vocab.name for vocab in vocabs}
-
-        for cls in classes:
-            for parent_iri in cls.parent_iris:
-                parent_cls = self.schema.resolve_class(parent_iri)
-                if parent_cls and parent_cls.name not in local_names:
-                    imports.add(self._namespace_import(parent_cls.module))
-
-            for prop in cls.properties:
-                if prop.is_xsd_type or prop.is_union:
-                    continue
-
-                type_name = prop.type_name_for("csharp")
-                if type_name in local_names:
-                    continue
-
-                range_cls = self.schema.resolve_class(prop.range_iri)
-                if range_cls:
-                    imports.add(self._namespace_import(range_cls.module))
-                    continue
-
-                if prop.range_iri in self.schema.vocabs:
-                    module = self._module_path_for_iri(prop.range_iri)
-                    if module and module != current_module:
-                        imports.add(self._namespace_import(module))
-
-        return imports
-
-    def _module_path_for_iri(self, iri: str) -> str | None:
-        compact = compact_ontology_iri(iri)
-        if ":" not in compact or "-" not in compact.split(":", 1)[0]:
-            return None
-        prefix = compact.split(":", 1)[0]
-        top, mod = prefix.split("-", 1)
-        return f"{top}.{mod}"
-
-    def _namespace_import(self, module_key: str) -> str:
-        top, mod = module_key.split(".", 1)
-        return f"using CaseUco.{self.to_pascal_case(top)}.{self.to_pascal_case(mod)};"
 
     def _render_vocab(self, vocab: OntologyVocab, indent: int) -> list[str]:
         pad = "    " * indent
@@ -145,9 +93,10 @@ class CSharpBackend(CodegenBackend):
         pad = "    " * indent
         lines: list[str] = []
 
-        parent_name = cls.all_parent_names[0] if cls.all_parent_names else None
-        base = f" : {parent_name}" if parent_name else ""
-        const_prefix = "new " if parent_name else ""
+        parent = self.schema.resolve_class(cls.parent_iris[0]) if cls.parent_iris else None
+        base = f" : {self._qualified_csharp_type_for_class(parent)}" if parent else ""
+        const_prefix = "new " if parent else ""
+        inherited_names = self._inherited_property_names(cls)
 
         lines.append(f"{pad}/// <summary>{cls.description[:200] if cls.description else cls.name}</summary>")
         lines.append(f"{pad}public class {cls.name}{base}")
@@ -157,22 +106,23 @@ class CSharpBackend(CodegenBackend):
 
         for prop in cls.properties:
             cs_type = self._csharp_type(prop)
-            prop_name = self.to_pascal_case(prop.name)
-            prop_name = self.safe_identifier(prop_name, "csharp")
-            lines.append(f"{pad}    public {cs_type} {prop_name} {{ get; set; }}")
+            prop_name = self._csharp_property_name(cls, prop)
+            modifier = "new " if prop.name in inherited_names else ""
+            lines.append(f'{pad}    [global::CaseUco.JsonLdProperty("{compact_ontology_iri(prop.iri)}")]')
+            lines.append(f"{pad}    public {modifier}{cs_type} {prop_name} {{ get; set; }}")
 
         lines.append(f"{pad}}}")
         return lines
 
     def _csharp_type(self, prop: OntologyProperty) -> str:
-        base = prop.type_name_for("csharp")
+        base = self._base_csharp_type(prop)
         nullable_value_types = {
             "bool",
             "decimal",
             "double",
             "float",
-            "DateTime",
-            "TimeSpan",
+            "System.DateTime",
+            "System.TimeSpan",
             "long",
             "ulong",
             "sbyte",
@@ -187,3 +137,49 @@ class CSharpBackend(CodegenBackend):
         if not prop.cardinality.is_required and base in nullable_value_types:
             return f"{base}?"
         return base
+
+    def _base_csharp_type(self, prop: OntologyProperty) -> str:
+        if prop.is_union:
+            return "object"
+        if prop.is_vocab_type:
+            return "string"
+        if prop.is_xsd_type:
+            base = prop.type_name_for("csharp")
+            aliases = {
+                "DateTime": "System.DateTime",
+                "TimeSpan": "System.TimeSpan",
+                "Uri": "System.Uri",
+            }
+            return aliases.get(base, base)
+
+        range_cls = self.schema.resolve_class(prop.range_iri)
+        if range_cls:
+            return self._qualified_csharp_type_for_class(range_cls)
+
+        return prop.type_name_for("csharp")
+
+    def _namespace_for_module(self, module_key: str) -> str:
+        top, mod = module_key.split(".", 1)
+        return f"CaseUco.{self.to_pascal_case(top)}.{self.to_pascal_case(mod)}"
+
+    def _qualified_csharp_type_for_class(self, cls: OntologyClass | None) -> str:
+        if cls is None:
+            return "object"
+        return f"{self._namespace_for_module(cls.module)}.{cls.name}"
+
+    def _inherited_property_names(self, cls: OntologyClass) -> set[str]:
+        names: set[str] = set()
+        for parent_iri in cls.parent_iris:
+            parent = self.schema.resolve_class(parent_iri)
+            if not parent:
+                continue
+            names.update(prop.name for prop in parent.properties)
+            names.update(self._inherited_property_names(parent))
+        return names
+
+    def _csharp_property_name(self, cls: OntologyClass, prop: OntologyProperty) -> str:
+        prop_name = self.to_pascal_case(prop.name)
+        prop_name = self.safe_identifier(prop_name, "csharp")
+        if prop_name == cls.name:
+            return f"{prop_name}Value"
+        return prop_name
