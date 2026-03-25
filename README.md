@@ -162,6 +162,53 @@ graph.create(Tool, name="New Tool")             # add more objects
 graph.write("enriched-bundle.jsonld")           # write combined graph
 ```
 
+## Working with Large Datasets
+
+CASE/UCO knowledge graphs can grow large quickly — a single DNS record produces 21 triples, and a full filesystem extraction can generate millions. The SDK provides tools to help you partition, estimate, and manage graph sizes for any compute environment.
+
+### Estimate Before Building
+
+```python
+graph = CASEGraph()
+# ... add objects ...
+print(f"~{graph.estimate_triples()} triples")  # estimate before serializing
+```
+
+### Partition Large Graphs
+
+Don't build one massive graph. Split into manageable chunks and load them into a graph database for combined analysis:
+
+```python
+graph = CASEGraph()
+# ... add many objects ...
+
+# Split into chunks of 10,000 objects each
+chunks = graph.split(max_objects=10000)
+for i, chunk in enumerate(chunks):
+    chunk.write(f"batch-{i:04d}.jsonld")
+```
+
+### Merge Multiple Graphs
+
+```python
+combined = CASEGraph.merge_files([
+    "batch-0000.jsonld",
+    "batch-0001.jsonld",
+    "batch-0002.jsonld",
+])
+```
+
+### Hardware Sizing Quick Reference
+
+| Environment | RAM | Comfortable Max |
+|-------------|-----|----------------|
+| Laptop (16 GB) | 16 GB | ~32K objects (~672K triples) |
+| Workstation (32 GB) | 32 GB | ~64K objects (~1.3M triples) |
+| Workstation (64 GB) | 64 GB | ~256K objects (~5.4M triples) |
+| Graph Database | Any | Unlimited (disk-backed) |
+
+For detailed benchmarks, partitioning strategies, validation tool comparisons, and graph database integration examples, see **[docs/PERFORMANCE_GUIDE.md](docs/PERFORMANCE_GUIDE.md)**.
+
 ## Extending the Ontology
 
 The SDK works with extension ontologies out of the box. If CASE/UCO doesn't cover your domain, you can define new classes in OWL Turtle and use them alongside the generated types.

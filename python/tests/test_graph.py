@@ -277,3 +277,107 @@ def test_context_parity_all_prefixes():
     ]
     for prefix in expected:
         assert prefix in ctx, f"missing context prefix: {prefix}"
+
+
+def test_estimate_triples_empty():
+    graph = CASEGraph()
+    assert graph.estimate_triples() == 0
+
+
+def test_estimate_triples_single_object():
+    graph = CASEGraph()
+    graph.create(Tool, name="Tool A", version="1.0")
+    triples = graph.estimate_triples()
+    # @type (1) + name (1) + version (1) = 3 minimum
+    assert triples >= 3
+
+
+def test_estimate_triples_with_facets():
+    graph = CASEGraph()
+    graph.create(
+        ObservableObject,
+        has_facet=[ApplicationFacet(application_identifier="com.example.app")],
+    )
+    triples = graph.estimate_triples()
+    # Should be more than a simple object due to nested facets
+    assert triples >= 4
+
+
+def test_estimate_triples_multiple_objects():
+    graph = CASEGraph()
+    graph.create(Tool, name="Tool A")
+    graph.create(Tool, name="Tool B")
+    single = CASEGraph()
+    single.create(Tool, name="Tool A")
+    assert graph.estimate_triples() > single.estimate_triples()
+
+
+def test_split_basic():
+    graph = CASEGraph()
+    for i in range(25):
+        graph.create(Tool, name=f"Tool {i}")
+    assert len(graph) == 25
+
+    chunks = graph.split(max_objects=10)
+    assert len(chunks) == 3
+    assert len(chunks[0]) == 10
+    assert len(chunks[1]) == 10
+    assert len(chunks[2]) == 5
+
+
+def test_split_preserves_context():
+    graph = CASEGraph(
+        kb_prefix="http://example.org/test/",
+        extra_context={"myext": "http://example.org/ext/"},
+    )
+    graph.create(Tool, name="T1")
+    graph.create(Tool, name="T2")
+
+    chunks = graph.split(max_objects=1)
+    assert len(chunks) == 2
+    for chunk in chunks:
+        ctx = json.loads(chunk.serialize())["@context"]
+        assert ctx["kb"] == "http://example.org/test/"
+        assert "myext" in ctx
+
+
+def test_split_single_chunk():
+    graph = CASEGraph()
+    graph.create(Tool, name="Only")
+    chunks = graph.split(max_objects=100)
+    assert len(chunks) == 1
+    assert len(chunks[0]) == 1
+
+
+def test_merge_files(tmp_path):
+    g1 = CASEGraph()
+    g1.create(Tool, name="Tool A")
+    g1.write(str(tmp_path / "g1.jsonld"))
+
+    g2 = CASEGraph()
+    g2.create(Tool, name="Tool B")
+    g2.create(Tool, name="Tool C")
+    g2.write(str(tmp_path / "g2.jsonld"))
+
+    merged = CASEGraph.merge_files([
+        str(tmp_path / "g1.jsonld"),
+        str(tmp_path / "g2.jsonld"),
+    ])
+    assert len(merged) == 3
+
+
+def test_split_then_merge_roundtrip(tmp_path):
+    graph = CASEGraph()
+    for i in range(20):
+        graph.create(Tool, name=f"Tool {i}")
+    original_count = len(graph)
+
+    chunks = graph.split(max_objects=7)
+    paths = []
+    for i, chunk in enumerate(chunks):
+        p = str(tmp_path / f"chunk-{i}.jsonld")
+        chunk.write(p)
+        paths.append(p)
+
+    merged = CASEGraph.merge_files(paths)
+    assert len(merged) == original_count

@@ -140,6 +140,64 @@ class CASEGraph:
         with open(path, "r", encoding="utf-8") as f:
             self.load(f.read())
 
+    def estimate_triples(self) -> int:
+        """Estimate the number of RDF triples this graph will produce.
+
+        Counts @type (1 triple), @id (implicit, not counted), and each
+        property value as individual triples. Nested objects contribute
+        their own triples recursively.
+        """
+        return sum(self._count_triples(obj) for obj in self._objects)
+
+    @staticmethod
+    def _count_triples(obj: dict) -> int:
+        count = 0
+        for key, value in obj.items():
+            if key == "@id":
+                continue
+            if key == "@type":
+                count += 1
+                continue
+            if isinstance(value, list):
+                for item in value:
+                    if isinstance(item, dict):
+                        count += 1 + CASEGraph._count_triples(item)
+                    else:
+                        count += 1
+            elif isinstance(value, dict):
+                if "@value" in value:
+                    count += 1
+                else:
+                    count += 1 + CASEGraph._count_triples(value)
+            else:
+                count += 1
+        return count
+
+    def split(self, max_objects: int = 10000) -> list[CASEGraph]:
+        """Split this graph into smaller chunks of at most max_objects each.
+
+        Each chunk gets a copy of the context. The original graph is not modified.
+        """
+        chunks: list[CASEGraph] = []
+        for i in range(0, len(self._objects), max_objects):
+            chunk = CASEGraph(kb_prefix=self.kb_prefix)
+            chunk._context = dict(self._context)
+            chunk._objects = list(self._objects[i:i + max_objects])
+            chunks.append(chunk)
+        return chunks
+
+    @classmethod
+    def merge_files(cls, paths: list[str], kb_prefix: str = "http://example.org/kb/") -> CASEGraph:
+        """Load and merge multiple JSON-LD graph files into a single graph.
+
+        Contexts are merged (later files override earlier ones for
+        conflicting prefixes). All objects are concatenated.
+        """
+        merged = cls(kb_prefix=kb_prefix)
+        for path in paths:
+            merged.load_file(path)
+        return merged
+
     def _mint_id(self, instance: Any) -> str:
         """Generate a UUID-based @id for an instance."""
         cls_name = type(instance).__name__
