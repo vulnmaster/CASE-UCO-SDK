@@ -203,6 +203,21 @@ class OntologySchema:
     namespaces: dict[str, str] = field(default_factory=dict)
     modules: dict[str, list[str]] = field(default_factory=dict)
 
+    def without_extensions(self) -> OntologySchema:
+        """Return a copy of this schema excluding extension (ext.*) modules."""
+        filtered_modules = {k: v for k, v in self.modules.items() if not k.startswith("ext.")}
+        ext_iris = set()
+        for k, v in self.modules.items():
+            if k.startswith("ext."):
+                ext_iris.update(v)
+        filtered_classes = {k: v for k, v in self.classes.items() if k not in ext_iris}
+        return OntologySchema(
+            classes=filtered_classes,
+            vocabs=dict(self.vocabs),
+            namespaces=dict(self.namespaces),
+            modules=filtered_modules,
+        )
+
     def classes_in_module(self, module: str) -> list[OntologyClass]:
         iris = self.modules.get(module, [])
         return [self.classes[iri] for iri in iris if iri in self.classes]

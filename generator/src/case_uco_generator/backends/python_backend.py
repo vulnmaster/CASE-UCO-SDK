@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from case_uco_generator.backends.base import CodegenBackend
@@ -10,6 +11,7 @@ from case_uco_generator.schema_model import (
     OntologyProperty,
     OntologyVocab,
     compact_ontology_iri,
+    iri_local_name,
 )
 
 
@@ -67,7 +69,54 @@ class PythonBackend(CodegenBackend):
         )
         created.append(top_init)
 
+        # Emit _registry.json for runtime introspection
+        registry_path = self._emit_registry()
+        created.append(registry_path)
+
         return created
+
+    def _emit_registry(self) -> Path:
+        """Serialize the ontology schema to _registry.json for runtime discovery."""
+        registry: dict = {
+            "modules": sorted(self.schema.modules.keys()),
+            "classes": {},
+            "vocabs": {},
+        }
+
+        for cls in sorted(self.schema.classes.values(), key=lambda c: c.name):
+            all_props = self.schema.resolve_all_properties(cls)
+            props_data = []
+            for prop in all_props:
+                props_data.append({
+                    "name": prop.name,
+                    "type": iri_local_name(prop.range_iri),
+                    "type_iri": prop.range_iri,
+                    "cardinality": prop.cardinality.value,
+                    "required": prop.cardinality.is_required,
+                    "description": prop.description,
+                })
+            registry["classes"][cls.name] = {
+                "iri": cls.iri,
+                "module": cls.module,
+                "description": cls.description,
+                "parents": [iri_local_name(p) for p in cls.parent_iris],
+                "is_facet": cls.is_facet,
+                "properties": props_data,
+            }
+
+        for vocab in sorted(self.schema.vocabs.values(), key=lambda v: v.name):
+            members = [
+                iri_local_name(m) if "/" in m or "#" in m else m
+                for m in vocab.members
+            ]
+            registry["vocabs"][vocab.name] = {
+                "iri": vocab.iri,
+                "members": members,
+            }
+
+        path = self.output_dir / "_registry.json"
+        path.write_text(json.dumps(registry, indent=2, ensure_ascii=False), encoding="utf-8")
+        return path
 
     def _vocabs_for_module(
         self, classes: list[OntologyClass]

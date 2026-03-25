@@ -6,7 +6,7 @@ A multi-language SDK for building [CASE](https://caseontology.org/) and [UCO](ht
 
 The SDK is auto-generated from the official CASE 1.4.0 and UCO 1.4.0 OWL+SHACL ontology sources. Every class, property, and vocabulary term in the published specifications has a corresponding typed class in each language. The generated code gives you:
 
-- **Full ontology coverage** — all 426 classes across 14 UCO/CASE modules
+- **Full ontology coverage** — all 428 classes across 15 modules (including extensions)
 - **Typed properties** with correct JSON-LD serialization (IRIs, typed literals, nested objects)
 - **Required-field validation** — ontology-mandated properties are checked before graph insertion
 - **Automatic JSON-LD context** — the standard 18 CASE/UCO namespace prefixes are built in
@@ -243,20 +243,92 @@ case_validate --built-version case-1.4.0 \
 
 See the [toolcap extension](extensions/toolcap/) for a complete, validated example of this pattern, and the [CDO Community Playground Guide](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing) for submission requirements.
 
+## Discovering Classes
+
+With 428+ classes across 15 modules, finding the right class for your use case can be challenging. The SDK provides four ways to navigate the ontology.
+
+### CLI Ontology Explorer
+
+Search and browse the entire ontology from your terminal:
+
+```bash
+pip install -e generator/
+
+# Search by keyword
+case-uco-explore search "file"
+
+# Get full details for a class (properties, types, inheritance)
+case-uco-explore class FileFacet
+
+# List all modules
+case-uco-explore modules
+
+# Browse a specific module
+case-uco-explore module observable
+
+# View inheritance hierarchy
+case-uco-explore hierarchy Tool
+
+# Find classes by property type
+case-uco-explore properties --type Tool
+```
+
+The explorer includes extension ontologies by default. Use `--no-extensions` to browse only core CASE/UCO.
+
+### Python Runtime Introspection
+
+Discover classes programmatically from a Python REPL or script:
+
+```python
+from case_uco.registry import search, get_class, find_facets, list_modules
+
+# Search by keyword
+results = search("browser")
+for r in results:
+    print(f"{r['name']:30s} {r['module']}")
+
+# Get full class details
+info = get_class("FileFacet")
+print(info["description"])
+for prop in info["properties"]:
+    print(f"  {prop['name']:20s} {prop['type']:15s} required={prop['required']}")
+
+# Find all Facet subclasses
+facets = find_facets()
+
+# List modules
+modules = list_modules()
+```
+
+### Ontology Reference
+
+A complete auto-generated reference of every class, property, and vocabulary type:
+
+- **[ONTOLOGY_REFERENCE.md](ONTOLOGY_REFERENCE.md)** — full class reference with property tables, organized by module
+
+### Domain Mapping Guide
+
+Don't know which CASE/UCO class fits your data? The mapping guide organizes classes by forensic domain:
+
+- **[docs/MAPPING_GUIDE.md](docs/MAPPING_GUIDE.md)** — maps common concepts (files, network, devices, email, mobile, etc.) to the right classes, with usage examples
+
 ## SDK Architecture
 
 ```
 CASE-UCO-SDK/
-├── generator/          Python code generator (parses OWL+SHACL → typed libraries)
-├── ontology/           Git submodules: UCO 1.4.0 + CASE 1.4.0 sources
-├── python/             Generated Python library (case-uco)
-├── csharp/             Generated C# library (CaseUco, netstandard2.0)
-├── java/               Generated Java library (org.caseontology)
-├── rust/               Generated Rust crate (case-uco)
-├── extensions/         Extension ontology examples
-│   └── toolcap/        Forensic tool capability comparison extension
-├── .github/workflows/  CI, CodeQL, dependency review, release workflows
-└── Makefile            Build orchestration
+├── generator/              Code generator + CLI explorer + docs generators
+├── ontology/               Git submodules: UCO 1.4.0 + CASE 1.4.0 sources
+├── python/                 Generated Python library (case-uco) + runtime registry
+├── csharp/                 Generated C# library (CaseUco, netstandard2.0)
+├── java/                   Generated Java library (org.caseontology)
+├── rust/                   Generated Rust crate (case-uco)
+├── extensions/             Extension ontologies (included in explorer + docs)
+│   └── toolcap/            Forensic tool capability comparison extension
+├── docs/
+│   └── MAPPING_GUIDE.md    Domain mapping guide (auto-generated)
+├── ONTOLOGY_REFERENCE.md   Complete class reference (auto-generated)
+├── .github/workflows/      CI, CodeQL, dependency review, release workflows
+└── Makefile                Build orchestration
 ```
 
 ## Ontology Versions

@@ -14,6 +14,7 @@ dependencies = [
 
 [project.scripts]
 case-uco-generate = "case_uco_generator.cli:main"
+case-uco-explore = "case_uco_generator.explore_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

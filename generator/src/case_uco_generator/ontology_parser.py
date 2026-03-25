@@ -117,12 +117,16 @@ def load_ontology(ontology_root: Path) -> Graph:
     return g
 
 
-def _classify_module(iri: str) -> tuple[str, str]:
+def _classify_module(
+    iri: str,
+    extra_modules: dict[str, tuple[str, str]] | None = None,
+) -> tuple[str, str]:
     """Map a class IRI to (top-level, module) based on namespace."""
     ns = iri_namespace(iri)
     if ns in PREFIX_TO_MODULE:
         return PREFIX_TO_MODULE[ns]
-    # Fallback: try to infer from IRI host
+    if extra_modules and ns in extra_modules:
+        return extra_modules[ns]
     if iri.startswith("https://ontology.caseontology.org/"):
         return ("case", "investigation")
     return ("uco", "core")
@@ -292,9 +296,55 @@ def _extract_vocab_members(g: Graph, vocab_iri: str) -> list[str]:
     return sorted(members)
 
 
-def parse_ontology(ontology_root: Path) -> OntologySchema:
-    """Parse the UCO/CASE ontology and return a typed schema model."""
+def load_extensions(g: Graph, extensions_dir: Path) -> dict[str, tuple[str, str]]:
+    """Load extension ontology .ttl files into the graph and return namespace mappings.
+
+    Returns a dict mapping namespace URI -> (top_level, module) for each
+    extension directory found under extensions_dir.
+    """
+    ext_modules: dict[str, tuple[str, str]] = {}
+    if not extensions_dir.exists():
+        logger.info("No extensions directory at %s", extensions_dir)
+        return ext_modules
+
+    ttl_count = 0
+    for ext_dir in sorted(extensions_dir.iterdir()):
+        if not ext_dir.is_dir():
+            continue
+        ext_name = ext_dir.name
+        for ttl_file in sorted(ext_dir.glob("*.ttl")):
+            if "exemplar" in ttl_file.name:
+                continue
+            try:
+                g.parse(str(ttl_file), format="turtle")
+                ttl_count += 1
+            except Exception as e:
+                logger.warning("Failed to parse extension %s: %s", ttl_file, e)
+
+        for prefix, ns_uri in g.namespaces():
+            ns_str = str(ns_uri)
+            if ext_name in ns_str and ns_str not in PREFIX_TO_MODULE and ns_str not in ext_modules:
+                ext_modules[ns_str] = ("ext", ext_name)
+
+    logger.info("Loaded %d extension Turtle files", ttl_count)
+    return ext_modules
+
+
+def parse_ontology(
+    ontology_root: Path,
+    extensions_dir: Path | None = None,
+) -> OntologySchema:
+    """Parse the UCO/CASE ontology and return a typed schema model.
+
+    If extensions_dir is provided, extension ontologies are loaded and their
+    classes are included with module keys like ``ext.<name>``.
+    """
     g = load_ontology(ontology_root)
+
+    ext_modules: dict[str, tuple[str, str]] = {}
+    if extensions_dir is not None:
+        ext_modules = load_extensions(g, extensions_dir)
+
     schema = OntologySchema()
 
     # Extract namespace prefixes from the graph
@@ -332,7 +382,7 @@ def parse_ontology(ontology_root: Path) -> OntologySchema:
     logger.info("Found %d classes with SHACL shapes", len(class_data))
 
     for cls_iri, data in class_data.items():
-        top_level, module = _classify_module(cls_iri)
+        top_level, module = _classify_module(cls_iri, ext_modules)
         module_key = f"{top_level}.{module}"
 
         is_facet = _is_subclass_of(g, cls_iri, FACET_IRI)
