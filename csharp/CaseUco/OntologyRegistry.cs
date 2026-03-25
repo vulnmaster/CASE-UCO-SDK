@@ -116,7 +116,7 @@ namespace CaseUco
                 }
                 var cls = (Dictionary<string, object>)kv.Value;
                 var mod = cls.ContainsKey("module") ? cls["module"]?.ToString() ?? "" : "";
-                if (mod.Contains(module, StringComparison.OrdinalIgnoreCase))
+                if (mod.IndexOf(module, StringComparison.OrdinalIgnoreCase) >= 0)
                     results.Add(kv.Key);
             }
 
