@@ -12,7 +12,7 @@ This monorepo contains:
 - **java/** — Generated Java library (`case-uco`)
 - **rust/** — Generated Rust crate (`case-uco`)
 - **ontology/** — Git submodules for the [UCO](https://github.com/ucoProject/UCO) and [CASE](https://github.com/casework/CASE) ontology sources
-- **extensions/toolcap/** — A CASE/UCO extension for modeling forensic tool capabilities (see [extensions/toolcap/README.md](extensions/toolcap/README.md))
+- **extensions/toolcap/** — A CASE/UCO extension for modeling forensic tool capabilities, compliant with the [CDO Community Playground Guide](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing) (see [extensions/toolcap/README.md](extensions/toolcap/README.md))
 
 ## Quick Start
 
@@ -135,7 +135,7 @@ println!("{json}");
 
 ## Forensic Tool Capability Comparison
 
-This project was created to help model which digital forensic tools can parse which applications, on which platforms, and for which observable types. See the **[toolcap extension](extensions/toolcap/)** for a full working example:
+This project was created to help model which digital forensic tools can parse which applications, on which platforms, and for which observable types. The **[toolcap extension](extensions/toolcap/)** is a CDO Community Playground-compliant extension that includes separated OWL/SHACL files and a validated exemplar (passes `case_validate` with `Conforms: True`):
 
 ```bash
 python extensions/toolcap/example_capability_matrix.py
@@ -160,8 +160,10 @@ This produces a CASE/UCO-compliant JSON-LD graph representing:
 - [UCO Ontology](https://github.com/ucoProject/UCO)
 - [CASE Ontology](https://github.com/casework/CASE)
 - [CASE Examples](https://github.com/casework/CASE-Examples)
+- [CASE Profile Example](https://github.com/casework/CASE-Profile-Example)
 - [CASE Mapping Template Stubs](https://github.com/casework/CASE-Mapping-Template-Stubs)
 - [CASE Mappings](https://github.com/casework/CASE-Mappings)
+- [CDO Community Playground Guide](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing)
 
 ## Contributing
 

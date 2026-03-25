@@ -28,7 +28,7 @@ from typing import Optional
 class ToolCapability:
     """A tool capability asserts that a forensic tool can parse data from a specific application."""
 
-    CLASS_IRI: str = "https://example.org/ontology/toolcap/ToolCapability"
+    CLASS_IRI: str = "http://example.org/ontology/toolcap/ToolCapability"
     NAMESPACE_PREFIX: str = "toolcap"
 
     tool: Optional[Tool] = field(default=None, metadata={
@@ -58,7 +58,7 @@ class ToolCapability:
 class CapabilityMatrix:
     """A collection of tool capabilities representing a comparison matrix."""
 
-    CLASS_IRI: str = "https://example.org/ontology/toolcap/CapabilityMatrix"
+    CLASS_IRI: str = "http://example.org/ontology/toolcap/CapabilityMatrix"
     NAMESPACE_PREFIX: str = "toolcap"
 
     matrix_name: Optional[str] = field(default=None, metadata={
@@ -73,7 +73,7 @@ def main():
     graph = CASEGraph(
         kb_prefix="http://example.org/forensic-lab/kb/",
         extra_context={
-            "toolcap": "https://example.org/ontology/toolcap/",
+            "toolcap": "http://example.org/ontology/toolcap/",
         },
     )
 

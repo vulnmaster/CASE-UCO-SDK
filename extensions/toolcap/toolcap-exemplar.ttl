@@ -1,0 +1,150 @@
+# Forensic Tool Capability Extension — Exemplar Instances (A-Box)
+#
+# This file contains validated example instances of the toolcap extension
+# classes, demonstrating how to model forensic tool capabilities using
+# CASE/UCO. All instances use UUID-based IRIs per CDO conventions.
+#
+# Validation command:
+#   case_validate --built-version case-1.4.0 \
+#     --ontology-graph extensions/toolcap/toolcap.ttl \
+#     --ontology-graph extensions/toolcap/toolcap-shapes.ttl \
+#     --inference rdfs --allow-info \
+#     extensions/toolcap/toolcap-exemplar.ttl
+
+@prefix kb: <http://example.org/kb/> .
+@prefix toolcap: <http://example.org/ontology/toolcap/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+# =============================================================================
+# Tools (instances of uco-tool:Tool)
+# =============================================================================
+
+kb:Tool-a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d
+	a uco-tool:Tool ;
+	uco-core:name "Magnet AXIOM"^^xsd:string ;
+	uco-core:description "A comprehensive digital forensics platform developed by Magnet Forensics for acquiring, analyzing, and reporting on digital evidence from computers, mobile devices, and cloud services."^^xsd:string ;
+	.
+
+kb:Tool-b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e
+	a uco-tool:Tool ;
+	uco-core:name "Cellebrite Physical Analyzer"^^xsd:string ;
+	uco-core:description "A mobile forensics tool developed by Cellebrite for physical and logical extraction and analysis of data from mobile devices, including smartphones, tablets, and portable GPS devices."^^xsd:string ;
+	.
+
+
+# =============================================================================
+# Applications (instances of uco-observable:ObservableObject)
+# =============================================================================
+
+kb:Application-c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f
+	a uco-observable:ObservableObject ;
+	uco-core:hasFacet kb:ApplicationFacet-d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f80 ;
+	.
+
+kb:ApplicationFacet-d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f80
+	a uco-observable:ApplicationFacet ;
+	uco-observable:applicationIdentifier "com.tencent.mm"^^xsd:string ;
+	uco-core:name "WeChat"^^xsd:string ;
+	.
+
+kb:Application-e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8091
+	a uco-observable:ObservableObject ;
+	uco-core:hasFacet kb:ApplicationFacet-f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f809102 ;
+	.
+
+kb:ApplicationFacet-f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f809102
+	a uco-observable:ApplicationFacet ;
+	uco-observable:applicationIdentifier "org.telegram.messenger"^^xsd:string ;
+	uco-core:name "Telegram"^^xsd:string ;
+	.
+
+
+# =============================================================================
+# Tool Capabilities (instances of toolcap:ToolCapability)
+# =============================================================================
+
+# Magnet AXIOM can parse WeChat on Android and iOS
+kb:ToolCapability-11111111-2222-4333-a444-555555555555
+	a toolcap:ToolCapability ;
+	uco-core:description "Magnet AXIOM's capability to extract and parse WeChat messaging data from Android and iOS device images, including messages, contacts, media files, and call logs."^^xsd:string ;
+	toolcap:tool kb:Tool-a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d ;
+	toolcap:application kb:Application-c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f ;
+	toolcap:supportedPlatform "Android"^^xsd:string ;
+	toolcap:supportedPlatform "iOS"^^xsd:string ;
+	toolcap:parsedObservableType "messages"^^xsd:string ;
+	toolcap:parsedObservableType "contacts"^^xsd:string ;
+	toolcap:parsedObservableType "media files"^^xsd:string ;
+	toolcap:parsedObservableType "call logs"^^xsd:string ;
+	toolcap:toolVersion "8.2.0"^^xsd:string ;
+	toolcap:isVerified "true"^^xsd:boolean ;
+	toolcap:lastTestedDate "2026-03-01T10:00:00Z"^^xsd:dateTime ;
+	.
+
+# Magnet AXIOM can parse Telegram on Android
+kb:ToolCapability-22222222-3333-4444-a555-666666666666
+	a toolcap:ToolCapability ;
+	uco-core:description "Magnet AXIOM's capability to extract and parse Telegram messaging data from Android device images, including messages, contacts, and media files."^^xsd:string ;
+	toolcap:tool kb:Tool-a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d ;
+	toolcap:application kb:Application-e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8091 ;
+	toolcap:supportedPlatform "Android"^^xsd:string ;
+	toolcap:parsedObservableType "messages"^^xsd:string ;
+	toolcap:parsedObservableType "contacts"^^xsd:string ;
+	toolcap:parsedObservableType "media files"^^xsd:string ;
+	toolcap:toolVersion "8.2.0"^^xsd:string ;
+	toolcap:isVerified "true"^^xsd:boolean ;
+	toolcap:lastTestedDate "2026-03-01T10:00:00Z"^^xsd:dateTime ;
+	.
+
+# Cellebrite Physical Analyzer can parse WeChat on Android
+kb:ToolCapability-33333333-4444-4555-a666-777777777777
+	a toolcap:ToolCapability ;
+	uco-core:description "Cellebrite Physical Analyzer's capability to extract and parse WeChat messaging data from Android device images, including messages and contacts."^^xsd:string ;
+	toolcap:tool kb:Tool-b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e ;
+	toolcap:application kb:Application-c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f ;
+	toolcap:supportedPlatform "Android"^^xsd:string ;
+	toolcap:parsedObservableType "messages"^^xsd:string ;
+	toolcap:parsedObservableType "contacts"^^xsd:string ;
+	toolcap:toolVersion "7.70"^^xsd:string ;
+	toolcap:isVerified "false"^^xsd:boolean ;
+	toolcap:lastTestedDate "2026-02-15T14:30:00Z"^^xsd:dateTime ;
+	.
+
+# Cellebrite Physical Analyzer can parse Telegram on Android and iOS
+kb:ToolCapability-44444444-5555-4666-a777-888888888888
+	a toolcap:ToolCapability ;
+	uco-core:description "Cellebrite Physical Analyzer's capability to extract and parse Telegram messaging data from Android and iOS device images, including messages, contacts, media files, and location data."^^xsd:string ;
+	toolcap:tool kb:Tool-b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e ;
+	toolcap:application kb:Application-e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8091 ;
+	toolcap:supportedPlatform "Android"^^xsd:string ;
+	toolcap:supportedPlatform "iOS"^^xsd:string ;
+	toolcap:parsedObservableType "messages"^^xsd:string ;
+	toolcap:parsedObservableType "contacts"^^xsd:string ;
+	toolcap:parsedObservableType "media files"^^xsd:string ;
+	toolcap:parsedObservableType "location data"^^xsd:string ;
+	toolcap:toolVersion "7.70"^^xsd:string ;
+	toolcap:isVerified "true"^^xsd:boolean ;
+	toolcap:lastTestedDate "2026-02-20T09:15:00Z"^^xsd:dateTime ;
+	.
+
+
+# =============================================================================
+# Capability Matrix (instance of toolcap:CapabilityMatrix)
+# =============================================================================
+
+kb:CapabilityMatrix-99999999-aaaa-4bbb-accc-dddddddddddd
+	a toolcap:CapabilityMatrix ;
+	uco-core:name "Messaging App Forensic Tool Comparison Q1 2026"^^xsd:string ;
+	uco-core:description "A capability matrix comparing Magnet AXIOM and Cellebrite Physical Analyzer support for WeChat and Telegram across Android and iOS platforms."^^xsd:string ;
+	toolcap:matrixName "Messaging App Forensic Tool Comparison Q1 2026"^^xsd:string ;
+	toolcap:matrixVersion "1.0"^^xsd:string ;
+	uco-core:object
+		kb:ToolCapability-11111111-2222-4333-a444-555555555555 ,
+		kb:ToolCapability-22222222-3333-4444-a555-666666666666 ,
+		kb:ToolCapability-33333333-4444-4555-a666-777777777777 ,
+		kb:ToolCapability-44444444-5555-4666-a777-888888888888
+		;
+	.

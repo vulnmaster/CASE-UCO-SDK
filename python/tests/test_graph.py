@@ -97,7 +97,7 @@ def test_inherited_core_property_prefix():
 def test_extension_handling():
     @dataclass
     class ToolCapability:
-        CLASS_IRI: str = "https://example.org/ontology/toolcap/ToolCapability"
+        CLASS_IRI: str = "http://example.org/ontology/toolcap/ToolCapability"
         NAMESPACE_PREFIX: str = "toolcap"
         supported_platform: list[str] = field(
             default_factory=list,
@@ -110,10 +110,10 @@ def test_extension_handling():
             },
         )
 
-    graph = CASEGraph(extra_context={"toolcap": "https://example.org/ontology/toolcap/"})
+    graph = CASEGraph(extra_context={"toolcap": "http://example.org/ontology/toolcap/"})
     graph.add(ToolCapability(supported_platform=["Android", "iOS"]))
     output = json.loads(graph.serialize())
-    assert output["@context"]["toolcap"] == "https://example.org/ontology/toolcap/"
+    assert output["@context"]["toolcap"] == "http://example.org/ontology/toolcap/"
     assert output["@graph"][0]["@type"] == "toolcap:ToolCapability"
     assert output["@graph"][0]["toolcap:supportedPlatform"] == ["Android", "iOS"]
 

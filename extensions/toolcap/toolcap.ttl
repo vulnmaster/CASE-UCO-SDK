@@ -1,167 +1,126 @@
-# Forensic Tool Capability Extension for CASE/UCO
-# Defines classes and properties for modeling which forensic tools
-# can parse which applications, on which platforms, for which observables.
+# Forensic Tool Capability Extension for CASE/UCO (OWL T-Box)
+#
+# This extension ontology models which digital forensic tools can parse
+# which applications, on which platforms, for which observable types.
+# It is designed for community comparison of forensic tool capabilities
+# across the digital forensics and incident response (DFIR) landscape.
+#
+# Companion files:
+#   toolcap-shapes.ttl   — SHACL property shapes for validation
+#   toolcap-exemplar.ttl — Validated exemplar instances (A-Box)
 
-@prefix toolcap: <https://example.org/ontology/toolcap/> .
-@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
-@prefix tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
-@prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix toolcap: <http://example.org/ontology/toolcap/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://example.org/ontology/toolcap>
+<http://example.org/ontology/toolcap>
 	a owl:Ontology ;
-	rdfs:label "toolcap"@en ;
-	rdfs:comment "Forensic tool capability extension — models which forensic tools can parse which applications, on which platforms, for which observables."@en ;
+	rdfs:label "Forensic Tool Capability Extension"@en ;
+	rdfs:comment "An extension ontology for the Cyber Domain Ontology (CDO) that provides classes and properties for modeling the capabilities of digital forensic tools. This extension allows practitioners to formally assert which forensic tools (e.g., Magnet AXIOM, Cellebrite Physical Analyzer, Autopsy, X-Ways Forensics) can parse data from which applications (e.g., WhatsApp, Telegram, WeChat, Outlook), on which device platforms (e.g., Android, iOS, Windows, macOS), and for which types of observables (e.g., messages, contacts, call logs, media files, calendar events, location data). The extension is designed to support forensic lab management, tool selection, validation testing, and capability gap analysis across the DFIR community."@en ;
 	owl:versionIRI toolcap:0.1.0 ;
 	.
 
-# ToolCapability: Asserts that a forensic tool can parse data from a specific application.
+
+# =============================================================================
+# Classes
+# =============================================================================
+
 toolcap:ToolCapability
-	a
-		owl:Class ,
-		sh:NodeShape
-		;
-	rdfs:subClassOf core:UcoObject ;
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
 	rdfs:label "ToolCapability"@en ;
-	rdfs:comment "A tool capability asserts that a forensic tool can parse data from a specific application on a specific platform."@en ;
-	sh:property
-		[
-			sh:class tool:Tool ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:minCount "1"^^xsd:integer ;
-			sh:nodeKind sh:IRI ;
-			sh:path toolcap:tool ;
-		] ,
-		[
-			sh:class observable:ObservableObject ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:minCount "1"^^xsd:integer ;
-			sh:nodeKind sh:IRI ;
-			sh:path toolcap:application ;
-		] ,
-		[
-			sh:datatype xsd:string ;
-			sh:nodeKind sh:Literal ;
-			sh:path toolcap:supportedPlatform ;
-		] ,
-		[
-			sh:datatype xsd:string ;
-			sh:nodeKind sh:Literal ;
-			sh:path toolcap:parsedObservableType ;
-		] ,
-		[
-			sh:datatype xsd:string ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path toolcap:toolVersion ;
-		] ,
-		[
-			sh:datatype xsd:boolean ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path toolcap:isVerified ;
-		] ,
-		[
-			sh:datatype xsd:dateTime ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path toolcap:lastTestedDate ;
-		]
-		;
-	sh:targetClass toolcap:ToolCapability ;
+	rdfs:comment "A tool capability is a formal assertion that a specific digital forensic tool can successfully parse, extract, or decode data from a specific application on one or more device platforms. Each ToolCapability instance links exactly one forensic tool (uco-tool:Tool) to exactly one target application (uco-observable:ObservableObject with an ApplicationFacet), and may additionally specify the platforms supported, the types of observables the tool can extract, the tool version tested, whether the capability has been independently verified, and when it was last tested. ToolCapability instances are the building blocks of a capability comparison matrix used to evaluate forensic tool coverage across the application and platform landscape."@en ;
 	.
 
-# CapabilityMatrix: A collection of tool capabilities, representing
-# the full comparison matrix for a set of tools and applications.
 toolcap:CapabilityMatrix
-	a
-		owl:Class ,
-		sh:NodeShape
-		;
-	rdfs:subClassOf core:ContextualCompilation ;
+	a owl:Class ;
+	rdfs:subClassOf uco-core:ContextualCompilation ;
 	rdfs:label "CapabilityMatrix"@en ;
-	rdfs:comment "A capability matrix is a collection of tool capabilities representing which forensic tools support which applications."@en ;
-	sh:property
-		[
-			sh:datatype xsd:string ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path toolcap:matrixName ;
-		] ,
-		[
-			sh:datatype xsd:string ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path toolcap:matrixVersion ;
-		]
-		;
-	sh:targetClass toolcap:CapabilityMatrix ;
+	rdfs:comment "A capability matrix is a named, versioned collection of ToolCapability assertions that together represent a comprehensive comparison of which digital forensic tools support which applications. A CapabilityMatrix serves as the top-level container for organizing and publishing capability data, enabling forensic labs and DFIR teams to compare tool coverage, identify gaps, plan acquisitions, and track changes over time. The matrix can be serialized as a CASE/UCO-compliant JSON-LD graph and shared across organizations for interoperability."@en ;
 	.
 
-# Properties
+
+# =============================================================================
+# Object Properties
+# =============================================================================
+
 toolcap:tool
 	a owl:ObjectProperty ;
 	rdfs:label "tool"@en ;
-	rdfs:comment "The forensic tool that has this capability."@en ;
-	rdfs:range tool:Tool ;
+	rdfs:comment "Identifies the digital forensic tool (an instance of uco-tool:Tool) that possesses this capability. For example, a ToolCapability asserting that Magnet AXIOM can parse WeChat would link to a Tool instance representing Magnet AXIOM via this property."@en ;
+	rdfs:domain toolcap:ToolCapability ;
+	rdfs:range uco-tool:Tool ;
 	.
 
 toolcap:application
 	a owl:ObjectProperty ;
 	rdfs:label "application"@en ;
-	rdfs:comment "The application whose data can be parsed by the tool."@en ;
-	rdfs:range observable:ObservableObject ;
+	rdfs:comment "Identifies the target application (an instance of uco-observable:ObservableObject, typically with an ApplicationFacet) whose data can be parsed by the forensic tool. For example, a ToolCapability asserting that Cellebrite can parse Telegram would link to an ObservableObject representing Telegram via this property."@en ;
+	rdfs:domain toolcap:ToolCapability ;
+	rdfs:range uco-observable:ObservableObject ;
 	.
+
+
+# =============================================================================
+# Datatype Properties
+# =============================================================================
 
 toolcap:supportedPlatform
 	a owl:DatatypeProperty ;
 	rdfs:label "supportedPlatform"@en ;
-	rdfs:comment "A platform (e.g., Android, iOS, Windows) on which the tool can parse the application data."@en ;
+	rdfs:comment "A device platform or operating system (e.g., 'Android', 'iOS', 'Windows', 'macOS', 'Linux') on which the forensic tool can successfully parse data from the target application. Multiple values are expected when the tool supports the same application across multiple platforms."@en ;
+	rdfs:domain toolcap:ToolCapability ;
 	rdfs:range xsd:string ;
 	.
 
 toolcap:parsedObservableType
 	a owl:DatatypeProperty ;
 	rdfs:label "parsedObservableType"@en ;
-	rdfs:comment "A type of observable (e.g., messages, contacts, calendar events) that the tool can extract from the application."@en ;
+	rdfs:comment "A category of observable data (e.g., 'messages', 'contacts', 'call logs', 'media files', 'calendar events', 'location data', 'browser history') that the forensic tool can extract from the target application. Multiple values indicate the tool can parse several observable categories from the same application."@en ;
+	rdfs:domain toolcap:ToolCapability ;
 	rdfs:range xsd:string ;
 	.
 
 toolcap:toolVersion
 	a owl:DatatypeProperty ;
 	rdfs:label "toolVersion"@en ;
-	rdfs:comment "The version of the tool that has been verified to support this capability."@en ;
+	rdfs:comment "The specific version string of the forensic tool that was tested or verified to support this capability. Because forensic tool capabilities change between releases (new application parsers are added, existing ones may break), recording the tested version is critical for reproducibility and auditability."@en ;
+	rdfs:domain toolcap:ToolCapability ;
 	rdfs:range xsd:string ;
 	.
 
 toolcap:isVerified
 	a owl:DatatypeProperty ;
 	rdfs:label "isVerified"@en ;
-	rdfs:comment "Whether this capability has been independently verified through testing."@en ;
+	rdfs:comment "A boolean flag indicating whether this tool capability has been independently verified through controlled testing (e.g., running the tool against a known test image containing the target application's data and confirming successful extraction). A value of true means the capability has been validated; false or omission means it is unverified or self-reported."@en ;
+	rdfs:domain toolcap:ToolCapability ;
 	rdfs:range xsd:boolean ;
 	.
 
 toolcap:lastTestedDate
 	a owl:DatatypeProperty ;
 	rdfs:label "lastTestedDate"@en ;
-	rdfs:comment "The date when this capability was last tested/verified."@en ;
+	rdfs:comment "The date and time when this capability was most recently tested or verified. This is important for tracking currency of the capability assertion, since applications frequently update their data storage formats and forensic tools must keep pace."@en ;
+	rdfs:domain toolcap:ToolCapability ;
 	rdfs:range xsd:dateTime ;
 	.
 
 toolcap:matrixName
 	a owl:DatatypeProperty ;
 	rdfs:label "matrixName"@en ;
-	rdfs:comment "The name of this capability matrix."@en ;
+	rdfs:comment "A human-readable name for this capability matrix, used to distinguish it from other matrices (e.g., 'ICAC Messaging App Tool Support Q1 2026', 'Lab Forensic Tool Comparison')."@en ;
+	rdfs:domain toolcap:CapabilityMatrix ;
 	rdfs:range xsd:string ;
 	.
 
 toolcap:matrixVersion
 	a owl:DatatypeProperty ;
 	rdfs:label "matrixVersion"@en ;
-	rdfs:comment "The version of this capability matrix."@en ;
+	rdfs:comment "A version string for this capability matrix, allowing consumers to track updates and changes over time (e.g., '1.0', '2.1-draft')."@en ;
+	rdfs:domain toolcap:CapabilityMatrix ;
 	rdfs:range xsd:string ;
 	.

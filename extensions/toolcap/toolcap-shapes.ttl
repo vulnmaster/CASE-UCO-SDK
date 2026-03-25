@@ -1,0 +1,108 @@
+# Forensic Tool Capability Extension — SHACL Shapes
+#
+# Validation shapes for the toolcap extension ontology.
+# Separated from the OWL definitions per CDO Ontology Committee guidance
+# to avoid redundancies during testing.
+
+@prefix toolcap: <http://example.org/ontology/toolcap/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+# =============================================================================
+# ToolCapability shape
+# =============================================================================
+
+toolcap:ToolCapability-Shape
+	a sh:NodeShape ;
+	sh:targetClass toolcap:ToolCapability ;
+	sh:property
+		[
+			sh:path toolcap:tool ;
+			sh:class uco-tool:Tool ;
+			sh:nodeKind sh:IRI ;
+			sh:minCount "1"^^xsd:integer ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:name "tool" ;
+			sh:description "The forensic tool that has this capability (exactly one required)." ;
+		] ,
+		[
+			sh:path toolcap:application ;
+			sh:class uco-observable:ObservableObject ;
+			sh:nodeKind sh:IRI ;
+			sh:minCount "1"^^xsd:integer ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:name "application" ;
+			sh:description "The target application whose data the tool can parse (exactly one required)." ;
+		] ,
+		[
+			sh:path toolcap:supportedPlatform ;
+			sh:datatype xsd:string ;
+			sh:nodeKind sh:Literal ;
+			sh:name "supportedPlatform" ;
+			sh:description "Device platforms on which the tool supports this application (zero or more)." ;
+		] ,
+		[
+			sh:path toolcap:parsedObservableType ;
+			sh:datatype xsd:string ;
+			sh:nodeKind sh:Literal ;
+			sh:name "parsedObservableType" ;
+			sh:description "Categories of observable data the tool can extract (zero or more)." ;
+		] ,
+		[
+			sh:path toolcap:toolVersion ;
+			sh:datatype xsd:string ;
+			sh:nodeKind sh:Literal ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:name "toolVersion" ;
+			sh:description "The version of the tool verified for this capability (at most one)." ;
+		] ,
+		[
+			sh:path toolcap:isVerified ;
+			sh:datatype xsd:boolean ;
+			sh:nodeKind sh:Literal ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:name "isVerified" ;
+			sh:description "Whether the capability has been independently verified (at most one)." ;
+		] ,
+		[
+			sh:path toolcap:lastTestedDate ;
+			sh:datatype xsd:dateTime ;
+			sh:nodeKind sh:Literal ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:name "lastTestedDate" ;
+			sh:description "When the capability was last tested (at most one)." ;
+		]
+		;
+	.
+
+
+# =============================================================================
+# CapabilityMatrix shape
+# =============================================================================
+
+toolcap:CapabilityMatrix-Shape
+	a sh:NodeShape ;
+	sh:targetClass toolcap:CapabilityMatrix ;
+	sh:property
+		[
+			sh:path toolcap:matrixName ;
+			sh:datatype xsd:string ;
+			sh:nodeKind sh:Literal ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:name "matrixName" ;
+			sh:description "Human-readable name for this capability matrix (at most one)." ;
+		] ,
+		[
+			sh:path toolcap:matrixVersion ;
+			sh:datatype xsd:string ;
+			sh:nodeKind sh:Literal ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:name "matrixVersion" ;
+			sh:description "Version identifier for this capability matrix (at most one)." ;
+		]
+		;
+	.
