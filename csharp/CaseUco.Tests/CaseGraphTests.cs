@@ -13,7 +13,7 @@ namespace CaseUco.Tests
         public void CreateTool_ProducesValidJsonLd()
         {
             var graph = new CaseGraph();
-            var tool = new Tool { Name = "Magnet AXIOM", Version = "7.0" };
+            var tool = new Tool { Name = "Tool A", Version = "7.0" };
             var id = graph.Add(tool);
 
             Assert.StartsWith("kb:Tool-", id);
@@ -38,7 +38,7 @@ namespace CaseUco.Tests
         public void AddWithId_UsesDeterministicId()
         {
             var graph = new CaseGraph();
-            var tool = new Tool { Name = "Magnet AXIOM" };
+            var tool = new Tool { Name = "Tool A" };
             var id = graph.AddWithId(tool, "kb:Tool-my-stable-id");
 
             Assert.Equal("kb:Tool-my-stable-id", id);

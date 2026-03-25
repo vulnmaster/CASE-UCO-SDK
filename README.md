@@ -1,4 +1,4 @@
-# CASE/UCO Standard Libraries
+# CASE/UCO SDK
 
 Auto-generated, full-coverage builder libraries for the [CASE](https://caseontology.org/) (Cyber-investigation Analysis Standard Expression) and [UCO](https://unifiedcyberontology.org/) (Unified Cyber Ontology) ontologies.
 
@@ -27,8 +27,8 @@ This monorepo contains:
 
 ```bash
 # Clone with submodules
-git clone --recurse-submodules https://github.com/vulnmaster/CASE-UCO-Libraries.git
-cd CASE-UCO-Libraries
+git clone --recurse-submodules https://github.com/vulnmaster/CASE-UCO-SDK.git
+cd CASE-UCO-SDK
 
 # Install the generator
 pip install -e generator/
@@ -60,10 +60,10 @@ from case_uco.uco.observable import ObservableObject, ApplicationFacet
 
 graph = CASEGraph(kb_prefix="http://example.org/kb/")
 
-axiom = graph.create(Tool, name="Magnet AXIOM", version="7.0")
-wechat = graph.create(
+tool_a = graph.create(Tool, name="Tool A", version="7.0")
+app_alpha = graph.create(
     ObservableObject,
-    has_facet=[ApplicationFacet(application_identifier="com.tencent.mm")],
+    has_facet=[ApplicationFacet(application_identifier="com.example.app.alpha")],
 )
 
 print(graph.serialize())
@@ -78,12 +78,12 @@ using CaseUco.Uco.Observable;
 
 var graph = new CaseGraph("http://example.org/kb/");
 
-var tool = new Tool { Name = "Magnet AXIOM", Version = "7.0" };
+var tool = new Tool { Name = "Tool A", Version = "7.0" };
 graph.Add(tool);
 
 var app = new ObservableObject();
 app.HasFacet = new List<object> {
-    new ApplicationFacet { ApplicationIdentifier = "com.tencent.mm" }
+    new ApplicationFacet { ApplicationIdentifier = "com.example.app.alpha" }
 };
 graph.Add(app);
 
@@ -101,12 +101,12 @@ import org.caseontology.uco.observable.ApplicationFacet;
 CaseGraph graph = new CaseGraph("http://example.org/kb/");
 
 Tool tool = new Tool();
-tool.setName("Magnet AXIOM");
+tool.setName("Tool A");
 tool.setVersion("7.0");
 graph.add(tool);
 
 ApplicationFacet facet = new ApplicationFacet();
-facet.setApplicationIdentifier("com.tencent.mm");
+facet.setApplicationIdentifier("com.example.app.alpha");
 
 ObservableObject app = new ObservableObject();
 app.getHasFacet().add(facet);
@@ -143,10 +143,10 @@ python extensions/toolcap/example_capability_matrix.py
 
 This produces a CASE/UCO-compliant JSON-LD graph representing:
 
-| | WeChat | Telegram | Outlook |
+| | App Alpha | App Beta | App Gamma |
 |---|---|---|---|
-| **Magnet AXIOM** | Android, iOS | Android, iOS | Android, iOS, Windows |
-| **Cellebrite PA** | Android | Android, iOS | — |
+| **Tool A** | Android, iOS | Android, iOS | Android, iOS, Windows |
+| **Tool B** | Android | Android, iOS | — |
 
 ## Ontology Versions
 
@@ -163,7 +163,7 @@ This produces a CASE/UCO-compliant JSON-LD graph representing:
 - [CASE Profile Example](https://github.com/casework/CASE-Profile-Example)
 - [CASE Mapping Template Stubs](https://github.com/casework/CASE-Mapping-Template-Stubs)
 - [CASE Mappings](https://github.com/casework/CASE-Mappings)
-- [CDO Community Playground Guide](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing)
+- [CDO Community Playground Guide - Draft](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing)
 
 ## Contributing
 

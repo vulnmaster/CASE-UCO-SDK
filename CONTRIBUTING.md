@@ -5,8 +5,8 @@ Thank you for your interest in contributing! This project provides auto-generate
 ## Getting Started
 
 ```bash
-git clone --recurse-submodules https://github.com/vulnmaster/CASE-UCO-Libraries.git
-cd CASE-UCO-Libraries
+git clone --recurse-submodules https://github.com/vulnmaster/CASE-UCO-SDK.git
+cd CASE-UCO-SDK
 make init
 make generate
 make test

@@ -19,7 +19,7 @@ This extension follows all CDO Community Playground requirements:
 | `toolcap.ttl` | OWL ontology (T-Box): class and property definitions |
 | `toolcap-shapes.ttl` | SHACL shapes: property constraints for validation |
 | `toolcap-exemplar.ttl` | Exemplar instances (A-Box): validated example data |
-| `example_capability_matrix.py` | Python example using the CASE-UCO-Libraries builders |
+| `example_capability_matrix.py` | Python example using the CASE-UCO-SDK builders |
 
 ## Classes
 
@@ -65,4 +65,4 @@ Conforms: True
 python extensions/toolcap/example_capability_matrix.py
 ```
 
-See `example_capability_matrix.py` for a complete working example using the CASE-UCO-Libraries Python builder to construct a capability matrix comparing Magnet AXIOM and Cellebrite Physical Analyzer across WeChat, Telegram, and Outlook.
+See `example_capability_matrix.py` for a complete working example using the CASE-UCO-SDK Python builder to construct a capability matrix comparing two forensic tools across three applications.

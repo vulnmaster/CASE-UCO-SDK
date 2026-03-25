@@ -35,4 +35,4 @@ jobs:
             - **Java** (`case-uco`) — Maven
             - **Rust** (`case-uco`) — Cargo
 
-            See the [README](https://github.com/vulnmaster/CASE-UCO-Libraries#readme) for usage.
+            See the [README](https://github.com/vulnmaster/CASE-UCO-SDK#readme) for usage.

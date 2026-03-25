@@ -20,7 +20,7 @@
 <http://example.org/ontology/toolcap>
 	a owl:Ontology ;
 	rdfs:label "Forensic Tool Capability Extension"@en ;
-	rdfs:comment "An extension ontology for the Cyber Domain Ontology (CDO) that provides classes and properties for modeling the capabilities of digital forensic tools. This extension allows practitioners to formally assert which forensic tools (e.g., Magnet AXIOM, Cellebrite Physical Analyzer, Autopsy, X-Ways Forensics) can parse data from which applications (e.g., WhatsApp, Telegram, WeChat, Outlook), on which device platforms (e.g., Android, iOS, Windows, macOS), and for which types of observables (e.g., messages, contacts, call logs, media files, calendar events, location data). The extension is designed to support forensic lab management, tool selection, validation testing, and capability gap analysis across the DFIR community."@en ;
+	rdfs:comment "An extension ontology for the Cyber Domain Ontology (CDO) that provides classes and properties for modeling the capabilities of digital forensic tools. This extension allows practitioners to formally assert which forensic tools can parse data from which applications, on which device platforms (e.g., Android, iOS, Windows, macOS), and for which types of observables (e.g., messages, contacts, call logs, media files, calendar events, location data). The extension is designed to support forensic lab management, tool selection, validation testing, and capability gap analysis across the DFIR community."@en ;
 	owl:versionIRI toolcap:0.1.0 ;
 	.
 
@@ -51,7 +51,7 @@ toolcap:CapabilityMatrix
 toolcap:tool
 	a owl:ObjectProperty ;
 	rdfs:label "tool"@en ;
-	rdfs:comment "Identifies the digital forensic tool (an instance of uco-tool:Tool) that possesses this capability. For example, a ToolCapability asserting that Magnet AXIOM can parse WeChat would link to a Tool instance representing Magnet AXIOM via this property."@en ;
+	rdfs:comment "Identifies the digital forensic tool (an instance of uco-tool:Tool) that possesses this capability. For example, a ToolCapability asserting that a forensic tool can parse a messaging application would link to the Tool instance via this property."@en ;
 	rdfs:domain toolcap:ToolCapability ;
 	rdfs:range uco-tool:Tool ;
 	.
@@ -59,7 +59,7 @@ toolcap:tool
 toolcap:application
 	a owl:ObjectProperty ;
 	rdfs:label "application"@en ;
-	rdfs:comment "Identifies the target application (an instance of uco-observable:ObservableObject, typically with an ApplicationFacet) whose data can be parsed by the forensic tool. For example, a ToolCapability asserting that Cellebrite can parse Telegram would link to an ObservableObject representing Telegram via this property."@en ;
+	rdfs:comment "Identifies the target application (an instance of uco-observable:ObservableObject, typically with an ApplicationFacet) whose data can be parsed by the forensic tool. For example, a ToolCapability asserting that a tool can parse a specific application would link to the ObservableObject representing that application via this property."@en ;
 	rdfs:domain toolcap:ToolCapability ;
 	rdfs:range uco-observable:ObservableObject ;
 	.

@@ -78,62 +78,62 @@ def main():
     )
 
     # Define forensic tools
-    axiom = graph.create(Tool, name="Magnet AXIOM", version="7.0", tool_type="forensic")
-    cellebrite = graph.create(Tool, name="Cellebrite Physical Analyzer", version="7.68", tool_type="forensic")
+    tool_a = graph.create(Tool, name="Tool A", version="7.0", tool_type="forensic")
+    tool_b = graph.create(Tool, name="Tool B", version="7.68", tool_type="forensic")
 
     # Define applications as observable objects with ApplicationFacet
-    wechat = graph.create(
+    app_alpha = graph.create(
         ObservableObject,
-        has_facet=[ApplicationFacet(application_identifier="com.tencent.mm")],
+        has_facet=[ApplicationFacet(application_identifier="com.example.app.alpha")],
     )
-    telegram = graph.create(
+    app_beta = graph.create(
         ObservableObject,
-        has_facet=[ApplicationFacet(application_identifier="org.telegram.messenger")],
+        has_facet=[ApplicationFacet(application_identifier="com.example.app.beta")],
     )
-    outlook = graph.create(
+    app_gamma = graph.create(
         ObservableObject,
-        has_facet=[ApplicationFacet(application_identifier="com.microsoft.office.outlook")],
+        has_facet=[ApplicationFacet(application_identifier="com.example.app.gamma")],
     )
 
     # Define capabilities: which tools can parse which apps
-    # AXIOM supports WeChat, Telegram, and Outlook
+    # Tool A supports App Alpha, App Beta, and App Gamma
     graph.add(ToolCapability(
-        tool=axiom,
-        application=wechat,
+        tool=tool_a,
+        application=app_alpha,
         supported_platform=["Android", "iOS"],
         parsed_observable_type=["messages", "contacts", "media"],
         tool_version="7.0",
         is_verified=True,
     ))
     graph.add(ToolCapability(
-        tool=axiom,
-        application=telegram,
+        tool=tool_a,
+        application=app_beta,
         supported_platform=["Android", "iOS"],
         parsed_observable_type=["messages", "contacts"],
         tool_version="7.0",
         is_verified=True,
     ))
     graph.add(ToolCapability(
-        tool=axiom,
-        application=outlook,
+        tool=tool_a,
+        application=app_gamma,
         supported_platform=["Android", "iOS", "Windows"],
         parsed_observable_type=["emails", "contacts", "calendar"],
         tool_version="7.0",
         is_verified=True,
     ))
 
-    # Cellebrite supports WeChat and Telegram
+    # Tool B supports App Alpha and App Beta
     graph.add(ToolCapability(
-        tool=cellebrite,
-        application=wechat,
+        tool=tool_b,
+        application=app_alpha,
         supported_platform=["Android"],
         parsed_observable_type=["messages", "contacts"],
         tool_version="7.68",
         is_verified=True,
     ))
     graph.add(ToolCapability(
-        tool=cellebrite,
-        application=telegram,
+        tool=tool_b,
+        application=app_beta,
         supported_platform=["Android", "iOS"],
         parsed_observable_type=["messages", "media"],
         tool_version="7.68",

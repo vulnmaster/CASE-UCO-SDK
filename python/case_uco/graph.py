@@ -51,7 +51,7 @@ class CASEGraph:
 
     Usage:
         graph = CASEGraph(kb_prefix="http://example.org/kb/")
-        tool = graph.create(Tool, name="Magnet AXIOM")
+        tool = graph.create(Tool, name="Tool A")
         print(graph.serialize())
     """
 

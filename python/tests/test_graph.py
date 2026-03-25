@@ -18,8 +18,8 @@ from case_uco.uco.core import ConfidenceFacet
 
 def test_create_tool():
     graph = CASEGraph()
-    tool = graph.create(Tool, name="Magnet AXIOM", version="7.0")
-    assert tool.name == "Magnet AXIOM"
+    tool = graph.create(Tool, name="Tool A", version="7.0")
+    assert tool.name == "Tool A"
     assert tool.version == "7.0"
 
     output = json.loads(graph.serialize())
@@ -31,7 +31,7 @@ def test_create_tool():
     assert obj["@type"] == "uco-tool:Tool"
     assert "@id" in obj
     assert obj["@id"].startswith("kb:Tool-")
-    assert obj["uco-core:name"] == "Magnet AXIOM"
+    assert obj["uco-core:name"] == "Tool A"
     assert "uco-tool:name" not in obj
 
 
@@ -39,7 +39,7 @@ def test_create_observable_with_facet():
     graph = CASEGraph()
     graph.create(
         ObservableObject,
-        has_facet=[ApplicationFacet(application_identifier="com.tencent.mm")]
+        has_facet=[ApplicationFacet(application_identifier="com.example.app.alpha")]
     )
 
     output = json.loads(graph.serialize())
@@ -51,7 +51,7 @@ def test_create_investigative_action():
     graph = CASEGraph()
     graph.create(
         InvestigativeAction,
-        name="Parse WeChat data",
+        name="Parse application data",
     )
 
     output = json.loads(graph.serialize())
@@ -121,15 +121,15 @@ def test_extension_handling():
 def test_multiple_objects():
     graph = CASEGraph()
 
-    graph.create(Tool, name="Magnet AXIOM")
-    graph.create(Tool, name="Cellebrite Physical Analyzer")
+    graph.create(Tool, name="Tool A")
+    graph.create(Tool, name="Tool B")
     graph.create(
         ObservableObject,
-        has_facet=[ApplicationFacet(application_identifier="com.tencent.mm")]
+        has_facet=[ApplicationFacet(application_identifier="com.example.app.alpha")]
     )
     graph.create(
         ObservableObject,
-        has_facet=[ApplicationFacet(application_identifier="org.telegram.messenger")]
+        has_facet=[ApplicationFacet(application_identifier="com.example.app.beta")]
     )
 
     output = json.loads(graph.serialize())
@@ -206,7 +206,7 @@ def test_get_id():
 
 def test_create_with_custom_id():
     graph = CASEGraph()
-    tool = graph.create(Tool, id="kb:Tool-my-stable-id", name="Magnet AXIOM")
+    tool = graph.create(Tool, id="kb:Tool-my-stable-id", name="Tool A")
     obj_id = graph.get_id(tool)
     assert obj_id == "kb:Tool-my-stable-id"
 
@@ -216,10 +216,10 @@ def test_create_with_custom_id():
 
 def test_add_with_custom_id():
     graph = CASEGraph()
-    tool = Tool(name="Cellebrite PA")
-    returned_id = graph.add(tool, id="kb:Tool-cellebrite-001")
-    assert returned_id == "kb:Tool-cellebrite-001"
-    assert graph.get_id(tool) == "kb:Tool-cellebrite-001"
+    tool = Tool(name="Tool B")
+    returned_id = graph.add(tool, id="kb:Tool-b-001")
+    assert returned_id == "kb:Tool-b-001"
+    assert graph.get_id(tool) == "kb:Tool-b-001"
 
 
 def test_len():

@@ -14,7 +14,7 @@ public class CaseGraphTest {
     public void testCreateTool() {
         CaseGraph graph = new CaseGraph();
         Tool tool = new Tool();
-        tool.setName("Magnet AXIOM");
+        tool.setName("Tool A");
         tool.setVersion("7.0");
         tool.setToolType("forensic");
 
@@ -39,7 +39,7 @@ public class CaseGraphTest {
     public void testAddWithDeterministicId() {
         CaseGraph graph = new CaseGraph();
         Tool tool = new Tool();
-        tool.setName("Magnet AXIOM");
+        tool.setName("Tool A");
 
         String id = graph.addWithId(tool, "kb:Tool-my-stable-id");
         assertEquals("kb:Tool-my-stable-id", id);
