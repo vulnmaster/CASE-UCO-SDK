@@ -23,6 +23,7 @@ namespace CaseUco.Uco.Marking
         public new const string NamespacePrefix = "uco-marking";
         [global::CaseUco.JsonLdProperty("uco-marking:definitionType")]
         public List<string> DefinitionType { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-marking:license")]
         public string License { get; set; }
     }
@@ -34,6 +35,7 @@ namespace CaseUco.Uco.Marking
         public new const string NamespacePrefix = "uco-marking";
         [global::CaseUco.JsonLdProperty("uco-marking:definition")]
         public List<CaseUco.Uco.Marking.MarkingModel> Definition { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-marking:definitionType")]
         public string DefinitionType { get; set; }
     }
@@ -50,6 +52,7 @@ namespace CaseUco.Uco.Marking
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/marking/ReleaseToMarking";
         public new const string NamespacePrefix = "uco-marking";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-marking:authorizedIdentities")]
         public List<string> AuthorizedIdentities { get; set; }
         [global::CaseUco.JsonLdProperty("uco-marking:definitionType")]
@@ -63,6 +66,7 @@ namespace CaseUco.Uco.Marking
         public new const string NamespacePrefix = "uco-marking";
         [global::CaseUco.JsonLdProperty("uco-marking:definitionType")]
         public List<string> DefinitionType { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-marking:statement")]
         public string Statement { get; set; }
     }
@@ -74,6 +78,7 @@ namespace CaseUco.Uco.Marking
         public new const string NamespacePrefix = "uco-marking";
         [global::CaseUco.JsonLdProperty("uco-marking:definitionType")]
         public List<string> DefinitionType { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-marking:termsOfUse")]
         public string TermsOfUse { get; set; }
     }

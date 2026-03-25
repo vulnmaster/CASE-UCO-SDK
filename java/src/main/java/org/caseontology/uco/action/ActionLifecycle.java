@@ -13,6 +13,7 @@ public class ActionLifecycle extends Action {
     private List<Long> actionCount;
     private List<java.time.ZonedDateTime> endTime;
     private List<UcoObject> error;
+    @org.caseontology.CaseRequired
     private ArrayOfAction phase;
     private List<java.time.ZonedDateTime> startTime;
 

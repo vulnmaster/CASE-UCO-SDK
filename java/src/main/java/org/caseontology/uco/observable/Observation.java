@@ -10,6 +10,7 @@ public class Observation extends Action {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/observable/Observation";
     public static final String NAMESPACE_PREFIX = "uco-observable";
 
+    @org.caseontology.CaseRequired
     private String name;
 
     public Observation() {

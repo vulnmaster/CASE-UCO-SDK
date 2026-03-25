@@ -10,10 +10,13 @@ public class Relationship extends UcoObject {
     public static final String NAMESPACE_PREFIX = "uco-core";
 
     private List<java.time.ZonedDateTime> endTime;
+    @org.caseontology.CaseRequired
     private boolean isDirectional;
     private String kindOfRelationship;
+    @org.caseontology.CaseRequired
     private List<UcoObject> source;
     private List<java.time.ZonedDateTime> startTime;
+    @org.caseontology.CaseRequired
     private UcoObject target;
 
     public Relationship() {

@@ -43,8 +43,10 @@ namespace CaseUco.Uco.Action
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/action/ActionArgumentFacet";
         public new const string NamespacePrefix = "uco-action";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-action:argumentName")]
         public string ArgumentName { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-action:value")]
         public string Value { get; set; }
     }
@@ -69,12 +71,15 @@ namespace CaseUco.Uco.Action
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/action/ActionFrequencyFacet";
         public new const string NamespacePrefix = "uco-action";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-action:rate")]
         public decimal Rate { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-action:scale")]
         public string Scale { get; set; }
         [global::CaseUco.JsonLdProperty("uco-action:trend")]
         public List<string> Trend { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-action:units")]
         public string Units { get; set; }
     }
@@ -90,6 +95,7 @@ namespace CaseUco.Uco.Action
         public new List<System.DateTime> EndTime { get; set; }
         [global::CaseUco.JsonLdProperty("uco-action:error")]
         public new List<CaseUco.Uco.Core.UcoObject> Error { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-action:phase")]
         public CaseUco.Uco.Action.ArrayOfAction Phase { get; set; }
         [global::CaseUco.JsonLdProperty("uco-action:startTime")]
@@ -108,6 +114,7 @@ namespace CaseUco.Uco.Action
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/action/ArrayOfAction";
         public new const string NamespacePrefix = "uco-action";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-action:action")]
         public List<CaseUco.Uco.Action.Action> Action { get; set; }
     }

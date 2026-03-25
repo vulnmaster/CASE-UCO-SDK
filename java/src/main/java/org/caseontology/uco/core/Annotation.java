@@ -9,6 +9,7 @@ public class Annotation extends Assertion {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/core/Annotation";
     public static final String NAMESPACE_PREFIX = "uco-core";
 
+    @org.caseontology.CaseRequired
     private List<UcoObject> object;
 
     public Annotation() {

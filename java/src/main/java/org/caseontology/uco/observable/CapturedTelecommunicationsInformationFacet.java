@@ -10,6 +10,7 @@ public class CapturedTelecommunicationsInformationFacet extends Facet {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/observable/CapturedTelecommunicationsInformationFacet";
     public static final String NAMESPACE_PREFIX = "uco-observable";
 
+    @org.caseontology.CaseRequired
     private CellSite captureCellSite;
     private java.time.ZonedDateTime endTime;
     private String interceptedCallState;

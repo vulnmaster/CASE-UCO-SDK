@@ -9,6 +9,7 @@ public class EnclosingCompilation extends Compilation {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/core/EnclosingCompilation";
     public static final String NAMESPACE_PREFIX = "uco-core";
 
+    @org.caseontology.CaseRequired
     private List<UcoObject> object;
 
     public EnclosingCompilation() {

@@ -10,7 +10,9 @@ public class ActionArgumentFacet extends Facet {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/action/ActionArgumentFacet";
     public static final String NAMESPACE_PREFIX = "uco-action";
 
+    @org.caseontology.CaseRequired
     private String argumentName;
+    @org.caseontology.CaseRequired
     private String value;
 
     public ActionArgumentFacet() {

@@ -9,6 +9,7 @@ public class ReleaseToMarking extends MarkingModel {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/marking/ReleaseToMarking";
     public static final String NAMESPACE_PREFIX = "uco-marking";
 
+    @org.caseontology.CaseRequired
     private List<String> authorizedIdentities;
     private List<String> definitionType;
 

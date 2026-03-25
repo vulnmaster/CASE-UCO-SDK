@@ -10,6 +10,7 @@ public class TermsOfUseMarking extends MarkingModel {
     public static final String NAMESPACE_PREFIX = "uco-marking";
 
     private List<String> definitionType;
+    @org.caseontology.CaseRequired
     private String termsOfUse;
 
     public TermsOfUseMarking() {

@@ -41,10 +41,29 @@ namespace CaseUco
         /// <summary>Add an object to the graph with a user-supplied @id for deterministic IRIs.</summary>
         public string AddWithId(object instance, string id)
         {
+            Validate(instance);
             _idMap[instance] = id;
             var jsonObj = ToJsonLd(instance, id);
             _objects.Add(jsonObj);
             return id;
+        }
+
+        /// <summary>Validate required fields on a CASE/UCO object before adding it.</summary>
+        private void Validate(object instance)
+        {
+            if (instance == null) return;
+            foreach (var prop in instance.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.GetCustomAttribute<CaseRequiredAttribute>(inherit: true) != null))
+            {
+                var value = prop.GetValue(instance);
+                if (value == null)
+                    throw new System.ArgumentException(
+                        $"{instance.GetType().Name}.{prop.Name} is required but was not provided.");
+                if (value is IList list && list.Count == 0)
+                    throw new System.ArgumentException(
+                        $"{instance.GetType().Name}.{prop.Name} requires at least one value.");
+            }
         }
 
         /// <summary>Get the @id assigned to a previously-added instance.</summary>

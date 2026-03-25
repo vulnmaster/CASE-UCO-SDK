@@ -10,6 +10,7 @@ public class ArrayOfAction extends UcoInherentCharacterizationThing {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/action/ArrayOfAction";
     public static final String NAMESPACE_PREFIX = "uco-action";
 
+    @org.caseontology.CaseRequired
     private List<Action> action;
 
     public ArrayOfAction() {

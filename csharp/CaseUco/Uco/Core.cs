@@ -10,6 +10,7 @@ namespace CaseUco.Uco.Core
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/core/Annotation";
         public new const string NamespacePrefix = "uco-core";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:object")]
         public List<CaseUco.Uco.Core.UcoObject> Object { get; set; }
     }
@@ -51,6 +52,7 @@ namespace CaseUco.Uco.Core
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/core/ConfidenceFacet";
         public new const string NamespacePrefix = "uco-core";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:confidence")]
         public ulong Confidence { get; set; }
     }
@@ -73,6 +75,7 @@ namespace CaseUco.Uco.Core
         public string ConstrainingVocabularyName { get; set; }
         [global::CaseUco.JsonLdProperty("uco-core:constrainingVocabularyReference")]
         public System.Uri ConstrainingVocabularyReference { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:value")]
         public string Value { get; set; }
     }
@@ -82,6 +85,7 @@ namespace CaseUco.Uco.Core
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/core/EnclosingCompilation";
         public new const string NamespacePrefix = "uco-core";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:object")]
         public List<CaseUco.Uco.Core.UcoObject> Object { get; set; }
     }
@@ -167,14 +171,17 @@ namespace CaseUco.Uco.Core
         public new const string NamespacePrefix = "uco-core";
         [global::CaseUco.JsonLdProperty("uco-core:endTime")]
         public List<System.DateTime> EndTime { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:isDirectional")]
         public bool IsDirectional { get; set; }
         [global::CaseUco.JsonLdProperty("uco-core:kindOfRelationship")]
         public string KindOfRelationship { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:source")]
         public List<CaseUco.Uco.Core.UcoObject> Source { get; set; }
         [global::CaseUco.JsonLdProperty("uco-core:startTime")]
         public List<System.DateTime> StartTime { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:target")]
         public CaseUco.Uco.Core.UcoObject Target { get; set; }
     }

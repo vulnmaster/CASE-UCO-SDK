@@ -35,8 +35,10 @@ namespace CaseUco.Uco.Types
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/types/DictionaryEntry";
         public new const string NamespacePrefix = "uco-types";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-types:key")]
         public string Key { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-types:value")]
         public string Value { get; set; }
     }
@@ -48,6 +50,7 @@ namespace CaseUco.Uco.Types
         public new const string NamespacePrefix = "uco-types";
         [global::CaseUco.JsonLdProperty("uco-types:hashMethod")]
         public List<string> HashMethod { get; set; }
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-types:hashValue")]
         public byte[] HashValue { get; set; }
     }

@@ -11,6 +11,7 @@ public class Hash extends UcoInherentCharacterizationThing {
     public static final String NAMESPACE_PREFIX = "uco-types";
 
     private List<String> hashMethod;
+    @org.caseontology.CaseRequired
     private byte[] hashValue;
 
     public Hash() {

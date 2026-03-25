@@ -10,6 +10,7 @@ public class ArtifactClassification extends UcoInherentCharacterizationThing {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/analysis/ArtifactClassification";
     public static final String NAMESPACE_PREFIX = "uco-analysis";
 
+    @org.caseontology.CaseRequired
     private List<String> _class;
     private java.math.BigDecimal classificationConfidence;
 

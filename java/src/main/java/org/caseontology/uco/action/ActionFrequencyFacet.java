@@ -10,9 +10,12 @@ public class ActionFrequencyFacet extends Facet {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/action/ActionFrequencyFacet";
     public static final String NAMESPACE_PREFIX = "uco-action";
 
+    @org.caseontology.CaseRequired
     private java.math.BigDecimal rate;
+    @org.caseontology.CaseRequired
     private String scale;
     private List<String> trend;
+    @org.caseontology.CaseRequired
     private String units;
 
     public ActionFrequencyFacet() {

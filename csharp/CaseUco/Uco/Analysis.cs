@@ -17,6 +17,7 @@ namespace CaseUco.Uco.Analysis
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/analysis/ArtifactClassification";
         public new const string NamespacePrefix = "uco-analysis";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-analysis:class")]
         public List<string> Class { get; set; }
         [global::CaseUco.JsonLdProperty("uco-analysis:classificationConfidence")]

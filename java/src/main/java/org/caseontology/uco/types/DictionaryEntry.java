@@ -10,7 +10,9 @@ public class DictionaryEntry extends UcoInherentCharacterizationThing {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/types/DictionaryEntry";
     public static final String NAMESPACE_PREFIX = "uco-types";
 
+    @org.caseontology.CaseRequired
     private String key;
+    @org.caseontology.CaseRequired
     private String value;
 
     public DictionaryEntry() {

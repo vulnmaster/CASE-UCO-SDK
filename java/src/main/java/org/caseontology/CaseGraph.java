@@ -51,10 +51,32 @@ public class CaseGraph {
      * Add an object to the graph with a user-supplied @id for deterministic IRIs.
      */
     public String addWithId(Object instance, String id) {
+        validate(instance);
         idMap.put(instance, id);
         Map<String, Object> jsonObj = toJsonLd(instance, id);
         objects.add(jsonObj);
         return id;
+    }
+
+    private void validate(Object instance) {
+        if (instance == null) return;
+        for (Field field : getAllFields(instance.getClass())) {
+            if (!field.isAnnotationPresent(CaseRequired.class)) continue;
+            field.setAccessible(true);
+            try {
+                Object value = field.get(instance);
+                if (value == null) {
+                    throw new IllegalArgumentException(
+                        instance.getClass().getSimpleName() + "." + field.getName() +
+                        " is required but was not provided.");
+                }
+                if (value instanceof List && ((List<?>) value).isEmpty()) {
+                    throw new IllegalArgumentException(
+                        instance.getClass().getSimpleName() + "." + field.getName() +
+                        " requires at least one value.");
+                }
+            } catch (IllegalAccessException ignored) {}
+        }
     }
 
     /**

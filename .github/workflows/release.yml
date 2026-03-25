@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            ## CASE/UCO Libraries ${{ github.ref_name }}
+
+            Auto-generated builder libraries for the CASE and UCO ontologies.
+
+            ### Ontology Versions
+            - UCO: 1.4.0
+            - CASE: 1.4.0
+
+            ### Languages
+            - **Python** (`case-uco`) — `pip install -e python/`
+            - **C#** (`CaseUco`) — `dotnet add reference`
+            - **Java** (`case-uco`) — Maven
+            - **Rust** (`case-uco`) — Cargo
+
+            See the [README](https://github.com/vulnmaster/CASE-UCO-Libraries#readme) for usage.

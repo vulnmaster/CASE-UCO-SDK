@@ -497,6 +497,7 @@ namespace CaseUco.Uco.Observable
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/observable/CapturedTelecommunicationsInformationFacet";
         public new const string NamespacePrefix = "uco-observable";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-observable:captureCellSite")]
         public CaseUco.Uco.Observable.CellSite CaptureCellSite { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:endTime")]
@@ -2161,6 +2162,7 @@ namespace CaseUco.Uco.Observable
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/observable/Observation";
         public new const string NamespacePrefix = "uco-observable";
+        [global::CaseUco.CaseRequired]
         [global::CaseUco.JsonLdProperty("uco-core:name")]
         public new string Name { get; set; }
     }

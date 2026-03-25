@@ -11,6 +11,7 @@ public class MarkingDefinition extends MarkingDefinitionAbstraction {
     public static final String NAMESPACE_PREFIX = "uco-marking";
 
     private List<MarkingModel> definition;
+    @org.caseontology.CaseRequired
     private String definitionType;
 
     public MarkingDefinition() {

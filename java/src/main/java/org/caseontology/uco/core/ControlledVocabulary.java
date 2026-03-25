@@ -11,6 +11,7 @@ public class ControlledVocabulary extends UcoObject {
 
     private String constrainingVocabularyName;
     private java.net.URI constrainingVocabularyReference;
+    @org.caseontology.CaseRequired
     private String value;
 
     public ControlledVocabulary() {

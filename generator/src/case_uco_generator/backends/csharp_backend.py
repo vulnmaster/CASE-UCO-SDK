@@ -108,6 +108,8 @@ class CSharpBackend(CodegenBackend):
             cs_type = self._csharp_type(prop)
             prop_name = self._csharp_property_name(cls, prop)
             modifier = "new " if prop.name in inherited_names else ""
+            if prop.cardinality.is_required:
+                lines.append(f"{pad}    [global::CaseUco.CaseRequired]")
             lines.append(f'{pad}    [global::CaseUco.JsonLdProperty("{compact_ontology_iri(prop.iri)}")]')
             lines.append(f"{pad}    public {modifier}{cs_type} {prop_name} {{ get; set; }}")
 

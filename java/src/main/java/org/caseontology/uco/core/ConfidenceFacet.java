@@ -9,6 +9,7 @@ public class ConfidenceFacet extends Facet {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/core/ConfidenceFacet";
     public static final String NAMESPACE_PREFIX = "uco-core";
 
+    @org.caseontology.CaseRequired
     private long confidence;
 
     public ConfidenceFacet() {
