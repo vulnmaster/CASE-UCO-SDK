@@ -2099,3 +2099,11 @@ Extension ontologies add domain-specific classes beyond the core CASE/UCO specif
    case-uco-explore modules              # list all modules
    case-uco-explore module observable     # browse a specific module
    ```
+
+7. **Validate your output.** After building a graph, validate it with [case-utils](https://github.com/casework/CASE-Utilities-Python):
+   ```bash
+   pip install case-utils
+   case_validate --built-version case-1.4.0 my-output.jsonld
+   ```
+
+For companion tools, community extensions, and additional resources, see [ECOSYSTEM.md](ECOSYSTEM.md).

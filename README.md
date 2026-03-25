@@ -174,29 +174,25 @@ graph = CASEGraph()
 print(f"~{graph.estimate_triples()} triples")  # estimate before serializing
 ```
 
-### Partition Large Graphs
+### Build Many Focused Graphs
 
-Don't build one massive graph. Split into manageable chunks and load them into a graph database for combined analysis:
-
-```python
-graph = CASEGraph()
-# ... add many objects ...
-
-# Split into chunks of 10,000 objects each
-chunks = graph.split(max_objects=10000)
-for i, chunk in enumerate(chunks):
-    chunk.write(f"batch-{i:04d}.jsonld")
-```
-
-### Merge Multiple Graphs
+Rather than building one massive graph, create focused graphs at the source. Partition by natural forensic boundaries (per-app, per-volume, per-mailbox) — not by arbitrary object count — because investigation objects reference each other and naive splitting breaks those relationships.
 
 ```python
+# Good: one graph per app extracted from a mobile device
+for app_id in discovered_apps:
+    graph = CASEGraph()
+    # ... add all objects for this app (tool, observables, actions) ...
+    graph.write(f"mobile-{app_id}.jsonld")
+
+# Then merge or load into a graph database for combined analysis
 combined = CASEGraph.merge_files([
-    "batch-0000.jsonld",
-    "batch-0001.jsonld",
-    "batch-0002.jsonld",
+    "mobile-com.example.messenger.jsonld",
+    "mobile-com.example.browser.jsonld",
 ])
 ```
+
+**When is `split()` safe?** The `split()` helper is appropriate for catalog-style graphs where objects are independent (e.g., a flat list of file hashes, DNS records, or IoC entries). It is **not safe** for graphs with cross-object relationships (e.g., investigative actions referencing tools and observables), because it splits by object index without preserving reference integrity.
 
 ### Hardware Sizing Quick Reference
 
@@ -394,7 +390,7 @@ Don't know which CASE/UCO class fits your data? The mapping guide organizes clas
 
 ### Recipes
 
-Step-by-step patterns for common forensic workflows — disk imaging, file system analysis, network artifacts, chain of custody, mobile forensics, round-trip serialization, and partitioning large datasets:
+Step-by-step patterns for common forensic workflows — disk imaging, file system analysis, network artifacts, chain of custody, mobile forensics, round-trip serialization, and managing large datasets:
 
 - **[docs/RECIPES.md](docs/RECIPES.md)** — practical cookbook with copy-paste examples
 
@@ -411,6 +407,7 @@ CASE-UCO-SDK/
 ├── extensions/             Extension ontologies (included in explorer + docs)
 │   └── toolcap/            Forensic tool capability comparison extension
 ├── docs/
+│   ├── ECOSYSTEM.md        Companion tools, community extensions, ontology sources
 │   ├── MAPPING_GUIDE.md    Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md  Engineering tradeoffs and benchmarks
 │   └── RECIPES.md          Practical forensic workflow cookbook
@@ -430,7 +427,7 @@ CASE-UCO-SDK/
 | Required-field validation | Yes | Yes | Yes | — |
 | Object count | `len(graph)` | `Count` | `size()` | `len()` |
 | Triple estimation | `estimate_triples()` | `EstimateTriples()` | `estimateTriples()` | `estimate_triples()` |
-| Graph partitioning | `split()` | `Split()` | `split()` | `split()` |
+| Graph split (catalog data only) | `split()` | `Split()` | `split()` | `split()` |
 | Multi-file merge | `merge_files()` | `MergeFiles()` | `mergeFiles()` | `merge_files()` |
 | Typed deserialization | `from_jsonld()` | — | — | — |
 | Runtime introspection | `case_uco.registry` | `OntologyRegistry` | `OntologyRegistry` | `registry` module |
@@ -451,13 +448,31 @@ print(case_uco.UCO_VERSION)   # "1.4.0"
 print(case_uco.CASE_VERSION)  # "1.4.0"
 ```
 
-## Related Projects
+## Ecosystem & Tools
+
+The SDK builds graphs. These companion tools and community projects complete the picture.
+
+### Companion Tools
+
+- **[case-utils](https://github.com/casework/CASE-Utilities-Python)** — CLI tools for SHACL validation (`case_validate`), graph merging, and format conversion. Install via `pip install case-utils`.
+- **[Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/)** — Free SPARQL-capable graph database for querying across multiple graph files.
+
+### Community Extensions
+
+Projects that extend CASE/UCO into specialized domains:
+
+- **[CAC Ontology](https://github.com/Project-VIC-International/CAC-Ontology)** — 35+ modules for crimes against children investigations. Maintained by Project VIC International.
+- **[SOLVE-IT](https://github.com/SOLVE-IT-DF)** — Knowledge base and extension framework for digital forensics workflows.
+- **[Adversary Engagement Ontology](https://github.com/UNHSAILLab/Adversary-Engagement-Ontology)** — UCO sub-ontology for cyber deception, honeypots, and adversary engagement operations.
+
+### Ontology Sources
 
 - [UCO Ontology](https://github.com/ucoProject/UCO) — Unified Cyber Ontology source
 - [CASE Ontology](https://github.com/casework/CASE) — Cyber-investigation Analysis Standard Expression source
 - [CASE Examples](https://github.com/casework/CASE-Examples) — Validated CASE/UCO example data
-- [CASE Profile Example](https://github.com/casework/CASE-Profile-Example) — Extension testing infrastructure
 - [CDO Community Playground Guide](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing) — Requirements for community extensions
+
+For detailed descriptions, installation guides, and additional resources, see **[docs/ECOSYSTEM.md](docs/ECOSYSTEM.md)**.
 
 ## Contributing
 

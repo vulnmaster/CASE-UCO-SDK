@@ -15,7 +15,27 @@ For the full class reference, see [ONTOLOGY_REFERENCE.md](../ONTOLOGY_REFERENCE.
 - [Discovering Classes at Runtime](#discovering-classes-at-runtime)
 - [Working with Extensions](#working-with-extensions)
 - [Round-Trip: Serialize and Deserialize](#round-trip-serialize-and-deserialize)
-- [Partitioning Large Datasets](#partitioning-large-datasets)
+- [Managing Large Datasets](#managing-large-datasets)
+
+---
+
+> **Validate your output.** After any recipe produces a `.jsonld` file, validate it with [case-utils](https://github.com/casework/CASE-Utilities-Python):
+>
+> ```bash
+> pip install case-utils  # one-time install
+> case_validate --built-version case-1.4.0 my-output.jsonld
+> ```
+>
+> If you use an extension ontology, include its shapes:
+>
+> ```bash
+> case_validate --built-version case-1.4.0 \
+>   --ontology-graph path/to/extension.ttl \
+>   --ontology-graph path/to/extension-shapes.ttl \
+>   my-output.jsonld
+> ```
+>
+> See [ECOSYSTEM.md](ECOSYSTEM.md) for more companion tools.
 
 ---
 
@@ -882,9 +902,17 @@ println!("Loaded {} objects", graph2.len());
 
 </details>
 
-## Partitioning Large Datasets
+## Managing Large Datasets
 
-When processing large evidence sets (e.g., full file system forensics), partition your data into manageable chunks. All four languages support `estimate_triples()`, `split()`, and `merge_files()`.
+Digital investigation graphs are highly interconnected. An `InvestigativeAction` references a `Tool`, which produced `ObservableObject` instances, which have `Facet` sub-objects. Naively splitting a graph by object count will break these relationships — a referencing object may end up in a different partition than the object it references.
+
+**The recommended approach is to partition at the data source**, building one graph per natural forensic boundary (volume, app, session, device). This ensures all cross-references resolve within the same graph.
+
+### When Is `split()` Safe?
+
+`split()` divides by object index. Use it **only** for catalog-style graphs where objects are independent — file hash inventories, DNS record lists, IoC feeds, or any dataset where objects do not reference each other.
+
+### Recommended: Source-Level Partitioning
 
 <details open><summary>Python</summary>
 
@@ -892,27 +920,22 @@ When processing large evidence sets (e.g., full file system forensics), partitio
 from case_uco import CASEGraph
 from case_uco.uco.observable import ObservableObject, FileFacet
 
-graph = CASEGraph()
+# One graph per volume — all objects and their relationships stay together
+for volume in disk_image.volumes:
+    graph = CASEGraph(kb_prefix=f"http://example.org/kb/case-001/{volume.name}/")
 
-for i in range(50000):
-    graph.create(ObservableObject,
-        has_facet=[FileFacet(file_name=f"file_{i}.dat", size_in_bytes=i * 100)],
-    )
+    for file_entry in volume.files:
+        graph.create(ObservableObject,
+            has_facet=[FileFacet(file_name=file_entry.name, size_in_bytes=file_entry.size)],
+        )
 
-print(f"Estimated triples: {graph.estimate_triples()}")
+    print(f"{volume.name}: {len(graph)} objects, ~{graph.estimate_triples()} triples")
+    graph.write(f"volume-{volume.name}.jsonld")
 
-chunks = graph.split(max_objects=5000)
-print(f"Split into {len(chunks)} partitions")
-
-for i, chunk in enumerate(chunks):
-    chunk.write(f"evidence_part_{i:03d}.jsonld")
-    print(f"  Part {i}: {len(chunk)} objects, ~{chunk.estimate_triples()} triples")
-
-# Merge back for analysis
-merged = CASEGraph.merge_files(
-    [f"evidence_part_{i:03d}.jsonld" for i in range(len(chunks))]
-)
-print(f"Merged: {len(merged)} objects")
+# Merge for combined analysis or load into a graph database
+combined = CASEGraph.merge_files([
+    f"volume-{v.name}.jsonld" for v in disk_image.volumes
+])
 ```
 
 </details>
@@ -920,28 +943,21 @@ print(f"Merged: {len(merged)} objects")
 <details><summary>C#</summary>
 
 ```csharp
-var graph = new CaseGraph();
-
-for (int i = 0; i < 50000; i++)
-    graph.Add(new ObservableObject {
-        HasFacet = { new FileFacet { FileName = $"file_{i}.dat", SizeInBytes = i * 100 } }
-    });
-
-Console.WriteLine($"Estimated triples: {graph.EstimateTriples()}");
-
-var chunks = graph.Split(maxObjects: 5000);
-Console.WriteLine($"Split into {chunks.Count} partitions");
-
-var paths = new List<string>();
-for (int i = 0; i < chunks.Count; i++)
+foreach (var volume in diskImage.Volumes)
 {
-    var path = $"evidence_part_{i:D3}.jsonld";
-    chunks[i].Write(path);
-    paths.Add(path);
+    var graph = new CaseGraph($"http://example.org/kb/case-001/{volume.Name}/");
+
+    foreach (var file in volume.Files)
+        graph.Add(new ObservableObject {
+            HasFacet = { new FileFacet { FileName = file.Name, SizeInBytes = file.Size } }
+        });
+
+    Console.WriteLine($"{volume.Name}: {graph.Count} objects, ~{graph.EstimateTriples()} triples");
+    graph.Write($"volume-{volume.Name}.jsonld");
 }
 
+var paths = diskImage.Volumes.Select(v => $"volume-{v.Name}.jsonld").ToList();
 var merged = CaseGraph.MergeFiles(paths);
-Console.WriteLine($"Merged: {merged.Count} objects");
 ```
 
 </details>
@@ -949,31 +965,22 @@ Console.WriteLine($"Merged: {merged.Count} objects");
 <details><summary>Java</summary>
 
 ```java
-CaseGraph graph = new CaseGraph();
+for (Volume volume : diskImage.getVolumes()) {
+    CaseGraph graph = new CaseGraph("http://example.org/kb/case-001/" + volume.getName() + "/");
 
-for (int i = 0; i < 50000; i++) {
-    var facet = new FileFacet();
-    facet.setFileName("file_" + i + ".dat");
-    facet.setSizeInBytes((long) i * 100);
-    var obs = new ObservableObject();
-    obs.getHasFacet().add(facet);
-    graph.add(obs);
+    for (FileEntry file : volume.getFiles()) {
+        var facet = new FileFacet();
+        facet.setFileName(file.getName());
+        facet.setSizeInBytes(file.getSize());
+        var obs = new ObservableObject();
+        obs.getHasFacet().add(facet);
+        graph.add(obs);
+    }
+
+    System.out.printf("%s: %d objects, ~%d triples%n",
+        volume.getName(), graph.size(), graph.estimateTriples());
+    graph.write("volume-" + volume.getName() + ".jsonld");
 }
-
-System.out.printf("Estimated triples: %d%n", graph.estimateTriples());
-
-List<CaseGraph> chunks = graph.split(5000);
-System.out.printf("Split into %d partitions%n", chunks.size());
-
-List<String> paths = new ArrayList<>();
-for (int i = 0; i < chunks.size(); i++) {
-    String path = String.format("evidence_part_%03d.jsonld", i);
-    chunks.get(i).write(path);
-    paths.add(path);
-}
-
-CaseGraph merged = CaseGraph.mergeFiles(paths);
-System.out.printf("Merged: %d objects%n", merged.size());
 ```
 
 </details>
@@ -981,29 +988,37 @@ System.out.printf("Merged: %d objects%n", merged.size());
 <details><summary>Rust</summary>
 
 ```rust
-let mut graph = CaseGraph::new("http://example.org/kb/");
+for volume in &disk_image.volumes {
+    let prefix = format!("http://example.org/kb/case-001/{}/", volume.name);
+    let mut graph = CaseGraph::new(&prefix);
 
-for i in 0..50000 {
-    graph.create(&ObservableObject::default());
+    for file in &volume.files {
+        graph.create(&ObservableObject::default());
+    }
+
+    println!("{}: {} objects, ~{} triples",
+        volume.name, graph.len(), graph.estimate_triples());
+    graph.write(&format!("volume-{}.jsonld", volume.name)).unwrap();
 }
-
-println!("Estimated triples: {}", graph.estimate_triples());
-
-let chunks = graph.split(5000);
-println!("Split into {} partitions", chunks.len());
-
-let mut paths = Vec::new();
-for (i, chunk) in chunks.iter().enumerate() {
-    let path = format!("evidence_part_{:03}.jsonld", i);
-    chunk.write(&path).unwrap();
-    paths.push(path);
-}
-
-let path_refs: Vec<&str> = paths.iter().map(|s| s.as_str()).collect();
-let merged = CaseGraph::merge_files(&path_refs, "http://example.org/kb/").unwrap();
-println!("Merged: {} objects", merged.len());
 ```
 
 </details>
 
-See [PERFORMANCE_GUIDE.md](PERFORMANCE_GUIDE.md) for benchmark data on serialization times, memory usage, and validation performance across different dataset sizes.
+### `split()` for Catalog Data
+
+If your graph contains independent objects with no cross-references (e.g., an IoC feed), `split()` is a convenient way to batch:
+
+```python
+# Safe: each hash entry is independent, no cross-references
+ioc_graph = CASEGraph()
+for hash_value in ioc_hashes:
+    ioc_graph.create(ObservableObject,
+        has_facet=[ContentDataFacet(hash_value=hash_value)],
+    )
+
+chunks = ioc_graph.split(max_objects=10000)
+for i, chunk in enumerate(chunks):
+    chunk.write(f"ioc_batch_{i:03d}.jsonld")
+```
+
+See [PERFORMANCE_GUIDE.md](PERFORMANCE_GUIDE.md) for hardware sizing, memory benchmarks, and validation scaling guidance.
