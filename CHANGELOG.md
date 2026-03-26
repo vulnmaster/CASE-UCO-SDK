@@ -36,6 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rust builder `build()` no longer panics on unset required fields — required-field validation is deferred to graph creation time, consistent with Python
 - `graph.py` type annotation fixes: parameterized `dict`/`Field` generics, explicit metadata typing
 - Rust `graph.rs` clippy fixes: `std::io::Error::other()`, redundant closure removal
+- Python code generator now detects and avoids cyclic `TYPE_CHECKING` imports
+  between modules with mutual dependencies (e.g., `uco.core` ↔ `uco.types`)
+- C# and Java exhaustive tests use direct instantiation instead of `graph.Add()`
+  to avoid required-field validation failures on classes like `SubjectActionLifecycle`
+- Java `SmokeTest` no longer chains inherited setters (parent-type return breaks
+  the chain); Java directory generation now applies `safe_identifier` to match
+  package declarations
 
 ## [1.0.0] - 2026-03-25
 
@@ -134,4 +141,5 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
+[1.1.0]: https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.1.0
 [1.0.0]: https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.0.0

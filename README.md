@@ -1,6 +1,6 @@
 # CASE/UCO SDK
 
-**v1.0.0** · CASE 1.4.0 · UCO 1.4.0 · [Changelog](CHANGELOG.md)
+**v1.1.0** · CASE 1.4.0 · UCO 1.4.0 · [Changelog](CHANGELOG.md)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -36,6 +36,9 @@ make init      # install generator + fetch submodules
 make generate  # regenerate all libraries from ontology sources
 make build     # build Python, C#, Java, Rust
 make test      # run all test suites
+make lint      # mypy (Python) + clippy (Rust)
+make smoke     # run smoke test binaries (C#, Java, Rust)
+make check     # all of the above in one command
 ```
 
 ### Prerequisites
@@ -102,7 +105,9 @@ import org.caseontology.uco.observable.*;
 
 CaseGraph graph = new CaseGraph("http://example.org/kb/");
 
-Tool tool = new Tool().setName("My Forensic Tool").setVersion("3.0");
+Tool tool = new Tool();
+tool.setName("My Forensic Tool");
+tool.setVersion("3.0");
 graph.add(tool);
 
 ApplicationFacet facet = new ApplicationFacet();
@@ -405,9 +410,15 @@ CASE-UCO-SDK/
 ├── generator/              Code generator + CLI explorer + docs generators
 ├── ontology/               Git submodules: UCO 1.4.0 + CASE 1.4.0 sources
 ├── python/                 Generated Python library (case-uco) + runtime registry
+│   └── tests/              pytest suite + exhaustive instantiation tests
 ├── csharp/                 Generated C# library (CaseUco, netstandard2.0)
+│   ├── CaseUco.Tests/      xUnit tests + exhaustive instantiation tests
+│   └── CaseUco.Smoke/      Smoke test binary (import + serialize)
 ├── java/                   Generated Java library (org.caseontology)
+│   └── src/test/           JUnit tests + exhaustive instantiation tests
 ├── rust/                   Generated Rust crate (case-uco)
+│   ├── tests/              Integration + exhaustive instantiation tests
+│   └── examples/smoke.rs   Smoke test binary (import + serialize)
 ├── extensions/             Extension ontologies (included in explorer + docs)
 │   └── toolcap/            Forensic tool capability comparison extension
 ├── mcp_server/             MCP server for AI-assisted development
@@ -427,7 +438,7 @@ CASE-UCO-SDK/
 │       └── ...              (10 recipe files total)
 ├── ONTOLOGY_REFERENCE.md   Complete class reference (auto-generated)
 ├── .github/workflows/      CI, CodeQL, dependency review, release workflows
-└── Makefile                Build orchestration
+└── Makefile                Build orchestration (make check for full verification)
 ```
 
 ## Feature Matrix
@@ -439,6 +450,9 @@ CASE-UCO-SDK/
 | Custom / deterministic IDs | `create(id=)` | `AddWithId()` | `addWithId()` | `create_with_id()` |
 | Load existing JSON-LD | `load()` / `load_file()` | `Load()` | `load()` / `loadFile()` | `load()` / `load_file()` |
 | Required-field validation | Yes | Yes | Yes | — |
+| Static type checking / linting | mypy (strict) | — | — | clippy |
+| Exhaustive instantiation tests | Yes | Yes | Yes | Yes |
+| Smoke test binary | — | `CaseUco.Smoke` | `SmokeTest` | `examples/smoke` |
 | Object count | `len(graph)` | `Count` | `size()` | `len()` |
 | Triple estimation | `estimate_triples()` | `EstimateTriples()` | `estimateTriples()` | `estimate_triples()` |
 | Graph split (catalog data only) | `split()` | `Split()` | `split()` | `split()` |
