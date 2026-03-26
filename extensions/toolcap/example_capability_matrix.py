@@ -18,7 +18,6 @@ Output: A CASE/UCO-compliant JSON-LD graph representing the capability matrix.
 """
 
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "python"))
