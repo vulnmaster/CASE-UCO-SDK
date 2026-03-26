@@ -1,0 +1,381 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+        "uco-role": "https://ontology.unifiedcyberontology.org/uco/role/",
+        "uco-victim": "https://ontology.unifiedcyberontology.org/uco/victim/",
+        "uco-analysis": "https://ontology.unifiedcyberontology.org/uco/analysis/",
+        "uco-configuration": "https://ontology.unifiedcyberontology.org/uco/configuration/",
+        "uco-marking": "https://ontology.unifiedcyberontology.org/uco/marking/",
+        "uco-pattern": "https://ontology.unifiedcyberontology.org/uco/pattern/",
+        "uco-time": "https://ontology.unifiedcyberontology.org/uco/time/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:Investigation-77536820-5ed7-4bef-a4cb-0316883efd29",
+            "@type": "case-investigation:Investigation",
+            "uco-core:description": [
+                "Cellebrite extraction of suspect Samsung Galaxy \u2014 WhatsApp and GPS analysis"
+            ],
+            "uco-core:name": "Case 2026-0142"
+        },
+        {
+            "@id": "kb:Identity-065f9cfe-b9a5-4c59-a74a-43582b737c11",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "Det. Marcus Rivera, CCME"
+        },
+        {
+            "@id": "kb:Tool-531cd2ad-0f73-4170-abc0-7e7070039ed5",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "Cellebrite UFED",
+            "uco-tool:toolType": "Mobile Forensic Extraction",
+            "uco-tool:version": "7.70"
+        },
+        {
+            "@id": "kb:Identity-72169961-0992-4414-a1a8-b32871b1424e",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "Samsung"
+        },
+        {
+            "@id": "kb:ObservableObject-d8837961-9ac6-48f0-8a3c-7bd3fbbe2a38",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-f6429fda-c2cc-46ff-8dfa-fb3ee053e15e",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "Mobile Phone",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Identity-72169961-0992-4414-a1a8-b32871b1424e"
+                    },
+                    "uco-observable:model": "Galaxy S24 Ultra",
+                    "uco-observable:serialNumber": "R5CX30ABCDEF"
+                },
+                {
+                    "@id": "kb:OperatingSystemFacet-24781436-f33c-4c3f-8e38-703d8edc321a",
+                    "@type": "uco-observable:OperatingSystemFacet"
+                },
+                {
+                    "@id": "kb:SoftwareFacet-7a31edc9-1548-4b04-99e8-def4d4880957",
+                    "@type": "uco-observable:SoftwareFacet",
+                    "uco-observable:version": "15"
+                }
+            ]
+        },
+        {
+            "@id": "kb:InvestigativeAction-164e5481-dd98-42e0-8d41-279a95e558a7",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "Full file system extraction of Samsung Galaxy S24 Ultra using Cellebrite UFED 7.70"
+            ],
+            "uco-core:name": "Cellebrite full filesystem extraction",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-20T10:42:00"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-20T09:15:00"
+            }
+        },
+        {
+            "@id": "kb:ObservableObject-0ee107af-c402-4ead-8d3e-2d17e828e680",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-fdc492ff-7d0e-41fa-ac1f-62c73fa98cbe",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-15b654f6-8849-40ea-8711-f972f07495c5",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "e3b0c44298fc1c149afb4c8996fb92427ae41e4649b934ca495991b7852b855d"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": [
+                        "application/octet-stream"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "58720256000"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-379c3edc-b410-4fe6-8f55-771af3ae99c4",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ApplicationFacet-aa418fd8-fee7-4ff1-8abe-f84e61e2da76",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-observable:applicationIdentifier": "com.whatsapp",
+                    "uco-observable:version": "2.26.3.14"
+                }
+            ],
+            "uco-core:name": "WhatsApp Messenger"
+        },
+        {
+            "@id": "kb:ObservableObject-a68db36f-4932-462b-b373-40296d7f4789",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:AccountFacet-85959503-aef0-4fce-9a51-a4352c1b10aa",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:accountIdentifier": "+15551234567",
+                    "uco-observable:accountType": [
+                        "WhatsApp"
+                    ],
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "true"
+                    }
+                },
+                {
+                    "@id": "kb:PhoneAccountFacet-18f2beb6-0f7a-43fa-84a1-b4c44c17c302",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15551234567"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-3e36add6-cdd3-484f-8fcd-d650a9a1f16e",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:AccountFacet-2675cdf7-4003-4258-ba5c-e842fb61f1e2",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:accountIdentifier": "+15559876543",
+                    "uco-observable:accountType": [
+                        "WhatsApp"
+                    ],
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "true"
+                    }
+                },
+                {
+                    "@id": "kb:PhoneAccountFacet-e2616f3f-bf3d-49ae-a5da-af90d0d2343b",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15559876543"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-7d5e9558-8248-46cd-a57f-5214cc68cdf9",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MessageFacet-499fd0ac-dbd9-473d-a9fe-bc28359c57ee",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:ObservableObject-379c3edc-b410-4fe6-8f55-771af3ae99c4"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:ObservableObject-a68db36f-4932-462b-b373-40296d7f4789"
+                    },
+                    "uco-observable:messageID": "3EB0A7B2D1C4E5F6A8901234",
+                    "uco-observable:messageText": "Meet me at the warehouse at 9pm",
+                    "uco-observable:messageType": "Chat",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-18T20:14:33"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:ObservableObject-3e36add6-cdd3-484f-8fcd-d650a9a1f16e"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-8440f018-6a34-4efc-8139-fe6db328f8fd",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MessageFacet-d471c9e3-1f0b-4663-a118-1535a8672860",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:ObservableObject-379c3edc-b410-4fe6-8f55-771af3ae99c4"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:ObservableObject-3e36add6-cdd3-484f-8fcd-d650a9a1f16e"
+                    },
+                    "uco-observable:messageID": "3EB0A7B2D1C4E5F6A8905678",
+                    "uco-observable:messageText": "I'm here. Back entrance is open.",
+                    "uco-observable:messageType": "Chat",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-18T21:02:17"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:ObservableObject-a68db36f-4932-462b-b373-40296d7f4789"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-997c5c4c-cfcd-4320-8b61-1733c394b8df",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MessageFacet-c4b8745a-f369-4c8e-a38b-10a1ce8d4c73",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:ObservableObject-379c3edc-b410-4fe6-8f55-771af3ae99c4"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:ObservableObject-a68db36f-4932-462b-b373-40296d7f4789"
+                    },
+                    "uco-observable:messageID": "3EB0A7B2D1C4E5F6A8909012",
+                    "uco-observable:messageText": "Package secured. Heading out now.",
+                    "uco-observable:messageType": "Chat",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-18T21:47:05"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:ObservableObject-3e36add6-cdd3-484f-8fcd-d650a9a1f16e"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "@id": "kb:Location-0ffd072c-edb2-4422-a33b-075ae4e4b84d",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-00bb6095-cf95-4ad6-9c62-68525e1c12b4",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:altitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "89.0"
+                    },
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "34.0522"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-118.2437"
+                    }
+                }
+            ],
+            "uco-core:name": "Warehouse location"
+        },
+        {
+            "@id": "kb:Location-b2154426-718f-406f-9398-e5940f8e090b",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-996a11f1-5d1d-49ed-9822-e7e362e29b11",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:altitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "95.0"
+                    },
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "34.0548"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-118.2401"
+                    }
+                }
+            ],
+            "uco-core:name": "Departure point"
+        },
+        {
+            "@id": "kb:ObservableObject-ad320b64-13e5-46a2-8e4d-43ed1d8f78d6",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:GeoLocationEntryFacet-aeb7f1ff-e419-417d-bc1f-56626fa7d1fd",
+                    "@type": "uco-observable:GeoLocationEntryFacet",
+                    "uco-observable:location": {
+                        "@id": "kb:Location-0ffd072c-edb2-4422-a33b-075ae4e4b84d"
+                    },
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-18T20:58:12"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-2cd6f786-6488-451a-8be5-f3fbc5442d18",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:GeoLocationEntryFacet-6ab2b353-177f-4c4a-bf0f-8e1f816193a1",
+                    "@type": "uco-observable:GeoLocationEntryFacet",
+                    "uco-observable:location": {
+                        "@id": "kb:Location-b2154426-718f-406f-9398-e5940f8e090b"
+                    },
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-18T21:52:30"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:ProvenanceRecord-93f7f442-5ab2-43ac-ae0a-15dd95102129",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:description": [
+                "Artifacts produced by Cellebrite UFED extraction of Samsung Galaxy S24 Ultra"
+            ],
+            "uco-core:name": "Cellebrite extraction results",
+            "uco-core:object": [
+                {
+                    "@id": "kb:ObservableObject-0ee107af-c402-4ead-8d3e-2d17e828e680"
+                },
+                {
+                    "@id": "kb:ObservableObject-379c3edc-b410-4fe6-8f55-771af3ae99c4"
+                },
+                {
+                    "@id": "kb:ObservableObject-a68db36f-4932-462b-b373-40296d7f4789"
+                },
+                {
+                    "@id": "kb:ObservableObject-3e36add6-cdd3-484f-8fcd-d650a9a1f16e"
+                },
+                {
+                    "@id": "kb:ObservableObject-7d5e9558-8248-46cd-a57f-5214cc68cdf9"
+                },
+                {
+                    "@id": "kb:ObservableObject-8440f018-6a34-4efc-8139-fe6db328f8fd"
+                },
+                {
+                    "@id": "kb:ObservableObject-997c5c4c-cfcd-4320-8b61-1733c394b8df"
+                },
+                {
+                    "@id": "kb:ObservableObject-ad320b64-13e5-46a2-8e4d-43ed1d8f78d6"
+                },
+                {
+                    "@id": "kb:ObservableObject-2cd6f786-6488-451a-8be5-f3fbc5442d18"
+                }
+            ],
+            "case-investigation:exhibitNumber": "EXH-2026-0142-001"
+        }
+    ]
+}

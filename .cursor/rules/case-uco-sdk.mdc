@@ -49,18 +49,23 @@ Do NOT manually browse ONTOLOGY_REFERENCE.md — use the registry or MCP tools i
 
 ## Key References
 
-- `docs/RECIPES.md` — copy-paste workflow examples for common forensic scenarios
+- `docs/recipes/INDEX.md` — recipe catalog; individual recipes in `docs/recipes/*.md`
 - `docs/MAPPING_GUIDE.md` — maps forensic domains (files, network, mobile, email) to the right classes
 - `docs/ECOSYSTEM.md` — companion tools (case-utils for validation, Fuseki for SPARQL)
 
-## Validation
+## Validation (mandatory)
 
-Always validate output with case-utils:
+**Every** generated `.jsonld` file MUST be validated with `case_validate` before presenting results to the user. This is not optional — run it as the final step after `graph.write()`.
 
 ```bash
+# Install once (if not already installed)
 pip install case-utils
+
+# Run after every graph.write()
 case_validate --built-version case-1.4.0 output.jsonld
 ```
+
+If validation fails, fix the errors and re-validate before reporting success. Do NOT tell the user the graph is complete until `case_validate` reports `Conforms: True`.
 
 ## Important Constraints
 

@@ -1,0 +1,2730 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+        "uco-role": "https://ontology.unifiedcyberontology.org/uco/role/",
+        "uco-victim": "https://ontology.unifiedcyberontology.org/uco/victim/",
+        "uco-analysis": "https://ontology.unifiedcyberontology.org/uco/analysis/",
+        "uco-configuration": "https://ontology.unifiedcyberontology.org/uco/configuration/",
+        "uco-marking": "https://ontology.unifiedcyberontology.org/uco/marking/",
+        "uco-pattern": "https://ontology.unifiedcyberontology.org/uco/pattern/",
+        "uco-time": "https://ontology.unifiedcyberontology.org/uco/time/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "John Doe"
+        },
+        {
+            "@id": "kb:Tool-c5f7428f-bbcf-4e85-a68e-1b628ade13d4",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "Wireshark",
+            "uco-tool:toolType": "Network Protocol Analyzer",
+            "uco-tool:version": "4.6.4"
+        },
+        {
+            "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-d14ad6fc-7db6-44e2-ac7e-df40b38a566f",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "pcapng",
+                    "uco-observable:fileName": [
+                        "wifi_capture.pcapng"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "344968"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-abdfada3-0aff-4674-9214-5a3c4c4d8f49",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-c6796015-7760-4755-b479-63e51dd3d84b",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "fe3fca634710858b80a4a4aa57717a6bd3399f1a0688588f07115a5c862741f8"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-d4f7a140-af7b-4320-b396-19a01a098a13",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "MD5"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "dfa5f62d0c597c240ee4c934c593acc4"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": [
+                        "application/vnd.tcpdump.pcap"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "344968"
+                    }
+                }
+            ],
+            "uco-core:name": "wifi_capture.pcapng"
+        },
+        {
+            "@id": "kb:WifiAddress-42aab42f-6421-4806-b84a-b5435db8e143",
+            "@type": "uco-observable:WifiAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:WifiAddressFacet-4b3e4c74-0f21-4ccc-9ed3-53a2590e04ed",
+                    "@type": "uco-observable:WifiAddressFacet",
+                    "uco-observable:addressValue": "de:b5:4f:0e:ed:64"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-de66e50d-a923-4852-8805-7e687a6bd1e8",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "172.20.10.3"
+                }
+            ]
+        },
+        {
+            "@id": "kb:NetworkInterface-2cfb7fa3-84ee-43bd-80df-2b1350c98be7",
+            "@type": "uco-observable:NetworkInterface",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkInterfaceFacet-2541a482-d8dd-4023-b2af-146ee597ab0d",
+                    "@type": "uco-observable:NetworkInterfaceFacet",
+                    "uco-observable:adapterName": "Wi-Fi",
+                    "uco-observable:ip": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:macAddress": {
+                        "@id": "kb:WifiAddress-42aab42f-6421-4806-b84a-b5435db8e143"
+                    }
+                }
+            ],
+            "uco-core:name": "WiFi Adapter"
+        },
+        {
+            "@id": "kb:MACAddress-e20c14a6-9317-4067-8d5f-2cbd4aee76f5",
+            "@type": "uco-observable:MACAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MACAddressFacet-1f0d5002-1b0e-454e-825d-a95993e60d53",
+                    "@type": "uco-observable:MACAddressFacet",
+                    "uco-observable:addressValue": "d4:ab:61:5c:3a:69"
+                }
+            ],
+            "uco-core:name": "Default gateway"
+        },
+        {
+            "@id": "kb:Relationship-4e9d2daf-f052-4ad6-8c95-f5eb90554bf4",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "WiFi interface default gateway \u2014 all captured traffic routed through this MAC"
+            ],
+            "uco-core:tag": [
+                "configuration"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Connected_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:NetworkInterface-2cfb7fa3-84ee-43bd-80df-2b1350c98be7"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:MACAddress-e20c14a6-9317-4067-8d5f-2cbd4aee76f5"
+            }
+        },
+        {
+            "@id": "kb:WirelessNetworkConnection-2891fa79-6dbd-4bf2-9a53-d2e3ede18926",
+            "@type": "uco-observable:WirelessNetworkConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:WirelessNetworkConnectionFacet-04d007a4-9775-423e-b66e-c9281659ff79",
+                    "@type": "uco-observable:WirelessNetworkConnectionFacet",
+                    "uco-observable:baseStation": "d4:ab:61:5c:3a:69"
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-0549a721-b58f-4164-b0ef-9d95d3c24f57",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "Wireless network base station (BSSID) \u2014 links the WirelessNetworkConnection to the same MACAddress node used as the gateway, avoiding identity duplication"
+            ],
+            "uco-core:tag": [
+                "configuration"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Connected_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:WirelessNetworkConnection-2891fa79-6dbd-4bf2-9a53-d2e3ede18926"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:MACAddress-e20c14a6-9317-4067-8d5f-2cbd4aee76f5"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "Live capture of 338 packets on WiFi interface over ~3.4 seconds"
+            ],
+            "uco-core:name": "WiFi packet capture",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:30:33+00:00"
+            },
+            "uco-action:environment": {
+                "@id": "kb:NetworkInterface-2cfb7fa3-84ee-43bd-80df-2b1350c98be7"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-c5f7428f-bbcf-4e85-a68e-1b628ade13d4"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:30:29+00:00"
+            }
+        },
+        {
+            "@id": "kb:IPAddress-bdc78468-cbc6-4039-862b-f5ff0837f927",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-76a0f4c0-3a9c-483d-9461-fc09c1a53d12",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "20.44.10.122"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-909343f6-b324-4c74-9e08-e86f9da94bf6",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-4aeab0f4-a903-4583-bb3c-794c90408b1a",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "104.18.18.125"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-0de63afc-5678-4abd-9ed0-027c8ddbf29e",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-217a9790-b1fa-46a7-a6b2-d9ae48dd19bc",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "143.166.28.100"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-1fe12b93-2873-49e5-8cdc-8f260f9abcf1",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-86d83876-20df-48d7-8454-bf9e50ea7ada",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "162.125.40.1"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-de48060b-5ba2-4c26-bcb7-c744aad95375",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-8a627444-c8a9-4ff9-841c-7a53d9628149",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "13.248.241.7"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-19dbd8af-ea19-47b2-b022-2039ec98b6bb",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-679b6d70-d4d8-4347-868c-bd0cd2907a91",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "99.83.165.34"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-404980e2-8412-46a0-b40c-b07284cfcea4",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-9ffe0e51-383a-4548-b56f-f0ad5b518f26",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "184.28.149.222"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-7b5a6ddd-9117-458f-b7ab-f5fac6da4ec5",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-72b7dda8-b79d-48d8-9b81-84345ac3273a",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "13.73.244.6"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-c5aea638-b2b2-4f90-b9e9-a4402fc381b7",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-7bbb9138-a608-49d0-b397-97b5d94899c0",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "150.171.27.11"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-fdb8eba6-3e3c-488f-b78f-05e34bd98180",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-db28ae26-ff17-47d7-8698-e0a63afc72a2",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "150.171.28.11"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-eef50335-ecbd-487a-9752-8493f50424ed",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-c6b48122-6c07-435a-9216-7c0489055dfd",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "239.255.255.250"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-417cb0a0-91ff-42a6-b1e7-1c67d3ae3a16",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-dc0b560e-efcd-491a-b134-e646afe15a0b",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "2600:381:bd19:7986:1cad:b089:30e3:3540"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-cba6eb2e-ef7a-4b00-9f60-f37dddbf54c4",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-9c053c3d-2355-4521-82bc-dbc263b771e2",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "2603:1063:12::302"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-8ed0b1a5-09be-4778-a7e3-8f36b1e279be",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-93dd7dbd-cf6c-4877-86c5-73010f984b3e",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "2620:1ec:33::11"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-3794c0b6-69b7-40fb-a202-0557ffdfae83",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-0c2962e8-05dd-466e-b5d9-e35e1b2bbcdc",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "2620:100:6017:19::a27d:213"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-f010a7e0-3c94-4b27-8be6-c6666a9f1f77",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-6d8d149d-4100-492e-adf6-f53294b6e98b",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "2620:100:6017:13::a27d:20d"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-d32566ce-5c0a-4e9d-a349-d0266ab29f92",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-ac172e62-6526-4ccc-a2be-e7b1209bb8ca",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "fe80::dcb5:4fff:fe0e:ed64"
+                }
+            ]
+        },
+        {
+            "@id": "kb:IPAddress-3e843d15-1e0e-4a0e-b650-16f658d5c0ee",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-be839002-27aa-4265-9e6b-cfdf964ce3c5",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "fe80::8735:dbf2:3684:6d3a"
+                }
+            ]
+        },
+        {
+            "@id": "kb:DomainName-2c2378d1-3c12-48c3-b740-ee59e3d94dc9",
+            "@type": "uco-observable:DomainName",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DomainNameFacet-b58daa24-ee66-4ff9-b950-2ce48821dc6e",
+                    "@type": "uco-observable:DomainNameFacet",
+                    "uco-observable:value": "edge.microsoft.com"
+                }
+            ]
+        },
+        {
+            "@id": "kb:DomainName-bfa8fac0-e6ee-4af3-ba53-d44210303e93",
+            "@type": "uco-observable:DomainName",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DomainNameFacet-ac002d61-6f62-4210-bc73-6c4550265093",
+                    "@type": "uco-observable:DomainNameFacet",
+                    "uco-observable:value": "edge-microsoft-com.ax-0002.ax-msedge.net"
+                }
+            ]
+        },
+        {
+            "@id": "kb:DomainName-b455eff3-cc94-487b-ab8c-b605864352a8",
+            "@type": "uco-observable:DomainName",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DomainNameFacet-f6fed62e-6c50-4b2d-94fb-643420fbc426",
+                    "@type": "uco-observable:DomainNameFacet",
+                    "uco-observable:value": "ax-0002.ax-msedge.net"
+                }
+            ]
+        },
+        {
+            "@id": "kb:DomainName-2837e497-ad7a-44af-998d-141b9dbb4823",
+            "@type": "uco-observable:DomainName",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DomainNameFacet-0df85d74-4c90-40d8-924c-b0a48e1df42e",
+                    "@type": "uco-observable:DomainNameFacet",
+                    "uco-observable:value": "dellupdater.dell.com"
+                }
+            ]
+        },
+        {
+            "@id": "kb:DomainName-13f8f7a8-b4fd-45d4-a946-861358ba5b71",
+            "@type": "uco-observable:DomainName",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DomainNameFacet-796c6a4c-14b4-4f69-b1ba-a9192f572606",
+                    "@type": "uco-observable:DomainNameFacet",
+                    "uco-observable:value": "dellupdater.dell.com.edgekey.net"
+                }
+            ]
+        },
+        {
+            "@id": "kb:DomainName-0ef3c91c-f7ec-460d-95ca-838e55d76088",
+            "@type": "uco-observable:DomainName",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DomainNameFacet-59395ec5-c313-44e3-857a-a928e2a5b156",
+                    "@type": "uco-observable:DomainNameFacet",
+                    "uco-observable:value": "e13665.g.akamaiedge.net"
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-bcd2eacf-ca79-4ea3-89f3-287a300e7d15",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS CNAME record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-2c2378d1-3c12-48c3-b740-ee59e3d94dc9"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:DomainName-bfa8fac0-e6ee-4af3-ba53-d44210303e93"
+            }
+        },
+        {
+            "@id": "kb:Relationship-5ff71144-b7b8-4e00-b721-816e5cf2307e",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS CNAME record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-bfa8fac0-e6ee-4af3-ba53-d44210303e93"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:DomainName-b455eff3-cc94-487b-ab8c-b605864352a8"
+            }
+        },
+        {
+            "@id": "kb:Relationship-9f70c953-cc48-42e7-a8f9-bc59ab1c6fee",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS A record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-b455eff3-cc94-487b-ab8c-b605864352a8"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:IPAddress-c5aea638-b2b2-4f90-b9e9-a4402fc381b7"
+            }
+        },
+        {
+            "@id": "kb:Relationship-1976a927-5934-4e09-a27e-0fe960d153e5",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS A record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-b455eff3-cc94-487b-ab8c-b605864352a8"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:IPAddress-fdb8eba6-3e3c-488f-b78f-05e34bd98180"
+            }
+        },
+        {
+            "@id": "kb:Relationship-30f45d59-da07-4dea-9833-53c0309b3206",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS AAAA record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-b455eff3-cc94-487b-ab8c-b605864352a8"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:IPAddress-8ed0b1a5-09be-4778-a7e3-8f36b1e279be"
+            }
+        },
+        {
+            "@id": "kb:Relationship-de2525fb-013b-4c8c-afab-e896ad416874",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS CNAME record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-2837e497-ad7a-44af-998d-141b9dbb4823"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:DomainName-13f8f7a8-b4fd-45d4-a946-861358ba5b71"
+            }
+        },
+        {
+            "@id": "kb:Relationship-2badad86-2292-484d-9376-06864890f5c8",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS CNAME record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-13f8f7a8-b4fd-45d4-a946-861358ba5b71"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:DomainName-0ef3c91c-f7ec-460d-95ca-838e55d76088"
+            }
+        },
+        {
+            "@id": "kb:Relationship-fa4a52d1-c231-4f22-bff2-fa0b7c12a2a5",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "DNS A record observed in capture"
+            ],
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Resolved_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:DomainName-0ef3c91c-f7ec-460d-95ca-838e55d76088"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:IPAddress-404980e2-8412-46a0-b40c-b07284cfcea4"
+            }
+        },
+        {
+            "@id": "kb:TCPConnection-8e675a9d-2269-4a9e-ad4f-d7c1ad6143b3",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-a00a4650-4161-4378-a9ad-63edbb844fd1",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-bdc78468-cbc6-4039-862b-f5ff0837f927"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:32.469575+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "54636"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.610579+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-1e5ffcd6-e27a-41a2-8acf-d0b8f40440cb",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "8060"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "12"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "3241"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "13"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-af62117b-575f-45f5-9585-d4b6f6ea99c2",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-c6b2f1d3-a777-4359-9ce1-d37530328575",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-909343f6-b324-4c74-9e08-e86f9da94bf6"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.343395+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "59859"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.756515+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-9bcea10e-1d53-4a69-82cc-15bb53c8be2b",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "857"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "9"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2982"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "11"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-a53bcc82-11e1-423e-a732-e765946d5a6c",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-f4b4bebe-9199-4d34-ab1e-212eb58ec532",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-909343f6-b324-4c74-9e08-e86f9da94bf6"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.358822+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "59858"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.755907+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-26a20adf-0bf3-4645-af61-81f2244c9bb0",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "733"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "8"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "3315"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "10"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-9bb1483d-29f6-422b-a52f-e834642b70ab",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-c4e0409e-1e03-41ec-ad98-9edaf06ef57f",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-0de63afc-5678-4abd-9ed0-027c8ddbf29e"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.281800+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "61105"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.129698+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-52f2fd40-48da-4732-afdf-39a82eb757c7",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2872"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "10"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "1113"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "7"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-8bb25715-cefb-4797-ab98-0090dc3a6326",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-892ef0d8-e3ee-4e09-9d4c-914e89d4b0f3",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-0de63afc-5678-4abd-9ed0-027c8ddbf29e"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:32.844602+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "61106"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.389558+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-939fe1e0-1237-45ba-b56f-8f995d44df78",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2211"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "8"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "3591"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "7"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-b8df427c-d193-4d8d-80d3-16890034eb3e",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-04588cf2-6007-4a7f-8dbd-9d52c0d8e863",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-0de63afc-5678-4abd-9ed0-027c8ddbf29e"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:32.545487+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "54635"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.766878+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-f2f49480-bf93-49d3-bd28-a04a267e36c3",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "993"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "6"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "390"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "4"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-2583cbed-559e-4b6c-8aed-fbbfa7610300",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-7d5fa1e8-57a6-4b83-b10c-2a3e07411727",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-de48060b-5ba2-4c26-bcb7-c744aad95375"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.969327+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "59930"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.689109+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-d7d366be-15fa-446b-8e87-78464921de11",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-0f0ee0a5-712b-4bf5-923b-2df93fb7c1b0",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-145d4570-92ab-4d72-867e-16bd183c9d9b",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-de48060b-5ba2-4c26-bcb7-c744aad95375"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.588915+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "59940"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.269639+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-a6e50f60-b438-4a47-b3cf-1d3593df4f00",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-c198b079-5cab-4115-84b4-2e568becfa0c",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-40bf7f0a-1956-41d8-a43a-9c8bf1a01913",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-de48060b-5ba2-4c26-bcb7-c744aad95375"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.588495+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "59941"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.269639+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-0b50b649-62c7-4b30-86ba-ed1776c62d62",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-b7a48ca3-26c3-4427-b058-5510ee7b568a",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-1dcdbdde-7f26-4e03-9be4-267140b572d3",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-19dbd8af-ea19-47b2-b022-2039ec98b6bb"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.666606+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "59944"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.381768+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-c30860bc-70ad-4940-867f-4e69b4b2bc7a",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-33cde472-431e-4802-91c0-b9de967f4c77",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-bcd6e27b-a0ee-40a8-9bf1-e1135bac6281",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-19dbd8af-ea19-47b2-b022-2039ec98b6bb"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:32.686803+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "56153"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:32.357179+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-21db7c63-ff4a-499f-bcc9-4289a7850a1e",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "147"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-5fa2ff23-76a6-4821-a601-864e05f16500",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-2e2bfa04-2567-4ede-b229-cbff254bc59b",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-1fe12b93-2873-49e5-8cdc-8f260f9abcf1"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.862263+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "54632"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.637530+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-b88bd4b5-961c-469b-9dc7-098086cb89a3",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "132"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-15bf228d-d418-49e8-af13-56312d2fae2a",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-1bd16d7e-78df-402a-8b32-d0cebf75c19e",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-1fe12b93-2873-49e5-8cdc-8f260f9abcf1"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.863166+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "54633"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.654490+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-dd10a2ad-d9c4-4d39-b197-e52261022a36",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "132"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "2"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-e3ad2c4f-87de-4562-ba5a-7e55cdcbe313",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-b9244899-c664-40f5-a24c-8e14547140e5",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-404980e2-8412-46a0-b40c-b07284cfcea4"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:33.014248+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "61107"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:32.782179+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-6c0e2505-6edb-4fea-96bd-a0b3e4a299fb",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "66"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "1"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "66"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "1"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-749baf8b-3029-4dce-a653-143cf19cd0f4",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-edd0c558-e717-4986-af2d-b9544529469e",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-1fe12b93-2873-49e5-8cdc-8f260f9abcf1"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.399802+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "54630"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:31.399802+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-bfbbd2be-84ad-4375-bff7-612bce81281b",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "66"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "1"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-84c70e1e-df8f-4fc7-9886-0111c5ebba1a",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-1ba6c3b2-9c2a-41fa-8f9f-48ad232bf17c",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-1fe12b93-2873-49e5-8cdc-8f260f9abcf1"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.769328+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "54634"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:29.769328+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-4ba6bb46-a2d5-4179-a257-8019aecbe77e",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "54"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "1"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:TCPConnection-999fd3d6-fb24-4f5d-8773-abe00b473b65",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-4a6ec4ba-a2e1-4229-9c06-e120cb924feb",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "443"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-7b5a6ddd-9117-458f-b7ab-f5fac6da4ec5"
+                        }
+                    ],
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.881884+00:00"
+                    },
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "56653"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-25T22:30:30.881884+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-c92fdd75-8c9b-4ddc-9eee-9e24b537a6bd",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "54"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "1"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:NetworkConnection-aad0013f-9c83-48b0-a261-78c16828eaa5",
+            "@type": "uco-observable:NetworkConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-a945e040-abd4-408c-8cc6-90bb8aa21410",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "3702"
+                    },
+                    "uco-observable:dst": [
+                        {
+                            "@id": "kb:IPAddress-eef50335-ecbd-487a-9752-8493f50424ed"
+                        }
+                    ],
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": "false"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "57992"
+                    },
+                    "uco-observable:src": [
+                        {
+                            "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                        }
+                    ]
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-766cf522-912d-4de9-b627-801777adf4da",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2792"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "4"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-b47fa4b8-9a5f-4ba2-82a6-5387d0a8cd8b",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-8e675a9d-2269-4a9e-ad4f-d7c1ad6143b3"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-e8b11170-99a6-4d0e-80a6-45ed3c8c4554",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-af62117b-575f-45f5-9585-d4b6f6ea99c2"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-b8ca0fa9-5767-4b00-9b57-566aea1d9ebb",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-a53bcc82-11e1-423e-a732-e765946d5a6c"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-9e1b3e84-3e4f-4a60-a58c-2a7d5f006370",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-9bb1483d-29f6-422b-a52f-e834642b70ab"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-20abe577-0bd4-46f4-b828-85c9a25fd3f4",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-8bb25715-cefb-4797-ab98-0090dc3a6326"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-1593c5a2-9fea-4e2a-be50-407d5d33fe1e",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-b8df427c-d193-4d8d-80d3-16890034eb3e"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-88de70a2-ab1e-428d-a0a5-cd7f6d99cf27",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-2583cbed-559e-4b6c-8aed-fbbfa7610300"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-db64ee38-163a-423e-acd4-545decaaf1c2",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-0f0ee0a5-712b-4bf5-923b-2df93fb7c1b0"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-da1989fc-71d8-432a-b198-f1d204b4b612",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-c198b079-5cab-4115-84b4-2e568becfa0c"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-d9de5fa9-3c85-4e9f-8cbd-4f01949b25b3",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-b7a48ca3-26c3-4427-b058-5510ee7b568a"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-bfb86c2a-2460-4153-bf72-c56f20449944",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-33cde472-431e-4802-91c0-b9de967f4c77"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-313aaaae-aeff-4cfb-8fe6-aac023deaafb",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-5fa2ff23-76a6-4821-a601-864e05f16500"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-099747cd-c709-420c-803d-cf695295ada5",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-15bf228d-d418-49e8-af13-56312d2fae2a"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-7cbc9789-856c-45f0-81f9-8f75e0950e86",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-e3ad2c4f-87de-4562-ba5a-7e55cdcbe313"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-a977d7ca-e587-40cd-ba6b-afebb1d18d98",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-749baf8b-3029-4dce-a653-143cf19cd0f4"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-ce8e109f-f1e3-4e6c-9dcc-af4ada5b7374",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-84c70e1e-df8f-4fc7-9886-0111c5ebba1a"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-22da7dc5-51c8-41a4-b405-625718916f25",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-999fd3d6-fb24-4f5d-8773-abe00b473b65"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-18d8cb15-fd0e-48f2-bb0a-3ffc48c36e70",
+            "@type": "uco-core:Relationship",
+            "uco-core:tag": [
+                "observed"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:NetworkConnection-aad0013f-9c83-48b0-a261-78c16828eaa5"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+            }
+        },
+        {
+            "@id": "kb:Relationship-75f73ab8-90b1-4a6b-9689-9b463262d2bf",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": [
+                "Association inferred from DNS CNAME chain: dellupdater.dell.com -> dellupdater.dell.com.edgekey.net -> e13665.g.akamaiedge.net -> 184.28.149.222"
+            ],
+            "uco-core:tag": [
+                "inferred"
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Connected_To",
+            "uco-core:source": [
+                {
+                    "@id": "kb:TCPConnection-e3ad2c4f-87de-4562-ba5a-7e55cdcbe313"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:DomainName-2837e497-ad7a-44af-998d-141b9dbb4823"
+            }
+        },
+        {
+            "@id": "kb:AnalyticTool-7f2bf747-24f8-4476-a9a9-0ece59c7fdba",
+            "@type": "uco-tool:AnalyticTool",
+            "uco-core:description": [
+                "Service attribution based on IP address WHOIS registration and DNS domain names"
+            ],
+            "uco-core:name": "IP WHOIS / DNS attribution",
+            "uco-tool:toolType": "Traffic Attribution"
+        },
+        {
+            "@id": "kb:ObservableObject-b3d15d18-3941-4f7b-b034-4d75304f10c3",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ArtifactClassificationResultFacet-cacdd76f-21a8-4204-a5e9-18db9d84393b",
+                    "@type": "uco-analysis:ArtifactClassificationResultFacet",
+                    "uco-analysis:classification": [
+                        {
+                            "@id": "kb:ArtifactClassification-a0b07078-4736-4b02-90fb-6636ed04d00e",
+                            "@type": "uco-analysis:ArtifactClassification",
+                            "uco-analysis:class": [
+                                "Dell Update Service"
+                            ],
+                            "uco-analysis:classificationConfidence": {
+                                "@type": "xsd:decimal",
+                                "@value": "0.85"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "Dell Update Service attribution"
+        },
+        {
+            "@id": "kb:InvestigativeAction-09923d12-b031-4768-aeea-4701ad40dddb",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "IP 143.166.28.100 registered to Dell Inc. (WHOIS). IP 184.28.149.222 reached via DNS chain dellupdater.dell.com -> dellupdater.dell.com.edgekey.net -> e13665.g.akamaiedge.net."
+            ],
+            "uco-core:name": "Dell traffic attribution",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:36:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:AnalyticTool-7f2bf747-24f8-4476-a9a9-0ece59c7fdba"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:TCPConnection-9bb1483d-29f6-422b-a52f-e834642b70ab"
+                },
+                {
+                    "@id": "kb:TCPConnection-8bb25715-cefb-4797-ab98-0090dc3a6326"
+                },
+                {
+                    "@id": "kb:TCPConnection-b8df427c-d193-4d8d-80d3-16890034eb3e"
+                },
+                {
+                    "@id": "kb:TCPConnection-e3ad2c4f-87de-4562-ba5a-7e55cdcbe313"
+                },
+                {
+                    "@id": "kb:IPAddress-0de63afc-5678-4abd-9ed0-027c8ddbf29e"
+                },
+                {
+                    "@id": "kb:IPAddress-404980e2-8412-46a0-b40c-b07284cfcea4"
+                },
+                {
+                    "@id": "kb:DomainName-2837e497-ad7a-44af-998d-141b9dbb4823"
+                },
+                {
+                    "@id": "kb:DomainName-13f8f7a8-b4fd-45d4-a946-861358ba5b71"
+                },
+                {
+                    "@id": "kb:DomainName-0ef3c91c-f7ec-460d-95ca-838e55d76088"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-b3d15d18-3941-4f7b-b034-4d75304f10c3"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:35:00+00:00"
+            },
+            "case-investigation:wasInformedBy": [
+                {
+                    "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-8b4e5c2a-02c8-4d64-ac41-f681cd0908b6",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ArtifactClassificationResultFacet-1ab78bd5-7f62-4d59-9872-d7ae1d8d6742",
+                    "@type": "uco-analysis:ArtifactClassificationResultFacet",
+                    "uco-analysis:classification": [
+                        {
+                            "@id": "kb:ArtifactClassification-a3b78560-f2a5-46ef-a65e-e5249eb5650e",
+                            "@type": "uco-analysis:ArtifactClassification",
+                            "uco-analysis:class": [
+                                "Cloudflare-hosted Service"
+                            ],
+                            "uco-analysis:classificationConfidence": {
+                                "@type": "xsd:decimal",
+                                "@value": "0.7"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "Cloudflare-hosted service attribution"
+        },
+        {
+            "@id": "kb:InvestigativeAction-20c57db2-7718-4efe-842e-a6d891cb34d7",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "IP 104.18.18.125 registered to Cloudflare, Inc. (WHOIS). No DNS query for this IP observed in capture \u2014 attribution based solely on IP registration."
+            ],
+            "uco-core:name": "Cloudflare traffic attribution",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:37:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:AnalyticTool-7f2bf747-24f8-4476-a9a9-0ece59c7fdba"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:TCPConnection-af62117b-575f-45f5-9585-d4b6f6ea99c2"
+                },
+                {
+                    "@id": "kb:TCPConnection-a53bcc82-11e1-423e-a732-e765946d5a6c"
+                },
+                {
+                    "@id": "kb:IPAddress-909343f6-b324-4c74-9e08-e86f9da94bf6"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-8b4e5c2a-02c8-4d64-ac41-f681cd0908b6"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:36:00+00:00"
+            },
+            "case-investigation:wasInformedBy": [
+                {
+                    "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-3d9e294f-02a4-4f45-9b68-de94bff760d6",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ArtifactClassificationResultFacet-5204a4e3-d5e3-4855-a5e1-b38f74836d81",
+                    "@type": "uco-analysis:ArtifactClassificationResultFacet",
+                    "uco-analysis:classification": [
+                        {
+                            "@id": "kb:ArtifactClassification-4d2b1e95-963e-4e37-9645-1dbed73f8c81",
+                            "@type": "uco-analysis:ArtifactClassification",
+                            "uco-analysis:class": [
+                                "Microsoft Azure Service"
+                            ],
+                            "uco-analysis:classificationConfidence": {
+                                "@type": "xsd:decimal",
+                                "@value": "0.8"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "Microsoft Azure service attribution"
+        },
+        {
+            "@id": "kb:InvestigativeAction-f3c5642d-9c6b-43ff-94a4-ed98d895f7b3",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "IPs 20.44.10.122 and 13.73.244.6 registered to Microsoft Corporation (WHOIS). No DNS query for these IPs observed in capture \u2014 attribution based solely on IP registration."
+            ],
+            "uco-core:name": "Microsoft traffic attribution",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:38:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:AnalyticTool-7f2bf747-24f8-4476-a9a9-0ece59c7fdba"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:TCPConnection-8e675a9d-2269-4a9e-ad4f-d7c1ad6143b3"
+                },
+                {
+                    "@id": "kb:TCPConnection-999fd3d6-fb24-4f5d-8773-abe00b473b65"
+                },
+                {
+                    "@id": "kb:IPAddress-bdc78468-cbc6-4039-862b-f5ff0837f927"
+                },
+                {
+                    "@id": "kb:IPAddress-7b5a6ddd-9117-458f-b7ab-f5fac6da4ec5"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-3d9e294f-02a4-4f45-9b68-de94bff760d6"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:37:00+00:00"
+            },
+            "case-investigation:wasInformedBy": [
+                {
+                    "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-5492d710-8f77-4619-b489-394488763045",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ArtifactClassificationResultFacet-60385af4-c626-42b9-81f7-0eb03dbfdab9",
+                    "@type": "uco-analysis:ArtifactClassificationResultFacet",
+                    "uco-analysis:classification": [
+                        {
+                            "@id": "kb:ArtifactClassification-111a9b2f-9d2d-4072-9367-cc13a6f1bd7f",
+                            "@type": "uco-analysis:ArtifactClassification",
+                            "uco-analysis:class": [
+                                "Dropbox"
+                            ],
+                            "uco-analysis:classificationConfidence": {
+                                "@type": "xsd:decimal",
+                                "@value": "0.9"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "Dropbox attribution"
+        },
+        {
+            "@id": "kb:InvestigativeAction-dfddffc7-f9cb-4bd6-9e90-e9bf977aec53",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "IP 162.125.40.1 registered to Dropbox, Inc. (WHOIS). High confidence \u2014 Dropbox uses dedicated IP space."
+            ],
+            "uco-core:name": "Dropbox traffic attribution",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:39:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:AnalyticTool-7f2bf747-24f8-4476-a9a9-0ece59c7fdba"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:TCPConnection-5fa2ff23-76a6-4821-a601-864e05f16500"
+                },
+                {
+                    "@id": "kb:TCPConnection-15bf228d-d418-49e8-af13-56312d2fae2a"
+                },
+                {
+                    "@id": "kb:TCPConnection-749baf8b-3029-4dce-a653-143cf19cd0f4"
+                },
+                {
+                    "@id": "kb:TCPConnection-84c70e1e-df8f-4fc7-9886-0111c5ebba1a"
+                },
+                {
+                    "@id": "kb:IPAddress-1fe12b93-2873-49e5-8cdc-8f260f9abcf1"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-5492d710-8f77-4619-b489-394488763045"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:38:00+00:00"
+            },
+            "case-investigation:wasInformedBy": [
+                {
+                    "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ObservableObject-bb3dbe0d-9d9e-4e4e-bb2a-efa2eda8523f",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ArtifactClassificationResultFacet-a8abbdad-2033-43d2-9efe-ddaee8b24fd4",
+                    "@type": "uco-analysis:ArtifactClassificationResultFacet",
+                    "uco-analysis:classification": [
+                        {
+                            "@id": "kb:ArtifactClassification-c9951856-5050-4034-80cc-f4c8d48aa88b",
+                            "@type": "uco-analysis:ArtifactClassification",
+                            "uco-analysis:class": [
+                                "AWS Global Accelerator Service"
+                            ],
+                            "uco-analysis:classificationConfidence": {
+                                "@type": "xsd:decimal",
+                                "@value": "0.75"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "AWS Global Accelerator attribution"
+        },
+        {
+            "@id": "kb:InvestigativeAction-ec23fabe-1668-459b-801a-2005175647d5",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "IPs 13.248.241.7 and 99.83.165.34 registered to Amazon Technologies (WHOIS). Both in AWS Global Accelerator range. No DNS query observed \u2014 attribution based on IP registration and known AWS anycast ranges."
+            ],
+            "uco-core:name": "AWS traffic attribution",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:40:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:AnalyticTool-7f2bf747-24f8-4476-a9a9-0ece59c7fdba"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:TCPConnection-2583cbed-559e-4b6c-8aed-fbbfa7610300"
+                },
+                {
+                    "@id": "kb:TCPConnection-0f0ee0a5-712b-4bf5-923b-2df93fb7c1b0"
+                },
+                {
+                    "@id": "kb:TCPConnection-c198b079-5cab-4115-84b4-2e568becfa0c"
+                },
+                {
+                    "@id": "kb:TCPConnection-b7a48ca3-26c3-4427-b058-5510ee7b568a"
+                },
+                {
+                    "@id": "kb:TCPConnection-33cde472-431e-4802-91c0-b9de967f4c77"
+                },
+                {
+                    "@id": "kb:IPAddress-de48060b-5ba2-4c26-bcb7-c744aad95375"
+                },
+                {
+                    "@id": "kb:IPAddress-19dbd8af-ea19-47b2-b022-2039ec98b6bb"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-bb3dbe0d-9d9e-4e4e-bb2a-efa2eda8523f"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-25T22:39:00+00:00"
+            },
+            "case-investigation:wasInformedBy": [
+                {
+                    "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ProvenanceRecord-6e954ecb-527b-43e9-998d-7926ac75ea2d",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:description": [
+                "All objects produced by capture and analysis of wifi_capture.pcapng"
+            ],
+            "uco-core:name": "WiFi capture analysis provenance",
+            "uco-core:object": [
+                {
+                    "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+                },
+                {
+                    "@id": "kb:NetworkInterface-2cfb7fa3-84ee-43bd-80df-2b1350c98be7"
+                },
+                {
+                    "@id": "kb:WifiAddress-42aab42f-6421-4806-b84a-b5435db8e143"
+                },
+                {
+                    "@id": "kb:MACAddress-e20c14a6-9317-4067-8d5f-2cbd4aee76f5"
+                },
+                {
+                    "@id": "kb:IPAddress-95f80128-e525-4df7-b4bb-0596f32e9c63"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-09923d12-b031-4768-aeea-4701ad40dddb"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-20c57db2-7718-4efe-842e-a6d891cb34d7"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-f3c5642d-9c6b-43ff-94a4-ed98d895f7b3"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-dfddffc7-f9cb-4bd6-9e90-e9bf977aec53"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-ec23fabe-1668-459b-801a-2005175647d5"
+                },
+                {
+                    "@id": "kb:DomainName-2c2378d1-3c12-48c3-b740-ee59e3d94dc9"
+                },
+                {
+                    "@id": "kb:DomainName-bfa8fac0-e6ee-4af3-ba53-d44210303e93"
+                },
+                {
+                    "@id": "kb:DomainName-b455eff3-cc94-487b-ab8c-b605864352a8"
+                },
+                {
+                    "@id": "kb:DomainName-2837e497-ad7a-44af-998d-141b9dbb4823"
+                },
+                {
+                    "@id": "kb:DomainName-13f8f7a8-b4fd-45d4-a946-861358ba5b71"
+                },
+                {
+                    "@id": "kb:DomainName-0ef3c91c-f7ec-460d-95ca-838e55d76088"
+                },
+                {
+                    "@id": "kb:IPAddress-bdc78468-cbc6-4039-862b-f5ff0837f927"
+                },
+                {
+                    "@id": "kb:IPAddress-909343f6-b324-4c74-9e08-e86f9da94bf6"
+                },
+                {
+                    "@id": "kb:IPAddress-0de63afc-5678-4abd-9ed0-027c8ddbf29e"
+                },
+                {
+                    "@id": "kb:IPAddress-1fe12b93-2873-49e5-8cdc-8f260f9abcf1"
+                },
+                {
+                    "@id": "kb:IPAddress-de48060b-5ba2-4c26-bcb7-c744aad95375"
+                },
+                {
+                    "@id": "kb:IPAddress-19dbd8af-ea19-47b2-b022-2039ec98b6bb"
+                },
+                {
+                    "@id": "kb:IPAddress-404980e2-8412-46a0-b40c-b07284cfcea4"
+                },
+                {
+                    "@id": "kb:IPAddress-7b5a6ddd-9117-458f-b7ab-f5fac6da4ec5"
+                },
+                {
+                    "@id": "kb:IPAddress-c5aea638-b2b2-4f90-b9e9-a4402fc381b7"
+                },
+                {
+                    "@id": "kb:IPAddress-fdb8eba6-3e3c-488f-b78f-05e34bd98180"
+                },
+                {
+                    "@id": "kb:IPAddress-eef50335-ecbd-487a-9752-8493f50424ed"
+                },
+                {
+                    "@id": "kb:TCPConnection-8e675a9d-2269-4a9e-ad4f-d7c1ad6143b3"
+                },
+                {
+                    "@id": "kb:TCPConnection-af62117b-575f-45f5-9585-d4b6f6ea99c2"
+                },
+                {
+                    "@id": "kb:TCPConnection-a53bcc82-11e1-423e-a732-e765946d5a6c"
+                },
+                {
+                    "@id": "kb:TCPConnection-9bb1483d-29f6-422b-a52f-e834642b70ab"
+                },
+                {
+                    "@id": "kb:TCPConnection-8bb25715-cefb-4797-ab98-0090dc3a6326"
+                },
+                {
+                    "@id": "kb:TCPConnection-b8df427c-d193-4d8d-80d3-16890034eb3e"
+                },
+                {
+                    "@id": "kb:TCPConnection-2583cbed-559e-4b6c-8aed-fbbfa7610300"
+                },
+                {
+                    "@id": "kb:TCPConnection-0f0ee0a5-712b-4bf5-923b-2df93fb7c1b0"
+                },
+                {
+                    "@id": "kb:TCPConnection-c198b079-5cab-4115-84b4-2e568becfa0c"
+                },
+                {
+                    "@id": "kb:TCPConnection-b7a48ca3-26c3-4427-b058-5510ee7b568a"
+                },
+                {
+                    "@id": "kb:TCPConnection-33cde472-431e-4802-91c0-b9de967f4c77"
+                },
+                {
+                    "@id": "kb:TCPConnection-5fa2ff23-76a6-4821-a601-864e05f16500"
+                },
+                {
+                    "@id": "kb:TCPConnection-15bf228d-d418-49e8-af13-56312d2fae2a"
+                },
+                {
+                    "@id": "kb:TCPConnection-e3ad2c4f-87de-4562-ba5a-7e55cdcbe313"
+                },
+                {
+                    "@id": "kb:TCPConnection-749baf8b-3029-4dce-a653-143cf19cd0f4"
+                },
+                {
+                    "@id": "kb:TCPConnection-84c70e1e-df8f-4fc7-9886-0111c5ebba1a"
+                },
+                {
+                    "@id": "kb:TCPConnection-999fd3d6-fb24-4f5d-8773-abe00b473b65"
+                },
+                {
+                    "@id": "kb:NetworkConnection-aad0013f-9c83-48b0-a261-78c16828eaa5"
+                },
+                {
+                    "@id": "kb:ObservableObject-b3d15d18-3941-4f7b-b034-4d75304f10c3"
+                },
+                {
+                    "@id": "kb:ObservableObject-8b4e5c2a-02c8-4d64-ac41-f681cd0908b6"
+                },
+                {
+                    "@id": "kb:ObservableObject-3d9e294f-02a4-4f45-9b68-de94bff760d6"
+                },
+                {
+                    "@id": "kb:ObservableObject-5492d710-8f77-4619-b489-394488763045"
+                },
+                {
+                    "@id": "kb:ObservableObject-bb3dbe0d-9d9e-4e4e-bb2a-efa2eda8523f"
+                }
+            ]
+        },
+        {
+            "@id": "kb:Investigation-ebcfb631-4f73-40e9-819a-0b33c17410e1",
+            "@type": "case-investigation:Investigation",
+            "uco-core:createdBy": {
+                "@id": "kb:Identity-387705ea-225b-48c6-95b9-ab6eeee98dcf"
+            },
+            "uco-core:description": [
+                "Analysis of WiFi interface pcapng collection captured via Wireshark"
+            ],
+            "uco-core:name": "WiFi Packet Capture Analysis",
+            "uco-core:object": [
+                {
+                    "@id": "kb:InvestigativeAction-c52c54bc-01d6-42d7-bf56-ea2cd3988cd7"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-09923d12-b031-4768-aeea-4701ad40dddb"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-20c57db2-7718-4efe-842e-a6d891cb34d7"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-f3c5642d-9c6b-43ff-94a4-ed98d895f7b3"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-dfddffc7-f9cb-4bd6-9e90-e9bf977aec53"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-ec23fabe-1668-459b-801a-2005175647d5"
+                },
+                {
+                    "@id": "kb:ProvenanceRecord-6e954ecb-527b-43e9-998d-7926ac75ea2d"
+                },
+                {
+                    "@id": "kb:ObservableObject-2f063ad5-a94b-4685-a12d-4b31c3b02a76"
+                },
+                {
+                    "@id": "kb:NetworkInterface-2cfb7fa3-84ee-43bd-80df-2b1350c98be7"
+                }
+            ],
+            "case-investigation:focus": [
+                "Network Traffic Analysis"
+            ],
+            "case-investigation:investigationForm": [
+                "incident"
+            ]
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "case-uco": {
-      "command": "python",
+      "command": "/home/cory/CASE-UCO-Libraries/.venv/bin/python",
       "args": ["mcp_server/server.py"],
       "env": {
         "PYTHONPATH": "python:mcp_server"

@@ -1,0 +1,562 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+        "uco-role": "https://ontology.unifiedcyberontology.org/uco/role/",
+        "uco-victim": "https://ontology.unifiedcyberontology.org/uco/victim/",
+        "uco-analysis": "https://ontology.unifiedcyberontology.org/uco/analysis/",
+        "uco-configuration": "https://ontology.unifiedcyberontology.org/uco/configuration/",
+        "uco-marking": "https://ontology.unifiedcyberontology.org/uco/marking/",
+        "uco-pattern": "https://ontology.unifiedcyberontology.org/uco/pattern/",
+        "uco-time": "https://ontology.unifiedcyberontology.org/uco/time/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:Investigation-b0074538-86d2-4135-bc56-0957df0f3c19",
+            "@type": "case-investigation:Investigation",
+            "uco-core:description": [
+                "Financial fraud investigation \u2014 digital evidence received from Kansas City field office"
+            ],
+            "uco-core:name": "Case 2026-1142"
+        },
+        {
+            "@id": "kb:Identity-28f0b299-3c05-4186-9f23-1955c0a2d524",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "SA Marcus Ellison"
+        },
+        {
+            "@id": "kb:Identity-ebbcfbb8-aa9e-4775-af70-24fac19e4270",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "Evidence Custodian Janet Reeves"
+        },
+        {
+            "@id": "kb:Identity-9e813eed-e86c-4d29-bd55-2abfddce9bdf",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "Secure Transport Spc. David Okonkwo"
+        },
+        {
+            "@id": "kb:Identity-97582f7f-4997-41d5-ad54-b31087a21d88",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "Digital Forensic Analyst Dr. Leah Nguyen, GCFE"
+        },
+        {
+            "@id": "kb:Location-fb6e2f50-f560-4098-8e50-e0513a97f6cc",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SimpleAddressFacet-8f4fa872-d509-4916-99e9-1007302a3ff1",
+                    "@type": "uco-location:SimpleAddressFacet",
+                    "uco-location:addressType": "business",
+                    "uco-location:country": "US",
+                    "uco-location:locality": "Kansas City",
+                    "uco-location:postalCode": "64105",
+                    "uco-location:region": "MO",
+                    "uco-location:street": "1300 Summit Street"
+                }
+            ],
+            "uco-core:name": "Kansas City Field Office"
+        },
+        {
+            "@id": "kb:Location-05392d27-7ca1-4fcc-85bd-8a96246ddb21",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SimpleAddressFacet-b6b033e1-3f9e-4506-9d86-64e522e36cce",
+                    "@type": "uco-location:SimpleAddressFacet",
+                    "uco-location:addressType": "business",
+                    "uco-location:country": "US",
+                    "uco-location:locality": "Denver",
+                    "uco-location:postalCode": "80202",
+                    "uco-location:region": "CO",
+                    "uco-location:street": "2501 Investigation Parkway"
+                }
+            ],
+            "uco-core:name": "Central Region Digital Forensics Laboratory"
+        },
+        {
+            "@id": "kb:Identity-12325fe7-7d9d-4106-9aa3-4dfd44b3ae26",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "Western Digital"
+        },
+        {
+            "@id": "kb:Identity-1e7a4b90-41fb-4c74-9a15-63deec2da694",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "Apple"
+        },
+        {
+            "@id": "kb:ObservableObject-c1dfb9de-dc0f-4aec-82d7-86ef4b388988",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-554f445c-ba0a-4ec6-849f-4da5f6962460",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "External Hard Drive",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Identity-12325fe7-7d9d-4106-9aa3-4dfd44b3ae26"
+                    },
+                    "uco-observable:model": "My Passport Ultra 4TB",
+                    "uco-observable:serialNumber": "WXA1E84P7NK2"
+                }
+            ],
+            "uco-core:name": "Seized external hard drive"
+        },
+        {
+            "@id": "kb:ObservableObject-b99a211f-56cc-41d7-964c-0f347b71c0b6",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-f6895b59-b4fb-49e2-9ecb-547206dcefcd",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "Mobile Phone",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Identity-1e7a4b90-41fb-4c74-9a15-63deec2da694"
+                    },
+                    "uco-observable:model": "iPhone 15 Pro",
+                    "uco-observable:serialNumber": "F4GDR8Q1PH"
+                }
+            ],
+            "uco-core:name": "Suspect iPhone"
+        },
+        {
+            "@id": "kb:InvestigativeAction-ef545a7e-f6c3-4870-9274-f991a6efd965",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "External HDD and iPhone seized during execution of search warrant at suspect residence, transported to Kansas City field office. Items placed in tamper-evident bag TEB-KC-004417."
+            ],
+            "uco-core:name": "Evidence collection",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-18T09:52:00-06:00"
+            },
+            "uco-action:location": [
+                {
+                    "@id": "kb:Location-fb6e2f50-f560-4098-8e50-e0513a97f6cc"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:ObservableObject-c1dfb9de-dc0f-4aec-82d7-86ef4b388988"
+                },
+                {
+                    "@id": "kb:ObservableObject-b99a211f-56cc-41d7-964c-0f347b71c0b6"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-28f0b299-3c05-4186-9f23-1955c0a2d524"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-18T09:15:00-06:00"
+            }
+        },
+        {
+            "@id": "kb:Tool-42678456-c8c5-474b-b00a-2ff52284e8fe",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "FTK Imager",
+            "uco-tool:toolType": "Imaging Utility",
+            "uco-tool:version": "4.7.3"
+        },
+        {
+            "@id": "kb:ObservableObject-1d8d645c-e7a2-4ef1-aa18-0757ca0b9a99",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-3590aff3-68a0-4bf1-b44e-2f1ae2a8c4fc",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "WXA1E84P7NK2.E01",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "3841982464000"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-277ce134-e1c2-46ac-9b30-a662eca0d25c",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-5727e7ca-db91-460b-aa36-a7e127b4afb4",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "External HDD forensic image"
+        },
+        {
+            "@id": "kb:ObservableObject-8ea787b8-35f4-4218-9f76-31c38e4cad29",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-0e9e570a-5268-4473-9ff2-3eabc56858dc",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "F4GDR8Q1PH_logical.zip",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "48290217984"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-628b4933-43e1-442f-a92a-6a899b665140",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-3f172fbb-0aad-49fe-a286-67f8b519d38a",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "iPhone logical extraction"
+        },
+        {
+            "@id": "kb:InvestigativeAction-2fbf5161-4999-487c-95bd-c638df41731d",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "E01 image created for external HDD, logical extraction performed on iPhone using FTK Imager 4.7.3. SHA-256 hashes computed for both forensic images."
+            ],
+            "uco-core:name": "Forensic imaging and hashing",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-18T14:45:00-06:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-42678456-c8c5-474b-b00a-2ff52284e8fe"
+                }
+            ],
+            "uco-action:location": [
+                {
+                    "@id": "kb:Location-fb6e2f50-f560-4098-8e50-e0513a97f6cc"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:ObservableObject-c1dfb9de-dc0f-4aec-82d7-86ef4b388988"
+                },
+                {
+                    "@id": "kb:ObservableObject-b99a211f-56cc-41d7-964c-0f347b71c0b6"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-ebbcfbb8-aa9e-4775-af70-24fac19e4270"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-1d8d645c-e7a2-4ef1-aa18-0757ca0b9a99"
+                },
+                {
+                    "@id": "kb:ObservableObject-8ea787b8-35f4-4218-9f76-31c38e4cad29"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-18T10:30:00-06:00"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-ddf0464c-66a4-4a31-9b55-e42d0a000742",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "Evidence released from Kansas City field office evidence room to secure transport. Tamper-evident bag TEB-KC-004417 verified intact, seal unbroken. Forensic images transferred on encrypted transport drive."
+            ],
+            "uco-core:name": "Custody release",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T07:20:00-06:00"
+            },
+            "uco-action:location": [
+                {
+                    "@id": "kb:Location-fb6e2f50-f560-4098-8e50-e0513a97f6cc"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:ObservableObject-c1dfb9de-dc0f-4aec-82d7-86ef4b388988"
+                },
+                {
+                    "@id": "kb:ObservableObject-b99a211f-56cc-41d7-964c-0f347b71c0b6"
+                }
+            ],
+            "uco-action:participant": [
+                {
+                    "@id": "kb:Identity-9e813eed-e86c-4d29-bd55-2abfddce9bdf"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-ebbcfbb8-aa9e-4775-af70-24fac19e4270"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T07:00:00-06:00"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-6e44aa49-8ffa-4fa4-a418-1fcf4325e44d",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "Evidence received at Central Region Digital Forensics Laboratory. Tamper-evident bag TEB-KC-004417 inspected \u2014 seal intact, no signs of tampering. Items logged into lab evidence management system."
+            ],
+            "uco-core:name": "Custody receipt",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T15:35:00-06:00"
+            },
+            "uco-action:location": [
+                {
+                    "@id": "kb:Location-05392d27-7ca1-4fcc-85bd-8a96246ddb21"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:ObservableObject-c1dfb9de-dc0f-4aec-82d7-86ef4b388988"
+                },
+                {
+                    "@id": "kb:ObservableObject-b99a211f-56cc-41d7-964c-0f347b71c0b6"
+                }
+            ],
+            "uco-action:participant": [
+                {
+                    "@id": "kb:Identity-9e813eed-e86c-4d29-bd55-2abfddce9bdf"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-97582f7f-4997-41d5-ad54-b31087a21d88"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T15:10:00-06:00"
+            }
+        },
+        {
+            "@id": "kb:Tool-23e90bf4-1b67-44ab-8f9e-027c65eb5fba",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "hashdeep",
+            "uco-tool:toolType": "Hashing Utility",
+            "uco-tool:version": "4.4"
+        },
+        {
+            "@id": "kb:ObservableObject-21cc20d3-4913-4e31-8238-53bed52eed10",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-7cb9f9f0-2e7e-424d-bf77-1601f1f0e38c",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-4f7b4f44-4fbb-432d-9268-25b6d28d8f15",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "HDD image verification hash"
+        },
+        {
+            "@id": "kb:ObservableObject-74f9e4ea-0c5b-4bec-afba-45df604984b3",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-c70e6345-8897-43f2-99d7-73c827804476",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-8623c8ef-abb3-45b8-945b-34698b5ea7c1",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "iPhone extraction verification hash"
+        },
+        {
+            "@id": "kb:InvestigativeAction-cac475a4-3fb0-4ed1-8565-a39f6d714d88",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "SHA-256 hashes recomputed for both forensic images using hashdeep 4.4 and confirmed matching values recorded at Kansas City field office."
+            ],
+            "uco-core:name": "Intake hash verification",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T16:48:00-06:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-23e90bf4-1b67-44ab-8f9e-027c65eb5fba"
+                }
+            ],
+            "uco-action:location": [
+                {
+                    "@id": "kb:Location-05392d27-7ca1-4fcc-85bd-8a96246ddb21"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:ObservableObject-1d8d645c-e7a2-4ef1-aa18-0757ca0b9a99"
+                },
+                {
+                    "@id": "kb:ObservableObject-8ea787b8-35f4-4218-9f76-31c38e4cad29"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-97582f7f-4997-41d5-ad54-b31087a21d88"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:ObservableObject-21cc20d3-4913-4e31-8238-53bed52eed10"
+                },
+                {
+                    "@id": "kb:ObservableObject-74f9e4ea-0c5b-4bec-afba-45df604984b3"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T16:00:00-06:00"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-22bd70d2-ec80-40dc-a8c7-f822f58ba777",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "Physical evidence and transport drive secured in lab evidence vault, locker DFL-V12-B, shelf 3. Access log entry DFL-2026-0319-008 created."
+            ],
+            "uco-core:name": "Evidence storage",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T17:15:00-06:00"
+            },
+            "uco-action:location": [
+                {
+                    "@id": "kb:Location-05392d27-7ca1-4fcc-85bd-8a96246ddb21"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:ObservableObject-c1dfb9de-dc0f-4aec-82d7-86ef4b388988"
+                },
+                {
+                    "@id": "kb:ObservableObject-b99a211f-56cc-41d7-964c-0f347b71c0b6"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-97582f7f-4997-41d5-ad54-b31087a21d88"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-19T17:00:00-06:00"
+            }
+        },
+        {
+            "@id": "kb:ProvenanceRecord-6ed11355-4fae-47b5-83fd-4522044c0d7d",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:description": [
+                "Full custody record for Western Digital My Passport Ultra 4TB (S/N WXA1E84P7NK2) \u2014 seizure at suspect residence through intake and storage at Central Region forensic lab"
+            ],
+            "uco-core:name": "External HDD chain of custody",
+            "uco-core:object": [
+                {
+                    "@id": "kb:ObservableObject-c1dfb9de-dc0f-4aec-82d7-86ef4b388988"
+                },
+                {
+                    "@id": "kb:ObservableObject-1d8d645c-e7a2-4ef1-aa18-0757ca0b9a99"
+                },
+                {
+                    "@id": "kb:ObservableObject-21cc20d3-4913-4e31-8238-53bed52eed10"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-ef545a7e-f6c3-4870-9274-f991a6efd965"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-2fbf5161-4999-487c-95bd-c638df41731d"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-ddf0464c-66a4-4a31-9b55-e42d0a000742"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-6e44aa49-8ffa-4fa4-a418-1fcf4325e44d"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-cac475a4-3fb0-4ed1-8565-a39f6d714d88"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-22bd70d2-ec80-40dc-a8c7-f822f58ba777"
+                }
+            ],
+            "case-investigation:exhibitNumber": "EXH-2026-1142-001"
+        },
+        {
+            "@id": "kb:ProvenanceRecord-279478e6-fc22-497b-8dc3-514d2a2afbb0",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:description": [
+                "Full custody record for Apple iPhone 15 Pro (S/N F4GDR8Q1PH) \u2014 seizure at suspect residence through intake and storage at Central Region forensic lab"
+            ],
+            "uco-core:name": "iPhone chain of custody",
+            "uco-core:object": [
+                {
+                    "@id": "kb:ObservableObject-b99a211f-56cc-41d7-964c-0f347b71c0b6"
+                },
+                {
+                    "@id": "kb:ObservableObject-8ea787b8-35f4-4218-9f76-31c38e4cad29"
+                },
+                {
+                    "@id": "kb:ObservableObject-74f9e4ea-0c5b-4bec-afba-45df604984b3"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-ef545a7e-f6c3-4870-9274-f991a6efd965"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-2fbf5161-4999-487c-95bd-c638df41731d"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-ddf0464c-66a4-4a31-9b55-e42d0a000742"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-6e44aa49-8ffa-4fa4-a418-1fcf4325e44d"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-cac475a4-3fb0-4ed1-8565-a39f6d714d88"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-22bd70d2-ec80-40dc-a8c7-f822f58ba777"
+                }
+            ],
+            "case-investigation:exhibitNumber": "EXH-2026-1142-002"
+        }
+    ]
+}

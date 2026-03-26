@@ -194,11 +194,8 @@ def get_recipe(scenario: str) -> dict | None:
         "title": best_match["title"],
         "description": best_match["description"],
         "file": best_match["file"],
-        "start_line": best_match["start_line"],
-        "end_line": best_match["end_line"],
         "tip": (
-            f"Read {best_match['file']} lines {best_match['start_line']}-"
-            f"{best_match['end_line']} for complete multi-language code examples."
+            f"Read {best_match['file']} for complete code examples."
         ),
     }
 

@@ -1,5 +1,7 @@
 # CASE/UCO SDK
 
+**v1.0.0** · CASE 1.4.0 · UCO 1.4.0 · [Changelog](CHANGELOG.md)
+
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
 The SDK also works with AI coding assistants (Cursor, Claude Code, etc.) — see [AI-Assisted Development](#ai-assisted-development) below.
@@ -394,7 +396,7 @@ Don't know which CASE/UCO class fits your data? The mapping guide organizes clas
 
 Step-by-step patterns for common forensic workflows — disk imaging, file system analysis, network artifacts, chain of custody, mobile forensics, round-trip serialization, and managing large datasets:
 
-- **[docs/RECIPES.md](docs/RECIPES.md)** — practical cookbook with copy-paste examples
+- **[docs/recipes/](docs/recipes/INDEX.md)** — practical cookbook with copy-paste examples (one file per recipe)
 
 ## SDK Architecture
 
@@ -418,7 +420,11 @@ CASE-UCO-SDK/
 │   ├── ECOSYSTEM.md        Companion tools, community extensions, ontology sources
 │   ├── MAPPING_GUIDE.md    Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md  Engineering tradeoffs and benchmarks
-│   └── RECIPES.md          Practical forensic workflow cookbook
+│   └── recipes/            Practical forensic workflow cookbook (one file per recipe)
+│       ├── INDEX.md         Recipe catalog and shared guidance
+│       ├── chain-of-custody.md
+│       ├── forensic-tool.md
+│       └── ...              (10 recipe files total)
 ├── ONTOLOGY_REFERENCE.md   Complete class reference (auto-generated)
 ├── .github/workflows/      CI, CodeQL, dependency review, release workflows
 └── Makefile                Build orchestration
@@ -476,19 +482,61 @@ The Cursor rules are included automatically. To enable the MCP server:
 pip install fastmcp
 ```
 
-Then restart Cursor — the `.cursor/mcp.json` configuration will be detected and the server started.
+Then restart Cursor — the `.cursor/mcp.json` configuration will be detected and the server started. Open Cursor's MCP panel (Settings > Tools & MCP) and confirm the "case-uco" server shows as connected.
+
+### MCP Tools Reference
+
+The MCP server exposes six tools and three resources that the AI agent calls behind the scenes:
+
+| Tool | What it does |
+|------|-------------|
+| `search_classes` | Find classes by keyword match on name or description |
+| `get_class_details` | Full property table for a class (types, cardinalities, required flags) |
+| `find_classes_for_domain` | Map a natural-language forensic task to the right classes |
+| `list_all_facets` | All Facet classes for the ObservableObject + Facet pattern |
+| `get_recipe` | Find a code recipe matching a forensic workflow scenario |
+| `list_all_vocabs` | All vocabulary/enum types with their valid members |
+
+Resources (read-only context): `case-uco://domains`, `case-uco://modules`, `case-uco://patterns`.
 
 ### What You Can Say
 
-Once configured, you can describe what you need in plain language:
+Describe what you need in plain language. The agent uses the MCP tools to find the right classes, reads the matching recipe for the correct pattern, writes SDK code, and validates the output — all in one pass.
 
 - "Model the results of a Cellebrite extraction from a Samsung Galaxy with WhatsApp messages and GPS data"
 - "Create a chain of custody record for evidence received from a field office"
-- "Model network traffic capture with DNS records and HTTP connections"
+- "I captured this pcapng with Wireshark on my WiFi interface — model it"
+- "Model a mobile device with SIM card, IMEI, and carrier info"
+- "Create a forensic analysis result classifying a file as malware with confidence 0.92"
 
-The AI agent will use the MCP tools to find the right classes and write correct SDK code.
+### Typical Agent Workflow
 
-For more details, see **[mcp_server/README.md](mcp_server/README.md)**.
+When you describe a forensic scenario, the agent follows this workflow:
+
+```
+1. find_classes_for_domain("network packet capture")    → relevant classes
+2. get_class_details("TCPConnection")                    → property table
+3. get_recipe("network investigation")                   → code pattern
+4. Writes Python script using the SDK                    → output.py
+5. Runs the script                                       → output.jsonld
+6. Validates with case_validate                          → Conforms: True
+```
+
+The agent also applies conventions from the recipes automatically — for example, tagging `Relationship` objects with `observed`, `inferred`, or `configuration` to classify evidence basis, and using the three-layer model (acquisition, observed facts, analysis) for investigation graphs.
+
+### Example Agent Outputs
+
+The `example_agentmcp_outputs/` directory contains three complete worked examples produced by the AI agent using this SDK and MCP server:
+
+| Example | What it demonstrates |
+|---------|---------------------|
+| `wifi_capture.py` / `.jsonld` | Three-layer network investigation — acquisition (Wireshark capture), observed network (17 TCP flows, DNS chains, IPv6), and analysis layer (5 service attributions with confidence scores) |
+| `cellbrite_samsung_extraction.py` / `.jsonld` | Mobile device forensics — Cellebrite extraction with WhatsApp messages, GPS locations, app artifacts, and device metadata |
+| `field_office_custody.py` / `.jsonld` | Chain of custody — evidence transfer from a field office with provenance records and handling documentation |
+
+Each example includes both the Python source that builds the graph and the validated JSON-LD output.
+
+For MCP server setup details and troubleshooting, see **[mcp_server/README.md](mcp_server/README.md)**.
 
 ## Ecosystem & Tools
 

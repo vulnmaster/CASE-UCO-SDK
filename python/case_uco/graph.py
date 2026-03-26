@@ -43,6 +43,7 @@ _RANGE_IRI_TO_TYPED_LITERAL = {
     "http://www.w3.org/2001/XMLSchema#float": "xsd:float",
     "http://www.w3.org/2001/XMLSchema#double": "xsd:double",
     "http://www.w3.org/2001/XMLSchema#dateTime": "xsd:dateTime",
+    "http://www.w3.org/2001/XMLSchema#hexBinary": "xsd:hexBinary",
 }
 
 
@@ -67,6 +68,7 @@ class CASEGraph:
             self._context.update(extra_context)
         self._objects: list[dict[str, Any]] = []
         self._id_map: dict[int, str] = {}
+        self._instances: list[Any] = []
 
     def create(self, cls: Type[T], *, id: str | None = None, **kwargs: Any) -> T:
         """Create an instance of a CASE/UCO class and add it to the graph.
@@ -83,6 +85,7 @@ class CASEGraph:
         self._validate_instance(instance)
         obj_id = id if id is not None else self._mint_id(instance)
         self._id_map[_builtin_id(instance)] = obj_id
+        self._instances.append(instance)
         json_obj = self._to_jsonld(instance, obj_id)
         self._objects.append(json_obj)
         return instance
@@ -99,6 +102,7 @@ class CASEGraph:
         self._validate_instance(instance)
         obj_id = id if id is not None else self._mint_id(instance)
         self._id_map[_builtin_id(instance)] = obj_id
+        self._instances.append(instance)
         json_obj = self._to_jsonld(instance, obj_id)
         self._objects.append(json_obj)
         return obj_id
