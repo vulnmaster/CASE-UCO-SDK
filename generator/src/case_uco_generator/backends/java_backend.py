@@ -21,7 +21,9 @@ class JavaBackend(CodegenBackend):
 
         for module_key, class_iris in sorted(self.schema.modules.items()):
             top, mod = module_key.split(".", 1)
-            pkg_dir = self.output_dir / top / mod
+            safe_top = self.safe_identifier(top, "java")
+            safe_mod = self.safe_identifier(mod, "java")
+            pkg_dir = self.output_dir / safe_top / safe_mod
             pkg_dir.mkdir(parents=True, exist_ok=True)
 
             classes = sorted(
