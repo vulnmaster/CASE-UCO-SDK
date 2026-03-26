@@ -21,7 +21,6 @@ from case_uco.registry import (
     search,
     get_class,
     find_facets,
-    find_by_property_type,
     list_modules,
     list_vocabs,
 )

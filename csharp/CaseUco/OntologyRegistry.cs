@@ -131,15 +131,13 @@ namespace CaseUco
         public static Dictionary<string, object> GetClass(string name)
         {
             var classes = GetClassesDict();
-            foreach (var kv in classes.Where(kv => string.Equals(kv.Key, name, StringComparison.OrdinalIgnoreCase)))
-            {
-                var result = new Dictionary<string, object>((Dictionary<string, object>)kv.Value)
+            return classes
+                .Where(kv => string.Equals(kv.Key, name, StringComparison.OrdinalIgnoreCase))
+                .Select(kv => new Dictionary<string, object>((Dictionary<string, object>)kv.Value)
                 {
                     ["name"] = kv.Key
-                };
-                return result;
-            }
-            return null;
+                })
+                .FirstOrDefault();
         }
 
         /// <summary>Find classes that have a property of the given type (case-insensitive).</summary>
