@@ -6,6 +6,120 @@ optimized for consumption by AI coding agents via MCP tools.
 
 from __future__ import annotations
 
+# ---------------------------------------------------------------------------
+# UCO vs. CASE triage
+# ---------------------------------------------------------------------------
+
+CASE_INDICATORS: list[str] = [
+    "investigation", "investigative", "forensic lifecycle", "examiner",
+    "exhibit", "custody", "authorization", "warrant", "provenance",
+    "analyst", "technician", "role", "case metadata", "chain of custody",
+    "investigator", "examination", "reporting phase", "case management",
+]
+
+UCO_INDICATORS: list[str] = [
+    "observable", "facet", "device", "file", "network", "account",
+    "identity", "action", "tool", "location", "marking", "pattern",
+    "configuration", "hash", "address", "application", "software",
+    "email", "message", "url", "domain", "disk", "partition",
+    "process", "service", "credential", "browser", "registry",
+    "mobile", "sim", "bluetooth", "wifi", "gps", "telemetry",
+    "crypto", "malware", "artifact", "content", "data", "log",
+]
+
+
+def suggest_target_repo(concept: str, description: str = "") -> dict[str, str]:
+    """Suggest whether a proposed concept belongs in UCO or CASE.
+
+    Returns ``{"suggestion": "UCO"|"CASE"|"unsure", "reasoning": "..."}``.
+    """
+    text = f"{concept} {description}".lower()
+
+    case_score = sum(1 for kw in CASE_INDICATORS if kw in text)
+    uco_score = sum(1 for kw in UCO_INDICATORS if kw in text)
+
+    if case_score > 0 and uco_score == 0:
+        return {
+            "suggestion": "CASE",
+            "reasoning": (
+                f"The concept matches investigation-specific indicators "
+                f"({', '.join(k for k in CASE_INDICATORS if k in text)}). "
+                f"CASE covers concepts specific to the cyber-investigation process."
+            ),
+        }
+
+    if uco_score > 0 and case_score == 0:
+        return {
+            "suggestion": "UCO",
+            "reasoning": (
+                f"The concept matches general cyber-domain indicators "
+                f"({', '.join(k for k in UCO_INDICATORS if k in text)}). "
+                f"UCO covers observables, identities, actions, and data structures "
+                f"with broad utility across the cyber domain."
+            ),
+        }
+
+    if uco_score > case_score:
+        return {
+            "suggestion": "UCO",
+            "reasoning": (
+                f"The concept matches both UCO ({uco_score}) and CASE ({case_score}) "
+                f"indicators, but leans toward UCO. UCO covers general cyber-domain "
+                f"concepts; CASE covers investigation-specific concepts."
+            ),
+        }
+
+    if case_score > uco_score:
+        return {
+            "suggestion": "CASE",
+            "reasoning": (
+                f"The concept matches both CASE ({case_score}) and UCO ({uco_score}) "
+                f"indicators, but leans toward CASE. CASE covers investigation-specific "
+                f"concepts; UCO covers general cyber-domain concepts."
+            ),
+        }
+
+    return {
+        "suggestion": "unsure",
+        "reasoning": (
+            "Unable to determine whether this concept belongs in UCO (general "
+            "cyber-domain) or CASE (investigation-specific). Please consider: "
+            "Is this concept specific to the process of conducting an investigation "
+            "(roles, exhibits, authorization, case metadata)? If so, target CASE. "
+            "Is it a general observable, identity, tool, or data structure with "
+            "utility beyond investigation? If so, target UCO."
+        ),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Change proposal template sections
+# ---------------------------------------------------------------------------
+
+CHANGE_PROPOSAL_SECTIONS: dict[str, str] = {
+    "background": (
+        "# Background\n\n"
+        "{background}\n"
+    ),
+    "requirements": (
+        "# Requirements\n\n"
+        "{requirements}\n"
+    ),
+    "risk_benefit": (
+        "# Risk / Benefit analysis\n\n"
+        "## Benefits\n\n{benefits}\n\n"
+        "## Risks\n\n{risks}\n"
+    ),
+    "competencies": (
+        "# Competencies demonstrated\n\n"
+        "{competencies}\n"
+    ),
+    "solution": (
+        "# Solution suggestion\n\n"
+        "{solution}\n"
+    ),
+}
+
 TASK_TO_CLASSES: dict[str, list[tuple[str, str]]] = {
     "model a forensic disk image extraction": [
         ("Investigation", "The case container"),
@@ -457,5 +571,11 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "description": "Model spear-phishing attack chains with malware delivery and victim targeting.",
         "keywords": "spear phishing attack malware email payload exploit victim threat narrative incident",
         "file": "docs/recipes/spear-phishing.md",
+    },
+    {
+        "title": "Proposing Changes to CASE/UCO",
+        "description": "Identify gaps, research existing proposals, and draft change proposals for new ontology concepts.",
+        "keywords": "change proposal gap missing concept extension contribute upstream issue ontology committee",
+        "file": "docs/recipes/change-proposal.md",
     },
 ]

@@ -1,6 +1,6 @@
 # CASE/UCO SDK
 
-**v1.1.0** · CASE 1.4.0 · UCO 1.4.0 · [Changelog](CHANGELOG.md)
+**v1.2.0** · CASE 1.4.0 · UCO 1.4.0 · [Changelog](CHANGELOG.md)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -423,19 +423,22 @@ CASE-UCO-SDK/
 │   └── toolcap/            Forensic tool capability comparison extension
 ├── mcp_server/             MCP server for AI-assisted development
 │   ├── server.py           FastMCP server wrapping the ontology registry
-│   └── domain_index.py     Task-to-class mappings and recipe index
+│   └── domain_index.py     Task-to-class mappings, recipe index, and proposal triage
+├── change_proposals/       Locally-drafted ontology change proposals
 ├── .cursor/
-│   ├── rules/              AI agent guidance (SDK patterns, extension authoring)
+│   ├── rules/              AI agent guidance (SDK patterns, gap detection)
 │   └── mcp.json            MCP server configuration
 ├── docs/
 │   ├── ECOSYSTEM.md        Companion tools, community extensions, ontology sources
 │   ├── MAPPING_GUIDE.md    Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md  Engineering tradeoffs and benchmarks
+│   ├── templates/          Official change proposal template
 │   └── recipes/            Practical forensic workflow cookbook (one file per recipe)
 │       ├── INDEX.md         Recipe catalog and shared guidance
 │       ├── chain-of-custody.md
+│       ├── change-proposal.md
 │       ├── forensic-tool.md
-│       └── ...              (10 recipe files total)
+│       └── ...              (11 recipe files total)
 ├── ONTOLOGY_REFERENCE.md   Complete class reference (auto-generated)
 ├── .github/workflows/      CI, CodeQL, dependency review, release workflows
 └── Makefile                Build orchestration (make check for full verification)
@@ -500,7 +503,7 @@ Then restart Cursor — the `.cursor/mcp.json` configuration will be detected an
 
 ### MCP Tools Reference
 
-The MCP server exposes six tools and three resources that the AI agent calls behind the scenes:
+The MCP server exposes eight tools and three resources that the AI agent calls behind the scenes:
 
 | Tool | What it does |
 |------|-------------|
@@ -510,6 +513,8 @@ The MCP server exposes six tools and three resources that the AI agent calls beh
 | `list_all_facets` | All Facet classes for the ObservableObject + Facet pattern |
 | `get_recipe` | Find a code recipe matching a forensic workflow scenario |
 | `list_all_vocabs` | All vocabulary/enum types with their valid members |
+| `check_existing_proposals` | Search open UCO/CASE GitHub issues for prior change proposals |
+| `draft_change_proposal` | Generate a filled-in change proposal from concept, scenario, and proposed classes |
 
 Resources (read-only context): `case-uco://domains`, `case-uco://modules`, `case-uco://patterns`.
 
@@ -522,6 +527,8 @@ Describe what you need in plain language. The agent uses the MCP tools to find t
 - "I captured this pcapng with Wireshark on my WiFi interface — model it"
 - "Model a mobile device with SIM card, IMEI, and carrier info"
 - "Create a forensic analysis result classifying a file as malware with confidence 0.92"
+- "I need to model a Bitcoin wallet on a sanctions list — is there a class for that?"
+- "Draft a change proposal for modeling drone telemetry data"
 
 ### Typical Agent Workflow
 
@@ -537,6 +544,23 @@ When you describe a forensic scenario, the agent follows this workflow:
 ```
 
 The agent also applies conventions from the recipes automatically — for example, tagging `Relationship` objects with `observed`, `inferred`, or `configuration` to classify evidence basis, and using the three-layer model (acquisition, observed facts, analysis) for investigation graphs.
+
+### Gap Detection and Change Proposals
+
+When you ask to model something the ontology doesn't cover yet, the agent detects the gap and offers to draft a formal change proposal for the UCO or CASE ontology committees:
+
+```
+1. search_classes("cryptocurrency"), search_classes("wallet")  → no matches
+2. find_classes_for_domain("blockchain forensics")             → no task templates
+3. get_class_details("DigitalAddress")                         → confirm near-miss
+4. check_existing_proposals("cryptocurrency wallet")           → no prior proposals
+5. Agent drafts proposal with proposed classes, SPARQL, JSON-LD examples
+6. Writes filled-in template to change_proposals/              → ready for review
+```
+
+The agent automatically determines whether the concept belongs in UCO (general cyber-domain) or CASE (investigation-specific), checks for existing proposals in both GitHub issue trackers, and generates a complete proposal with competency questions and example instance data. See the [change proposal recipe](docs/recipes/change-proposal.md) for details.
+
+Drafted proposals are saved to `change_proposals/` and can be submitted as GitHub issues to [UCO](https://github.com/ucoProject/UCO/issues/new) or [CASE](https://github.com/casework/CASE/issues/new).
 
 ### Example Agent Outputs
 

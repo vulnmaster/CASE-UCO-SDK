@@ -84,3 +84,9 @@ For the full class reference, see [ONTOLOGY_REFERENCE.md](../../ONTOLOGY_REFEREN
 | Round-Trip: Serialize and Deserialize | [round-trip.md](round-trip.md) | Write a graph to JSON-LD and load it back with typed deserialization | — |
 | Managing Large Datasets | [large-datasets.md](large-datasets.md) | Partition large evidence sets by forensic boundary | — |
 | Existence Intervals and Temporal Modeling | [existence-intervals.md](existence-intervals.md) | OWL-Time, gUFO, and BFO temporal patterns | [existence_intervals](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/existence_intervals) |
+
+### Contributing to the ontology
+
+| Recipe | File | Description | CASE-Example |
+|---|---|---|---|
+| Proposing Changes to CASE/UCO | [change-proposal.md](change-proposal.md) | Identify gaps, check existing proposals, and draft change proposals | — |

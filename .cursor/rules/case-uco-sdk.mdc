@@ -67,6 +67,18 @@ case_validate --built-version case-1.4.0 output.jsonld
 
 If validation fails, fix the errors and re-validate before reporting success. Do NOT tell the user the graph is complete until `case_validate` reports `Conforms: True`.
 
+## Gap Detection and Change Proposals
+
+When `search_classes`, `find_classes_for_domain`, or `get_class_details` returns no adequate match for what the developer is trying to model, proactively suggest: "This concept doesn't appear to exist in CASE/UCO yet. Would you like me to draft a change proposal?"
+
+If the developer agrees, follow the change-proposal recipe (`docs/recipes/change-proposal.md`):
+
+1. Confirm the gap by searching multiple related keywords
+2. Check existing proposals with `check_existing_proposals(concept)`
+3. Determine whether the concept belongs in UCO (general cyber-domain) or CASE (investigation-specific) — ask the developer if unsure
+4. Draft the proposal with `draft_change_proposal(...)`, which writes a filled-in template to `change_proposals/`
+5. Optionally guide the developer through creating a local extension to unblock immediate work (see `docs/recipes/extensions.md`)
+
 ## Important Constraints
 
 - Do NOT split investigative graphs by arbitrary object count — it breaks cross-object relationships. Partition by natural forensic boundaries (per-volume, per-app, per-device).

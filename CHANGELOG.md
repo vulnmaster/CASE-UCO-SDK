@@ -5,6 +5,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-03-26
+
+### Added
+
+#### Gap Detection and Change Proposals
+
+- **Agent-assisted gap detection** — when `search_classes`, `find_classes_for_domain`,
+  or `get_class_details` returns no adequate match, the AI agent proactively suggests
+  drafting a change proposal for the missing concept
+- **Two new MCP tools** for the change proposal workflow:
+  - `check_existing_proposals(concept)` — searches open GitHub issues in both the
+    [UCO](https://github.com/ucoProject/UCO/issues) and
+    [CASE](https://github.com/casework/CASE/issues) repositories for prior proposals
+    matching the concept; falls back gracefully when GitHub is unreachable
+  - `draft_change_proposal(concept, description, scenario, ...)` — generates a
+    filled-in change proposal markdown file using the official CDO template, including
+    auto-generated competency questions, draft SPARQL queries, and example JSON-LD;
+    writes the result to `change_proposals/`
+- **UCO vs. CASE auto-triage** — `suggest_target_repo()` in `domain_index.py`
+  determines whether a proposed concept belongs in UCO (general cyber-domain) or CASE
+  (investigation-specific) based on keyword analysis, with reasoning explanation
+- **Change proposal template** at `docs/templates/change-proposal-template.md` —
+  the official CDO issue template for structured proposal submissions
+- **Change proposal recipe** at `docs/recipes/change-proposal.md` — step-by-step
+  workflow covering gap confirmation, existing proposal checks, UCO vs. CASE
+  determination, proposal drafting, example data creation, and local extension
+  scaffolding
+- **`change_proposals/` directory** for locally-drafted proposals with README
+  explaining the workflow and submission process
+- Updated Cursor rules (`.cursor/rules/case-uco-sdk.mdc`) with gap detection
+  guidance and change proposal workflow integration
+- Updated recipe index with "Contributing to the ontology" section
+
+#### Example Change Proposal
+
+- `change_proposals/cryptocurrency-address-and-sanctions-designation.md` — a complete
+  worked example proposing `CryptocurrencyAddressFacet`, `CryptocurrencyTypeVocab`,
+  and `SanctionsDesignationFacet` for modeling blockchain addresses placed on
+  government sanctions lists, with properties mapped to the
+  [Chainalysis Sanctions Screening API](https://www.chainalysis.com/free-cryptocurrency-sanctions-screening-tools/)
+
 ## [1.1.0] - 2026-03-25
 
 ### Added
@@ -141,5 +182,6 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
+[1.2.0]: https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.2.0
 [1.1.0]: https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.1.0
 [1.0.0]: https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.0.0
