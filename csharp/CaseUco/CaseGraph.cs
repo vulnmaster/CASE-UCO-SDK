@@ -163,7 +163,8 @@ namespace CaseUco
                         SetPropertiesFromJsonLd(instance, obj, context);
                         return instance;
                     }
-                    catch (Exception) { return null; }
+                    catch (MemberAccessException) { return null; }
+                    catch (TargetInvocationException) { return null; }
                 }
             }
 
@@ -195,7 +196,9 @@ namespace CaseUco
                 if (matchKey == null) continue;
 
                 try { prop.SetValue(instance, ConvertToClrType(obj[matchKey], prop.PropertyType)); }
-                catch (Exception) { /* best-effort: skip properties whose types don't match */ }
+                catch (ArgumentException) { /* skip: property type mismatch during deserialization */ }
+                catch (TargetException) { /* skip: target object mismatch */ }
+                catch (TargetInvocationException) { /* skip: setter threw */ }
             }
         }
 
