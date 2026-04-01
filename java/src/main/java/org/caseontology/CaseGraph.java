@@ -51,14 +51,14 @@ public class CaseGraph {
      * Add an object to the graph with a user-supplied @id for deterministic IRIs.
      */
     public String addWithId(Object instance, String id) {
-        validate(instance);
+        validateRequiredFields(instance);
         idMap.put(instance, id);
         Map<String, Object> jsonObj = toJsonLd(instance, id);
         objects.add(jsonObj);
         return id;
     }
 
-    private void validate(Object instance) {
+    private void validateRequiredFields(Object instance) {
         if (instance == null) return;
         for (Field field : getAllFields(instance.getClass())) {
             if (!field.isAnnotationPresent(CaseRequired.class)) continue;
@@ -129,11 +129,12 @@ public class CaseGraph {
      * @throws RuntimeException if validation fails or case_validate is not found
      */
     public String validate(String caseVersion) throws IOException {
-        java.io.File tmp = java.io.File.createTempFile("case-uco-", ".jsonld");
+        java.nio.file.Path tmp = java.nio.file.Files.createTempFile("case-uco-", ".jsonld");
         try {
-            write(tmp.getAbsolutePath());
+            write(tmp.toAbsolutePath().toString());
+            String caseValidateBin = resolveCommand("case_validate");
             ProcessBuilder pb = new ProcessBuilder(
-                "case_validate", "--built-version", caseVersion, tmp.getAbsolutePath());
+                caseValidateBin, "--built-version", caseVersion, tmp.toAbsolutePath().toString());
             pb.redirectErrorStream(false);
             Process proc = pb.start();
             String stdout = new String(proc.getInputStream().readAllBytes());
@@ -148,8 +149,22 @@ public class CaseGraph {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Validation interrupted", e);
         } finally {
-            tmp.delete();
+            java.nio.file.Files.deleteIfExists(tmp);
         }
+    }
+
+    private static String resolveCommand(String command) {
+        String pathEnv = System.getenv("PATH");
+        if (pathEnv != null) {
+            for (String dir : pathEnv.split(java.io.File.pathSeparator)) {
+                java.io.File candidate = new java.io.File(dir, command);
+                if (candidate.isFile() && candidate.canExecute()) {
+                    return candidate.getAbsolutePath();
+                }
+            }
+        }
+        throw new RuntimeException(
+            command + " not found on PATH. Install with: pip install case-utils");
     }
 
     /**
@@ -280,7 +295,7 @@ public class CaseGraph {
                 if (!expandedIri.equals(classIriField.get(null))) continue;
 
                 Object instance = cls.getDeclaredConstructor().newInstance();
-                setFieldsFromJsonLd(instance, obj, context);
+                setFieldsFromJsonLd(instance, obj);
                 return instance;
             } catch (Exception ignored) {}
         }
@@ -288,7 +303,7 @@ public class CaseGraph {
         return null;
     }
 
-    private static void setFieldsFromJsonLd(Object instance, Map<String, Object> obj, Map<String, String> context) {
+    private static void setFieldsFromJsonLd(Object instance, Map<String, Object> obj) {
         Class<?> current = instance.getClass();
         while (current != null && current != Object.class) {
             for (Field field : current.getDeclaredFields()) {
@@ -324,9 +339,13 @@ public class CaseGraph {
                 if (raw instanceof String) {
                     String s = (String) raw;
                     if (target == String.class) return s;
-                    if (target == int.class || target == Integer.class) return Integer.parseInt(s);
-                    if (target == long.class || target == Long.class) return Long.parseLong(s);
-                    if (target == double.class || target == Double.class) return Double.parseDouble(s);
+                    try {
+                        if (target == int.class || target == Integer.class) return Integer.parseInt(s);
+                        if (target == long.class || target == Long.class) return Long.parseLong(s);
+                        if (target == double.class || target == Double.class) return Double.parseDouble(s);
+                    } catch (NumberFormatException e) {
+                        return s;
+                    }
                     if (target == boolean.class || target == Boolean.class) return "true".equals(s);
                 }
                 return raw;

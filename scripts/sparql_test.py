@@ -21,7 +21,8 @@ def main():
     g.parse(args.jsonld, format="json-ld")
     print(f"Loaded {len(g)} triples from {args.jsonld}")
 
-    sparql_text = open(args.sparql).read()
+    with open(args.sparql) as f:
+        sparql_text = f.read()
     raw_queries = [q.strip() for q in sparql_text.split("# ---") if q.strip()]
     if len(raw_queries) <= 1:
         raw_queries = [sparql_text]

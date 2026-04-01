@@ -357,7 +357,7 @@ def get_recipe(scenario: str) -> dict | None:
     try:
         content = (PROJECT_ROOT / best_match["file"]).read_text(encoding="utf-8")
     except OSError:
-        pass
+        pass  # recipe file missing on disk — return metadata without content
 
     return {
         "title": best_match["title"],
@@ -410,7 +410,7 @@ def guide_mapping(evidence_source: str) -> dict:
                 encoding="utf-8"
             )[:4000]
         except OSError:
-            pass
+            pass  # starter kit file missing on disk — proceed without preview
 
     return {
         "query": evidence_source,

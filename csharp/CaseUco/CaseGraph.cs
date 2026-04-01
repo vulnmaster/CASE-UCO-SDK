@@ -163,7 +163,7 @@ namespace CaseUco
                         SetPropertiesFromJsonLd(instance, obj, context);
                         return instance;
                     }
-                    catch { return null; }
+                    catch (Exception) { return null; }
                 }
             }
 
@@ -195,7 +195,7 @@ namespace CaseUco
                 if (matchKey == null) continue;
 
                 try { prop.SetValue(instance, ConvertToClrType(obj[matchKey], prop.PropertyType)); }
-                catch { /* best effort */ }
+                catch (Exception) { /* best-effort: skip properties whose types don't match */ }
             }
         }
 
@@ -203,9 +203,8 @@ namespace CaseUco
         {
             if (value == null) return null;
 
-            if (value is Dictionary<string, object> dict && dict.ContainsKey("@value"))
+            if (value is Dictionary<string, object> dict && dict.TryGetValue("@value", out var raw))
             {
-                var raw = dict["@value"];
                 if (raw is string rawStr)
                 {
                     if (target == typeof(string)) return rawStr;
