@@ -52,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump `org.sonatype.central:central-publishing-maven-plugin` from 0.7.0 to 0.10.0 in `/java`
 - Bump `org.apache.maven.plugins:maven-gpg-plugin` from 3.2.7 to 3.2.8 in `/java`
 - Bump `Microsoft.NET.Test.Sdk` from 18.3.0 to 18.4.0
+- Bump `softprops/action-gh-release` from 2 to 3 (Node 24 runtime)
+- Bump `uuid` from 1.23.0 to 1.23.1 in `/rust`
 
 ## [1.10.0] - 2026-04-02
 
