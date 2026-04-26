@@ -205,64 +205,36 @@ jobs:
         with:
           subject-path: release-assets/*
 
+      - name: Extract release notes from CHANGELOG.md
+        id: notes
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"
+          # Extract the section starting at "## [VERSION]" up to the next "## [" header.
+          awk -v ver="$VERSION" '
+            $0 ~ "^## \\[" ver "\\]" { found = 1; print; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' CHANGELOG.md > release-body.md
+
+          if [ ! -s release-body.md ]; then
+            echo "WARN: no CHANGELOG section found for [$VERSION]; falling back to a placeholder."
+            printf '## CASE/UCO SDK %s\n\nSee [CHANGELOG.md](https://github.com/%s/blob/main/CHANGELOG.md) for details.\n' \
+              "${GITHUB_REF_NAME}" "${GITHUB_REPOSITORY}" > release-body.md
+          fi
+
+          # Append the verification + checksum footer (kept in a separate file
+          # so the heredoc inside this run script does not collide with YAML
+          # parsing of column-0 markers like --- or ***).
+          cat .github/release-footer.md >> release-body.md
+          echo "wrote $(wc -l < release-body.md) lines to release-body.md"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          generate_release_notes: true
+          generate_release_notes: false
           files: release-assets/*
-          body: |
-            ## CASE/UCO SDK ${{ github.ref_name }}
-
-            Auto-generated builder libraries for the CASE and UCO ontologies.
-
-            ### Ontology Versions
-            - UCO: 1.4.0
-            - CASE: 1.4.0
-
-            ### Packages
-
-            | Language | Package | File |
-            |----------|---------|------|
-            | Python | `case-uco` | `case_uco-*.whl` / `.tar.gz` |
-            | C# | `CaseUco` | `CaseUco.*.nupkg` |
-            | Java | `case-uco` | `case-uco-*.jar` |
-            | Rust | `case-uco` | `case-uco-*.crate` |
-
-            ### Verification
-
-            All release artifacts include:
-            - **SHA256 checksums** (`SHA256SUMS.txt`)
-            - **SLSA build provenance** attestations via [actions/attest-build-provenance](https://github.com/actions/attest-build-provenance)
-            - **Python SBOM** (`sbom-python.cdx.json`) in CycloneDX format
-
-            To verify checksums:
-            ```bash
-            sha256sum -c SHA256SUMS.txt
-            ```
-
-            To verify provenance attestations:
-            ```bash
-            gh attestation verify <artifact> --repo vulnmaster/CASE-UCO-SDK
-            ```
-
-            ### Install
-
-            ```bash
-            pip install case-uco                          # Python (PyPI)
-            dotnet add package CaseUco                    # C# (NuGet)
-            cargo add case-uco                            # Rust (crates.io)
-            ```
-
-            For Java, add to your `pom.xml`:
-            ```xml
-            <dependency>
-              <groupId>org.caseontology</groupId>
-              <artifactId>case-uco</artifactId>
-              <version>${{ github.ref_name }}</version>
-            </dependency>
-            ```
-
-            Or install from release artifacts — see the [README](https://github.com/vulnmaster/CASE-UCO-SDK#readme) for details.
+          body_path: release-body.md
 
   publish-pypi:
     name: Publish to PyPI
