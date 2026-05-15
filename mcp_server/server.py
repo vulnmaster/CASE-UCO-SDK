@@ -44,6 +44,11 @@ from domain_index import (
     MAPPING_GUIDE_INDEX,
     suggest_target_repo,
 )
+from document_processor import (
+    TOOL_NAME as DOCUMENT_PROCESSOR_TOOL_NAME,
+    TOOL_VERSION as DOCUMENT_PROCESSOR_TOOL_VERSION,
+    process_document_file as _process_document_file,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -147,12 +152,56 @@ mcp = FastMCP(
         "specific evidence source (e.g., filesystem report, mobile "
         "extraction, email export, pcap). Use get_recipe to retrieve "
         "full recipe content including code examples and JSON-LD output. "
+        "Use process_document_file to process approved local synthetic "
+        "receipt image, PDF, Office, and CSV/table files into bounded "
+        "CASE/UCO-shaped JSON-LD for downstream human review. "
         "Extension ontologies (CAC, AEO) are loaded when CASE_UCO_EXTENSIONS "
         "is set. Use the scope parameter on search_classes, get_class_details, "
         "find_classes_for_domain, and list_all_facets to filter by 'core', "
         "a specific extension name, or 'all' (default)."
     ),
 )
+
+
+@mcp.tool
+def process_document_file(
+    source_path: str,
+    output_path: str,
+    file_kind: str | None = None,
+    upload_id: str | None = None,
+) -> dict:
+    """Process a supported local synthetic file into CASE/UCO JSON-LD.
+
+    Supported v0.8.1 live-roundtrip inputs are receipt images, PDFs, Office
+    documents, and CSV/table files. This tool writes the graph to output_path
+    and returns safe metadata only; callers must validate the graph before
+    creating investigative assertions.
+    """
+    try:
+        result = _process_document_file(
+            source_path=source_path,
+            output_path=output_path,
+            file_kind=file_kind,
+            safe_metadata={"upload_id": upload_id} if upload_id else None,
+        )
+    except ValueError as exc:
+        return {
+            "ok": False,
+            "error": str(exc),
+            "tool_name": DOCUMENT_PROCESSOR_TOOL_NAME,
+            "tool_version": DOCUMENT_PROCESSOR_TOOL_VERSION,
+        }
+    return {
+        "ok": True,
+        "output_graph_path": str(result.output_path),
+        "tool_name": DOCUMENT_PROCESSOR_TOOL_NAME,
+        "tool_version": DOCUMENT_PROCESSOR_TOOL_VERSION,
+        "file_kind": result.file_kind,
+        "byte_size": result.byte_size,
+        "sha256": result.sha256,
+        "validation_status": "valid",
+        "safe_summary": f"Processed {result.file_kind} into CASE/UCO JSON-LD.",
+    }
 
 
 @mcp.tool
