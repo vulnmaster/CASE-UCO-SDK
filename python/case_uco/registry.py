@@ -19,12 +19,12 @@ from __future__ import annotations
 
 import json
 import logging
+from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
 _REGISTRY: dict[str, Any] | None = None
 _CONCEPT_INDEX: dict[str, Any] | None = None
-_EXTENSIONS_LOADED: bool = False
 
 _logger = logging.getLogger(__name__)
 
@@ -45,10 +45,8 @@ def _load() -> dict[str, Any]:
 
 def _discover_extensions() -> None:
     """Scan ``case_uco.extensions`` entry points and merge extension registries."""
-    global _EXTENSIONS_LOADED
-    if _EXTENSIONS_LOADED or _REGISTRY is None:
+    if _REGISTRY is None:
         return
-    _EXTENSIONS_LOADED = True
 
     try:
         from importlib.metadata import entry_points
@@ -56,24 +54,25 @@ def _discover_extensions() -> None:
         return
 
     try:
-        eps = entry_points(group="case_uco.extensions")  # type: ignore[call-arg]
+        eps: Iterable[Any] = entry_points(group="case_uco.extensions")
     except TypeError:
-        eps = entry_points().get("case_uco.extensions", [])  # type: ignore[assignment]
+        selected_eps = entry_points().get("case_uco.extensions")
+        eps = selected_eps if selected_eps is not None else ()
 
     for ep in eps:
         try:
-            registry_path_ref = ep.load()  # type: ignore[attr-defined]
+            registry_path_ref = ep.load()
             if isinstance(registry_path_ref, str):
                 reg_path = Path(registry_path_ref)
             else:
                 continue
 
             if not reg_path.exists():
-                _logger.debug("Extension %s registry not found at %s", ep.name, reg_path)  # type: ignore[attr-defined]
+                _logger.debug("Extension %s registry not found at %s", ep.name, reg_path)
                 continue
 
             ext_reg = json.loads(reg_path.read_text(encoding="utf-8"))
-            ext_name = ext_reg.get("extension", ep.name)  # type: ignore[attr-defined]
+            ext_name = ext_reg.get("extension", ep.name)
 
             merged_classes = 0
             for cls_name, cls_info in ext_reg.get("classes", {}).items():
@@ -89,7 +88,7 @@ def _discover_extensions() -> None:
             if merged_classes > 0:
                 _logger.debug("Merged %d classes from extension '%s'", merged_classes, ext_name)
         except Exception as exc:
-            _logger.debug("Failed to load extension entry point %s: %s", ep.name, exc)  # type: ignore[attr-defined]
+            _logger.debug("Failed to load extension entry point %s: %s", ep.name, exc)
 
 
 def _load_concepts() -> dict[str, Any]:
