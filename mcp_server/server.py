@@ -13,6 +13,7 @@ Set CASE_UCO_EXTENSIONS=cac,aeo to load extension registries.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 import sys
@@ -24,6 +25,8 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "python"))
 
 from fastmcp import FastMCP
+
+_logger = logging.getLogger(__name__)
 
 from case_uco.registry import (
     search,
@@ -86,8 +89,8 @@ def _find_extension_registry(ext_name: str) -> dict[str, Any] | None:
                 reg_path_str = ep.load()
                 if isinstance(reg_path_str, str):
                     search_paths.insert(0, Path(reg_path_str))
-    except Exception:
-        pass
+    except (ImportError, AttributeError, TypeError) as exc:
+        _logger.debug("Skipping extension entry point discovery: %s", exc)
 
     for path in search_paths:
         if path.exists():
