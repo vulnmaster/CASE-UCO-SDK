@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Markdown document processing in `document_processor_cli` (`--file-kind markdown`) with warrant-oriented `return_kinds` filtering and extraction bundle output aligned with Link-Look document review.
+- Semantic entity extraction for investigation markdown: US street addresses, bold/table person names, Telegram `@handle`, ETH/Tron wallet addresses, and `.example.invalid`-style domains; regression test `test_semantic_mapping_extracts_warrant_markdown_anchors`.
+
+### Changed
+
+- Tightened markdown `Location` heuristics with locality stopword filtering so legal boilerplate (`IN THE UNITED STATES`, `in the Matter`) no longer produces bogus location entities.
+
 ## [1.13.3] - 2026-06-17
 
 ### Added

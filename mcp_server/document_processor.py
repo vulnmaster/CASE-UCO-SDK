@@ -45,7 +45,7 @@ from pathlib import Path
 from typing import Any
 
 TOOL_NAME = "case-uco-document-normalize"
-TOOL_VERSION = "0.5.0"
+TOOL_VERSION = "0.6.0"
 EXTRACTION_BUNDLE_CONTRACT_VERSION = "1.0"
 EXTRACTED_CONTENT_FILENAME = "extracted-content.json"
 ANNOTATIONS_FILENAME = "annotations.jsonld"
@@ -67,6 +67,10 @@ SUPPORTED_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".tif", ".tiff"}
 SUPPORTED_PDF_EXTENSIONS = {".pdf"}
 SUPPORTED_OFFICE_EXTENSIONS = {".docx", ".xlsx"}
 SUPPORTED_CSV_EXTENSIONS = {".csv", ".tsv"}
+SUPPORTED_MARKDOWN_EXTENSIONS = {".md", ".markdown"}
+SUPPORTED_TEXT_EXTENSIONS = {".txt", ".log"}
+SUPPORTED_JSON_EXTENSIONS = {".json"}
+SUPPORTED_SVG_EXTENSIONS = {".svg"}
 PROGRESS_STAGES = {
     "started",
     "inspect_source",
@@ -217,7 +221,16 @@ def process_document_file(
 
 def normalize_file_kind(file_kind: str | None, source: Path) -> str:
     requested = (file_kind or "").strip().lower().replace("-", "_")
-    if requested in {"receipt_image", "pdf", "office", "csv_table"}:
+    if requested in {
+        "receipt_image",
+        "pdf",
+        "office",
+        "csv_table",
+        "markdown",
+        "plain_text",
+        "json_metadata",
+        "svg_image",
+    }:
         return requested
 
     ext = source.suffix.lower()
@@ -229,6 +242,14 @@ def normalize_file_kind(file_kind: str | None, source: Path) -> str:
         return "office"
     if ext in SUPPORTED_CSV_EXTENSIONS:
         return "csv_table"
+    if ext in SUPPORTED_MARKDOWN_EXTENSIONS:
+        return "markdown"
+    if ext in SUPPORTED_TEXT_EXTENSIONS:
+        return "plain_text"
+    if ext in SUPPORTED_JSON_EXTENSIONS:
+        return "json_metadata"
+    if ext in SUPPORTED_SVG_EXTENSIONS:
+        return "svg_image"
     raise ValueError("unsupported_file_kind")
 
 
@@ -241,6 +262,14 @@ def extract_content(source: Path, file_kind: str) -> ExtractedContent:
         return extract_pdf_content(source)
     if file_kind == "receipt_image":
         return extract_image_content(source)
+    if file_kind == "markdown":
+        return extract_markdown_content(source)
+    if file_kind == "plain_text":
+        return extract_plain_text_content(source)
+    if file_kind == "json_metadata":
+        return extract_json_metadata_content(source)
+    if file_kind == "svg_image":
+        return extract_svg_content(source)
     raise ValueError("unsupported_file_kind")
 
 
@@ -356,6 +385,139 @@ def text_section_content(full_text: str) -> tuple[dict[str, Any], dict[str, Any]
         "exact": record_text,
     }
     return canonical, anchor
+
+
+def extract_markdown_content(source: Path) -> ExtractedContent:
+    raw = source.read_text(encoding="utf-8")
+    joined = sanitize_document_text(raw)
+    if not joined:
+        raise ValueError("no_extractable_content")
+    canonical, _anchor = text_section_content(joined)
+    run_seed = f"{source.name}:{joined[:32]}"
+    records = records_for_text_document(
+        joined, document_label_prefix="Markdown text", run_seed=run_seed
+    )
+    return ExtractedContent(
+        document_type="Markdown document",
+        summary_fields={
+            "document_type": "Markdown document",
+            "extracted_text": joined[:240],
+            "semantic_entity_count": str(len(records)),
+        },
+        records=records,
+        canonical=canonical,
+    )
+
+
+def extract_plain_text_content(source: Path) -> ExtractedContent:
+    raw = source.read_text(encoding="utf-8")
+    joined = sanitize_document_text(raw)
+    if not joined:
+        raise ValueError("no_extractable_content")
+    canonical, _anchor = text_section_content(joined)
+    run_seed = f"{source.name}:{joined[:32]}"
+    records = records_for_text_document(
+        joined, document_label_prefix="Plain text", run_seed=run_seed
+    )
+    return ExtractedContent(
+        document_type="Plain text",
+        summary_fields={
+            "document_type": "Plain text",
+            "extracted_text": joined[:240],
+            "semantic_entity_count": str(len(records)),
+        },
+        records=records,
+        canonical=canonical,
+    )
+
+
+def flatten_json_metadata(value: Any, depth: int = 0) -> str:
+    if depth > 6:
+        return ""
+    if isinstance(value, dict):
+        lines: list[str] = []
+        for key, child in value.items():
+            if str(key).startswith("@"):
+                continue
+            child_text = flatten_json_metadata(child, depth + 1)
+            if child_text:
+                lines.append(f"{key}: {child_text}")
+            else:
+                lines.append(f"{key}:")
+        return "\n".join(lines)
+    if isinstance(value, list):
+        return "\n".join(
+            part
+            for part in (flatten_json_metadata(item, depth + 1) for item in value[:32])
+            if part
+        )
+    if value is None:
+        return ""
+    return sanitize_text(str(value))
+
+
+def extract_json_metadata_content(source: Path) -> ExtractedContent:
+    raw = source.read_text(encoding="utf-8")
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError("invalid_json") from exc
+    if isinstance(parsed, dict) and (
+        "@graph" in parsed or "@context" in parsed
+    ):
+        raise ValueError("graph_import_required")
+    joined = sanitize_document_text(flatten_json_metadata(parsed))
+    if not joined:
+        raise ValueError("no_extractable_content")
+    canonical, _anchor = text_section_content(joined)
+    run_seed = f"{source.name}:{joined[:32]}"
+    records = records_for_text_document(
+        joined, document_label_prefix="JSON metadata", run_seed=run_seed
+    )
+    return ExtractedContent(
+        document_type="JSON metadata",
+        summary_fields={
+            "document_type": "JSON metadata",
+            "extracted_text": joined[:240],
+            "semantic_entity_count": str(len(records)),
+        },
+        records=records,
+        canonical=canonical,
+    )
+
+
+_SVG_TAG_RE = re.compile(
+    r"<(title|desc|text)\b[^>]*>(.*?)</\1>",
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def extract_svg_content(source: Path) -> ExtractedContent:
+    raw = source.read_text(encoding="utf-8")
+    labels = [
+        sanitize_text(re.sub(r"\s+", " ", match.group(2).strip()))
+        for match in _SVG_TAG_RE.finditer(raw)
+        if match.group(2).strip()
+    ]
+    joined = sanitize_document_text("\n".join(dict.fromkeys(labels)))
+    if not joined:
+        joined = "SVG diagram with no extractable text labels."
+    canonical, _anchor = text_section_content(joined)
+    run_seed = f"{source.name}:{joined[:32]}"
+    records = records_for_text_document(
+        joined, document_label_prefix="SVG text", run_seed=run_seed
+    )
+    return ExtractedContent(
+        document_type="SVG diagram",
+        summary_fields={
+            "document_type": "SVG diagram",
+            "extracted_text": joined[:240],
+            "label_count": str(len(labels)),
+            "semantic_entity_count": str(len(records)),
+        },
+        records=records,
+        canonical=canonical,
+    )
 
 
 def extract_office_content(source: Path) -> ExtractedContent:
@@ -1006,7 +1168,19 @@ def cli_main(argv: list[str] | None = None) -> int:
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--format", default="jsonld", choices=["jsonld"])
-    parser.add_argument("--file-kind", choices=["receipt_image", "pdf", "office", "csv_table"])
+    parser.add_argument(
+        "--file-kind",
+        choices=[
+            "receipt_image",
+            "pdf",
+            "office",
+            "csv_table",
+            "markdown",
+            "plain_text",
+            "json_metadata",
+            "svg_image",
+        ],
+    )
     parser.add_argument("--upload-id")
     parser.add_argument("--progress-output")
     args = parser.parse_args(argv)

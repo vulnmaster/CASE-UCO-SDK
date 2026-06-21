@@ -53,18 +53,138 @@ ORGANIZATION_RE = re.compile(
     r"\b(?:"
     r"Maryland State Police(?:\s+[A-Za-z\s]+(?:Unit|Force|Task Force))?|"
     r"Anne Arundel County Police Department|"
-    r"FBI|"
+    r"FBI(?:\s+Portland(?:\s+Resident Agency)?)|"
     r"Internet Crimes Against Children(?:\s+Task Force)?|"
-    r"ICAC(?:\s+Task Force)?"
+    r"ICAC(?:\s+Task Force)?|"
+    r"Coinbase|Pacific Rim OTC"
     r")\b",
     re.IGNORECASE,
 )
-# City/locality tokens immediately before "Man/Woman" in headlines or "in <City>".
+# Warrant/legal prose uses many "in the …" phrases that are not locations.
 LOCATION_RE = re.compile(
-    r"\b(?:in|at|from|near)\s+([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?)\b|"
-    r"\b([A-Z][A-Za-z]+)\s+(?:Man|Woman)\b|"
-    r"\bresidence in\s+([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?)\b",
+    r"\bresidence in\s+([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?)\b|"
+    r"\b([A-Z][a-z]+)\s+(?:Man|Woman)\b",
     re.IGNORECASE,
+)
+LOCATION_STOPWORDS = frozenset(
+    {
+        "a",
+        "an",
+        "the",
+        "this",
+        "that",
+        "these",
+        "those",
+        "matter",
+        "affidavit",
+        "summary",
+        "devices",
+        "device",
+        "premises",
+        "subject",
+        "asset",
+        "assets",
+        "district",
+        "united",
+        "states",
+        "seized",
+        "electronic",
+        "virtual",
+        "currency",
+        "money",
+        "laundering",
+        "coinbase",
+        "withdrawals",
+        "usdt",
+        "investigation",
+        "execution",
+        "authorization",
+        "service",
+        "return",
+        "court",
+        "data",
+        "evidence",
+        "records",
+        "platform",
+        "administration",
+        "compliance",
+    }
+)
+US_STREET_ADDRESS_RE = re.compile(
+    r"(?:\*\*)?"
+    r"(\d{1,6}\s+[A-Za-z0-9][A-Za-z0-9.\- ]*?"
+    r"(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way|Place|Pl)\.?)"
+    r"\s*,\s*"
+    r"([A-Za-z .\-]+?)\s*,\s*"
+    r"([A-Za-z .\-]+?)\s+"
+    r"(\d{5}(?:-\d{4})?)"
+    r"(?:\*\*)?",
+    re.IGNORECASE,
+)
+BOLD_PERSON_NAME_RE = re.compile(
+    r"\*\*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+(?:\s*\([^)]+\))?)\*\*"
+)
+PERSON_AKA_RE = re.compile(
+    r"\b([A-Z][a-z]+)\s+([A-Z][a-z]+)\s*,\s*aka\s+[\"']([^\"']+)[\"']",
+    re.IGNORECASE,
+)
+PERSON_OF_RE = re.compile(
+    r"\bof\s+\*?\*?([A-Z][a-z]+)\s+([A-Z][a-z]+)\*?\*?\s*(?:\(|,|\.)"
+)
+ROLE_TABLE_PERSON_RE = re.compile(
+    r"\|\s*(?:Applying Agent|Victim|Groomer|Analyst|Mule(?:\s*/\s*cash-out)?)\s*\|\s*"
+    r"(?:Special Agent\s+)?([A-Z][a-z]+)\s+([A-Z][a-z]+)",
+    re.IGNORECASE,
+)
+TELEGRAM_HANDLE_RE = re.compile(r"(?<![A-Za-z0-9])@([A-Za-z0-9_]{3,64})\b")
+ETH_WALLET_RE = re.compile(r"\b(0x[a-fA-F0-9]{40})\b")
+TRON_WALLET_RE = re.compile(r"\b(T[1-9A-HJ-NP-Za-km-z]{33})\b")
+DOMAIN_HOST_RE = re.compile(
+    r"\b([A-Za-z0-9](?:[A-Za-z0-9\-]{0,62}[A-Za-z0-9])\.example\.invalid)\b",
+    re.IGNORECASE,
+)
+PERSON_NAME_STOPWORDS = frozenset(
+    {
+        "electronic",
+        "devices",
+        "device",
+        "account",
+        "accounts",
+        "records",
+        "virtual",
+        "currency",
+        "search",
+        "seizure",
+        "warrant",
+        "magistrate",
+        "judge",
+        "special",
+        "agent",
+        "subject",
+        "asset",
+        "assets",
+        "premises",
+        "investment",
+        "fraud",
+        "scheme",
+        "platform",
+        "infrastructure",
+        "synthetic",
+        "training",
+        "data",
+        "only",
+        "not",
+        "evidence",
+        "capital",
+        "vault",
+        "northstar",
+        "agency",
+        "portland",
+        "coach",
+        "analyst",
+        "matter",
+        "seizure",
+    }
 )
 
 
@@ -94,6 +214,59 @@ def _anchor(section_id: str, start: int, end: int, exact: str) -> dict[str, Any]
 
 def _facet_id(run_seed: str, kind: str) -> str:
     return f"urn:uuid:{uuid.uuid5(uuid.NAMESPACE_URL, f'{run_seed}:{kind}')}"
+
+
+def _is_plausible_locality(locality: str) -> bool:
+    tokens = [token.lower() for token in re.split(r"\s+", locality.strip()) if token]
+    if not tokens:
+        return False
+    if all(token in LOCATION_STOPWORDS for token in tokens):
+        return False
+    if tokens[0] in {"the", "a", "an"}:
+        return False
+    return True
+
+
+def _person_label(first: str, last: str, alias: str | None = None) -> str:
+    full = f"{first} {last}".strip()
+    if alias:
+        return f"{full} (aka {alias})"
+    return full
+
+
+def _add_person_match(
+    matches: list[SemanticEntity],
+    seen_spans: set[tuple[int, int, str]],
+    seen_people: set[tuple[str, str]],
+    *,
+    first: str,
+    last: str,
+    matched_text: str,
+    start: int,
+    end: int,
+    section_id: str,
+    run_seed: str,
+    alias: str | None = None,
+) -> None:
+    person_key = (first.lower(), last.lower())
+    if person_key in seen_people:
+        return
+    seen_people.add(person_key)
+    label = _person_label(first, last, alias)
+    _add_match(
+        matches,
+        seen_spans,
+        ontology_class="uco-identity:Person",
+        label=label[:120],
+        matched_text=matched_text,
+        start=start,
+        end=end,
+        section_id=section_id,
+        run_seed=run_seed,
+        extra_properties={
+            "uco-core:description": f"Person referenced in document text: {label}.",
+        },
+    )
 
 
 def _add_match(
@@ -141,6 +314,7 @@ def extract_semantic_entities(
 
     matches: list[SemanticEntity] = []
     seen_spans: set[tuple[int, int, str]] = set()
+    seen_people: set[tuple[str, str]] = set()
 
     for match in EMAIL_RE.finditer(full_text):
         value = match.group(0)
@@ -308,7 +482,7 @@ def extract_semantic_entities(
                 loc_start = match.start(group_index)
                 loc_end = match.end(group_index)
                 break
-        if not locality:
+        if not locality or not _is_plausible_locality(locality):
             continue
         if locality.lower() in {"man", "woman", "the", "his", "her"}:
             continue
@@ -329,6 +503,184 @@ def extract_semantic_entities(
                     "uco-location:locality": locality,
                 },
             ),
+        )
+
+    for match in US_STREET_ADDRESS_RE.finditer(full_text):
+        street = match.group(1).strip()
+        locality = match.group(2).strip()
+        region = match.group(3).strip()
+        postal = match.group(4).strip()
+        value = match.group(0).strip("*")
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-location:Location",
+            label=f"Address {street}, {locality}",
+            matched_text=value,
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            facets=(
+                {
+                    "@id": _facet_id(run_seed, f"addr-{match.start()}"),
+                    "@type": "uco-location:SimpleAddressFacet",
+                    "uco-location:street": street,
+                    "uco-location:locality": locality,
+                    "uco-location:region": region,
+                    "uco-location:postalCode": postal,
+                },
+            ),
+        )
+
+    for match in BOLD_PERSON_NAME_RE.finditer(full_text):
+        raw = match.group(1).strip()
+        if "(" in raw:
+            raw = raw.split("(", 1)[0].strip()
+        parts = raw.split()
+        if len(parts) < 2:
+            continue
+        if any(part.lower() in PERSON_NAME_STOPWORDS for part in parts):
+            continue
+        first, last = parts[0], parts[-1]
+        _add_person_match(
+            matches,
+            seen_spans,
+            seen_people,
+            first=first,
+            last=last,
+            matched_text=match.group(0).strip("*"),
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+        )
+
+    for match in PERSON_AKA_RE.finditer(full_text):
+        first, last, alias = match.group(1), match.group(2), match.group(3)
+        if first.lower() in PERSON_NAME_STOPWORDS or last.lower() in PERSON_NAME_STOPWORDS:
+            continue
+        _add_person_match(
+            matches,
+            seen_spans,
+            seen_people,
+            first=first,
+            last=last,
+            alias=alias,
+            matched_text=match.group(0),
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+        )
+
+    for match in PERSON_OF_RE.finditer(full_text):
+        first, last = match.group(1), match.group(2)
+        if first.lower() in PERSON_NAME_STOPWORDS or last.lower() in PERSON_NAME_STOPWORDS:
+            continue
+        _add_person_match(
+            matches,
+            seen_spans,
+            seen_people,
+            first=first,
+            last=last,
+            matched_text=f"{first} {last}",
+            start=match.start(1),
+            end=match.end(2),
+            section_id=section_id,
+            run_seed=run_seed,
+        )
+
+    for match in ROLE_TABLE_PERSON_RE.finditer(full_text):
+        first, last = match.group(1), match.group(2)
+        if first.lower() in PERSON_NAME_STOPWORDS or last.lower() in PERSON_NAME_STOPWORDS:
+            continue
+        _add_person_match(
+            matches,
+            seen_spans,
+            seen_people,
+            first=first,
+            last=last,
+            matched_text=f"{first} {last}",
+            start=match.start(1),
+            end=match.end(2),
+            section_id=section_id,
+            run_seed=run_seed,
+        )
+
+    for match in TELEGRAM_HANDLE_RE.finditer(full_text):
+        handle = f"@{match.group(1)}"
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-observable:InstantMessagingAddress",
+            label=f"Telegram {handle}",
+            matched_text=handle,
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            facets=(
+                {
+                    "@id": _facet_id(run_seed, f"im-{match.start()}"),
+                    "@type": "uco-observable:InstantMessagingAddressFacet",
+                    "uco-observable:addressValue": handle,
+                },
+            ),
+            extra_properties={
+                "uco-core:description": "Instant messaging handle referenced in document text.",
+            },
+        )
+
+    for match in ETH_WALLET_RE.finditer(full_text):
+        value = match.group(1)
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-observable:ObservableObject",
+            label=f"Ethereum wallet {value[:10]}…",
+            matched_text=value,
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            extra_properties={
+                "uco-core:description": f"Ethereum wallet address referenced in document text: {value}",
+            },
+        )
+
+    for match in TRON_WALLET_RE.finditer(full_text):
+        value = match.group(1)
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-observable:ObservableObject",
+            label=f"Tron wallet {value[:10]}…",
+            matched_text=value,
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            extra_properties={
+                "uco-core:description": f"Tron wallet address referenced in document text: {value}",
+            },
+        )
+
+    for match in DOMAIN_HOST_RE.finditer(full_text):
+        value = match.group(1)
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-observable:DomainName",
+            label=f"Domain {value}",
+            matched_text=value,
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            extra_properties={
+                "uco-core:description": f"Domain referenced in document text: {value}",
+            },
         )
 
     charge_match = CHARGE_NARRATIVE_RE.search(full_text)

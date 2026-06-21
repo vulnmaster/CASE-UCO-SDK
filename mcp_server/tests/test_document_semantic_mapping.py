@@ -42,3 +42,28 @@ def test_semantic_mapping_is_bounded_and_deterministic() -> None:
     second = extract_semantic_entities(SYNTHETIC_ARTICLE, run_seed="t0-article")
     assert first == second
     assert len(first) <= 48
+
+
+FRAUD_CRYPTO_WARRANT_SNIPPET = """
+| Groomer | Marcus Hale, aka "Coach Mike" | Telegram @northstar_mike_synth |
+Apartment 4B, **1555 Oak Street, San Jose, California 95110**, including any computers
+within the control of **Dylan Reyes** (DOB 1991-07-02, synthetic).
+| Applying Agent | Special Agent Jordan Ellis, FBI |
+"""
+
+
+def test_semantic_mapping_extracts_warrant_markdown_anchors() -> None:
+    entities = extract_semantic_entities(
+        FRAUD_CRYPTO_WARRANT_SNIPPET,
+        run_seed="fraud-crypto-warrant-t0",
+    )
+    classes = {entity.ontology_class for entity in entities}
+    labels = {entity.label for entity in entities}
+    assert "uco-identity:Person" in classes
+    assert "uco-location:Location" in classes
+    assert "uco-observable:InstantMessagingAddress" in classes
+    assert any("Dylan Reyes" in label for label in labels)
+    assert any("1555 Oak Street" in label for label in labels)
+    assert any("Telegram @northstar_mike_synth" in label for label in labels)
+    assert not any(label.startswith("Location THE UNITED") for label in labels)
+    assert not any(label.startswith("Location the Matter") for label in labels)

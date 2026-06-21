@@ -382,6 +382,59 @@ def test_unsupported_kind_fails_honestly(tmp_path: Path) -> None:
         document_processor.process_document_file(source, tmp_path / "out.jsonld")
 
 
+@pytest.mark.parametrize(
+    ("name", "payload", "file_kind"),
+    [
+        (
+            "warrant.md",
+            "# Search Warrant\n\nSubject Marcus Hale wallet 0xABC.\n",
+            "markdown",
+        ),
+        (
+            "chat.txt",
+            "Operator: confirm transfer to synthetic wallet 0xABC\n",
+            "plain_text",
+        ),
+        (
+            "manifest.json",
+            '{"case_slug":"fraud-crypto-synthetic-case","primary_victim":"Eleanor Vance"}',
+            "json_metadata",
+        ),
+        (
+            "flow.svg",
+            '<svg><title>Flow</title><text x="1">Wallet 0xABC</text></svg>',
+            "svg_image",
+        ),
+    ],
+)
+def test_warrant_return_kinds_produce_case_uco_graph(
+    tmp_path: Path, name: str, payload: str, file_kind: str
+) -> None:
+    source = tmp_path / name
+    source.write_text(payload, encoding="utf-8")
+    output = tmp_path / f"{name}.jsonld"
+    result = document_processor.process_document_file(
+        source, output, file_kind=file_kind
+    )
+    assert result.file_kind == file_kind
+    graph = json.loads(output.read_text(encoding="utf-8"))
+    assert "@graph" in graph
+    assert any(
+        node.get("@type") == "case-investigation:InvestigativeAction"
+        for node in graph["@graph"]
+    )
+    extracted, annotations = load_bundle(output)
+    assert extracted["file_kind"] == file_kind
+    assert annotations["@graph"]
+
+
+def test_json_graph_upload_rejected_for_metadata_lane(tmp_path: Path) -> None:
+    source = tmp_path / "graph.json"
+    source.write_text('{"@context":{},"@graph":[]}', encoding="utf-8")
+    with pytest.raises(ValueError, match="graph_import_required"):
+        document_processor.process_document_file(source, tmp_path / "out.jsonld")
+
+
 def test_oversized_source_fails_honestly(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(document_processor, "MAX_BYTES", 16)
     source = tmp_path / "table.csv"
