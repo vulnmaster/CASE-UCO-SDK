@@ -284,7 +284,7 @@ This creates an explicit provenance chain: `Investigation` → `InvestigativeAct
 - `EventRecordFacet.eventRecordDevice` should reference the volume `ObservableObject`, not the disk image — the USN Journal is per-volume.
 - The same MFT entry ID on two file objects (old name, new name) signals that they are the same underlying NTFS file record at different points in time.
 - For high-volume USN data, partition by volume or time window rather than splitting mid-stream — USN records within a volume form a sequential log where cross-references (parent file reference numbers) need to resolve.
-- See also: [Events and Authentication Logs](event.md) for the general Event/Dictionary pattern, [File System Forensics](file-system.md) for directory hierarchy patterns.
+- See also: [Events and Authentication Logs](event.md) for the general Event/Dictionary pattern, [File System Forensics](file-system.md) for directory hierarchy patterns, and [Apple Unified Logs](apple-unified-logs.md) for the analogous OS log EventRecord recipe on Apple platforms.
 
 ## Known limitations
 

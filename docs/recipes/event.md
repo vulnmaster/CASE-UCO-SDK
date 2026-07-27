@@ -104,3 +104,5 @@ graph.write("event.jsonld")
 - [forensic-lifecycle.md](forensic-lifecycle.md) — ordering events into investigation phases
 - [existence-intervals.md](existence-intervals.md) — temporal precision with OWL-Time/gUFO/BFO
 - [network-artifacts.md](network-artifacts.md) — network evidence behind authentication events
+- [apple-unified-logs.md](apple-unified-logs.md) — Apple Unified Logging EventRecord + Dictionary attributes
+- [usn-journal.md](usn-journal.md) — Windows USN journal EventRecord pattern

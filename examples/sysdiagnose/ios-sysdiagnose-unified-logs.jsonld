@@ -1,0 +1,1338 @@
+{
+  "@context": {
+    "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+    "kb": "http://example.org/kb/",
+    "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+    "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "solveit-core": "https://ontology.solveit-df.org/solveit/core/",
+    "solveit-observable": "https://ontology.solveit-df.org/solveit/observable/",
+    "solveit-data": "https://ontology.solveit-df.org/solveit/data/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:Identity-1e8b0139-299e-402e-a7c2-73323d6a08c7",
+      "@type": "uco-identity:Identity",
+      "uco-core:name": "Apple Inc."
+    },
+    {
+      "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:DeviceFacet-72d80214-aace-46dc-b2c1-5df6bc1c4567",
+          "@type": "uco-observable:DeviceFacet",
+          "uco-observable:deviceType": "Mobile Phone",
+          "uco-observable:manufacturer": {
+            "@id": "kb:Identity-1e8b0139-299e-402e-a7c2-73323d6a08c7"
+          },
+          "uco-observable:model": "iPhone"
+        },
+        {
+          "@id": "kb:MobileDeviceFacet-aff06d5b-280d-4c7a-85da-7555aeebfad4",
+          "@type": "uco-observable:MobileDeviceFacet"
+        }
+      ],
+      "uco-core:name": "iPhone (sysdiagnose 2024-08-02)"
+    },
+    {
+      "@id": "kb:OperatingSystem-8b35fd61-2ad1-4439-b193-8c89f34f5c82",
+      "@type": [
+        "uco-observable:OperatingSystem",
+        "uco-observable:Software"
+      ],
+      "uco-core:description": [
+        "Source: logs/SystemVersion/SystemVersion.plist \u2014 ProductName=iPhone OS, ProductVersion=17.3, ProductBuildVersion=21D50"
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:SoftwareFacet-6df3b6f6-5307-4bcb-b540-a63e199c7475",
+          "@type": "uco-observable:SoftwareFacet",
+          "uco-observable:manufacturer": {
+            "@id": "kb:Identity-1e8b0139-299e-402e-a7c2-73323d6a08c7"
+          },
+          "uco-observable:version": "17.3"
+        }
+      ],
+      "uco-core:name": "iPhone OS 17.3 (21D50)"
+    },
+    {
+      "@id": "kb:ObservableRelationship-cb388a5f-c694-464e-9aba-1efa21e1b869",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Characterized_By",
+      "uco-core:source": [
+        {
+          "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:OperatingSystem-8b35fd61-2ad1-4439-b193-8c89f34f5c82"
+      }
+    },
+    {
+      "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:description": [
+        "Apple sysdiagnose archive root: summaries/, logs/, WiFi/, system_logs.logarchive, crashes_and_spins/, Preferences/, etc."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-7a299fa4-06e0-40ec-872b-a84bae9c416c",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": [
+            "sysdiagnose_2024.08.02_16-19-26-0400_iPhone-OS_iPhone_21D50"
+          ],
+          "uco-observable:filePath": [
+            "Data/sysdiagnose_2024.08.02_16-19-26-0400_iPhone-OS_iPhone_21D50"
+          ],
+          "uco-observable:isDirectory": [
+            {
+              "@type": "xsd:boolean",
+              "@value": "true"
+            }
+          ]
+        }
+      ],
+      "uco-core:name": "sysdiagnose_2024.08.02_16-19-26-0400_iPhone-OS_iPhone_21D50",
+      "uco-core:tag": [
+        "hash-status:not-published",
+        "source-bytes:not-acquired"
+      ]
+    },
+    {
+      "@id": "kb:ObservableRelationship-8f3ebca4-8eba-4a37-ba3a-a77291c40eaf",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Extracted_From",
+      "uco-core:source": [
+        {
+          "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+      }
+    },
+    {
+      "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f",
+      "@type": [
+        "solveit-observable:AppleUnifiedLogArchive",
+        "uco-observable:EventLog"
+      ],
+      "uco-core:description": [
+        "Apple Unified Logging logarchive with Persist/, Signpost/, Special/, Extra/, and UUID-keyed .tracev3 stores (e.g. Persist/0000000000000007.tracev3)."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-2591338c-5876-4f9e-aaa9-544e63808f2e",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": [
+            "system_logs.logarchive"
+          ],
+          "uco-observable:filePath": [
+            "Data/sysdiagnose_2024.08.02_16-19-26-0400_iPhone-OS_iPhone_21D50/system_logs.logarchive"
+          ],
+          "uco-observable:isDirectory": [
+            {
+              "@type": "xsd:boolean",
+              "@value": "true"
+            }
+          ],
+          "uco-observable:sizeInBytes": {
+            "@type": "xsd:integer",
+            "@value": "22193292"
+          }
+        }
+      ],
+      "uco-core:name": "system_logs.logarchive",
+      "uco-core:tag": [
+        "hash-status:not-published",
+        "source-bytes:not-acquired"
+      ]
+    },
+    {
+      "@id": "kb:ObservableRelationship-88b430ea-78c9-4917-ac64-ddfe1f681fe3",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:source": [
+        {
+          "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+      }
+    },
+    {
+      "@id": "kb:ObservableObject-f7d2345d-c041-48b7-8d45-4389d2dceefa",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-6b8f68cd-f521-4949-ae1a-54c78a8e2986",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": [
+            "com.apple.wifi-private-mac-networks.plist"
+          ],
+          "uco-observable:filePath": [
+            "Data/sysdiagnose_2024.08.02_16-19-26-0400_iPhone-OS_iPhone_21D50/WiFi/com.apple.wifi-private-mac-networks.plist"
+          ],
+          "uco-observable:sizeInBytes": {
+            "@type": "xsd:integer",
+            "@value": "7443"
+          }
+        }
+      ],
+      "uco-core:name": "com.apple.wifi-private-mac-networks.plist",
+      "uco-core:tag": [
+        "hash-status:not-published",
+        "source-bytes:not-acquired"
+      ]
+    },
+    {
+      "@id": "kb:ObservableRelationship-c4d4b74a-dcbe-415e-b0e4-3c425142f4fa",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:source": [
+        {
+          "@id": "kb:ObservableObject-f7d2345d-c041-48b7-8d45-4389d2dceefa"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+      }
+    },
+    {
+      "@id": "kb:ObservableObject-4df59d42-1258-4842-9b57-c28626ba33d4",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:MACAddressFacet-9b2dd7bf-0293-48d9-8c99-f7b27278d8b8",
+          "@type": "uco-observable:MACAddressFacet",
+          "uco-observable:addressValue": "6a:22:32:98:f4:df"
+        }
+      ],
+      "uco-core:name": "BSSID 6a:22:32:98:f4:df"
+    },
+    {
+      "@id": "kb:WirelessNetworkConnection-b3113c7c-e278-4d75-b94c-398862ad9f73",
+      "@type": "uco-observable:WirelessNetworkConnection",
+      "uco-core:description": [
+        "Source: WiFi/com.apple.wifi-private-mac-networks.plist entry SSID_STR=Matt_Foley, BSSID=6a:22:32:98:f4:df, lastJoined=2023-07-15 19:44:33"
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:WirelessNetworkConnectionFacet-8c5a3829-950d-4758-9866-0269f5fd78a0",
+          "@type": "uco-observable:WirelessNetworkConnectionFacet",
+          "uco-observable:baseStation": "6a:22:32:98:f4:df",
+          "uco-observable:ssid": "Matt_Foley"
+        }
+      ],
+      "uco-core:name": "Wi-Fi network Matt_Foley"
+    },
+    {
+      "@id": "kb:ObservableRelationship-0ca18da7-38b6-489e-8346-f6f8402f2d08",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Characterized_By",
+      "uco-core:source": [
+        {
+          "@id": "kb:WirelessNetworkConnection-b3113c7c-e278-4d75-b94c-398862ad9f73"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-f7d2345d-c041-48b7-8d45-4389d2dceefa"
+      }
+    },
+    {
+      "@id": "kb:ObservableRelationship-a7fc6b38-63cb-4f1c-bc2e-511a5fbb584a",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Resolved_To",
+      "uco-core:source": [
+        {
+          "@id": "kb:WirelessNetworkConnection-b3113c7c-e278-4d75-b94c-398862ad9f73"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-4df59d42-1258-4842-9b57-c28626ba33d4"
+      }
+    },
+    {
+      "@id": "kb:ObservableObject-adc18189-3d96-435c-9384-7047da15adc9",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:description": [
+        "Battery Data Collection daily CSV: TimeStamp, WeightedRa, Qmax0, CycleCount, NominalChargeCapacity, ..."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-7f2d0f53-4d53-4ea8-9ee8-c520a5f4a7b7",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": [
+            "BDC_Daily_version2.0_2023-07-01_20_16_03.csv"
+          ],
+          "uco-observable:filePath": [
+            "Data/sysdiagnose_2024.08.02_16-19-26-0400_iPhone-OS_iPhone_21D50/logs/BatteryBDC/BDC_Daily_version2.0_2023-07-01_20_16_03.csv"
+          ]
+        }
+      ],
+      "uco-core:name": "BDC_Daily_version2.0_2023-07-01_20_16_03.csv",
+      "uco-core:tag": [
+        "hash-status:not-published",
+        "source-bytes:not-acquired"
+      ]
+    },
+    {
+      "@id": "kb:ObservableRelationship-c632a49f-10b9-4c49-b236-6ca90c4e19dd",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:source": [
+        {
+          "@id": "kb:ObservableObject-adc18189-3d96-435c-9384-7047da15adc9"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+      }
+    },
+    {
+      "@id": "kb:EventRecord-929edf82-5c69-4663-a393-33b23a44932c",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:EventRecordFacet-29ddf041-c811-434a-b62f-cfb07b209562",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordDevice": {
+            "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+          },
+          "uco-observable:eventRecordID": "BDC-2023-07-01T20:16:03",
+          "uco-observable:eventRecordServiceName": "BatteryBDC",
+          "uco-observable:eventRecordText": "CycleCount=811 NominalChargeCapacity=2432 WeightedRa=244",
+          "uco-observable:eventType": "information",
+          "uco-observable:observableCreatedTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2023-07-01T20:16:03-04:00"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2023-07-01T20:16:03-04:00"
+          }
+        }
+      ],
+      "uco-core:name": "BDC Daily sample 2023-07-01T20:16:03"
+    },
+    {
+      "@id": "kb:ObservableRelationship-bbd41644-c64d-4ee4-9c45-efcfa7561d27",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:source": [
+        {
+          "@id": "kb:EventRecord-929edf82-5c69-4663-a393-33b23a44932c"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-adc18189-3d96-435c-9384-7047da15adc9"
+      }
+    },
+    {
+      "@id": "kb:Event-58e1d901-f98a-4811-92fc-aaac200e5205",
+      "@type": "uco-core:Event",
+      "uco-core:name": "Battery health sample 2023-07-01",
+      "uco-core:eventAttribute": [
+        {
+          "@id": "kb:Dictionary-1f762e32-8265-4f43-8891-ee6a5f1509e9",
+          "@type": "uco-types:Dictionary",
+          "uco-types:entry": [
+            {
+              "@id": "kb:DictionaryEntry-4e9a5841-5b37-44b5-b723-d2876584bbb4",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "CycleCount",
+              "uco-types:value": "811"
+            },
+            {
+              "@id": "kb:DictionaryEntry-ab2a3ef4-6fe2-4944-8c0a-f8503df09b0a",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "NominalChargeCapacity",
+              "uco-types:value": "2432"
+            },
+            {
+              "@id": "kb:DictionaryEntry-b487c229-923a-40ac-9a1d-97f2170699d7",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "WeightedRa",
+              "uco-types:value": "244"
+            },
+            {
+              "@id": "kb:DictionaryEntry-feea7b8c-d143-4954-840e-e37aa615ab13",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "Qmax0",
+              "uco-types:value": "2988"
+            }
+          ]
+        }
+      ],
+      "uco-core:eventContext": [
+        {
+          "@id": "kb:EventRecord-929edf82-5c69-4663-a393-33b23a44932c"
+        },
+        {
+          "@id": "kb:ObservableObject-adc18189-3d96-435c-9384-7047da15adc9"
+        }
+      ],
+      "uco-core:eventType": [
+        "BatteryBDC_Daily"
+      ],
+      "uco-core:startTime": [
+        {
+          "@type": "xsd:dateTime",
+          "@value": "2023-07-01T20:16:03-04:00"
+        }
+      ]
+    },
+    {
+      "@id": "kb:Tool-8d0ef833-4b74-4ccd-890b-ac91b0fb2a07",
+      "@type": "uco-tool:Tool",
+      "uco-core:description": [
+        "Workshop tool tree: Tools/UFADE_0.9.9_win_x64"
+      ],
+      "uco-core:name": "UFADE",
+      "uco-tool:toolType": "Mobile Acquisition",
+      "uco-tool:version": "0.9.9"
+    },
+    {
+      "@id": "kb:Tool-dba53ce2-ab6e-4a12-9969-0549d16ec8f3",
+      "@type": "uco-tool:Tool",
+      "uco-core:description": [
+        "Supports syslog live and crash pull; workshop Tools/pymobiledevice3-master"
+      ],
+      "uco-core:name": "pymobiledevice3",
+      "uco-tool:toolType": "Mobile Device Bridge"
+    },
+    {
+      "@id": "kb:InvestigativeAction-03dfde68-e6c1-4107-ac5e-450596b90a16",
+      "@type": "case-investigation:InvestigativeAction",
+      "uco-core:description": [
+        "Preserve sysdiagnose package containing system_logs.logarchive and ancillary logs/WiFi/summaries (SOLVE-IT DFO-1006 / DFT-1016)."
+      ],
+      "uco-core:name": "Collect iOS sysdiagnose",
+      "uco-action:endTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-08-02T16:20:10-04:00"
+      },
+      "uco-action:instrument": [
+        {
+          "@id": "kb:Tool-8d0ef833-4b74-4ccd-890b-ac91b0fb2a07"
+        },
+        {
+          "@id": "kb:Tool-dba53ce2-ab6e-4a12-9969-0549d16ec8f3"
+        }
+      ],
+      "uco-action:object": [
+        {
+          "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+        }
+      ],
+      "uco-action:result": [
+        {
+          "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+        },
+        {
+          "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+        }
+      ],
+      "uco-action:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-08-02T16:19:26-04:00"
+      }
+    },
+    {
+      "@id": "kb:AnalyticTool-419c7d43-2aea-47fb-bc15-eba383bc58bb",
+      "@type": "uco-tool:AnalyticTool",
+      "uco-core:description": [
+        "Mandiant/macos-unifiedlogs iterator; workshop binary Tools/unifiedlog_iterator-v0.4.0-x86_64-pc-windows-msvc"
+      ],
+      "uco-core:name": "unifiedlog_iterator",
+      "uco-tool:toolType": "Unified Log Parser",
+      "uco-tool:version": "0.4.0"
+    },
+    {
+      "@id": "kb:AnalyticTool-90bea144-2bd2-4fb1-aac3-10e5752cbc3e",
+      "@type": "uco-tool:AnalyticTool",
+      "uco-core:description": [
+        "Parses .logarchive via log show \u2192 JSON \u2192 SQLite full + filtered DBs and forensic report (workshop Tools/iOS Unified Logs v2)"
+      ],
+      "uco-core:name": "iOS Unified Logs parsing V2 (Lionel Notari)",
+      "uco-tool:toolType": "Unified Log Parser"
+    },
+    {
+      "@id": "kb:AnalyticTool-7bdb1d74-edad-42b5-8da5-08db7bb9a96a",
+      "@type": "uco-tool:AnalyticTool",
+      "uco-core:description": [
+        "Workshop Tools/iLEAPP-main \u2014 artifact HTML/TSV reports"
+      ],
+      "uco-core:name": "iLEAPP",
+      "uco-tool:toolType": "Mobile Artifact Parser"
+    },
+    {
+      "@id": "kb:ObservableObject-78bcd009-59a6-4cd9-9457-2e051b14a5f8",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:description": [
+        "Retained excerpt of Mandiant unifiedlog_iterator v0.4.0 log-archive JSONL parse of the workshop system_logs.logarchive. Full parse completed exit=0; archive has no timesync DB so tool wall-clock timestamps stay epoch-relative \u2014 model mach_continuous_time / boot_uuid / timezone_name instead."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-a8553245-1775-46df-a3b4-22337d0821d5",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": [
+            "unifiedlog_iterator_excerpt.jsonl"
+          ],
+          "uco-observable:filePath": [
+            "examples/sysdiagnose/unifiedlog_iterator_excerpt.jsonl"
+          ]
+        },
+        {
+          "@id": "kb:ContentDataFacet-ecaa94bf-c1d9-4c3b-83d3-a4901136ac3b",
+          "@type": "uco-observable:ContentDataFacet",
+          "uco-observable:hash": [
+            {
+              "@id": "kb:Hash-50e76002-7ab2-4e01-8691-9108da83581c",
+              "@type": "uco-types:Hash",
+              "uco-types:hashMethod": "SHA256",
+              "uco-types:hashValue": {
+                "@type": "xsd:hexBinary",
+                "@value": "8021b5b1b9cacb0fefc906424450642f80f24cd7bc8dc228b96e7dacae08b7eb"
+              }
+            }
+          ]
+        }
+      ],
+      "uco-core:name": "unifiedlog_iterator_excerpt.jsonl"
+    },
+    {
+      "@id": "kb:ObservableObject-b02125b7-65b6-4c36-bb47-e6dd9f962181",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:description": [
+        "Tier T0 shape of Notari filtered SQLite DB of unified log events (rule-based / custom_rules.json) \u2014 dual-tool companion to the iterator excerpt."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-039aa463-07d7-4f30-8471-2b1090a42b15",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": [
+            "notari-unified-logs-filtered.sqlite"
+          ],
+          "uco-observable:filePath": [
+            "analysis/notari-unified-logs-filtered.sqlite"
+          ]
+        }
+      ],
+      "uco-core:name": "notari-unified-logs-filtered.sqlite",
+      "uco-core:tag": [
+        "hash-status:not-published",
+        "source-bytes:not-acquired"
+      ]
+    },
+    {
+      "@id": "kb:ObservableObject-9f60236d-d1f3-423e-928e-ab1c9a65f290",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:description": [
+        "Tier T0 exemplar of iLEAPP HTML artifact report tree"
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-3441d54a-2087-462b-be70-1610d638ce08",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": [
+            "iLEAPP_Report"
+          ],
+          "uco-observable:filePath": [
+            "analysis/iLEAPP_Report"
+          ],
+          "uco-observable:isDirectory": [
+            {
+              "@type": "xsd:boolean",
+              "@value": "true"
+            }
+          ]
+        }
+      ],
+      "uco-core:name": "iLEAPP-sysdiagnose-report",
+      "uco-core:tag": [
+        "hash-status:not-published",
+        "source-bytes:not-acquired"
+      ]
+    },
+    {
+      "@id": "kb:ObservableObject-983763b6-245e-4b28-9d18-7875321bb8ec",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:ApplicationFacet-93f1753f-0c46-4339-b5d5-ce4951b0730f",
+          "@type": "uco-observable:ApplicationFacet",
+          "uco-observable:applicationIdentifier": "com.apple.analyticsd"
+        }
+      ],
+      "uco-core:name": "analyticsd"
+    },
+    {
+      "@id": "kb:EventRecord-e52f147b-64c4-4193-b800-84d701a62c7a",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:description": [
+        "Source: unifiedlog_iterator log-archive parse of workshop system_logs.logarchive (see unifiedlog_iterator_sample_rows.json). Wall-clock timestamp_tool is unanchored (no timesync)."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:EventRecordFacet-47665ab3-e820-4565-a7ec-4c657b5fdb62",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:application": {
+            "@id": "kb:ObservableObject-983763b6-245e-4b28-9d18-7875321bb8ec"
+          },
+          "uco-observable:eventID": "0",
+          "uco-observable:eventRecordDevice": {
+            "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+          },
+          "uco-observable:eventRecordID": "0",
+          "uco-observable:eventRecordServiceName": "system",
+          "uco-observable:eventRecordText": "rerouted lookup to a foreground user endpoint: name = com.apple.coreduetd.knowledge, caller = analyticsd[110]",
+          "uco-observable:eventType": "Simpledump"
+        }
+      ],
+      "uco-core:name": "Unified log row 1: system"
+    },
+    {
+      "@id": "kb:ObservableRelationship-0604b972-2696-4653-aed4-6aab43f316a8",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Extracted_From",
+      "uco-core:source": [
+        {
+          "@id": "kb:EventRecord-e52f147b-64c4-4193-b800-84d701a62c7a"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+      }
+    },
+    {
+      "@id": "kb:ObservableRelationship-e641cd91-b15c-442e-9f2b-362f94240e19",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:source": [
+        {
+          "@id": "kb:EventRecord-e52f147b-64c4-4193-b800-84d701a62c7a"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-78bcd009-59a6-4cd9-9457-2e051b14a5f8"
+      }
+    },
+    {
+      "@id": "kb:Event-ce43e342-af70-40e1-ab1e-0668f747c6d4",
+      "@type": "uco-core:Event",
+      "uco-core:description": [
+        "Absolute wall-clock time omitted: archive has no timesync; see eventAttribute mach_continuous_time / boot_uuid."
+      ],
+      "uco-core:name": "Unified log event 1",
+      "uco-core:eventAttribute": [
+        {
+          "@id": "kb:Dictionary-796445db-a417-4897-92c1-00ce15496acf",
+          "@type": "uco-types:Dictionary",
+          "uco-types:entry": [
+            {
+              "@id": "kb:DictionaryEntry-9ebe16b0-3f56-4ff4-a21e-6c81f7a880cc",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "subsystem",
+              "uco-types:value": "system"
+            },
+            {
+              "@id": "kb:DictionaryEntry-67ef93d6-5d0b-47fb-b976-042a1b59c3f9",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "mach_continuous_time",
+              "uco-types:value": "4390314937785.0"
+            },
+            {
+              "@id": "kb:DictionaryEntry-48371a00-d857-41c0-9d2f-6bf5eaf23522",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "boot_uuid",
+              "uco-types:value": "284A47572E0C4F9FB63582FA436F4444"
+            },
+            {
+              "@id": "kb:DictionaryEntry-5d0a2d25-6758-4c3e-b039-8c49af26187a",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "timezone_name",
+              "uco-types:value": "New_York"
+            },
+            {
+              "@id": "kb:DictionaryEntry-ecb85084-9353-421f-85d0-2373143c98de",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "timestamp_tool",
+              "uco-types:value": "1970-01-01T01:13:10.314937785Z"
+            },
+            {
+              "@id": "kb:DictionaryEntry-50f727ee-17cc-45e0-91ac-c681cfbc3aac",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "pid",
+              "uco-types:value": "1"
+            },
+            {
+              "@id": "kb:DictionaryEntry-b1950982-649c-420e-a210-59893410c58d",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "thread_id",
+              "uco-types:value": "92449"
+            },
+            {
+              "@id": "kb:DictionaryEntry-0f38e019-ddb9-4737-ba80-1a6ea233b272",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "log_type",
+              "uco-types:value": "Simpledump"
+            },
+            {
+              "@id": "kb:DictionaryEntry-c25cf7bd-8a48-42e0-a716-a63a6bea93ac",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "event_type",
+              "uco-types:value": "Simpledump"
+            }
+          ]
+        }
+      ],
+      "uco-core:eventContext": [
+        {
+          "@id": "kb:EventRecord-e52f147b-64c4-4193-b800-84d701a62c7a"
+        },
+        {
+          "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+        }
+      ],
+      "uco-core:eventType": [
+        "unifiedlog",
+        "Simpledump"
+      ]
+    },
+    {
+      "@id": "kb:EventRecord-64e1aba3-6144-4bb3-b2f3-857bf70047fa",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:description": [
+        "Source: unifiedlog_iterator log-archive parse of workshop system_logs.logarchive (see unifiedlog_iterator_sample_rows.json). Wall-clock timestamp_tool is unanchored (no timesync)."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:EventRecordFacet-c142ced3-8409-4daa-aa73-2382df67be48",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventID": "1",
+          "uco-observable:eventRecordDevice": {
+            "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+          },
+          "uco-observable:eventRecordID": "1",
+          "uco-observable:eventRecordServiceName": "user/501/com.apple.iconservices.iconservicesagent [326]",
+          "uco-observable:eventRecordText": "Successfully spawned iconservicesagent[326] because ipc (mach)",
+          "uco-observable:eventType": "Simpledump"
+        }
+      ],
+      "uco-core:name": "Unified log row 2: user/501/com.apple.iconservices.iconservicesagent [326]"
+    },
+    {
+      "@id": "kb:ObservableRelationship-b68999fb-8dd2-437f-ae2f-a07ef17509de",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Extracted_From",
+      "uco-core:source": [
+        {
+          "@id": "kb:EventRecord-64e1aba3-6144-4bb3-b2f3-857bf70047fa"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+      }
+    },
+    {
+      "@id": "kb:ObservableRelationship-802e77b1-6a8f-4f34-ae5e-8a3b095bd6fa",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:source": [
+        {
+          "@id": "kb:EventRecord-64e1aba3-6144-4bb3-b2f3-857bf70047fa"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-78bcd009-59a6-4cd9-9457-2e051b14a5f8"
+      }
+    },
+    {
+      "@id": "kb:Event-cb0a0ac0-9d4c-4b8a-a14a-4d004138e6e6",
+      "@type": "uco-core:Event",
+      "uco-core:description": [
+        "Absolute wall-clock time omitted: archive has no timesync; see eventAttribute mach_continuous_time / boot_uuid."
+      ],
+      "uco-core:name": "Unified log event 2",
+      "uco-core:eventAttribute": [
+        {
+          "@id": "kb:Dictionary-d1acf154-a1ed-4808-bd70-e0e0de92bdac",
+          "@type": "uco-types:Dictionary",
+          "uco-types:entry": [
+            {
+              "@id": "kb:DictionaryEntry-96671d81-81af-4744-9750-e4c13e2e9205",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "subsystem",
+              "uco-types:value": "user/501/com.apple.iconservices.iconservicesagent [326]"
+            },
+            {
+              "@id": "kb:DictionaryEntry-d14a0117-ccad-4566-8cc1-2336de722bc5",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "mach_continuous_time",
+              "uco-types:value": "4390146762438.0"
+            },
+            {
+              "@id": "kb:DictionaryEntry-b6601d1c-c363-4186-8a22-145487fc593c",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "boot_uuid",
+              "uco-types:value": "284A47572E0C4F9FB63582FA436F4444"
+            },
+            {
+              "@id": "kb:DictionaryEntry-abf7c75c-8560-4859-b59e-34061be866ea",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "timezone_name",
+              "uco-types:value": "New_York"
+            },
+            {
+              "@id": "kb:DictionaryEntry-dfd95f19-7ab3-451b-8595-74bb2208ae56",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "timestamp_tool",
+              "uco-types:value": "1970-01-01T01:13:10.146762438Z"
+            },
+            {
+              "@id": "kb:DictionaryEntry-a993f09a-c0f0-461e-9b90-21ad9095e8d9",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "pid",
+              "uco-types:value": "1"
+            },
+            {
+              "@id": "kb:DictionaryEntry-054965b6-be48-4684-b439-7bbd0d054cca",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "thread_id",
+              "uco-types:value": "92488"
+            },
+            {
+              "@id": "kb:DictionaryEntry-6223dd2a-fac0-44ba-af6c-e15e7394cb9f",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "log_type",
+              "uco-types:value": "Simpledump"
+            },
+            {
+              "@id": "kb:DictionaryEntry-95eb101e-5dab-46f1-b094-4ab65c8f806c",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "event_type",
+              "uco-types:value": "Simpledump"
+            }
+          ]
+        }
+      ],
+      "uco-core:eventContext": [
+        {
+          "@id": "kb:EventRecord-64e1aba3-6144-4bb3-b2f3-857bf70047fa"
+        },
+        {
+          "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+        }
+      ],
+      "uco-core:eventType": [
+        "unifiedlog",
+        "Simpledump"
+      ]
+    },
+    {
+      "@id": "kb:EventRecord-249d57f5-7887-40a4-8947-6eecbee7a651",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:description": [
+        "Source: unifiedlog_iterator log-archive parse of workshop system_logs.logarchive (see unifiedlog_iterator_sample_rows.json). Wall-clock timestamp_tool is unanchored (no timesync)."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:EventRecordFacet-f2085f70-7efe-4521-87e9-c74cf0e9d774",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventID": "2",
+          "uco-observable:eventRecordDevice": {
+            "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+          },
+          "uco-observable:eventRecordID": "2",
+          "uco-observable:eventRecordServiceName": "user/501/com.apple.aggregated.addaily [327]",
+          "uco-observable:eventRecordText": "Successfully spawned addaily[327] because ipc (mach)",
+          "uco-observable:eventType": "Simpledump"
+        }
+      ],
+      "uco-core:name": "Unified log row 3: user/501/com.apple.aggregated.addaily [327]"
+    },
+    {
+      "@id": "kb:ObservableRelationship-f39ca7f4-4c6b-4e62-b950-3efbd345680e",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Extracted_From",
+      "uco-core:source": [
+        {
+          "@id": "kb:EventRecord-249d57f5-7887-40a4-8947-6eecbee7a651"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+      }
+    },
+    {
+      "@id": "kb:ObservableRelationship-a0430a67-5905-4cd1-aefa-f754789c263f",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      },
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:source": [
+        {
+          "@id": "kb:EventRecord-249d57f5-7887-40a4-8947-6eecbee7a651"
+        }
+      ],
+      "uco-core:target": {
+        "@id": "kb:ObservableObject-78bcd009-59a6-4cd9-9457-2e051b14a5f8"
+      }
+    },
+    {
+      "@id": "kb:Event-7b7bcc72-8b99-4fd2-9c10-b281a3bd204c",
+      "@type": "uco-core:Event",
+      "uco-core:description": [
+        "Absolute wall-clock time omitted: archive has no timesync; see eventAttribute mach_continuous_time / boot_uuid."
+      ],
+      "uco-core:name": "Unified log event 3",
+      "uco-core:eventAttribute": [
+        {
+          "@id": "kb:Dictionary-d2a4125e-30d7-4cfe-9fb3-01662c23bf6b",
+          "@type": "uco-types:Dictionary",
+          "uco-types:entry": [
+            {
+              "@id": "kb:DictionaryEntry-b45296a6-a67e-45f0-a20b-9570b414a795",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "subsystem",
+              "uco-types:value": "user/501/com.apple.aggregated.addaily [327]"
+            },
+            {
+              "@id": "kb:DictionaryEntry-88408a9b-4ef4-4d8f-af83-7ab7852688a4",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "mach_continuous_time",
+              "uco-types:value": "4390268743811.0"
+            },
+            {
+              "@id": "kb:DictionaryEntry-a1954a94-e027-404d-a1b0-f202d58db5ce",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "boot_uuid",
+              "uco-types:value": "284A47572E0C4F9FB63582FA436F4444"
+            },
+            {
+              "@id": "kb:DictionaryEntry-9743c4c2-f490-4469-8ad8-6283e658677e",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "timezone_name",
+              "uco-types:value": "New_York"
+            },
+            {
+              "@id": "kb:DictionaryEntry-08b3fc03-9e3e-4e66-8df0-ddfaa29d6796",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "timestamp_tool",
+              "uco-types:value": "1970-01-01T01:13:10.268743811Z"
+            },
+            {
+              "@id": "kb:DictionaryEntry-fab09559-0beb-4e8f-a8fd-297b527c5285",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "pid",
+              "uco-types:value": "1"
+            },
+            {
+              "@id": "kb:DictionaryEntry-2ed0460f-5c11-4cb4-b71a-d10d83cef901",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "thread_id",
+              "uco-types:value": "92449"
+            },
+            {
+              "@id": "kb:DictionaryEntry-297cab30-39ae-4664-9466-f483d77d4b16",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "log_type",
+              "uco-types:value": "Simpledump"
+            },
+            {
+              "@id": "kb:DictionaryEntry-09ae6c02-01de-46e6-a956-a9b6451ace0d",
+              "@type": "uco-types:DictionaryEntry",
+              "uco-types:key": "event_type",
+              "uco-types:value": "Simpledump"
+            }
+          ]
+        }
+      ],
+      "uco-core:eventContext": [
+        {
+          "@id": "kb:EventRecord-249d57f5-7887-40a4-8947-6eecbee7a651"
+        },
+        {
+          "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+        }
+      ],
+      "uco-core:eventType": [
+        "unifiedlog",
+        "Simpledump"
+      ]
+    },
+    {
+      "@id": "kb:InvestigativeAction-4f7c4da1-d055-451e-b625-2f7550d5f935",
+      "@type": "solveit-core:SolveitInvestigativeAction",
+      "uco-core:description": [
+        "SOLVE-IT DFT-1066 / DFT-1076: extract OS unified-log artifacts from system_logs.logarchive to JSONL (DFM-1027 dual-tool verify with Notari parser). Applied DFM-1179 timezone/timesync check: archive lacks timesync \u2014 absolute times not asserted."
+      ],
+      "uco-core:name": "Parse logarchive with unifiedlog_iterator",
+      "uco-action:endTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-27T15:36:00+00:00"
+      },
+      "uco-action:instrument": [
+        {
+          "@id": "kb:AnalyticTool-419c7d43-2aea-47fb-bc15-eba383bc58bb"
+        }
+      ],
+      "uco-action:object": [
+        {
+          "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+        }
+      ],
+      "uco-action:result": [
+        {
+          "@id": "kb:ObservableObject-78bcd009-59a6-4cd9-9457-2e051b14a5f8"
+        },
+        {
+          "@id": "kb:EventRecord-e52f147b-64c4-4193-b800-84d701a62c7a"
+        },
+        {
+          "@id": "kb:EventRecord-64e1aba3-6144-4bb3-b2f3-857bf70047fa"
+        },
+        {
+          "@id": "kb:EventRecord-249d57f5-7887-40a4-8947-6eecbee7a651"
+        },
+        {
+          "@id": "kb:Event-ce43e342-af70-40e1-ab1e-0668f747c6d4"
+        },
+        {
+          "@id": "kb:Event-cb0a0ac0-9d4c-4b8a-a14a-4d004138e6e6"
+        },
+        {
+          "@id": "kb:Event-7b7bcc72-8b99-4fd2-9c10-b281a3bd204c"
+        }
+      ],
+      "uco-action:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-27T15:35:00+00:00"
+      },
+      "solveit-core:usedTechnique": [
+        {
+          "@id": "https://ontology.solveit-df.org/solveit/data/techniqueDFT-1066"
+        },
+        {
+          "@id": "https://ontology.solveit-df.org/solveit/data/techniqueDFT-1076"
+        }
+      ],
+      "solveit-core:appliedMitigation": [
+        {
+          "@id": "https://ontology.solveit-df.org/solveit/data/mitigationDFM-1027"
+        },
+        {
+          "@id": "https://ontology.solveit-df.org/solveit/data/mitigationDFM-1175"
+        },
+        {
+          "@id": "https://ontology.solveit-df.org/solveit/data/mitigationDFM-1179"
+        }
+      ]
+    },
+    {
+      "@id": "kb:InvestigativeAction-84b1ebb5-a0b6-474b-b6de-08fcf2768b8c",
+      "@type": "case-investigation:InvestigativeAction",
+      "uco-core:description": [
+        "Build full + filtered SQLite databases and forensic report from the same .logarchive (dual-tool verification)."
+      ],
+      "uco-core:name": "Parse logarchive with Notari Unified Logs tools",
+      "uco-action:endTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-25T19:50:00+00:00"
+      },
+      "uco-action:instrument": [
+        {
+          "@id": "kb:AnalyticTool-90bea144-2bd2-4fb1-aac3-10e5752cbc3e"
+        }
+      ],
+      "uco-action:object": [
+        {
+          "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+        }
+      ],
+      "uco-action:result": [
+        {
+          "@id": "kb:ObservableObject-b02125b7-65b6-4c36-bb47-e6dd9f962181"
+        }
+      ],
+      "uco-action:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-25T19:00:00+00:00"
+      }
+    },
+    {
+      "@id": "kb:InvestigativeAction-db4dd591-1b83-4f4e-97cb-d619e56578a6",
+      "@type": "case-investigation:InvestigativeAction",
+      "uco-core:description": [
+        "Parse sysdiagnose-contained artifacts (WiFi, location, powerlog, etc.) into HTML/TSV report modules."
+      ],
+      "uco-core:name": "Run iLEAPP against sysdiagnose",
+      "uco-action:endTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-25T20:20:00+00:00"
+      },
+      "uco-action:instrument": [
+        {
+          "@id": "kb:AnalyticTool-7bdb1d74-edad-42b5-8da5-08db7bb9a96a"
+        }
+      ],
+      "uco-action:object": [
+        {
+          "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+        }
+      ],
+      "uco-action:result": [
+        {
+          "@id": "kb:ObservableObject-9f60236d-d1f3-423e-928e-ab1c9a65f290"
+        },
+        {
+          "@id": "kb:WirelessNetworkConnection-b3113c7c-e278-4d75-b94c-398862ad9f73"
+        }
+      ],
+      "uco-action:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-25T20:00:00+00:00"
+      }
+    },
+    {
+      "@id": "kb:ProvenanceRecord-80f6a50f-011c-4fdb-a29f-8bb77670e9fa",
+      "@type": "case-investigation:ProvenanceRecord",
+      "uco-core:description": [
+        "Sysdiagnose + unified log examination package"
+      ],
+      "uco-core:object": [
+        {
+          "@id": "kb:InvestigativeAction-03dfde68-e6c1-4107-ac5e-450596b90a16"
+        },
+        {
+          "@id": "kb:InvestigativeAction-4f7c4da1-d055-451e-b625-2f7550d5f935"
+        },
+        {
+          "@id": "kb:InvestigativeAction-84b1ebb5-a0b6-474b-b6de-08fcf2768b8c"
+        },
+        {
+          "@id": "kb:InvestigativeAction-db4dd591-1b83-4f4e-97cb-d619e56578a6"
+        },
+        {
+          "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+        },
+        {
+          "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+        },
+        {
+          "@id": "kb:ObservableObject-78bcd009-59a6-4cd9-9457-2e051b14a5f8"
+        },
+        {
+          "@id": "kb:ObservableObject-b02125b7-65b6-4c36-bb47-e6dd9f962181"
+        }
+      ],
+      "case-investigation:exhibitNumber": "EX-SYSDIAG-2024-0802"
+    },
+    {
+      "@id": "kb:Investigation-43f05ffc-2d6d-4f5f-a2e3-f7c17f1e7284",
+      "@type": "case-investigation:Investigation",
+      "uco-core:description": [
+        "Model raw Apple sysdiagnose (including system_logs.logarchive) and structured analytic outputs (unifiedlog_iterator JSONL excerpt, Notari SQLite, iLEAPP reports). Grounded in DFRWS USA Sysdiagnosis workshop data; iterator rows are real parse excerpts."
+      ],
+      "uco-core:name": "Case dfrws-sysdiagnose-2024-08-02: iOS sysdiagnose and unified logs",
+      "uco-core:object": [
+        {
+          "@id": "kb:Identity-1e8b0139-299e-402e-a7c2-73323d6a08c7"
+        },
+        {
+          "@id": "kb:ObservableObject-5f9e7b41-c121-4f07-b23a-3c20ab730514"
+        },
+        {
+          "@id": "kb:OperatingSystem-8b35fd61-2ad1-4439-b193-8c89f34f5c82"
+        },
+        {
+          "@id": "kb:ObservableObject-f895999e-bf68-471d-a25f-dac8e8f25798"
+        },
+        {
+          "@id": "kb:AppleUnifiedLogArchive-95f20c7a-2546-4f09-ace1-3180bd59f37f"
+        },
+        {
+          "@id": "kb:ObservableObject-f7d2345d-c041-48b7-8d45-4389d2dceefa"
+        },
+        {
+          "@id": "kb:WirelessNetworkConnection-b3113c7c-e278-4d75-b94c-398862ad9f73"
+        },
+        {
+          "@id": "kb:ObservableObject-4df59d42-1258-4842-9b57-c28626ba33d4"
+        },
+        {
+          "@id": "kb:ObservableObject-adc18189-3d96-435c-9384-7047da15adc9"
+        },
+        {
+          "@id": "kb:EventRecord-929edf82-5c69-4663-a393-33b23a44932c"
+        },
+        {
+          "@id": "kb:Event-58e1d901-f98a-4811-92fc-aaac200e5205"
+        },
+        {
+          "@id": "kb:Tool-8d0ef833-4b74-4ccd-890b-ac91b0fb2a07"
+        },
+        {
+          "@id": "kb:Tool-dba53ce2-ab6e-4a12-9969-0549d16ec8f3"
+        },
+        {
+          "@id": "kb:AnalyticTool-419c7d43-2aea-47fb-bc15-eba383bc58bb"
+        },
+        {
+          "@id": "kb:AnalyticTool-90bea144-2bd2-4fb1-aac3-10e5752cbc3e"
+        },
+        {
+          "@id": "kb:AnalyticTool-7bdb1d74-edad-42b5-8da5-08db7bb9a96a"
+        },
+        {
+          "@id": "kb:ObservableObject-983763b6-245e-4b28-9d18-7875321bb8ec"
+        },
+        {
+          "@id": "kb:ObservableObject-78bcd009-59a6-4cd9-9457-2e051b14a5f8"
+        },
+        {
+          "@id": "kb:ObservableObject-b02125b7-65b6-4c36-bb47-e6dd9f962181"
+        },
+        {
+          "@id": "kb:ObservableObject-9f60236d-d1f3-423e-928e-ab1c9a65f290"
+        },
+        {
+          "@id": "kb:EventRecord-e52f147b-64c4-4193-b800-84d701a62c7a"
+        },
+        {
+          "@id": "kb:EventRecord-64e1aba3-6144-4bb3-b2f3-857bf70047fa"
+        },
+        {
+          "@id": "kb:EventRecord-249d57f5-7887-40a4-8947-6eecbee7a651"
+        },
+        {
+          "@id": "kb:Event-ce43e342-af70-40e1-ab1e-0668f747c6d4"
+        },
+        {
+          "@id": "kb:Event-cb0a0ac0-9d4c-4b8a-a14a-4d004138e6e6"
+        },
+        {
+          "@id": "kb:Event-7b7bcc72-8b99-4fd2-9c10-b281a3bd204c"
+        },
+        {
+          "@id": "kb:InvestigativeAction-03dfde68-e6c1-4107-ac5e-450596b90a16"
+        },
+        {
+          "@id": "kb:InvestigativeAction-4f7c4da1-d055-451e-b625-2f7550d5f935"
+        },
+        {
+          "@id": "kb:InvestigativeAction-84b1ebb5-a0b6-474b-b6de-08fcf2768b8c"
+        },
+        {
+          "@id": "kb:InvestigativeAction-db4dd591-1b83-4f4e-97cb-d619e56578a6"
+        },
+        {
+          "@id": "kb:ProvenanceRecord-80f6a50f-011c-4fdb-a29f-8bb77670e9fa"
+        },
+        {
+          "@id": "kb:ObservableRelationship-cb388a5f-c694-464e-9aba-1efa21e1b869"
+        },
+        {
+          "@id": "kb:ObservableRelationship-8f3ebca4-8eba-4a37-ba3a-a77291c40eaf"
+        },
+        {
+          "@id": "kb:ObservableRelationship-88b430ea-78c9-4917-ac64-ddfe1f681fe3"
+        },
+        {
+          "@id": "kb:ObservableRelationship-c4d4b74a-dcbe-415e-b0e4-3c425142f4fa"
+        },
+        {
+          "@id": "kb:ObservableRelationship-0ca18da7-38b6-489e-8346-f6f8402f2d08"
+        },
+        {
+          "@id": "kb:ObservableRelationship-a7fc6b38-63cb-4f1c-bc2e-511a5fbb584a"
+        },
+        {
+          "@id": "kb:ObservableRelationship-c632a49f-10b9-4c49-b236-6ca90c4e19dd"
+        },
+        {
+          "@id": "kb:ObservableRelationship-bbd41644-c64d-4ee4-9c45-efcfa7561d27"
+        },
+        {
+          "@id": "kb:ObservableRelationship-0604b972-2696-4653-aed4-6aab43f316a8"
+        },
+        {
+          "@id": "kb:ObservableRelationship-e641cd91-b15c-442e-9f2b-362f94240e19"
+        },
+        {
+          "@id": "kb:ObservableRelationship-b68999fb-8dd2-437f-ae2f-a07ef17509de"
+        },
+        {
+          "@id": "kb:ObservableRelationship-802e77b1-6a8f-4f34-ae5e-8a3b095bd6fa"
+        },
+        {
+          "@id": "kb:ObservableRelationship-f39ca7f4-4c6b-4e62-b950-3efbd345680e"
+        },
+        {
+          "@id": "kb:ObservableRelationship-a0430a67-5905-4cd1-aefa-f754789c263f"
+        }
+      ]
+    }
+  ]
+}

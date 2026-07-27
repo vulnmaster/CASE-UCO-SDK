@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.23.0] - 2026-07-27
+
+Apple sysdiagnose / Unified Logging recipes and a validated SOLVE-IT exemplar
+grounded in DFRWS USA workshop corpus layout, plus recipe-execution coverage
+for mobile-forensics builders.
+
+#### Recipes / mobile forensics
+
+- New recipes: [`ios-sysdiagnose.md`](docs/recipes/ios-sysdiagnose.md) and
+  [`apple-unified-logs.md`](docs/recipes/apple-unified-logs.md) — model raw
+  sysdiagnose packages (`AppleUnifiedLogArchive` + Wi-Fi / BatteryBDC) and
+  parser outputs (`unifiedlog_iterator`, Notari, iLEAPP) as
+  `EventRecord` / `Event` graphs with `SolveitInvestigativeAction`
+  (DFT-1066 / DFT-1076 + mitigations).
+- Validated exemplar + builder:
+  `examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld` (real iterator
+  sample rows; timesync caveat; vocab relationship kinds only;
+  `hash-status:not-published` when workshop bytes are not shipped).
+- Registered in `docs/recipes/INDEX.md`, `RECIPE_INDEX`, investigation router
+  (`device-mobile-forensics`), and
+  [`recipe-execution.json`](docs/recipes/recipe-execution.json) mobile-forensics
+  gate entries with `support_files`.
+- Promotion provenance in `docs/recipes/promotion-log.json`; deterministic
+  critic review artifact under `examples/sysdiagnose/critic-review.json`.
+
+Package versions bumped to **1.23.0**.
+
 ## [1.22.4] - 2026-07-15
 
 SDK hardening from the v1.22.1 CTI review: provenance-manifest integrity across
@@ -2039,7 +2066,8 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
-[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.4...HEAD
+[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.23.0...HEAD
+[1.23.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.4...v1.23.0
 [1.22.4]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.3...v1.22.4
 [1.22.3]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.2...v1.22.3
 [1.22.2]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.1...v1.22.2
