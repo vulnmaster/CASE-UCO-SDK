@@ -1,6 +1,6 @@
 """SOLVE-IT Digital Forensics Knowledge Base and Ontology — CASE/UCO SDK extension bindings."""
 
-__version__ = "0.1.9"
+__version__ = "0.2.0"
 
 NAMESPACES: dict[str, str] = {
     "solveit-analysis": "https://ontology.solveit-df.org/solveit/analysis/",

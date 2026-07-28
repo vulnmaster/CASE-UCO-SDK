@@ -1,0 +1,74 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/",
+    "proposed": "http://example.org/ontology/proposed/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:account-1",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:name": "_locationd",
+      "uco-core:description": [
+        "iOS service account attributed in Unified Logging output (Notari Unified Logs v2 euid column). uid 205 is the primary key for log attribution."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:account-1-facet",
+          "@type": "uco-observable:UNIXAccountFacet",
+          "uco-observable:gid": {"@type": "xsd:integer", "@value": "205"},
+          "proposed:uid": {"@type": "xsd:nonNegativeInteger", "@value": "205"}
+        }
+      ]
+    },
+    {
+      "@id": "kb:account-2",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:name": "root",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:account-2-facet",
+          "@type": "uco-observable:UNIXAccountFacet",
+          "uco-observable:gid": {"@type": "xsd:integer", "@value": "0"},
+          "proposed:uid": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    },
+    {
+      "@id": "kb:process-1",
+      "@type": "uco-observable:Process",
+      "uco-core:name": "locationd",
+      "uco-core:description": [
+        "Process running as its own service account: ruid equals euid (no privilege change)."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:process-1-facet",
+          "@type": "uco-observable:UNIXProcessFacet",
+          "uco-observable:pid": {"@type": "xsd:nonNegativeInteger", "@value": "6790"},
+          "uco-observable:ruid": {"@type": "xsd:nonNegativeInteger", "@value": "205"},
+          "proposed:euid": {"@type": "xsd:nonNegativeInteger", "@value": "205"}
+        }
+      ]
+    },
+    {
+      "@id": "kb:process-2",
+      "@type": "uco-observable:Process",
+      "uco-core:name": "suspicious-helper",
+      "uco-core:description": [
+        "Process started by uid 501 whose effective uid is 0: a setuid privilege change that the euid/ruid pair makes queryable."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:process-2-facet",
+          "@type": "uco-observable:UNIXProcessFacet",
+          "uco-observable:pid": {"@type": "xsd:nonNegativeInteger", "@value": "7411"},
+          "uco-observable:ruid": {"@type": "xsd:nonNegativeInteger", "@value": "501"},
+          "proposed:euid": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    }
+  ]
+}

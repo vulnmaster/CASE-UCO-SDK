@@ -22,8 +22,8 @@ class ADBPullData:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -42,8 +42,8 @@ class AFCExtractionData:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -62,8 +62,8 @@ class AcquiredData:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -82,8 +82,8 @@ class AcquisitionErrorRecord:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -102,8 +102,8 @@ class AcquisitionRecordFile:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -123,8 +123,8 @@ class AiChatAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -143,8 +143,8 @@ class AndroidDeviceGeneratedBackup:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -163,8 +163,8 @@ class AppleUnifiedLogArchive:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -184,8 +184,8 @@ class ApplicationFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -205,8 +205,8 @@ class ArtifactSet:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -225,8 +225,8 @@ class AudioFile:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -245,8 +245,8 @@ class Bitstream:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -265,8 +265,8 @@ class BitstreamRandomAccessed:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -286,8 +286,8 @@ class BrowserAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -307,8 +307,8 @@ class BrowserCacheData:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -328,8 +328,8 @@ class CalendarAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -349,8 +349,8 @@ class ChatAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -369,8 +369,8 @@ class ClockOffsetCapture:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -389,8 +389,8 @@ class ClockOffsetMeasurement:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -409,8 +409,8 @@ class ClusterRun:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -429,8 +429,8 @@ class ContentQueryData:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -449,8 +449,8 @@ class DateTimeRange:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -469,8 +469,8 @@ class DateTimeStamp:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -489,8 +489,8 @@ class DecryptionKey:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -509,8 +509,8 @@ class DeviceGeneratedBackup:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -529,8 +529,8 @@ class DeviceInterface:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -549,8 +549,8 @@ class DeviceScreenshotCapture:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -589,8 +589,8 @@ class EmailAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -610,8 +610,8 @@ class FileSet:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -630,8 +630,8 @@ class FileSystemExtraction:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -651,8 +651,8 @@ class FilteredFileSet:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -671,8 +671,8 @@ class ForensicImageContainer:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -692,8 +692,8 @@ class GamingAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -713,8 +713,8 @@ class HashSet:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -733,8 +733,8 @@ class HashSetEntry:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -753,8 +753,8 @@ class HashVerificationResult:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -774,8 +774,8 @@ class HealthAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -794,8 +794,8 @@ class ImplicitTimingInformation:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -814,8 +814,8 @@ class KeywordIndex:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -834,8 +834,8 @@ class KeywordIndexingConfiguration:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -854,8 +854,8 @@ class KeywordSearchResult:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -875,8 +875,8 @@ class KeywordSearchResultSet:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -895,8 +895,8 @@ class LiveDataCapture:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -915,8 +915,8 @@ class LiveOSDeviceInterface:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -935,8 +935,8 @@ class LogicalImageContainer:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -956,8 +956,8 @@ class MapsAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -977,8 +977,8 @@ class NavigationAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -997,8 +997,8 @@ class NetworkPacketCapture:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1018,8 +1018,8 @@ class PaymentAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1039,8 +1039,8 @@ class PhotosAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1059,8 +1059,8 @@ class PhysicalImageContainer:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1105,8 +1105,8 @@ class RawImage:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1125,8 +1125,8 @@ class RawImageInfoFile:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1145,8 +1145,8 @@ class ReadWriteDeviceInterface:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1166,8 +1166,8 @@ class RedactedArtifactSet:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1187,8 +1187,8 @@ class RedactedFileSet:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1208,8 +1208,8 @@ class RemindersAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1228,8 +1228,8 @@ class SQLiteDatabase:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1248,8 +1248,8 @@ class SQLiteField:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1268,8 +1268,8 @@ class SQLiteFieldDefinition:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1288,8 +1288,8 @@ class SQLiteJournal:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1308,8 +1308,8 @@ class SQLiteJournalPageImage:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1328,8 +1328,8 @@ class SQLitePage:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1348,8 +1348,8 @@ class SQLiteRecord:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1368,8 +1368,8 @@ class SQLiteSchema:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1388,8 +1388,8 @@ class SQLiteTable:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1408,8 +1408,8 @@ class SQLiteWAL:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1428,8 +1428,8 @@ class SQLiteWALFrame:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1448,8 +1448,8 @@ class ServiceBasedExtractionData:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1469,8 +1469,8 @@ class SmartHomeAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1490,8 +1490,8 @@ class SocialMediaAppFiles:
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
     object: list[UcoObject] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1510,8 +1510,8 @@ class SortedTimeline:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1530,8 +1530,8 @@ class SortedTimelineEntry:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1550,8 +1550,8 @@ class Timeline:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1570,8 +1570,8 @@ class TimelineEntry:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1590,8 +1590,8 @@ class TimestampOffset:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1610,8 +1610,8 @@ class UnlockPattern:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1630,8 +1630,8 @@ class VideoFile:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1650,8 +1650,8 @@ class VideoFrame:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1670,8 +1670,8 @@ class VirtualizedComputer:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1690,8 +1690,8 @@ class VirtualizedDevice:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1710,8 +1710,8 @@ class Wordlist:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1730,8 +1730,8 @@ class WriteProtectedDeviceInterface:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1750,8 +1750,8 @@ class httpResponseHeader:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -1770,6 +1770,6 @@ class iOSDeviceGeneratedBackup:
     object_status: Optional[str] = field(default=None)
     spec_version: Optional[str] = field(default=None)
     tag: list[str] = field(default_factory=list)
-    has_changed: Optional[bool] = field(default=None)
-    state: Optional[str] = field(default=None)
+    has_changed: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:hasChanged', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
+    state: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:state', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 

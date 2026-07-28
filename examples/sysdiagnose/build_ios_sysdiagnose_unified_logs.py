@@ -95,7 +95,6 @@ from case_uco.uco.observable import (
     EventRecordFacet,
     FileFacet,
     MACAddressFacet,
-    MobileDeviceFacet,
     ObservableObject,
     ObservableRelationship,
     OperatingSystem,
@@ -105,6 +104,7 @@ from case_uco.uco.observable import (
 )
 from case_uco.uco.tool import AnalyticTool, Tool
 from case_uco.uco.types import Dictionary, DictionaryEntry, Hash
+from case_uco_solveit.solveit_core import SolveitInvestigativeAction
 from case_uco_solveit.solveit_observable import AppleUnifiedLogArchive
 from graph_validator import report_to_dict, validate_graph_file, validator_available
 
@@ -128,7 +128,8 @@ def _load_iterator_samples() -> tuple[list[dict], str]:
     rows_path = SAMPLE_ROWS if SAMPLE_ROWS.is_file() else HERE / SAMPLE_ROWS.name
     sha_path = EXCERPT_SHA256 if EXCERPT_SHA256.is_file() else HERE / EXCERPT_SHA256.name
     meta = json.loads(rows_path.read_text(encoding="utf-8"))
-    digest = sha_path.read_text(encoding="utf-8").strip()
+    # Standard `sha256sum` format ("<hex>  <filename>"); take the digest field.
+    digest = sha_path.read_text(encoding="utf-8").split()[0]
     return list(meta.get("rows") or []), digest
 
 
@@ -161,13 +162,17 @@ def build() -> CASEGraph:
     phone = graph.create(
         ObservableObject,
         name="iPhone (sysdiagnose 2024-08-02)",
+        description=[
+            "Hardware model iPhone12,1 (iPhone 11) from "
+            "crashes_and_spins/stacks-2024-08-02-161926.ips header "
+            '("product": "iPhone12,1").'
+        ],
         has_facet=[
             DeviceFacet(
                 manufacturer=apple,
-                model="iPhone",
+                model="iPhone12,1",
                 device_type="Mobile Phone",
             ),
-            MobileDeviceFacet(),
         ],
     )
 
@@ -511,8 +516,9 @@ def build() -> CASEGraph:
             ],
             has_facet=[
                 EventRecordFacet(
-                    event_record_id=str(row.get("activity_id") or idx),
-                    event_id=str(row.get("activity_id") or idx),
+                    # Honest excerpt row index; the tool-reported activity_id
+                    # is preserved as a DictionaryEntry on the companion Event.
+                    event_record_id=f"excerpt-row-{idx}",
                     event_type=str(row.get("log_type") or row.get("event_type") or "Log"),
                     event_record_service_name=service,
                     event_record_text=str(row.get("message") or ""),
@@ -544,6 +550,12 @@ def build() -> CASEGraph:
             DictionaryEntry(key="log_type", value=str(row.get("log_type"))),
             DictionaryEntry(key="event_type", value=str(row.get("event_type"))),
         ]
+        if row.get("euid") is not None:
+            entries.append(DictionaryEntry(key="euid", value=str(row["euid"])))
+        if row.get("activity_id") is not None:
+            entries.append(DictionaryEntry(key="activity_id", value=str(row["activity_id"])))
+        if row.get("library"):
+            entries.append(DictionaryEntry(key="library", value=str(row["library"])))
         if row.get("category"):
             entries.append(DictionaryEntry(key="category", value=str(row["category"])))
         if row.get("process"):
@@ -565,10 +577,10 @@ def build() -> CASEGraph:
     ul_record = ul_records[0]
     ul_event = ul_events[0]
 
-    # Use case InvestigativeAction (correct uco-action:* keys), then type as
-    # SolveitInvestigativeAction and attach SOLVE-IT method links.
+    # SolveitInvestigativeAction (case_uco_solveit >= 0.2.0) serializes
+    # uco-action:* keys and SOLVE-IT method links natively.
     parse_iterator = graph.create(
-        InvestigativeAction,
+        SolveitInvestigativeAction,
         name="Parse logarchive with unifiedlog_iterator",
         description=[
             "SOLVE-IT DFT-1066 / DFT-1076: extract OS unified-log artifacts "
@@ -581,47 +593,56 @@ def build() -> CASEGraph:
         result=[csv_out, *ul_records, *ul_events],
         start_time=datetime(2026, 7, 27, 15, 35, 0, tzinfo=timezone.utc),
         end_time=datetime(2026, 7, 27, 15, 36, 0, tzinfo=timezone.utc),
+        used_technique=[
+            {"@id": SOLVEIT_DATA + "techniqueDFT-1066"},
+            {"@id": SOLVEIT_DATA + "techniqueDFT-1076"},
+        ],
+        applied_mitigation=[
+            {"@id": SOLVEIT_DATA + "mitigationDFM-1027"},
+            {"@id": SOLVEIT_DATA + "mitigationDFM-1175"},
+            {"@id": SOLVEIT_DATA + "mitigationDFM-1179"},
+        ],
     )
-    for obj in graph._objects:
-        if obj.get("@id") == graph.get_id(parse_iterator):
-            obj["@type"] = "solveit-core:SolveitInvestigativeAction"
-            obj["solveit-core:usedTechnique"] = [
-                {"@id": SOLVEIT_DATA + "techniqueDFT-1066"},
-                {"@id": SOLVEIT_DATA + "techniqueDFT-1076"},
-            ]
-            obj["solveit-core:appliedMitigation"] = [
-                {"@id": SOLVEIT_DATA + "mitigationDFM-1027"},
-                {"@id": SOLVEIT_DATA + "mitigationDFM-1175"},
-                {"@id": SOLVEIT_DATA + "mitigationDFM-1179"},
-            ]
-            break
 
     parse_notari = graph.create(
-        InvestigativeAction,
+        SolveitInvestigativeAction,
         name="Parse logarchive with Notari Unified Logs tools",
         description=[
-            "Build full + filtered SQLite databases and forensic report from "
-            "the same .logarchive (dual-tool verification)."
+            "SOLVE-IT DFT-1066 / DFT-1076: build full + filtered SQLite "
+            "databases and forensic report from the same .logarchive — the "
+            "DFM-1027 dual-tool companion to the unifiedlog_iterator parse."
         ],
         instrument=[notari_tool],
         object=[logarchive],
         result=[sqlite_out],
         start_time=datetime(2026, 7, 25, 19, 0, 0, tzinfo=timezone.utc),
         end_time=datetime(2026, 7, 25, 19, 50, 0, tzinfo=timezone.utc),
+        used_technique=[
+            {"@id": SOLVEIT_DATA + "techniqueDFT-1066"},
+            {"@id": SOLVEIT_DATA + "techniqueDFT-1076"},
+        ],
+        applied_mitigation=[
+            {"@id": SOLVEIT_DATA + "mitigationDFM-1027"},
+        ],
     )
 
     parse_ileapp = graph.create(
-        InvestigativeAction,
+        SolveitInvestigativeAction,
         name="Run iLEAPP against sysdiagnose",
         description=[
-            "Parse sysdiagnose-contained artifacts (WiFi, location, powerlog, "
-            "etc.) into HTML/TSV report modules."
+            "SOLVE-IT DFT-1066 / DFT-1076: parse sysdiagnose-contained "
+            "OS-stored artifacts (WiFi, location, powerlog, etc.) into "
+            "HTML/TSV report modules."
         ],
         instrument=[ileapp_tool],
         object=[sysdiag],
         result=[ileapp_report, wifi_net],
         start_time=datetime(2026, 7, 25, 20, 0, 0, tzinfo=timezone.utc),
         end_time=datetime(2026, 7, 25, 20, 20, 0, tzinfo=timezone.utc),
+        used_technique=[
+            {"@id": SOLVEIT_DATA + "techniqueDFT-1066"},
+            {"@id": SOLVEIT_DATA + "techniqueDFT-1076"},
+        ],
     )
 
     provenance = graph.create(

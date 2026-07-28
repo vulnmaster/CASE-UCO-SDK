@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.23.1] - 2026-07-28
+
+CI version-consistency fix, native SOLVE-IT action serialization in
+`case-uco-solveit` 0.2.0, a quality pass on the sysdiagnose exemplar, and four
+draft UCO change proposals grounded in the DFRWS USA workshop corpus.
+
+#### CI
+
+- Fix the failing **Version Consistency Check** from the v1.23.0 push:
+  `python/case_uco/__init__.py` (`__version__` still 1.22.4) and the
+  `case-uco` entry in `rust/Cargo.lock` were missed by the 1.23.0 bump. All
+  six checked sources now agree (verified locally with the workflow script).
+
+#### case-uco-solveit 0.2.0
+
+- `SolveitInvestigativeAction` serializes natively: explicit `jsonld_key`
+  metadata emits `uco-action:*` keys (was `uco-core:*`), and new
+  `used_technique` / `applied_mitigation` fields emit
+  `solveit-core:usedTechnique` / `solveit-core:appliedMitigation` directly —
+  no more post-creation `@type` retargeting in builders.
+- `hasChanged` / `state` on all 85 observable dataclasses now serialize in
+  the `uco-observable:` namespace; `_registry.json` updated.
+
+#### Sysdiagnose exemplar (`examples/sysdiagnose/`)
+
+- `euid` and tool-reported `activity_id` retained as `DictionaryEntry` values
+  on each unified-log `Event`; `library` captured when present.
+- Honest `eventRecordID` semantics (`excerpt-row-N`); dropped the
+  `uco-observable:eventID` property, which does not exist in built CASE
+  1.4.0 — `case_validate` is now 0 violations / **0 warnings**.
+- Notari and iLEAPP parse steps typed `SolveitInvestigativeAction` with
+  DFT-1066 / DFT-1076 links (Notari also carries the DFM-1027 dual-tool
+  mitigation); empty `MobileDeviceFacet` removed and `DeviceFacet.model`
+  asserts the real hardware identifier `iPhone12,1` from the stackshot
+  `.ips` header.
+- `unifiedlog_iterator_excerpt.sha256` now standard `sha256sum -c` format.
+- `critic-review.json` refreshed on the new graph bytes (deterministic
+  two-pass session; only the accepted `hash-status:not-published`
+  medium findings remain open).
+
+#### Recipes / MCP
+
+- `ios-sysdiagnose.md`: real hardware model on `DeviceFacet`;
+  `MobileDeviceFacet` only when IMEI/ESN/network evidence exists.
+- `apple-unified-logs.md`: native `SolveitInvestigativeAction` pattern.
+- `domain_index.py`: expanded keywords (`.ips`, `stackshot`, `timesync`,
+  `boot_uuid`, `mach_continuous_time`, `activity_id`, ...) for both recipes.
+
+#### Change proposals (drafts, not yet submitted upstream)
+
+- Four corpus-grounded UCO proposals under `change_proposals/`, each with
+  example JSON-LD, SPARQL competency queries, and a `proposed:` extension
+  ontology, all passing `make test-proposal`: boot session + boot-relative
+  time, `OperatingSystemLogRecordFacet`, cross-platform
+  `ProcessThreadFacet`, and UNIX numeric `uid` / `euid` properties.
+
+Package versions bumped to **1.23.1**.
+
 ## [1.23.0] - 2026-07-27
 
 Apple sysdiagnose / Unified Logging recipes and a validated SOLVE-IT exemplar

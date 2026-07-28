@@ -1,0 +1,69 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/",
+    "proposed": "http://example.org/ontology/proposed/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:process-1",
+      "@type": "uco-observable:Process",
+      "uco-core:name": "launchd",
+      "uco-core:description": [
+        "Process observed emitting Simpledump records in an iOS 17.3 system_logs.logarchive parsed with unifiedlog_iterator."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:process-1-facet",
+          "@type": "uco-observable:ProcessFacet",
+          "uco-observable:pid": {"@type": "xsd:integer", "@value": "1"}
+        }
+      ]
+    },
+    {
+      "@id": "kb:thread-1",
+      "@type": "uco-observable:ProcessThread",
+      "uco-core:name": "launchd thread 92449",
+      "uco-core:description": [
+        "Thread of execution that emitted unified-log rows 0 and 2 (thread_id column of unifiedlog_iterator output)."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:thread-1-facet",
+          "@type": "proposed:ProcessThreadFacet",
+          "proposed:threadID": {"@type": "xsd:nonNegativeInteger", "@value": "92449"}
+        }
+      ]
+    },
+    {
+      "@id": "kb:thread-2",
+      "@type": "uco-observable:ProcessThread",
+      "uco-core:name": "launchd thread 92488",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:thread-2-facet",
+          "@type": "proposed:ProcessThreadFacet",
+          "proposed:threadID": {"@type": "xsd:nonNegativeInteger", "@value": "92488"}
+        }
+      ]
+    },
+    {
+      "@id": "kb:relationship-1",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": {"@id": "kb:thread-1"},
+      "uco-core:target": {"@id": "kb:process-1"},
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": true
+    },
+    {
+      "@id": "kb:relationship-2",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": {"@id": "kb:thread-2"},
+      "uco-core:target": {"@id": "kb:process-1"},
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": true
+    }
+  ]
+}

@@ -172,31 +172,30 @@ graph.create(Event,
 
 ### SOLVE-IT-aware parse action
 
-Create a normal `InvestigativeAction` (so `uco-action:instrument` /
-`object` / `result` serialize correctly), then set
-`@type` to `solveit-core:SolveitInvestigativeAction` and attach KB IRIs:
+`case_uco_solveit.solveit_core.SolveitInvestigativeAction` (>= 0.2.0)
+serializes `uco-action:*` keys and SOLVE-IT method links natively — pass
+KB technique/mitigation IRIs as `{"@id": …}` references:
 
-```json
-{
-  "@type": "solveit-core:SolveitInvestigativeAction",
-  "uco-core:name": "Parse logarchive with unifiedlog_iterator",
-  "uco-action:instrument": [{"@id": "kb:AnalyticTool-…"}],
-  "uco-action:object": [{"@id": "kb:AppleUnifiedLogArchive-…"}],
-  "uco-action:result": [
-    {"@id": "kb:CSV-…"},
-    {"@id": "kb:EventRecord-…"},
-    {"@id": "kb:Event-…"}
-  ],
-  "solveit-core:usedTechnique": [
-    {"@id": "https://ontology.solveit-df.org/solveit/data/techniqueDFT-1066"},
-    {"@id": "https://ontology.solveit-df.org/solveit/data/techniqueDFT-1076"}
-  ],
-  "solveit-core:appliedMitigation": [
-    {"@id": "https://ontology.solveit-df.org/solveit/data/mitigationDFM-1027"},
-    {"@id": "https://ontology.solveit-df.org/solveit/data/mitigationDFM-1175"},
-    {"@id": "https://ontology.solveit-df.org/solveit/data/mitigationDFM-1179"}
-  ]
-}
+```python
+from case_uco_solveit.solveit_core import SolveitInvestigativeAction
+
+SOLVEIT_DATA = "https://ontology.solveit-df.org/solveit/data/"
+
+parse_action = graph.create(SolveitInvestigativeAction,
+    name="Parse logarchive with unifiedlog_iterator",
+    instrument=[iterator_tool],
+    object=[logarchive],
+    result=[csv_out, ul_record],
+    used_technique=[
+        {"@id": SOLVEIT_DATA + "techniqueDFT-1066"},
+        {"@id": SOLVEIT_DATA + "techniqueDFT-1076"},
+    ],
+    applied_mitigation=[
+        {"@id": SOLVEIT_DATA + "mitigationDFM-1027"},
+        {"@id": SOLVEIT_DATA + "mitigationDFM-1175"},
+        {"@id": SOLVEIT_DATA + "mitigationDFM-1179"},
+    ],
+)
 ```
 
 Prefer dual-tool verification: run Mandiant iterator **and** Notari (or
@@ -222,10 +221,10 @@ not duplicate them.
   relationships.
 - **Putting subsystem only in free-text description.** Use
   `eventRecordServiceName` and/or `DictionaryEntry`.
-- **Using `case_uco_solveit.SolveitInvestigativeAction` dataclass for
-  instrument/result.** Its current codegen emits `uco-core:instrument`,
-  which fails strict concept coverage — create `InvestigativeAction` then
-  retarget `@type` (as in the exemplar).
+- **Using a pre-0.2.0 `case_uco_solveit` package.** Older
+  `SolveitInvestigativeAction` dataclasses emitted `uco-core:instrument`
+  (failing strict concept coverage); 0.2.0+ serializes `uco-action:*`
+  keys and `usedTechnique`/`appliedMitigation` natively.
 - **Claiming message text you did not parse.** Binary `.tracev3` rows need
   a parser; if you only have the archive, stop at the
   `AppleUnifiedLogArchive` node.

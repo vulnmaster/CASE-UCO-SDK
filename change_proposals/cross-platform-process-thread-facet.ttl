@@ -1,0 +1,32 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix proposed: <http://example.org/ontology/proposed/> .
+
+# Prototype extension ontology for UCO change proposal:
+# "Cross-platform process thread facet".
+# Grounded in: Apple Unified Logging thread_id
+# (https://developer.apple.com/documentation/os/logging), Linux gettid(2)
+# (https://man7.org/linux/man-pages/man2/gettid.2.html), and thread
+# enumerations in Apple sysdiagnose stackshot .ips reports.
+
+proposed:ProcessThreadFacet
+    a owl:Class ;
+    rdfs:subClassOf uco-core:Facet ;
+    rdfs:label "ProcessThreadFacet"@en ;
+    rdfs:comment "A process thread facet is a grouping of characteristics unique to a single thread of execution within a process, independent of operating system platform. Complements uco-observable:ProcessThread, which currently has no platform-neutral facet; uco-observable:WindowsThreadFacet covers only Windows thread semantics."@en .
+
+proposed:threadID
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:ProcessThreadFacet ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "threadID"@en ;
+    rdfs:comment "The numeric identifier of the thread as assigned by the operating system (e.g., Apple Unified Logging thread_id, Linux TID from gettid(2))."@en .
+
+proposed:threadName
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:ProcessThreadFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "threadName"@en ;
+    rdfs:comment "The human-readable name of the thread, when the platform or runtime assigns one (e.g., pthread_setname_np on Apple/Linux platforms)."@en .

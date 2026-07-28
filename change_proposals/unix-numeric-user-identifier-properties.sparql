@@ -1,0 +1,32 @@
+# CQ 1.1: Which UNIX account has numeric uid 205 (attributing unified-log
+# activity reported by euid column to a named account)?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?account ?name
+WHERE {
+    ?account uco-core:name ?name ;
+             uco-core:hasFacet ?facet .
+    ?facet a uco-observable:UNIXAccountFacet ;
+           proposed:uid ?uid .
+    FILTER (?uid = "205"^^xsd:nonNegativeInteger)
+}
+
+# ---
+# CQ 1.2: Which processes exhibit a setuid privilege change (effective uid
+# differs from real uid)?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?process ?name ?ruid ?euid
+WHERE {
+    ?process uco-core:name ?name ;
+             uco-core:hasFacet ?facet .
+    ?facet a uco-observable:UNIXProcessFacet ;
+           uco-observable:ruid ?ruid ;
+           proposed:euid ?euid .
+    FILTER (?euid != ?ruid)
+}

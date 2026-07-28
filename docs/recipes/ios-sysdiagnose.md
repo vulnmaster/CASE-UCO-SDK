@@ -31,7 +31,7 @@ the DFRWS USA Sysdiagnosis workshop corpus layout
 
 | Class | Role |
 |---|---|
-| `uco-observable:ObservableObject` + `DeviceFacet` + `MobileDeviceFacet` | The iPhone/iPad/Mac that produced the archive |
+| `uco-observable:ObservableObject` + `DeviceFacet` (+ `MobileDeviceFacet` when IMEI/ESN/network evidence exists) | The iPhone/iPad/Mac that produced the archive |
 | `uco-observable:OperatingSystem` + `SoftwareFacet` (+ dual-type `Software`) | OS from `logs/SystemVersion/SystemVersion.plist` |
 | `uco-observable:ObservableObject` + `FileFacet` (`isDirectory=true`) | Sysdiagnose root directory |
 | `solveit-observable:AppleUnifiedLogArchive` (+ dual-type `EventLog`) | `system_logs.logarchive` container |
@@ -50,7 +50,7 @@ validation) for `AppleUnifiedLogArchive`.
 Investigation
   └── object ──▶ InvestigativeAction ("Collect iOS sysdiagnose")
                      ├── instrument ──▶ Tool (UFADE / pymobiledevice3)
-                     ├── object ──▶ phone (DeviceFacet + MobileDeviceFacet)
+                     ├── object ──▶ phone (DeviceFacet model=iPhone12,1)
                      └── result ──▶ sysdiagnose_dir
                                 ──▶ system_logs.logarchive
 
@@ -73,17 +73,19 @@ When workshop bytes are not hashed in-repo, tag containers with
 from case_uco import CASEGraph
 from case_uco.uco.identity import Identity
 from case_uco.uco.observable import (
-    ObservableObject, DeviceFacet, MobileDeviceFacet,
+    ObservableObject, DeviceFacet,
     OperatingSystem, SoftwareFacet, ObservableRelationship,
 )
 
 graph = CASEGraph()
 apple = graph.create(Identity, name="Apple Inc.")
+# Hardware model (e.g. "iPhone12,1") is in crashes_and_spins/*.ips headers
+# ("product") and summaries. Add MobileDeviceFacet only when you have
+# mobile-specific evidence to assert (IMEI, ESN, network) — not empty.
 phone = graph.create(ObservableObject,
     name="iPhone (sysdiagnose 2024-08-02)",
     has_facet=[
-        DeviceFacet(manufacturer=apple, model="iPhone", device_type="Mobile Phone"),
-        MobileDeviceFacet(),
+        DeviceFacet(manufacturer=apple, model="iPhone12,1", device_type="Mobile Phone"),
     ],
 )
 ios = graph.create(OperatingSystem,
@@ -167,6 +169,42 @@ wifi = graph.create(WirelessNetworkConnection,
 Do **not** copy AirPort keychain password material from `WiFi/security.txt`
 into the graph — model SSID/BSSID/join times only.
 
+### Crash reports and stackshots (`crashes_and_spins/*.ips`)
+
+Apple `.ips` reports are JSON: a one-line header (`bug_type`, `timestamp`,
+`os_version`, `incident_id`) plus a payload. In the workshop corpus,
+`stacks-2024-08-02-161926.ips` (`bug_type` 288) is the stackshot taken *by*
+the sysdiagnose trigger itself — `"reason": "stackshot via sysdiagnose (XPC)"`
+with `crashReporterKey`, `product` (`iPhone12,1`), `kernel` build, and a
+boot-relative `absoluteTime` in mach ticks.
+
+Model each retained report as a file plus an `EventRecord`:
+
+```python
+crash_ips = graph.create(ObservableObject,
+    name="stacks-2024-08-02-161926.ips",
+    has_facet=[FileFacet(
+        file_name=["stacks-2024-08-02-161926.ips"],
+        file_path=[".../crashes_and_spins/stacks-2024-08-02-161926.ips"],
+    )],
+)
+crash_record = graph.create(EventRecord,
+    name="Stackshot via sysdiagnose (bug_type 288)",
+    has_facet=[EventRecordFacet(
+        event_record_id="F7A78B41-4507-43CA-9E76-62CD057EFD77",  # incident_id
+        event_type="stackshot",
+        event_record_service_name="crash_reporter",
+        event_record_device=phone,
+        observable_created_time=datetime(2024, 8, 2, 16, 19, 26, tzinfo=tz),
+    )],
+)
+# Contained_Within → sysdiagnose dir; keep bug_type / crashReporterKey /
+# absoluteTime (mach ticks) as DictionaryEntry values on a companion Event.
+```
+
+The header `timestamp` on `.ips` files **is** wall-clock (unlike unresolved
+unified-log rows), so `observableCreatedTime` is safe here.
+
 ## Anti-patterns
 
 - **Flattening the archive into one blob.** Keep the sysdiagnose directory,
@@ -187,8 +225,8 @@ into the graph — model SSID/BSSID/join times only.
 1. Create the device + OS from `SystemVersion.plist` (ProductVersion / Build).
 2. Create the sysdiagnose directory observable; link `Extracted_From` → device.
 3. Create `system_logs.logarchive` as `AppleUnifiedLogArchive` (+ `EventLog`).
-4. Attach high-value children (WiFi networks, BatteryBDC CSV, crash folder) with
-   containment relationships.
+4. Attach high-value children (WiFi networks, BatteryBDC CSV,
+   `crashes_and_spins/*.ips` reports) with containment relationships.
 5. Record collection as `InvestigativeAction` with `instrument` / `object` /
    `result` and a `ProvenanceRecord`.
 6. Hand off parsing to [apple-unified-logs.md](apple-unified-logs.md).

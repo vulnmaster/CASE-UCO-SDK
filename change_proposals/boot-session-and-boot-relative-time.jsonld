@@ -1,0 +1,96 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/",
+    "proposed": "http://example.org/ontology/proposed/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:bootsession-1",
+      "@type": "proposed:BootSession",
+      "uco-core:name": "iPhone boot 284A4757-2E0C-4F9F-B635-82FA436F4444",
+      "uco-core:description": [
+        "Boot epoch observed in system_logs.logarchive from an iOS 17.3 sysdiagnose. The archive contains no timesync directory, so no wall-clock bootTime is asserted."
+      ],
+      "proposed:bootIdentifier": "284A47572E0C4F9FB63582FA436F4444"
+    },
+    {
+      "@id": "kb:bootsession-2",
+      "@type": "proposed:BootSession",
+      "uco-core:name": "Linux workstation boot b43c0ade",
+      "uco-core:description": [
+        "Boot epoch of a Linux analysis workstation; boot_id from /proc/sys/kernel/random/boot_id with wall-clock boot time resolvable from journald."
+      ],
+      "proposed:bootIdentifier": "b43c0ade-12b5-4bd3-8f04-9f0b7f8e2f61",
+      "proposed:bootTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-08-02T12:00:00Z"
+      }
+    },
+    {
+      "@id": "kb:eventrecord-1",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "Unified log row 0 (Simpledump)",
+      "uco-core:description": [
+        "Row emitted by unifiedlog_iterator from a logarchive without timesync: only mach_continuous_time ticks and boot_uuid anchor the record in time."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:eventrecord-1-facet",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordText": "rerouted lookup to a foreground user endpoint: name = com.apple.coreduetd.knowledge, caller = analyticsd[110]",
+          "uco-observable:eventRecordServiceName": "system",
+          "uco-observable:eventType": "Simpledump",
+          "proposed:bootSession": {"@id": "kb:bootsession-1"},
+          "proposed:bootRelativeTicks": {
+            "@type": "xsd:integer",
+            "@value": "4390314937785"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "kb:eventrecord-2",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "Unified log row 1 (Simpledump)",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:eventrecord-2-facet",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordText": "Successfully spawned iconservicesagent[326] because ipc (mach)",
+          "uco-observable:eventRecordServiceName": "user/501/com.apple.iconservices.iconservicesagent [326]",
+          "uco-observable:eventType": "Simpledump",
+          "proposed:bootSession": {"@id": "kb:bootsession-1"},
+          "proposed:bootRelativeTicks": {
+            "@type": "xsd:integer",
+            "@value": "4390146762438"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "kb:eventrecord-3",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "dmesg USB attach record",
+      "uco-core:description": [
+        "Linux kernel ring-buffer record whose native timestamp is seconds since boot; wall-clock derivable because kb:bootsession-2 has a resolved bootTime."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:eventrecord-3-facet",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordText": "usb 1-1: new high-speed USB device number 4 using xhci_hcd",
+          "uco-observable:eventRecordServiceName": "kernel",
+          "uco-observable:eventType": "dmesg",
+          "proposed:bootSession": {"@id": "kb:bootsession-2"},
+          "proposed:bootRelativeTime": {
+            "@type": "xsd:decimal",
+            "@value": "12345.678901"
+          }
+        }
+      ]
+    }
+  ]
+}

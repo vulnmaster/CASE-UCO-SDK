@@ -1248,13 +1248,13 @@ RECIPE_INDEX: list[dict[str, str]] = [
     {
         "title": "iOS / macOS Sysdiagnose Archives",
         "description": "Model Apple sysdiagnose packages: device/OS, archive tree, system_logs.logarchive as AppleUnifiedLogArchive, Wi-Fi and BatteryBDC children, collection provenance.",
-        "keywords": "sysdiagnose sys diagnosis apple ios macos iphone logarchive system_logs unified logging ufade pymobiledevice3 libimobiledevice crash wifi batterybdc summaries tracev3",
+        "keywords": "sysdiagnose sys diagnosis apple ios macos iphone logarchive system_logs unified logging ufade pymobiledevice3 libimobiledevice crash wifi batterybdc summaries tracev3 ips stackshot crashes_and_spins crash_reporter runningboard ioreg brctl incident_id crashreporterkey",
         "file": "docs/recipes/ios-sysdiagnose.md",
     },
     {
         "title": "Apple Unified Logs and Analytic Tool Outputs",
         "description": "Model Apple Unified Logging EventRecords and structured parser outputs from unifiedlog_iterator CSV, Notari SQLite, and iLEAPP with SOLVE-IT DFT-1066/1076 provenance.",
-        "keywords": "unified log unified logs apple oslog logarchive tracev3 unifiedlog_iterator mandiant notari ileapp sqlite csv eventrecord subsystem category locationd signpost persist",
+        "keywords": "unified log unified logs apple oslog logarchive tracev3 unifiedlog_iterator mandiant notari ileapp sqlite csv eventrecord subsystem category locationd signpost persist timesync boot_uuid mach_continuous_time simpledump log show activity_id",
         "file": "docs/recipes/apple-unified-logs.md",
     },
     {
@@ -1353,6 +1353,7 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         "keywords": [
             "sysdiagnose", "system_logs", "logarchive", "iphone-os", "ufade",
             "pymobiledevice3", "summaries", "batterybdc", "tracev3",
+            "ips", "stackshot", "crashes_and_spins", "runningboard",
         ],
         "pattern": "Device + sysdiagnose FileFacet directory + AppleUnifiedLogArchive/EventLog",
         "classes": [
@@ -1372,6 +1373,7 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         "keywords": [
             "unified log", "unified logs", "oslog", "unifiedlog_iterator", "notari",
             "ileapp", "signpost", "subsystem", "category", "tracev3",
+            "timesync", "boot_uuid", "mach_continuous_time", "simpledump",
         ],
         "pattern": "AppleUnifiedLogArchive → EventRecord + Event + AnalyticTool outputs (CSV/SQLite)",
         "classes": [

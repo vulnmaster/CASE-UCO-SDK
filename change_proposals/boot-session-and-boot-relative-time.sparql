@@ -1,0 +1,50 @@
+# CQ 1.1: Which event records belong to each boot session, ordered by
+# boot-relative offset within that boot?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?bootIdentifier ?record ?text ?ticks ?seconds
+WHERE {
+    ?record a uco-observable:EventRecord ;
+            uco-core:hasFacet ?facet .
+    ?facet a uco-observable:EventRecordFacet ;
+           proposed:bootSession ?boot ;
+           uco-observable:eventRecordText ?text .
+    ?boot proposed:bootIdentifier ?bootIdentifier .
+    OPTIONAL { ?facet proposed:bootRelativeTicks ?ticks . }
+    OPTIONAL { ?facet proposed:bootRelativeTime ?seconds . }
+}
+ORDER BY ?bootIdentifier ?ticks ?seconds
+
+# ---
+# CQ 1.2: Which records were generated during the iOS boot epoch
+# 284A47572E0C4F9FB63582FA436F4444, even though the archive resolves no
+# wall-clock time for them?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?record ?text ?ticks
+WHERE {
+    ?boot a proposed:BootSession ;
+          proposed:bootIdentifier "284A47572E0C4F9FB63582FA436F4444" .
+    ?record uco-core:hasFacet ?facet .
+    ?facet proposed:bootSession ?boot ;
+           uco-observable:eventRecordText ?text ;
+           proposed:bootRelativeTicks ?ticks .
+}
+ORDER BY ?ticks
+
+# ---
+# CQ 1.3: Which boot sessions have a resolved wall-clock bootTime, and
+# which are anchored only by identifier (no timesync)?
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?boot ?bootIdentifier ?bootTime
+WHERE {
+    ?boot a proposed:BootSession ;
+          proposed:bootIdentifier ?bootIdentifier .
+    OPTIONAL { ?boot proposed:bootTime ?bootTime . }
+}

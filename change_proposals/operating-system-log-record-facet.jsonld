@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/",
+    "proposed": "http://example.org/ontology/proposed/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:eventrecord-1",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "wifid association attempt (unified log)",
+      "uco-core:description": [
+        "Apple Unified Logging record from an iOS 17.3 system_logs.logarchive parsed with unifiedlog_iterator; OS-log routing fields carried by the proposed facet alongside the core EventRecordFacet."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:eventrecord-1-facet",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordText": "__WiFiDeviceManagerDispatchUserForcedAssociationCallback: attempting to associate",
+          "uco-observable:eventRecordServiceName": "wifid"
+        },
+        {
+          "@id": "kb:eventrecord-1-oslog-facet",
+          "@type": "proposed:OperatingSystemLogRecordFacet",
+          "proposed:logSubsystem": "com.apple.wifi",
+          "proposed:logCategory": "dynamic",
+          "proposed:logLevel": "Default",
+          "proposed:activityIdentifier": "0",
+          "proposed:senderImageName": "/usr/libexec/wifid"
+        }
+      ]
+    },
+    {
+      "@id": "kb:eventrecord-2",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "locationd state record (unified log)",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:eventrecord-2-facet",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordText": "{\"msg\":\"#CLIUAgent, receiving state update\", \"event\":\"activity\"}",
+          "uco-observable:eventRecordServiceName": "locationd"
+        },
+        {
+          "@id": "kb:eventrecord-2-oslog-facet",
+          "@type": "proposed:OperatingSystemLogRecordFacet",
+          "proposed:logSubsystem": "com.apple.locationd.Core",
+          "proposed:logCategory": "Default",
+          "proposed:logLevel": "Info",
+          "proposed:activityIdentifier": "0",
+          "proposed:senderImageName": "/usr/libexec/locationd"
+        }
+      ]
+    },
+    {
+      "@id": "kb:eventrecord-3",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "Sysmon process creation record (ETW)",
+      "uco-core:description": [
+        "Windows ETW record showing the same facet shape applied to a provider/channel/level model."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:eventrecord-3-facet",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordText": "Process Create: Image: C:\\Windows\\System32\\cmd.exe",
+          "uco-observable:eventRecordID": "1",
+          "uco-observable:eventRecordServiceName": "Sysmon"
+        },
+        {
+          "@id": "kb:eventrecord-3-oslog-facet",
+          "@type": "proposed:OperatingSystemLogRecordFacet",
+          "proposed:logSubsystem": "Microsoft-Windows-Sysmon",
+          "proposed:logCategory": "Microsoft-Windows-Sysmon/Operational",
+          "proposed:logLevel": "Information",
+          "proposed:activityIdentifier": "{7E1A2B34-0C5D-4E6F-8A9B-0C1D2E3F4A5B}",
+          "proposed:senderImageName": "C:\\Windows\\Sysmon64.exe"
+        }
+      ]
+    }
+  ]
+}
