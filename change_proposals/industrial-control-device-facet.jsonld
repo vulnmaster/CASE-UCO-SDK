@@ -1,0 +1,65 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/",
+    "proposed": "http://example.org/ontology/proposed/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:plc-1-aaaaaaaa-bbbb-4ccc-8ddd-000000000001",
+      "@type": "uco-observable:EmbeddedDevice",
+      "uco-core:name": "PLC-RAW-03",
+      "uco-core:description": [
+        "Tier T0 synthetic PLC for Victims First! DFRWS Rodeo industrial-control-device-facet proposal."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:plc-1-device-facet-aaaaaaaa-bbbb-4ccc-8ddd-000000000002",
+          "@type": "uco-observable:DeviceFacet",
+          "uco-observable:deviceType": "programmable-logic-controller",
+          "uco-observable:model": "ControlLogix 1756-L83E (synthetic)",
+          "uco-observable:serialNumber": "SN-T0-PLC-RAW-03"
+        },
+        {
+          "@id": "kb:plc-1-ics-facet-aaaaaaaa-bbbb-4ccc-8ddd-000000000003",
+          "@type": "proposed:IndustrialControlDeviceFacet",
+          "proposed:controllerRole": "plc",
+          "proposed:firmwareRevision": "32.011",
+          "proposed:programIdentity": "RAW_WATER_PUMP3_v12",
+          "proposed:rackNumber": 0,
+          "proposed:slotNumber": 0,
+          "proposed:otNetworkZone": "Purdue-L1-OT-VLAN-50"
+        }
+      ]
+    },
+    {
+      "@id": "kb:event-hihi-1-aaaaaaaa-bbbb-4ccc-8ddd-000000000004",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "Historian HIHI — PUMP3_DISCHARGE_PSI",
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:event-hihi-1-core-aaaaaaaa-bbbb-4ccc-8ddd-000000000005",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventType": "HIHI",
+          "uco-observable:eventRecordDevice": {
+            "@id": "kb:plc-1-aaaaaaaa-bbbb-4ccc-8ddd-000000000001"
+          },
+          "uco-observable:eventRecordText": "PUMP3_DISCHARGE_PSI HIHI active"
+        },
+        {
+          "@id": "kb:event-hihi-1-process-aaaaaaaa-bbbb-4ccc-8ddd-000000000006",
+          "@type": "proposed:IndustrialProcessEventFacet",
+          "proposed:processTagName": "PUMP3_DISCHARGE_PSI",
+          "proposed:engineeringUnit": "psi",
+          "proposed:processValue": 118.4,
+          "proposed:setpointValue": 95.0,
+          "proposed:priorSetpointValue": 72.0,
+          "proposed:protocolFunctionCode": "16",
+          "proposed:protocolObjectAddress": "40010"
+        }
+      ]
+    }
+  ]
+}

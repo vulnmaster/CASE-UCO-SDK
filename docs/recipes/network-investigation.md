@@ -456,3 +456,10 @@ Key practices:
 - Relationship tags use convention values: `observed`, `inferred`, `configuration`.
 - Investigation forms use `InvestigationFormVocab`: `case`, `incident`, `suspicious-activity`.
 - Wireless security modes use `WirelessNetworkSecurityModeVocab`: `None`, `WEP`, `WPA`, `WPA2-PSK`, `WPA2-Enterprise`, `WPA3-PSK`, `WPA3-Enterprise`.
+
+## Related
+
+- [network-artifacts.md](network-artifacts.md) — IPs, DNS, URLs as observables without full investigation wrapper
+- [otics-scada-intrusion.md](otics-scada-intrusion.md) — ICS/SCADA OT VLAN captures, PLC/HMI assets, Modbus/TCP process writes
+- [cyber-threat-intelligence.md](cyber-threat-intelligence.md) — APT/CTI reporting across campaigns
+- [analysis.md](analysis.md) — confidence-scored attribution layer

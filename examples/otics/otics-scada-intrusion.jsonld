@@ -1,0 +1,632 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/otics/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "http://example.org/kb/otics/org-cedar-bend-water-7407c55f-a985-51b6-8843-d1640af11fe6",
+            "@type": "uco-identity:Organization",
+            "uco-core:description": "Tier T0 synthetic regional drinking-water utility.",
+            "uco-core:name": "Cedar Bend Water Authority"
+        },
+        {
+            "@id": "http://example.org/kb/otics/identity-examiner-avery-nguyen-ec80560b-8b6b-5b2a-8443-3aa01097a092",
+            "@type": "uco-identity:Identity",
+            "uco-core:description": "Synthetic digital forensics examiner (Victims First! / DFRWS Rodeo).",
+            "uco-core:name": "Avery Nguyen"
+        },
+        {
+            "@id": "http://example.org/kb/otics/org-rockwell-synthetic-7ccf76b9-e68a-5382-bd0f-2017433fc145",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Rockwell Automation (synthetic reference)"
+        },
+        {
+            "@id": "http://example.org/kb/otics/file-ot-segment-capture-d8593526-77f5-5db9-a471-4dbed5052e3d",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-6aec566b-6fc5-49ad-8704-7f26a5b18ae1",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "pcapng",
+                    "uco-observable:fileName": [
+                        "ot-segment-capture.pcapng"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2048576"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-720073ea-8ae2-4a4e-b0e8-436ff114f1c2",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-25c49dd5-97c6-4a48-8c03-6b0e2fd92108",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "a1b2c3d4e5f60718293a4b5c6d7e8f90112233445566778899aabbccddeeff00"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": [
+                        "application/vnd.tcpdump.pcap"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2048576"
+                    }
+                }
+            ],
+            "uco-core:name": "ot-segment-capture.pcapng"
+        },
+        {
+            "@id": "http://example.org/kb/otics/file-plc-raw-03-project-42e10997-cf74-5546-b8bd-e59e297921fb",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:description": "Synthetic ControlLogix project export recovered from ENG-WS-07.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-9d612225-640e-48c7-964f-df4bfef89af9",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "acd",
+                    "uco-observable:fileName": [
+                        "plc-raw-03-project.acd"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "4194304"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-3ac53bc7-5517-4f44-a035-8543e38b47fc",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-9de68e42-15ee-4c28-8bc0-b32cfb1e6848",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": [
+                        "application/octet-stream"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "4194304"
+                    }
+                }
+            ],
+            "uco-core:name": "plc-raw-03-project.acd"
+        },
+        {
+            "@id": "http://example.org/kb/otics/file-historian-alarms-2cca9a90-8402-56f4-a335-aec994c9cbc8",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-866cf46a-7a2d-4762-b553-0b8ad8408038",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "csv",
+                    "uco-observable:fileName": [
+                        "historian-alarms-2026-03-14.csv"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "18432"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-519b4b7c-c0d7-4b31-a21b-11ac12a6b24d",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-bcf3452e-316d-4a70-aa67-7b08bf77ac9b",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": [
+                                "SHA256"
+                            ],
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "ffeeddccbbaa99887766554433221100ffeeddccbbaa99887766554433221100"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": [
+                        "text/csv"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "18432"
+                    }
+                }
+            ],
+            "uco-core:name": "historian-alarms-2026-03-14.csv"
+        },
+        {
+            "@id": "http://example.org/kb/otics/device-eng-ws-07-df4e0ea7-d6fb-593f-9680-e401ac940d22",
+            "@type": "uco-observable:Device",
+            "uco-core:description": "Synthetic OT engineering workstation used for PLC programming.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-562052e5-a7b7-4cb0-8fe7-c8c36e8d6ded",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "engineering-workstation",
+                    "uco-observable:manufacturer": {
+                        "@id": "http://example.org/kb/otics/org-cedar-bend-water-7407c55f-a985-51b6-8843-d1640af11fe6"
+                    },
+                    "uco-observable:model": "Latitude 5540 (synthetic)",
+                    "uco-observable:serialNumber": "CBWA-ENG-0007"
+                }
+            ],
+            "uco-core:name": "ENG-WS-07"
+        },
+        {
+            "@id": "http://example.org/kb/otics/device-hmi-clearscada-1be7df18-54a9-554a-97a9-51fdd552fc60",
+            "@type": "uco-observable:NetworkAppliance",
+            "uco-core:description": "Synthetic supervisory HMI / SCADA server on the OT VLAN.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-ba77b0e0-8e6a-4500-aa40-c3f150c486b8",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "scada-hmi-server",
+                    "uco-observable:manufacturer": {
+                        "@id": "http://example.org/kb/otics/org-cedar-bend-water-7407c55f-a985-51b6-8843-d1640af11fe6"
+                    },
+                    "uco-observable:model": "ClearSCADA Server (synthetic)",
+                    "uco-observable:serialNumber": "CBWA-HMI-0001"
+                }
+            ],
+            "uco-core:name": "HMI-CLEARSCADA-01"
+        },
+        {
+            "@id": "http://example.org/kb/otics/device-plc-raw-03-42beef9c-3e30-5b23-9618-e5d3c4b57fc0",
+            "@type": "uco-observable:EmbeddedDevice",
+            "uco-core:description": "Synthetic raw-water pump PLC. Typed today as EmbeddedDevice + DeviceFacet; no core facet carries rack/slot, firmware revision, or process-tag setpoints.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-1bdca198-3510-4896-87f9-2376611b0f93",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "programmable-logic-controller",
+                    "uco-observable:manufacturer": {
+                        "@id": "http://example.org/kb/otics/org-rockwell-synthetic-7ccf76b9-e68a-5382-bd0f-2017433fc145"
+                    },
+                    "uco-observable:model": "ControlLogix 1756-L83E (synthetic)",
+                    "uco-observable:serialNumber": "SN-T0-PLC-RAW-03"
+                }
+            ],
+            "uco-core:name": "PLC-RAW-03"
+        },
+        {
+            "@id": "http://example.org/kb/otics/ip-10-50-10-47-3c6c7ecd-9e70-528b-8d21-1014c5e055a0",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-f8da873b-801d-47a5-81ec-98a5bdcdc5f1",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "10.50.10.47"
+                }
+            ]
+        },
+        {
+            "@id": "http://example.org/kb/otics/ip-10-50-20-10-55d8707e-39ee-5f21-aa81-bf3d650778c7",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-5e2c133f-cd8b-4446-8736-739a647c65e9",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "10.50.20.10"
+                }
+            ]
+        },
+        {
+            "@id": "http://example.org/kb/otics/ip-10-50-30-13-371f3ad8-0b40-5e21-92a0-ad1eaf78fc2f",
+            "@type": "uco-observable:IPAddress",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:IPAddressFacet-54ebfee2-da49-4c0f-9341-ff36d621a486",
+                    "@type": "uco-observable:IPAddressFacet",
+                    "uco-observable:addressValue": "10.50.30.13"
+                }
+            ]
+        },
+        {
+            "@id": "http://example.org/kb/otics/rel-eng-has-ip-1647dce3-4ac3-5825-9a14-110f2bb6e4f5",
+            "@type": "uco-core:Relationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Connected_To",
+            "uco-core:source": {
+                "@id": "http://example.org/kb/otics/device-eng-ws-07-df4e0ea7-d6fb-593f-9680-e401ac940d22"
+            },
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T02:10:00+00:00"
+            },
+            "uco-core:target": {
+                "@id": "http://example.org/kb/otics/ip-10-50-10-47-3c6c7ecd-9e70-528b-8d21-1014c5e055a0"
+            }
+        },
+        {
+            "@id": "http://example.org/kb/otics/rel-hmi-has-ip-8596752d-e6ad-5a43-a471-1a0fb15f34ef",
+            "@type": "uco-core:Relationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Connected_To",
+            "uco-core:source": {
+                "@id": "http://example.org/kb/otics/device-hmi-clearscada-1be7df18-54a9-554a-97a9-51fdd552fc60"
+            },
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T02:10:00+00:00"
+            },
+            "uco-core:target": {
+                "@id": "http://example.org/kb/otics/ip-10-50-20-10-55d8707e-39ee-5f21-aa81-bf3d650778c7"
+            }
+        },
+        {
+            "@id": "http://example.org/kb/otics/rel-plc-has-ip-0e34b5ec-b66b-59d9-8f29-dacad88138f5",
+            "@type": "uco-core:Relationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Connected_To",
+            "uco-core:source": {
+                "@id": "http://example.org/kb/otics/device-plc-raw-03-42beef9c-3e30-5b23-9618-e5d3c4b57fc0"
+            },
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T02:10:00+00:00"
+            },
+            "uco-core:target": {
+                "@id": "http://example.org/kb/otics/ip-10-50-30-13-371f3ad8-0b40-5e21-92a0-ad1eaf78fc2f"
+            }
+        },
+        {
+            "@id": "http://example.org/kb/otics/conn-modbus-write-setpoint-d2680c79-0caf-50ae-80ee-4e54ef464caf",
+            "@type": "uco-observable:TCPConnection",
+            "uco-core:description": "Synthetic Modbus/TCP session carrying unauthorized holding-register writes (function code 16) that raise pump discharge pressure setpoint. Function code and register address are described in prose because UCO has no industrial protocol facet.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:NetworkConnectionFacet-c705e245-1536-4143-9c90-c6834f6edaa0",
+                    "@type": "uco-observable:NetworkConnectionFacet",
+                    "uco-observable:destinationPort": {
+                        "@type": "xsd:integer",
+                        "@value": "502"
+                    },
+                    "uco-observable:dst": {
+                        "@id": "http://example.org/kb/otics/ip-10-50-30-13-371f3ad8-0b40-5e21-92a0-ad1eaf78fc2f"
+                    },
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-14T03:41:18+00:00"
+                    },
+                    "uco-observable:sourcePort": {
+                        "@type": "xsd:integer",
+                        "@value": "49152"
+                    },
+                    "uco-observable:src": {
+                        "@id": "http://example.org/kb/otics/ip-10-50-10-47-3c6c7ecd-9e70-528b-8d21-1014c5e055a0"
+                    },
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-14T03:41:12+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:NetworkFlowFacet-c2a74535-1c49-44e9-92c5-6ed52b625e66",
+                    "@type": "uco-observable:NetworkFlowFacet",
+                    "uco-observable:dstBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "640"
+                    },
+                    "uco-observable:dstPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "12"
+                    },
+                    "uco-observable:srcBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "896"
+                    },
+                    "uco-observable:srcPackets": {
+                        "@type": "xsd:integer",
+                        "@value": "14"
+                    }
+                }
+            ],
+            "uco-core:name": "Modbus/TCP write to PLC-RAW-03"
+        },
+        {
+            "@id": "http://example.org/kb/otics/rel-modbus-in-pcap-04b03d29-bab1-5788-a65b-6c821ae5f54e",
+            "@type": "uco-core:Relationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "http://example.org/kb/otics/conn-modbus-write-setpoint-d2680c79-0caf-50ae-80ee-4e54ef464caf"
+            },
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T03:41:12+00:00"
+            },
+            "uco-core:target": {
+                "@id": "http://example.org/kb/otics/file-ot-segment-capture-d8593526-77f5-5db9-a471-4dbed5052e3d"
+            }
+        },
+        {
+            "@id": "http://example.org/kb/otics/event-historian-hihi-discharge-32446779-eac4-57da-9c72-688e296fc8ae",
+            "@type": "uco-observable:EventRecord",
+            "uco-core:description": "Synthetic ClearSCADA historian row. Tag name, engineering units, and setpoint before/after cannot be typed on EventRecordFacet today.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:EventRecordFacet-f2b97a4d-2759-4da0-98c8-58a4fb90b798",
+                    "@type": "uco-observable:EventRecordFacet",
+                    "uco-observable:application": {
+                        "@id": "http://example.org/kb/otics/device-hmi-clearscada-1be7df18-54a9-554a-97a9-51fdd552fc60"
+                    },
+                    "uco-observable:eventID": "ALM-2026-0314-8841",
+                    "uco-observable:eventRecordDevice": {
+                        "@id": "http://example.org/kb/otics/device-plc-raw-03-42beef9c-3e30-5b23-9618-e5d3c4b57fc0"
+                    },
+                    "uco-observable:eventRecordServiceName": "ClearSCADA-Historian",
+                    "uco-observable:eventRecordText": "PUMP3_DISCHARGE_PSI HIHI active value=118.4 psi trip=95.0 psi (unauthorized setpoint change suspected)",
+                    "uco-observable:eventType": "HIHI",
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-14T03:41:20+00:00"
+                    }
+                }
+            ],
+            "uco-core:name": "Historian HIHI alarm \u2014 PUMP3_DISCHARGE_PSI"
+        },
+        {
+            "@id": "http://example.org/kb/otics/rel-alarm-from-csv-7dbb60fc-cbb0-5839-bfae-713383c98b72",
+            "@type": "uco-core:Relationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "http://example.org/kb/otics/event-historian-hihi-discharge-32446779-eac4-57da-9c72-688e296fc8ae"
+            },
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T03:41:20+00:00"
+            },
+            "uco-core:target": {
+                "@id": "http://example.org/kb/otics/file-historian-alarms-2cca9a90-8402-56f4-a335-aec994c9cbc8"
+            }
+        },
+        {
+            "@id": "http://example.org/kb/otics/event-hmi-logic-download-c4a14a74-c0d2-5bd0-975f-2423bd4c6edd",
+            "@type": "uco-observable:EventRecord",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:EventRecordFacet-722afe57-a1e9-43f1-9560-5a7dd79e5672",
+                    "@type": "uco-observable:EventRecordFacet",
+                    "uco-observable:application": {
+                        "@id": "http://example.org/kb/otics/device-hmi-clearscada-1be7df18-54a9-554a-97a9-51fdd552fc60"
+                    },
+                    "uco-observable:eventID": "AUD-2026-0314-221",
+                    "uco-observable:eventRecordDevice": {
+                        "@id": "http://example.org/kb/otics/device-plc-raw-03-42beef9c-3e30-5b23-9618-e5d3c4b57fc0"
+                    },
+                    "uco-observable:eventRecordServiceName": "HMI-Audit",
+                    "uco-observable:eventRecordText": "User ENGTEC downloaded project to PLC-RAW-03 from ENG-WS-07 outside approved change window",
+                    "uco-observable:eventType": "PROGRAM_DOWNLOAD",
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-14T03:38:44+00:00"
+                    }
+                }
+            ],
+            "uco-core:name": "HMI audit \u2014 unauthorized PLC logic download"
+        },
+        {
+            "@id": "http://example.org/kb/otics/tool-wireshark-cb122278-bdd1-52f7-be6d-80d31751520d",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "Wireshark",
+            "uco-tool:toolType": "Network Protocol Analyzer",
+            "uco-tool:version": "4.4.5"
+        },
+        {
+            "@id": "http://example.org/kb/otics/tool-otis-parser-275ba659-3326-5b85-b5a0-1201a8dc7efc",
+            "@type": "uco-tool:AnalyticTool",
+            "uco-core:name": "OTIS Packet Annotator (synthetic)",
+            "uco-tool:toolType": "ICS Protocol Analysis",
+            "uco-tool:version": "0.3.1"
+        },
+        {
+            "@id": "http://example.org/kb/otics/action-ot-span-capture-79e7d0a9-0b81-5451-8b1a-fb35ca440920",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Acquire OT VLAN SPAN capture",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T04:35:00+00:00"
+            },
+            "uco-action:instrument": {
+                "@id": "http://example.org/kb/otics/tool-wireshark-cb122278-bdd1-52f7-be6d-80d31751520d"
+            },
+            "uco-action:object": [
+                {
+                    "@id": "http://example.org/kb/otics/device-hmi-clearscada-1be7df18-54a9-554a-97a9-51fdd552fc60"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/device-plc-raw-03-42beef9c-3e30-5b23-9618-e5d3c4b57fc0"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/device-eng-ws-07-df4e0ea7-d6fb-593f-9680-e401ac940d22"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "http://example.org/kb/otics/identity-examiner-avery-nguyen-ec80560b-8b6b-5b2a-8443-3aa01097a092"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "http://example.org/kb/otics/file-ot-segment-capture-d8593526-77f5-5db9-a471-4dbed5052e3d"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T04:05:00+00:00"
+            }
+        },
+        {
+            "@id": "http://example.org/kb/otics/action-modbus-setpoint-analysis-20ca6894-b775-5304-88bb-a0ecde1eb521",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": "Correlate unauthorized Modbus holding-register writes with HIHI alarms and HMI program-download audit events.",
+            "uco-core:name": "Analyze Modbus writes and historian correlation",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T06:00:00+00:00"
+            },
+            "uco-action:instrument": {
+                "@id": "http://example.org/kb/otics/tool-otis-parser-275ba659-3326-5b85-b5a0-1201a8dc7efc"
+            },
+            "uco-action:object": [
+                {
+                    "@id": "http://example.org/kb/otics/file-ot-segment-capture-d8593526-77f5-5db9-a471-4dbed5052e3d"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/file-historian-alarms-2cca9a90-8402-56f4-a335-aec994c9cbc8"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/file-plc-raw-03-project-42e10997-cf74-5546-b8bd-e59e297921fb"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/conn-modbus-write-setpoint-d2680c79-0caf-50ae-80ee-4e54ef464caf"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/event-historian-hihi-discharge-32446779-eac4-57da-9c72-688e296fc8ae"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/event-hmi-logic-download-c4a14a74-c0d2-5bd0-975f-2423bd4c6edd"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "http://example.org/kb/otics/identity-examiner-avery-nguyen-ec80560b-8b6b-5b2a-8443-3aa01097a092"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "http://example.org/kb/otics/conn-modbus-write-setpoint-d2680c79-0caf-50ae-80ee-4e54ef464caf"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/event-historian-hihi-discharge-32446779-eac4-57da-9c72-688e296fc8ae"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-14T05:10:00+00:00"
+            },
+            "case-investigation:wasInformedBy": [
+                {
+                    "@id": "http://example.org/kb/otics/action-ot-span-capture-79e7d0a9-0b81-5451-8b1a-fb35ca440920"
+                }
+            ]
+        },
+        {
+            "@id": "http://example.org/kb/otics/prov-ot-capture-673b2f4b-7ad9-5b88-84a3-9a4ec31da219",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:description": "SPAN acquisition of OT VLAN traffic for INV-2026-OT-001.",
+            "uco-core:object": [
+                {
+                    "@id": "http://example.org/kb/otics/file-ot-segment-capture-d8593526-77f5-5db9-a471-4dbed5052e3d"
+                }
+            ]
+        },
+        {
+            "@id": "http://example.org/kb/otics/investigation-cooling-tower-2c40c01b-f509-5cff-934c-46c65ece03c1",
+            "@type": "case-investigation:Investigation",
+            "uco-core:createdBy": {
+                "@id": "http://example.org/kb/otics/identity-examiner-avery-nguyen-ec80560b-8b6b-5b2a-8443-3aa01097a092"
+            },
+            "uco-core:description": "Tier T0 synthetic ICS/SCADA investigation (DFRWS Rodeo / Victims First!). Models PLC, HMI, Modbus/TCP, historian alarms, and engineering workstation artifacts with core CASE/UCO types.",
+            "uco-core:name": "Operation COOLING TOWER \u2014 Cedar Bend Water Authority OT intrusion",
+            "uco-core:object": [
+                {
+                    "@id": "http://example.org/kb/otics/action-ot-span-capture-79e7d0a9-0b81-5451-8b1a-fb35ca440920"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/action-modbus-setpoint-analysis-20ca6894-b775-5304-88bb-a0ecde1eb521"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/prov-ot-capture-673b2f4b-7ad9-5b88-84a3-9a4ec31da219"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/file-ot-segment-capture-d8593526-77f5-5db9-a471-4dbed5052e3d"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/file-plc-raw-03-project-42e10997-cf74-5546-b8bd-e59e297921fb"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/file-historian-alarms-2cca9a90-8402-56f4-a335-aec994c9cbc8"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/device-eng-ws-07-df4e0ea7-d6fb-593f-9680-e401ac940d22"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/device-hmi-clearscada-1be7df18-54a9-554a-97a9-51fdd552fc60"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/device-plc-raw-03-42beef9c-3e30-5b23-9618-e5d3c4b57fc0"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/conn-modbus-write-setpoint-d2680c79-0caf-50ae-80ee-4e54ef464caf"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/event-historian-hihi-discharge-32446779-eac4-57da-9c72-688e296fc8ae"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/event-hmi-logic-download-c4a14a74-c0d2-5bd0-975f-2423bd4c6edd"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/org-cedar-bend-water-7407c55f-a985-51b6-8843-d1640af11fe6"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/org-rockwell-synthetic-7ccf76b9-e68a-5382-bd0f-2017433fc145"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/identity-examiner-avery-nguyen-ec80560b-8b6b-5b2a-8443-3aa01097a092"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/tool-wireshark-cb122278-bdd1-52f7-be6d-80d31751520d"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/tool-otis-parser-275ba659-3326-5b85-b5a0-1201a8dc7efc"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/ip-10-50-10-47-3c6c7ecd-9e70-528b-8d21-1014c5e055a0"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/ip-10-50-20-10-55d8707e-39ee-5f21-aa81-bf3d650778c7"
+                },
+                {
+                    "@id": "http://example.org/kb/otics/ip-10-50-30-13-371f3ad8-0b40-5e21-92a0-ad1eaf78fc2f"
+                }
+            ]
+        }
+    ]
+}

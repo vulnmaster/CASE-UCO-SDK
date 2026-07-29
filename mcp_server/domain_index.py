@@ -1212,6 +1212,12 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "file": "docs/recipes/cargo-theft-route-staging.md",
     },
     {
+        "title": "ICS/SCADA and OT Network Intrusion",
+        "description": "Model PLC/HMI assets, OT VLAN captures, Modbus/TCP process writes, historian alarms, and engineering workstation project files.",
+        "keywords": "ics scada ot plc rtu hmi dcs historian modbus dnp3 ethernet/ip opc ua setpoint ladder logic industrial control process control operational technology",
+        "file": "docs/recipes/otics-scada-intrusion.md",
+    },
+    {
         "title": "Starter Kit: Filesystem Report Mapping",
         "description": "End-to-end mapping of a filesystem report to CASE/UCO.",
         "keywords": "starter kit filesystem file report triage mapping end-to-end hash",
