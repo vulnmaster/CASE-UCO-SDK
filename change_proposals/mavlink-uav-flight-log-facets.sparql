@@ -1,0 +1,17 @@
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+# CQ 1.1 — status text attribution by MAVLink system/component id
+SELECT ?sys ?comp ?text ?timeUs
+WHERE {
+  ?msg a uco-observable:EventRecord ;
+       uco-core:hasFacet ?facet .
+  ?facet a proposed:MavlinkMessageFacet ;
+         proposed:sourceSystemId ?sys ;
+         proposed:sourceComponentId ?comp ;
+         proposed:statusText ?text .
+  OPTIONAL { ?facet proposed:timeUs ?timeUs . }
+  FILTER(CONTAINS(LCASE(STR(?text)), "dfrws26"))
+}
+ORDER BY ?timeUs
