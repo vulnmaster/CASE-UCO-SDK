@@ -1,0 +1,37 @@
+# CQ 1.1: Which recovered thumbnails carry a ThumbnailCacheID, and which
+# cache database (size bucket) does each belong to?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?thumbnail ?cacheId ?size ?cacheFile
+WHERE {
+    ?thumbnail a uco-observable:ObservableObject ;
+               uco-core:hasFacet ?facet .
+    ?facet a proposed:WindowsThumbcacheFacet ;
+           proposed:thumbnailCacheIdentifier ?cacheId .
+    OPTIONAL { ?facet proposed:thumbnailSize ?size . }
+    OPTIONAL { ?facet proposed:cacheFileName ?cacheFile . }
+}
+ORDER BY ?size ?cacheId
+
+# ---
+# CQ 1.2: Which cached thumbnails depict images whose original file could not
+# be recovered (no sourceImage resolved and name not recovered) -- i.e. the
+# thumbnail is the only surviving evidence of a now-deleted image?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?thumbnail ?cacheId ?nameStatus
+WHERE {
+    ?thumbnail a uco-observable:ObservableObject ;
+               uco-core:hasFacet ?tcFacet ;
+               uco-core:hasFacet ?recFacet .
+    ?tcFacet a proposed:WindowsThumbcacheFacet ;
+             proposed:thumbnailCacheIdentifier ?cacheId .
+    ?recFacet a uco-observable:RecoveredObjectFacet ;
+              uco-observable:nameRecoveredStatus ?nameStatus .
+    FILTER NOT EXISTS { ?tcFacet proposed:sourceImage ?src . }
+}
+ORDER BY ?cacheId

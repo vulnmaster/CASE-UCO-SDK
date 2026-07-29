@@ -1,0 +1,89 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/",
+    "proposed": "http://example.org/ontology/proposed/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:File-thumbcache-1280-2b25936d-ed8a-467b-8897-a73665549e10",
+      "@type": "uco-observable:File",
+      "uco-core:name": "thumbcache_1280.db",
+      "uco-core:description": [
+        "Windows Thumbnail Cache database for the 1280-pixel size bucket, from the Explorer cache of the user 'Alice' on a Windows 11 profile. Cache format signature 'CMMM', cache format version 32."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:FileFacet-4b54f9f1-942b-4140-9834-f37a497853b5",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": "thumbcache_1280.db",
+          "uco-observable:filePath": "C:\\Users\\Alice\\AppData\\Local\\Microsoft\\Windows\\Explorer\\thumbcache_1280.db",
+          "uco-observable:extension": "db",
+          "uco-observable:sizeInBytes": { "@type": "xsd:integer", "@value": "1048576" }
+        }
+      ]
+    },
+    {
+      "@id": "kb:ObservableObject-thumbnail-3869191d-8d2d-44de-b933-5d36cd7c612d",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:name": "2ba21a59792ff60a",
+      "uco-core:description": [
+        "Recovered thumbnail extracted from thumbcache_1280.db, keyed by ThumbnailCacheID '2ba21a59792ff60a'. Decoded image is a JPEG (1280x721) depicting Mont-Saint-Michel. The original source image file is no longer present on the volume and its filename cannot be recovered from the thumbcache alone."
+      ],
+      "uco-core:hasFacet": [
+        {
+          "@id": "kb:RasterPictureFacet-1e779da4-ca97-4863-a262-3aa9102230b9",
+          "@type": "uco-observable:RasterPictureFacet",
+          "uco-observable:pictureHeight": { "@type": "xsd:integer", "@value": "721" },
+          "uco-observable:pictureWidth": { "@type": "xsd:integer", "@value": "1280" },
+          "uco-observable:pictureType": "jpg"
+        },
+        {
+          "@id": "kb:ContentDataFacet-44097bec-6615-42e1-9b52-6f31f8c68419",
+          "@type": "uco-observable:ContentDataFacet",
+          "uco-observable:sizeInBytes": { "@type": "xsd:integer", "@value": "110625" },
+          "uco-observable:mimeType": [ "image/jpeg" ],
+          "uco-observable:hash": [
+            {
+              "@id": "kb:Hash-105d6f7b-4f98-4429-9001-350846f56f93",
+              "@type": "uco-types:Hash",
+              "uco-types:hashMethod": [ "SHA256" ],
+              "uco-types:hashValue": {
+                "@type": "xsd:hexBinary",
+                "@value": "0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            }
+          ]
+        },
+        {
+          "@id": "kb:RecoveredObjectFacet-8e2dcb2c-0408-4071-bf8a-fc4c7176266f",
+          "@type": "uco-observable:RecoveredObjectFacet",
+          "uco-observable:contentRecoveredStatus": "recovered",
+          "uco-observable:nameRecoveredStatus": "Not Recovered"
+        },
+        {
+          "@id": "kb:WindowsThumbcacheFacet-dfb5d59c-b301-4329-82e9-f8a7128a34fc",
+          "@type": "proposed:WindowsThumbcacheFacet",
+          "proposed:thumbnailCacheIdentifier": "2ba21a59792ff60a",
+          "proposed:thumbnailSize": { "@type": "xsd:integer", "@value": "1280" },
+          "proposed:cacheFileName": "thumbcache_1280.db"
+        }
+      ]
+    },
+    {
+      "@id": "kb:ObservableRelationship-42587d73-a925-4cef-9401-ab491773c350",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": { "@type": "xsd:boolean", "@value": "true" },
+      "uco-core:source": [
+        { "@id": "kb:ObservableObject-thumbnail-3869191d-8d2d-44de-b933-5d36cd7c612d" }
+      ],
+      "uco-core:target": {
+        "@id": "kb:File-thumbcache-1280-2b25936d-ed8a-467b-8897-a73665549e10"
+      }
+    }
+  ]
+}

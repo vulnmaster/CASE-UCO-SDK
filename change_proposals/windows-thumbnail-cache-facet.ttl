@@ -1,0 +1,48 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix proposed: <http://example.org/ontology/proposed/> .
+
+# Prototype extension ontology for UCO change proposal:
+# "Windows Thumbnail Cache facet".
+# Grounded in: the Windows Explorer thumbnail cache (thumbcache_*.db /
+# thumbcache_idx.db) under %LocalAppData%\Microsoft\Windows\Explorer\,
+# cache format signature "CMMM", size-bucketed thumbnail store keyed by an
+# 8-hex-character ThumbnailCacheID. Analogous existing terms:
+# uco-observable:WindowsPrefetchFacet and SOLVE-IT BrowserCacheData.
+
+proposed:WindowsThumbcacheFacet
+    a owl:Class ;
+    rdfs:subClassOf uco-observable:Facet ;
+    rdfs:label "WindowsThumbcacheFacet"@en ;
+    rdfs:comment "A grouping of characteristics unique to a thumbnail stored in the Windows Explorer thumbnail cache (thumbcache_*.db). Windows caches size-bucketed thumbnail images keyed by a ThumbnailCacheID; the cache retains a thumbnail after the original image file is deleted from the volume, making it a source of recoverable visual evidence."@en .
+
+proposed:thumbnailCacheIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:WindowsThumbcacheFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "thumbnailCacheIdentifier"@en ;
+    rdfs:comment "The identifier (ThumbnailCacheID) assigned to a thumbnail entry within the Windows thumbnail cache, typically an 8-hex-character value that the thumbcache_idx.db maps to the cache entry (e.g. '2ba21a59792ff60a')."@en .
+
+proposed:thumbnailSize
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:WindowsThumbcacheFacet ;
+    rdfs:range xsd:integer ;
+    rdfs:label "thumbnailSize"@en ;
+    rdfs:comment "The pixel size bucket of the thumbnail cache database the entry belongs to (e.g. 16, 32, 48, 96, 256, 768, 1280, 1920, 2560), corresponding to the trailing number in the thumbcache_<N>.db file name."@en .
+
+proposed:cacheFileName
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:WindowsThumbcacheFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "cacheFileName"@en ;
+    rdfs:comment "The file name of the thumbnail cache database that contains the entry (e.g. 'thumbcache_256.db')."@en .
+
+proposed:sourceImage
+    a owl:ObjectProperty ;
+    rdfs:domain proposed:WindowsThumbcacheFacet ;
+    rdfs:range uco-observable:ObservableObject ;
+    rdfs:label "sourceImage"@en ;
+    rdfs:comment "Reference to the ObservableObject (the original image/file) that the cached thumbnail was generated from, when it can be identified. Frequently unknown from the thumbcache alone because the cache does not store the source file name; omitted when unresolved. See the alternative of a 'Generated_Thumbnail_Of' observable-relationship vocabulary term discussed in the proposal."@en .

@@ -113,6 +113,7 @@ Requires `CASE_UCO_EXTENSIONS=cac`. Use `route_cac_content` via the MCP server t
 | Disk Partitions and Volume Recovery | [partitions.md](partitions.md) | Partition tables, volume structures, deleted partition recovery | [partitions](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/partitions) |
 | Bulk Extractor Forensic Paths | [bulk-extractor-path.md](bulk-extractor-path.md) | Nested containment, byte offsets, compressed stream extraction | [bulk_extractor_forensic_path](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/bulk_extractor_forensic_path) |
 | EXIF and Image Metadata | [exif-data.md](exif-data.md) | Image EXIF tags, camera identification, metadata extraction | [exif_data](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/exif_data) |
+| Windows Thumbnail Cache | [windows-thumbnail-cache.md](windows-thumbnail-cache.md) | Thumbnails recovered from `thumbcache_*.db` (Explorer cache) with ThumbnailCacheID, size bucket, and RecoveredObjectFacet; recovers images deleted from the volume | — |
 | Database Record Extraction | [database-records.md](database-records.md) | SQLite records, table fields, containment relationships | [database_records](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/database_records) |
 
 ### Communication artifacts

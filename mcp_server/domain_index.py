@@ -990,6 +990,12 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "file": "docs/recipes/file-recovery.md",
     },
     {
+        "title": "Windows Thumbnail Cache",
+        "description": "Model thumbnails recovered from Windows Explorer thumbcache_*.db databases, keyed by ThumbnailCacheID, including images whose original files were deleted from the volume.",
+        "keywords": "thumbnail thumbcache thumbcache.db thumbnail cache windows explorer cache deleted image recovery iconcache ThumbnailCacheID CMMM size bucket raster picture recovered object",
+        "file": "docs/recipes/windows-thumbnail-cache.md",
+    },
+    {
         "title": "Threaded Messaging (WhatsApp, Chat)",
         "description": "Model ordered chat conversations with threads, participants, and attachments.",
         "keywords": "thread chat whatsapp messenger conversation participant attachment media social",
