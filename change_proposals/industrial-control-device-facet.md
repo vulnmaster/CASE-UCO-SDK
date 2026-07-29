@@ -1,11 +1,11 @@
 <!-- Change Proposal: Industrial control device facet -->
 <!-- Target repository: UCO -->
-<!-- Target release: 1.5.0 -->
+<!-- Target release: 1.6.0 -->
 <!-- DFRWS Rodeo Team: Victims First! -->
 
 # Target release
 
-**Target**: CASE/UCO 1.5.0
+**Target**: CASE/UCO 1.6.0
 
 # Background
 
