@@ -1,0 +1,296 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/dfrws-rodeo26-uav/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:identity-greenlizards",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "GreenLizards (DFRWS USA 2026 Rodeo team)"
+        },
+        {
+            "@id": "kb:identity-analyst",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "DFRWS Rodeo examiner"
+        },
+        {
+            "@id": "kb:tool-pymavlink",
+            "@type": "uco-tool:Tool",
+            "uco-core:description": "Parses ArduPilot DataFlash (.BIN) flight logs into typed message rows.",
+            "uco-core:name": "pymavlink DFReader / mavlogdump.py",
+            "uco-tool:toolType": "extraction",
+            "uco-tool:version": "2.4.41"
+        },
+        {
+            "@id": "kb:investigation-rodeo26-uav",
+            "@type": "case-investigation:Investigation",
+            "uco-core:description": "CASE modeling of ArduPilot DataFlash evidence recovered as uavrodeo.BIN. DFRWS Rodeo Team: GreenLizards.",
+            "uco-core:name": "DFRWS USA 2026 Rodeo \u2014 BuiltToFall UAV track"
+        },
+        {
+            "@id": "kb:file-uavrodeo-bin",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:description": "ArduPilot DataFlash binary flight log (header magic YFMT).",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-9575f128-4db4-4bf8-838e-2eb51e3a1ed8",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "BIN",
+                    "uco-observable:fileName": [
+                        "uavrodeo.BIN"
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "9404416"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-61eafe53-b586-4534-933b-3e38ccf96d1a",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:magicNumber": "YFMT",
+                    "uco-observable:mimeType": [
+                        "application/octet-stream"
+                    ]
+                }
+            ],
+            "uco-core:name": "uavrodeo.BIN"
+        },
+        {
+            "@id": "kb:app-arducopter",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:description": "Autopilot firmware string from MSG at arm: ArduCopter V4.6.0-dev (1e8e2504).",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ApplicationFacet-3c57fee3-9d09-4650-a4b8-ee3509c2df4e",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-observable:applicationIdentifier": "ArduCopter",
+                    "uco-observable:version": "4.6.0-dev"
+                }
+            ],
+            "uco-core:name": "ArduCopter"
+        },
+        {
+            "@id": "kb:drone-1",
+            "@type": "uco-observable:Drone",
+            "uco-core:description": "UAV platform inferred from DataFlash MSG Frame: QUAD/PLUS and RC Protocol: SITL. UCO models Drone as MobileDevice subclass but has no MAVLink system-id, component-id, flight-mode, or TimeUS facets; those values are recorded as EventRecord text until an upstream proposal lands.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-d014375a-25a4-430f-9906-459f9cd89756",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "UAV",
+                    "uco-observable:model": "QUAD/PLUS"
+                }
+            ],
+            "uco-core:name": "SITL ArduCopter QUAD/PLUS"
+        },
+        {
+            "@id": "kb:loc-home-orgn",
+            "@type": "uco-location:Location",
+            "uco-core:description": "ORGN Type 0/1 and first GPS fix (Status=6, NSats=10, HDop=1.21). Oxford, UK SITL region.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-5cada935-1745-4dea-a0b4-6b855fe78012",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:altitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "0.1"
+                    },
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "51.7607129"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-1.2563709"
+                    }
+                }
+            ],
+            "uco-core:name": "ORGN home / first GPS fix"
+        },
+        {
+            "@id": "kb:loc-last-gps",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-83ec32e5-bdf1-48c7-ba3b-05ec55fa4e66",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "51.7607132"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-1.2563711"
+                    }
+                }
+            ],
+            "uco-core:name": "Last GPS fix"
+        },
+        {
+            "@id": "kb:geo-entry-start",
+            "@type": "uco-observable:GeoLocationEntry",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:GeoLocationEntryFacet-aeaf9e31-e812-4c8b-a0fe-b897c7e053ca",
+                    "@type": "uco-observable:GeoLocationEntryFacet",
+                    "uco-observable:location": {
+                        "@id": "kb:loc-home-orgn"
+                    },
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-07-04T11:51:07+00:00"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:geo-entry-end",
+            "@type": "uco-observable:GeoLocationEntry",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:GeoLocationEntryFacet-5f1d4651-b721-4b23-8ecc-c954708b2474",
+                    "@type": "uco-observable:GeoLocationEntryFacet",
+                    "uco-observable:location": {
+                        "@id": "kb:loc-last-gps"
+                    },
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-07-04T11:53:04+00:00"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:geo-track-flight",
+            "@type": "uco-observable:GeoLocationTrack",
+            "uco-core:description": "Contiguous GPS path; max alt ~20.1 m, max groundspeed ~10.12 m/s, span ~135.69 s TimeUS.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:GeoLocationTrackFacet-11ded8cd-2222-4369-a01d-d3e7911e3055",
+                    "@type": "uco-observable:GeoLocationTrackFacet",
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-07-04T11:53:22+00:00"
+                    },
+                    "uco-observable:geoLocationEntry": [
+                        {
+                            "@id": "kb:geo-entry-start"
+                        },
+                        {
+                            "@id": "kb:geo-entry-end"
+                        }
+                    ],
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-07-04T11:51:07+00:00"
+                    }
+                }
+            ],
+            "uco-core:name": "GPS track from DataFlash GPS messages"
+        },
+        {
+            "@id": "kb:event-msg-dfrws26",
+            "@type": "uco-observable:EventRecord",
+            "uco-core:description": "Planted MAVLink status text. Source system/component 141/190 cannot be typed on a MAVLink facet (ontology gap). Free-text only until UCO gains MAVLink/UAV flight-log properties.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:EventRecordFacet-d590687d-ad0e-4ca7-8cfe-70c227f8456a",
+                    "@type": "uco-observable:EventRecordFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:app-arducopter"
+                    },
+                    "uco-observable:eventRecordID": "TimeUS=95394327",
+                    "uco-observable:eventRecordText": "SRC=141/190:DFRWS26",
+                    "uco-observable:eventType": "MAVLink.STATUS_TEXT",
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-07-04T11:51:59+00:00"
+                    }
+                }
+            ],
+            "uco-core:name": "DataFlash MSG status text"
+        },
+        {
+            "@id": "kb:event-mode-guided",
+            "@type": "uco-observable:EventRecord",
+            "uco-core:description": "Flight mode transitions are first-class investigative facts but have no typed property on Drone.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:EventRecordFacet-4050378b-2519-4e12-a8b7-f0bc5a701122",
+                    "@type": "uco-observable:EventRecordFacet",
+                    "uco-observable:eventRecordID": "TimeUS=43415960",
+                    "uco-observable:eventRecordText": "MODE ModeNum=4 GUIDED Reason=2",
+                    "uco-observable:eventType": "ArduPilot.MODE",
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-07-04T11:51:07+00:00"
+                    }
+                }
+            ],
+            "uco-core:name": "Flight mode GUIDED"
+        },
+        {
+            "@id": "kb:action-parse-dataflash",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": "Extract MSG, MODE, GPS, ORGN, MAVC from uavrodeo.BIN.",
+            "uco-core:name": "Parse ArduPilot DataFlash with pymavlink",
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:tool-pymavlink"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:file-uavrodeo-bin"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-07-28T00:00:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:rel-log-associated-drone",
+            "@type": "uco-core:Relationship",
+            "uco-core:description": "Flight log associated with the UAV platform under examination.",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": [
+                {
+                    "@id": "kb:file-uavrodeo-bin"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:drone-1"
+            }
+        },
+        {
+            "@id": "kb:rel-track-drone",
+            "@type": "uco-core:Relationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Path_Of",
+            "uco-core:source": [
+                {
+                    "@id": "kb:geo-track-flight"
+                }
+            ],
+            "uco-core:target": {
+                "@id": "kb:drone-1"
+            }
+        }
+    ]
+}
