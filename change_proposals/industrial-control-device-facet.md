@@ -224,10 +224,53 @@ See also `change_proposals/industrial-control-device-facet.jsonld`.
 
 # Prior art / related work
 
-- UCO `EmbeddedDevice` / `NetworkAppliance` / `DeviceFacet` (structural hosts)
-- MITRE ATT&CK for ICS (technique vocabulary; complementary, not a substitute for
-  observable facets)
-- CASE/UCO SDK recipe `otics-scada-intrusion` (Victims First! / DFRWS Rodeo)
+## Specifications that ground the proposed properties
+
+The proposed facets are deliberately thin wrappers over fields that already
+exist in published OT/ICS specifications and information models. They do **not**
+attempt to re-encode full protocol stacks; they capture the forensic-relevant
+identity and process facts those specs already define.
+
+| Proposed property | Real-world source | What the specification already models |
+|---|---|---|
+| `controllerRole` (`plc`, `rtu`, `hmi`, `historian`, …) | [NIST SP 800-82 Rev. 3](https://doi.org/10.6028/NIST.SP.800-82r3) *Guide to Operational Technology (OT) Security* (§2 topologies: SCADA, DCS, PLC, HMI, RTU) | Canonical OT asset roles investigators name in evidence |
+| `otNetworkZone` | [ISA/IEC 62443](https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards) zones & conduits; Purdue Enterprise Reference Architecture / DOE [Purdue Model Framework](https://www.energy.gov/sites/default/files/2022-10/Infra_Topic_Paper_4-14_FINAL.pdf) | Site segmentation labels used on architecture diagrams and SPAN evidence |
+| `firmwareRevision` | ODVA CIP **Identity Object** (class `0x01`) Attribute 4 *Revision* (major/minor); see [ODVA EtherNet/IP Developers Guide](https://www.odva.org/wp-content/uploads/2020/05/PUB00213R0_EtherNetIP_Developers_Guide.pdf) / CIP Networks Library Vol. 1 | Mandatory device identity revision every EtherNet/IP device exposes |
+| `programIdentity` | IEC 61131-3 PLC program / project identity; vendor engineering uploads (e.g., Rockwell project / program identity recovered in PLC DFIR) | Control-logic identity recovered from engineering software or memory |
+| `rackNumber` / `slotNumber` | Vendor chassis addressing (e.g., ControlLogix 1756 rack/slot used by engineering software and CIP path addressing) | Physical module location recorded in project files and online path strings |
+| `protocolFunctionCode` | [MODBUS Application Protocol Specification V1.1b3](https://modbus.org/docs/Modbus_Application_Protocol_V1_1b3.pdf) §5–6 (function codes `01`–`17`/`16` write multiple registers, etc.); analogous CIP service codes | Function/service identifier on industrial PDUs |
+| `protocolObjectAddress` | Modbus V1.1b3 PDU *Starting Address* / register numbering; CIP class/instance/attribute paths | Object or register address targeted by a write/read |
+| `processTagName` | OPC UA / historian point names; OPC 40001-2 *Process Values* `SignalTag`; SCADA tag databases | Named process points correlated across HMI, historian, and controller |
+| `engineeringUnit` | OPC UA Part 8 *Data Access* `EUInformation` / `EngineeringUnits` ([OPC 10000-8](https://reference.opcfoundation.org/Core/Part8/v104/docs/5.6.4)); UN/CEFACT / IEC CDD units | Typed unit metadata on analog process values |
+| `processValue` / `setpointValue` / `priorSetpointValue` | OPC UA for Machinery Part 2 *Process Values* ([OPC 40001-2](https://reference.opcfoundation.org/Machinery/ProcessValues/v100/docs/)) process value + setpoint variables; historian alarm payloads | Observed PV and SP before/after unauthorized changes |
+
+### Normative / standards references
+
+1. **NIST SP 800-82 Rev. 3** (2023), *Guide to Operational Technology (OT) Security* — https://doi.org/10.6028/NIST.SP.800-82r3 — defines PLC, RTU, HMI, SCADA/DCS roles and OT topologies that motivate `controllerRole`.
+2. **ISA/IEC 62443** series — industrial automation and control systems security; **zones and conduits** motivate `otNetworkZone` as a forensic label for where an asset was observed.
+3. **Purdue Enterprise Reference Architecture** / DOE *Purdue Model Framework for ICS & Cybersecurity Segmentation* (2019) — https://www.energy.gov/sites/default/files/2022-10/Infra_Topic_Paper_4-14_FINAL.pdf — widely used Level 0–5 vocabulary appearing in architecture and SPAN documentation.
+4. **MODBUS Application Protocol Specification V1.1b3** — https://modbus.org/docs/Modbus_Application_Protocol_V1_1b3.pdf — function codes and register addressing for `protocolFunctionCode` / `protocolObjectAddress`.
+5. **ODVA CIP / EtherNet/IP** — Identity Object (class `0x01`) attributes Vendor ID, Device Type, Product Code, **Revision**, Serial Number, Product Name — grounds `firmwareRevision` (and complements existing `DeviceFacet` serial/model).
+6. **IEC 61131-3** — PLC programming languages (ladder, ST, FBD, …); grounds treating control logic / project identity as first-class forensic content via `programIdentity`.
+7. **OPC UA Part 8 (IEC 62541-8)** *Data Access* — `EngineeringUnits` / `EUInformation` for `engineeringUnit`.
+8. **OPC UA for Machinery – Part 2: Process Values (OPC 40001-2)** — process value, setpoint, and `SignalTag` concepts aligning with `processTagName`, `processValue`, `setpointValue`.
+
+### Publications showing these classes in real investigations
+
+These peer-reviewed DFIR works recover the same artifact classes the facets are meant to hold — firmware, control logic / program identity, and process state — from live PLC memory and engineering-network traffic:
+
+1. Ahmed, I., et al. (2022). *Memory forensic analysis of a programmable logic controller in industrial control systems.* Forensic Science International: Digital Investigation (DFRWS EU 2022). https://doi.org/10.1016/j.fsidi.2022.301339 — recovers **firmware**, **control logic**, and **physical process state** from Allen-Bradley ControlLogix memory dumps.
+2. Zubair, M., et al. (2023). *Towards generic memory forensic framework for programmable logic controllers.* FSI:DI. https://doi.org/10.1016/j.fsidi.2023.301513 — generalizes PLC memory profiles; ladder/control-logic extraction as primary forensic artifact.
+3. Zubair, M., et al. (2020). *Control Logic Forensics Framework using Built-in Decompiler of Engineering Software in Industrial Control Systems* (Reditus). DFRWS USA 2020. https://doi.org/10.1016/j.fsidi.2020.301013 — recovers control-logic source from **network traffic** of engineering upload/download (program identity + logic change evidence).
+4. Senthivel, S., Ahmed, I., & Roussev, V. (2017). *SCADA network forensics of the PCCC protocol.* Digital Investigation / DFRWS — extracts forensic artifacts (including control-logic binaries) from Allen-Bradley PCCC traffic.
+
+Complementary (technique vocabulary, not observable schema): **MITRE ATT&CK for ICS**.
+
+### Relationship to existing UCO
+
+- UCO `EmbeddedDevice` / `NetworkAppliance` / `DeviceFacet` remain the structural hosts; these facets are **additive**.
+- MITRE ATT&CK for ICS remains the technique vocabulary; it does not replace typed observable properties for firmware, rack/slot, Modbus function/register, or historian tag/setpoint fields.
+- CASE/UCO SDK recipe `otics-scada-intrusion` (Victims First! / DFRWS Rodeo; PR https://github.com/vulnmaster/CASE-UCO-SDK/pull/95) demonstrates the modeling gap with only core types today.
 
 # Submitter
 
