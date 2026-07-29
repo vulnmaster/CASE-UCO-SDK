@@ -1,0 +1,2995 @@
+{
+  "@context": {
+    "kb": "https://example.org/uas/dfrws-rodeo-2026-uas-flight-log/",
+    "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+    "uas": "http://example.org/ontology/uas/",
+    "proposed-obs": "https://proposed.ontology.unifiedcyberontology.org/uco/observable/",
+    "proposed-loc": "https://proposed.ontology.unifiedcyberontology.org/uco/location/",
+    "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+    "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+    "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58",
+      "@type": "uas:UnmannedAircraft",
+      "uco-core:name": "Quadrotor logged in uavrodeo.BIN",
+      "uco-core:description": "ArduCopter V4.6.0-dev (1e8e2504), Frame: QUAD/PLUS, autopilot board UID 640cfd26c0bb4289b5c536600bdd3050. Source: VER and MSG records at the head of the DataFlash log. This log is an ArduPilot SITL (software-in-the-loop) capture: the log records 'RC Protocol: SITL' and carries SIM/SIM2 simulator state records. Positions are simulator output, not observations of a physical aircraft.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:657289ba-4492-5ba7-b26c-95be6239a5e9",
+          "@type": "uco-observable:DeviceFacet",
+          "uco-observable:deviceType": "Unmanned Aircraft"
+        },
+        {
+          "@id": "urn:uuid:bdf44bde-9a20-5a71-83b5-bf8db58e4469",
+          "@type": "uas:UASFacet",
+          "uco-core:description": "The log carries no ASTM F3411 Remote ID, registration number or operator id, so none is asserted. Airframe configuration and autopilot identifier are read from the log.",
+          "uas:airframeConfiguration": "QUAD/PLUS",
+          "uas:autopilotIdentifier": "640cfd26c0bb4289b5c536600bdd3050",
+          "uas:unmannedAircraftType": "Helicopter or Multirotor"
+        },
+        {
+          "@id": "urn:uuid:6dc95809-c847-5792-ba3a-17f3db2fa5a3",
+          "@type": "uas:MavlinkEndpointFacet",
+          "uco-core:description": "Source: SYSID_THISMAV, SYSID_MYGCS and SYSID_ENFORCE parameter records. SYSID_ENFORCE = 0 means the autopilot did not check that incoming commands came from its configured ground control station.",
+          "uas:mavlinkSystemId": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "1"
+          },
+          "uas:mavlinkComponentId": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "1"
+          },
+          "uas:mavlinkComponentName": "MAV_COMP_ID_AUTOPILOT1",
+          "uas:mavlinkDialect": "ardupilotmega v2.0",
+          "uas:authorizedGroundControlStationId": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "255"
+          },
+          "uas:senderAuthenticationEnforced": {
+            "@type": "xsd:boolean",
+            "@value": "false"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:2209f9c2-8c66-5d07-b6e5-913a57a10a22",
+      "@type": "uco-observable:Software",
+      "uco-core:name": "ArduCopter V4.6.0-dev (1e8e2504)",
+      "uco-core:description": "Autopilot firmware reported in the VER record: version 4.6.0, source revision 1e8e2504. The '-dev' suffix in the firmware string marks a development build, which is not a tagged release and may not be reproducible from the version number alone.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:c42dc09a-b3ef-50d2-98b8-19c76510fcef",
+          "@type": "uco-observable:SoftwareFacet",
+          "uco-observable:version": "4.6.0",
+          "uco-observable:swid": "1e8e2504"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:3d136683-d0ba-56e2-951e-1dfaef183274",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:2209f9c2-8c66-5d07-b6e5-913a57a10a22"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Characterized_By",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78",
+      "@type": "uas:FlightLog",
+      "uco-core:name": "uavrodeo.BIN",
+      "uco-core:description": "ArduPilot DataFlash binary log (.BIN) recovered from the autopilot. Contains 1393 parameter records and the full telemetry of one sortie.",
+      "uas:logFormat": "ArduPilot DataFlash",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:e8eb50db-92e0-5215-8f80-d1a24e490702",
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": "uavrodeo.BIN",
+          "uco-observable:extension": "BIN",
+          "uco-observable:sizeInBytes": {
+            "@type": "xsd:integer",
+            "@value": "9404416"
+          }
+        },
+        {
+          "@id": "urn:uuid:c68fe817-2322-5c5d-b835-75f5e03e954e",
+          "@type": "uco-observable:ContentDataFacet",
+          "uco-observable:sizeInBytes": {
+            "@type": "xsd:integer",
+            "@value": "9404416"
+          },
+          "uco-observable:hash": [
+            {
+              "@id": "urn:uuid:7194df89-14d3-5b01-b62c-0d0132a8dc36",
+              "@type": "uco-types:Hash",
+              "uco-types:hashMethod": "SHA256",
+              "uco-types:hashValue": {
+                "@type": "xsd:hexBinary",
+                "@value": "a2fa5f1f2b63836045f4b74e07d043780ded1126d04db8d5f286896da363693f"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:a7519d10-392f-50e4-8362-3323094f1336",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Extracted_From",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:7b2c1a18-40d7-5d97-b36f-fce87cf004bd",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:50:49.200Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:355d5163-92cd-5352-8fea-5f7408f086e6",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607129"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563709"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "0.1"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:51cad1f7-ebed-5066-9140-91fc5c35b7e2",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:d5f53d11-7b0e-5d7e-a38a-9d07b451b907",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 1 of 15 at 2026-07-04T11:50:49.200Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.0 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:6655f46a-3b0d-5896-9151-df3438fa514b",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:7b2c1a18-40d7-5d97-b36f-fce87cf004bd"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.200Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:84f4b1e0-0890-5cc3-a880-31513c3cc488",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:50:59.380Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:1a57b962-993b-5fec-97b7-af1989c88de5",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607129"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563712"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "12.95"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:ad4eec63-54c0-54e6-ba19-50e10ecb53f6",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:3a52e29e-7354-5362-8589-e10db63fd1b7",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 2 of 15 at 2026-07-04T11:50:59.380Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.007000000216066837 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:2a4a5a83-dba1-5a3b-bccd-7871255cd712",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:84f4b1e0-0890-5cc3-a880-31513c3cc488"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:59.380Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:884776cd-c9d1-58f1-be36-74f29d039ece",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:09.380Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:181aa70a-d8f4-59c0-b82e-a674b2740608",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7610614"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2572516"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "18.06"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:0cecdab9-d695-5166-890f-5ccf59dea6c2",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:89d7f10e-2287-526b-b3e2-c70a3cbaafe1",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 3 of 15 at 2026-07-04T11:51:09.380Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 10.085000038146973 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:92ca5cbc-0c5f-5c5b-941a-c16d39c1dbb2",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:884776cd-c9d1-58f1-be36-74f29d039ece"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:09.380Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:537359d8-453b-572d-a46e-1629042b1628",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:19.380Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:76aa37ec-3406-51e0-a0a2-60399f11da65",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7614447"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2576123"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "19.91"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:6fbff1c0-6556-5274-b5e2-f0e475c114f6",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:9ce11b9a-79bd-50bc-ae7e-ee3458a78151",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 4 of 15 at 2026-07-04T11:51:19.380Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 8.884000778198242 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:746025bb-9111-5a4c-80fd-59e550938642",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:537359d8-453b-572d-a46e-1629042b1628"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:19.380Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:3d6d9d83-4b30-5be4-b2b3-79d97a7469fb",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:29.580Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:eaa31ea1-014d-552f-a272-8ea6df1d2aff",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7620159"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2565932"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "20.09"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:23cfb4b7-9416-5a5a-b9f2-ea7e18d28c1f",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:6f681d5e-5edc-5fdb-a66e-7f65aba29e51",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 5 of 15 at 2026-07-04T11:51:29.580Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 6.158000469207764 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:a29cc866-8355-5498-b918-8968ee4a1275",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:3d6d9d83-4b30-5be4-b2b3-79d97a7469fb"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:29.580Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:b65d7d1e-340f-5430-ac50-8406d9d67304",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:30.180Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:60f7fe66-99c3-5c72-bb05-ec8f43b61076",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7620366"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2565564"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "20.09"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:d6a1beb9-9e14-5861-92b8-9dbf3504271d",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:e1d07d66-7da2-55f6-b3a4-93236028cee8",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 6 of 15 at 2026-07-04T11:51:30.180Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 5.249000072479248 m/s. This is the GNSS fix nearest the EKF-reported climb peak; the peak altitude itself is carried on the flight.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:4e77e092-aebc-5e66-9a13-6667a0434c0c",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:b65d7d1e-340f-5430-ac50-8406d9d67304"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:30.180Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:a3df4b92-3e6d-580a-b703-d870ee0b1486",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:39.779Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:4a1e2355-b703-5ac5-b586-a9499dcf07fc",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7620839"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.256475"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "20.07"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:69132ad7-487c-5bdf-9aaa-6b15b095b02a",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:b89d2233-26ad-5ffa-aca8-81b000eb7c5b",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 7 of 15 at 2026-07-04T11:51:39.779Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.020000001415610313 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:f637f4f9-732d-5f42-bac2-2de92f6f84c5",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:a3df4b92-3e6d-580a-b703-d870ee0b1486"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:39.779Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:140288d2-a983-5458-b2ad-c0ce62e4bdf8",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:49.779Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:7d311ac3-c5b2-557a-9e80-ba249c89c854",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7619314"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2564633"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "20.04"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:ac397943-3729-5c36-acaa-bf1b7ff011fd",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:725b9716-50c9-56df-a5c4-00c26ce2ee95",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 8 of 15 at 2026-07-04T11:51:49.779Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 8.217000007629395 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:f7ff3508-ce00-5e28-ab90-c07e6a4aac2d",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:140288d2-a983-5458-b2ad-c0ce62e4bdf8"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:49.779Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:0ce3cdd1-3551-5319-a242-feca21a5eb6a",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:59.780Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:8b44ab4c-7a4c-585a-a428-fbddd5c0f8cb",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7610552"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563971"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "20.05"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:78459e7e-d6ce-51d8-9cf8-4640f2266c58",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:c0144fd6-8b6e-5bc0-8846-9b11b0c5dec3",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 9 of 15 at 2026-07-04T11:51:59.780Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 9.999000549316406 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:85015a58-a7e0-5307-91de-543d65eff4c7",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:0ce3cdd1-3551-5319-a242-feca21a5eb6a"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:59.780Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:1e2dc3d7-cd26-5738-9445-828531ec8f17",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:52:09.780Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:e13551aa-0e7b-54aa-83c1-c0af9de677af",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607121"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563704"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "20.05"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:e9f6e8ef-318b-5263-8dfa-4499ab9532f4",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:c5cc46a1-65a8-5941-8905-9923c0b07708",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 10 of 15 at 2026-07-04T11:52:09.780Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.052000001072883606 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:319eaf7d-b3bc-5fce-bc15-24d67107fb34",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:1e2dc3d7-cd26-5738-9445-828531ec8f17"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:09.780Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:006f6443-f8e6-5d8b-93c6-f28f2e3aeb8f",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:52:19.780Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:5a08ae0c-d29b-53d2-bdc4-6996fc6495c7",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607133"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563709"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "16.34"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:56657d03-62c3-5185-ad1d-82a5f1dac56b",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:c2e7ca40-ac3a-5153-8db6-01a5ffaadc51",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 11 of 15 at 2026-07-04T11:52:19.780Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.003000000026077032 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:1e550067-89cb-5d4d-a476-09781ffb2289",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:006f6443-f8e6-5d8b-93c6-f28f2e3aeb8f"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:19.780Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:bb9a4791-68c8-5fea-a72a-e0cf6eea7d8b",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:52:29.980Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:b112b58e-7f1f-52f2-be1a-25983e9bbe0f",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607133"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563711"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "11.26"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:e1b30c6d-8580-5e48-8e0c-47da1d9d90c8",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:ca1d57bf-497d-55ab-a9a4-81bf2df61e29",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 12 of 15 at 2026-07-04T11:52:29.980Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.0 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:1289118f-205f-58ab-9478-311c04b3ce6a",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:bb9a4791-68c8-5fea-a72a-e0cf6eea7d8b"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:29.980Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:fb5f7e5b-6659-598e-ae57-4568a25ee3c7",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:52:40.179Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:f0a45e6b-ed66-5990-a05e-f73bc0f04c35",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607132"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563711"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "6.16"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:912d83cb-1e99-5106-be58-a5db4d1d49af",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:4046d68a-5219-5e4b-9640-b1daafe37871",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 13 of 15 at 2026-07-04T11:52:40.179Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.005000000353902578 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:ad1bfc2e-6a6e-5543-ad8c-283a078598e4",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:fb5f7e5b-6659-598e-ae57-4568a25ee3c7"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:40.179Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:50084e2f-6a4d-59c7-a18b-f6f3ccd1ec0e",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:52:50.179Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:6f113e58-2b21-5c39-b9be-9acf99cb365c",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607132"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563711"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "1.16"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:8b58f9e8-ea68-5ffa-8818-a3e8fd8a7a2c",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:c7cbaca8-2ae8-55c9-a6f2-48e2fd2d6bb4",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 14 of 15 at 2026-07-04T11:52:50.179Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.003000000026077032 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:403a07a3-967a-5654-b88a-f7e57c11b2a7",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:50084e2f-6a4d-59c7-a18b-f6f3ccd1ec0e"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:50.179Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:17a654a2-b806-5e59-8925-aea8f5c84ce3",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:53:00.180Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:ee48b954-5030-5588-9a25-7e22432c046b",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607132"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563711"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "0.09"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:d9c6ca9c-8134-5b00-bb20-95c96e7e967d",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:1142f1af-f1dd-561a-8b87-323066f352cb",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 15 of 15 at 2026-07-04T11:53:00.180Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.0 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:04f06ea2-dd87-5617-bb2d-138edb9c0484",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:17a654a2-b806-5e59-8925-aea8f5c84ce3"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:53:00.180Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:27850123-f992-5278-b15d-275fbbb9bfa0",
+      "@type": "uco-observable:GeoLocationTrack",
+      "uco-core:name": "Flight track from GNSS receiver fixes",
+      "uco-core:description": "15 fixes sampled at roughly 10 s intervals from the log's 5 Hz GPS series, plus the fix nearest the climb peak. Entries are raw receiver fixes rather than the EKF-fused POS series, so each carries the satellite count and accuracy it was derived from. DataFlash records are stamped in TimeUS, microseconds since autopilot boot. Wall-clock times in this graph are derived by anchoring TimeUS 43419292 to the GNSS time in the first 3D-fix GPS record (week 2425, 561067200 ms of week), converted by GPS week/ms-of-week to UTC, minus 18 leap seconds. Any error in the leap-second constant shifts every derived time equally.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:503609b1-07e0-501e-a1d8-90e504bc5d86",
+          "@type": "uco-observable:GeoLocationTrackFacet",
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.200Z"
+          },
+          "uco-observable:endTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:53:00.180Z"
+          },
+          "uco-observable:geoLocationEntry": [
+            {
+              "@id": "urn:uuid:d5f53d11-7b0e-5d7e-a38a-9d07b451b907"
+            },
+            {
+              "@id": "urn:uuid:3a52e29e-7354-5362-8589-e10db63fd1b7"
+            },
+            {
+              "@id": "urn:uuid:89d7f10e-2287-526b-b3e2-c70a3cbaafe1"
+            },
+            {
+              "@id": "urn:uuid:9ce11b9a-79bd-50bc-ae7e-ee3458a78151"
+            },
+            {
+              "@id": "urn:uuid:6f681d5e-5edc-5fdb-a66e-7f65aba29e51"
+            },
+            {
+              "@id": "urn:uuid:e1d07d66-7da2-55f6-b3a4-93236028cee8"
+            },
+            {
+              "@id": "urn:uuid:b89d2233-26ad-5ffa-aca8-81b000eb7c5b"
+            },
+            {
+              "@id": "urn:uuid:725b9716-50c9-56df-a5c4-00c26ce2ee95"
+            },
+            {
+              "@id": "urn:uuid:c0144fd6-8b6e-5bc0-8846-9b11b0c5dec3"
+            },
+            {
+              "@id": "urn:uuid:c5cc46a1-65a8-5941-8905-9923c0b07708"
+            },
+            {
+              "@id": "urn:uuid:c2e7ca40-ac3a-5153-8db6-01a5ffaadc51"
+            },
+            {
+              "@id": "urn:uuid:ca1d57bf-497d-55ab-a9a4-81bf2df61e29"
+            },
+            {
+              "@id": "urn:uuid:4046d68a-5219-5e4b-9640-b1daafe37871"
+            },
+            {
+              "@id": "urn:uuid:c7cbaca8-2ae8-55c9-a6f2-48e2fd2d6bb4"
+            },
+            {
+              "@id": "urn:uuid:1142f1af-f1dd-561a-8b87-323066f352cb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:dedbde07-ca5c-5d2f-8d63-a920aeb5cc36",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:27850123-f992-5278-b15d-275fbbb9bfa0"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Extracted_From",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:ca2a9267-be47-51d6-8441-bcf41f0bdc2f",
+      "@type": "uco-location:Location",
+      "uco-core:name": "EKF origin and home position recorded at arming",
+      "uco-core:description": "ORGN records written at arming: type 0 (EKF origin) and type 1 (home position) agree to seven decimal places. This is the aircraft's own belief about where it started.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:3845dd48-5bb2-5033-badc-9116bd0c874b",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607129"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563709"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "0.1"
+          },
+          "proposed-loc:altitudeReference": "mean sea level"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:b5a08638-2702-53c1-9bc6-d0e663e72837",
+      "@type": "uas:Flight",
+      "uco-core:name": "Flight of 2026-07-04, 11:50:49Z to 11:52:54Z",
+      "uco-core:description": "Bounded by the 'Arming motors' and 'Disarming motors' MSG records; 125.091 s from arm to disarm. Maximum altitude 19.99 m above the home position (20.07 m AMSL) at 2026-07-04T11:51:30.240Z, from the POS record (EKF-fused position); RelHomeAlt is relative to the home position captured at arming. DataFlash records are stamped in TimeUS, microseconds since autopilot boot. Wall-clock times in this graph are derived by anchoring TimeUS 43419292 to the GNSS time in the first 3D-fix GPS record (week 2425, 561067200 ms of week), converted by GPS week/ms-of-week to UTC, minus 18 leap seconds. Any error in the leap-second constant shifts every derived time equally. This log is an ArduPilot SITL (software-in-the-loop) capture: the log records 'RC Protocol: SITL' and carries SIM/SIM2 simulator state records. Positions are simulator output, not observations of a physical aircraft.",
+      "uco-core:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-04T11:50:49.196Z"
+      },
+      "uco-core:endTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-04T11:52:54.287Z"
+      },
+      "uco-core:eventType": "UAS flight",
+      "uas:takeoffLocation": {
+        "@id": "urn:uuid:ca2a9267-be47-51d6-8441-bcf41f0bdc2f"
+      },
+      "uas:flightTrack": {
+        "@id": "urn:uuid:27850123-f992-5278-b15d-275fbbb9bfa0"
+      },
+      "uas:maximumAltitudeAboveTakeoff": {
+        "@type": "xsd:decimal",
+        "@value": "19.99"
+      },
+      "uco-core:eventContext": [
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        },
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:ec4f2c4e-cfbd-5e90-9572-e0c69bd6c4da",
+      "@type": "uco-core:Relationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:b5a08638-2702-53c1-9bc6-d0e663e72837"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Related_To",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:a5248300-9274-5fa2-bae1-7ff855341192",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MODE record at 2026-07-04T11:50:49.196Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:58c2874f-16b9-5309-aa9f-eff3f17e395e",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MODE-43415960",
+          "uco-observable:eventType": "MODE",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "Flight mode -> GUIDED (reason GCS_COMMAND)",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.196Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:483f582b-8fbd-59e8-ad46-956df98b10cf",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:a5248300-9274-5fa2-bae1-7ff855341192"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:4f3b63b9-faf5-5492-990c-68f1d291dcf6",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.196Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:acb39d29-6d31-5406-8285-a7ad725e189c",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43415960",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "Arming motors",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.196Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:b51f328b-87a0-573f-bb87-b6b1eab05a44",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:4f3b63b9-faf5-5492-990c-68f1d291dcf6"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:b01ff7e5-c7b6-59a1-941e-3a59bfd6e800",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MODE record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:d43eb98d-b389-5e09-8969-b35273a49ed0",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MODE-43416793",
+          "uco-observable:eventType": "MODE",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "Flight mode -> GUIDED (reason GCS_COMMAND)",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:5d1a2486-d0c1-53b5-992d-8c19b3c5c42f",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:b01ff7e5-c7b6-59a1-941e-3a59bfd6e800"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:bf385071-9426-59a1-ba10-f774ddc78dee",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:37e3701d-0fe9-5a12-8c20-6750b896c225",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "ArduCopter V4.6.0-dev (1e8e2504)",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:39cd1bdd-c309-5c20-b0d5-1e91498df6fc",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:bf385071-9426-59a1-ba10-f774ddc78dee"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:e15bfbaa-7084-5b36-8e0f-10406a63c2f8",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:7ad08b28-ab10-5f4c-a152-46a929916c3e",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "640cfd26c0bb4289b5c536600bdd3050",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:a91199bc-5b71-5558-a56e-04fa560596d9",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:e15bfbaa-7084-5b36-8e0f-10406a63c2f8"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:ef094722-a785-5312-bdbd-532fdf20df06",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:c6924701-dd22-5df5-b3e6-caa6a403a1b7",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "Param space used: 240/4096",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:9488d5ad-2ff7-5d2d-916e-84ce4d86e432",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:ef094722-a785-5312-bdbd-532fdf20df06"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:a3231022-da49-5419-b120-39428f842ae8",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:5205e65e-9cbd-5c3e-9482-c73c0a7aeaaf",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "RC Protocol: SITL",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:4d11c2c6-9d41-507c-922a-0b0e02b0fcd6",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:a3231022-da49-5419-b120-39428f842ae8"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:1145b3b2-b325-5186-ac7b-4b96540133d0",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:c39ec8b3-2f6b-5ca0-acba-4c4a81ca6f1a",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "New mission",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:a582e01a-f641-5719-bfec-08fe66252e62",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:1145b3b2-b325-5186-ac7b-4b96540133d0"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:f2857133-e1a3-5895-bfbf-111d8a02db74",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:10b5a832-feb3-5499-97cf-8d83d775e7c1",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "New rally",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:b8395f68-415d-5787-9f6b-cc7c378b3b31",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:f2857133-e1a3-5895-bfbf-111d8a02db74"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:729b97e2-db20-5035-a98f-e575b02a920d",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:e32e61d9-39ad-55e3-822c-91f340dfcc58",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "New fence",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:04f8e191-82fa-5b0b-9242-e77b77526934",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:729b97e2-db20-5035-a98f-e575b02a920d"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:ec66105d-9857-531f-9c70-8f14c5433e74",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:635d11b6-9229-5042-b57a-ed523e131c31",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "Frame: QUAD/PLUS",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:700ffe79-b1f1-5385-8cf5-b8883701de59",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:ec66105d-9857-531f-9c70-8f14c5433e74"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:9390d3b9-4f24-552e-942a-e8c154e22dbe",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:49.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:f84d4188-39d0-5cfd-8384-0c47f9dce770",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-43416793",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "GPS 1: probing for u-blox at 230400 baud",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:18319505-45c6-520e-861a-53e04a79575d",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:9390d3b9-4f24-552e-942a-e8c154e22dbe"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:501fd395-7f21-507b-b8ca-c14c6dc77b5d",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:50:50.450Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:f37f986f-45b7-567f-ad02-44274c35ef63",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-44669625",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "AUTO_ARMED",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:50.450Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:f009a620-4451-5be1-80e8-013e339c83cd",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:501fd395-7f21-507b-b8ca-c14c6dc77b5d"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:a9b35c92-f9fe-5bb1-b8a6-5fe7d87de408",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:50:51.197Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:4803993d-57a1-5c3e-84e1-c5293c5689e2",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-45416826",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "MOTORS_INTERLOCK_ENABLED",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:51.197Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:90424ff8-73fa-5fca-854f-50f810cdd6e4",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:a9b35c92-f9fe-5bb1-b8a6-5fe7d87de408"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:cc7751cd-06ce-54a8-8079-f8f8c7be6e65",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:50:52.475Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:6646e09e-439a-5793-bfcd-0949b1c0823e",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-46694648",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "NOT_LANDED",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:52.475Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:c76c95e8-14e5-5051-b73f-6c8a2bc1f6c4",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:cc7751cd-06ce-54a8-8079-f8f8c7be6e65"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:4e4308fc-78d5-5893-8e42-542f56b896cb",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:54.875Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:0b4b9d9f-29de-57ef-a165-bf24170e4c51",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-49094521",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "EKF3 IMU1 MAG0 in-flight yaw alignment complete",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:54.875Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:14ea7b5b-1d6b-539a-8415-90c764bdfe9c",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:4e4308fc-78d5-5893-8e42-542f56b896cb"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:e4c59a24-832e-5b57-a534-20080fea81a9",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:50:54.887Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:1b2b7ad3-abb8-5cac-9ede-ba6301ba4557",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-49107016",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "EKF_YAW_RESET",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:54.887Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:be6e2ea1-93e5-59d8-b676-c620534cb24e",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:e4c59a24-832e-5b57-a534-20080fea81a9"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:531d3e33-0c9d-503d-aeba-a78284990700",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:50:54.887Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:0fc248cd-6048-5a82-b9c4-13ba60cd1816",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-49107016",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "EKF3 IMU0 MAG0 in-flight yaw alignment complete",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:54.887Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:932f87e6-4d60-55b0-8f80-dc2820fe2225",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:531d3e33-0c9d-503d-aeba-a78284990700"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:df6c224f-2b63-5329-9d3d-fe450267d21d",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:51:41.175Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:731d709e-ac74-55a3-9bb5-e3abe6b00af1",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-95394327",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "SRC=141/190:DFRWS26",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:41.175Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:9cd56cc7-b55a-5838-9db1-442309918cae",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:df6c224f-2b63-5329-9d3d-fe450267d21d"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:ad324834-eacf-534e-8199-29eec3e1627a",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MODE record at 2026-07-04T11:51:43.627Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:8f9169bc-aa05-5831-84ed-a828bd5393d1",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MODE-97846679",
+          "uco-observable:eventType": "MODE",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "Flight mode -> RTL (reason GCS_COMMAND)",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:43.627Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:57e6f971-a182-51bd-b7ad-72bf3efa9620",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:ad324834-eacf-534e-8199-29eec3e1627a"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:e626dfc0-68d6-53f0-922b-4357ea75b32a",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:52:52.191Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:df53b380-555b-5e71-b35b-b79d1a37e84f",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-166410909",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "SIM Hit ground at 0.501083 m/s",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:52.191Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:a7604abc-1f91-5aba-8a12-3de547839a0e",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:e626dfc0-68d6-53f0-922b-4357ea75b32a"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:9482e033-25de-56d7-b5f8-3f29aaba97f1",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:52:52.977Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:4d042f2d-5d6d-5096-8ea2-6f3917e6b5db",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-167197261",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "LAND_COMPLETE_MAYBE",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:52.977Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:0e12afc5-a073-5668-b36c-b68fda0887e9",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:9482e033-25de-56d7-b5f8-3f29aaba97f1"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:8aa6c160-5a6b-5244-b378-925662ba1ca8",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:52:53.780Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:c70534f7-3fb9-5429-a9f2-c1d468e3731c",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-167999440",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "LAND_COMPLETE",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:53.780Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:4b42893e-fb34-571f-99c4-4003d8fc4bc7",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:8aa6c160-5a6b-5244-b378-925662ba1ca8"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:44076901-a6a8-55c6-9c65-b029bcb6764d",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:52:54.287Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:1839e724-058f-5029-8c4a-2397865d0c7d",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-168506737",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "DISARMED",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:54.287Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:fbba9027-2d2b-5ccf-b125-847ba1be31da",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:44076901-a6a8-55c6-9c65-b029bcb6764d"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:9522fcc4-f935-5eef-8019-d662d3f51498",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "MSG record at 2026-07-04T11:52:54.287Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:1e83a0c5-d9db-5637-8128-084d4c1519bf",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "MSG-168506737",
+          "uco-observable:eventType": "MSG",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "Disarming motors",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:54.287Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:77c5f807-8815-5cc9-8ff4-87475578e726",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:9522fcc4-f935-5eef-8019-d662d3f51498"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:d94afac4-c5ce-54d0-87a3-600c64f82f3a",
+      "@type": "uco-observable:EventRecord",
+      "uco-core:name": "EV record at 2026-07-04T11:52:54.289Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:798e90d1-beb8-557d-a3e1-dc14aba3328b",
+          "@type": "uco-observable:EventRecordFacet",
+          "uco-observable:eventRecordID": "EV-168509236",
+          "uco-observable:eventType": "EV",
+          "uco-observable:eventRecordServiceName": "ArduPilot AP_Logger",
+          "uco-observable:eventRecordText": "MOTORS_INTERLOCK_DISABLED",
+          "uco-observable:eventRecordDevice": {
+            "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+          },
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:52:54.289Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:59201c4e-f0ae-5f9d-8dbb-80726aa2a9d4",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:d94afac4-c5ce-54d0-87a3-600c64f82f3a"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:ac7f6223-2357-5303-b1d0-8a6b1ca7e5ba",
+      "@type": "uco-observable:ObservableObject",
+      "uco-core:name": "Unattributed MAVLink node, system 141 / component 190",
+      "uco-core:description": "Observed only as the source address of a STATUSTEXT the autopilot logged at 2026-07-04T11:51:41.175Z as 'SRC=141/190:DFRWS26'. Component 190 is the Mission Planner ground-station component id, and system 141 is not the configured ground control station (255). MAVLink system ids are self-asserted; with sender authentication disabled on this aircraft the address is an observation about the link, not an identification of an operator.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:3525efe8-930b-597d-8764-6b048cb9d15f",
+          "@type": "uas:MavlinkEndpointFacet",
+          "uas:mavlinkSystemId": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "141"
+          },
+          "uas:mavlinkComponentId": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "190"
+          },
+          "uas:mavlinkComponentName": "MAV_COMP_ID_MISSIONPLANNER",
+          "uas:mavlinkDialect": "ardupilotmega v2.0"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:1ff37f2a-84e3-5d72-919d-a9f61e23960a",
+      "@type": "uco-observable:Message",
+      "uco-core:name": "MAVLink STATUSTEXT 'DFRWS26'",
+      "uco-core:description": "Received by the autopilot and written to the log verbatim. The text carries no command semantics; its evidential value is that it proves a node other than the configured ground control station was transmitting on the link, and when.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:d70cc03a-6f92-57aa-9533-33167fcac58c",
+          "@type": "uco-observable:MessageFacet",
+          "uco-observable:messageText": "DFRWS26",
+          "uco-observable:messageType": "MAVLink STATUSTEXT",
+          "uco-observable:sentTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:41.175Z"
+          },
+          "uco-observable:from": {
+            "@id": "urn:uuid:ac7f6223-2357-5303-b1d0-8a6b1ca7e5ba"
+          },
+          "uco-observable:to": [
+            {
+              "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:773d9a5d-08e1-58dd-9b8e-689378465ed2",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:1ff37f2a-84e3-5d72-919d-a9f61e23960a"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:df6c224f-2b63-5329-9d3d-fe450267d21d"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Characterized_By",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:eda75fdc-c0b6-5cb6-bfa1-3f3c88d33623",
+      "@type": "uas:FlightModeChange",
+      "uco-core:name": "Mode change to GUIDED at 2026-07-04T11:50:49.196Z",
+      "uco-core:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-04T11:50:49.196Z"
+      },
+      "uco-core:eventType": "Flight mode change",
+      "uas:flightMode": "GUIDED",
+      "uas:flightModeChangeReason": "GCS_COMMAND",
+      "uas:autopilotFamily": "ArduPilot",
+      "uco-core:eventContext": [
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        },
+        {
+          "@id": "urn:uuid:a5248300-9274-5fa2-bae1-7ff855341192"
+        }
+      ],
+      "uco-core:description": "MODE record: mode number 4 (GUIDED), reason code 2 (GCS_COMMAND), logged at arming."
+    },
+    {
+      "@id": "urn:uuid:a532f7e6-93f0-5345-86f5-ff6f4524766f",
+      "@type": "uco-core:Relationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:eda75fdc-c0b6-5cb6-bfa1-3f3c88d33623"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:b5a08638-2702-53c1-9bc6-d0e663e72837"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:65b16e2d-6454-5fbb-8763-7b9aab3d812b",
+      "@type": "uas:FlightModeChange",
+      "uco-core:name": "Mode change to RTL at 2026-07-04T11:51:43.627Z",
+      "uco-core:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-07-04T11:51:43.627Z"
+      },
+      "uco-core:eventType": "Flight mode change",
+      "uas:flightMode": "RTL",
+      "uas:flightModeChangeReason": "GCS_COMMAND",
+      "uas:autopilotFamily": "ArduPilot",
+      "uco-core:eventContext": [
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        },
+        {
+          "@id": "urn:uuid:ad324834-eacf-534e-8199-29eec3e1627a"
+        }
+      ],
+      "uas:previousFlightMode": "GUIDED",
+      "uco-core:description": "MODE record: mode number 6 (RTL), reason code 2 (GCS_COMMAND). It arrived 2.452 s after the STATUSTEXT from system 141. ArduPilot's MODE record carries the reason but not the commanding system id, so the graph does not assert that node commanded the change; uas:commandedBy is left unset and the correlation is stated here. What the log does establish is that the change was commanded by a ground control station rather than by a stick input or a failsafe, and that the aircraft was not enforcing which station may command it."
+    },
+    {
+      "@id": "urn:uuid:c1c2652c-455d-578d-bde4-07e871308caa",
+      "@type": "uco-core:Relationship",
+      "uco-core:source": [
+        {
+          "@id": "urn:uuid:65b16e2d-6454-5fbb-8763-7b9aab3d812b"
+        }
+      ],
+      "uco-core:target": [
+        {
+          "@id": "urn:uuid:b5a08638-2702-53c1-9bc6-d0e663e72837"
+        }
+      ],
+      "uco-core:kindOfRelationship": "Contained_Within",
+      "uco-core:isDirectional": {
+        "@type": "xsd:boolean",
+        "@value": "true"
+      }
+    },
+    {
+      "@id": "urn:uuid:ec44b61f-6e6b-5277-aa73-3027841a5592",
+      "@type": "uco-tool:AnalyticTool",
+      "uco-core:name": "pymavlink",
+      "uco-tool:toolType": "Flight Log Parser",
+      "uco-core:description": "Reference MAVLink/DataFlash parser maintained by the ArduPilot project (https://github.com/ArduPilot/pymavlink). Used through scripts/extract_uas_flight_facts.py to produce uavrodeo_flight_facts.json, from which this graph is built."
+    },
+    {
+      "@id": "urn:uuid:6e13109d-b9e3-55fd-96ec-8e77d28829fe",
+      "@type": "case-investigation:InvestigativeAction",
+      "uco-core:name": "Parse ArduPilot DataFlash log",
+      "uco-core:description": "Decode the DataFlash log to structured records, anchor boot-relative timestamps to GNSS time, and resolve ArduPilot enumerations (LogEvent, ModeReason, Mode::Number) against the firmware source rather than transcribing raw integers.",
+      "uco-action:instrument": [
+        {
+          "@id": "urn:uuid:ec44b61f-6e6b-5277-aa73-3027841a5592"
+        }
+      ],
+      "uco-action:object": [
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        }
+      ],
+      "uco-action:result": [
+        {
+          "@id": "urn:uuid:27850123-f992-5278-b15d-275fbbb9bfa0"
+        },
+        {
+          "@id": "urn:uuid:b5a08638-2702-53c1-9bc6-d0e663e72837"
+        },
+        {
+          "@id": "urn:uuid:a5248300-9274-5fa2-bae1-7ff855341192"
+        },
+        {
+          "@id": "urn:uuid:4f3b63b9-faf5-5492-990c-68f1d291dcf6"
+        },
+        {
+          "@id": "urn:uuid:b01ff7e5-c7b6-59a1-941e-3a59bfd6e800"
+        },
+        {
+          "@id": "urn:uuid:bf385071-9426-59a1-ba10-f774ddc78dee"
+        },
+        {
+          "@id": "urn:uuid:e15bfbaa-7084-5b36-8e0f-10406a63c2f8"
+        },
+        {
+          "@id": "urn:uuid:ef094722-a785-5312-bdbd-532fdf20df06"
+        },
+        {
+          "@id": "urn:uuid:a3231022-da49-5419-b120-39428f842ae8"
+        },
+        {
+          "@id": "urn:uuid:1145b3b2-b325-5186-ac7b-4b96540133d0"
+        },
+        {
+          "@id": "urn:uuid:f2857133-e1a3-5895-bfbf-111d8a02db74"
+        },
+        {
+          "@id": "urn:uuid:729b97e2-db20-5035-a98f-e575b02a920d"
+        },
+        {
+          "@id": "urn:uuid:ec66105d-9857-531f-9c70-8f14c5433e74"
+        },
+        {
+          "@id": "urn:uuid:9390d3b9-4f24-552e-942a-e8c154e22dbe"
+        },
+        {
+          "@id": "urn:uuid:501fd395-7f21-507b-b8ca-c14c6dc77b5d"
+        },
+        {
+          "@id": "urn:uuid:a9b35c92-f9fe-5bb1-b8a6-5fe7d87de408"
+        },
+        {
+          "@id": "urn:uuid:cc7751cd-06ce-54a8-8079-f8f8c7be6e65"
+        },
+        {
+          "@id": "urn:uuid:4e4308fc-78d5-5893-8e42-542f56b896cb"
+        },
+        {
+          "@id": "urn:uuid:e4c59a24-832e-5b57-a534-20080fea81a9"
+        },
+        {
+          "@id": "urn:uuid:531d3e33-0c9d-503d-aeba-a78284990700"
+        },
+        {
+          "@id": "urn:uuid:df6c224f-2b63-5329-9d3d-fe450267d21d"
+        },
+        {
+          "@id": "urn:uuid:ad324834-eacf-534e-8199-29eec3e1627a"
+        },
+        {
+          "@id": "urn:uuid:e626dfc0-68d6-53f0-922b-4357ea75b32a"
+        },
+        {
+          "@id": "urn:uuid:9482e033-25de-56d7-b5f8-3f29aaba97f1"
+        },
+        {
+          "@id": "urn:uuid:8aa6c160-5a6b-5244-b378-925662ba1ca8"
+        },
+        {
+          "@id": "urn:uuid:44076901-a6a8-55c6-9c65-b029bcb6764d"
+        },
+        {
+          "@id": "urn:uuid:9522fcc4-f935-5eef-8019-d662d3f51498"
+        },
+        {
+          "@id": "urn:uuid:d94afac4-c5ce-54d0-87a3-600c64f82f3a"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:af0c4b21-75a5-5df8-9d6b-42cbce296243",
+      "@type": "case-investigation:ProvenanceRecord",
+      "uco-core:description": "UAS flight log examination package. Evidence integrity: SHA-256 a2fa5f1f2b63836045f4b74e07d043780ded1126d04db8d5f286896da363693f over 9404416 bytes.",
+      "case-investigation:exhibitNumber": "EX-UAS-2026-0704",
+      "uco-core:object": [
+        {
+          "@id": "urn:uuid:6e13109d-b9e3-55fd-96ec-8e77d28829fe"
+        },
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        },
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        },
+        {
+          "@id": "urn:uuid:b5a08638-2702-53c1-9bc6-d0e663e72837"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:a3a10f43-a6af-5c6a-8cf8-e7ee5c665216",
+      "@type": "case-investigation:Investigation",
+      "uco-core:name": "Case dfrws-rodeo-2026-uas-flight-log: unmanned aircraft flight log",
+      "uco-core:description": "Model an ArduPilot flight log end to end: the aircraft and its control-link configuration, the sortie, the GNSS trajectory with per-fix times and accuracies, every logged state transition, and the unattributed MAVLink node observed on the link shortly before the autopilot returned to launch on a ground-station command. This log is an ArduPilot SITL (software-in-the-loop) capture: the log records 'RC Protocol: SITL' and carries SIM/SIM2 simulator state records. Positions are simulator output, not observations of a physical aircraft.",
+      "uco-core:object": [
+        {
+          "@id": "urn:uuid:61aed68f-3e18-5384-ab14-e7f3d10c4d58"
+        },
+        {
+          "@id": "urn:uuid:2209f9c2-8c66-5d07-b6e5-913a57a10a22"
+        },
+        {
+          "@id": "urn:uuid:3d136683-d0ba-56e2-951e-1dfaef183274"
+        },
+        {
+          "@id": "urn:uuid:1b7e4223-ea63-57d9-a139-abd9e115bd78"
+        },
+        {
+          "@id": "urn:uuid:a7519d10-392f-50e4-8362-3323094f1336"
+        },
+        {
+          "@id": "urn:uuid:7b2c1a18-40d7-5d97-b36f-fce87cf004bd"
+        },
+        {
+          "@id": "urn:uuid:d5f53d11-7b0e-5d7e-a38a-9d07b451b907"
+        },
+        {
+          "@id": "urn:uuid:84f4b1e0-0890-5cc3-a880-31513c3cc488"
+        },
+        {
+          "@id": "urn:uuid:3a52e29e-7354-5362-8589-e10db63fd1b7"
+        },
+        {
+          "@id": "urn:uuid:884776cd-c9d1-58f1-be36-74f29d039ece"
+        },
+        {
+          "@id": "urn:uuid:89d7f10e-2287-526b-b3e2-c70a3cbaafe1"
+        },
+        {
+          "@id": "urn:uuid:537359d8-453b-572d-a46e-1629042b1628"
+        },
+        {
+          "@id": "urn:uuid:9ce11b9a-79bd-50bc-ae7e-ee3458a78151"
+        },
+        {
+          "@id": "urn:uuid:3d6d9d83-4b30-5be4-b2b3-79d97a7469fb"
+        },
+        {
+          "@id": "urn:uuid:6f681d5e-5edc-5fdb-a66e-7f65aba29e51"
+        },
+        {
+          "@id": "urn:uuid:b65d7d1e-340f-5430-ac50-8406d9d67304"
+        },
+        {
+          "@id": "urn:uuid:e1d07d66-7da2-55f6-b3a4-93236028cee8"
+        },
+        {
+          "@id": "urn:uuid:a3df4b92-3e6d-580a-b703-d870ee0b1486"
+        },
+        {
+          "@id": "urn:uuid:b89d2233-26ad-5ffa-aca8-81b000eb7c5b"
+        },
+        {
+          "@id": "urn:uuid:140288d2-a983-5458-b2ad-c0ce62e4bdf8"
+        },
+        {
+          "@id": "urn:uuid:725b9716-50c9-56df-a5c4-00c26ce2ee95"
+        },
+        {
+          "@id": "urn:uuid:0ce3cdd1-3551-5319-a242-feca21a5eb6a"
+        },
+        {
+          "@id": "urn:uuid:c0144fd6-8b6e-5bc0-8846-9b11b0c5dec3"
+        },
+        {
+          "@id": "urn:uuid:1e2dc3d7-cd26-5738-9445-828531ec8f17"
+        },
+        {
+          "@id": "urn:uuid:c5cc46a1-65a8-5941-8905-9923c0b07708"
+        },
+        {
+          "@id": "urn:uuid:006f6443-f8e6-5d8b-93c6-f28f2e3aeb8f"
+        },
+        {
+          "@id": "urn:uuid:c2e7ca40-ac3a-5153-8db6-01a5ffaadc51"
+        },
+        {
+          "@id": "urn:uuid:bb9a4791-68c8-5fea-a72a-e0cf6eea7d8b"
+        },
+        {
+          "@id": "urn:uuid:ca1d57bf-497d-55ab-a9a4-81bf2df61e29"
+        },
+        {
+          "@id": "urn:uuid:fb5f7e5b-6659-598e-ae57-4568a25ee3c7"
+        },
+        {
+          "@id": "urn:uuid:4046d68a-5219-5e4b-9640-b1daafe37871"
+        },
+        {
+          "@id": "urn:uuid:50084e2f-6a4d-59c7-a18b-f6f3ccd1ec0e"
+        },
+        {
+          "@id": "urn:uuid:c7cbaca8-2ae8-55c9-a6f2-48e2fd2d6bb4"
+        },
+        {
+          "@id": "urn:uuid:17a654a2-b806-5e59-8925-aea8f5c84ce3"
+        },
+        {
+          "@id": "urn:uuid:1142f1af-f1dd-561a-8b87-323066f352cb"
+        },
+        {
+          "@id": "urn:uuid:27850123-f992-5278-b15d-275fbbb9bfa0"
+        },
+        {
+          "@id": "urn:uuid:dedbde07-ca5c-5d2f-8d63-a920aeb5cc36"
+        },
+        {
+          "@id": "urn:uuid:ca2a9267-be47-51d6-8441-bcf41f0bdc2f"
+        },
+        {
+          "@id": "urn:uuid:b5a08638-2702-53c1-9bc6-d0e663e72837"
+        },
+        {
+          "@id": "urn:uuid:ec4f2c4e-cfbd-5e90-9572-e0c69bd6c4da"
+        },
+        {
+          "@id": "urn:uuid:a5248300-9274-5fa2-bae1-7ff855341192"
+        },
+        {
+          "@id": "urn:uuid:483f582b-8fbd-59e8-ad46-956df98b10cf"
+        },
+        {
+          "@id": "urn:uuid:4f3b63b9-faf5-5492-990c-68f1d291dcf6"
+        },
+        {
+          "@id": "urn:uuid:b51f328b-87a0-573f-bb87-b6b1eab05a44"
+        },
+        {
+          "@id": "urn:uuid:b01ff7e5-c7b6-59a1-941e-3a59bfd6e800"
+        },
+        {
+          "@id": "urn:uuid:5d1a2486-d0c1-53b5-992d-8c19b3c5c42f"
+        },
+        {
+          "@id": "urn:uuid:bf385071-9426-59a1-ba10-f774ddc78dee"
+        },
+        {
+          "@id": "urn:uuid:39cd1bdd-c309-5c20-b0d5-1e91498df6fc"
+        },
+        {
+          "@id": "urn:uuid:e15bfbaa-7084-5b36-8e0f-10406a63c2f8"
+        },
+        {
+          "@id": "urn:uuid:a91199bc-5b71-5558-a56e-04fa560596d9"
+        },
+        {
+          "@id": "urn:uuid:ef094722-a785-5312-bdbd-532fdf20df06"
+        },
+        {
+          "@id": "urn:uuid:9488d5ad-2ff7-5d2d-916e-84ce4d86e432"
+        },
+        {
+          "@id": "urn:uuid:a3231022-da49-5419-b120-39428f842ae8"
+        },
+        {
+          "@id": "urn:uuid:4d11c2c6-9d41-507c-922a-0b0e02b0fcd6"
+        },
+        {
+          "@id": "urn:uuid:1145b3b2-b325-5186-ac7b-4b96540133d0"
+        },
+        {
+          "@id": "urn:uuid:a582e01a-f641-5719-bfec-08fe66252e62"
+        },
+        {
+          "@id": "urn:uuid:f2857133-e1a3-5895-bfbf-111d8a02db74"
+        },
+        {
+          "@id": "urn:uuid:b8395f68-415d-5787-9f6b-cc7c378b3b31"
+        },
+        {
+          "@id": "urn:uuid:729b97e2-db20-5035-a98f-e575b02a920d"
+        },
+        {
+          "@id": "urn:uuid:04f8e191-82fa-5b0b-9242-e77b77526934"
+        },
+        {
+          "@id": "urn:uuid:ec66105d-9857-531f-9c70-8f14c5433e74"
+        },
+        {
+          "@id": "urn:uuid:700ffe79-b1f1-5385-8cf5-b8883701de59"
+        },
+        {
+          "@id": "urn:uuid:9390d3b9-4f24-552e-942a-e8c154e22dbe"
+        },
+        {
+          "@id": "urn:uuid:18319505-45c6-520e-861a-53e04a79575d"
+        },
+        {
+          "@id": "urn:uuid:501fd395-7f21-507b-b8ca-c14c6dc77b5d"
+        },
+        {
+          "@id": "urn:uuid:f009a620-4451-5be1-80e8-013e339c83cd"
+        },
+        {
+          "@id": "urn:uuid:a9b35c92-f9fe-5bb1-b8a6-5fe7d87de408"
+        },
+        {
+          "@id": "urn:uuid:90424ff8-73fa-5fca-854f-50f810cdd6e4"
+        },
+        {
+          "@id": "urn:uuid:cc7751cd-06ce-54a8-8079-f8f8c7be6e65"
+        },
+        {
+          "@id": "urn:uuid:c76c95e8-14e5-5051-b73f-6c8a2bc1f6c4"
+        },
+        {
+          "@id": "urn:uuid:4e4308fc-78d5-5893-8e42-542f56b896cb"
+        },
+        {
+          "@id": "urn:uuid:14ea7b5b-1d6b-539a-8415-90c764bdfe9c"
+        },
+        {
+          "@id": "urn:uuid:e4c59a24-832e-5b57-a534-20080fea81a9"
+        },
+        {
+          "@id": "urn:uuid:be6e2ea1-93e5-59d8-b676-c620534cb24e"
+        },
+        {
+          "@id": "urn:uuid:531d3e33-0c9d-503d-aeba-a78284990700"
+        },
+        {
+          "@id": "urn:uuid:932f87e6-4d60-55b0-8f80-dc2820fe2225"
+        },
+        {
+          "@id": "urn:uuid:df6c224f-2b63-5329-9d3d-fe450267d21d"
+        },
+        {
+          "@id": "urn:uuid:9cd56cc7-b55a-5838-9db1-442309918cae"
+        },
+        {
+          "@id": "urn:uuid:ad324834-eacf-534e-8199-29eec3e1627a"
+        },
+        {
+          "@id": "urn:uuid:57e6f971-a182-51bd-b7ad-72bf3efa9620"
+        },
+        {
+          "@id": "urn:uuid:e626dfc0-68d6-53f0-922b-4357ea75b32a"
+        },
+        {
+          "@id": "urn:uuid:a7604abc-1f91-5aba-8a12-3de547839a0e"
+        },
+        {
+          "@id": "urn:uuid:9482e033-25de-56d7-b5f8-3f29aaba97f1"
+        },
+        {
+          "@id": "urn:uuid:0e12afc5-a073-5668-b36c-b68fda0887e9"
+        },
+        {
+          "@id": "urn:uuid:8aa6c160-5a6b-5244-b378-925662ba1ca8"
+        },
+        {
+          "@id": "urn:uuid:4b42893e-fb34-571f-99c4-4003d8fc4bc7"
+        },
+        {
+          "@id": "urn:uuid:44076901-a6a8-55c6-9c65-b029bcb6764d"
+        },
+        {
+          "@id": "urn:uuid:fbba9027-2d2b-5ccf-b125-847ba1be31da"
+        },
+        {
+          "@id": "urn:uuid:9522fcc4-f935-5eef-8019-d662d3f51498"
+        },
+        {
+          "@id": "urn:uuid:77c5f807-8815-5cc9-8ff4-87475578e726"
+        },
+        {
+          "@id": "urn:uuid:d94afac4-c5ce-54d0-87a3-600c64f82f3a"
+        },
+        {
+          "@id": "urn:uuid:59201c4e-f0ae-5f9d-8dbb-80726aa2a9d4"
+        },
+        {
+          "@id": "urn:uuid:ac7f6223-2357-5303-b1d0-8a6b1ca7e5ba"
+        },
+        {
+          "@id": "urn:uuid:1ff37f2a-84e3-5d72-919d-a9f61e23960a"
+        },
+        {
+          "@id": "urn:uuid:773d9a5d-08e1-58dd-9b8e-689378465ed2"
+        },
+        {
+          "@id": "urn:uuid:eda75fdc-c0b6-5cb6-bfa1-3f3c88d33623"
+        },
+        {
+          "@id": "urn:uuid:a532f7e6-93f0-5345-86f5-ff6f4524766f"
+        },
+        {
+          "@id": "urn:uuid:65b16e2d-6454-5fbb-8763-7b9aab3d812b"
+        },
+        {
+          "@id": "urn:uuid:c1c2652c-455d-578d-bde4-07e871308caa"
+        },
+        {
+          "@id": "urn:uuid:ec44b61f-6e6b-5277-aa73-3027841a5592"
+        },
+        {
+          "@id": "urn:uuid:6e13109d-b9e3-55fd-96ec-8e77d28829fe"
+        },
+        {
+          "@id": "urn:uuid:af0c4b21-75a5-5df8-9d6b-42cbce296243"
+        }
+      ]
+    }
+  ]
+}
