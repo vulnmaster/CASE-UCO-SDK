@@ -56,3 +56,62 @@ ex:identifier a owl:DatatypeProperty ;
     assert prop.range_iri == "http://www.w3.org/2001/XMLSchema#string"
     assert prop.alternate_range_iris == ["http://www.w3.org/2001/XMLSchema#anyURI"]
     assert prop.is_union is True
+
+
+def test_max_count_on_sibling_shape_pins_property_to_scalar(tmp_path: Path) -> None:
+    """A sh:maxCount carried by a range-less sibling shape still bounds the property.
+
+    UCO splits many properties this way: one sh:property shape names the
+    sh:datatype and leaves the count open, while a sibling shape carries
+    sh:maxCount 1 with only sh:nodeKind. Both shapes are conjunctive, so the
+    property is single-valued. Mirrors observable:accountType in UCO 1.4.0+.
+    """
+    ontology_root = tmp_path / "ontology"
+
+    ttl = """@prefix ex: <https://example.org/uco/test/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/uco/test> a owl:Ontology .
+
+ex:Thing a owl:Class ;
+    rdfs:label "Thing"@en .
+
+ex:ThingShape a sh:NodeShape ;
+    sh:targetClass ex:Thing ;
+    sh:property [
+        sh:datatype xsd:string ;
+        sh:message "Datatype advisory, no count bound here." ;
+        sh:path ex:accountType ;
+        sh:severity sh:Warning ;
+    ] ,
+    [
+        sh:maxCount "1"^^xsd:integer ;
+        sh:nodeKind sh:Literal ;
+        sh:path ex:accountType ;
+    ] ,
+    [
+        sh:datatype xsd:string ;
+        sh:path ex:tag ;
+    ] .
+
+ex:accountType a owl:DatatypeProperty ;
+    rdfs:comment "Account type property"@en .
+
+ex:tag a owl:DatatypeProperty ;
+    rdfs:comment "Unbounded tag property"@en .
+"""
+
+    _write_file(ontology_root / "UCO" / "ontology" / "uco" / "core" / "core.ttl", ttl)
+    (ontology_root / "CASE" / "ontology").mkdir(parents=True, exist_ok=True)
+
+    schema = parse_ontology(ontology_root)
+    thing = next(cls for cls in schema.classes.values() if cls.name == "Thing")
+    by_name = {prop.name: prop for prop in thing.properties}
+
+    assert by_name["accountType"].cardinality.value == "zero_or_one"
+    assert by_name["accountType"].range_iri == "http://www.w3.org/2001/XMLSchema#string"
+    # A property with no bounding sibling stays a list.
+    assert by_name["tag"].cardinality.value == "zero_or_more"
