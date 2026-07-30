@@ -61,7 +61,7 @@ class Investigation(ContextualCompilation):
     NAMESPACE_PREFIX: str = "case-investigation"
 
     focus: list[str] = field(default_factory=list, metadata={'jsonld_key': 'case-investigation:focus', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    investigation_form: list[str] = field(default_factory=list, metadata={'jsonld_key': 'case-investigation:investigationForm', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    investigation_form: Optional[str] = field(default=None, metadata={'jsonld_key': 'case-investigation:investigationForm', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     investigation_status: Optional[str] = field(default=None, metadata={'jsonld_key': 'case-investigation:investigationStatus', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     relevant_authorization: list[Authorization] = field(default_factory=list, metadata={'jsonld_key': 'case-investigation:relevantAuthorization', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'https://ontology.caseontology.org/case/investigation/Authorization', 'alternate_range_iris': []})
     end_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-core:endTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})

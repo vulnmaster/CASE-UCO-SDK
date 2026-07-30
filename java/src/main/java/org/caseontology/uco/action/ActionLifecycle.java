@@ -6,7 +6,7 @@ import java.util.List;
 import org.caseontology.uco.core.UcoObject;
 
 /** An action lifecycle is an action pattern consisting of an ordered set of multiple actions or subordinate action lifecycles. */
-public class ActionLifecycle extends ActionPattern {
+public class ActionLifecycle extends Action {
     public static final String CLASS_IRI = "https://ontology.unifiedcyberontology.org/uco/action/ActionLifecycle";
     public static final String NAMESPACE_PREFIX = "uco-action";
 

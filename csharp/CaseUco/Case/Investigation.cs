@@ -49,7 +49,7 @@ namespace CaseUco.Case.Investigation
         [global::CaseUco.JsonLdProperty("case-investigation:focus")]
         public List<string> Focus { get; set; }
         [global::CaseUco.JsonLdProperty("case-investigation:investigationForm")]
-        public List<string> InvestigationForm { get; set; }
+        public string InvestigationForm { get; set; }
         [global::CaseUco.JsonLdProperty("case-investigation:investigationStatus")]
         public string InvestigationStatus { get; set; }
         [global::CaseUco.JsonLdProperty("case-investigation:relevantAuthorization")]

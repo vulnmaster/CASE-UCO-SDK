@@ -121,7 +121,7 @@ class AccountFacet(Facet):
 
     account_identifier: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:accountIdentifier', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     account_issuer: Optional[UcoObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:accountIssuer', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/core/UcoObject', 'alternate_range_iris': []})
-    account_type: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:accountType', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    account_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:accountType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     expiration_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:expirationTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
     is_active: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:isActive', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
     modified_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:modifiedTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
@@ -429,7 +429,7 @@ class AutonomousSystemFacet(Facet):
 
     as_handle: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:asHandle', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     number: Optional[int] = field(default=None, metadata={'jsonld_key': 'uco-observable:number', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#integer', 'alternate_range_iris': []})
-    regional_internet_registry: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:regionalInternetRegistry', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    regional_internet_registry: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:regionalInternetRegistry', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -793,7 +793,7 @@ class ContactAddress(UcoInherentCharacterizationThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ContactAddress"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    contact_address_scope: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:contactAddressScope', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    contact_address_scope: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:contactAddressScope', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     geolocation_address: Optional[Location] = field(default=None, metadata={'jsonld_key': 'uco-observable:geolocationAddress', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/location/Location', 'alternate_range_iris': []})
 
 
@@ -822,7 +822,7 @@ class ContactEmail(UcoInherentCharacterizationThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ContactEmail"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    contact_email_scope: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:contactEmailScope', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    contact_email_scope: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:contactEmailScope', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     email_address: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:emailAddress', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
 
 
@@ -897,7 +897,7 @@ class ContactPhone(UcoInherentCharacterizationThing):
     NAMESPACE_PREFIX: str = "uco-observable"
 
     contact_phone_number: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:contactPhoneNumber', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
-    contact_phone_scope: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:contactPhoneScope', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    contact_phone_scope: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:contactPhoneScope', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -918,7 +918,7 @@ class ContactSIP(UcoInherentCharacterizationThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ContactSIP"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    contact_sip_scope: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:contactSIPScope', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    contact_sip_scope: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:contactSIPScope', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     sip_address: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:sipAddress', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
 
 
@@ -929,7 +929,7 @@ class ContactURL(UcoInherentCharacterizationThing):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ContactURL"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    contact_url_scope: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:contactURLScope', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    contact_url_scope: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:contactURLScope', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     url: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:url', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
 
 
@@ -949,7 +949,7 @@ class ContentDataFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/ContentDataFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    byte_order: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:byteOrder', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    byte_order: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:byteOrder', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     data_payload: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:dataPayload', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     data_payload_reference_url: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:dataPayloadReferenceURL', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
     entropy: Optional[float] = field(default=None, metadata={'jsonld_key': 'uco-observable:entropy', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#decimal', 'alternate_range_iris': []})
@@ -1843,7 +1843,7 @@ class MemoryFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/MemoryFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    block_type: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:blockType', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    block_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:blockType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     is_injected: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:isInjected', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
     is_mapped: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:isMapped', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
     is_protected: Optional[bool] = field(default=None, metadata={'jsonld_key': 'uco-observable:isProtected', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#boolean', 'alternate_range_iris': []})
@@ -2454,9 +2454,9 @@ class RecoveredObjectFacet(Facet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/RecoveredObjectFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    content_recovered_status: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:contentRecoveredStatus', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    metadata_recovered_status: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:metadataRecoveredStatus', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    name_recovered_status: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:nameRecoveredStatus', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    content_recovered_status: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:contentRecoveredStatus', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    metadata_recovered_status: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:metadataRecoveredStatus', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    name_recovered_status: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:nameRecoveredStatus', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -2750,7 +2750,7 @@ class TaskActionType(UcoInherentCharacterizationThing):
     NAMESPACE_PREFIX: str = "uco-observable"
 
     action_id: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:actionID', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    action_type: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:actionType', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    action_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:actionType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     i_com_handler_action: Optional[IComHandlerActionType] = field(default=None, metadata={'jsonld_key': 'uco-observable:iComHandlerAction', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/IComHandlerActionType', 'alternate_range_iris': []})
     i_email_action: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:iEmailAction', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
     i_exec_action: Optional[IExecActionType] = field(default=None, metadata={'jsonld_key': 'uco-observable:iExecAction', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/IExecActionType', 'alternate_range_iris': []})
@@ -2768,10 +2768,10 @@ class TriggerType(UcoInherentCharacterizationThing):
     trigger_begin_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:triggerBeginTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
     trigger_delay: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:triggerDelay', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     trigger_end_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:triggerEndTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
-    trigger_frequency: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:triggerFrequency', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    trigger_frequency: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:triggerFrequency', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     trigger_max_run_time: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:triggerMaxRunTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     trigger_session_change_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:triggerSessionChangeType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    trigger_type: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:triggerType', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    trigger_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:triggerType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -2963,7 +2963,7 @@ class URLVisitFacet(Facet):
     browser_information: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:browserInformation', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
     from_url_visit: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:fromURLVisit', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
     url: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:url', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
-    url_transition_type: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:urlTransitionType', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    url_transition_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:urlTransitionType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     visit_duration: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:visitDuration', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#duration', 'alternate_range_iris': []})
     visit_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:visitTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
 
@@ -3085,14 +3085,14 @@ class WhoIsFacet(Facet):
     ip_address: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:ipAddress', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
     lookup_date: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:lookupDate', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
     name_server: list[ObservableObject] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:nameServer', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
-    regional_internet_registry: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:regionalInternetRegistry', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    regional_internet_registry: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:regionalInternetRegistry', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     registrant_contact_info: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:registrantContactInfo', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
     registrant_i_ds: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:registrantIDs', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     registrar_info: Optional[WhoisRegistrarInfoType] = field(default=None, metadata={'jsonld_key': 'uco-observable:registrarInfo', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/WhoisRegistrarInfoType', 'alternate_range_iris': []})
     remarks: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:remarks', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     server_name: Optional[ObservableObject] = field(default=None, metadata={'jsonld_key': 'uco-observable:serverName', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject', 'alternate_range_iris': []})
     sponsoring_registrar: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:sponsoringRegistrar', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    status: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:status', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    status: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:status', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     updated_date: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:updatedDate', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
 
 
@@ -3103,7 +3103,7 @@ class WhoisContactFacet(ContactFacet):
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/observable/WhoisContactFacet"
     NAMESPACE_PREFIX: str = "uco-observable"
 
-    whois_contact_type: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:whoisContactType', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    whois_contact_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:whoisContactType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass
@@ -3551,8 +3551,8 @@ class WindowsTaskFacet(Facet):
     next_run_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:nextRunTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
     observable_created_time: Optional[datetime] = field(default=None, metadata={'jsonld_key': 'uco-observable:observableCreatedTime', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#dateTime', 'alternate_range_iris': []})
     parameters: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:parameters', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    priority: list[Any] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:priority', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#integer', 'alternate_range_iris': ['http://www.w3.org/2001/XMLSchema#string']})
-    status: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:status', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    priority: Optional[Any] = field(default=None, metadata={'jsonld_key': 'uco-observable:priority', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#integer', 'alternate_range_iris': ['http://www.w3.org/2001/XMLSchema#string']})
+    status: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:status', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     task_comment: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:taskComment', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     task_creator: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:taskCreator', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     trigger_list: list[TriggerType] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:triggerList', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/observable/TriggerType', 'alternate_range_iris': []})
@@ -3597,7 +3597,7 @@ class WindowsVolumeFacet(Facet):
     NAMESPACE_PREFIX: str = "uco-observable"
 
     drive_letter: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:driveLetter', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    drive_type: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:driveType', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    drive_type: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:driveType', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     windows_volume_attributes: list[WindowsVolumeAttributeVocab] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:windowsVolumeAttributes', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'https://ontology.unifiedcyberontology.org/uco/vocabulary/WindowsVolumeAttributeVocab', 'alternate_range_iris': []})
 
 
@@ -3629,7 +3629,7 @@ class WirelessNetworkConnectionFacet(Facet):
     base_station: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:baseStation', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     password: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:password', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
     ssid: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:ssid', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
-    wireless_network_security_mode: list[str] = field(default_factory=list, metadata={'jsonld_key': 'uco-observable:wirelessNetworkSecurityMode', 'required': False, 'cardinality': 'zero_or_more', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
+    wireless_network_security_mode: Optional[str] = field(default=None, metadata={'jsonld_key': 'uco-observable:wirelessNetworkSecurityMode', 'required': False, 'cardinality': 'zero_or_one', 'range_iri': 'http://www.w3.org/2001/XMLSchema#string', 'alternate_range_iris': []})
 
 
 @dataclass

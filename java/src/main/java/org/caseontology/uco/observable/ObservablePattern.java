@@ -3,7 +3,6 @@ package org.caseontology.uco.observable;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.caseontology.uco.pattern.Pattern;
 
 /** An observable pattern is a grouping of characteristics unique to a logical pattern composed of observable object and observable action properties. */
 public class ObservablePattern extends Observable {

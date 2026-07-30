@@ -544,7 +544,7 @@
           "name": "investigationForm",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "A label categorizing a type of investigation (case, incident, suspicious-activity, etc.)"
         },
@@ -2619,7 +2619,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -3304,7 +3304,7 @@
           "name": "accountType",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The type of account, for instance bank, phone, application, service, etc."
         },
@@ -3459,7 +3459,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -4394,7 +4394,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -4587,8 +4587,8 @@
           "name": "trend",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
-          "required": false,
+          "cardinality": "exactly_one",
+          "required": true,
           "description": "A characterization of the frequency trend for the occurence of an action."
         },
         {
@@ -4710,7 +4710,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -4922,7 +4922,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -6080,7 +6080,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -6645,7 +6645,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -8212,7 +8212,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -9075,7 +9075,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -11372,7 +11372,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -13202,7 +13202,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -14513,7 +14513,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -15537,7 +15537,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -16752,7 +16752,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -17088,7 +17088,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -17425,7 +17425,7 @@
           "name": "regionalInternetRegistry",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "specifies the name of the Regional Internet Registry (RIR) which allocated the IP address contained in a WHOIS entry."
         }
@@ -17972,7 +17972,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -18185,7 +18185,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -20579,7 +20579,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -22466,7 +22466,7 @@
           "name": "investigationForm",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "A label categorizing a type of investigation (case, incident, suspicious-activity, etc.)"
         },
@@ -22629,7 +22629,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -23357,7 +23357,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -26770,7 +26770,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -28096,7 +28096,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -28431,7 +28431,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -28875,7 +28875,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -29305,7 +29305,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -30376,7 +30376,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -31488,7 +31488,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -33376,7 +33376,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -33635,7 +33635,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -35636,7 +35636,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -37949,7 +37949,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -39038,7 +39038,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -41481,7 +41481,7 @@
           "name": "contactAddressScope",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Contact address scope specifies the relevant scope (home, work, school, etc) for a geolocation address of a contact entity."
         },
@@ -41591,7 +41591,7 @@
           "name": "contactEmailScope",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Contact email scope specifies the relevant scope (home, work, school, etc) of details for contacting a contact entity by email."
         },
@@ -42000,7 +42000,7 @@
           "name": "contactPhoneScope",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Contact phone scope specifies the relevant scope (home, work, school, etc) of details for contacting a contact entity by telephone."
         }
@@ -42145,7 +42145,7 @@
           "name": "contactSIPScope",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Contact SIP scope specifies the relevant scope (home, work, school, etc) of details for contacting a contact entity by Session Initiation Protocol (SIP)."
         },
@@ -42172,7 +42172,7 @@
           "name": "contactURLScope",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Contact url scope specifies the relevant scope (homepage, home, work, school, etc) of details for contacting a contact entity by Uniform Resource Locator (URL)."
         },
@@ -42519,7 +42519,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -42940,7 +42940,7 @@
           "name": "byteOrder",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": ""
         },
@@ -44676,7 +44676,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -45221,7 +45221,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -45809,7 +45809,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -46063,7 +46063,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -46266,7 +46266,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -49227,7 +49227,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -51609,7 +51609,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -52018,7 +52018,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -54255,7 +54255,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -55387,7 +55387,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -55638,7 +55638,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -56618,7 +56618,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -57266,7 +57266,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -58458,7 +58458,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -59016,7 +59016,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -59313,7 +59313,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -59634,7 +59634,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -60405,7 +60405,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -60667,7 +60667,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -61899,7 +61899,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -64669,7 +64669,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -64914,7 +64914,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -65860,7 +65860,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -66391,7 +66391,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -66682,7 +66682,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -68625,7 +68625,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -70484,7 +70484,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -70711,7 +70711,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -71406,7 +71406,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -73876,7 +73876,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -74725,7 +74725,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -75060,7 +75060,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -75446,7 +75446,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -75737,7 +75737,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -76242,7 +76242,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -77425,7 +77425,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -77838,7 +77838,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -81222,7 +81222,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -83787,7 +83787,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -85155,7 +85155,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -88516,7 +88516,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -89647,7 +89647,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -91118,7 +91118,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -92740,8 +92740,8 @@
           "name": "hashMethod",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
-          "required": false,
+          "cardinality": "exactly_one",
+          "required": true,
           "description": "A particular cryptographic hashing method (e.g., MD5)."
         },
         {
@@ -94252,7 +94252,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -94855,7 +94855,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -95951,7 +95951,7 @@
           "name": "honeypotInteractionType",
           "type": "HoneypotInteractionTypeVocab",
           "type_iri": "https://ontology.adversaryengagement.org/ae/vocabulary/HoneypotInteractionTypeVocab",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The interaction class intended for a honeypot."
         }
@@ -96076,7 +96076,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -96279,7 +96279,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -97071,7 +97071,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -100349,7 +100349,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -100952,7 +100952,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -102459,7 +102459,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -104258,7 +104258,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -104555,7 +104555,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -106588,7 +106588,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -108695,7 +108695,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -110970,7 +110970,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -111971,7 +111971,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -112313,7 +112313,7 @@
           "name": "investigationForm",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "A label categorizing a type of investigation (case, incident, suspicious-activity, etc.)"
         },
@@ -112914,7 +112914,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -113149,7 +113149,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -114516,7 +114516,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -115553,7 +115553,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -116081,7 +116081,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -116619,7 +116619,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -117821,7 +117821,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -119244,7 +119244,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -119965,7 +119965,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -120207,7 +120207,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -121927,7 +121927,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -125343,7 +125343,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -127591,7 +127591,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -127804,7 +127804,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -128220,7 +128220,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -128579,7 +128579,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -130109,7 +130109,7 @@
           "name": "blockType",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The blockType property specifies the block type of a particular memory object."
         },
@@ -131437,7 +131437,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -131712,7 +131712,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -132867,7 +132867,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -133325,7 +133325,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -133552,7 +133552,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -134049,7 +134049,7 @@
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
           "cardinality": "zero_or_one",
           "required": false,
-          "description": "Name configured withing Bluetooth settings on a device."
+          "description": "Name configured within Bluetooth settings on a device."
         },
         {
           "name": "clockSetting",
@@ -134636,7 +134636,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -136243,7 +136243,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -136680,7 +136680,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -137943,7 +137943,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -139765,7 +139765,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -140734,7 +140734,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -142413,7 +142413,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -143191,7 +143191,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -143426,7 +143426,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -145020,7 +145020,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -145462,7 +145462,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -146028,7 +146028,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -147519,7 +147519,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -148597,7 +148597,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -150167,7 +150167,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -150557,7 +150557,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -152465,7 +152465,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -155084,7 +155084,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -155470,8 +155470,8 @@
           "name": "hashMethod",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
-          "required": false,
+          "cardinality": "exactly_one",
+          "required": true,
           "description": "A particular cryptographic hashing method (e.g., MD5)."
         },
         {
@@ -156650,7 +156650,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -157097,8 +157097,8 @@
           "name": "hashMethod",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
-          "required": false,
+          "cardinality": "exactly_one",
+          "required": true,
           "description": "A particular cryptographic hashing method (e.g., MD5)."
         },
         {
@@ -158211,7 +158211,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -158603,7 +158603,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -159951,7 +159951,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -160194,7 +160194,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -162261,7 +162261,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -162716,7 +162716,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -164724,7 +164724,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -165058,7 +165058,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -165720,7 +165720,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -169815,7 +169815,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -170029,7 +170029,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -171586,7 +171586,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -172725,7 +172725,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -173507,7 +173507,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -174124,7 +174124,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -174653,7 +174653,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -175107,7 +175107,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -175726,7 +175726,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -176785,7 +176785,7 @@
           "name": "contentRecoveredStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the recoverability status of the content of an object."
         },
@@ -176793,7 +176793,7 @@
           "name": "metadataRecoveredStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the recoverability status of the metadata of an object."
         },
@@ -176801,7 +176801,7 @@
           "name": "nameRecoveredStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the recoverability status of the name of an object."
         }
@@ -179343,7 +179343,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -181636,7 +181636,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -182806,7 +182806,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -183555,7 +183555,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -186628,7 +186628,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -187827,7 +187827,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -188435,7 +188435,7 @@
           "name": "investigationForm",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "A label categorizing a type of investigation (case, incident, suspicious-activity, etc.)"
         },
@@ -189045,7 +189045,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -192287,7 +192287,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -192653,7 +192653,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -193674,7 +193674,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -195571,7 +195571,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -196220,7 +196220,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -196433,7 +196433,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -198657,7 +198657,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -199675,7 +199675,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -201656,7 +201656,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -202873,7 +202873,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -203694,7 +203694,7 @@
           "name": "investigationForm",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "A label categorizing a type of investigation (case, incident, suspicious-activity, etc.)"
         },
@@ -204598,7 +204598,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -205610,7 +205610,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -206198,7 +206198,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -206470,7 +206470,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -207911,7 +207911,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -209178,7 +209178,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -209381,7 +209381,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -209584,7 +209584,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -209787,7 +209787,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -209990,7 +209990,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -210193,7 +210193,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -210396,7 +210396,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -210599,7 +210599,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -210802,7 +210802,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -211005,7 +211005,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -211208,7 +211208,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -211411,7 +211411,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -211614,7 +211614,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -211817,7 +211817,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -212020,7 +212020,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -212223,7 +212223,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -212426,7 +212426,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -212629,7 +212629,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -212832,7 +212832,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -213035,7 +213035,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -213238,7 +213238,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -213441,7 +213441,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -213644,7 +213644,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -213847,7 +213847,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -214050,7 +214050,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -214253,7 +214253,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -214456,7 +214456,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -215346,7 +215346,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -215897,7 +215897,7 @@
           "name": "actionType",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the type of the action. See also: http://msdn.microsoft.com/en-us/library/windows/desktop/aa380596(v=vs.85).aspx."
         },
@@ -220042,7 +220042,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -220626,7 +220626,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -222481,7 +222481,7 @@
     "Thread": {
       "iri": "https://ontology.unifiedcyberontology.org/uco/types/Thread",
       "module": "uco.types",
-      "description": "A semi-ordered array of items, that can be present in multiple copies.  Implemetation of a UCO Thread is similar to a Collections Ontology List, except a Thread may fork and merge - that is, one of its members may have two or more direct successors, and two or more direct predecessors.",
+      "description": "A semi-ordered array of items, that can be present in multiple copies.  Implementation of a UCO Thread is similar to a Collections Ontology List, except a Thread may fork and merge - that is, one of its members may have two or more direct successors, and two or more direct predecessors.",
       "parents": [
         "UcoThing"
       ],
@@ -223135,7 +223135,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -224615,7 +224615,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -225422,7 +225422,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -225913,7 +225913,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -226585,7 +226585,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -228852,7 +228852,7 @@
           "name": "triggerFrequency",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the frequency at which the trigger repeats."
         },
@@ -228876,7 +228876,7 @@
           "name": "triggerType",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the type of the task trigger."
         }
@@ -230928,7 +230928,7 @@
           "name": "urlTransitionType",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies how a browser navigated to a particular URL on a particular visit."
         },
@@ -232198,7 +232198,7 @@
     "UcoThing": {
       "iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoThing",
       "module": "uco.core",
-      "description": "UcoThing is the top-level class within UCO.",
+      "description": "UcoThing is the top-level class for individuals within UCO.",
       "parents": [],
       "is_facet": false,
       "properties": []
@@ -232206,7 +232206,7 @@
     "UcoType": {
       "iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoType",
       "module": "uco.core",
-      "description": "UcoThing is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing.",
+      "description": "UcoType is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing.",
       "parents": [],
       "is_facet": false,
       "properties": []
@@ -232429,7 +232429,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -233099,7 +233099,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -233622,7 +233622,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -234180,7 +234180,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -234573,7 +234573,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -235214,7 +235214,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -236387,7 +236387,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -236878,7 +236878,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -237606,7 +237606,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -237825,7 +237825,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -238036,7 +238036,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -238239,7 +238239,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -238450,7 +238450,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -238792,7 +238792,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -240012,7 +240012,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -240537,7 +240537,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -240795,7 +240795,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -244354,7 +244354,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -244733,7 +244733,7 @@
           "name": "regionalInternetRegistry",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "specifies the name of the Regional Internet Registry (RIR) which allocated the IP address contained in a WHOIS entry."
         },
@@ -244789,7 +244789,7 @@
           "name": "status",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies a list of statuses for a given Whois entry."
         },
@@ -245000,7 +245000,7 @@
           "name": "whoisContactType",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies what type of WHOIS contact this is."
         }
@@ -248537,7 +248537,7 @@
           "name": "priority",
           "type": "integer",
           "type_iri": "http://www.w3.org/2001/XMLSchema#integer",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The priority of the email."
         },
@@ -248545,7 +248545,7 @@
           "name": "status",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies a list of statuses for a given Whois entry."
         },
@@ -248826,7 +248826,7 @@
           "name": "driveType",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the drive type of a windows volume."
         },
@@ -249107,7 +249107,7 @@
           "name": "wirelessNetworkSecurityMode",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "Specifies the security mode of a wireless network (None, WEP, WPA, etc)."
         }
@@ -249551,7 +249551,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -250887,7 +250887,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -251090,7 +251090,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -251293,7 +251293,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -251496,7 +251496,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -251699,7 +251699,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -251902,7 +251902,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -252105,7 +252105,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -252308,7 +252308,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -252511,7 +252511,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -252714,7 +252714,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -252917,7 +252917,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -253120,7 +253120,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -253323,7 +253323,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -253526,7 +253526,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -253729,7 +253729,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -253932,7 +253932,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -254135,7 +254135,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -254338,7 +254338,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -254541,7 +254541,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -254744,7 +254744,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -254947,7 +254947,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -255150,7 +255150,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -255353,7 +255353,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -255556,7 +255556,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -255759,7 +255759,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -255962,7 +255962,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -256165,7 +256165,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -256368,7 +256368,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -256571,7 +256571,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -256774,7 +256774,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -256977,7 +256977,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -257180,7 +257180,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -257383,7 +257383,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -257586,7 +257586,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -257789,7 +257789,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -257992,7 +257992,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -258195,7 +258195,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -258398,7 +258398,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -258601,7 +258601,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -258804,7 +258804,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -259007,7 +259007,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -259210,7 +259210,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -259413,7 +259413,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -259616,7 +259616,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -259819,7 +259819,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -260022,7 +260022,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -260225,7 +260225,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -260428,7 +260428,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -260631,7 +260631,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -260834,7 +260834,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -261037,7 +261037,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -261240,7 +261240,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -261443,7 +261443,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -261646,7 +261646,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -261849,7 +261849,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -262052,7 +262052,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -262255,7 +262255,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -262458,7 +262458,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -262661,7 +262661,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -262864,7 +262864,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -263067,7 +263067,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -263270,7 +263270,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -263473,7 +263473,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -263676,7 +263676,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -263879,7 +263879,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -264082,7 +264082,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -264285,7 +264285,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -264488,7 +264488,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -264691,7 +264691,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -264894,7 +264894,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -265097,7 +265097,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -265300,7 +265300,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -265503,7 +265503,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -265706,7 +265706,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -265909,7 +265909,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -266112,7 +266112,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -266315,7 +266315,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -266518,7 +266518,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -266721,7 +266721,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -266924,7 +266924,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -267127,7 +267127,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -267330,7 +267330,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -267533,7 +267533,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -267736,7 +267736,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -267939,7 +267939,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -268142,7 +268142,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -268345,7 +268345,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -268548,7 +268548,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -268751,7 +268751,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -268954,7 +268954,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -269157,7 +269157,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -269360,7 +269360,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -269563,7 +269563,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -269766,7 +269766,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -269969,7 +269969,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -270172,7 +270172,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -270375,7 +270375,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -270578,7 +270578,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -270781,7 +270781,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -270984,7 +270984,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -271187,7 +271187,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -271390,7 +271390,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -271593,7 +271593,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -271796,7 +271796,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -271999,7 +271999,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -272202,7 +272202,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -272405,7 +272405,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -272608,7 +272608,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -272811,7 +272811,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -273014,7 +273014,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -273217,7 +273217,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -273420,7 +273420,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -273623,7 +273623,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -273826,7 +273826,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -274029,7 +274029,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -274232,7 +274232,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -274435,7 +274435,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -274638,7 +274638,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -274841,7 +274841,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -275044,7 +275044,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -275247,7 +275247,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -275450,7 +275450,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -275653,7 +275653,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -275856,7 +275856,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -276059,7 +276059,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -276262,7 +276262,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -276465,7 +276465,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -276668,7 +276668,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -276871,7 +276871,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -277074,7 +277074,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -277277,7 +277277,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -277480,7 +277480,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -277683,7 +277683,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -277886,7 +277886,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -278089,7 +278089,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -278292,7 +278292,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -278495,7 +278495,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -278698,7 +278698,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -278901,7 +278901,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -279104,7 +279104,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -279307,7 +279307,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -279510,7 +279510,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -279713,7 +279713,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -279916,7 +279916,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -280119,7 +280119,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -280322,7 +280322,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -280525,7 +280525,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -280728,7 +280728,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -280931,7 +280931,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -281134,7 +281134,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -281337,7 +281337,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -281540,7 +281540,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -281743,7 +281743,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -281946,7 +281946,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -282149,7 +282149,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -282352,7 +282352,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -282555,7 +282555,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -282758,7 +282758,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -282961,7 +282961,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -283164,7 +283164,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -283367,7 +283367,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -283570,7 +283570,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -283773,7 +283773,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -283976,7 +283976,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -284179,7 +284179,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -284382,7 +284382,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -284585,7 +284585,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -284788,7 +284788,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -284991,7 +284991,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -285194,7 +285194,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -285397,7 +285397,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -285600,7 +285600,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -285803,7 +285803,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -286006,7 +286006,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -286209,7 +286209,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -286412,7 +286412,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -286615,7 +286615,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -286818,7 +286818,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -287021,7 +287021,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -287224,7 +287224,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -287427,7 +287427,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -287630,7 +287630,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -287833,7 +287833,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -288036,7 +288036,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -288239,7 +288239,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -288442,7 +288442,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },
@@ -288645,7 +288645,7 @@
           "name": "actionStatus",
           "type": "string",
           "type_iri": "http://www.w3.org/2001/XMLSchema#string",
-          "cardinality": "zero_or_more",
+          "cardinality": "zero_or_one",
           "required": false,
           "description": "The current state of the action."
         },

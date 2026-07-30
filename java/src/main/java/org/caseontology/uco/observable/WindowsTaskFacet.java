@@ -23,7 +23,7 @@ public class WindowsTaskFacet extends Facet {
     private java.time.ZonedDateTime nextRunTime;
     private java.time.ZonedDateTime observableCreatedTime;
     private String parameters;
-    private List<Object> priority;
+    private Object priority;
     private String status;
     private String taskComment;
     private String taskCreator;
@@ -34,7 +34,6 @@ public class WindowsTaskFacet extends Facet {
     public WindowsTaskFacet() {
         this.actionList = new ArrayList<>();
         this.flags = new ArrayList<>();
-        this.priority = new ArrayList<>();
         this.triggerList = new ArrayList<>();
     }
 
@@ -77,8 +76,8 @@ public class WindowsTaskFacet extends Facet {
     public String getParameters() { return this.parameters; }
     public WindowsTaskFacet setParameters(String value) { this.parameters = value; return this; }
 
-    public List<Object> getPriority() { return this.priority; }
-    public WindowsTaskFacet setPriority(List<Object> value) { this.priority = value; return this; }
+    public Object getPriority() { return this.priority; }
+    public WindowsTaskFacet setPriority(Object value) { this.priority = value; return this; }
 
     public String getStatus() { return this.status; }
     public WindowsTaskFacet setStatus(String value) { this.status = value; return this; }

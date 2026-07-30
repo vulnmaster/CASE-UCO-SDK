@@ -102,7 +102,7 @@ namespace CaseUco.Uco.Observable
     }
 
     /// <summary>An alternate data stream is data content stored within an NTFS file that is independent of the standard content stream of the file and is hidden from access by default NTFS file viewing mechanisms.</summary>
-    public class AlternateDataStream : CaseUco.Uco.Observable.FileSystemObject
+    public class AlternateDataStream : CaseUco.Uco.Observable.ObservableObject
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/observable/AlternateDataStream";
         public new const string NamespacePrefix = "uco-observable";
@@ -1003,7 +1003,7 @@ namespace CaseUco.Uco.Observable
     }
 
     /// <summary>A disk is a storage mechanism where data is recorded by various electronic, magnetic, optical, or mechanical changes to a surface layer of one or more rotating disks.</summary>
-    public class Disk : CaseUco.Uco.Observable.StorageMedium
+    public class Disk : CaseUco.Uco.Observable.ObservableObject
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/observable/Disk";
         public new const string NamespacePrefix = "uco-observable";
@@ -2188,7 +2188,7 @@ namespace CaseUco.Uco.Observable
     }
 
     /// <summary>An operating system is the software that manages computer hardware, software resources, and provides common services for computer programs. [based on https://en.wikipedia.org/wiki/Operating_system]</summary>
-    public class OperatingSystem : CaseUco.Uco.Observable.Software
+    public class OperatingSystem : CaseUco.Uco.Observable.ObservableObject
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/observable/OperatingSystem";
         public new const string NamespacePrefix = "uco-observable";
@@ -2209,6 +2209,10 @@ namespace CaseUco.Uco.Observable
         public System.DateTime? InstallDate { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:isLimitAdTrackingEnabled")]
         public bool? IsLimitAdTrackingEnabled { get; set; }
+        [global::CaseUco.JsonLdProperty("uco-observable:manufacturer")]
+        public CaseUco.Uco.Identity.Identity Manufacturer { get; set; }
+        [global::CaseUco.JsonLdProperty("uco-observable:version")]
+        public string Version { get; set; }
     }
 
     /// <summary>A PDF file is a Portable Document Format (PDF) file.</summary>
@@ -3606,7 +3610,7 @@ namespace CaseUco.Uco.Observable
         [global::CaseUco.JsonLdProperty("uco-observable:parameters")]
         public string Parameters { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:priority")]
-        public List<object> Priority { get; set; }
+        public object Priority { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:status")]
         public string Status { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:taskComment")]
@@ -3637,6 +3641,8 @@ namespace CaseUco.Uco.Observable
         public string Context { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:creationFlags")]
         public List<uint> CreationFlags { get; set; }
+        [global::CaseUco.JsonLdProperty("uco-observable:creationTime")]
+        public System.DateTime? CreationTime { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:observableCreatedTime")]
         public System.DateTime? ObservableCreatedTime { get; set; }
         [global::CaseUco.JsonLdProperty("uco-observable:parameterAddress")]

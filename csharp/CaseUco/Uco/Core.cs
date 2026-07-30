@@ -222,14 +222,14 @@ namespace CaseUco.Uco.Core
         public List<string> Tag { get; set; }
     }
 
-    /// <summary>UcoThing is the top-level class within UCO.</summary>
+    /// <summary>UcoThing is the top-level class for individuals within UCO.</summary>
     public class UcoThing
     {
         public const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/core/UcoThing";
         public const string NamespacePrefix = "uco-core";
     }
 
-    /// <summary>UcoThing is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing.</summary>
+    /// <summary>UcoType is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing.</summary>
     public class UcoType
     {
         public const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/core/UcoType";
