@@ -245,7 +245,7 @@ Utility, T1041 Exfil over C2). Validate with the extension **and RDFS
 inference** (the metaclass constraints resolve under inference):
 `validate_graph(path, extensions=["attack-technique:full"])`. Reuse the
 `attack-technique` catalog IRIs rather than minting your own technique class,
-so the model stays forward-compatible with UCO 1.5.0.
+so the model matches the terms released in UCO 1.5.0.
 
 ### 6. Third-party cloud C2 is still C2
 

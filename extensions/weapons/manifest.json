@@ -21,7 +21,7 @@
   "exemplar_files": [
     "weapons-exemplar.ttl"
   ],
-  "uco_compat": ["1.4.0"],
+  "uco_compat": ["1.4.0", "1.5.0"],
   "upper_ontology": "CCO Artifact Ontology (BFO 2020) via weapons-profile-cco.ttl; gUFO via weapons-profile-gufo.ttl",
   "cdo_shapes_compatibility": {
     "CDO-Shapes-gufo": "compatible (weap:Weapon subClassOf gufo:FunctionalComplex via bridge)",

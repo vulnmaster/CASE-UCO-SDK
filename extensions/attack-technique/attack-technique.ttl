@@ -6,17 +6,22 @@
 @prefix action: <https://ontology.unifiedcyberontology.org/uco/action/> .
 
 #
-# Local forward-implementation of the uco-action:Technique metaclass.
+# Local implementation of the uco-action:Technique metaclass.
 #
-# This extension implements, ahead of release, the classes and properties
-# added on the UCO 1.5.0 track in ucoProject/UCO PR #676 ("Issue 666: Add
-# UcoType and Technique", author @ajnelson-nist), which resolves the
-# backwards-compatible requirements of ucoProject/UCO#666. It reproduces the
-# feature-branch (Feature-Issue-666) definitions verbatim so CTI/APT
-# exemplars can carry MITRE ATT&CK (and Engage / SOLVE-IT) technique mappings
-# and still validate today. When UCO 1.5.0 ships these terms, this extension
-# can be retired without changing any instance data, because it declares the
-# concepts in their released uco-core: / uco-action: IRIs.
+# SUPERSEDED UPSTREAM, STILL REQUIRED. UCO 1.5.0 ships these terms natively
+# (ucoProject/UCO PR #676, "Issue 666: Add UcoType and Technique", author
+# @ajnelson-nist), and this SDK pins UCO 1.5.0. The declarations below use the
+# same IRIs as the released terms, so no instance data is affected either way.
+#
+# They stay because case_validate is pinned to --built-version case-1.4.0:
+# case-utils 0.17.0 bundles CASE only through 1.4.0, and that import closure
+# contains no Technique. Supplying the UCO 1.5.0 files via --ontology-graph is
+# not a substitute; it places two versions of one ontology series in the
+# closure and trips uco-owl:versionIRI-multiversion-shape.
+#
+# Delete this file once case-utils publishes a release bundling CASE 1.5.0
+# (casework/CASE-Utilities-Python#182) and the validator target moves to
+# case-1.5.0.
 #
 # Design (per PR #676):
 #   * core:UcoType is a top-level metaclass anchor, disjoint from

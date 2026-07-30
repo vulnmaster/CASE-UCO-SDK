@@ -99,7 +99,7 @@ If the developer agrees, follow the change-proposal recipe (`docs/recipes/change
 1. Confirm the gap by searching multiple related keywords
 2. Check existing proposals with `check_existing_proposals(concept)`
 3. Determine whether the concept belongs in UCO (general cyber-domain) or CASE (investigation-specific) — ask the developer if unsure
-4. Ask which release to target (1.5.0 for backward-compatible additions, 2.0.0 for breaking changes; default to 1.5.0 if unsure)
+4. Ask which release to target. CASE/UCO 1.5.0 are released, so backward-compatible additions go to the `develop` branch's next minor and breaking changes to 2.0.0; read the target off `develop` rather than assuming a number
 5. Draft the proposal with `draft_change_proposal(...)`, which writes the proposal markdown, example `.jsonld` graph, and `.sparql` queries to `change_proposals/`
 6. If the proposal introduces new Facet or UcoObject subclasses, create a `<slug>.ttl` extension file declaring `rdfs:subClassOf` relationships — this is **required** for validation
 7. Ensure all facet objects in the `.jsonld` have explicit `@id` properties (not blank nodes) — SHACL requires `sh:nodeKind sh:IRI`

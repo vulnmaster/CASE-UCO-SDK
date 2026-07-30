@@ -7,6 +7,85 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
+generator, and repair of the extension compatibility harness.
+
+#### Ontology alignment (CASE/UCO 1.5.0)
+
+- `ontology/UCO` pinned to **1.5.0** (`7ebb395`) and `ontology/CASE` to
+  **1.5.0** (`8073d5a`), together with CASE's nested `dependencies/UCO`
+  gitlink. Supersedes dependabot #93 and #94, applied as a pair so the two
+  ontologies stay on matching releases.
+- UCO 1.5.0 adds the `core:UcoType` metaclass anchor (disjoint from
+  `core:UcoThing`), `action:Technique`, `action:techniqueID`, and two SHACL
+  shapes; it also repairs the `MessageTread`, `withing` and `Implemetation`
+  typos. Only `rdfs:label` / `rdfs:comment` strings changed — the
+  `observable:MessageThread` class IRI was always spelled correctly, so no
+  binding, exemplar or instance data is affected. CASE 1.5.0 carries no
+  ontology changes beyond version IRIs.
+- **`case_validate` deliberately stays on `--built-version case-1.4.0`.**
+  case-utils 0.17.0 is the newest PyPI release and bundles CASE only through
+  1.4.0, so `case-1.5.0` is not a selectable target
+  ([casework/CASE-Utilities-Python#182](https://github.com/casework/CASE-Utilities-Python/pull/182)
+  is still open). Supplying the UCO 1.5.0 files through `--ontology-graph`
+  is not a workaround: it puts two versions of one ontology series in the
+  import closure and trips `uco-owl:versionIRI-multiversion-shape`.
+- `extensions/attack-technique/` is now **superseded upstream but retained**.
+  Its `core:UcoType` / `action:Technique` / `action:techniqueID` declarations
+  are the same concepts in the same IRIs that UCO 1.5.0 ships, and were
+  verified removable: against a real 1.5.0 closure the MITRE ATT&CK catalog
+  reports `Conforms: True` with both the shim and its shapes deleted. It stays
+  only because the pinned `case-1.4.0` closure has no `Technique`. Retirement
+  condition recorded in the extension README and TTL header.
+- `uco_compat` extended to `["1.4.0", "1.5.0"]` for `attack-technique`,
+  `cryptoinv`, `drugs`, `legalproc`, `rico`, `toolcap` and `weapons`, each
+  confirmed `Conforms: True` against the 1.5.0 closure rather than assumed
+  from UCO's `owl:backwardCompatibleWith`.
+
+#### Generator
+
+- Preserve `sh:maxCount` carried by range-less sibling shapes. UCO routinely
+  splits a property across sibling `sh:property` shapes — one naming the
+  `sh:datatype` with no bound, another carrying `sh:maxCount 1` with only
+  `sh:nodeKind`. `_extract_property_from_shape` discards any shape lacking a
+  `sh:class` or `sh:datatype`, so the bounding shape was dropped before its
+  cardinality was read and the property was emitted as an unbounded
+  collection. Cardinality is now accumulated per path independently of range
+  extraction and merged conjunctively (max of `minCount`, min of `maxCount`).
+- **Breaking for Java, C# and Rust consumers.** 54 Rust fields and their
+  counterparts collapse from collections to scalars, including
+  `AutonomousSystemFacet.regionalInternetRegistry`, `AccountFacet.accountType`
+  and `ContactAddress.contactAddressScope`. Every change is list-to-scalar;
+  nothing widens. These properties are single-valued in UCO 1.4.0 too, so this
+  corrects long-standing generated output rather than tracking an ontology
+  change. Python is unaffected at runtime.
+- Regression test covers both the bounded and genuinely-unbounded cases.
+
+#### Extension compatibility harness
+
+- `make test-extension-compat` actually tested nothing branch-specific: it
+  checked out `main`, `develop` and `develop-2.0.0` in the submodules but
+  never passed their Turtle to `case_validate`, which fell back to its default
+  bundled `case-1.4.0` closure and returned the same answer three times. It
+  now validates with `--built-version none` against every module `.ttl` from
+  the checked-out branch. Per-module enumeration is required because
+  `ontology/*/master/*.ttl` are ~23-triple `owl:imports` stubs.
+- This is also what makes 1.5.0 validation possible today, ahead of case-utils.
+
+#### Code scanning
+
+- Removed the unused `ul_record` / `ul_event` locals in
+  `examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py`, clearing the
+  last two open CodeQL alerts (`py/unused-local-variable` #527, #528).
+
+#### Docs
+
+- Change-proposal guidance no longer presents 1.5.0 as an upcoming target and
+  now says to read the version off `develop` rather than assume it — after the
+  1.5.0 release `develop` still carried `owl:versionIRI core:1.5.0`.
+- `draft_change_proposal` defaults `target_release` to `1.6.0`; `1.5.0` is
+  released and can no longer be proposed against.
+
 ## [1.23.1] - 2026-07-28
 
 CI version-consistency fix, native SOLVE-IT action serialization in
