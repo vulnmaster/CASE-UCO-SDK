@@ -14,6 +14,92 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `extensions/trajectories/` (v0.3.1): `traj:enactsAction` is multi-valued (SHACL `sh:maxCount` removed) so affordance-labeled multi-action edges validate.
 - `extensions/elder-fraud/`, `extensions/extortion/`, `extensions/trafficking/`: three narrow, machine-only ESM domain extensions (phase `skos:ConceptScheme` + `uco-action:Technique`-typed action catalog + minimal SHACL + real exemplar each), grounded in United States v. Castanos Garcia et al. (D. Mass. 1:24-cr-10138), United States v. Matthew D. Lane (D. Mass.), and United States v. Chase Anthony Young (N.D. Tex.) respectively.
 
+## [1.23.1] - 2026-07-28
+
+CI version-consistency fix, native SOLVE-IT action serialization in
+`case-uco-solveit` 0.2.0, a quality pass on the sysdiagnose exemplar, and four
+draft UCO change proposals grounded in the DFRWS USA workshop corpus.
+
+#### CI
+
+- Fix the failing **Version Consistency Check** from the v1.23.0 push:
+  `python/case_uco/__init__.py` (`__version__` still 1.22.4) and the
+  `case-uco` entry in `rust/Cargo.lock` were missed by the 1.23.0 bump. All
+  six checked sources now agree (verified locally with the workflow script).
+
+#### case-uco-solveit 0.2.0
+
+- `SolveitInvestigativeAction` serializes natively: explicit `jsonld_key`
+  metadata emits `uco-action:*` keys (was `uco-core:*`), and new
+  `used_technique` / `applied_mitigation` fields emit
+  `solveit-core:usedTechnique` / `solveit-core:appliedMitigation` directly —
+  no more post-creation `@type` retargeting in builders.
+- `hasChanged` / `state` on all 85 observable dataclasses now serialize in
+  the `uco-observable:` namespace; `_registry.json` updated.
+
+#### Sysdiagnose exemplar (`examples/sysdiagnose/`)
+
+- `euid` and tool-reported `activity_id` retained as `DictionaryEntry` values
+  on each unified-log `Event`; `library` captured when present.
+- Honest `eventRecordID` semantics (`excerpt-row-N`); dropped the
+  `uco-observable:eventID` property, which does not exist in built CASE
+  1.4.0 — `case_validate` is now 0 violations / **0 warnings**.
+- Notari and iLEAPP parse steps typed `SolveitInvestigativeAction` with
+  DFT-1066 / DFT-1076 links (Notari also carries the DFM-1027 dual-tool
+  mitigation); empty `MobileDeviceFacet` removed and `DeviceFacet.model`
+  asserts the real hardware identifier `iPhone12,1` from the stackshot
+  `.ips` header.
+- `unifiedlog_iterator_excerpt.sha256` now standard `sha256sum -c` format.
+- `critic-review.json` refreshed on the new graph bytes (deterministic
+  two-pass session; only the accepted `hash-status:not-published`
+  medium findings remain open).
+
+#### Recipes / MCP
+
+- `ios-sysdiagnose.md`: real hardware model on `DeviceFacet`;
+  `MobileDeviceFacet` only when IMEI/ESN/network evidence exists.
+- `apple-unified-logs.md`: native `SolveitInvestigativeAction` pattern.
+- `domain_index.py`: expanded keywords (`.ips`, `stackshot`, `timesync`,
+  `boot_uuid`, `mach_continuous_time`, `activity_id`, ...) for both recipes.
+
+#### Change proposals (drafts, not yet submitted upstream)
+
+- Four corpus-grounded UCO proposals under `change_proposals/`, each with
+  example JSON-LD, SPARQL competency queries, and a `proposed:` extension
+  ontology, all passing `make test-proposal`: boot session + boot-relative
+  time, `OperatingSystemLogRecordFacet`, cross-platform
+  `ProcessThreadFacet`, and UNIX numeric `uid` / `euid` properties.
+
+Package versions bumped to **1.23.1**.
+
+## [1.23.0] - 2026-07-27
+
+Apple sysdiagnose / Unified Logging recipes and a validated SOLVE-IT exemplar
+grounded in DFRWS USA workshop corpus layout, plus recipe-execution coverage
+for mobile-forensics builders.
+
+#### Recipes / mobile forensics
+
+- New recipes: [`ios-sysdiagnose.md`](docs/recipes/ios-sysdiagnose.md) and
+  [`apple-unified-logs.md`](docs/recipes/apple-unified-logs.md) — model raw
+  sysdiagnose packages (`AppleUnifiedLogArchive` + Wi-Fi / BatteryBDC) and
+  parser outputs (`unifiedlog_iterator`, Notari, iLEAPP) as
+  `EventRecord` / `Event` graphs with `SolveitInvestigativeAction`
+  (DFT-1066 / DFT-1076 + mitigations).
+- Validated exemplar + builder:
+  `examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld` (real iterator
+  sample rows; timesync caveat; vocab relationship kinds only;
+  `hash-status:not-published` when workshop bytes are not shipped).
+- Registered in `docs/recipes/INDEX.md`, `RECIPE_INDEX`, investigation router
+  (`device-mobile-forensics`), and
+  [`recipe-execution.json`](docs/recipes/recipe-execution.json) mobile-forensics
+  gate entries with `support_files`.
+- Promotion provenance in `docs/recipes/promotion-log.json`; deterministic
+  critic review artifact under `examples/sysdiagnose/critic-review.json`.
+
+Package versions bumped to **1.23.0**.
+>>>>>>> origin/main
+
 ## [1.22.4] - 2026-07-15
 
 SDK hardening from the v1.22.1 CTI review: provenance-manifest integrity across
@@ -2046,7 +2132,8 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
-[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.4...HEAD
+[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.23.0...HEAD
+[1.23.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.4...v1.23.0
 [1.22.4]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.3...v1.22.4
 [1.22.3]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.2...v1.22.3
 [1.22.2]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.1...v1.22.2

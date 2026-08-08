@@ -1,0 +1,32 @@
+# CQ 1.1: Which Default-level records were emitted by Apple OSLog subsystem
+# com.apple.wifi, regardless of which parser produced the row?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?record ?text ?sender
+WHERE {
+    ?record a uco-observable:EventRecord ;
+            uco-core:hasFacet ?core , ?oslog .
+    ?core a uco-observable:EventRecordFacet ;
+          uco-observable:eventRecordText ?text .
+    ?oslog a proposed:OperatingSystemLogRecordFacet ;
+           proposed:logSubsystem "com.apple.wifi" ;
+           proposed:logLevel "Default" ;
+           proposed:senderImageName ?sender .
+}
+
+# ---
+# CQ 1.2: How many records did each subsystem/provider emit (cross-platform:
+# the same query shape covers OSLog subsystems and ETW providers)?
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?subsystem (COUNT(?record) AS ?recordCount)
+WHERE {
+    ?record uco-core:hasFacet ?oslog .
+    ?oslog a proposed:OperatingSystemLogRecordFacet ;
+           proposed:logSubsystem ?subsystem .
+}
+GROUP BY ?subsystem
+ORDER BY DESC(?recordCount)

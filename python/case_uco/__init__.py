@@ -19,4 +19,4 @@ __all__ = [
     "TypedLiteral",
     "clear_class_registry_cache",
 ]
-__version__ = "1.22.4"
+__version__ = "1.23.1"

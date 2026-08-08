@@ -1,7 +1,37 @@
 {
   "schema_version": "1.0",
-  "description": "Upper-ontology exemplar quality gate (#69): nine v1.21 entries under examples/upper-ontology/. Full operational catalog migration is v1.22.",
+  "description": "Recipe exemplar quality gate (#69): upper-ontology entries under examples/upper-ontology/ plus forensic evidence recipes with executable builders. Full operational catalog migration continues beyond v1.21.",
   "recipes": [
+    {
+      "id": "ios-sysdiagnose",
+      "category": "mobile-forensics",
+      "recipe": "docs/recipes/ios-sysdiagnose.md",
+      "builder": "examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py",
+      "output": "examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld",
+      "profiles": null,
+      "extensions": ["solveit"],
+      "strict_concepts": true,
+      "support_files": [
+        "examples/sysdiagnose/unifiedlog_iterator_sample_rows.json",
+        "examples/sysdiagnose/unifiedlog_iterator_excerpt.sha256",
+        "examples/sysdiagnose/unifiedlog_iterator_excerpt.jsonl"
+      ]
+    },
+    {
+      "id": "apple-unified-logs",
+      "category": "mobile-forensics",
+      "recipe": "docs/recipes/apple-unified-logs.md",
+      "builder": "examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py",
+      "output": "examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld",
+      "profiles": null,
+      "extensions": ["solveit"],
+      "strict_concepts": true,
+      "support_files": [
+        "examples/sysdiagnose/unifiedlog_iterator_sample_rows.json",
+        "examples/sysdiagnose/unifiedlog_iterator_excerpt.sha256",
+        "examples/sysdiagnose/unifiedlog_iterator_excerpt.jsonl"
+      ]
+    },
     {
       "id": "foundational-typing-bfo",
       "category": "upper-ontology",

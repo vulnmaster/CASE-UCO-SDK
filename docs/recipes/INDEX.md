@@ -99,6 +99,8 @@ Requires `CASE_UCO_EXTENSIONS=cac`. Use `route_cac_content` via the MCP server t
 | Multi-Platform Account Linking | [accounts.md](accounts.md) | Cross-platform identity correlation (social media, email, cloud) | [accounts](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/accounts) |
 | Events and Authentication Logs | [event.md](event.md) | Authentication events with structured Dictionary attributes | [event](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/event) |
 | Windows USN Journal | [usn-journal.md](usn-journal.md) | NTFS change journal entries with structured reason flags, rename modeling, and provenance | — |
+| iOS / macOS Sysdiagnose Archives | [ios-sysdiagnose.md](ios-sysdiagnose.md) | Apple sysdiagnose package: device/OS, archive tree, `system_logs.logarchive` as `AppleUnifiedLogArchive`, Wi-Fi/Battery children | `solveit` |
+| Apple Unified Logs and Analytic Tool Outputs | [apple-unified-logs.md](apple-unified-logs.md) | Unified log EventRecords + Mandiant iterator CSV, Notari SQLite, iLEAPP reports with SOLVE-IT DFT-1066/1076 provenance | `solveit` |
 
 ### Files and data artifacts
 

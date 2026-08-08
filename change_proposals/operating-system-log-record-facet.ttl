@@ -1,0 +1,54 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix proposed: <http://example.org/ontology/proposed/> .
+
+# Prototype extension ontology for UCO change proposal:
+# "Operating system log record facet".
+# Field semantics grounded in: Apple Unified Logging / OSLog
+# (https://developer.apple.com/documentation/os/logging), Windows ETW
+# (https://learn.microsoft.com/en-us/windows/win32/etw/about-event-tracing),
+# and systemd-journald fields
+# (https://www.freedesktop.org/software/systemd/man/latest/systemd.journal-fields.html).
+
+proposed:OperatingSystemLogRecordFacet
+    a owl:Class ;
+    rdfs:subClassOf uco-core:Facet ;
+    rdfs:label "OperatingSystemLogRecordFacet"@en ;
+    rdfs:comment "An operating system log record facet is a grouping of characteristics unique to a record emitted through a structured operating system logging framework (Apple Unified Logging, Windows ETW / Windows Event Log, Linux systemd-journald): the emitting subsystem, category or channel, severity level, activity/correlation identifier, and sending binary image. Composable alongside EventRecordFacet on the same EventRecord observable."@en .
+
+proposed:logSubsystem
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:OperatingSystemLogRecordFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "logSubsystem"@en ;
+    rdfs:comment "The subsystem, provider, or unit that emitted the record (e.g., Apple OSLog subsystem 'com.apple.wifi', Windows ETW provider name, journald _SYSTEMD_UNIT)."@en .
+
+proposed:logCategory
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:OperatingSystemLogRecordFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "logCategory"@en ;
+    rdfs:comment "The category or channel within the emitting subsystem (e.g., Apple OSLog category, Windows Event Log channel)."@en .
+
+proposed:logLevel
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:OperatingSystemLogRecordFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "logLevel"@en ;
+    rdfs:comment "The severity or type of the record as reported by the logging framework (e.g., Apple Default/Info/Debug/Error/Fault, ETW level, syslog priority)."@en .
+
+proposed:activityIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:OperatingSystemLogRecordFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "activityIdentifier"@en ;
+    rdfs:comment "The activity, correlation, or tracing identifier grouping related records across processes (e.g., Apple OSLog activity ID, ETW ActivityId GUID)."@en .
+
+proposed:senderImageName
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:OperatingSystemLogRecordFacet ;
+    rdfs:range xsd:string ;
+    rdfs:label "senderImageName"@en ;
+    rdfs:comment "The name or path of the binary image (library or executable) that emitted the record (e.g., '/usr/libexec/wifid')."@en .

@@ -1,0 +1,22 @@
+[
+  {
+    "artifact": "docs/recipes/ios-sysdiagnose.md",
+    "action": "promote",
+    "title": "iOS / macOS Sysdiagnose Archives",
+    "promoted_at": "2026-07-27T16:00:00+00:00",
+    "reviewed_by": "Cory (v1.23.0 release)",
+    "deployment_profile": "offline-investigation",
+    "commit": "d33fbe8e0ee4186cf4d388d7a6f01cfbc6b892f5",
+    "notes": "Authored directly as operational (not via candidates/); exemplar examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld; critic model_policy=disabled completed_with_findings (medium CRIT-H-DERIVED-NO-HASH for unhashed workshop containers tagged hash-status:not-published)."
+  },
+  {
+    "artifact": "docs/recipes/apple-unified-logs.md",
+    "action": "promote",
+    "title": "Apple Unified Logs and Analytic Tool Outputs",
+    "promoted_at": "2026-07-27T16:00:00+00:00",
+    "reviewed_by": "Cory (v1.23.0 release)",
+    "deployment_profile": "offline-investigation",
+    "commit": "d33fbe8e0ee4186cf4d388d7a6f01cfbc6b892f5",
+    "notes": "Authored directly as operational (not via candidates/); shares exemplar with ios-sysdiagnose; relationship kinds limited to ObservableObjectRelationshipVocab; timesync caveat documented."
+  }
+]

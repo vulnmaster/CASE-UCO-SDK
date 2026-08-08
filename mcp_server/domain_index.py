@@ -1246,6 +1246,18 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "file": "docs/recipes/usn-journal.md",
     },
     {
+        "title": "iOS / macOS Sysdiagnose Archives",
+        "description": "Model Apple sysdiagnose packages: device/OS, archive tree, system_logs.logarchive as AppleUnifiedLogArchive, Wi-Fi and BatteryBDC children, collection provenance.",
+        "keywords": "sysdiagnose sys diagnosis apple ios macos iphone logarchive system_logs unified logging ufade pymobiledevice3 libimobiledevice crash wifi batterybdc summaries tracev3 ips stackshot crashes_and_spins crash_reporter runningboard ioreg brctl incident_id crashreporterkey",
+        "file": "docs/recipes/ios-sysdiagnose.md",
+    },
+    {
+        "title": "Apple Unified Logs and Analytic Tool Outputs",
+        "description": "Model Apple Unified Logging EventRecords and structured parser outputs from unifiedlog_iterator CSV, Notari SQLite, and iLEAPP with SOLVE-IT DFT-1066/1076 provenance.",
+        "keywords": "unified log unified logs apple oslog logarchive tracev3 unifiedlog_iterator mandiant notari ileapp sqlite csv eventrecord subsystem category locationd signpost persist timesync boot_uuid mach_continuous_time simpledump log show activity_id",
+        "file": "docs/recipes/apple-unified-logs.md",
+    },
+    {
         "title": "Cross-Ontology Composition",
         "description": "Authoritative composition policy for CASE/UCO, CAC, SOLVE-IT, SDK extensions, and upper profiles (BFO/gUFO/PROV-O/OWL-Time/GeoSPARQL/FOAF/ORG/PROF).",
         "keywords": "cross-domain cross-ontology extension composition cac aeo multi-domain combine namespaces packages profile bfo gufo prov geosparql foaf org prof",
@@ -1335,6 +1347,46 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         ],
         "starter_kit": "docs/recipes/starter-mobile-extraction.md",
         "code_skeleton": "device = graph.create(ObservableObject, has_facet=[DeviceFacet(manufacturer=..., model=...)])",
+    },
+    {
+        "source": "iOS sysdiagnose archive",
+        "keywords": [
+            "sysdiagnose", "system_logs", "logarchive", "iphone-os", "ufade",
+            "pymobiledevice3", "summaries", "batterybdc", "tracev3",
+            "ips", "stackshot", "crashes_and_spins", "runningboard",
+        ],
+        "pattern": "Device + sysdiagnose FileFacet directory + AppleUnifiedLogArchive/EventLog",
+        "classes": [
+            "ObservableObject", "DeviceFacet", "MobileDeviceFacet", "OperatingSystem",
+            "SoftwareFacet", "FileFacet", "AppleUnifiedLogArchive", "EventLog",
+            "WirelessNetworkConnection", "InvestigativeAction", "Tool",
+        ],
+        "anti_patterns": [
+            "Don't flatten the sysdiagnose tree into one File observable — keep logarchive and high-value children linked",
+            "Don't invent a SysdiagnoseFacet — use FileFacet directories plus AppleUnifiedLogArchive",
+        ],
+        "starter_kit": "docs/recipes/ios-sysdiagnose.md",
+        "code_skeleton": "logarchive = graph.create(AppleUnifiedLogArchive, name='system_logs.logarchive', has_facet=[FileFacet(is_directory=[True])])",
+    },
+    {
+        "source": "Apple unified logs",
+        "keywords": [
+            "unified log", "unified logs", "oslog", "unifiedlog_iterator", "notari",
+            "ileapp", "signpost", "subsystem", "category", "tracev3",
+            "timesync", "boot_uuid", "mach_continuous_time", "simpledump",
+        ],
+        "pattern": "AppleUnifiedLogArchive → EventRecord + Event + AnalyticTool outputs (CSV/SQLite)",
+        "classes": [
+            "AppleUnifiedLogArchive", "EventLog", "EventRecord", "EventRecordFacet",
+            "Event", "Dictionary", "DictionaryEntry", "AnalyticTool",
+            "SolveitInvestigativeAction", "ApplicationFacet",
+        ],
+        "anti_patterns": [
+            "Don't invent UnifiedLogFacet — map rows with EventRecordFacet and Dictionary attributes",
+            "Don't claim message text without running a parser on the binary logarchive",
+        ],
+        "starter_kit": "docs/recipes/apple-unified-logs.md",
+        "code_skeleton": "record = graph.create(EventRecord, has_facet=[EventRecordFacet(event_record_text=..., event_record_service_name=...)])",
     },
     {
         "source": "email export",

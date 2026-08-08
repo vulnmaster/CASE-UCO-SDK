@@ -1,0 +1,51 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix proposed: <http://example.org/ontology/proposed/> .
+
+# Prototype extension ontology for UCO change proposal:
+# "Boot session and boot-relative time".
+# Grounded in: Apple Unified Logging boot_uuid / mach_continuous_time
+# (https://developer.apple.com/documentation/os/logging), Apple sysdiagnose
+# stackshot .ips absoluteTime, Linux /proc/sys/kernel/random/boot_id and
+# dmesg seconds-since-boot (https://man7.org/linux/man-pages/man1/dmesg.1.html).
+
+proposed:BootSession
+    a owl:Class ;
+    rdfs:subClassOf uco-observable:ObservableObject ;
+    rdfs:label "BootSession"@en ;
+    rdfs:comment "A boot session is a single boot epoch of a device or operating system: the interval from one boot of the system to the next. Operating system telemetry (Apple Unified Logging, Linux dmesg/journald, Windows event logs) frequently anchors records to a boot epoch via a boot identifier and a boot-relative offset rather than an absolute wall-clock time."@en .
+
+proposed:bootIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:BootSession ;
+    rdfs:range xsd:string ;
+    rdfs:label "bootIdentifier"@en ;
+    rdfs:comment "The unique identifier assigned by the operating system to a single boot epoch (e.g., Apple Unified Logging boot UUID, Linux /proc/sys/kernel/random/boot_id, Windows boot session GUID)."@en .
+
+proposed:bootTime
+    a owl:DatatypeProperty ;
+    rdfs:domain proposed:BootSession ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "bootTime"@en ;
+    rdfs:comment "The wall-clock time at which the boot occurred, when resolvable from timesync or equivalent evidence. Omitted when the boot time cannot be established from the evidence."@en .
+
+proposed:bootSession
+    a owl:ObjectProperty ;
+    rdfs:range proposed:BootSession ;
+    rdfs:label "bootSession"@en ;
+    rdfs:comment "Reference from an event record characterization to the BootSession (boot epoch) during which the record was generated."@en .
+
+proposed:bootRelativeTime
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "bootRelativeTime"@en ;
+    rdfs:comment "Offset of a record from the start of its boot session, in seconds (fractional seconds permitted). Used when the source expresses time relative to boot (e.g., Linux dmesg)."@en .
+
+proposed:bootRelativeTicks
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:integer ;
+    rdfs:label "bootRelativeTicks"@en ;
+    rdfs:comment "Raw boot-relative tick counter as reported by the source (e.g., Apple mach_continuous_time, stackshot absoluteTime), preserved without unit conversion for reproducibility."@en .

@@ -1,0 +1,37 @@
+# CQ 1.1: Which ProcessThread observable has OS thread identifier 92449
+# (correlating unified-log rows sharing a thread_id into one execution trace)?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?thread ?name
+WHERE {
+    ?thread a uco-observable:ProcessThread ;
+            uco-core:name ?name ;
+            uco-core:hasFacet ?facet .
+    ?facet a proposed:ProcessThreadFacet ;
+           proposed:threadID ?tid .
+    FILTER (?tid = "92449"^^xsd:nonNegativeInteger)
+}
+
+# ---
+# CQ 1.2: Which threads belong to process launchd (pid 1), with their
+# platform-neutral thread identifiers?
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+SELECT ?thread ?tid
+WHERE {
+    ?rel a uco-observable:ObservableRelationship ;
+         uco-core:source ?thread ;
+         uco-core:target ?process ;
+         uco-core:kindOfRelationship "Contained_Within" .
+    ?process uco-core:hasFacet ?pf .
+    ?pf a uco-observable:ProcessFacet .
+    ?thread uco-core:hasFacet ?tf .
+    ?tf a proposed:ProcessThreadFacet ;
+        proposed:threadID ?tid .
+}
+ORDER BY ?tid
