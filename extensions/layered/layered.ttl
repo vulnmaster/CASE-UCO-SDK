@@ -1,0 +1,679 @@
+# Layered multi-offense ESM composition — U.S. v. Jonathan Michael Atkinson
+#
+# ONE case graph, FOUR offense trajectories + hand-off Relationships.
+# Not one giant flat S — each trajectory uses its domain alphabet;
+# shared actors / housing / CSAM leverage couple the machines.
+#
+# Source: Spokesman-Review, "Tri-Cities business owner accused of grooming,
+# sex trafficking kids he brought to U.S.", 2025-04-13 (quoting AUSA Laurel
+# Holland at Richland federal courthouse). Newspaper account — thinner than
+# a DOJ PR; confidence values are calibrated down; unnamed counts among the
+# "11 criminal charges" are NOT invented.
+#   https://www.spokesman.com/stories/2025/apr/13/tri-cities-business-owner-accused-of-grooming-sex-/
+#
+# Layers:
+#   T1  CSEA/grooming (Honduras): Targeting → MaterialDependency →
+#       Sexualization → CSAMLeverage
+#   T2  Transit/harbor: CrossBorderTransit → Harboring
+#   T3  Forced labor (fl:): Recruitment → Control → ForcedLabor
+#       (WageAppropriation not asserted — source says "unfair wages" but
+#       does not describe wage seizure / debt bondage; do not invent)
+#   T4  Child sex trafficking: PlacementControl → ForcedSexualExploitation
+#
+# Hand-offs (uco-core:Relationship kindOfRelationship):
+#   CSAMLeverage  --enables--> CrossBorderTransit
+#   Harboring     --enables--> ForcedLabor Control + PlacementControl
+#   CSAM instrument shared on sex-trafficking coercion threats
+#
+# Terminal polarity: all four modeled chains are ongoing/charged conduct
+# ending in arrest — treated as disrupted mid-scheme (LE intervention),
+# not completed offense endpoints. Alleged post-arrest obstruction by the
+# spouse is modeled as parallel Actions (NOT an offense ESM) — personal
+# name omitted (atk:person-spouse); allegations retained as alleged.
+
+@prefix lay: <http://example.org/ontology/layered/> .
+@prefix fl: <http://example.org/ontology/forced-labor/> .
+@prefix atk: <http://example.org/layered/atkinson/> .
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix uco-location: <https://ontology.unifiedcyberontology.org/uco/location/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Shared evidence (document-level)
+#################################################################
+
+atk:evidence-spokesman
+	a uco-core:UcoObject ;
+	uco-core:name "Spokesman-Review article, 2025-04-13" ;
+	uco-core:description "Newspaper account of the Atkinson detention hearing quoting AUSA Laurel Holland. Document-level citation only. URL: https://www.spokesman.com/stories/2025/apr/13/tri-cities-business-owner-accused-of-grooming-sex-/" .
+
+atk:evidence-grooming-honduras
+	a uco-core:UcoObject ;
+	uco-core:name "Honduras grooming and CSAM-for-transit facts" ;
+	uco-core:description "Atkinson found children living in poverty in Honduras as young as 8; provided housing, schooling, food, and gifts such as electronic devices; forced them to participate in sexual activities; told them they must send sexually explicit videos and pictures if they wanted to come to the United States. Manipulated victims for over a decade. Source: Spokesman-Review quoting AUSA Holland." ;
+	prov:wasDerivedFrom atk:evidence-spokesman .
+
+atk:evidence-transit-harbor
+	a uco-core:UcoObject ;
+	uco-core:name "US entry, four-plex harboring, Elm Ave search" ;
+	uco-core:description "When victims arrived in the U.S. they lived in a four-plex he and his wife owned. Law enforcement searched a multifamily home at 736 Elm Ave in Pasco. Charges include harboring illegal aliens. Source: Spokesman-Review." ;
+	prov:wasDerivedFrom atk:evidence-spokesman .
+
+atk:evidence-forced-labor
+	a uco-core:UcoObject ;
+	uco-core:name "Forced labor at construction company" ;
+	uco-core:description "Minors he brought to Pasco worked for his company for unfair wages. Charge includes forced labor. Company named CRS Crossroad Services / CRC Crossroad Services in the article (both spellings appear). Source: Spokesman-Review." ;
+	prov:wasDerivedFrom atk:evidence-spokesman .
+
+atk:evidence-child-sex-trafficking
+	a uco-core:UcoObject ;
+	uco-core:name "Forced sexual acts and coercive threats in Pasco" ;
+	uco-core:description "Minors forced to engage in sexual acts; if they refused, Atkinson threatened to contact immigration and to release videos of them to the pastor of the church they attended. Charge: sex trafficking of children by force, fraud and coercion. Victims required to provide cellphone location and social media passwords; called him father / he called them son; totally dependent on Atkinson and spouse. Source: Spokesman-Review." ;
+	prov:wasDerivedFrom atk:evidence-spokesman .
+
+atk:evidence-charges
+	a uco-core:UcoObject ;
+	uco-core:name "Charged offense set (named counts only)" ;
+	uco-core:description "Facing 11 criminal charges, including (named in article): illicit sexual conduct; production of child pornography; attempted online enticement of minors; sex trafficking of children by force, fraud and coercion; forced labor; harboring illegal aliens. Remaining counts among the 11 are not named — not asserted here. Source: Spokesman-Review." ;
+	prov:wasDerivedFrom atk:evidence-spokesman .
+
+atk:evidence-obstruction
+	a uco-core:UcoObject ;
+	uco-core:name "Post-arrest witness contact / alleged hotel removal" ;
+	uco-core:description "After booking, Atkinson sought phone numbers for witnesses and victims; called a witness to obtain spouse's new number after spouse's phone was seized; prosecutors allege the spouse removed victims from a hotel where LE had taken them; USAO investigating spouse on suspicion of witness tampering; Mag. Judge Ekstrom issued no-contact order. Source: Spokesman-Review. Spouse personal name omitted (uncharged private individual). Modeled as parallel Actions — not an offense ESM trajectory." ;
+	prov:wasDerivedFrom atk:evidence-spokesman .
+
+#################################################################
+# Shared actors / places / orgs
+#################################################################
+
+atk:person-atkinson
+	a uco-identity:Person , uco-core:UcoObject ;
+	uco-core:name "Jonathan Michael Atkinson" ;
+	uco-core:description "Age 34, Pasco owner of CRS/CRC Crossroad Services (construction). Pleaded innocent. Alleged decade-long scheme grooming boys in Honduras, producing CSAM as transit leverage, harboring victims in a four-plex, compelling labor at his company, and sex trafficking of children. Arrested; detained; no-contact order issued. Source: Spokesman-Review 2025-04-13." .
+
+atk:person-spouse
+	a uco-identity:Person , uco-core:UcoObject ;
+	uco-core:name "Spouse (anonymized)" ;
+	uco-core:description "Uncharged spouse of Jonathan Michael Atkinson (personal name omitted). Co-owned the four-plex / multifamily housing used to harbor victims. Newspaper source alleges: phone seized; removed victims from an LE hotel; sought to undermine witnesses; USAO investigating on suspicion of witness tampering. Allegations retained as alleged; not a charged defendant. Source: Spokesman-Review." .
+
+atk:org-crossroad
+	a uco-identity:Organization , uco-core:UcoObject ;
+	uco-core:name "CRS/CRC Crossroad Services" ;
+	uco-core:description "Tri-Cities construction business owned by Jonathan Michael Atkinson. Article uses both 'CRS Crossroad Services' and 'CRC Crossroad Services'; both spellings preserved. Victims allegedly worked here for unfair wages. Source: Spokesman-Review." .
+
+atk:location-elm-ave
+	a uco-location:Location , uco-core:UcoObject ;
+	uco-core:name "736 Elm Ave, Pasco, WA (multifamily / four-plex)" ;
+	uco-core:description "Multifamily home searched by law enforcement; victims lived in a four-plex owned by Atkinson and his wife. Source: Spokesman-Review." .
+
+atk:rel-owns-company
+	a uco-core:Relationship ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "Owns" ;
+	uco-core:source atk:person-atkinson ;
+	uco-core:target atk:org-crossroad .
+
+atk:rel-owns-housing
+	a uco-core:Relationship ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "Owns" ;
+	uco-core:source atk:person-atkinson ;
+	uco-core:target atk:location-elm-ave .
+
+atk:rel-co-owns-housing
+	a uco-core:Relationship ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "Owns" ;
+	uco-core:source atk:person-spouse ;
+	uco-core:target atk:location-elm-ave .
+
+#################################################################
+# Shared leverage instruments (couple the layers)
+#################################################################
+
+atk:instrument-gifts-care
+	a uco-core:UcoObject ;
+	uco-core:name "Housing, schooling, food, and electronic-device gifts" ;
+	uco-core:description "Material inducements provided to children in Honduras. Source: Spokesman-Review." .
+
+atk:instrument-csam
+	a uco-core:UcoObject ;
+	uco-core:name "Sexually explicit videos and pictures of child victims" ;
+	uco-core:description "CSAM demanded as a condition of US transit and later used as exposure leverage (threat to release to church pastor). Shared instrument across grooming CSAMLeverage and child-sex-trafficking coercion. Source: Spokesman-Review." .
+
+atk:instrument-migration-channel
+	a uco-core:UcoObject ;
+	uco-core:name "Offender-controlled Honduras-to-US migration channel" ;
+	uco-core:description "Means by which Atkinson brought victims to the Tri-Cities. Specific facilitators beyond Atkinson not named. Source: Spokesman-Review." .
+
+atk:instrument-fourplex
+	a uco-core:UcoObject ;
+	uco-core:name "Atkinson four-plex / 736 Elm Ave multifamily housing" ;
+	uco-core:description "Offender-controlled housing used to harbor victims after US arrival. Source: Spokesman-Review." .
+
+atk:instrument-construction-jobs
+	a uco-core:UcoObject ;
+	uco-core:name "CRS/CRC Crossroad Services construction labor placements" ;
+	uco-core:description "Jobs at Atkinson's company into which minors were placed for unfair wages. Source: Spokesman-Review." .
+
+atk:instrument-ice-and-pastor-threats
+	a uco-core:UcoObject ;
+	uco-core:name "Threats to contact immigration and release CSAM to church pastor" ;
+	uco-core:description "Coercive threats used when victims refused sexual acts. Couples immigration status affordance with prior CSAM. Source: Spokesman-Review." .
+
+atk:instrument-digital-access
+	a uco-core:UcoObject ;
+	uco-core:name "Victim cellphone location and social-media passwords" ;
+	uco-core:description "Private digital access victims were required to provide. Source: Spokesman-Review." .
+
+#################################################################
+# Intervals (source: 'over a decade'; post-arrival Pasco; arrest week of article)
+#################################################################
+
+atk:interval-decade
+	a time:ProperInterval ;
+	time:hasBeginning atk:instant-2014-01-01 ;
+	time:hasEnd atk:instant-2025-04-08 .
+atk:instant-2014-01-01 a time:Instant ; time:inXSDDateTimeStamp "2014-01-01T00:00:00Z"^^xsd:dateTimeStamp .
+atk:instant-2025-04-08 a time:Instant ; time:inXSDDateTimeStamp "2025-04-08T23:59:00Z"^^xsd:dateTimeStamp .
+
+atk:interval-pasco
+	a time:ProperInterval ;
+	uco-core:description "Post-arrival Pasco occupancy — source does not give a precise US-arrival date; bounded inside the decade span ending at arrest week." ;
+	time:hasBeginning atk:instant-2014-01-01 ;
+	time:hasEnd atk:instant-2025-04-08 .
+
+#################################################################
+# Layer 1 — CSEA / grooming trajectory (Honduras)
+#################################################################
+
+atk:action-material-induce
+	a uco-action:Action , lay:a_material_induce ;
+	uco-core:name "Provide housing, school, food, gifts to Honduran children" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-gifts-care ;
+	prov:wasDerivedFrom atk:evidence-grooming-honduras .
+
+atk:action-force-sexual-honduras
+	a uco-action:Action , lay:a_force_sexual_activity ;
+	uco-core:name "Force sexual activities (Honduras)" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-gifts-care ;
+	prov:wasDerivedFrom atk:evidence-grooming-honduras .
+
+atk:action-produce-csam
+	a uco-action:Action , lay:a_produce_csam ;
+	uco-core:name "Demand sexually explicit videos/pictures as US-transit condition" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-csam ;
+	prov:wasDerivedFrom atk:evidence-grooming-honduras .
+
+atk:conf-g1 a uco-core:ConfidenceFacet ; uco-core:confidence "70"^^xsd:nonNegativeInteger .
+atk:conf-g2 a uco-core:ConfidenceFacet ; uco-core:confidence "75"^^xsd:nonNegativeInteger .
+atk:conf-g3 a uco-core:ConfidenceFacet ; uco-core:confidence "78"^^xsd:nonNegativeInteger .
+atk:conf-g4 a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+
+atk:phase-g1
+	a traj:PhaseAssertion ;
+	uco-core:name "Grooming occupancy 0 — Targeting" ;
+	uco-core:description "Children living in poverty in Honduras, as young as 8, identified as targets. Interval is the 'over a decade' span from the source — not a precise start date." ;
+	traj:assertsState lay:Targeting ;
+	traj:atInterval atk:interval-decade ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom atk:evidence-grooming-honduras ;
+	uco-core:hasFacet atk:conf-g1 .
+
+atk:phase-g2
+	a traj:PhaseAssertion ;
+	uco-core:name "Grooming occupancy 1 — MaterialDependency" ;
+	uco-core:description "Provided housing, schooling, food, gifts (electronic devices)." ;
+	traj:assertsState lay:MaterialDependency ;
+	traj:atInterval atk:interval-decade ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom atk:evidence-grooming-honduras ;
+	uco-core:hasFacet atk:conf-g2 .
+
+atk:phase-g3
+	a traj:PhaseAssertion ;
+	uco-core:name "Grooming occupancy 2 — Sexualization" ;
+	uco-core:description "Forced children to participate in sexual activities." ;
+	traj:assertsState lay:Sexualization ;
+	traj:atInterval atk:interval-decade ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom atk:evidence-grooming-honduras ;
+	uco-core:hasFacet atk:conf-g3 .
+
+atk:phase-g4
+	a traj:PhaseAssertion ;
+	uco-core:name "Grooming occupancy 3 — CSAMLeverage (terminal for T1)" ;
+	uco-core:description "Required sexually explicit videos/pictures as condition of coming to the US. Terminal for the grooming machine; polarity disrupted because LE arrest interrupted the ongoing scheme (newspaper source). This phase ENABLES transit (hand-off Relationship)." ;
+	traj:assertsState lay:CSAMLeverage ;
+	traj:atInterval atk:interval-decade ;
+	traj:sequenceIndex "3"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "disrupted" ;
+	prov:wasDerivedFrom atk:evidence-grooming-honduras ;
+	uco-core:hasFacet atk:conf-g4 .
+
+atk:trajectory-grooming
+	a traj:Trajectory ;
+	uco-core:name "Layer T1 — CSEA/grooming (Honduras) → CSAM leverage" ;
+	uco-core:description "Atkinson grooming trajectory culminating in CSAM-as-transit-leverage. Feeds Layer T2 via enables Relationship." ;
+	traj:hasPhaseAssertion
+		atk:phase-g1 ,
+		atk:phase-g2 ,
+		atk:phase-g3 ,
+		atk:phase-g4 .
+
+atk:trigger-g1 a uco-core:UcoObject ; uco-core:name "Trigger: material care creates dependency" .
+atk:trigger-g2 a uco-core:UcoObject ; uco-core:name "Trigger: sexual activity forced" .
+atk:trigger-g3 a uco-core:UcoObject ; uco-core:name "Trigger: CSAM demanded for US promise" .
+
+atk:transition-g1
+	a traj:Transition ;
+	uco-core:name "Targeting -> MaterialDependency" ;
+	traj:fromState lay:Targeting ;
+	traj:toState lay:MaterialDependency ;
+	traj:trigger atk:trigger-g1 ;
+	traj:enactsAction atk:action-material-induce .
+
+atk:transition-g2
+	a traj:Transition ;
+	uco-core:name "MaterialDependency -> Sexualization" ;
+	traj:fromState lay:MaterialDependency ;
+	traj:toState lay:Sexualization ;
+	traj:trigger atk:trigger-g2 ;
+	traj:enactsAction atk:action-force-sexual-honduras .
+
+atk:transition-g3
+	a traj:Transition ;
+	uco-core:name "Sexualization -> CSAMLeverage" ;
+	traj:fromState lay:Sexualization ;
+	traj:toState lay:CSAMLeverage ;
+	traj:trigger atk:trigger-g3 ;
+	traj:enactsAction atk:action-produce-csam .
+
+#################################################################
+# Layer 2 — Transit / harboring
+#################################################################
+
+atk:action-bring-to-us
+	a uco-action:Action , lay:a_bring_to_us ;
+	uco-core:name "Bring child victims from Honduras to the United States" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-migration-channel ;
+	prov:wasDerivedFrom atk:evidence-transit-harbor .
+
+atk:action-harbor
+	a uco-action:Action , lay:a_harbor_aliens ;
+	uco-core:name "Harbor victims in four-plex / Elm Ave multifamily home" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-fourplex ;
+	prov:wasDerivedFrom atk:evidence-transit-harbor .
+
+atk:conf-t1 a uco-core:ConfidenceFacet ; uco-core:confidence "72"^^xsd:nonNegativeInteger .
+atk:conf-t2 a uco-core:ConfidenceFacet ; uco-core:confidence "78"^^xsd:nonNegativeInteger .
+
+atk:phase-t1
+	a traj:PhaseAssertion ;
+	uco-core:name "Transit occupancy 0 — CrossBorderTransit" ;
+	uco-core:description "Victims brought to the U.S. / Tri-Cities. Enabled by prior CSAMLeverage (hand-off)." ;
+	traj:assertsState lay:CrossBorderTransit ;
+	traj:atInterval atk:interval-pasco ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom atk:evidence-transit-harbor ;
+	uco-core:hasFacet atk:conf-t1 .
+
+atk:phase-t2
+	a traj:PhaseAssertion ;
+	uco-core:name "Transit occupancy 1 — Harboring (terminal for T2)" ;
+	uco-core:description "Victims lived in four-plex owned with wife; 736 Elm Ave searched. Enables forced-labor and child-sex-trafficking layers." ;
+	traj:assertsState lay:Harboring ;
+	traj:atInterval atk:interval-pasco ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "disrupted" ;
+	prov:wasDerivedFrom atk:evidence-transit-harbor ;
+	uco-core:hasFacet atk:conf-t2 .
+
+atk:trajectory-transit
+	a traj:Trajectory ;
+	uco-core:name "Layer T2 — Cross-border transit → harboring" ;
+	uco-core:description "Migration/harboring trajectory. Fed by T1 CSAM leverage; feeds T3 and T4." ;
+	traj:hasPhaseAssertion atk:phase-t1 , atk:phase-t2 .
+
+atk:trigger-tr1 a uco-core:UcoObject ; uco-core:name "Trigger: victims brought into US" .
+
+atk:transition-tr1
+	a traj:Transition ;
+	uco-core:name "CrossBorderTransit -> Harboring" ;
+	traj:fromState lay:CrossBorderTransit ;
+	traj:toState lay:Harboring ;
+	traj:trigger atk:trigger-tr1 ;
+	traj:enactsAction atk:action-harbor .
+
+# s0 action producing CrossBorderTransit — no incoming transition; enacted
+# action still recorded for the hand-off narrative (and for model T as an
+# exogenous feeder Action). Wired on a synthetic Recruitment-like edge:
+# we model bring-to-us as the action that produces CrossBorderTransit from
+# an implicit pre-s0, attached via Relationship from CSAMLeverage instead.
+
+#################################################################
+# Layer 3 — Forced labor (reuse fl: alphabet)
+#################################################################
+
+atk:action-fl-coerce
+	a uco-action:Action , fl:a_coerce ;
+	uco-core:name "Maintain control over minors for labor (dependency + threats)" ;
+	uco-core:description "Total dependency on Atkinson and wife; father/son framing; digital access demands. Labor-control coercion overlapping sex-trafficking control — same actors/housing." ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-digital-access ;
+	prov:wasDerivedFrom
+		atk:evidence-forced-labor ,
+		atk:evidence-child-sex-trafficking .
+
+atk:action-fl-compel
+	a uco-action:Action , fl:a_compel_labor ;
+	uco-core:name "Compel minors to work at Crossroad Services for unfair wages" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-construction-jobs ;
+	prov:wasDerivedFrom atk:evidence-forced-labor .
+
+atk:conf-f1 a uco-core:ConfidenceFacet ; uco-core:confidence "65"^^xsd:nonNegativeInteger .
+atk:conf-f2 a uco-core:ConfidenceFacet ; uco-core:confidence "75"^^xsd:nonNegativeInteger .
+atk:conf-f3 a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+
+atk:phase-f1
+	a traj:PhaseAssertion ;
+	uco-core:name "Forced-labor occupancy 0 — Recruitment" ;
+	uco-core:description "Minors entered the labor scheme via the grooming→transit pipeline (not a separate labor-recruitment pitch). Lower confidence: recruitment method for labor specifically is the layered hand-off, not a distinct sourced labor-recruitment act." ;
+	traj:assertsState fl:Recruitment ;
+	traj:atInterval atk:interval-pasco ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom atk:evidence-forced-labor ;
+	uco-core:hasFacet atk:conf-f1 .
+
+atk:phase-f2
+	a traj:PhaseAssertion ;
+	uco-core:name "Forced-labor occupancy 1 — Control" ;
+	uco-core:description "Control via housing dependency and digital surveillance; enabled by Harboring layer." ;
+	traj:assertsState fl:Control ;
+	traj:atInterval atk:interval-pasco ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom
+		atk:evidence-forced-labor ,
+		atk:evidence-transit-harbor ;
+	uco-core:hasFacet atk:conf-f2 .
+
+atk:phase-f3
+	a traj:PhaseAssertion ;
+	uco-core:name "Forced-labor occupancy 2 — ForcedLabor (terminal for T3)" ;
+	uco-core:description "Worked for Atkinson's company for unfair wages. WageAppropriation NOT asserted — source does not describe debt bondage or wage seizure beyond 'unfair wages'. Terminal disrupted by arrest." ;
+	traj:assertsState fl:ForcedLabor ;
+	traj:atInterval atk:interval-pasco ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "disrupted" ;
+	prov:wasDerivedFrom atk:evidence-forced-labor ;
+	uco-core:hasFacet atk:conf-f3 .
+
+atk:trajectory-forced-labor
+	a traj:Trajectory ;
+	uco-core:name "Layer T3 — Forced labor at Crossroad Services" ;
+	uco-core:description "Forced-labor trajectory using fl: phases. Fed by T2 harboring." ;
+	traj:hasPhaseAssertion atk:phase-f1 , atk:phase-f2 , atk:phase-f3 .
+
+atk:trigger-fl1 a uco-core:UcoObject ; uco-core:name "Trigger: victim under labor control" .
+atk:trigger-fl2 a uco-core:UcoObject ; uco-core:name "Trigger: compelled construction labor" .
+
+atk:transition-fl1
+	a traj:Transition ;
+	uco-core:name "Recruitment -> Control (forced labor)" ;
+	traj:fromState fl:Recruitment ;
+	traj:toState fl:Control ;
+	traj:trigger atk:trigger-fl1 ;
+	traj:enactsAction atk:action-fl-coerce .
+
+atk:transition-fl2
+	a traj:Transition ;
+	uco-core:name "Control -> ForcedLabor" ;
+	traj:fromState fl:Control ;
+	traj:toState fl:ForcedLabor ;
+	traj:trigger atk:trigger-fl2 ;
+	traj:enactsAction atk:action-fl-compel .
+
+#################################################################
+# Layer 4 — Child sex trafficking (Pasco)
+#################################################################
+
+atk:action-digital-control
+	a uco-action:Action , lay:a_digital_surveillance_control ;
+	uco-core:name "Require cellphone location and social-media passwords" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-digital-access ;
+	prov:wasDerivedFrom atk:evidence-child-sex-trafficking .
+
+atk:action-force-sex-pasco
+	a uco-action:Action , lay:a_force_child_sex_acts ;
+	uco-core:name "Force minors to engage in sexual acts (Pasco)" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument atk:instrument-fourplex ;
+	prov:wasDerivedFrom atk:evidence-child-sex-trafficking .
+
+atk:action-threaten-ice-csam
+	a uco-action:Action , lay:a_threaten_ice_and_exposure ;
+	uco-core:name "Threaten ICE contact and CSAM release to church pastor" ;
+	uco-action:performer atk:person-atkinson ;
+	uco-action:instrument
+		atk:instrument-ice-and-pastor-threats ,
+		atk:instrument-csam ;
+	prov:wasDerivedFrom atk:evidence-child-sex-trafficking .
+
+atk:conf-s1 a uco-core:ConfidenceFacet ; uco-core:confidence "78"^^xsd:nonNegativeInteger .
+atk:conf-s2 a uco-core:ConfidenceFacet ; uco-core:confidence "82"^^xsd:nonNegativeInteger .
+
+atk:phase-s1
+	a traj:PhaseAssertion ;
+	uco-core:name "Child-sex-trafficking occupancy 0 — PlacementControl" ;
+	uco-core:description "Four-plex placement; father/son framing; total dependency; digital access demands. Enabled by T2 Harboring." ;
+	traj:assertsState lay:PlacementControl ;
+	traj:atInterval atk:interval-pasco ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom atk:evidence-child-sex-trafficking ;
+	uco-core:hasFacet atk:conf-s1 .
+
+atk:phase-s2
+	a traj:PhaseAssertion ;
+	uco-core:name "Child-sex-trafficking occupancy 1 — ForcedSexualExploitation (terminal for T4)" ;
+	uco-core:description "Forced sexual acts; refusals met with ICE + pastor-exposure threats (reuses CSAM instrument from T1). Disrupted by arrest." ;
+	traj:assertsState lay:ForcedSexualExploitation ;
+	traj:atInterval atk:interval-pasco ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "disrupted" ;
+	prov:wasDerivedFrom atk:evidence-child-sex-trafficking ;
+	uco-core:hasFacet atk:conf-s2 .
+
+atk:trajectory-child-sex-trafficking
+	a traj:Trajectory ;
+	uco-core:name "Layer T4 — Child sex trafficking (Pasco)" ;
+	uco-core:description "Child sex-trafficking trajectory. Fed by T2 harboring; coercion reuses T1 CSAM instrument." ;
+	traj:hasPhaseAssertion atk:phase-s1 , atk:phase-s2 .
+
+atk:trigger-s1 a uco-core:UcoObject ; uco-core:name "Trigger: forced sexual exploitation under threat" .
+
+atk:transition-s1
+	a traj:Transition ;
+	uco-core:name "PlacementControl -> ForcedSexualExploitation" ;
+	traj:fromState lay:PlacementControl ;
+	traj:toState lay:ForcedSexualExploitation ;
+	traj:trigger atk:trigger-s1 ;
+	traj:enactsAction
+		atk:action-force-sex-pasco ,
+		atk:action-threaten-ice-csam ,
+		atk:action-digital-control .
+
+#################################################################
+# Hand-offs — how layers feed each other
+#################################################################
+
+atk:handoff-csam-enables-transit
+	a uco-core:Relationship ;
+	uco-core:name "CSAM leverage enables cross-border transit" ;
+	uco-core:description "T1 terminal CSAMLeverage feeds T2 CrossBorderTransit: videos/pictures were the condition of coming to the US." ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "enables" ;
+	uco-core:source atk:phase-g4 ;
+	uco-core:target atk:phase-t1 .
+
+atk:handoff-harbor-enables-labor
+	a uco-core:Relationship ;
+	uco-core:name "Harboring enables forced-labor control" ;
+	uco-core:description "T2 Harboring feeds T3 Control: residential captivity is the control site for unfair-wage labor at Crossroad Services." ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "enables" ;
+	uco-core:source atk:phase-t2 ;
+	uco-core:target atk:phase-f2 .
+
+atk:handoff-harbor-enables-sex-trafficking
+	a uco-core:Relationship ;
+	uco-core:name "Harboring enables child-sex-trafficking placement control" ;
+	uco-core:description "T2 Harboring feeds T4 PlacementControl: same four-plex / Elm Ave site." ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "enables" ;
+	uco-core:source atk:phase-t2 ;
+	uco-core:target atk:phase-s1 .
+
+atk:handoff-csam-provides-leverage-for-sex-coercion
+	a uco-core:Relationship ;
+	uco-core:name "Prior CSAM provides leverage for Pasco sex-trafficking threats" ;
+	uco-core:description "T1 CSAM instrument reused on T4 threaten-ICE-and-exposure action (release videos to church pastor)." ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "providesLeverageFor" ;
+	uco-core:source atk:action-produce-csam ;
+	uco-core:target atk:action-threaten-ice-csam .
+
+atk:rel-bring-produces-transit
+	a uco-core:Relationship ;
+	uco-core:name "Bring-to-US action produces CrossBorderTransit occupancy" ;
+	uco-core:description "Exogenous feeder into T2 s0 (no incoming Transition to CrossBorderTransit)." ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "produces" ;
+	uco-core:source atk:action-bring-to-us ;
+	uco-core:target atk:phase-t1 .
+
+#################################################################
+# Parallel post-arrest obstruction (NOT an offense ESM)
+# Allegations retained; spouse performer is anonymized (atk:person-spouse).
+#################################################################
+
+atk:action-seek-witness-numbers
+	a uco-action:Action ;
+	uco-core:name "Seek phone numbers for witnesses and victims from jail" ;
+	uco-action:performer atk:person-atkinson ;
+	prov:wasDerivedFrom atk:evidence-obstruction .
+
+atk:action-alleged-hotel-removal
+	a uco-action:Action ;
+	uco-core:name "Allegedly remove victims from LE hotel" ;
+	uco-core:description "Prosecutors allege the spouse (anonymized; uncharged) removed victims from a hotel where law enforcement had taken them. Source: Spokesman-Review." ;
+	uco-action:performer atk:person-spouse ;
+	prov:wasDerivedFrom atk:evidence-obstruction .
+
+#################################################################
+# Per-layer StateMachineModels + one composition model
+#################################################################
+
+atk:tool-esm
+	a uco-tool:Tool ;
+	uco-core:name "ESM layered-composition estimator (illustrative)" ;
+	uco-core:description "version 0.1.0-dev" .
+
+atk:action-estimate
+	a uco-action:Action ;
+	uco-core:name "Estimate layered Atkinson transition probabilities (illustrative)" ;
+	uco-action:instrument atk:tool-esm ;
+	prov:wasAssociatedWith atk:tool-esm .
+
+# --- Grooming model ---
+atk:est-g1 a traj:TransitionEstimate ; traj:ofTransition atk:transition-g1 ; traj:transitionProbability "0.85"^^xsd:decimal ; traj:sampleBasis "Illustrative; n=1 layered case."^^xsd:string ; prov:wasGeneratedBy atk:action-estimate .
+atk:est-g2 a traj:TransitionEstimate ; traj:ofTransition atk:transition-g2 ; traj:transitionProbability "0.80"^^xsd:decimal ; traj:sampleBasis "Illustrative; n=1 layered case."^^xsd:string ; prov:wasGeneratedBy atk:action-estimate .
+atk:est-g3 a traj:TransitionEstimate ; traj:ofTransition atk:transition-g3 ; traj:transitionProbability "0.85"^^xsd:decimal ; traj:sampleBasis "Illustrative; n=1 layered case."^^xsd:string ; prov:wasGeneratedBy atk:action-estimate .
+
+atk:model-grooming
+	a traj:StateMachineModel ;
+	uco-core:name "Layer T1 model — CSEA/grooming" ;
+	traj:initialState lay:Targeting ;
+	traj:learnedFrom atk:trajectory-grooming ;
+	traj:hasTransition atk:transition-g1 , atk:transition-g2 , atk:transition-g3 ;
+	traj:hasTransitionEstimate atk:est-g1 , atk:est-g2 , atk:est-g3 ;
+	prov:wasGeneratedBy atk:action-estimate .
+
+# --- Transit model ---
+atk:est-tr1 a traj:TransitionEstimate ; traj:ofTransition atk:transition-tr1 ; traj:transitionProbability "0.90"^^xsd:decimal ; traj:sampleBasis "Illustrative; n=1 layered case."^^xsd:string ; prov:wasGeneratedBy atk:action-estimate .
+
+atk:model-transit
+	a traj:StateMachineModel ;
+	uco-core:name "Layer T2 model — transit/harbor" ;
+	traj:initialState lay:CrossBorderTransit ;
+	traj:learnedFrom atk:trajectory-transit ;
+	traj:hasTransition atk:transition-tr1 ;
+	traj:hasTransitionEstimate atk:est-tr1 ;
+	prov:wasGeneratedBy atk:action-estimate .
+
+# --- Forced labor model ---
+atk:est-fl1 a traj:TransitionEstimate ; traj:ofTransition atk:transition-fl1 ; traj:transitionProbability "0.88"^^xsd:decimal ; traj:sampleBasis "Illustrative; n=1 layered case."^^xsd:string ; prov:wasGeneratedBy atk:action-estimate .
+atk:est-fl2 a traj:TransitionEstimate ; traj:ofTransition atk:transition-fl2 ; traj:transitionProbability "0.90"^^xsd:decimal ; traj:sampleBasis "Illustrative; n=1 layered case."^^xsd:string ; prov:wasGeneratedBy atk:action-estimate .
+
+atk:model-forced-labor
+	a traj:StateMachineModel ;
+	uco-core:name "Layer T3 model — forced labor" ;
+	traj:initialState fl:Recruitment ;
+	traj:learnedFrom atk:trajectory-forced-labor ;
+	traj:hasTransition atk:transition-fl1 , atk:transition-fl2 ;
+	traj:hasTransitionEstimate atk:est-fl1 , atk:est-fl2 ;
+	prov:wasGeneratedBy atk:action-estimate .
+
+# --- Child sex trafficking model ---
+atk:est-s1 a traj:TransitionEstimate ; traj:ofTransition atk:transition-s1 ; traj:transitionProbability "0.85"^^xsd:decimal ; traj:sampleBasis "Illustrative; n=1 layered case."^^xsd:string ; prov:wasGeneratedBy atk:action-estimate .
+
+atk:model-child-sex-trafficking
+	a traj:StateMachineModel ;
+	uco-core:name "Layer T4 model — child sex trafficking" ;
+	traj:initialState lay:PlacementControl ;
+	traj:learnedFrom atk:trajectory-child-sex-trafficking ;
+	traj:hasTransition atk:transition-s1 ;
+	traj:hasTransitionEstimate atk:est-s1 ;
+	prov:wasGeneratedBy atk:action-estimate .
+
+# --- Composition artifact: one model that learnedFrom ALL four trajectories
+#     (aggregate view). Has the union of transitions for cross-layer analytics.
+#     Hand-offs remain Relationships — not edges inside this model's T.
+
+atk:model-composition
+	a traj:StateMachineModel ;
+	uco-core:name "Atkinson layered composition model (T1∪T2∪T3∪T4)" ;
+	uco-core:description "Aggregate StateMachineModel over all four offense trajectories in the Atkinson case. Does NOT flatten S into one alphabet — initialState omitted (no single s0 across domains). Cross-layer coupling is in enables/providesLeverageFor Relationships, not in hasTransition." ;
+	traj:learnedFrom
+		atk:trajectory-grooming ,
+		atk:trajectory-transit ,
+		atk:trajectory-forced-labor ,
+		atk:trajectory-child-sex-trafficking ;
+	traj:hasTransition
+		atk:transition-g1 , atk:transition-g2 , atk:transition-g3 ,
+		atk:transition-tr1 ,
+		atk:transition-fl1 , atk:transition-fl2 ,
+		atk:transition-s1 ;
+	traj:hasTransitionEstimate
+		atk:est-g1 , atk:est-g2 , atk:est-g3 ,
+		atk:est-tr1 ,
+		atk:est-fl1 , atk:est-fl2 ,
+		atk:est-s1 ;
+	prov:wasGeneratedBy atk:action-estimate .

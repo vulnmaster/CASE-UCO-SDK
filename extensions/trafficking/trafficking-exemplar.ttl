@@ -61,40 +61,40 @@ trfx:evidence-proceeds
 # Enacted actions (Technique-typed instances carrying the affordance)
 #################################################################
 
-trfx:instrument-coercive-means
+trfx:affordance-operator-labor-control
 	a uco-core:UcoObject ;
-	uco-core:name "Force, threats of force, fraud, or coercion" ;
-	uco-core:description "The coercive means Young used to compel the victims' compliance, including setting pricing and rules for them. Source: PR paras. 2, 4-5." .
+	uco-core:name "Operator control of commercial-sex labor" ;
+	uco-core:description "Neutral property: an organizer's authority to set pricing, rules, and work conditions for commercial-sex labor affords dominating a worker's compliance. Misuse: Young compelled three adult victims by force, threats of force, fraud, or coercion and set pricing and rules for them (violence and fraud are techniques, not affordances). Source: PR paras. 2, 4-5." .
 
 trfx:action-coerce
 	a uco-action:Action , traf:a_coerce ;
 	uco-core:name "Compel victim compliance by force, threats, fraud, or coercion" ;
 	uco-action:performer trfx:person-young ;
-	uco-action:instrument trfx:instrument-coercive-means ;
+	uco-action:instrument trfx:affordance-operator-labor-control ;
 	prov:wasDerivedFrom trfx:evidence-coercion .
 
-trfx:instrument-online-ad-platform
+trfx:affordance-online-ads
 	a uco-core:UcoObject ;
-	uco-core:name "Online advertising platform (unnamed in source)" ;
-	uco-core:description "The online platform on which Young placed advertisements for the victims to solicit commercial sex buyers; the specific platform is not named in the source. Source: PR para. 3." .
+	uco-core:name "Online advertising platforms" ;
+	uco-core:description "Neutral property: online classified/ad platforms afford soliciting commercial-sex buyers at scale without a fixed storefront. Adjacent venue affordance also present in source: short-stay hotel lodging (private rooms for commercial sex acts). Misuse: Young placed online ads for the victims and rented hotel rooms where the acts occurred. Platform name not given in source. Source: PR para. 3." .
 
 trfx:action-advertise
 	a uco-action:Action , traf:a_advertise ;
 	uco-core:name "Place online ads for the victims" ;
 	uco-action:performer trfx:person-young ;
-	uco-action:instrument trfx:instrument-online-ad-platform ;
+	uco-action:instrument trfx:affordance-online-ads ;
 	prov:wasDerivedFrom trfx:evidence-ads-hotels .
 
-trfx:instrument-commercial-sex-proceeds
+trfx:affordance-sex-payment-rails
 	a uco-core:UcoObject ;
-	uco-core:name "Commercial sex act proceeds" ;
-	uco-core:description "Proceeds from commercial sex acts performed by the victims, taken in full by Young. Source: PR paras. 3-4." .
+	uco-core:name "Commercial-sex payment collection channels" ;
+	uco-core:description "Neutral property: cash and other buyer-to-operator payment channels for commercial sex afford diverting earnings away from the worker. Misuse: Young took the proceeds from commercial sex acts performed by the victims (received all proceeds while victims received beatings and scars). Source: PR paras. 3-4." .
 
 trfx:action-collect-earnings
 	a uco-action:Action , traf:a_collect_earnings ;
 	uco-core:name "Take proceeds from commercial sex acts" ;
 	uco-action:performer trfx:person-young ;
-	uco-action:instrument trfx:instrument-commercial-sex-proceeds ;
+	uco-action:instrument trfx:affordance-sex-payment-rails ;
 	prov:wasDerivedFrom trfx:evidence-proceeds .
 
 #################################################################

@@ -1,0 +1,186 @@
+# Layered multi-offense ESM vocabulary (T-Box)
+#
+# Thin phase/action catalogs for the TWO offense threads that are NOT
+# already covered by extensions/forced-labor:
+#   (1) CSEA / grooming + CSAM-leverage (Honduras → transit condition)
+#   (2) Child sex trafficking (Pasco forced sexual acts + ICE/CSAM threats)
+#
+# Forced-labor / harboring / wage appropriation reuse fl:* from
+# extensions/forced-labor. Composition of machines lives in layered.ttl.
+#
+# Grounded in the Spokesman-Review account of United States v. Jonathan
+# Michael Atkinson (E.D. Wash.), 2025-04-13:
+#   https://www.spokesman.com/stories/2025/apr/13/tri-cities-business-owner-accused-of-grooming-sex-/
+# Newspaper quoting AUSA — thinner than a DOJ PR; exemplar confidence
+# values are calibrated accordingly.
+#
+# CAC crosswalk policy (same as extensions/forced-labor):
+#   - No CAC class is retyped; CAC is never owl:imported.
+#   - skos:exactMatch is NOT used (CAC alignments are approximate, not identity).
+#   - Optional skos:closeMatch annotations on grooming states may document
+#     conceptual proximity to CAC IRIs for documentation only.
+
+@prefix lay: <http://example.org/ontology/layered/> .
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology/layered>
+	a owl:Ontology ;
+	rdfs:label "Layered Multi-Offense Exploitation State Machine Vocabulary"@en ;
+	rdfs:comment "CSEA/grooming and child-sex-trafficking phase/action catalogs used to compose multiple domain ESMs in one case graph. Forced-labor phases/actions come from the forced-labor extension. Grounded in the Spokesman-Review account of U.S. v. Jonathan Michael Atkinson (E.D. Wash.), 2025-04-13."@en ;
+	dcterms:source "https://www.spokesman.com/stories/2025/apr/13/tri-cities-business-owner-accused-of-grooming-sex-/"^^xsd:anyURI ;
+	owl:imports
+		<http://example.org/ontology/trajectories> ,
+		<https://ontology.unifiedcyberontology.org/uco/action/> .
+
+#################################################################
+# CSEA / grooming (+ CSAM leverage) phases
+#################################################################
+
+lay:GroomingPhaseScheme
+	a skos:ConceptScheme ;
+	skos:prefLabel "CSEA / grooming offense phases (layered composition)"@en ;
+	dcterms:source "Spokesman-Review, 2025-04-13, quoting AUSA Laurel Holland re: Jonathan Michael Atkinson"@en .
+
+lay:Targeting
+	a traj:State , skos:Concept ;
+	uco-core:name "Targeting" ;
+	skos:prefLabel "Targeting"@en ;
+	skos:definition "Offender identifies children living in poverty (Honduras; as young as 8) as targets for a long-term grooming and trafficking scheme. Source: Spokesman-Review 2025-04-13."@en ;
+	skos:inScheme lay:GroomingPhaseScheme ;
+	skos:closeMatch <https://cacontology.projectvic.org/grooming#InitialContactPhase> .
+
+lay:MaterialDependency
+	a traj:State , skos:Concept ;
+	uco-core:name "Material dependency" ;
+	skos:prefLabel "Material dependency"@en ;
+	skos:definition "Offender provides housing, schooling, food, and gifts (e.g. electronic devices), creating material dependency that enables later sexual and migratory control. Source: Spokesman-Review 2025-04-13."@en ;
+	skos:inScheme lay:GroomingPhaseScheme ;
+	skos:closeMatch <https://cacontology.projectvic.org/grooming#TrustBuildingPhase> .
+
+lay:Sexualization
+	a traj:State , skos:Concept ;
+	uco-core:name "Sexualization" ;
+	skos:prefLabel "Sexualization"@en ;
+	skos:definition "Offender forces children to participate in sexual activities. Source: Spokesman-Review 2025-04-13."@en ;
+	skos:inScheme lay:GroomingPhaseScheme ;
+	skos:closeMatch <https://cacontology.projectvic.org/grooming#SexualizationPhase> .
+
+lay:CSAMLeverage
+	a traj:State , skos:Concept ;
+	uco-core:name "CSAM leverage" ;
+	skos:prefLabel "CSAM leverage"@en ;
+	skos:definition "Offender requires sexually explicit videos and pictures as a condition of bringing the child to the United States — CSAM production used as migratory leverage. Source: Spokesman-Review 2025-04-13."@en ;
+	skos:inScheme lay:GroomingPhaseScheme .
+
+#################################################################
+# Child sex-trafficking phases (Pasco / post-arrival)
+# Distinct from extensions/trafficking adult commercial-sex machine.
+#################################################################
+
+lay:ChildSexTraffickingPhaseScheme
+	a skos:ConceptScheme ;
+	skos:prefLabel "Child sex-trafficking offense phases (layered composition)"@en ;
+	dcterms:source "Spokesman-Review, 2025-04-13, quoting AUSA Laurel Holland re: Jonathan Michael Atkinson"@en .
+
+lay:PlacementControl
+	a traj:State , skos:Concept ;
+	uco-core:name "Placement control" ;
+	skos:prefLabel "Placement control"@en ;
+	skos:definition "Post-arrival control of child victims in offender-controlled housing (four-plex owned with spouse); total dependency; required cellphone location and social-media passwords; father/son framing. Source: Spokesman-Review 2025-04-13."@en ;
+	skos:inScheme lay:ChildSexTraffickingPhaseScheme .
+
+lay:ForcedSexualExploitation
+	a traj:State , skos:Concept ;
+	uco-core:name "Forced sexual exploitation" ;
+	skos:prefLabel "Forced sexual exploitation"@en ;
+	skos:definition "Child victims brought to Pasco are forced to engage in sexual acts; refusals met with threats to contact immigration and to release videos to their church pastor. Source: Spokesman-Review 2025-04-13 (sex trafficking of children by force, fraud and coercion)."@en ;
+	skos:inScheme lay:ChildSexTraffickingPhaseScheme .
+
+#################################################################
+# Transit / harboring phases (thin; bridges grooming → labor/sex)
+#################################################################
+
+lay:TransitHarborPhaseScheme
+	a skos:ConceptScheme ;
+	skos:prefLabel "Cross-border transit and harboring phases (layered composition)"@en .
+
+lay:CrossBorderTransit
+	a traj:State , skos:Concept ;
+	uco-core:name "Cross-border transit" ;
+	skos:prefLabel "Cross-border transit"@en ;
+	skos:definition "Children are brought from Honduras to the Tri-Cities / United States under the offender's scheme. Source: Spokesman-Review 2025-04-13."@en ;
+	skos:inScheme lay:TransitHarborPhaseScheme .
+
+lay:Harboring
+	a traj:State , skos:Concept ;
+	uco-core:name "Harboring" ;
+	skos:prefLabel "Harboring"@en ;
+	skos:definition "Victims live in a four-plex owned by the offender and his wife (736 Elm Ave, Pasco searched); charged conduct includes harboring illegal aliens. Source: Spokesman-Review 2025-04-13."@en ;
+	skos:inScheme lay:TransitHarborPhaseScheme .
+
+#################################################################
+# Technique catalog
+#################################################################
+
+lay:a_material_induce
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Material inducement (housing, school, food, gifts)"@en ;
+	rdfs:comment "Providing housing, schooling, food, and gifts such as electronic devices to children living in poverty to create dependency. Affordance abused: caregiver/provider role and gift economy. Source: Spokesman-Review 2025-04-13."@en ;
+	uco-action:techniqueID "LAY.T1" .
+
+lay:a_force_sexual_activity
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Force sexual activity with a child"@en ;
+	rdfs:comment "Forcing a child to participate in sexual activities. Affordance abused: power asymmetry over dependent minors. Source: Spokesman-Review 2025-04-13."@en ;
+	uco-action:techniqueID "LAY.T2" .
+
+lay:a_produce_csam
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Produce / demand CSAM as migratory leverage"@en ;
+	rdfs:comment "Requiring sexually explicit videos and pictures from children as a condition of bringing them to the United States. Affordance abused: digital messaging / device capture of CSAM used as both product and leverage. Source: Spokesman-Review 2025-04-13."@en ;
+	uco-action:techniqueID "LAY.T3" .
+
+lay:a_bring_to_us
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Bring child victims into the United States"@en ;
+	rdfs:comment "Bringing groomed child victims from Honduras into the United States. Affordance abused: cross-border migration channel controlled by the offender. Source: Spokesman-Review 2025-04-13."@en ;
+	uco-action:techniqueID "LAY.T4" .
+
+lay:a_harbor_aliens
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Harbor in offender-controlled housing"@en ;
+	rdfs:comment "Harboring victims in a four-plex owned by the offender and spouse. Affordance abused: private multifamily housing as captivity/placement site. Source: Spokesman-Review 2025-04-13 (harboring illegal aliens charge)."@en ;
+	uco-action:techniqueID "LAY.T5" .
+
+lay:a_force_child_sex_acts
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Force child sexual acts (sex trafficking)"@en ;
+	rdfs:comment "Forcing minors brought to Pasco to engage in sexual acts. Affordance abused: residential control and prior CSAM/immigration leverage. Source: Spokesman-Review 2025-04-13."@en ;
+	uco-action:techniqueID "LAY.T6" .
+
+lay:a_threaten_ice_and_exposure
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Threaten immigration contact and CSAM exposure"@en ;
+	rdfs:comment "Threatening to contact immigration and to release videos of victims to their church pastor if they refuse sexual acts. Affordance abused: immigration status + prior CSAM + faith-community exposure. Source: Spokesman-Review 2025-04-13."@en ;
+	uco-action:techniqueID "LAY.T7" .
+
+lay:a_digital_surveillance_control
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Require location and social-media password access"@en ;
+	rdfs:comment "Requiring victims to provide cellphone location and passwords to their social media accounts. Affordance abused: victim-owned digital accounts/devices. Source: Spokesman-Review 2025-04-13."@en ;
+	uco-action:techniqueID "LAY.T8" .

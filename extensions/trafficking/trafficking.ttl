@@ -105,19 +105,19 @@ traf:a_coerce
 	a owl:Class , uco-action:Technique ;
 	rdfs:subClassOf uco-action:Action ;
 	rdfs:label "Force / fraud / coercion"@en ;
-	rdfs:comment "Causing a victim to engage in commercial sex by force, threats of force, fraud, or coercion, including setting pricing and rules for the victim. Source: press release paras. 2, 4-5."@en ;
+	rdfs:comment "Causing a victim to engage in commercial sex by force, threats of force, fraud, or coercion, including setting pricing and rules for the victim. Those are techniques/misuses, not affordances. Affordance abused: operator control of commercial-sex labor (authority to set pricing, rules, and work conditions). Source: press release paras. 2, 4-5."@en ;
 	uco-action:techniqueID "TRAF.T1" .
 
 traf:a_advertise
 	a owl:Class , uco-action:Technique ;
 	rdfs:subClassOf uco-action:Action ;
 	rdfs:label "Online-advertisement placement"@en ;
-	rdfs:comment "Placing online advertisements for a victim to solicit commercial sex buyers; affordance abused: online-ad platform. Source: press release para. 3 ('placing online ads for the victims')."@en ;
+	rdfs:comment "Placing online advertisements for a victim to solicit commercial sex buyers. Affordance abused: online advertising platforms (adjacent: short-stay hotel lodging as venue). Source: press release para. 3 ('placing online ads for the victims')."@en ;
 	uco-action:techniqueID "TRAF.T2" .
 
 traf:a_collect_earnings
 	a owl:Class , uco-action:Technique ;
 	rdfs:subClassOf uco-action:Action ;
 	rdfs:label "Proceeds collection"@en ;
-	rdfs:comment "Taking the proceeds from commercial sex acts performed by a victim. Source: press release paras. 3-4 ('taking the proceeds ... Young received all the proceeds')."@en ;
+	rdfs:comment "Taking the proceeds from commercial sex acts performed by a victim. Affordance abused: commercial-sex payment collection channels (not the proceeds themselves). Source: press release paras. 3-4 ('taking the proceeds ... Young received all the proceeds')."@en ;
 	uco-action:techniqueID "TRAF.T3" .

@@ -260,10 +260,13 @@ Complex extensions with multiple modules can provide a `manifest.json` file in t
 | `bridge_files` | No | Relative paths to bridge/alignment modules |
 | `exemplar_files` | No | Relative paths to example instance data |
 | `invalid_exemplar_files` | No | Relative paths to expected-invalid negative fixtures that must fail SHACL validation |
+| `depends_on` | No | Other extension names required at validation/load time (e.g. `["trajectories", "attack-technique"]`). Expanded transitively by `validate_graph` / `validate_graph_file` |
 | `uco_compat` | Yes | List of compatible UCO versions |
 | `upper_ontology` | No | `"gufo"`, `"bfo"`, or `"none"` |
 | `cdo_shapes_compatibility` | No | Map of CDO Shapes profile → compatibility status |
 | `status` | No | Staged promotion lifecycle state: `"candidate"`, `"operational"`, or `"deprecated"` (see [`mcp_server/knowledge_lifecycle.py`](../../mcp_server/knowledge_lifecycle.py)). Manifests without this field are treated as `"operational"`. |
+
+SDK-developed Exploitation State Machine (ESM) extensions under `extensions/` illustrate the pattern: narrow phase/action catalogs (`elder-fraud`, `extortion`, `trafficking`, `forced-labor`) declare `depends_on: ["trajectories", "attack-technique"]`, while [`layered`](../../extensions/layered/) composes multiple machines via `enables` Relationships (`depends_on` includes `forced-labor`). See each extension's README for exemplars.
 
 ### Example Manifest
 

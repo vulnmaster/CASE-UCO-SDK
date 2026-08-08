@@ -67,6 +67,11 @@
       "items": { "type": "string" },
       "description": "Relative paths to expected-invalid negative fixtures (A-Box) that must fail SHACL validation. Used to test that the extension's shapes actually reject nonconformant data."
     },
+    "depends_on": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Other extension names this extension requires at validation/load time (e.g., ['trajectories', 'attack-technique']). The SDK expands this transitively when loading named extensions."
+    },
     "uco_compat": {
       "type": "array",
       "items": { "type": "string" },

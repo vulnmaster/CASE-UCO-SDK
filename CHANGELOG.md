@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `extensions/trajectories/`: Exploitation State Machine metamodel additions (v0.3.0) — `traj:enactsAction` (Transition → Action, additive alongside `traj:trigger`, carries the abused affordance via `action:instrument`) and `traj:initialState` (StateMachineModel → State, marks s₀).
 - `extensions/trajectories/` (v0.3.1): `traj:enactsAction` is multi-valued (SHACL `sh:maxCount` removed) so affordance-labeled multi-action edges validate.
 - `extensions/elder-fraud/`, `extensions/extortion/`, `extensions/trafficking/`: three narrow, machine-only ESM domain extensions (phase `skos:ConceptScheme` + `uco-action:Technique`-typed action catalog + minimal SHACL + real exemplar each), grounded in United States v. Castanos Garcia et al. (D. Mass. 1:24-cr-10138), United States v. Matthew D. Lane (D. Mass.), and United States v. Chase Anthony Young (N.D. Tex.) respectively.
+- `extensions/forced-labor/`: narrow forced-labor / debt-bondage ESM domain extension (18 U.S.C. § 1589 pattern) with two press-release trajectories sharing one machine — United States v. Gladys Ibanez-Olea (N.D. Ill., completed) and United States v. Thuy Tien Luong (W.D.N.C., disrupted).
+- `extensions/layered/`: multi-machine *composition* pattern (not a flattened single S) — crime exemplar `layered.ttl` (Atkinson: sequential/layered hand-offs T1→T2→T3, T2→T4) plus illustrative `layered-legal-process.ttl` (warrant→custody sequential hand-off alongside a concurrent surveillance track with no enables edge).
 
 ## [1.23.1] - 2026-07-28
 
@@ -98,7 +100,6 @@ for mobile-forensics builders.
   critic review artifact under `examples/sysdiagnose/critic-review.json`.
 
 Package versions bumped to **1.23.0**.
->>>>>>> origin/main
 
 ## [1.22.4] - 2026-07-15
 

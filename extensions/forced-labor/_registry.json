@@ -1,0 +1,104 @@
+{
+  "extension": "forced-labor",
+  "modules": [
+    "forced-labor"
+  ],
+  "classes": {
+    "a_smuggle": {
+      "iri": "http://example.org/ontology/forced-labor/a_smuggle",
+      "module": "forced-labor",
+      "description": "Cross-border smuggling of victims technique (uco-action:Technique class). techniqueID FL.T1.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labor Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    },
+    "a_harbor": {
+      "iri": "http://example.org/ontology/forced-labor/a_harbor",
+      "module": "forced-labor",
+      "description": "Harboring / residential captivity technique (uco-action:Technique class). techniqueID FL.T2.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labor Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    },
+    "a_coerce": {
+      "iri": "http://example.org/ontology/forced-labor/a_coerce",
+      "module": "forced-labor",
+      "description": "Force / threats / fraud / coercion including fabricated debt (uco-action:Technique class). techniqueID FL.T3.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labor Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    },
+    "a_compel_labor": {
+      "iri": "http://example.org/ontology/forced-labor/a_compel_labor",
+      "module": "forced-labor",
+      "description": "Compel labor / services technique (uco-action:Technique class). techniqueID FL.T4.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labor Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    },
+    "a_seize_wages": {
+      "iri": "http://example.org/ontology/forced-labor/a_seize_wages",
+      "module": "forced-labor",
+      "description": "Wage seizure / debt-bondage collection technique (uco-action:Technique class). techniqueID FL.T5.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labor Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    }
+  },
+  "vocabs": {
+    "PhaseScheme": {
+      "iri": "http://example.org/ontology/forced-labor/PhaseScheme",
+      "description": "skos:ConceptScheme of traj:State phase instances: Recruitment, Control, ForcedLabor, WageAppropriation."
+    }
+  }
+}

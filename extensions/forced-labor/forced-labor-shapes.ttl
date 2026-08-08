@@ -1,0 +1,27 @@
+# Forced-Labor extension — minimal SHACL
+#
+# Only constraint this domain extension adds beyond the base
+# trajectories-shapes.ttl firewall: every action instance typed with one of
+# this domain's Technique classes must carry >=1 uco-action:instrument, so
+# the abused affordance (the φ seam) is always present on the enacted
+# action.
+
+@prefix fl: <http://example.org/ontology/forced-labor/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+fl:TechniqueAction-shape
+	a sh:NodeShape ;
+	sh:targetClass
+		fl:a_smuggle ,
+		fl:a_harbor ,
+		fl:a_coerce ,
+		fl:a_compel_labor ,
+		fl:a_seize_wages ;
+	sh:property
+		[
+			sh:path uco-action:instrument ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+			sh:message "A forced-labor Technique action instance must carry >=1 uco-action:instrument naming the abused affordance."@en ;
+		] .

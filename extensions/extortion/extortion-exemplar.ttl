@@ -63,43 +63,55 @@ exx:evidence-leak-threat
 	uco-core:description "Threat that the exfiltrated data 'would be \"leak[ed] ... worldwide\"' absent ransom payment (PR para. 3). Corroborating same-MO quote from the separate, earlier April-May 2024 telecommunications-company incident, not the same event: Lane responded to the victim's question whether payment would end the threat with, 'We are the only ones with a copy of this data now. Stop this nonsense [or] your executives and employees will see the same fate . . . . Make the correct decision and pay the ransom. If you keep stalling, it will be leaked.' Source: PR para. 2." .
 
 #################################################################
-# Enacted actions (Technique-typed instances carrying the affordance)
+# Enacted actions (Technique-typed instances; instrument = affordance)
 #################################################################
 
-exx:instrument-stolen-credentials
+exx:affordance-credential-auth
 	a uco-core:UcoObject ;
-	uco-core:name "Stolen login credentials" ;
-	uco-core:description "Login credentials for the second victim company's computer network, stolen and used by Lane to gain unauthorized access. Source: PR para. 3." .
+	uco-core:name "Reusable remote login authentication" ;
+	uco-core:description "Neutral property: networks that authenticate remote users via reusable login credentials afford unauthorized access when those credentials circulate outside the account holder. Misuse: Lane used stolen login credentials to access the second victim company's computer network. Source: PR para. 3." .
 
 exx:action-credential-access
 	a uco-action:Action , ex:a_credential_theft ;
 	uco-core:name "Access victim network with stolen credentials" ;
 	uco-action:performer exx:person-lane ;
-	uco-action:instrument exx:instrument-stolen-credentials ;
+	uco-action:instrument exx:affordance-credential-auth ;
 	prov:wasDerivedFrom exx:evidence-access-exfil .
 
-exx:instrument-leased-server
+exx:affordance-remote-hosting
 	a uco-core:UcoObject ;
-	uco-core:name "Computer server leased by Lane in Ukraine" ;
-	uco-core:description "Attacker-controlled server infrastructure to which exfiltrated student/teacher PII was transferred. Source: PR para. 3." .
+	uco-core:name "Leasable remote hosting infrastructure" ;
+	uco-core:description "Neutral property: commercially leasable servers/cloud hosts afford staging and retaining data outside the victim organization's control. Misuse: Lane transferred student/teacher PII to a computer server he leased in Ukraine. Source: PR para. 3." .
 
 exx:action-exfiltrate-data
 	a uco-action:Action , ex:a_exfiltrate ;
 	uco-core:name "Exfiltrate student/teacher PII to leased server" ;
 	uco-action:performer exx:person-lane ;
-	uco-action:instrument exx:instrument-leased-server ;
+	uco-action:instrument exx:affordance-remote-hosting ;
 	prov:wasDerivedFrom exx:evidence-access-exfil .
 
-exx:instrument-exfiltrated-dataset
+exx:affordance-crypto-ransom-rails
 	a uco-core:UcoObject ;
-	uco-core:name "Exfiltrated student/teacher PII dataset" ;
-	uco-core:description "The names, email addresses, phone numbers, Social Security numbers, dates of birth, medical information, residential addresses, parent/guardian information, and passwords of 60M+ students and 10M+ teachers, held as leverage for the ransom demand. Source: PR para. 3." .
+	uco-core:name "Cryptocurrency ransom payment rails" ;
+	uco-core:description "Neutral property: Bitcoin and similar payment rails afford irreversible, cross-border ransom settlement without ordinary banking intermediaries. Misuse: Lane's confederates demanded approximately $2.85 million in Bitcoin to prevent worldwide disclosure of the exfiltrated data. Source: PR para. 3." .
+
+exx:action-demand-ransom
+	a uco-action:Action ;
+	uco-core:name "Demand Bitcoin ransom to avert data disclosure" ;
+	uco-action:performer exx:person-lane ;
+	uco-action:instrument exx:affordance-crypto-ransom-rails ;
+	prov:wasDerivedFrom exx:evidence-demand .
+
+exx:affordance-public-leak-channels
+	a uco-core:UcoObject ;
+	uco-core:name "Worldwide digital publication channels" ;
+	uco-core:description "Neutral property: open internet publication and redistribution surfaces afford credible threats of irreversible worldwide disclosure. Exclusive retention of a stolen copy makes that threat actionable; the dataset itself is leverage material, not an affordance. Misuse: Lane threatened that PII of 60M+ students and 10M+ teachers would be leaked worldwide absent ransom payment. Source: PR paras. 2-3." .
 
 exx:action-leak-threat
 	a uco-action:Action , ex:a_leak_threat ;
 	uco-core:name "Threaten worldwide leak of exfiltrated dataset" ;
 	uco-action:performer exx:person-lane ;
-	uco-action:instrument exx:instrument-exfiltrated-dataset ;
+	uco-action:instrument exx:affordance-public-leak-channels ;
 	prov:wasDerivedFrom exx:evidence-leak-threat .
 
 #################################################################
@@ -182,12 +194,10 @@ exx:trajectory-school-systems-2024
 #     absent Recruitment technique).
 #   - exx:action-exfiltrate-data (a_exfiltrate) produces Exfiltration ->
 #     wired to transition-1 (arrives Exfiltration).
-#   - transition-2 (arrives Demand) has no enactsAction: the catalog has
-#     no technique distinct from exfiltration for the demand step itself.
-#     traj:enactsAction is optional, so this is conformant.
+#   - transition-2 (arrives Demand): enacts action-demand-ransom;
+#     affordance is cryptocurrency ransom payment rails (Bitcoin).
 #   - exx:action-leak-threat (a_leak_threat) produces LeakThreat -> wired
-#     to transition-3 (arrives LeakThreat) — unchanged, was already
-#     correct under this convention.
+#     to transition-3 (arrives LeakThreat).
 #################################################################
 
 exx:trigger-network-compromised a uco-core:UcoObject ; uco-core:name "Trigger: network access confirmed" .
@@ -207,7 +217,8 @@ exx:transition-2
 	uco-core:name "Exfiltration -> Demand" ;
 	traj:fromState ex:Exfiltration ;
 	traj:toState ex:Demand ;
-	traj:trigger exx:trigger-data-staged .
+	traj:trigger exx:trigger-data-staged ;
+	traj:enactsAction exx:action-demand-ransom .
 
 exx:transition-3
 	a traj:Transition ;

@@ -1,0 +1,147 @@
+# Forced-Labor Exploitation State Machine Extension (T-Box + phase/action vocabulary)
+#
+# Narrow, machine-only extension: contributes ONLY what the trajectories
+# (traj:) Exploitation State Machine needs to run on a forced-labor /
+# debt-bondage offense (18 U.S.C. § 1589 pattern) — a skos:ConceptScheme of
+# traj:State phases and a small catalog of uco-action:Technique-typed action
+# classes. No domain taxonomy beyond the Technique metaclass punning pattern
+# already established by extensions/attack-technique.
+#
+# CAC crosswalk policy (same as extensions/layered/layered-vocab.ttl):
+#   - No CAC class is retyped; CAC is never owl:imported.
+#   - skos:exactMatch is NOT used (CAC alignments are approximate, not identity).
+#   - Optional skos:closeMatch may document conceptual proximity when defensible;
+#     none are asserted here — CAC trafficking vocabulary is grooming/CSAM and
+#     commercial-sex shaped, while these source cases are adult forced-labor
+#     prosecutions with no child-exploitation allegation.
+#
+# Phase set grounded in TWO public DOJ press releases (no PACER vendored):
+#   Ibanez — USAO-NDIL "Cartel Member Who Trafficked Victims From Mexico to
+#            Chicagoland Into Forced Labor Sentenced to 9 Years in Prison"
+#            (2026-07-24):
+#            https://www.justice.gov/usao-ndil/pr/cartel-member-who-trafficked-victims-mexico-chicagoland-forced-labor-sentenced-more-9
+#   Luong  — DOJ OPA "North Carolina Nail Salon Owner Convicted of Forced
+#            Labor" (2021-01-08):
+#            https://www.justice.gov/opa/pr/north-carolina-nail-salon-owner-convicted-forced-labor
+#
+# Offense phases (S) — victim-journey:
+#   Recruitment         -- Victim is brought into the scheme (Mexico
+#                          recruitment / employment onset).
+#   Control             -- Victim is held under offender control
+#                          (harboring, captivity, workplace domination)
+#                          by force, threats, fraud, or coercion
+#                          (including fabricated debt).
+#   ForcedLabor         -- Victim is compelled to work.
+#   WageAppropriation   -- Offender takes wages / enforces debt bondage
+#                          over earnings (modeled endpoint for a finished
+#                          chain).
+#
+# Authoritative T (arriving-state enactsAction; multi-action edges allowed):
+#   Recruitment --a_smuggle, a_harbor, a_coerce--> Control
+#     (Luong trajectory uses a_coerce only; source has no smuggling/harbor)
+#   Control --a_compel_labor--> ForcedLabor
+#   ForcedLabor --a_seize_wages--> WageAppropriation
+#
+# Terminal polarity:
+#   Ibanez full run ends WageAppropriation/"completed".
+#   Luong ends mid-chain at ForcedLabor/"disrupted" (victim report + arrest
+#   June 2018 after violent assault) — debt-bondage facts ride on Control
+#   coercion evidence, not as a completed WageAppropriation occupancy.
+
+@prefix fl: <http://example.org/ontology/forced-labor/> .
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology/forced-labor>
+	a owl:Ontology ;
+	rdfs:label "Forced-Labor Exploitation State Machine Extension"@en ;
+	rdfs:comment "Phase vocabulary (traj:State plug-in) and Technique-typed action catalog for a forced-labor / debt-bondage Exploitation State Machine (18 U.S.C. § 1589 pattern). Grounded in United States v. Gladys Ibanez-Olea (N.D. Ill.) and United States v. Thuy Tien Luong (W.D.N.C.). Depends on the trajectories and attack-technique extensions; mints no domain taxonomy beyond phases and actions. CAC policy: no CAC retyping, no owl:imports of CAC, no skos:exactMatch; optional skos:closeMatch unused here (no defensible CAC proximity)."@en ;
+	dcterms:source
+		"https://www.justice.gov/usao-ndil/pr/cartel-member-who-trafficked-victims-mexico-chicagoland-forced-labor-sentenced-more-9"^^xsd:anyURI ,
+		"https://www.justice.gov/opa/pr/north-carolina-nail-salon-owner-convicted-forced-labor"^^xsd:anyURI ;
+	owl:imports
+		<http://example.org/ontology/trajectories> ,
+		<https://ontology.unifiedcyberontology.org/uco/action/> .
+
+#################################################################
+# Phase vocabulary: traj:State instances in a SKOS scheme
+#################################################################
+
+fl:PhaseScheme
+	a skos:ConceptScheme ;
+	skos:prefLabel "Forced-labor (debt-bondage) offense phases"@en ;
+	dcterms:source "United States v. Gladys Ibanez-Olea (N.D. Ill.), USAO-NDIL press release 2026-07-24; United States v. Thuy Tien Luong (W.D.N.C.), DOJ OPA press release 2021-01-08"@en .
+
+fl:Recruitment
+	a traj:State , skos:Concept ;
+	uco-core:name "Recruitment" ;
+	skos:prefLabel "Recruitment"@en ;
+	skos:definition "Victim is brought into the forced-labor scheme (recruitment into an employment or trafficking relationship that leads to compelled labor). See 18 U.S.C. § 1589 and TVPA victim-journey practice."@en ;
+	skos:inScheme fl:PhaseScheme .
+
+fl:Control
+	a traj:State , skos:Concept ;
+	uco-core:name "Control" ;
+	skos:prefLabel "Control"@en ;
+	skos:definition "Victim is held under the offender's control — harboring/captivity and/or workplace domination — by force, threats of serious harm, fraud, or coercion, including fabricated debt."@en ;
+	skos:inScheme fl:PhaseScheme .
+
+fl:ForcedLabor
+	a traj:State , skos:Concept ;
+	uco-core:name "Forced labor" ;
+	skos:prefLabel "Forced labor"@en ;
+	skos:definition "Victim is compelled to work by means of serious harm or abuse, or threats of serious harm or abuse. See 18 U.S.C. § 1589 (https://www.law.cornell.edu/uscode/text/18/1589)."@en ;
+	skos:inScheme fl:PhaseScheme .
+
+fl:WageAppropriation
+	a traj:State , skos:Concept ;
+	uco-core:name "Wage appropriation" ;
+	skos:prefLabel "Wage appropriation"@en ;
+	skos:definition "Terminal modeled endpoint for a finished chain: offender takes the victim's earned income and/or enforces debt bondage over wages claimed as repayment of a fabricated or inflated debt."@en ;
+	skos:inScheme fl:PhaseScheme .
+
+#################################################################
+# Action catalog: Technique-typed uco-action:Action subclasses
+# (metaclass punning pattern per extensions/attack-technique)
+#################################################################
+
+fl:a_smuggle
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Cross-border smuggling of victims"@en ;
+	rdfs:comment "Arranging for victims to be smuggled across an international border into the United States as part of a forced-labor scheme. Affordance abused: clandestine cross-border transport networks. Source: Ibanez PR (arrange for them to be smuggled into the United States)."@en ;
+	uco-action:techniqueID "FL.T1" .
+
+fl:a_harbor
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Harboring / residential captivity"@en ;
+	rdfs:comment "Harboring victims in a residence under the offender's control, effectively holding them in captivity under harsh conditions. Affordance abused: private residential enclosure (unmonitored physical custody). Misuse is the harboring; the residence itself is not the affordance name. Source: Ibanez PR (harbor them in her home in Highland Park)."@en ;
+	uco-action:techniqueID "FL.T2" .
+
+fl:a_coerce
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Force / threats / fraud / coercion (incl. fabricated debt)"@en ;
+	rdfs:comment "Establishing or maintaining control over a victim by force, threats of serious harm, fraud, or coercion — including fabricated debt contracts, threats to kill family members, reputation threats, and physical assault. Those are techniques/misuses, not affordances. Affordances abused: employer control of the workplace; formal debt/contract instruments; family-reputation disclosure surfaces; cross-border kin vulnerability. Source: both press releases; see 18 U.S.C. § 1589(a)."@en ;
+	uco-action:techniqueID "FL.T3" .
+
+fl:a_compel_labor
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Compel labor / services"@en ;
+	rdfs:comment "Compelling a victim to perform labor or services by means of serious harm or abuse, or threats of serious harm or abuse. Affordance abused: employer-set labor schedule and/or opaque multi-employer labor placement (not the compelled labor itself). Source: both press releases; 18 U.S.C. § 1589."@en ;
+	uco-action:techniqueID "FL.T4" .
+
+fl:a_seize_wages
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Wage seizure / debt-bondage collection"@en ;
+	rdfs:comment "Taking the victim's earned income and/or enforcing repayment of a claimed debt so that the victim's entire salary effectively belongs to the offender. Affordance abused: wage-payment / debt-collection channels. Source: Ibanez PR (took any income they earned; 'entire salaries belonged to defendant'); Luong PR (fabricated $180,000 debt used as coercive leverage — carried on Control when trajectory is mid-chain disrupted)."@en ;
+	uco-action:techniqueID "FL.T5" .

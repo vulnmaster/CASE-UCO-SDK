@@ -1,0 +1,437 @@
+# Layered composition — NON-CRIME practical example (legal / investigative process)
+#
+# ILLUSTRATIVE / FABRICATED — not grounded in a specific PACER filing.
+# This is the concurrency demonstration graph (Atkinson in layered.ttl stays
+# sequential/layered hand-offs only; do not read concurrency claims into it).
+#
+# Two patterns side by side in one graph, zero offense vocabulary:
+#
+#   (a) SEQUENTIAL / LAYERED hand-off
+#       L1  Warrant:  WarrantApplication → JudicialAuthorization →
+#                     WarrantExecution (return / service)
+#       L2  Custody:  Arrest → ChargingDecision → Arraignment
+#       Hand-off: WarrantExecution --enables--> Arrest
+#
+#   (b) GENUINELY CONCURRENT / PARALLEL
+#       L3  Surveillance/monitoring: Authorization → ActiveMonitoring →
+#           MonitoringClosed
+#       L3 shares lp:interval with L1/L2 on purpose (same illustrative window)
+#       but has NO Relationship(enables|…) to L1 or L2.
+#       That absence IS the concurrency demonstration — not an oversight.
+#       (traj: has no first-class "overlaps" edge between PhaseAssertions;
+#       overlap is implied by shared atInterval + missing hand-off. See README.)
+#
+# Uses bare traj:State individuals + uco-action:Action (no Technique catalog;
+# traj:enactsAction is optional). Validates under extensions=['layered'].
+
+@prefix lp: <http://example.org/layered/legal-process/> .
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+#################################################################
+# Phase alphabets (plug-in traj:State individuals — not offense classes)
+#################################################################
+
+lp:WarrantScheme a skos:ConceptScheme ; skos:prefLabel "Warrant process phases"@en .
+
+lp:WarrantApplication a traj:State , skos:Concept ;
+	uco-core:name "Warrant application" ;
+	skos:prefLabel "Warrant application"@en ;
+	skos:inScheme lp:WarrantScheme .
+
+lp:JudicialAuthorization a traj:State , skos:Concept ;
+	uco-core:name "Judicial authorization" ;
+	skos:prefLabel "Judicial authorization"@en ;
+	skos:inScheme lp:WarrantScheme .
+
+lp:WarrantExecution a traj:State , skos:Concept ;
+	uco-core:name "Warrant execution / return" ;
+	skos:prefLabel "Warrant execution / return"@en ;
+	skos:inScheme lp:WarrantScheme .
+
+lp:CustodyScheme a skos:ConceptScheme ; skos:prefLabel "Post-warrant custody phases"@en .
+
+lp:Arrest a traj:State , skos:Concept ;
+	uco-core:name "Arrest" ;
+	skos:prefLabel "Arrest"@en ;
+	skos:inScheme lp:CustodyScheme .
+
+lp:ChargingDecision a traj:State , skos:Concept ;
+	uco-core:name "Charging decision" ;
+	skos:prefLabel "Charging decision"@en ;
+	skos:inScheme lp:CustodyScheme .
+
+lp:Arraignment a traj:State , skos:Concept ;
+	uco-core:name "Arraignment" ;
+	skos:prefLabel "Arraignment"@en ;
+	skos:inScheme lp:CustodyScheme .
+
+lp:SurveillanceScheme a skos:ConceptScheme ; skos:prefLabel "Illustrative surveillance / monitoring phases"@en .
+
+lp:SurveillanceAuthorization a traj:State , skos:Concept ;
+	uco-core:name "Surveillance authorization" ;
+	skos:prefLabel "Surveillance authorization"@en ;
+	skos:inScheme lp:SurveillanceScheme .
+
+lp:ActiveMonitoring a traj:State , skos:Concept ;
+	uco-core:name "Active monitoring" ;
+	skos:prefLabel "Active monitoring"@en ;
+	skos:inScheme lp:SurveillanceScheme .
+
+lp:MonitoringClosed a traj:State , skos:Concept ;
+	uco-core:name "Monitoring closed" ;
+	skos:prefLabel "Monitoring closed"@en ;
+	skos:inScheme lp:SurveillanceScheme .
+
+#################################################################
+# Shared actors / evidence (illustrative)
+#################################################################
+
+lp:person-affiant a uco-identity:Person , uco-core:UcoObject ; uco-core:name "Detective Affiant (illustrative)" .
+lp:person-magistrate a uco-identity:Person , uco-core:UcoObject ; uco-core:name "Magistrate Judge (illustrative)" .
+lp:person-prosecutor a uco-identity:Person , uco-core:UcoObject ; uco-core:name "Assistant U.S. Attorney (illustrative)" .
+lp:person-monitor a uco-identity:Person , uco-core:UcoObject ; uco-core:name "Surveillance case agent (illustrative)" .
+
+lp:evidence-warrant-packet
+	a uco-core:UcoObject ;
+	uco-core:name "Illustrative warrant application packet + return" ;
+	uco-core:description "Synthetic evidence node for the non-crime composition exemplar. Not a real filing." .
+
+lp:evidence-custody-docket
+	a uco-core:UcoObject ;
+	uco-core:name "Illustrative arrest / charging / arraignment docket entries" ;
+	uco-core:description "Synthetic evidence node for the non-crime composition exemplar. Not a real filing." .
+
+lp:evidence-surveillance-log
+	a uco-core:UcoObject ;
+	uco-core:name "Illustrative surveillance / monitoring log" ;
+	uco-core:description "Synthetic evidence node for the concurrent L3 track. Not a real filing." .
+
+# Intentional shared window for L1/L2/L3: sequential hand-off is L1→L2 via
+# Relationship; L3 concurrency is asserted by sharing this interval WITH NO
+# hand-off Relationship to L1 or L2 (see header + README).
+lp:interval
+	a time:ProperInterval ;
+	uco-core:description "Illustrative overlap window shared by sequential L1/L2 and concurrent L3. Not a real case timeline." ;
+	time:hasBeginning lp:t0 ;
+	time:hasEnd lp:t1 .
+lp:t0 a time:Instant ; time:inXSDDateTimeStamp "2024-06-01T00:00:00Z"^^xsd:dateTimeStamp .
+lp:t1 a time:Instant ; time:inXSDDateTimeStamp "2024-06-15T23:59:00Z"^^xsd:dateTimeStamp .
+
+#################################################################
+# L1 — Warrant process trajectory
+#################################################################
+
+lp:action-apply
+	a uco-action:Action ;
+	uco-core:name "Submit warrant application" ;
+	uco-action:performer lp:person-affiant ;
+	prov:wasDerivedFrom lp:evidence-warrant-packet .
+
+lp:action-authorize
+	a uco-action:Action ;
+	uco-core:name "Issue judicial authorization" ;
+	uco-action:performer lp:person-magistrate ;
+	prov:wasDerivedFrom lp:evidence-warrant-packet .
+
+lp:action-execute-return
+	a uco-action:Action ;
+	uco-core:name "Execute warrant and file return" ;
+	uco-action:performer lp:person-affiant ;
+	prov:wasDerivedFrom lp:evidence-warrant-packet .
+
+lp:c-w0 a uco-core:ConfidenceFacet ; uco-core:confidence "90"^^xsd:nonNegativeInteger .
+lp:c-w1 a uco-core:ConfidenceFacet ; uco-core:confidence "90"^^xsd:nonNegativeInteger .
+lp:c-w2 a uco-core:ConfidenceFacet ; uco-core:confidence "90"^^xsd:nonNegativeInteger .
+
+lp:phase-w0 a traj:PhaseAssertion ;
+	uco-core:name "Warrant occupancy 0" ;
+	traj:assertsState lp:WarrantApplication ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom lp:evidence-warrant-packet ;
+	uco-core:hasFacet lp:c-w0 .
+
+lp:phase-w1 a traj:PhaseAssertion ;
+	uco-core:name "Warrant occupancy 1" ;
+	traj:assertsState lp:JudicialAuthorization ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom lp:evidence-warrant-packet ;
+	uco-core:hasFacet lp:c-w1 .
+
+lp:phase-w2 a traj:PhaseAssertion ;
+	uco-core:name "Warrant occupancy 2 (terminal completed)" ;
+	traj:assertsState lp:WarrantExecution ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "completed" ;
+	prov:wasDerivedFrom lp:evidence-warrant-packet ;
+	uco-core:hasFacet lp:c-w2 .
+
+lp:trajectory-warrant a traj:Trajectory ;
+	uco-core:name "L1 — Warrant application → authorization → execution/return" ;
+	traj:hasPhaseAssertion lp:phase-w0 , lp:phase-w1 , lp:phase-w2 .
+
+lp:trig-w1 a uco-core:UcoObject ; uco-core:name "Trigger: magistrate signs warrant" .
+lp:trig-w2 a uco-core:UcoObject ; uco-core:name "Trigger: warrant served / return filed" .
+
+lp:transition-w1 a traj:Transition ;
+	uco-core:name "WarrantApplication -> JudicialAuthorization" ;
+	traj:fromState lp:WarrantApplication ;
+	traj:toState lp:JudicialAuthorization ;
+	traj:trigger lp:trig-w1 ;
+	traj:enactsAction lp:action-authorize .
+
+lp:transition-w2 a traj:Transition ;
+	uco-core:name "JudicialAuthorization -> WarrantExecution" ;
+	traj:fromState lp:JudicialAuthorization ;
+	traj:toState lp:WarrantExecution ;
+	traj:trigger lp:trig-w2 ;
+	traj:enactsAction lp:action-execute-return .
+
+#################################################################
+# L2 — Custody process trajectory
+#################################################################
+
+lp:action-arrest
+	a uco-action:Action ;
+	uco-core:name "Effect arrest" ;
+	uco-action:performer lp:person-affiant ;
+	prov:wasDerivedFrom lp:evidence-custody-docket .
+
+lp:action-charge
+	a uco-action:Action ;
+	uco-core:name "File charging decision" ;
+	uco-action:performer lp:person-prosecutor ;
+	prov:wasDerivedFrom lp:evidence-custody-docket .
+
+lp:action-arraign
+	a uco-action:Action ;
+	uco-core:name "Conduct arraignment" ;
+	uco-action:performer lp:person-magistrate ;
+	prov:wasDerivedFrom lp:evidence-custody-docket .
+
+lp:c-c0 a uco-core:ConfidenceFacet ; uco-core:confidence "88"^^xsd:nonNegativeInteger .
+lp:c-c1 a uco-core:ConfidenceFacet ; uco-core:confidence "88"^^xsd:nonNegativeInteger .
+lp:c-c2 a uco-core:ConfidenceFacet ; uco-core:confidence "88"^^xsd:nonNegativeInteger .
+
+lp:phase-c0 a traj:PhaseAssertion ;
+	uco-core:name "Custody occupancy 0" ;
+	traj:assertsState lp:Arrest ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom lp:evidence-custody-docket ;
+	uco-core:hasFacet lp:c-c0 .
+
+lp:phase-c1 a traj:PhaseAssertion ;
+	uco-core:name "Custody occupancy 1" ;
+	traj:assertsState lp:ChargingDecision ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom lp:evidence-custody-docket ;
+	uco-core:hasFacet lp:c-c1 .
+
+lp:phase-c2 a traj:PhaseAssertion ;
+	uco-core:name "Custody occupancy 2 (terminal completed)" ;
+	traj:assertsState lp:Arraignment ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "completed" ;
+	prov:wasDerivedFrom lp:evidence-custody-docket ;
+	uco-core:hasFacet lp:c-c2 .
+
+lp:trajectory-custody a traj:Trajectory ;
+	uco-core:name "L2 — Arrest → charging → arraignment" ;
+	traj:hasPhaseAssertion lp:phase-c0 , lp:phase-c1 , lp:phase-c2 .
+
+lp:trig-c1 a uco-core:UcoObject ; uco-core:name "Trigger: charging decision filed" .
+lp:trig-c2 a uco-core:UcoObject ; uco-core:name "Trigger: arraignment held" .
+
+lp:transition-c1 a traj:Transition ;
+	uco-core:name "Arrest -> ChargingDecision" ;
+	traj:fromState lp:Arrest ;
+	traj:toState lp:ChargingDecision ;
+	traj:trigger lp:trig-c1 ;
+	traj:enactsAction lp:action-charge .
+
+lp:transition-c2 a traj:Transition ;
+	uco-core:name "ChargingDecision -> Arraignment" ;
+	traj:fromState lp:ChargingDecision ;
+	traj:toState lp:Arraignment ;
+	traj:trigger lp:trig-c2 ;
+	traj:enactsAction lp:action-arraign .
+
+#################################################################
+# L3 — Surveillance / monitoring (CONCURRENT with L1/L2)
+#
+# Deliberately NO Relationship connecting L3 phases to L1 or L2.
+# Absence of enables/hand-off IS the concurrency demonstration.
+#################################################################
+
+lp:action-authorize-surveillance
+	a uco-action:Action ;
+	uco-core:name "Authorize physical / electronic surveillance (illustrative)" ;
+	uco-action:performer lp:person-magistrate ;
+	prov:wasDerivedFrom lp:evidence-surveillance-log .
+
+lp:action-monitor
+	a uco-action:Action ;
+	uco-core:name "Conduct active monitoring (illustrative)" ;
+	uco-action:performer lp:person-monitor ;
+	prov:wasDerivedFrom lp:evidence-surveillance-log .
+
+lp:action-close-monitoring
+	a uco-action:Action ;
+	uco-core:name "Close monitoring period (illustrative)" ;
+	uco-action:performer lp:person-monitor ;
+	prov:wasDerivedFrom lp:evidence-surveillance-log .
+
+lp:c-s0 a uco-core:ConfidenceFacet ; uco-core:confidence "85"^^xsd:nonNegativeInteger .
+lp:c-s1 a uco-core:ConfidenceFacet ; uco-core:confidence "85"^^xsd:nonNegativeInteger .
+lp:c-s2 a uco-core:ConfidenceFacet ; uco-core:confidence "85"^^xsd:nonNegativeInteger .
+
+lp:phase-s0 a traj:PhaseAssertion ;
+	uco-core:name "Surveillance occupancy 0" ;
+	traj:assertsState lp:SurveillanceAuthorization ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom lp:evidence-surveillance-log ;
+	uco-core:hasFacet lp:c-s0 .
+
+lp:phase-s1 a traj:PhaseAssertion ;
+	uco-core:name "Surveillance occupancy 1 — ActiveMonitoring (overlaps warrant/custody window)" ;
+	uco-core:description "Concurrent with L1/L2 phases on lp:interval. No enables Relationship to warrant or custody — intentional." ;
+	traj:assertsState lp:ActiveMonitoring ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom lp:evidence-surveillance-log ;
+	uco-core:hasFacet lp:c-s1 .
+
+lp:phase-s2 a traj:PhaseAssertion ;
+	uco-core:name "Surveillance occupancy 2 (terminal completed)" ;
+	traj:assertsState lp:MonitoringClosed ;
+	traj:atInterval lp:interval ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "completed" ;
+	prov:wasDerivedFrom lp:evidence-surveillance-log ;
+	uco-core:hasFacet lp:c-s2 .
+
+lp:trajectory-surveillance a traj:Trajectory ;
+	uco-core:name "L3 — Surveillance authorization → active monitoring → closed (concurrent with L1/L2)" ;
+	uco-core:description "Parallel illustrative track. Intentionally has NO Relationship to L1 or L2; concurrency = shared lp:interval + missing hand-off." ;
+	traj:hasPhaseAssertion lp:phase-s0 , lp:phase-s1 , lp:phase-s2 .
+
+lp:trig-s1 a uco-core:UcoObject ; uco-core:name "Trigger: monitoring period begins" .
+lp:trig-s2 a uco-core:UcoObject ; uco-core:name "Trigger: monitoring period ends" .
+
+lp:transition-s1 a traj:Transition ;
+	uco-core:name "SurveillanceAuthorization -> ActiveMonitoring" ;
+	traj:fromState lp:SurveillanceAuthorization ;
+	traj:toState lp:ActiveMonitoring ;
+	traj:trigger lp:trig-s1 ;
+	traj:enactsAction lp:action-monitor .
+
+lp:transition-s2 a traj:Transition ;
+	uco-core:name "ActiveMonitoring -> MonitoringClosed" ;
+	traj:fromState lp:ActiveMonitoring ;
+	traj:toState lp:MonitoringClosed ;
+	traj:trigger lp:trig-s2 ;
+	traj:enactsAction lp:action-close-monitoring .
+
+#################################################################
+# Hand-off — SEQUENTIAL only (L1 → L2). L3 has none by design.
+#################################################################
+
+lp:handoff-warrant-enables-arrest
+	a uco-core:Relationship ;
+	uco-core:name "Warrant execution enables arrest" ;
+	uco-core:description "L1 terminal WarrantExecution enables L2 Arrest — sequential/layered coupling without flattening S. L3 surveillance is deliberately NOT a source or target of any enables edge." ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "enables" ;
+	uco-core:source lp:phase-w2 ;
+	uco-core:target lp:phase-c0 .
+
+lp:rel-apply-produces-s0
+	a uco-core:Relationship ;
+	uco-core:name "Apply action produces WarrantApplication occupancy" ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "produces" ;
+	uco-core:source lp:action-apply ;
+	uco-core:target lp:phase-w0 .
+
+lp:rel-arrest-produces-s0
+	a uco-core:Relationship ;
+	uco-core:name "Arrest action produces Arrest occupancy" ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "produces" ;
+	uco-core:source lp:action-arrest ;
+	uco-core:target lp:phase-c0 .
+
+lp:rel-authorize-surveillance-produces-s0
+	a uco-core:Relationship ;
+	uco-core:name "Authorize-surveillance action produces SurveillanceAuthorization occupancy" ;
+	uco-core:isDirectional true ;
+	uco-core:kindOfRelationship "produces" ;
+	uco-core:source lp:action-authorize-surveillance ;
+	uco-core:target lp:phase-s0 .
+
+#################################################################
+# Per-layer models + composition model
+#################################################################
+
+lp:tool a uco-tool:Tool ; uco-core:name "Illustrative process estimator" .
+lp:estimate-run a uco-action:Action ;
+	uco-core:name "Estimate legal-process transition probabilities (illustrative)" ;
+	uco-action:instrument lp:tool ;
+	prov:wasAssociatedWith lp:tool .
+
+lp:est-w1 a traj:TransitionEstimate ; traj:ofTransition lp:transition-w1 ; traj:transitionProbability "0.95"^^xsd:decimal ; traj:sampleBasis "Illustrative non-crime composition."^^xsd:string ; prov:wasGeneratedBy lp:estimate-run .
+lp:est-w2 a traj:TransitionEstimate ; traj:ofTransition lp:transition-w2 ; traj:transitionProbability "0.90"^^xsd:decimal ; traj:sampleBasis "Illustrative non-crime composition."^^xsd:string ; prov:wasGeneratedBy lp:estimate-run .
+lp:est-c1 a traj:TransitionEstimate ; traj:ofTransition lp:transition-c1 ; traj:transitionProbability "0.92"^^xsd:decimal ; traj:sampleBasis "Illustrative non-crime composition."^^xsd:string ; prov:wasGeneratedBy lp:estimate-run .
+lp:est-c2 a traj:TransitionEstimate ; traj:ofTransition lp:transition-c2 ; traj:transitionProbability "0.95"^^xsd:decimal ; traj:sampleBasis "Illustrative non-crime composition."^^xsd:string ; prov:wasGeneratedBy lp:estimate-run .
+lp:est-s1 a traj:TransitionEstimate ; traj:ofTransition lp:transition-s1 ; traj:transitionProbability "0.88"^^xsd:decimal ; traj:sampleBasis "Illustrative concurrent surveillance track."^^xsd:string ; prov:wasGeneratedBy lp:estimate-run .
+lp:est-s2 a traj:TransitionEstimate ; traj:ofTransition lp:transition-s2 ; traj:transitionProbability "0.90"^^xsd:decimal ; traj:sampleBasis "Illustrative concurrent surveillance track."^^xsd:string ; prov:wasGeneratedBy lp:estimate-run .
+
+lp:model-warrant a traj:StateMachineModel ;
+	uco-core:name "L1 model — warrant process" ;
+	traj:initialState lp:WarrantApplication ;
+	traj:learnedFrom lp:trajectory-warrant ;
+	traj:hasTransition lp:transition-w1 , lp:transition-w2 ;
+	traj:hasTransitionEstimate lp:est-w1 , lp:est-w2 ;
+	prov:wasGeneratedBy lp:estimate-run .
+
+lp:model-custody a traj:StateMachineModel ;
+	uco-core:name "L2 model — custody process" ;
+	traj:initialState lp:Arrest ;
+	traj:learnedFrom lp:trajectory-custody ;
+	traj:hasTransition lp:transition-c1 , lp:transition-c2 ;
+	traj:hasTransitionEstimate lp:est-c1 , lp:est-c2 ;
+	prov:wasGeneratedBy lp:estimate-run .
+
+lp:model-surveillance a traj:StateMachineModel ;
+	uco-core:name "L3 model — surveillance / monitoring (concurrent)" ;
+	uco-core:description "Independent of L1/L2 — no enables coupling in the instance graph." ;
+	traj:initialState lp:SurveillanceAuthorization ;
+	traj:learnedFrom lp:trajectory-surveillance ;
+	traj:hasTransition lp:transition-s1 , lp:transition-s2 ;
+	traj:hasTransitionEstimate lp:est-s1 , lp:est-s2 ;
+	prov:wasGeneratedBy lp:estimate-run .
+
+lp:model-composition a traj:StateMachineModel ;
+	uco-core:name "Legal-process composition (L1∪L2 sequential + L3 concurrent)" ;
+	uco-core:description "Aggregate over warrant, custody, and surveillance trajectories. No single initialState. L1→L2 coupling is Relationship enables; L3 concurrency is shared interval + deliberate absence of any hand-off Relationship." ;
+	traj:learnedFrom lp:trajectory-warrant , lp:trajectory-custody , lp:trajectory-surveillance ;
+	traj:hasTransition lp:transition-w1 , lp:transition-w2 , lp:transition-c1 , lp:transition-c2 , lp:transition-s1 , lp:transition-s2 ;
+	traj:hasTransitionEstimate lp:est-w1 , lp:est-w2 , lp:est-c1 , lp:est-c2 , lp:est-s1 , lp:est-s2 ;
+	prov:wasGeneratedBy lp:estimate-run .

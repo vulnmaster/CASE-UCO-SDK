@@ -1,0 +1,92 @@
+{
+  "extension": "layered",
+  "modules": ["layered"],
+  "classes": {
+    "a_material_induce": {
+      "iri": "http://example.org/ontology/layered/a_material_induce",
+      "module": "layered",
+      "description": "Material inducement technique. techniqueID LAY.T1.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    },
+    "a_force_sexual_activity": {
+      "iri": "http://example.org/ontology/layered/a_force_sexual_activity",
+      "module": "layered",
+      "description": "Force sexual activity with a child. techniqueID LAY.T2.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    },
+    "a_produce_csam": {
+      "iri": "http://example.org/ontology/layered/a_produce_csam",
+      "module": "layered",
+      "description": "Produce/demand CSAM as migratory leverage. techniqueID LAY.T3.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    },
+    "a_bring_to_us": {
+      "iri": "http://example.org/ontology/layered/a_bring_to_us",
+      "module": "layered",
+      "description": "Bring child victims into the United States. techniqueID LAY.T4.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    },
+    "a_harbor_aliens": {
+      "iri": "http://example.org/ontology/layered/a_harbor_aliens",
+      "module": "layered",
+      "description": "Harbor in offender-controlled housing. techniqueID LAY.T5.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    },
+    "a_force_child_sex_acts": {
+      "iri": "http://example.org/ontology/layered/a_force_child_sex_acts",
+      "module": "layered",
+      "description": "Force child sexual acts (sex trafficking). techniqueID LAY.T6.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    },
+    "a_threaten_ice_and_exposure": {
+      "iri": "http://example.org/ontology/layered/a_threaten_ice_and_exposure",
+      "module": "layered",
+      "description": "Threaten immigration contact and CSAM exposure. techniqueID LAY.T7.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    },
+    "a_digital_surveillance_control": {
+      "iri": "http://example.org/ontology/layered/a_digital_surveillance_control",
+      "module": "layered",
+      "description": "Require location and social-media password access. techniqueID LAY.T8.",
+      "parents": ["Action"],
+      "is_facet": false,
+      "properties": [],
+      "source": "layered"
+    }
+  },
+  "vocabs": {
+    "GroomingPhaseScheme": {
+      "iri": "http://example.org/ontology/layered/GroomingPhaseScheme",
+      "description": "Targeting, MaterialDependency, Sexualization, CSAMLeverage"
+    },
+    "ChildSexTraffickingPhaseScheme": {
+      "iri": "http://example.org/ontology/layered/ChildSexTraffickingPhaseScheme",
+      "description": "PlacementControl, ForcedSexualExploitation"
+    },
+    "TransitHarborPhaseScheme": {
+      "iri": "http://example.org/ontology/layered/TransitHarborPhaseScheme",
+      "description": "CrossBorderTransit, Harboring"
+    }
+  }
+}

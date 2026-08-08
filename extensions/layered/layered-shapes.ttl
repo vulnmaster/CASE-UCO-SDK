@@ -1,0 +1,24 @@
+# Layered extension — SHACL: Technique actions must carry instrument
+
+@prefix lay: <http://example.org/ontology/layered/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+lay:TechniqueAction-shape
+	a sh:NodeShape ;
+	sh:targetClass
+		lay:a_material_induce ,
+		lay:a_force_sexual_activity ,
+		lay:a_produce_csam ,
+		lay:a_bring_to_us ,
+		lay:a_harbor_aliens ,
+		lay:a_force_child_sex_acts ,
+		lay:a_threaten_ice_and_exposure ,
+		lay:a_digital_surveillance_control ;
+	sh:property
+		[
+			sh:path uco-action:instrument ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+			sh:message "A layered Technique action instance must carry >=1 uco-action:instrument naming the abused affordance."@en ;
+		] .

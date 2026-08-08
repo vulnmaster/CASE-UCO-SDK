@@ -99,19 +99,19 @@ ex:a_credential_theft
 	a owl:Class , uco-action:Technique ;
 	rdfs:subClassOf uco-action:Action ;
 	rdfs:label "Stolen-credential network access"@en ;
-	rdfs:comment "Use of stolen login credentials to gain unauthorized access to a victim organization's protected computer network. Affordance abused: credential theft. Source: press release, para. 3."@en ;
+	rdfs:comment "Use of stolen login credentials to gain unauthorized access to a victim organization's protected computer network. Affordance abused: reusable remote login authentication (stolen credentials are the misuse token, not the affordance). Source: press release, para. 3."@en ;
 	uco-action:techniqueID "EX.T1" .
 
 ex:a_exfiltrate
 	a owl:Class , uco-action:Technique ;
 	rdfs:subClassOf uco-action:Action ;
 	rdfs:label "Protected-network data exfiltration"@en ;
-	rdfs:comment "Abuse of the gained protected-network access to transfer victim data to attacker-leased infrastructure. Affordance abused: protected-network access. Source: press release, para. 3 (data transferred to a server leased in Ukraine)."@en ;
+	rdfs:comment "Abuse of gained protected-network access to transfer victim data to attacker-leased infrastructure. Affordance abused: leasable remote hosting infrastructure (not the particular Ukraine server instance). Source: press release, para. 3."@en ;
 	uco-action:techniqueID "EX.T2" .
 
 ex:a_leak_threat
 	a owl:Class , uco-action:Technique ;
 	rdfs:subClassOf uco-action:Action ;
 	rdfs:label "Leak-as-leverage threat"@en ;
-	rdfs:comment "Threatening to publicly disseminate exfiltrated data unless a ransom is paid, using the stolen dataset itself as leverage. Affordance abused: leak-as-leverage. Source: press release, paras. 2-3 (quoted threats)."@en ;
+	rdfs:comment "Threatening to publicly disseminate exfiltrated data unless a ransom is paid. Affordance abused: worldwide digital publication channels (the stolen dataset is leverage material, not an affordance). Source: press release, paras. 2-3 (quoted threats)."@en ;
 	uco-action:techniqueID "EX.T3" .
