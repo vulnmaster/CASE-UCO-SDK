@@ -1,0 +1,329 @@
+# Trajectories Extension — CAC grooming observed trajectory + inferred model
+# Grounded in examples/snapchat-grooming-cybertip.jsonld (original @ids preserved).
+# Domain phase vocab = SKOS scheme wrapping existing CAC grooming phase IRIs
+# (no dependency on unmerged CAC PRs #33/#39).
+
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix cac-grooming: <https://cacontology.projectvic.org/grooming#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+#################################################################
+# Plug-in vocabulary: CAC grooming phases as traj:State + skos:Concept
+#################################################################
+
+<urn:uuid:a1000001-0000-5000-8000-000000000001>
+	a skos:ConceptScheme ;
+	skos:prefLabel "CAC grooming phase vocabulary (traj plugin)"@en .
+
+<urn:uuid:a1000002-0000-5000-8000-000000000002>
+	a traj:State , skos:Concept ;
+	uco-core:name "Initial contact" ;
+	skos:prefLabel "Initial contact"@en ;
+	skos:inScheme <urn:uuid:a1000001-0000-5000-8000-000000000001> ;
+	skos:exactMatch cac-grooming:InitialContactPhase .
+
+<urn:uuid:a1000003-0000-5000-8000-000000000003>
+	a traj:State , skos:Concept ;
+	uco-core:name "Trust building" ;
+	skos:prefLabel "Trust building"@en ;
+	skos:inScheme <urn:uuid:a1000001-0000-5000-8000-000000000001> ;
+	skos:exactMatch cac-grooming:TrustBuildingPhase .
+
+<urn:uuid:a1000004-0000-5000-8000-000000000004>
+	a traj:State , skos:Concept ;
+	uco-core:name "Isolation" ;
+	skos:prefLabel "Isolation"@en ;
+	skos:inScheme <urn:uuid:a1000001-0000-5000-8000-000000000001> ;
+	skos:exactMatch cac-grooming:IsolationPhase .
+
+<urn:uuid:a1000005-0000-5000-8000-000000000005>
+	a traj:State , skos:Concept ;
+	uco-core:name "Sexualization" ;
+	skos:prefLabel "Sexualization"@en ;
+	skos:inScheme <urn:uuid:a1000001-0000-5000-8000-000000000001> ;
+	skos:exactMatch cac-grooming:SexualizationPhase .
+
+#################################################################
+# Evidence nodes (verbatim @ids from snapchat-grooming-cybertip.jsonld)
+#################################################################
+
+# Copied from examples/snapchat-grooming-cybertip.jsonld
+# (UCO Message + MessageFacet retained; CAC class tags omitted here so the
+# exemplar validates with extensions=['trajectories'] alone — States still
+# skos:exactMatch the CAC grooming phase IRIs.)
+<http://example.org/kb/message-01-01010101-0101-0101-0101-010101010101>
+	a uco-observable:Message ;
+	uco-core:name "Session 1 - Initial Contact" ;
+	uco-core:hasFacet <http://example.org/kb/facet-msg01-f1f1f1f1-f1f1-f1f1-f1f1-f1f1f1f1f1f1> .
+
+<http://example.org/kb/facet-msg01-f1f1f1f1-f1f1-f1f1-f1f1-f1f1f1f1f1f1>
+	a uco-observable:MessageFacet ;
+	uco-observable:messageText "Hey! Saw your story, you seem really cool. How old are you?" ;
+	uco-observable:messageType "Chat" .
+
+# Copied from examples/snapchat-grooming-cybertip.jsonld
+# (UCO Message + MessageFacet retained; CAC class tags omitted here so the
+# exemplar validates with extensions=['trajectories'] alone — States still
+# skos:exactMatch the CAC grooming phase IRIs.)
+<http://example.org/kb/message-04-04040404-0404-0404-0404-040404040404>
+	a uco-observable:Message ;
+	uco-core:name "Session 2 - Trust Building" ;
+	uco-core:hasFacet <http://example.org/kb/facet-msg04-f4f4f4f4-f4f4-f4f4-f4f4-f4f4f4f4f4f4> .
+
+<http://example.org/kb/facet-msg04-f4f4f4f4-f4f4-f4f4-f4f4-f4f4f4f4f4f4>
+	a uco-observable:MessageFacet ;
+	uco-observable:messageText "I've been thinking about you all day. You're so special. No one understands you like I do." ;
+	uco-observable:messageType "Chat" .
+
+# Copied from examples/snapchat-grooming-cybertip.jsonld
+# (UCO Message + MessageFacet retained; CAC class tags omitted here so the
+# exemplar validates with extensions=['trajectories'] alone — States still
+# skos:exactMatch the CAC grooming phase IRIs.)
+<http://example.org/kb/message-05-05050505-0505-0505-0505-050505050505>
+	a uco-observable:Message ;
+	uco-core:name "Session 2 - Isolation Attempt" ;
+	uco-core:hasFacet <http://example.org/kb/facet-msg05-f5f5f5f5-f5f5-f5f5-f5f5-f5f5f5f5f5f5> .
+
+<http://example.org/kb/facet-msg05-f5f5f5f5-f5f5-f5f5-f5f5-f5f5f5f5f5f5>
+	a uco-observable:MessageFacet ;
+	uco-observable:messageText "Don't tell your parents about us. They wouldn't understand our friendship. This is just between us." ;
+	uco-observable:messageType "Chat" .
+
+# Copied from examples/snapchat-grooming-cybertip.jsonld
+# (UCO Message + MessageFacet retained; CAC class tags omitted here so the
+# exemplar validates with extensions=['trajectories'] alone — States still
+# skos:exactMatch the CAC grooming phase IRIs.)
+<http://example.org/kb/message-07-07070707-0707-0707-0707-070707070707>
+	a uco-observable:Message ;
+	uco-core:name "Session 3 - Photo Elicitation" ;
+	uco-core:hasFacet <http://example.org/kb/facet-msg07-f7f7f7f7-f7f7-f7f7-f7f7-f7f7f7f7f7f7> .
+
+<http://example.org/kb/facet-msg07-f7f7f7f7-f7f7-f7f7-f7f7-f7f7f7f7f7f7>
+	a uco-observable:MessageFacet ;
+	uco-observable:messageText "I want to see the real you. Send me a special pic, just for me. No one else will ever see it, I promise." ;
+	uco-observable:messageType "Chat" .
+
+#################################################################
+# owl-time intervals (aligned to chat session dates in source graph)
+#################################################################
+
+<urn:uuid:c3000001-0000-5000-8000-000000000001>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:c3000011-0000-5000-8000-000000000011> ;
+	time:hasEnd <urn:uuid:c3000012-0000-5000-8000-000000000012> .
+
+<urn:uuid:c3000011-0000-5000-8000-000000000011>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-10T18:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:c3000012-0000-5000-8000-000000000012>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-10T23:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:c3000002-0000-5000-8000-000000000002>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:c3000021-0000-5000-8000-000000000021> ;
+	time:hasEnd <urn:uuid:c3000022-0000-5000-8000-000000000022> .
+
+<urn:uuid:c3000021-0000-5000-8000-000000000021>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-11T12:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:c3000022-0000-5000-8000-000000000022>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-11T23:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:c3000003-0000-5000-8000-000000000003>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:c3000031-0000-5000-8000-000000000031> ;
+	time:hasEnd <urn:uuid:c3000032-0000-5000-8000-000000000032> .
+
+<urn:uuid:c3000031-0000-5000-8000-000000000031>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-11T20:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:c3000032-0000-5000-8000-000000000032>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-12T02:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:c3000004-0000-5000-8000-000000000004>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:c3000041-0000-5000-8000-000000000041> ;
+	time:hasEnd <urn:uuid:c3000042-0000-5000-8000-000000000042> .
+
+<urn:uuid:c3000041-0000-5000-8000-000000000041>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-12T18:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:c3000042-0000-5000-8000-000000000042>
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2025-04-12T23:59:00Z"^^xsd:dateTimeStamp .
+
+#################################################################
+# Confidence facets + PhaseAssertions + Trajectory
+#################################################################
+
+<urn:uuid:d4000001-0000-5000-8000-000000000001>
+	a uco-core:ConfidenceFacet ;
+	uco-core:confidence "90"^^xsd:nonNegativeInteger .
+
+# Fit: GroomingMessage labeled initial_contact ("Hey! Saw your story...")
+<urn:uuid:e5000001-0000-5000-8000-000000000001>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 0" ;
+	uco-core:description "GroomingMessage labeled initial_contact (\"Hey! Saw your story...\")" ;
+	traj:assertsState <urn:uuid:a1000002-0000-5000-8000-000000000002> ;
+	traj:atInterval <urn:uuid:c3000001-0000-5000-8000-000000000001> ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <http://example.org/kb/message-01-01010101-0101-0101-0101-010101010101> ;
+	uco-core:hasFacet <urn:uuid:d4000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:d4000002-0000-5000-8000-000000000002>
+	a uco-core:ConfidenceFacet ;
+	uco-core:confidence "85"^^xsd:nonNegativeInteger .
+
+# Fit: GroomingMessage labeled trust_building (special/understood bond language)
+<urn:uuid:e5000002-0000-5000-8000-000000000002>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 1" ;
+	uco-core:description "GroomingMessage labeled trust_building (special/understood bond language)" ;
+	traj:assertsState <urn:uuid:a1000003-0000-5000-8000-000000000003> ;
+	traj:atInterval <urn:uuid:c3000002-0000-5000-8000-000000000002> ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <http://example.org/kb/message-04-04040404-0404-0404-0404-040404040404> ;
+	uco-core:hasFacet <urn:uuid:d4000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:d4000003-0000-5000-8000-000000000003>
+	a uco-core:ConfidenceFacet ;
+	uco-core:confidence "80"^^xsd:nonNegativeInteger .
+
+# Fit: SecrecyRequest isolation stage ("Don't tell your parents...")
+<urn:uuid:e5000003-0000-5000-8000-000000000003>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 2" ;
+	uco-core:description "SecrecyRequest isolation stage (\"Don't tell your parents...\")" ;
+	traj:assertsState <urn:uuid:a1000004-0000-5000-8000-000000000004> ;
+	traj:atInterval <urn:uuid:c3000003-0000-5000-8000-000000000003> ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <http://example.org/kb/message-05-05050505-0505-0505-0505-050505050505> ;
+	uco-core:hasFacet <urn:uuid:d4000003-0000-5000-8000-000000000003> .
+
+<urn:uuid:d4000004-0000-5000-8000-000000000004>
+	a uco-core:ConfidenceFacet ;
+	uco-core:confidence "75"^^xsd:nonNegativeInteger .
+
+# Fit: SexualSolicitation sexualization stage (photo elicitation)
+<urn:uuid:e5000004-0000-5000-8000-000000000004>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 3" ;
+	uco-core:description "SexualSolicitation sexualization stage (photo elicitation)" ;
+	traj:assertsState <urn:uuid:a1000005-0000-5000-8000-000000000005> ;
+	traj:atInterval <urn:uuid:c3000004-0000-5000-8000-000000000004> ;
+	traj:sequenceIndex "3"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <http://example.org/kb/message-07-07070707-0707-0707-0707-070707070707> ;
+	uco-core:hasFacet <urn:uuid:d4000004-0000-5000-8000-000000000004> .
+
+<urn:uuid:f6000001-0000-5000-8000-000000000001>
+	a traj:Trajectory ;
+	uco-core:name "Case trajectory: Snapchat grooming subject" ;
+	uco-core:description "Ordered observed phase occupancy from snapchat-grooming-cybertip.jsonld messages." ;
+	traj:hasPhaseAssertion
+		<urn:uuid:e5000001-0000-5000-8000-000000000001> ,
+		<urn:uuid:e5000002-0000-5000-8000-000000000002> ,
+		<urn:uuid:e5000003-0000-5000-8000-000000000003> ,
+		<urn:uuid:e5000004-0000-5000-8000-000000000004> .
+
+#################################################################
+# Machine edges + tool run + inferred model
+#################################################################
+
+<urn:uuid:aa000001-0000-5000-8000-000000000001>
+	a uco-core:UcoObject ;
+	uco-core:name "Trigger: first inbound friend request accepted" .
+
+<urn:uuid:aa000002-0000-5000-8000-000000000002>
+	a uco-core:UcoObject ;
+	uco-core:name "Trigger: secrecy / don't-tell request" .
+
+<urn:uuid:aa000003-0000-5000-8000-000000000003>
+	a uco-core:UcoObject ;
+	uco-core:name "Trigger: first sexually explicit solicitation" .
+
+<urn:uuid:bb000001-0000-5000-8000-000000000001>
+	a traj:Transition ;
+	uco-core:name "initial_contact -> trust_building" ;
+	traj:fromState <urn:uuid:a1000002-0000-5000-8000-000000000002> ;
+	traj:toState <urn:uuid:a1000003-0000-5000-8000-000000000003> ;
+	traj:trigger <urn:uuid:aa000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:bb000002-0000-5000-8000-000000000002>
+	a traj:Transition ;
+	uco-core:name "trust_building -> isolation" ;
+	traj:fromState <urn:uuid:a1000003-0000-5000-8000-000000000003> ;
+	traj:toState <urn:uuid:a1000004-0000-5000-8000-000000000004> ;
+	traj:trigger <urn:uuid:aa000002-0000-5000-8000-000000000002> ;
+	traj:guard "victim acknowledges request to keep chat private"^^xsd:string .
+
+<urn:uuid:bb000003-0000-5000-8000-000000000003>
+	a traj:Transition ;
+	uco-core:name "isolation -> sexualization" ;
+	traj:fromState <urn:uuid:a1000004-0000-5000-8000-000000000004> ;
+	traj:toState <urn:uuid:a1000005-0000-5000-8000-000000000005> ;
+	traj:trigger <urn:uuid:aa000003-0000-5000-8000-000000000003> .
+
+<urn:uuid:cc000001-0000-5000-8000-000000000001>
+	a uco-tool:Tool ;
+	uco-core:name "CaseLinker trajectory estimator" ;
+	uco-core:description "version 0.1.0-dev" .
+
+<urn:uuid:cc000002-0000-5000-8000-000000000002>
+	a uco-action:Action ;
+	uco-core:name "Estimate grooming transition probabilities" ;
+	uco-action:instrument <urn:uuid:cc000001-0000-5000-8000-000000000001> ;
+	prov:wasAssociatedWith <urn:uuid:cc000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:dd000001-0000-5000-8000-000000000001>
+	a traj:TransitionEstimate ;
+	uco-core:name "P(initial_contact -> trust_building)" ;
+	traj:ofTransition <urn:uuid:bb000001-0000-5000-8000-000000000001> ;
+	traj:transitionProbability "0.82"^^xsd:decimal ;
+	traj:sampleBasis "n=40 synthetic grooming trajectories, MLE"^^xsd:string ;
+	prov:wasGeneratedBy <urn:uuid:cc000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:dd000002-0000-5000-8000-000000000002>
+	a traj:TransitionEstimate ;
+	uco-core:name "P(trust_building -> isolation)" ;
+	traj:ofTransition <urn:uuid:bb000002-0000-5000-8000-000000000002> ;
+	traj:transitionProbability "0.61"^^xsd:decimal ;
+	traj:sampleBasis "n=40 synthetic grooming trajectories, MLE"^^xsd:string ;
+	prov:wasGeneratedBy <urn:uuid:cc000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:dd000003-0000-5000-8000-000000000003>
+	a traj:TransitionEstimate ;
+	uco-core:name "P(isolation -> sexualization)" ;
+	traj:ofTransition <urn:uuid:bb000003-0000-5000-8000-000000000003> ;
+	traj:transitionProbability "0.55"^^xsd:decimal ;
+	traj:sampleBasis "n=40 synthetic grooming trajectories, MLE"^^xsd:string ;
+	prov:wasGeneratedBy <urn:uuid:cc000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:ee000001-0000-5000-8000-000000000001>
+	a traj:StateMachineModel ;
+	uco-core:name "Grooming phase Markov estimate (v0)" ;
+	traj:learnedFrom <urn:uuid:f6000001-0000-5000-8000-000000000001> ;
+	traj:hasTransition
+		<urn:uuid:bb000001-0000-5000-8000-000000000001> ,
+		<urn:uuid:bb000002-0000-5000-8000-000000000002> ,
+		<urn:uuid:bb000003-0000-5000-8000-000000000003> ;
+	traj:hasTransitionEstimate
+		<urn:uuid:dd000001-0000-5000-8000-000000000001> ,
+		<urn:uuid:dd000002-0000-5000-8000-000000000002> ,
+		<urn:uuid:dd000003-0000-5000-8000-000000000003> ;
+	prov:wasGeneratedBy <urn:uuid:cc000002-0000-5000-8000-000000000002> .

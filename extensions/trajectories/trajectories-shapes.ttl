@@ -1,0 +1,229 @@
+# Trajectories Extension — SHACL shapes (observed vs inferred firewall)
+
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+# Observed layer
+#################################################################
+
+traj:PhaseAssertion-shape
+	a sh:NodeShape ;
+	sh:targetClass traj:PhaseAssertion ;
+	sh:message "traj:PhaseAssertion is an OBSERVED occupancy claim and must carry evidence provenance, confidence, state, interval, and sequence index."@en ;
+	sh:property
+		[
+			sh:path traj:assertsState ;
+			sh:class traj:State ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:atInterval ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:sequenceIndex ;
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ;
+	sh:property
+		[
+			sh:path prov:wasDerivedFrom ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+			sh:message "Every PhaseAssertion MUST cite >=1 evidence node via prov:wasDerivedFrom."@en ;
+		] ;
+	sh:property
+		[
+			sh:path uco-core:hasFacet ;
+			sh:qualifiedValueShape
+				[
+					sh:class uco-core:ConfidenceFacet ;
+					sh:property
+						[
+							sh:path uco-core:confidence ;
+							sh:datatype xsd:nonNegativeInteger ;
+							sh:minCount 1 ;
+							sh:maxCount 1 ;
+						] ;
+				] ;
+			sh:qualifiedMinCount 1 ;
+			sh:message "Every PhaseAssertion MUST carry a uco-core:ConfidenceFacet via uco-core:hasFacet (reuse UCO facet; no traj:confidence mint)."@en ;
+		] ;
+	sh:property
+		[
+			sh:path traj:isTerminal ;
+			sh:datatype xsd:boolean ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ;
+	sh:property
+		[
+			sh:path traj:terminalPolarity ;
+			sh:datatype xsd:string ;
+			sh:in ( "completed" "disrupted" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+			sh:message "traj:terminalPolarity must be one of the controlled vocabulary values: 'completed' or 'disrupted'."@en ;
+		] ;
+	# Terminal-polarity requirement: isTerminal true => terminalPolarity present.
+	# (Presence of terminalPolarity alone never requires a second, opposite-polarity
+	# PhaseAssertion or Transition to exist -- single-path trajectories are conformant.)
+	sh:not
+		[
+			sh:and (
+				[ sh:path traj:isTerminal ; sh:hasValue true ]
+				[ sh:not [ sh:path traj:terminalPolarity ; sh:minCount 1 ] ]
+			) ;
+			sh:message "A PhaseAssertion with traj:isTerminal true MUST carry a traj:terminalPolarity value."@en ;
+		] ;
+	# Firewall: observed assertions must not also be model artifacts
+	sh:not
+		[
+			sh:or (
+				[ sh:class traj:StateMachineModel ]
+				[ sh:class traj:TransitionEstimate ]
+			) ;
+			sh:message "PhaseAssertion must not also be typed StateMachineModel or TransitionEstimate."@en ;
+		] .
+
+traj:Trajectory-shape
+	a sh:NodeShape ;
+	sh:targetClass traj:Trajectory ;
+	sh:property
+		[
+			sh:path traj:hasPhaseAssertion ;
+			sh:class traj:PhaseAssertion ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+			sh:message "Trajectories reference PhaseAssertions only (observed layer)."@en ;
+		] .
+
+traj:Transition-shape
+	a sh:NodeShape ;
+	sh:targetClass traj:Transition ;
+	sh:property
+		[
+			sh:path traj:fromState ;
+			sh:class traj:State ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:toState ;
+			sh:class traj:State ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:trigger ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:guard ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ;
+	sh:property
+		[
+			sh:path traj:enactsAction ;
+			sh:class uco-action:Action ;
+			sh:nodeKind sh:IRI ;
+			sh:message "traj:enactsAction values must be uco-action:Action instances. Multiple values are allowed when a single transition is gated by co-occurring techniques (an affordance-labeled multi-action edge)."@en ;
+		] .
+
+#################################################################
+# Inferred layer
+#################################################################
+
+traj:StateMachineModel-shape
+	a sh:NodeShape ;
+	sh:targetClass traj:StateMachineModel ;
+	sh:message "traj:StateMachineModel is an INFERRED analytic artifact."@en ;
+	sh:property
+		[
+			sh:path prov:wasGeneratedBy ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+			sh:message "Every StateMachineModel MUST carry prov:wasGeneratedBy to the producing tool run."@en ;
+		] ;
+	sh:property
+		[
+			sh:path traj:learnedFrom ;
+			sh:class traj:Trajectory ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:hasTransitionEstimate ;
+			sh:class traj:TransitionEstimate ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:initialState ;
+			sh:class traj:State ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:not
+		[
+			sh:class traj:PhaseAssertion ;
+			sh:message "StateMachineModel must not be typed traj:PhaseAssertion."@en ;
+		] .
+
+traj:TransitionEstimate-shape
+	a sh:NodeShape ;
+	sh:targetClass traj:TransitionEstimate ;
+	sh:property
+		[
+			sh:path prov:wasGeneratedBy ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+			sh:message "Every TransitionEstimate MUST carry prov:wasGeneratedBy."@en ;
+		] ;
+	sh:property
+		[
+			sh:path traj:ofTransition ;
+			sh:class traj:Transition ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ;
+	sh:property
+		[
+			sh:path traj:transitionProbability ;
+			sh:datatype xsd:decimal ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ;
+	sh:not
+		[
+			sh:class traj:PhaseAssertion ;
+			sh:message "TransitionEstimate must not be typed traj:PhaseAssertion."@en ;
+		] .
