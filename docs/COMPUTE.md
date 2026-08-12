@@ -20,11 +20,7 @@ cover source evidence, forensic images, exports, backups, or replicas. Those
 must use separately governed storage sized for the deployment's evidence
 volume and retention policy.
 
-Keep the `case_uco_sdk` entry in the
-[Project VIC Ecosystem Installer](https://github.com/Project-VIC-International/Project-VIC-Ecosystem-Installer)
-`catalog/compute.yaml`, `README.md`, and `docs/COMPUTE.md` synchronized with
-this baseline. See Ecosystem Installer issue
-[#6](https://github.com/Project-VIC-International/Project-VIC-Ecosystem-Installer/issues/6).
+Downstream deployment catalogs should keep their `case_uco_sdk` entry synchronized with this baseline during the same release cycle.
 
 ## CPU architecture matrix
 
@@ -40,12 +36,7 @@ GPU runtime dependency. NVIDIA hardware does not accelerate ontology loading,
 code generation, or SHACL validation unless a downstream application adds its
 own GPU workload.
 
-Native Linux `aarch64` testing on NVIDIA Spark is tracked by SDK issue
-[#7](https://github.com/Project-VIC-International/Project-VIC-CASE-UCO-SDK/issues/7)
-and the Ecosystem Installer ARM matrix in issue
-[#10](https://github.com/Project-VIC-International/Project-VIC-Ecosystem-Installer/issues/10).
-Until that evidence is recorded, do not describe NVIDIA Spark as a validated
-release platform.
+Native Linux `aarch64` testing on NVIDIA Spark remains pending. Record successful native validation in the deployment matrix before claiming support.
 
 ## Native validation checklist
 

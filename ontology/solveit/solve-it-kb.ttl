@@ -3927,7 +3927,7 @@ It is also sometimes possible to determine older versions of the operating syste
     solveit-core:hasExample "AASIST-family neural anti-spoofing classifiers",
         "ASVspoof challenge countermeasure systems",
         "Bispectral / higher-order spectral analysis of speech",
-        "Project VIC Media Authentication Analyzer (AASIST-L neural detector + bispectrum heuristic in production)" ;
+        "Media Authentication Analyzer (AASIST-L neural detector + bispectrum heuristic in production)" ;
     solveit-core:hasSynonym "Audio anti-spoofing",
         "Audio deepfake detection",
         "Speech spoofing countermeasure",
