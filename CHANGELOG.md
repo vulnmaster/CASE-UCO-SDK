@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Trajectories extension (`extensions/trajectories/`)
+
+- New **candidate** domain-agnostic state-machine / per-case trajectory
+  metamodel (`traj:`): `State`, `Transition`, `Trajectory`,
+  `PhaseAssertion`, `StateMachineModel`, and `TransitionEstimate`, with a
+  separate SHACL observed≠inferred firewall, optional gUFO bridge, CAC
+  grooming exemplar, synthetic non-CAC elder-fraud exemplar (fictional
+  only — exercises `enactsAction` / `initialState`), and an expected-invalid
+  fixture. Standalone package — no coupling to unshipped domain extensions.
+- **Non-vacuous `sh:class`:** `rdfs:range` removed from `enactsAction`,
+  `hasPhaseAssertion`, `learnedFrom`, and `hasTransitionEstimate` so type
+  checks bite under RDFS entailment (a Person-valued `enactsAction`
+  mutation now fails). State-endpoint properties keep their ranges; rationale
+  recorded in `trajectories.ttl`.
+- **Manifest schema compliance:** `upper_ontology` / CDO-shapes fields use
+  the schema enums (`gufo`, `compatible`) rather than prose; `uco_compat`
+  records 1.5.0 / develop / develop-2.0.0.
+
 ## [1.29.0] - 2026-08-30
 
 Shared MCP listener for multi-client use, PACER document-mapping

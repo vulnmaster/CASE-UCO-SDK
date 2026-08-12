@@ -1,0 +1,56 @@
+# Trajectories Extension — expected-INVALID fixture.
+#
+# Violation 1: a model output wrongly typed as traj:PhaseAssertion
+#   (missing observed-layer required properties; also violates disjoint
+#   firewall via dual typing with StateMachineModel).
+# Violation 2: a traj:PhaseAssertion missing prov:wasDerivedFrom
+#   (and missing confidence facet).
+#
+# This fixture MUST FAIL validation — proving the SHACL firewall fires.
+
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Bad: inferred model also labeled as observed PhaseAssertion
+<urn:uuid:cafe0001-0000-5000-8000-000000000001>
+	a traj:StateMachineModel , traj:PhaseAssertion ;
+	uco-core:name "Illegal: model typed as PhaseAssertion" ;
+	prov:wasGeneratedBy <urn:uuid:cafe0003-0000-5000-8000-000000000003> ;
+	traj:learnedFrom <urn:uuid:cafe0004-0000-5000-8000-000000000004> ;
+	traj:hasTransitionEstimate <urn:uuid:cafe0005-0000-5000-8000-000000000005> .
+
+# Bad: PhaseAssertion with no evidence provenance and no confidence
+<urn:uuid:cafe0002-0000-5000-8000-000000000002>
+	a traj:PhaseAssertion ;
+	uco-core:name "Illegal: PhaseAssertion missing provenance" ;
+	traj:assertsState <urn:uuid:cafe0006-0000-5000-8000-000000000006> ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger .
+
+<urn:uuid:cafe0003-0000-5000-8000-000000000003>
+	a uco-core:UcoObject ;
+	uco-core:name "Stub tool run" .
+
+<urn:uuid:cafe0004-0000-5000-8000-000000000004>
+	a traj:Trajectory ;
+	uco-core:name "Stub trajectory" ;
+	traj:hasPhaseAssertion <urn:uuid:cafe0002-0000-5000-8000-000000000002> .
+
+<urn:uuid:cafe0005-0000-5000-8000-000000000005>
+	a traj:TransitionEstimate ;
+	uco-core:name "Stub estimate" ;
+	traj:ofTransition <urn:uuid:cafe0007-0000-5000-8000-000000000007> ;
+	traj:transitionProbability "0.5"^^xsd:decimal ;
+	prov:wasGeneratedBy <urn:uuid:cafe0003-0000-5000-8000-000000000003> .
+
+<urn:uuid:cafe0006-0000-5000-8000-000000000006>
+	a traj:State ;
+	uco-core:name "Stub state" .
+
+<urn:uuid:cafe0007-0000-5000-8000-000000000007>
+	a traj:Transition ;
+	uco-core:name "Stub transition" ;
+	traj:fromState <urn:uuid:cafe0006-0000-5000-8000-000000000006> ;
+	traj:toState <urn:uuid:cafe0006-0000-5000-8000-000000000006> ;
+	traj:trigger <urn:uuid:cafe0003-0000-5000-8000-000000000003> .

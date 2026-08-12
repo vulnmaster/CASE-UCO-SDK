@@ -1,0 +1,226 @@
+# Trajectories Extension (T-Box)
+#
+# Vocabulary-agnostic state-machine and per-case trajectory metamodel.
+# Fills the four gaps identified in the Phase 1 audit vs CAC temporal,
+# AEO CyberKillChain, SOLVE-IT technique catalogs, and UCO ActionLifecycle:
+#   (1) typed State independent of any domain phase taxonomy
+#   (2) Transition with from/to + trigger + optional guard
+#   (3) ordered per-case Trajectory of PhaseAssertions (interval + evidence + confidence)
+#   (4) inferred StateMachineModel / TransitionEstimate analytic artifacts
+#
+# Observed assertions (PhaseAssertion) are owl:disjointWith inferred model
+# artifacts. Domain phase vocabularies (CAC grooming phases, AEO kill-chain
+# phases, elder-fraud case stages) plug in as traj:State instances, often
+# also typed skos:Concept — no dependence on unmerged CAC PRs.
+
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology/trajectories>
+	a owl:Ontology ;
+	rdfs:label "Trajectories Extension"@en ;
+	rdfs:comment "State-machine and trajectory metamodel for CASE/UCO investigation graphs: vocabulary-agnostic states and transitions; per-case ordered phase occupancy assertions with owl-time intervals, PROV evidence lineage, and UCO confidence; and inferred state-machine models with transition estimates. Complements (does not replace) CAC PhaseTransitionEvent investigation lifecycles and AEO CyberKillChain action sequences. See https://www.w3.org/TR/owl-time/ and https://www.w3.org/TR/prov-o/."@en ;
+	dcterms:source
+		"https://www.w3.org/TR/owl-time/"^^xsd:anyURI ,
+		"https://www.w3.org/TR/prov-o/"^^xsd:anyURI ,
+		"https://nemo-ufes.github.io/gufo/"^^xsd:anyURI ;
+	owl:imports
+		<https://ontology.unifiedcyberontology.org/uco/core> ,
+		<https://ontology.unifiedcyberontology.org/uco/action> .
+
+#################################################################
+# Classes
+#################################################################
+
+traj:State
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "State"@en ;
+	rdfs:comment "A vocabulary-agnostic state in a state machine or offense/investigation phase model. Domain phase types (e.g. CAC grooming phases, AEO CyberKillChain phases) plug in as instances of traj:State (often also skos:Concept in a SKOS scheme), rather than requiring this class to subclass every domain taxonomy. See NIST SP 800-61r2 incident lifecycle practice for phase-based modeling motivation (https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final)."@en .
+
+traj:Transition
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "Transition"@en ;
+	rdfs:comment "A directed transition from one traj:State to another, with a trigger (the event or condition that fires the edge) and an optional guard (additional enabling condition). Maps conceptually onto CAC cacontology-temporal:PhaseTransitionEvent (which specialises investigation-lifecycle edges with transitionsFrom/transitionsTo) but is domain-agnostic and supports arbitrary state vocabularies."@en .
+
+traj:Trajectory
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "Trajectory"@en ;
+	rdfs:comment "An ordered per-case (or per-subject) instance history of observed phase occupancy. Ordering uses traj:sequenceIndex on each traj:PhaseAssertion referenced by traj:hasPhaseAssertion — preferred over rdf:List for SHACL/query friendliness, and preferred over AEO ArrayOfAction which models planned action sequences rather than case occupancy. Complements CAC EventSequence (investigation events) without replacing it."@en .
+
+traj:PhaseAssertion
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	owl:disjointWith traj:StateMachineModel , traj:TransitionEstimate ;
+	rdfs:label "PhaseAssertion"@en ;
+	rdfs:comment "An OBSERVED assertion that a subject occupied a traj:State during an owl-time interval, derived from evidence (prov:wasDerivedFrom) and carrying a uco-core:ConfidenceFacet via uco-core:hasFacet. Must never be used for inferred model outputs — those are traj:StateMachineModel / traj:TransitionEstimate."@en .
+
+traj:StateMachineModel
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	owl:disjointWith traj:PhaseAssertion ;
+	rdfs:label "StateMachineModel"@en ;
+	rdfs:comment "An INFERRED analytic artifact representing a learned or estimated state machine over traj:State / traj:Transition. Must carry prov:wasGeneratedBy to the producing tool run (uco-tool:Tool / uco-action:Action / InvestigativeAction). Takes traj:Trajectory instances as inputs via traj:learnedFrom; never the reverse."@en .
+
+traj:TransitionEstimate
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	owl:disjointWith traj:PhaseAssertion ;
+	rdfs:label "TransitionEstimate"@en ;
+	rdfs:comment "An INFERRED estimate (probability or weight) for a traj:Transition, produced as part of a traj:StateMachineModel. Must carry prov:wasGeneratedBy and must not be typed as traj:PhaseAssertion."@en .
+
+#################################################################
+# Object properties
+#################################################################
+#
+# Range policy (do not "harmonize" without reading this):
+#
+# Four object properties deliberately OMIT rdfs:range and rely on SHACL
+# sh:class instead — traj:enactsAction, traj:hasPhaseAssertion,
+# traj:learnedFrom, traj:hasTransitionEstimate. Declaring rdfs:range
+# alongside sh:class is vacuous when validating with RDFS entailment on:
+# the range axiom infers the required type onto whatever the property
+# points at, so sh:class never rejects a wrong-typed value.
+#
+# The state-endpoint properties below KEEP rdfs:range traj:State
+# (fromState, toState, assertsState, and later initialState). Their
+# values are often phase-vocabulary individuals declared in a domain
+# extension's ontology graph. case_validate does not merge
+# --ontology-graph type assertions into the data graph, so removing
+# those ranges makes every valid exemplar fail sh:class. Constraining
+# those properties to a closed vocabulary needs membership checks, not
+# "drop the range like the four above."
+
+traj:fromState
+	a owl:ObjectProperty ;
+	rdfs:domain traj:Transition ;
+	rdfs:range traj:State ;
+	rdfs:label "from state"@en ;
+	rdfs:comment "Source state of a directed transition."@en .
+
+traj:toState
+	a owl:ObjectProperty ;
+	rdfs:domain traj:Transition ;
+	rdfs:range traj:State ;
+	rdfs:label "to state"@en ;
+	rdfs:comment "Target state of a directed transition."@en .
+
+traj:trigger
+	a owl:ObjectProperty ;
+	rdfs:domain traj:Transition ;
+	rdfs:range uco-core:UcoObject ;
+	rdfs:label "trigger"@en ;
+	rdfs:comment "Event, action, or other UCO object whose occurrence fires this transition."@en .
+
+traj:hasPhaseAssertion
+	a owl:ObjectProperty ;
+	rdfs:domain traj:Trajectory ;
+	rdfs:label "has phase assertion"@en ;
+	rdfs:comment "Links a trajectory to an observed phase-occupancy assertion. Order is given by traj:sequenceIndex on the assertion."@en .
+
+traj:assertsState
+	a owl:ObjectProperty ;
+	rdfs:domain traj:PhaseAssertion ;
+	rdfs:range traj:State ;
+	rdfs:label "asserts state"@en ;
+	rdfs:comment "The state this observed assertion claims was occupied."@en .
+
+traj:atInterval
+	a owl:ObjectProperty ;
+	rdfs:domain traj:PhaseAssertion ;
+	rdfs:range time:ProperInterval ;
+	rdfs:label "at interval"@en ;
+	rdfs:comment "owl-time ProperInterval during which the asserted state occupancy held. See https://www.w3.org/TR/owl-time/#time:ProperInterval."@en .
+
+traj:learnedFrom
+	a owl:ObjectProperty ;
+	rdfs:domain traj:StateMachineModel ;
+	rdfs:label "learned from"@en ;
+	rdfs:comment "Observed trajectory(ies) used as input when estimating this state-machine model. Models take trajectories as inputs; trajectories never reference models."@en .
+
+traj:hasTransitionEstimate
+	a owl:ObjectProperty ;
+	rdfs:domain traj:StateMachineModel ;
+	rdfs:label "has transition estimate"@en ;
+	rdfs:comment "Links a state-machine model to one of its transition estimates."@en .
+
+traj:ofTransition
+	a owl:ObjectProperty ;
+	rdfs:domain traj:TransitionEstimate ;
+	rdfs:label "of transition"@en ;
+	rdfs:comment "The transition whose probability or weight is estimated."@en .
+
+traj:hasTransition
+	a owl:ObjectProperty ;
+	rdfs:domain traj:StateMachineModel ;
+	rdfs:range traj:Transition ;
+	rdfs:label "has transition"@en ;
+	rdfs:comment "Declares a transition that participates in this state-machine model."@en .
+
+traj:enactsAction
+	a owl:ObjectProperty ;
+	rdfs:domain traj:Transition ;
+	rdfs:label "enacts action"@en ;
+	rdfs:comment "The concrete uco-action:Action instance(s) that constitute this transition — distinct from traj:trigger (which may be any UcoObject the transition merely reacts to). Use traj:enactsAction when the transition IS an actor's action (typically typed with a domain uco-action:Technique subclass per the attack-technique extension's metaclass pattern), so the abused affordance can be carried on uco-action:instrument. Optional (no sh:minCount) and additive alongside traj:trigger; multiple values are allowed when a single directed edge is gated by co-occurring techniques (e.g. VoIP spoofing + fixed-script deployment on one transition). A bare-UcoObject-trigger Transition with no traj:enactsAction remains fully conformant."@en .
+
+traj:initialState
+	a owl:ObjectProperty ;
+	rdfs:domain traj:StateMachineModel ;
+	rdfs:range traj:State ;
+	rdfs:label "initial state"@en ;
+	rdfs:comment "Marks the s₀ (start) traj:State of a traj:StateMachineModel. At most one per model (SHACL sh:maxCount 1); models with no natural single start state simply omit it."@en .
+
+#################################################################
+# Datatype properties
+#################################################################
+
+traj:guard
+	a owl:DatatypeProperty ;
+	rdfs:domain traj:Transition ;
+	rdfs:range xsd:string ;
+	rdfs:label "guard"@en ;
+	rdfs:comment "Optional enabling condition on a transition, as an open-vocabulary string (e.g. analyst note or expression). Absent when the trigger alone is sufficient."@en .
+
+traj:sequenceIndex
+	a owl:DatatypeProperty ;
+	rdfs:domain traj:PhaseAssertion ;
+	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:label "sequence index"@en ;
+	rdfs:comment "Zero-based (or one-based, consistently per graph) order of this PhaseAssertion within its Trajectory. Prefer this over rdf:List for SPARQL/SHACL usability."@en .
+
+traj:transitionProbability
+	a owl:DatatypeProperty ;
+	rdfs:domain traj:TransitionEstimate ;
+	rdfs:range xsd:decimal ;
+	rdfs:label "transition probability"@en ;
+	rdfs:comment "Estimated probability or normalized weight in [0,1] for the transition under the model."@en .
+
+traj:sampleBasis
+	a owl:DatatypeProperty ;
+	rdfs:domain traj:TransitionEstimate ;
+	rdfs:range xsd:string ;
+	rdfs:label "sample basis"@en ;
+	rdfs:comment "Human-readable description of the sample or evidence basis used to estimate the transition probability (e.g. 'n=42 trajectories, MLE')."@en .
+
+traj:isTerminal
+	a owl:DatatypeProperty ;
+	rdfs:domain traj:PhaseAssertion ;
+	rdfs:range xsd:boolean ;
+	rdfs:label "is terminal"@en ;
+	rdfs:comment "Marks this PhaseAssertion as the terminal (final observed) occupancy in its traj:Trajectory. When true, traj:terminalPolarity must also be asserted to type the realized outcome. A single-path Trajectory carries exactly one PhaseAssertion with isTerminal true; this property does not itself model or require a branch to a second outcome."@en .
+
+traj:terminalPolarity
+	a owl:DatatypeProperty ;
+	rdfs:domain traj:PhaseAssertion ;
+	rdfs:range xsd:string ;
+	rdfs:label "terminal polarity"@en ;
+	rdfs:comment "Controlled-vocabulary outcome type for a terminal traj:PhaseAssertion (traj:isTerminal true). Current vocabulary: 'completed' (the modeled chain reached its endpoint — later arrest/prosecution of the offender does not convert a finished chain into 'disrupted') and 'disrupted' (an intervention ended the trajectory mid-chain, before the modeled endpoint was reached). Modeled as an open xsd:string constrained by SHACL sh:in — not a traj:State subclass — so additional outcome types can be added without a T-Box change. Asserting this property on a single-path Trajectory's one terminal PhaseAssertion does not imply or require instantiating a second, opposite-polarity branch anywhere in the same Trajectory."@en .

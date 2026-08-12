@@ -1,0 +1,31 @@
+# Trajectories Extension — optional gUFO alignment profile (bridge)
+#
+# Pattern mirrors extensions/drugs/drugs-profile-gufo.ttl, with the gUFO
+# distinction that gufo:Phase is a *metaclass* (rdfs:subClassOf gufo:Type /
+# AntiRigidType), not a class of ordinary individuals. Domain phase
+# *classes* align by typing; occupancy *assertions* align by subclassing
+# gufo:Situation (under gufo:Individual).
+#
+#   traj:State              rdf:type          gufo:Phase
+#   traj:PhaseAssertion     rdfs:subClassOf   gufo:Situation
+#
+# Load only when producing CDO-Shapes-gufo graphs (SDK profiles=['gufo']).
+
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix gufo: <http://purl.org/nemo/gufo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology/trajectories/profile/gufo>
+	a owl:Ontology ;
+	rdfs:label "Trajectories Extension: gUFO alignment profile"@en ;
+	rdfs:comment "Optional bridge: traj:State rdf:type gufo:Phase (metaclass); traj:PhaseAssertion rdfs:subClassOf gufo:Situation. See https://nemo-ufes.github.io/gufo/."@en ;
+	dcterms:source "https://nemo-ufes.github.io/gufo/"^^xsd:anyURI .
+
+traj:State
+	a gufo:Phase .
+
+traj:PhaseAssertion
+	rdfs:subClassOf gufo:Situation .
