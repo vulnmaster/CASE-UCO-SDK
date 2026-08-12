@@ -20,7 +20,7 @@
   "exemplar_files": [
     "drugs-exemplar.ttl"
   ],
-  "uco_compat": ["1.4.0"],
+  "uco_compat": ["1.4.0", "1.5.0"],
   "upper_ontology": "gUFO (drug:ControlledSubstance subClassOf gufo:Quantity) via drugs-profile-gufo.ttl; chemical identity by IRI reference to ChEBI (OBO Foundry, BFO-compatible)",
   "cdo_shapes_compatibility": {
     "CDO-Shapes-gufo": "compatible (drug:ControlledSubstance subClassOf gufo:Quantity via bridge)",

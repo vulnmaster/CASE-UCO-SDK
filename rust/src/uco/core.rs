@@ -1071,7 +1071,7 @@ impl CaseObject for UcoObject {
     fn type_name() -> &'static str { "UcoObject" }
 }
 
-/// UcoThing is the top-level class within UCO.
+/// UcoThing is the top-level class for individuals within UCO.
 #[derive(Debug, Clone, Serialize)]
 pub struct UcoThing {
     #[serde(skip_serializing)]
@@ -1105,7 +1105,7 @@ impl CaseObject for UcoThing {
     fn type_name() -> &'static str { "UcoThing" }
 }
 
-/// UcoThing is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing.
+/// UcoType is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing.
 #[derive(Debug, Clone, Serialize)]
 pub struct UcoType {
     #[serde(skip_serializing)]

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from dataclasses import replace
 from pathlib import Path
 
 from rdflib import Graph, Namespace, URIRef
@@ -199,8 +200,12 @@ def _cardinality_from_range(min_count: int, max_count: int | None) -> Cardinalit
 
 
 def _merge_cardinality(left: Cardinality, right: Cardinality) -> Cardinality:
+    # Multiple sh:property shapes on the same sh:path are conjunctive: every
+    # shape must hold, so the effective bounds are max(minCount) and
+    # min(maxCount). A single shape carrying sh:maxCount 1 therefore pins the
+    # property to a scalar even when sibling shapes leave the count unbounded.
     required = left.is_required or right.is_required
-    is_list = left.is_list or right.is_list
+    is_list = left.is_list and right.is_list
     if required and is_list:
         return Cardinality.ONE_OR_MORE
     if required:
@@ -312,11 +317,32 @@ def _extract_properties(
     """
     class_ns = iri_namespace(class_iri) if class_iri else None
     props: dict[str, OntologyProperty] = {}
+    # Cardinality is accumulated per path independently of range extraction.
+    # UCO routinely splits one property across sibling shapes, with the range
+    # on one shape (sh:datatype) and the bound on another (sh:maxCount 1).
+    # _extract_property_from_shape discards range-less shapes, so collecting
+    # counts here is what keeps such a bound from being lost.
+    path_cardinalities: dict[str, Cardinality] = {}
     for shape_iri in shape_iris:
         if class_ns is not None and iri_namespace(shape_iri) != class_ns:
             continue
         shape_ref = URIRef(shape_iri)
         for prop_shape in g.objects(shape_ref, SH.property):
+            path = g.value(prop_shape, SH.path)
+            if isinstance(path, URIRef):
+                path_iri = str(path)
+                min_raw = g.value(prop_shape, SH.minCount)
+                max_raw = g.value(prop_shape, SH.maxCount)
+                shape_cardinality = _cardinality_from_range(
+                    int(min_raw) if min_raw else 0,
+                    int(max_raw) if max_raw else None,
+                )
+                if path_iri in path_cardinalities:
+                    shape_cardinality = _merge_cardinality(
+                        path_cardinalities[path_iri], shape_cardinality
+                    )
+                path_cardinalities[path_iri] = shape_cardinality
+
             prop = _extract_property_from_shape(g, prop_shape)
             if not prop:
                 continue
@@ -324,7 +350,12 @@ def _extract_properties(
                 props[prop.iri] = _merge_property(props[prop.iri], prop)
             else:
                 props[prop.iri] = prop
-    return sorted(props.values(), key=lambda p: p.iri)
+
+    resolved = [
+        replace(prop, cardinality=path_cardinalities.get(iri, prop.cardinality))
+        for iri, prop in props.items()
+    ]
+    return sorted(resolved, key=lambda p: p.iri)
 
 
 def _extract_vocab_members(g: Graph, vocab_iri: str) -> list[str]:

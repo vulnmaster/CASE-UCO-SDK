@@ -105,12 +105,12 @@ deprecate-recipe:
 #   make sync-solveit                # pin current upstream main
 #   make sync-solveit REF=<sha>      # pin a specific solve-it-ontology ref
 sync-solveit:
-	$(PYTHON) mcp_server/tools/sync_solveit.py --ontology-ref $(or $(REF),main)
+	PYTHONPATH=python:mcp_server $(PYTHON) mcp_server/tools/sync_solveit.py --ontology-ref $(or $(REF),main)
 
 # Regenerate the SOLVE-IT technique catalog + provenance from the
 # already-vendored files (offline):
 sync-solveit-offline:
-	$(PYTHON) mcp_server/tools/sync_solveit.py --skip-fetch
+	PYTHONPATH=python:mcp_server $(PYTHON) mcp_server/tools/sync_solveit.py --skip-fetch
 
 # Refresh the pinned MITRE ATT&CK catalog labels/comments from STIX 2.1
 # (partial membership: current catalog ∪ exemplar citations):
@@ -248,9 +248,17 @@ test-proposal: validate-proposal sparql-test-proposal
 #   make test-extension-compat EXT_TTL=extensions/toolcap/toolcap.ttl EXT_SHAPES=extensions/toolcap/toolcap-shapes.ttl EXT_DATA=extensions/toolcap/toolcap-exemplar.ttl
 #
 # Runs validation against:
-#   - CASE/UCO main branch (current stable release)
-#   - CASE/UCO develop branch (currently targeting v1.5.0)
+#   - CASE/UCO main branch (current stable release, 1.5.0)
+#   - CASE/UCO develop branch (next backward-compatible release)
 #   - CASE/UCO develop-2.0.0 branch (targeting v2.0.0)
+#
+# The checked-out branch supplies the ontology closure directly via
+# --built-version none plus every module .ttl, rather than case-utils'
+# bundled monolith. case-utils pins its newest bundle at CASE 1.4.0, so
+# --built-version would silently validate all three branches against the
+# same stale closure and report identical results. The per-module
+# enumeration is required because ontology/*/master/*.ttl are owl:imports
+# stubs (~23 triples) that carry no class or shape definitions.
 
 EXT_TTL ?= extensions/toolcap/toolcap.ttl
 EXT_SHAPES ?= extensions/toolcap/toolcap-shapes.ttl
@@ -265,13 +273,18 @@ define test_extension_branch
 	CURRENT_CASE=$$(cd $(CASE_REPO) && git rev-parse HEAD); \
 	cd $(UCO_REPO) && git fetch origin $(1) 2>/dev/null && git checkout FETCH_HEAD --quiet 2>/dev/null; \
 	cd ../../$(CASE_REPO) && git fetch origin $(1) 2>/dev/null && git checkout FETCH_HEAD --quiet 2>/dev/null; \
+	cd ../..; \
 	echo "UCO branch: $(1) ($$(cd $(UCO_REPO) && git rev-parse --short HEAD))"; \
 	echo "CASE branch: $(1) ($$(cd $(CASE_REPO) && git rev-parse --short HEAD))"; \
-	VALIDATE_ARGS=""; \
+	VALIDATE_ARGS="--built-version none"; \
+	for f in $(UCO_REPO)/ontology/*/*.ttl $(UCO_REPO)/ontology/uco/*/*.ttl $(CASE_REPO)/ontology/*/*.ttl; do \
+		case "$$f" in */master/*) continue;; esac; \
+		[ -f "$$f" ] && VALIDATE_ARGS="$$VALIDATE_ARGS --ontology-graph $$f"; \
+	done; \
 	if [ -f "$(EXT_TTL)" ]; then VALIDATE_ARGS="$$VALIDATE_ARGS --ontology-graph $(EXT_TTL)"; fi; \
 	if [ -f "$(EXT_SHAPES)" ]; then VALIDATE_ARGS="$$VALIDATE_ARGS --ontology-graph $(EXT_SHAPES)"; fi; \
 	if [ -f "$(EXT_DATA)" ]; then \
-		$(VENV)/bin/case_validate $$VALIDATE_ARGS $(EXT_DATA) && \
+		$(VENV)/bin/case_validate $$VALIDATE_ARGS --inference rdfs --allow-info $(EXT_DATA) && \
 		echo "  Result: PASS" || echo "  Result: FAIL"; \
 	else \
 		echo "  No exemplar data file found at $(EXT_DATA) — skipping"; \
@@ -293,7 +306,7 @@ test-extension-compat: test-extension-main test-extension-develop test-extension
 	@echo ""
 	@echo "=== Extension compatibility testing complete ==="
 	@echo "Tested: $(EXT_TTL)"
-	@echo "Against: main, develop (v1.5.0), develop-2.0.0 (v2.0.0)"
+	@echo "Against: main (v1.5.0), develop, develop-2.0.0 (v2.0.0)"
 
 # ---------------------------------------------------------------------------
 # CDO Community Playground testing

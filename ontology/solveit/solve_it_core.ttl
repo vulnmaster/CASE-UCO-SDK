@@ -17,7 +17,7 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/core> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/core/0.1.9> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/core/0.1.10> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/core/1.4.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/observable/1.4.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/action/1.4.0> ,                
@@ -29,7 +29,7 @@
     dcterms:title "SOLVE-IT Digital Forensics Ontology"@en ;
     dcterms:description "A modular ontology extending UCO/CASE for the SOLVE-IT digital forensics project. This core ontology defines fundamental SOLVE-IT classes (Technique, Weakness, Mitigation) and imports modules for observables and analysis."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.1.9" ;
+    owl:versionInfo "0.1.10" ;
     rdfs:label "SOLVE-IT Ontology"@en ;
     rdfs:comment "Core ontology file with fundamental SOLVE-IT classes. Use this file to import the complete SOLVE-IT ontology."@en .
 

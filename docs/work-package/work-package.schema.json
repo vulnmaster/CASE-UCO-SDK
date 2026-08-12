@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://projectvic.org/schemas/investigator-work-package/1.0.0",
+  "title": "Project VIC Investigator Work Package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["profile", "profile_version", "work_package_id", "case_graph", "workflow", "artifacts", "assertions", "audit"],
+  "properties": {
+    "profile": {"const": "project-vic-investigator-work-package"},
+    "profile_version": {"const": "1.0.0"},
+    "work_package_id": {"type": "string", "format": "uri"},
+    "case_graph": {"type": "string", "format": "uri-reference"},
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["work_order_id", "status", "inputs", "outputs", "approvals", "tool_calls", "citations"],
+      "properties": {
+        "work_order_id": {"type": "string", "format": "uri"},
+        "status": {"enum": ["planned", "approved", "running", "completed", "failed", "canceled"]},
+        "inputs": {"$ref": "#/$defs/iriList"},
+        "outputs": {"$ref": "#/$defs/iriList"},
+        "approvals": {"$ref": "#/$defs/iriList"},
+        "tool_calls": {"$ref": "#/$defs/iriList"},
+        "citations": {"$ref": "#/$defs/iriList"}
+      }
+    },
+    "artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}},
+    "assertions": {"type": "array", "items": {"$ref": "#/$defs/assertion"}},
+    "audit": {"type": "array", "items": {"$ref": "#/$defs/auditEvent"}}
+  },
+  "$defs": {
+    "iriList": {"type": "array", "items": {"type": "string", "format": "uri"}, "uniqueItems": true},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["node_id", "role", "sha256"],
+      "properties": {
+        "node_id": {"type": "string", "format": "uri"},
+        "role": {"enum": ["immutable-source", "derived", "report-exhibit"]},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "derived_from": {"type": "string", "format": "uri"}
+      }
+    },
+    "assertion": {
+      "type": "object", "additionalProperties": false,
+      "required": ["assertion_id", "kind", "confidence", "subject", "support"],
+      "properties": {
+        "assertion_id": {"type": "string", "format": "uri"},
+        "kind": {"enum": ["source-fact", "tool-derived", "analyst-hypothesis", "human-decision"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "subject": {"type": "string", "format": "uri"},
+        "support": {"$ref": "#/$defs/iriList"}
+      }
+    },
+    "auditEvent": {
+      "type": "object", "additionalProperties": false,
+      "required": ["event_id", "sequence", "event_type", "actor", "timestamp"],
+      "properties": {
+        "event_id": {"type": "string", "format": "uri"},
+        "sequence": {"type": "integer", "minimum": 1},
+        "event_type": {"type": "string", "minLength": 1},
+        "actor": {"type": "string", "format": "uri"},
+        "timestamp": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}

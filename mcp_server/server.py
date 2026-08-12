@@ -1669,7 +1669,7 @@ def draft_change_proposal(
     proposed_classes: list[dict] | None = None,
     proposed_properties: list[dict] | None = None,
     target_repo: str | None = None,
-    target_release: str = "1.5.0",
+    target_release: str = "1.6.0",
     existing_issue_refs: list[str] | None = None,
 ) -> dict:
     """Draft a CASE/UCO change proposal for a concept not in the ontology.
@@ -1691,8 +1691,11 @@ def draft_change_proposal(
             (each property: name, type, description)
         proposed_properties: List of dicts with keys: name, target_class, type, description
         target_repo: "UCO" or "CASE" — auto-detected if omitted
-        target_release: Target ontology release version (e.g., "1.5.0", "2.0.0").
-            Defaults to "1.5.0" (current develop branch target).
+        target_release: Target ontology release version (e.g., "1.6.0", "2.0.0").
+            Defaults to "1.6.0", the next backward-compatible release: CASE and
+            UCO 1.5.0 are both released, so a new proposal cannot target them.
+            Use "2.0.0" for breaking changes. The ontology committee may
+            reassign the milestone during review.
         existing_issue_refs: Links to related existing issues
 
     Examples:
@@ -1702,7 +1705,7 @@ def draft_change_proposal(
             scenario="An investigator extracts telemetry from a DJI drone...",
             proposed_classes=[{"name": "DroneTelemetryFacet", ...}],
             target_repo="UCO",
-            target_release="1.5.0"
+            target_release="1.6.0"
         )
     """
     triage = suggest_target_repo(concept, description)

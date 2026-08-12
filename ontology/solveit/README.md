@@ -26,7 +26,7 @@ Mitigation Analysis alongside CASE/UCO evidence modeling.
 | `solve_it_sqlite.ttl` | SQLite internals observables |
 | `solve_it_tool_profile.ttl` | Tool capability profiles |
 | `solve_it_weakness_assessment.ttl` | `WeaknessEvaluation`/`WeaknessEvaluationSet` risk-rating classes |
-| `solve-it-kb.ttl` | Compiled knowledge base: 23 objectives, 187 techniques, 339 weaknesses, 270 mitigations, cross-linked with CASE/UCO input/output classes |
+| `solve-it-kb.ttl` | Compiled knowledge base: 23 objectives, 191 techniques, 339 weaknesses, 270 mitigations, cross-linked with CASE/UCO input/output classes |
 | `solveit-technique-catalog.ttl` | **Generated** — every technique punned as `owl:Class` typed `uco-action:Technique` (UCO 1.5.0 metaclass pattern, ucoProject/UCO PR #676); regenerate with `make sync-solveit-offline` |
 | `solveit-local-anchors.ttl` | SDK-local bridge anchoring three upstream enumeration classes to `owl:Thing` |
 | `solveit-exemplar.ttl` | Validated exemplar (disk imaging with mitigations + weakness evaluation) |

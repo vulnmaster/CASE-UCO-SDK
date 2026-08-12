@@ -187,7 +187,7 @@ pub struct Investigation {
     #[serde(rename = "case-investigation:focus")]
     pub focus: Vec<String>,
     #[serde(rename = "case-investigation:investigationForm")]
-    pub investigation_form: Vec<String>,
+    pub investigation_form: Option<String>,
     #[serde(rename = "case-investigation:investigationStatus")]
     pub investigation_status: Option<String>,
     #[serde(rename = "case-investigation:relevantAuthorization")]
@@ -205,7 +205,7 @@ impl Investigation {
     pub fn builder() -> InvestigationBuilder {
         InvestigationBuilder {
             focus: Vec::new(),
-            investigation_form: Vec::new(),
+            investigation_form: None,
             investigation_status: None,
             relevant_authorization: Vec::new(),
             end_time: None,
@@ -217,7 +217,7 @@ impl Investigation {
 #[derive(Debug, Default, Clone)]
 pub struct InvestigationBuilder {
     focus: Vec<String>,
-    investigation_form: Vec<String>,
+    investigation_form: Option<String>,
     investigation_status: Option<String>,
     relevant_authorization: Vec<Authorization>,
     end_time: Option<String>,
@@ -230,8 +230,8 @@ impl InvestigationBuilder {
         self
     }
 
-    pub fn investigation_form(mut self, value: Vec<String>) -> Self {
-        self.investigation_form = value;
+    pub fn investigation_form(mut self, value: String) -> Self {
+        self.investigation_form = Some(value);
         self
     }
 

@@ -263,7 +263,9 @@
         :techniqueDFT-1149,
         :techniqueDFT-1180,
         :techniqueDFT-1185,
-        :techniqueDFT-1190 ;
+        :techniqueDFT-1190,
+        :techniqueDFT-1196,
+        :techniqueDFT-1197 ;
     solveit-core:objectiveDescription "Process data stored by the operating system to extract digital forensic artifacts." ;
     solveit-core:objectiveID "DFO-1017" ;
     solveit-core:objectiveName "Extract artifacts stored by the operating system" ;
@@ -310,7 +312,7 @@
     solveit-core:objectiveDescription "Create documentation about techniques used and findings." ;
     solveit-core:objectiveID "DFO-1020" ;
     solveit-core:objectiveName "Document digital forensic activities" ;
-    solveit-core:sortOrder 21 .
+    solveit-core:sortOrder 22 .
 
 :objectiveDFO-1021 a solveit-core:Objective ;
     rdfs:label "DFO-1021: Access device data for acquisition"@en ;
@@ -351,6 +353,14 @@
     solveit-core:objectiveID "DFO-1023" ;
     solveit-core:objectiveName "Extract specific artifact types" ;
     solveit-core:sortOrder 13 .
+
+:objectiveDFO-1024 a solveit-core:Objective ;
+    rdfs:label "DFO-1024: Evaluate evidence"@en ;
+    solveit-core:includesTechnique :techniqueDFT-1195 ;
+    solveit-core:objectiveDescription "Evaluate evidence " ;
+    solveit-core:objectiveID "DFO-1024" ;
+    solveit-core:objectiveName "Evaluate evidence" ;
+    solveit-core:sortOrder 21 .
 
 :citationDFCite-1001 a solveit-core:Citation ;
     rdfs:label "DFCite-1001" ;
@@ -976,21 +986,6 @@
 }""" ;
     solveit-core:citationID "DFCite-1156" ;
     solveit-core:citationPlaintext "https://github.com/frida" .
-
-:citationDFCite-1157 a solveit-core:Citation ;
-    rdfs:label "DFCite-1157" ;
-    solveit-core:citationBibtex """@misc{tubbs2018lastwindows,
-  author       = {Tubbs, Jamey},
-  title        = {What ``the Last Version of {Windows}'' Means for Digital Forensics},
-  howpublished = {Magnet Forensics Blog},
-  year         = {2018},
-  month        = feb,
-  day          = {16},
-  url          = {https://www.magnetforensics.com/blog/what-the-last-version-of-windows-means-for-digital-forensics/},
-  note         = {Accessed: 2026-07-06}
-}""" ;
-    solveit-core:citationID "DFCite-1157" ;
-    solveit-core:citationPlaintext "None" .
 
 :citationDFCite-1158 a solveit-core:Citation ;
     rdfs:label "DFCite-1158" ;
@@ -1865,6 +1860,72 @@
     solveit-core:mitigationID "DFM-1281" ;
     solveit-core:mitigationName "Compare the cryptographic hash stored in a forensic container with one recorded externally" .
 
+:mitigationDFM-1299 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1299: Cryptographically sign generated forensic analysis reports with an asymmetric key"@en ;
+    solveit-core:mitigationDescription "Sign analysis reports and export bundles with an asymmetric key (e.g., Ed25519, ECDSA) and embed signatures in a manifest so subsequent tampering is detectable without relying solely on storing a hash in a separate location (DFM-1108)." ;
+    solveit-core:mitigationID "DFM-1299" ;
+    solveit-core:mitigationName "Cryptographically sign generated forensic analysis reports with an asymmetric key" .
+
+:mitigationDFM-1300 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1300: Ensure that hypotheses are mutually exclusive"@en ;
+    solveit-core:mitigationID "DFM-1300" ;
+    solveit-core:mitigationName "Ensure that hypotheses are mutually exclusive" .
+
+:mitigationDFM-1301 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1301: Avoid hypotheses that rely on untestable assertions"@en ;
+    solveit-core:mitigationID "DFM-1301" ;
+    solveit-core:mitigationName "Avoid hypotheses that rely on untestable assertions" .
+
+:mitigationDFM-1302 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1302: Frame the hypothesis as a relational prediction"@en ;
+    solveit-core:mitigationID "DFM-1302" ;
+    solveit-core:mitigationName "Frame the hypothesis as a relational prediction" .
+
+:mitigationDFM-1303 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1303: Refer to the to the \"suspect\" rather than \"device user\" when generating a hypothesis related to the accused individual"@en ;
+    solveit-core:mitigationID "DFM-1303" ;
+    solveit-core:mitigationName "Refer to the to the \"suspect\" rather than \"device user\" when generating a hypothesis related to the accused individual" .
+
+:mitigationDFM-1304 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1304: Avoid judgmental or loaded terminology in generated hypotheses"@en ;
+    solveit-core:mitigationID "DFM-1304" ;
+    solveit-core:mitigationName "Avoid judgmental or loaded terminology in generated hypotheses" .
+
+:mitigationDFM-1305 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1305: Ensure that hypotheses address the correct level of hierarchy (source, activity, or offense level)"@en ;
+    solveit-core:mitigationID "DFM-1305" ;
+    solveit-core:mitigationName "Ensure that hypotheses address the correct level of hierarchy (source, activity, or offense level)" .
+
+:mitigationDFM-1306 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1306: Generate hypotheses as declarative statements written in the present tense."@en ;
+    solveit-core:mitigationID "DFM-1306" ;
+    solveit-core:mitigationName "Generate hypotheses as declarative statements written in the present tense." .
+
+:mitigationDFM-1307 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1307: Do not generate hypotheses that are overly narrow and may increase the risk of over-specificity or confirmation bias. For instance, refer to a class (wiping tool, Trojan horse program) rather than a member of class (e.g., Eraser.exe, Backdoor.exe) to avoid narrowly focusing on a specific detail"@en ;
+    solveit-core:mitigationID "DFM-1307" ;
+    solveit-core:mitigationName "Do not generate hypotheses that are overly narrow and may increase the risk of over-specificity or confirmation bias. For instance, refer to a class (wiping tool, Trojan horse program) rather than a member of class (e.g., Eraser.exe, Backdoor.exe) to avoid narrowly focusing on a specific detail" .
+
+:mitigationDFM-1309 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1309: Ensure that the tool examines artifacts of previous operating system installation and presents them clearly"@en ;
+    solveit-core:mitigationID "DFM-1309" ;
+    solveit-core:mitigationName "Ensure that the tool examines artifacts of previous operating system installation and presents them clearly" .
+
+:mitigationDFM-1310 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1310: Recover older copies of data that contains mount point mappings from backups"@en ;
+    solveit-core:mitigationID "DFM-1310" ;
+    solveit-core:mitigationName "Recover older copies of data that contains mount point mappings from backups" .
+
+:mitigationDFM-1311 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1311: Recover older copies of data that contains mount point mappings from file versioning artifacts"@en ;
+    solveit-core:mitigationID "DFM-1311" ;
+    solveit-core:mitigationName "Recover older copies of data that contains mount point mappings from file versioning artifacts" .
+
+:mitigationDFM-1313 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1313: Check for the presence of multiple operating systems and process mount point mappings for all of them"@en ;
+    solveit-core:mitigationID "DFM-1313" ;
+    solveit-core:mitigationName "Check for the presence of multiple operating systems and process mount point mappings for all of them" .
+
 :techniqueDFT-1001 a solveit-core:Technique ;
     rdfs:label "DFT-1001: Triage devices or media"@en ;
     solveit-core:hasCASEInputClass "https://ontology.solveit-df.org/solveit/observable/DeviceSet"^^xsd:anyURI ;
@@ -2710,6 +2771,7 @@ Facebook Messenger
 
 :techniqueDFT-1079 a solveit-core:Technique ;
     rdfs:label "DFT-1079: Examine audio content"@en ;
+    solveit-core:hasSubtechnique :techniqueDFT-1194 ;
     solveit-core:techniqueID "DFT-1079" ;
     solveit-core:techniqueName "Examine audio content" .
 
@@ -3099,7 +3161,8 @@ Facebook Messenger
     solveit-core:hasCASEOutputClass "https://ontology.solveit-df.org/solveit/observable/KeywordSearchResult"^^xsd:anyURI ;
     solveit-core:hasPotentialWeakness :weaknessDFW-1193,
         :weaknessDFW-1194,
-        :weaknessDFW-1195 ;
+        :weaknessDFW-1195,
+        :weaknessDFW-1378 ;
     solveit-core:hasReference :citationDFCite-1103,
         :citationDFCite-1134 ;
     solveit-core:hasSynonym "live search" ;
@@ -3856,6 +3919,79 @@ It is also sometimes possible to determine older versions of the operating syste
     solveit-core:techniqueDetails "This has been differentiated from reading data from text files that accompany raw disk images, but includes metadata stored within logical formats. " ;
     solveit-core:techniqueID "DFT-1193" ;
     solveit-core:techniqueName "Read metadata from within a forensic image container" .
+
+:techniqueDFT-1194 a solveit-core:Technique ;
+    rdfs:label "DFT-1194: Classify if audio is potentially synthetically generated"@en ;
+    solveit-core:hasCASEInputClass "https://ontology.solveit-df.org/solveit/observable/AudioFile"^^xsd:anyURI ;
+    solveit-core:hasCASEOutputClass "https://ontology.unifiedcyberontology.org/uco/analysis/ArtifactClassification"^^xsd:anyURI ;
+    solveit-core:hasExample "AASIST-family neural anti-spoofing classifiers",
+        "ASVspoof challenge countermeasure systems",
+        "Bispectral / higher-order spectral analysis of speech",
+        "Media Authentication Analyzer (AASIST-L neural detector + bispectrum heuristic in production)" ;
+    solveit-core:hasSynonym "Audio anti-spoofing",
+        "Audio deepfake detection",
+        "Speech spoofing countermeasure",
+        "Synthetic speech detection",
+        "Voice clone detection" ;
+    solveit-core:techniqueDescription "Classification of audio with respect to its origin, i.e., whether it is synthetically generated (e.g. text-to-speech synthesis or voice conversion) or naturally captured from a live speaker." ;
+    solveit-core:techniqueDetails "Audio content is analyzed for traces of synthetic generation. Methods include neural anti-spoofing classifiers (e.g. spectro-temporal graph attention networks trained on spoofed/bona-fide speech corpora) and signal-level analyses such as higher-order spectral (bispectral) statistics. The output is typically a classifier-predicted score or confidence that the audio is synthetically generated, or extracted signal traces that aid the analyst in assessing the audio's origin. This completes the modality triad alongside the existing video (DFT-1106) and image (DFT-1176) synthetic-classification techniques." ;
+    solveit-core:techniqueID "DFT-1194" ;
+    solveit-core:techniqueName "Classify if audio is potentially synthetically generated" .
+
+:techniqueDFT-1195 a solveit-core:Technique ;
+    rdfs:label "DFT-1195: Generate Alternative Hypotheses"@en ;
+    solveit-core:hasCASEInputClass "https://ontology.solveit-df.org/solveit/analysis/Hypothesis"^^xsd:anyURI,
+        "https://ontology.unifiedcyberontology.org/uco/observable/Observable"^^xsd:anyURI ;
+    solveit-core:hasCASEOutputClass "https://ontology.solveit-df.org/solveit/analysis/HypothesisSet"^^xsd:anyURI ;
+    solveit-core:hasPotentialWeakness :weaknessDFW-1379,
+        :weaknessDFW-1380,
+        :weaknessDFW-1381,
+        :weaknessDFW-1382,
+        :weaknessDFW-1383,
+        :weaknessDFW-1384,
+        :weaknessDFW-1385,
+        :weaknessDFW-1386 ;
+    solveit-core:hasSynonym "Claim",
+        "Proposition" ;
+    solveit-core:techniqueDescription "The process of considering what are the alternative possibilities (other than the proposed hypothesis) for the digital forensic artifacts/traces that we are observing" ;
+    solveit-core:techniqueDetails "Considering alternative hypotheses is fundamental to scientific practices, and assists in mitigating the potential influence of bias. In investigative mode, experts generate possible explanations. In evaluative mode for expert opinion in court proceedings, the expert focuses on disputed issues and evaluates their observations." ;
+    solveit-core:techniqueID "DFT-1195" ;
+    solveit-core:techniqueName "Generate Alternative Hypotheses" .
+
+:techniqueDFT-1196 a solveit-core:Technique ;
+    rdfs:label "DFT-1196: Extract operating system installation date"@en ;
+    solveit-core:hasCASEInputClass "https://ontology.unifiedcyberontology.org/uco/observable/Observable"^^xsd:anyURI ;
+    solveit-core:hasCASEOutputClass "https://ontology.unifiedcyberontology.org/uco/observable/installDate"^^xsd:anyURI ;
+    solveit-core:hasPotentialWeakness :weaknessDFW-1387,
+        :weaknessDFW-1388,
+        :weaknessDFW-1389,
+        :weaknessDFW-1390,
+        :weaknessDFW-1391,
+        :weaknessDFW-1392 ;
+    solveit-core:hasReference :citationDFCite-1157 ;
+    solveit-core:techniqueDescription "Extract the date and time recorded as the installation date of the operating system." ;
+    solveit-core:techniqueID "DFT-1196" ;
+    solveit-core:techniqueName "Extract operating system installation date" .
+
+:techniqueDFT-1197 a solveit-core:Technique ;
+    rdfs:label "DFT-1197: Determine mount point mappings within an operating system"@en ;
+    solveit-core:hasCASEInputClass "https://ontology.unifiedcyberontology.org/uco/observable/Observable"^^xsd:anyURI ;
+    solveit-core:hasCASEOutputClass "https://ontology.solveit-df.org/solveit/analysis/HypothesisedRelationship"^^xsd:anyURI,
+        "https://ontology.unifiedcyberontology.org/uco/observable/Device"^^xsd:anyURI,
+        "https://ontology.unifiedcyberontology.org/uco/observable/DiskPartition"^^xsd:anyURI,
+        "https://ontology.unifiedcyberontology.org/uco/observable/driveLetter"^^xsd:anyURI,
+        "https://ontology.unifiedcyberontology.org/uco/observable/mountPoint"^^xsd:anyURI ;
+    solveit-core:hasPotentialWeakness :weaknessDFW-1393,
+        :weaknessDFW-1394,
+        :weaknessDFW-1395,
+        :weaknessDFW-1396 ;
+    solveit-core:hasSynonym "drive letter mapping" ;
+    solveit-core:techniqueDescription "This involves establishing what mount points (including drive letters) within an operating system are mapped to, either a partition or device. " ;
+    solveit-core:techniqueDetails """On Windows this will typically be mapping drive letters to specific partitions on local disks or removable media, DVD drives, or even mounted encrypted containers.
+
+The term 'mount point mapping' is used here to include drive letters on Windows and the use of folders as mount points on other operating systems.""" ;
+    solveit-core:techniqueID "DFT-1197" ;
+    solveit-core:techniqueName "Determine mount point mappings within an operating system" .
 
 :weaknessDFW-1001 a solveit-core:Weakness ;
     rdfs:label "DFW-1001: Excluding a device that contains relevant information"@en ;
@@ -5133,7 +5269,8 @@ It is also sometimes possible to determine older versions of the operating syste
 
 :weaknessDFW-1154 a solveit-core:Weakness ;
     rdfs:label "DFW-1154: Report generated from bookmarks stored in manner that does not prevent tampering or corruption"@en ;
-    solveit-core:hasPotentialMitigation :mitigationDFM-1108 ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1108,
+        :mitigationDFM-1299 ;
     solveit-core:hasWeaknessClass solveit-core:ASTM_INAC_COR ;
     solveit-core:weaknessID "DFW-1154" ;
     solveit-core:weaknessName "Report generated from bookmarks stored in manner that does not prevent tampering or corruption" .
@@ -6679,6 +6816,145 @@ It is also sometimes possible to determine older versions of the operating syste
     solveit-core:weaknessID "DFW-1355" ;
     solveit-core:weaknessName "The case description is not retrieved from the metadata inside a forensic container because of a programming error in the tool used" .
 
+:weaknessDFW-1379 a solveit-core:Weakness ;
+    rdfs:label "DFW-1379: One or more proposed hypotheses are not mutually exclusive"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1300 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessID "DFW-1379" ;
+    solveit-core:weaknessName "One or more proposed hypotheses are not mutually exclusive" .
+
+:weaknessDFW-1380 a solveit-core:Weakness ;
+    rdfs:label "DFW-1380: A proposed hypothesis suffers from a lack of falsifiability"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1301 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessDescription "A scientifically valid hypothesis must present an outcome that can be definitively proven false." ;
+    solveit-core:weaknessID "DFW-1380" ;
+    solveit-core:weaknessName "A proposed hypothesis suffers from a lack of falsifiability" .
+
+:weaknessDFW-1381 a solveit-core:Weakness ;
+    rdfs:label "DFW-1381: A proposed hypothesis equates correlation with causation"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1302 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessDescription "Causal mechanisms are not explicitly established" ;
+    solveit-core:weaknessID "DFW-1381" ;
+    solveit-core:weaknessName "A proposed hypothesis equates correlation with causation" .
+
+:weaknessDFW-1382 a solveit-core:Weakness ;
+    rdfs:label "DFW-1382: A hypothesis refers to \"device user\" rather than \"suspect\" when a specific individual is under investigation"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1303 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessDescription "When a specific individual is under investigation, address this fact. If the individual's use of a device is challenged, this should be explicitly addressed in hypothesis generation." ;
+    solveit-core:weaknessID "DFW-1382" ;
+    solveit-core:weaknessName "A hypothesis refers to \"device user\" rather than \"suspect\" when a specific individual is under investigation" .
+
+:weaknessDFW-1383 a solveit-core:Weakness ;
+    rdfs:label "DFW-1383: A proposed hypothesis uses judgmental or loaded terminology"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1304 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessDescription "Judgmental or loaded terminology is outside the scope of digital forensics and could reflect bias" ;
+    solveit-core:weaknessID "DFW-1383" ;
+    solveit-core:weaknessName "A proposed hypothesis uses judgmental or loaded terminology" .
+
+:weaknessDFW-1384 a solveit-core:Weakness ;
+    rdfs:label "DFW-1384: Addressing the wrong level of the hierarchy of hypotheses required for the case"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1305 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessDescription "The hierarchy of hypotheses (a.k.a. hierarchy of propositions) are: 1) source level concerns where a trace came from (e.g., which device produced contraband), 2) activity level concerns what act produced it (e.g., who produced contraband), and 3) offense level concerns the criminal issue itself (e.g., whether the suspect knowingly produced contraband) — with higher levels being more relevant to decision-makers but requiring more case information to evaluate." ;
+    solveit-core:weaknessID "DFW-1384" ;
+    solveit-core:weaknessName "Addressing the wrong level of the hierarchy of hypotheses required for the case" .
+
+:weaknessDFW-1385 a solveit-core:Weakness ;
+    rdfs:label "DFW-1385: A proposed hypothesis uses vague or complex phrasing"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1306 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessDescription "Hypotheses are declarative statements written in the present tense, without ambiguous language, multiple conditions, or conditional verbs (e.g., \"if-then\" or \"would\"). " ;
+    solveit-core:weaknessID "DFW-1385" ;
+    solveit-core:weaknessName "A proposed hypothesis uses vague or complex phrasing" .
+
+:weaknessDFW-1386 a solveit-core:Weakness ;
+    rdfs:label "DFW-1386: A proposed hypothesis is overly specific to details in the case"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1307 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessDescription "Generating hypotheses that focus on specific details available early in an investigation can be too narrow to accomodate new details found later, and increases the risk of confirmation bias, such as focusing on the use of a specific wiping tool rather than any wiping tool being used" ;
+    solveit-core:weaknessID "DFW-1386" ;
+    solveit-core:weaknessName "A proposed hypothesis is overly specific to details in the case" .
+
+:weaknessDFW-1387 a solveit-core:Weakness ;
+    rdfs:label "DFW-1387: The operating system installation date is not recovered because the tool fails while decoding the value"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1308 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INCOMP ;
+    solveit-core:weaknessID "DFW-1387" ;
+    solveit-core:weaknessName "The operating system installation date is not recovered because the tool fails while decoding the value" .
+
+:weaknessDFW-1388 a solveit-core:Weakness ;
+    rdfs:label "DFW-1388: The operating system installation date is not recovered because the tool examines an incorrect artifact"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1308 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INCOMP ;
+    solveit-core:weaknessID "DFW-1388" ;
+    solveit-core:weaknessName "The operating system installation date is not recovered because the tool examines an incorrect artifact" .
+
+:weaknessDFW-1389 a solveit-core:Weakness ;
+    rdfs:label "DFW-1389: The operating system installation date extracted does not reflect the time it was installed because the artifact represents an software update, or some other event"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1308 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INAC_AS,
+        solveit-core:ASTM_INAC_EX ;
+    solveit-core:weaknessID "DFW-1389" ;
+    solveit-core:weaknessName "The operating system installation date extracted does not reflect the time it was installed because the artifact represents an software update, or some other event" .
+
+:weaknessDFW-1390 a solveit-core:Weakness ;
+    rdfs:label "DFW-1390: The operating system installation date extracted does not reflect the time it was installed because the timezone conversion was applied incorrectly"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1308 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INAC_AS,
+        solveit-core:ASTM_INAC_EX ;
+    solveit-core:weaknessID "DFW-1390" ;
+    solveit-core:weaknessName "The operating system installation date extracted does not reflect the time it was installed because the timezone conversion was applied incorrectly" .
+
+:weaknessDFW-1391 a solveit-core:Weakness ;
+    rdfs:label "DFW-1391: The operating system installation date extracted does not reflect the time it was installed because the tool incorrectly decoded the timestamp"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1308 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INAC_AS,
+        solveit-core:ASTM_INAC_EX ;
+    solveit-core:weaknessID "DFW-1391" ;
+    solveit-core:weaknessName "The operating system installation date extracted does not reflect the time it was installed because the tool incorrectly decoded the timestamp" .
+
+:weaknessDFW-1392 a solveit-core:Weakness ;
+    rdfs:label "DFW-1392: Presentation of the extracted operating system installation date does not highlight that there were previous operating systems installed prior to this date"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1309 ;
+    solveit-core:hasReference :citationDFCite-1157 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_MISINT ;
+    solveit-core:weaknessID "DFW-1392" ;
+    solveit-core:weaknessName "Presentation of the extracted operating system installation date does not highlight that there were previous operating systems installed prior to this date" .
+
+:weaknessDFW-1393 a solveit-core:Weakness ;
+    rdfs:label "DFW-1393: Failure to recover mount point mapping because multiple devices have used the mount point and older data has been overwritten"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1310,
+        :mitigationDFM-1311 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INCOMP ;
+    solveit-core:weaknessID "DFW-1393" ;
+    solveit-core:weaknessName "Failure to recover mount point mapping because multiple devices have used the mount point and older data has been overwritten" .
+
+:weaknessDFW-1394 a solveit-core:Weakness ;
+    rdfs:label "DFW-1394: Failure to recover mount point mapping because of a tool processing error"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1312 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INCOMP ;
+    solveit-core:weaknessID "DFW-1394" ;
+    solveit-core:weaknessName "Failure to recover mount point mapping because of a tool processing error" .
+
+:weaknessDFW-1395 a solveit-core:Weakness ;
+    rdfs:label "DFW-1395: Failure to recover mount point mapping because multiple operating systems are present and they use different mappings"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1313 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INCOMP ;
+    solveit-core:weaknessID "DFW-1395" ;
+    solveit-core:weaknessName "Failure to recover mount point mapping because multiple operating systems are present and they use different mappings" .
+
+:weaknessDFW-1396 a solveit-core:Weakness ;
+    rdfs:label "DFW-1396: Extracting a relationship between a mount point and device/partition that is incorrect because of a tool processing error"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1312 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INAC_AS,
+        solveit-core:ASTM_INAC_EX ;
+    solveit-core:weaknessID "DFW-1396" ;
+    solveit-core:weaknessName "Extracting a relationship between a mount point and device/partition that is incorrect because of a tool processing error" .
+
 :citationDFCite-1014 a solveit-core:Citation ;
     rdfs:label "DFCite-1014" ;
     solveit-core:citationID "DFCite-1014" ;
@@ -7125,6 +7401,11 @@ It is also sometimes possible to determine older versions of the operating syste
     solveit-core:mitigationID "DFM-1279" ;
     solveit-core:mitigationName "Ensure all relevant connectivity settings for this particular device have been disabled" .
 
+:mitigationDFM-1312 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1312: Test that tool can correctly recover mount point mappings"@en ;
+    solveit-core:mitigationID "DFM-1312" ;
+    solveit-core:mitigationName "Test that tool can correctly recover mount point mappings" .
+
 :techniqueDFT-1006 a solveit-core:Technique ;
     rdfs:label "DFT-1006: Search a crime scene using digital sniffer dogs"@en ;
     solveit-core:hasCASEOutputClass "https://ontology.unifiedcyberontology.org/uco/observable/Device"^^xsd:anyURI,
@@ -7293,7 +7574,8 @@ It is also sometimes possible to determine older versions of the operating syste
 :techniqueDFT-1127 a solveit-core:Technique ;
     rdfs:label "DFT-1127: Keyword search (live) (logical)"@en ;
     solveit-core:hasCASEOutputClass "https://ontology.solveit-df.org/solveit/observable/KeywordSearchResult"^^xsd:anyURI ;
-    solveit-core:hasPotentialWeakness :weaknessDFW-1195 ;
+    solveit-core:hasPotentialWeakness :weaknessDFW-1195,
+        :weaknessDFW-1378 ;
     solveit-core:hasReference :citationDFCite-1103,
         :citationDFCite-1133 ;
     solveit-core:hasSynonym "live search" ;
@@ -7521,6 +7803,21 @@ author = {Céline Vanini and Christopher J. Hargreaves and Harm {van Beek} and F
     solveit-core:citationID "DFCite-1113" ;
     solveit-core:citationPlaintext "Pereira, M.T., 2009. Forensic analysis of the Firefox 3 Internet history and recovery of deleted SQLite records. Digital Investigation, 5(3-4), pp.93-103." .
 
+:citationDFCite-1157 a solveit-core:Citation ;
+    rdfs:label "DFCite-1157" ;
+    solveit-core:citationBibtex """@misc{tubbs2018lastwindows,
+  author       = {Tubbs, Jamey},
+  title        = {What ``the Last Version of {Windows}'' Means for Digital Forensics},
+  howpublished = {Magnet Forensics Blog},
+  year         = {2018},
+  month        = feb,
+  day          = {16},
+  url          = {https://www.magnetforensics.com/blog/what-the-last-version-of-windows-means-for-digital-forensics/},
+  note         = {Accessed: 2026-07-06}
+}""" ;
+    solveit-core:citationID "DFCite-1157" ;
+    solveit-core:citationPlaintext "None" .
+
 :mitigationDFM-1002 a solveit-core:Mitigation ;
     rdfs:label "DFM-1002: Testing of the faraday environment to be used"@en ;
     solveit-core:hasReference :citationDFCite-1086 ;
@@ -7672,7 +7969,8 @@ author = {Céline Vanini and Christopher J. Hargreaves and Harm {van Beek} and F
 :techniqueDFT-1125 a solveit-core:Technique ;
     rdfs:label "DFT-1125: Keyword search (live)"@en ;
     solveit-core:hasCASEOutputClass "https://ontology.solveit-df.org/solveit/observable/KeywordSearchResult"^^xsd:anyURI ;
-    solveit-core:hasPotentialWeakness :weaknessDFW-1200 ;
+    solveit-core:hasPotentialWeakness :weaknessDFW-1200,
+        :weaknessDFW-1378 ;
     solveit-core:hasReference :citationDFCite-1103,
         :citationDFCite-1133,
         :citationDFCite-1134 ;
@@ -7703,6 +8001,15 @@ author = {Céline Vanini and Christopher J. Hargreaves and Harm {van Beek} and F
     solveit-core:techniqueDescription "The examination of a browsers configuration" ;
     solveit-core:techniqueID "DFT-1143" ;
     solveit-core:techniqueName "Extract browser configuration artifacts" .
+
+:weaknessDFW-1378 a solveit-core:Weakness ;
+    rdfs:label "DFW-1378: Relevant keywords not returned by live search due to improper handling of character encoding"@en ;
+    solveit-core:hasPotentialMitigation :mitigationDFM-1027,
+        :mitigationDFM-1034 ;
+    solveit-core:hasWeaknessClass solveit-core:ASTM_INCOMP ;
+    solveit-core:weaknessDescription "Keyword searching (live) does not handle character encoding properly, causing search terms to miss content and fail to find relevant data (false negative)." ;
+    solveit-core:weaknessID "DFW-1378" ;
+    solveit-core:weaknessName "Relevant keywords not returned by live search due to improper handling of character encoding" .
 
 :citationDFCite-1070 a solveit-core:Citation ;
     rdfs:label "DFCite-1070" ;
@@ -7818,6 +8125,11 @@ author = {Céline Vanini and Christopher J. Hargreaves and Harm {van Beek} and F
     solveit-core:mitigationID "DFM-1280" ;
     solveit-core:mitigationName "Compare the metadata stored in a forensic container with that recorded in accompanying documentation" .
 
+:mitigationDFM-1308 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1308: Test that the tool recovers the date of operating system installation correctly"@en ;
+    solveit-core:mitigationID "DFM-1308" ;
+    solveit-core:mitigationName "Test that the tool recovers the date of operating system installation correctly" .
+
 :citationDFCite-1030 a solveit-core:Citation ;
     rdfs:label "DFCite-1030" ;
     solveit-core:citationID "DFCite-1030" ;
@@ -7828,12 +8140,6 @@ author = {Céline Vanini and Christopher J. Hargreaves and Harm {van Beek} and F
     solveit-core:linksToTechnique :techniqueDFT-1013 ;
     solveit-core:mitigationID "DFM-1008" ;
     solveit-core:mitigationName "Use software write blocker" .
-
-:mitigationDFM-1034 a solveit-core:Mitigation ;
-    rdfs:label "DFM-1034: Comparison of index results with live search results"@en ;
-    solveit-core:linksToTechnique :techniqueDFT-1125 ;
-    solveit-core:mitigationID "DFM-1034" ;
-    solveit-core:mitigationName "Comparison of index results with live search results" .
 
 :mitigationDFM-1079 a solveit-core:Mitigation ;
     rdfs:label "DFM-1079: Analyse file content to detect incompatibility between the content and the recovered file system metadata"@en ;
@@ -7874,6 +8180,12 @@ author = {Céline Vanini and Christopher J. Hargreaves and Harm {van Beek} and F
     rdfs:label "DFM-1162: Testing of deleted call record recovery from AI companion app"@en ;
     solveit-core:mitigationID "DFM-1162" ;
     solveit-core:mitigationName "Testing of deleted call record recovery from AI companion app" .
+
+:mitigationDFM-1034 a solveit-core:Mitigation ;
+    rdfs:label "DFM-1034: Comparison of index results with live search results"@en ;
+    solveit-core:linksToTechnique :techniqueDFT-1125 ;
+    solveit-core:mitigationID "DFM-1034" ;
+    solveit-core:mitigationName "Comparison of index results with live search results" .
 
 :mitigationDFM-1097 a solveit-core:Mitigation ;
     rdfs:label "DFM-1097: Attempt to obtain password/passcode from the device owner"@en ;

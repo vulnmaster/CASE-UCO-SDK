@@ -19,7 +19,7 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/tool-profile> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/tool-profile/0.1.9> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/tool-profile/0.1.10> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/core/1.4.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/tool/1.4.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/observable/1.4.0> ,
@@ -27,7 +27,7 @@
     dcterms:title "SOLVE-IT Tool Profile Module"@en ;
     dcterms:description "Capability profiles for forensic tools, enabling conditional mitigation declarations that are version-specific and attributable."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.1.9" ;
+    owl:versionInfo "0.1.10" ;
     rdfs:label "SOLVE-IT Tool Profile Module"@en .
 
 #################################################################

@@ -8,7 +8,7 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.23.1** · CASE 1.4.0 · UCO 1.4.0 · [Changelog](CHANGELOG.md#1231---2026-07-28)
+**v1.23.1** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1231---2026-07-28)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -18,7 +18,7 @@ The SDK works with AI coding assistants (Cursor, Claude Code, Hermes, etc.) — 
 
 ## What the SDK Does
 
-The SDK is auto-generated from the official CASE 1.4.0 and UCO 1.4.0 ontology sources. Every class, property, and vocabulary term in the published specifications has a corresponding typed class in each language. The generated code gives you:
+The SDK is auto-generated from the official CASE 1.5.0 and UCO 1.5.0 ontology sources. Every class, property, and vocabulary term in the published specifications has a corresponding typed class in each language. The generated code gives you:
 
 - **Full ontology coverage** — all 428 classes across 15 modules (including extensions)
 - **Typed properties** with correct JSON-LD serialization (IRIs, typed literals, nested objects)

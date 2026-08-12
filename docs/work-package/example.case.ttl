@@ -1,0 +1,32 @@
+@prefix case-investigation: <https://ontology.caseontology.org/case/investigation/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+
+<urn:uuid:10000000-0000-4000-8000-000000000002>
+    a case-investigation:Investigation ;
+    uco-core:name "T0 synthetic media verification exercise" .
+
+<urn:uuid:10000000-0000-4000-8000-000000000011>
+    a case-investigation:InvestigativeAction ;
+    uco-core:name "Verify synthetic source hash" ;
+    uco-action:object <urn:uuid:10000000-0000-4000-8000-000000000020> ;
+    uco-action:result <urn:uuid:10000000-0000-4000-8000-000000000021> ;
+    uco-action:instrument <urn:uuid:10000000-0000-4000-8000-000000000014> .
+
+<urn:uuid:10000000-0000-4000-8000-000000000012>
+    a case-investigation:Authorization ;
+    uco-core:name "Approval to process T0 fixture" .
+
+<urn:uuid:10000000-0000-4000-8000-000000000014>
+    a uco-tool:Tool ;
+    uco-core:name "Synthetic SHA-256 verifier" .
+
+<urn:uuid:10000000-0000-4000-8000-000000000020>
+    a uco-observable:ObservableObject ;
+    uco-core:name "Synthetic immutable source" .
+
+<urn:uuid:10000000-0000-4000-8000-000000000021>
+    a uco-observable:ObservableObject ;
+    uco-core:name "Synthetic verification report" .

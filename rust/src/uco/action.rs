@@ -14,7 +14,7 @@ pub struct Action {
     #[serde(rename = "uco-action:actionCount")]
     pub action_count: Option<u64>,
     #[serde(rename = "uco-action:actionStatus")]
-    pub action_status: Vec<String>,
+    pub action_status: Option<String>,
     #[serde(rename = "uco-action:endTime")]
     pub end_time: Option<String>,
     #[serde(rename = "uco-action:environment")]
@@ -46,7 +46,7 @@ impl Action {
     pub fn builder() -> ActionBuilder {
         ActionBuilder {
             action_count: None,
-            action_status: Vec::new(),
+            action_status: None,
             end_time: None,
             environment: None,
             error: Vec::new(),
@@ -65,7 +65,7 @@ impl Action {
 #[derive(Debug, Default, Clone)]
 pub struct ActionBuilder {
     action_count: Option<u64>,
-    action_status: Vec<String>,
+    action_status: Option<String>,
     end_time: Option<String>,
     environment: Option<UcoObject>,
     error: Vec<UcoObject>,
@@ -85,8 +85,8 @@ impl ActionBuilder {
         self
     }
 
-    pub fn action_status(mut self, value: Vec<String>) -> Self {
-        self.action_status = value;
+    pub fn action_status(mut self, value: String) -> Self {
+        self.action_status = Some(value);
         self
     }
 
@@ -317,7 +317,7 @@ pub struct ActionFrequencyFacet {
     #[serde(rename = "uco-action:scale")]
     pub scale: Option<String>,
     #[serde(rename = "uco-action:trend")]
-    pub trend: Vec<String>,
+    pub trend: Option<String>,
     #[serde(rename = "uco-action:units")]
     pub units: Option<String>,
 }
@@ -330,7 +330,7 @@ impl ActionFrequencyFacet {
         ActionFrequencyFacetBuilder {
             rate: None,
             scale: None,
-            trend: Vec::new(),
+            trend: None,
             units: None,
         }
     }
@@ -340,7 +340,7 @@ impl ActionFrequencyFacet {
 pub struct ActionFrequencyFacetBuilder {
     rate: Option<f64>,
     scale: Option<String>,
-    trend: Vec<String>,
+    trend: Option<String>,
     units: Option<String>,
 }
 
@@ -355,8 +355,8 @@ impl ActionFrequencyFacetBuilder {
         self
     }
 
-    pub fn trend(mut self, value: Vec<String>) -> Self {
-        self.trend = value;
+    pub fn trend(mut self, value: String) -> Self {
+        self.trend = Some(value);
         self
     }
 
@@ -385,6 +385,9 @@ impl CaseObject for ActionFrequencyFacet {
         }
         if self.scale.is_none() {
             return Err("ActionFrequencyFacet.scale is required but was not provided.".to_string());
+        }
+        if self.trend.is_none() {
+            return Err("ActionFrequencyFacet.trend is required but was not provided.".to_string());
         }
         if self.units.is_none() {
             return Err("ActionFrequencyFacet.units is required but was not provided.".to_string());
@@ -567,7 +570,7 @@ impl CaseObject for ArrayOfAction {
     }
 }
 
-/// A technique is a class of actions joined by some common characteristics.  uco-action:Technique itself is a metaclass.  A Technique instance is an owl:Class that is a subclass of uco-action:Action.
+/// A technique is a class of actions joined by some common characteristics.  The class uco-action:Technique is a metaclass.  A Technique instance is an owl:Class that is a subclass of uco-action:Action.
 #[derive(Debug, Clone, Serialize)]
 pub struct Technique {
     #[serde(skip_serializing)]

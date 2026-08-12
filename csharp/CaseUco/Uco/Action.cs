@@ -86,7 +86,7 @@ namespace CaseUco.Uco.Action
     }
 
     /// <summary>An action lifecycle is an action pattern consisting of an ordered set of multiple actions or subordinate action lifecycles.</summary>
-    public class ActionLifecycle : CaseUco.Uco.Action.ActionPattern
+    public class ActionLifecycle : CaseUco.Uco.Action.Action
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/action/ActionLifecycle";
         public new const string NamespacePrefix = "uco-action";
@@ -120,7 +120,7 @@ namespace CaseUco.Uco.Action
         public List<CaseUco.Uco.Action.Action> Action { get; set; }
     }
 
-    /// <summary>A technique is a class of actions joined by some common characteristics.  uco-action:Technique itself is a metaclass.  A Technique instance is an owl:Class that is a subclass of uco-action:Action.</summary>
+    /// <summary>A technique is a class of actions joined by some common characteristics.  The class uco-action:Technique is a metaclass.  A Technique instance is an owl:Class that is a subclass of uco-action:Action.</summary>
     public class Technique : CaseUco.Uco.Core.UcoType
     {
         public new const string ClassIri = "https://ontology.unifiedcyberontology.org/uco/action/Technique";

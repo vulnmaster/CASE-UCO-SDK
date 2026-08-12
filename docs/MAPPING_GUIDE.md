@@ -1472,7 +1472,7 @@ Classes for network connections, IP addresses, DNS records, URLs, and related ar
 | **TerminatedCustodyPhase** | ext.cac.cacontology-custodial | Class | Phase when custodial relationship has been formally ended. Modeled as anti-rigid gUFO Phase. |
 | **TherapyDog** | ext.cac.cacontology-specialized-units | Class | Trained therapy dog providing emotional support to officers. Modeled as gUFO Object. |
 | **TherapyParticipant** | ext.cac.cacontology-victim-impact | Class | Role of victim participating in therapeutic interventions. |
-| **Thread** | uco.types | Class | A semi-ordered array of items, that can be present in multiple copies.  Implemetation of a UCO Th... |
+| **Thread** | uco.types | Class | A semi-ordered array of items, that can be present in multiple copies.  Implementation of a UCO T... |
 | **Timeline** | ext.solveit.solveit-observable | Class | A set of timeline entries extracted during forensic analysis. |
 | **TipEnrichment** | ext.cac.cacontology-us-ncmec | Class | Enhancement of NCMEC tips with additional investigative information. |
 | **TipPrioritization** | ext.cac.cacontology-us-ncmec | Class | Priority assessment and ranking of NCMEC tips for investigation. |
@@ -3995,7 +3995,7 @@ Classes specific to mobile device forensics: SIM cards, contacts, call logs, cal
 | **TechnicalLiaison** | ext.cac.cacontology-investigation-coordination | Class | Technical liaison officer specializing in technical coordination and information sharing. |
 | **TermsOfUseMarking** | uco.marking | Class | A terms of use marking is a grouping of characteristics unique to the expression of data marking ... |
 | **TextEvidencePointer** | ext.cac.cacontology-synthesis | Class | A resolvable pointer to a location in a text artifact (e.g., normalized.txt lines), optionally wi... |
-| **Thread** | uco.types | Class | A semi-ordered array of items, that can be present in multiple copies.  Implemetation of a UCO Th... |
+| **Thread** | uco.types | Class | A semi-ordered array of items, that can be present in multiple copies.  Implementation of a UCO T... |
 | **TraffickingCell** | ext.cac.cacontology-sex-trafficking | Class | Smaller operational unit within trafficking ring, often controlling specific victims or geographi... |
 | **TraffickingOperation** | ext.cac.cacontology-sex-trafficking | Class | Coordinated trafficking activity involving multiple perpetrators, victims, and locations. Modeled... |
 | **TransportArrangementAction** | ext.cac.cacontology-undercover | Class | Suspect arranging to pick up and transport alleged minor to meeting location. |
@@ -4592,7 +4592,7 @@ Classes for modeling actions taken during an investigation or actions performed 
 | **TeamBasedExploitation** | ext.cac.cacontology-athletic-exploitation | Class | Contextual situation in which exploitation occurs using team dynamics, group pressure, and collec... |
 | **TeamDynamicsExploitation** | ext.cac.cacontology-athletic-exploitation | Class | Contextual situation in which exploitation occurs using team membership, group dynamics, and athl... |
 | **TechnicalDataSharing** | ext.cac.cacontology-investigation-coordination | Class | Sharing of technical data including forensic tools, methodologies, and technical analysis results. |
-| **Technique** | uco.action | Class | A technique is a class of actions joined by some common characteristics.  uco-action:Technique it... |
+| **Technique** | uco.action | Class | A technique is a class of actions joined by some common characteristics.  The class uco-action:Te... |
 | **Technique** | ext.solveit.solveit-core | Class | A digital forensic technique representing how one might achieve an objective by performing an act... |
 | **TechnologyCooperation** | ext.cac.cacontology-partnerships | Class | Cooperation in developing and deploying technology solutions for child protection. Modeled as gUF... |
 | **TertiaryPrevention** | ext.cac.cacontology-prevention | Class | Prevention of re-victimization and recurrence. |

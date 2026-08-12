@@ -129,10 +129,20 @@ Every change proposal must specify which CASE/UCO release it targets. Check the 
 
 | Branch | Version | When to target |
 |--------|---------|----------------|
-| `develop` | 1.5.0 | Default for most proposals. Changes that are backward-compatible additions. |
+| `main` | 1.5.0 | Released. CASE and UCO 1.5.0 both shipped; nothing new targets this. |
+| `develop` | next backward-compatible release | Default for most proposals. Changes that are backward-compatible additions. |
 | `develop-2.0.0` | 2.0.0 | For proposals that require breaking changes or major restructuring. |
 
-If unsure, target the current `develop` branch version (1.5.0). The ontology committee may reassign the proposal to a different milestone during review.
+If unsure, target `develop`. Read the version off the branch rather than
+assuming it — after the 1.5.0 release `develop` still carried
+`owl:versionIRI core:1.5.0`, so the next minor had not been opened yet:
+
+```bash
+git -C ontology/UCO show origin/develop:ontology/uco/core/core.ttl | grep versionIRI
+```
+
+The ontology committee may reassign the proposal to a different milestone
+during review.
 
 ---
 
@@ -361,7 +371,7 @@ make sparql-test-proposal PROPOSAL=drone-telemetry-facet
 If you've created a local extension ontology (`.ttl` + shapes), test it against multiple CASE/UCO branches to help the ontology committee assess compatibility:
 
 ```bash
-# Test against all three branches: main, develop (v1.5.0), develop-2.0.0 (v2.0.0)
+# Test against all three branches: main (v1.5.0), develop, develop-2.0.0 (v2.0.0)
 make test-extension-compat \
   EXT_TTL=change_proposals/drone-telemetry.ttl \
   EXT_SHAPES=change_proposals/drone-telemetry-shapes.ttl \

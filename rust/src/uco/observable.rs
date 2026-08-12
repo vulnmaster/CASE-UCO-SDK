@@ -245,7 +245,7 @@ pub struct AccountFacet {
     #[serde(rename = "uco-observable:accountIssuer")]
     pub account_issuer: Option<UcoObject>,
     #[serde(rename = "uco-observable:accountType")]
-    pub account_type: Vec<String>,
+    pub account_type: Option<String>,
     #[serde(rename = "uco-observable:expirationTime")]
     pub expiration_time: Option<String>,
     #[serde(rename = "uco-observable:isActive")]
@@ -266,7 +266,7 @@ impl AccountFacet {
         AccountFacetBuilder {
             account_identifier: None,
             account_issuer: None,
-            account_type: Vec::new(),
+            account_type: None,
             expiration_time: None,
             is_active: None,
             modified_time: None,
@@ -280,7 +280,7 @@ impl AccountFacet {
 pub struct AccountFacetBuilder {
     account_identifier: Option<String>,
     account_issuer: Option<UcoObject>,
-    account_type: Vec<String>,
+    account_type: Option<String>,
     expiration_time: Option<String>,
     is_active: Option<bool>,
     modified_time: Option<String>,
@@ -299,8 +299,8 @@ impl AccountFacetBuilder {
         self
     }
 
-    pub fn account_type(mut self, value: Vec<String>) -> Self {
-        self.account_type = value;
+    pub fn account_type(mut self, value: String) -> Self {
+        self.account_type = Some(value);
         self
     }
 
@@ -1339,7 +1339,7 @@ pub struct AutonomousSystemFacet {
     #[serde(rename = "uco-observable:number")]
     pub number: Option<i64>,
     #[serde(rename = "uco-observable:regionalInternetRegistry")]
-    pub regional_internet_registry: Vec<String>,
+    pub regional_internet_registry: Option<String>,
 }
 
 impl AutonomousSystemFacet {
@@ -1350,7 +1350,7 @@ impl AutonomousSystemFacet {
         AutonomousSystemFacetBuilder {
             as_handle: None,
             number: None,
-            regional_internet_registry: Vec::new(),
+            regional_internet_registry: None,
         }
     }
 }
@@ -1359,7 +1359,7 @@ impl AutonomousSystemFacet {
 pub struct AutonomousSystemFacetBuilder {
     as_handle: Option<String>,
     number: Option<i64>,
-    regional_internet_registry: Vec<String>,
+    regional_internet_registry: Option<String>,
 }
 
 impl AutonomousSystemFacetBuilder {
@@ -1373,8 +1373,8 @@ impl AutonomousSystemFacetBuilder {
         self
     }
 
-    pub fn regional_internet_registry(mut self, value: Vec<String>) -> Self {
-        self.regional_internet_registry = value;
+    pub fn regional_internet_registry(mut self, value: String) -> Self {
+        self.regional_internet_registry = Some(value);
         self
     }
 
@@ -3053,7 +3053,7 @@ pub struct ContactAddress {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:contactAddressScope")]
-    pub contact_address_scope: Vec<String>,
+    pub contact_address_scope: Option<String>,
     #[serde(rename = "uco-observable:geolocationAddress")]
     pub geolocation_address: Option<Location>,
 }
@@ -3064,7 +3064,7 @@ impl ContactAddress {
 
     pub fn builder() -> ContactAddressBuilder {
         ContactAddressBuilder {
-            contact_address_scope: Vec::new(),
+            contact_address_scope: None,
             geolocation_address: None,
         }
     }
@@ -3072,13 +3072,13 @@ impl ContactAddress {
 
 #[derive(Debug, Default, Clone)]
 pub struct ContactAddressBuilder {
-    contact_address_scope: Vec<String>,
+    contact_address_scope: Option<String>,
     geolocation_address: Option<Location>,
 }
 
 impl ContactAddressBuilder {
-    pub fn contact_address_scope(mut self, value: Vec<String>) -> Self {
-        self.contact_address_scope = value;
+    pub fn contact_address_scope(mut self, value: String) -> Self {
+        self.contact_address_scope = Some(value);
         self
     }
 
@@ -3231,7 +3231,7 @@ pub struct ContactEmail {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:contactEmailScope")]
-    pub contact_email_scope: Vec<String>,
+    pub contact_email_scope: Option<String>,
     #[serde(rename = "uco-observable:emailAddress")]
     pub email_address: Option<ObservableObject>,
 }
@@ -3242,7 +3242,7 @@ impl ContactEmail {
 
     pub fn builder() -> ContactEmailBuilder {
         ContactEmailBuilder {
-            contact_email_scope: Vec::new(),
+            contact_email_scope: None,
             email_address: None,
         }
     }
@@ -3250,13 +3250,13 @@ impl ContactEmail {
 
 #[derive(Debug, Default, Clone)]
 pub struct ContactEmailBuilder {
-    contact_email_scope: Vec<String>,
+    contact_email_scope: Option<String>,
     email_address: Option<ObservableObject>,
 }
 
 impl ContactEmailBuilder {
-    pub fn contact_email_scope(mut self, value: Vec<String>) -> Self {
-        self.contact_email_scope = value;
+    pub fn contact_email_scope(mut self, value: String) -> Self {
+        self.contact_email_scope = Some(value);
         self
     }
 
@@ -3693,7 +3693,7 @@ pub struct ContactPhone {
     #[serde(rename = "uco-observable:contactPhoneNumber")]
     pub contact_phone_number: Option<ObservableObject>,
     #[serde(rename = "uco-observable:contactPhoneScope")]
-    pub contact_phone_scope: Vec<String>,
+    pub contact_phone_scope: Option<String>,
 }
 
 impl ContactPhone {
@@ -3703,7 +3703,7 @@ impl ContactPhone {
     pub fn builder() -> ContactPhoneBuilder {
         ContactPhoneBuilder {
             contact_phone_number: None,
-            contact_phone_scope: Vec::new(),
+            contact_phone_scope: None,
         }
     }
 }
@@ -3711,7 +3711,7 @@ impl ContactPhone {
 #[derive(Debug, Default, Clone)]
 pub struct ContactPhoneBuilder {
     contact_phone_number: Option<ObservableObject>,
-    contact_phone_scope: Vec<String>,
+    contact_phone_scope: Option<String>,
 }
 
 impl ContactPhoneBuilder {
@@ -3720,8 +3720,8 @@ impl ContactPhoneBuilder {
         self
     }
 
-    pub fn contact_phone_scope(mut self, value: Vec<String>) -> Self {
-        self.contact_phone_scope = value;
+    pub fn contact_phone_scope(mut self, value: String) -> Self {
+        self.contact_phone_scope = Some(value);
         self
     }
 
@@ -3799,7 +3799,7 @@ pub struct ContactSIP {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:contactSIPScope")]
-    pub contact_sip_scope: Vec<String>,
+    pub contact_sip_scope: Option<String>,
     #[serde(rename = "uco-observable:sipAddress")]
     pub sip_address: Option<ObservableObject>,
 }
@@ -3810,7 +3810,7 @@ impl ContactSIP {
 
     pub fn builder() -> ContactSIPBuilder {
         ContactSIPBuilder {
-            contact_sip_scope: Vec::new(),
+            contact_sip_scope: None,
             sip_address: None,
         }
     }
@@ -3818,13 +3818,13 @@ impl ContactSIP {
 
 #[derive(Debug, Default, Clone)]
 pub struct ContactSIPBuilder {
-    contact_sip_scope: Vec<String>,
+    contact_sip_scope: Option<String>,
     sip_address: Option<ObservableObject>,
 }
 
 impl ContactSIPBuilder {
-    pub fn contact_sip_scope(mut self, value: Vec<String>) -> Self {
-        self.contact_sip_scope = value;
+    pub fn contact_sip_scope(mut self, value: String) -> Self {
+        self.contact_sip_scope = Some(value);
         self
     }
 
@@ -3853,7 +3853,7 @@ pub struct ContactURL {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:contactURLScope")]
-    pub contact_url_scope: Vec<String>,
+    pub contact_url_scope: Option<String>,
     #[serde(rename = "uco-observable:url")]
     pub url: Option<ObservableObject>,
 }
@@ -3864,7 +3864,7 @@ impl ContactURL {
 
     pub fn builder() -> ContactURLBuilder {
         ContactURLBuilder {
-            contact_url_scope: Vec::new(),
+            contact_url_scope: None,
             url: None,
         }
     }
@@ -3872,13 +3872,13 @@ impl ContactURL {
 
 #[derive(Debug, Default, Clone)]
 pub struct ContactURLBuilder {
-    contact_url_scope: Vec<String>,
+    contact_url_scope: Option<String>,
     url: Option<ObservableObject>,
 }
 
 impl ContactURLBuilder {
-    pub fn contact_url_scope(mut self, value: Vec<String>) -> Self {
-        self.contact_url_scope = value;
+    pub fn contact_url_scope(mut self, value: String) -> Self {
+        self.contact_url_scope = Some(value);
         self
     }
 
@@ -3941,7 +3941,7 @@ pub struct ContentDataFacet {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:byteOrder")]
-    pub byte_order: Vec<String>,
+    pub byte_order: Option<String>,
     #[serde(rename = "uco-observable:dataPayload")]
     pub data_payload: Option<String>,
     #[serde(rename = "uco-observable:dataPayloadReferenceURL")]
@@ -3968,7 +3968,7 @@ impl ContentDataFacet {
 
     pub fn builder() -> ContentDataFacetBuilder {
         ContentDataFacetBuilder {
-            byte_order: Vec::new(),
+            byte_order: None,
             data_payload: None,
             data_payload_reference_url: None,
             entropy: None,
@@ -3984,7 +3984,7 @@ impl ContentDataFacet {
 
 #[derive(Debug, Default, Clone)]
 pub struct ContentDataFacetBuilder {
-    byte_order: Vec<String>,
+    byte_order: Option<String>,
     data_payload: Option<String>,
     data_payload_reference_url: Option<ObservableObject>,
     entropy: Option<f64>,
@@ -3997,8 +3997,8 @@ pub struct ContentDataFacetBuilder {
 }
 
 impl ContentDataFacetBuilder {
-    pub fn byte_order(mut self, value: Vec<String>) -> Self {
-        self.byte_order = value;
+    pub fn byte_order(mut self, value: String) -> Self {
+        self.byte_order = Some(value);
         self
     }
 
@@ -8513,7 +8513,7 @@ pub struct MemoryFacet {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:blockType")]
-    pub block_type: Vec<String>,
+    pub block_type: Option<String>,
     #[serde(rename = "uco-observable:isInjected")]
     pub is_injected: Option<bool>,
     #[serde(rename = "uco-observable:isMapped")]
@@ -8536,7 +8536,7 @@ impl MemoryFacet {
 
     pub fn builder() -> MemoryFacetBuilder {
         MemoryFacetBuilder {
-            block_type: Vec::new(),
+            block_type: None,
             is_injected: None,
             is_mapped: None,
             is_protected: None,
@@ -8550,7 +8550,7 @@ impl MemoryFacet {
 
 #[derive(Debug, Default, Clone)]
 pub struct MemoryFacetBuilder {
-    block_type: Vec<String>,
+    block_type: Option<String>,
     is_injected: Option<bool>,
     is_mapped: Option<bool>,
     is_protected: Option<bool>,
@@ -8561,8 +8561,8 @@ pub struct MemoryFacetBuilder {
 }
 
 impl MemoryFacetBuilder {
-    pub fn block_type(mut self, value: Vec<String>) -> Self {
-        self.block_type = value;
+    pub fn block_type(mut self, value: String) -> Self {
+        self.block_type = Some(value);
         self
     }
 
@@ -11885,11 +11885,11 @@ pub struct RecoveredObjectFacet {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:contentRecoveredStatus")]
-    pub content_recovered_status: Vec<String>,
+    pub content_recovered_status: Option<String>,
     #[serde(rename = "uco-observable:metadataRecoveredStatus")]
-    pub metadata_recovered_status: Vec<String>,
+    pub metadata_recovered_status: Option<String>,
     #[serde(rename = "uco-observable:nameRecoveredStatus")]
-    pub name_recovered_status: Vec<String>,
+    pub name_recovered_status: Option<String>,
 }
 
 impl RecoveredObjectFacet {
@@ -11898,33 +11898,33 @@ impl RecoveredObjectFacet {
 
     pub fn builder() -> RecoveredObjectFacetBuilder {
         RecoveredObjectFacetBuilder {
-            content_recovered_status: Vec::new(),
-            metadata_recovered_status: Vec::new(),
-            name_recovered_status: Vec::new(),
+            content_recovered_status: None,
+            metadata_recovered_status: None,
+            name_recovered_status: None,
         }
     }
 }
 
 #[derive(Debug, Default, Clone)]
 pub struct RecoveredObjectFacetBuilder {
-    content_recovered_status: Vec<String>,
-    metadata_recovered_status: Vec<String>,
-    name_recovered_status: Vec<String>,
+    content_recovered_status: Option<String>,
+    metadata_recovered_status: Option<String>,
+    name_recovered_status: Option<String>,
 }
 
 impl RecoveredObjectFacetBuilder {
-    pub fn content_recovered_status(mut self, value: Vec<String>) -> Self {
-        self.content_recovered_status = value;
+    pub fn content_recovered_status(mut self, value: String) -> Self {
+        self.content_recovered_status = Some(value);
         self
     }
 
-    pub fn metadata_recovered_status(mut self, value: Vec<String>) -> Self {
-        self.metadata_recovered_status = value;
+    pub fn metadata_recovered_status(mut self, value: String) -> Self {
+        self.metadata_recovered_status = Some(value);
         self
     }
 
-    pub fn name_recovered_status(mut self, value: Vec<String>) -> Self {
-        self.name_recovered_status = value;
+    pub fn name_recovered_status(mut self, value: String) -> Self {
+        self.name_recovered_status = Some(value);
         self
     }
 
@@ -13315,7 +13315,7 @@ pub struct TaskActionType {
     #[serde(rename = "uco-observable:actionID")]
     pub action_id: Option<String>,
     #[serde(rename = "uco-observable:actionType")]
-    pub action_type: Vec<String>,
+    pub action_type: Option<String>,
     #[serde(rename = "uco-observable:iComHandlerAction")]
     pub i_com_handler_action: Option<IComHandlerActionType>,
     #[serde(rename = "uco-observable:iEmailAction")]
@@ -13333,7 +13333,7 @@ impl TaskActionType {
     pub fn builder() -> TaskActionTypeBuilder {
         TaskActionTypeBuilder {
             action_id: None,
-            action_type: Vec::new(),
+            action_type: None,
             i_com_handler_action: None,
             i_email_action: None,
             i_exec_action: None,
@@ -13345,7 +13345,7 @@ impl TaskActionType {
 #[derive(Debug, Default, Clone)]
 pub struct TaskActionTypeBuilder {
     action_id: Option<String>,
-    action_type: Vec<String>,
+    action_type: Option<String>,
     i_com_handler_action: Option<IComHandlerActionType>,
     i_email_action: Option<ObservableObject>,
     i_exec_action: Option<IExecActionType>,
@@ -13358,8 +13358,8 @@ impl TaskActionTypeBuilder {
         self
     }
 
-    pub fn action_type(mut self, value: Vec<String>) -> Self {
-        self.action_type = value;
+    pub fn action_type(mut self, value: String) -> Self {
+        self.action_type = Some(value);
         self
     }
 
@@ -13415,13 +13415,13 @@ pub struct TriggerType {
     #[serde(rename = "uco-observable:triggerEndTime")]
     pub trigger_end_time: Option<String>,
     #[serde(rename = "uco-observable:triggerFrequency")]
-    pub trigger_frequency: Vec<String>,
+    pub trigger_frequency: Option<String>,
     #[serde(rename = "uco-observable:triggerMaxRunTime")]
     pub trigger_max_run_time: Option<String>,
     #[serde(rename = "uco-observable:triggerSessionChangeType")]
     pub trigger_session_change_type: Option<String>,
     #[serde(rename = "uco-observable:triggerType")]
-    pub trigger_type: Vec<String>,
+    pub trigger_type: Option<String>,
 }
 
 impl TriggerType {
@@ -13434,10 +13434,10 @@ impl TriggerType {
             trigger_begin_time: None,
             trigger_delay: None,
             trigger_end_time: None,
-            trigger_frequency: Vec::new(),
+            trigger_frequency: None,
             trigger_max_run_time: None,
             trigger_session_change_type: None,
-            trigger_type: Vec::new(),
+            trigger_type: None,
         }
     }
 }
@@ -13448,10 +13448,10 @@ pub struct TriggerTypeBuilder {
     trigger_begin_time: Option<String>,
     trigger_delay: Option<String>,
     trigger_end_time: Option<String>,
-    trigger_frequency: Vec<String>,
+    trigger_frequency: Option<String>,
     trigger_max_run_time: Option<String>,
     trigger_session_change_type: Option<String>,
-    trigger_type: Vec<String>,
+    trigger_type: Option<String>,
 }
 
 impl TriggerTypeBuilder {
@@ -13475,8 +13475,8 @@ impl TriggerTypeBuilder {
         self
     }
 
-    pub fn trigger_frequency(mut self, value: Vec<String>) -> Self {
-        self.trigger_frequency = value;
+    pub fn trigger_frequency(mut self, value: String) -> Self {
+        self.trigger_frequency = Some(value);
         self
     }
 
@@ -13490,8 +13490,8 @@ impl TriggerTypeBuilder {
         self
     }
 
-    pub fn trigger_type(mut self, value: Vec<String>) -> Self {
-        self.trigger_type = value;
+    pub fn trigger_type(mut self, value: String) -> Self {
+        self.trigger_type = Some(value);
         self
     }
 
@@ -14477,7 +14477,7 @@ pub struct URLVisitFacet {
     #[serde(rename = "uco-observable:url")]
     pub url: Option<ObservableObject>,
     #[serde(rename = "uco-observable:urlTransitionType")]
-    pub url_transition_type: Vec<String>,
+    pub url_transition_type: Option<String>,
     #[serde(rename = "uco-observable:visitDuration")]
     pub visit_duration: Option<String>,
     #[serde(rename = "uco-observable:visitTime")]
@@ -14493,7 +14493,7 @@ impl URLVisitFacet {
             browser_information: None,
             from_url_visit: None,
             url: None,
-            url_transition_type: Vec::new(),
+            url_transition_type: None,
             visit_duration: None,
             visit_time: None,
         }
@@ -14505,7 +14505,7 @@ pub struct URLVisitFacetBuilder {
     browser_information: Option<ObservableObject>,
     from_url_visit: Option<ObservableObject>,
     url: Option<ObservableObject>,
-    url_transition_type: Vec<String>,
+    url_transition_type: Option<String>,
     visit_duration: Option<String>,
     visit_time: Option<String>,
 }
@@ -14526,8 +14526,8 @@ impl URLVisitFacetBuilder {
         self
     }
 
-    pub fn url_transition_type(mut self, value: Vec<String>) -> Self {
-        self.url_transition_type = value;
+    pub fn url_transition_type(mut self, value: String) -> Self {
+        self.url_transition_type = Some(value);
         self
     }
 
@@ -15041,7 +15041,7 @@ pub struct WhoIsFacet {
     #[serde(rename = "uco-observable:nameServer")]
     pub name_server: Vec<ObservableObject>,
     #[serde(rename = "uco-observable:regionalInternetRegistry")]
-    pub regional_internet_registry: Vec<String>,
+    pub regional_internet_registry: Option<String>,
     #[serde(rename = "uco-observable:registrantContactInfo")]
     pub registrant_contact_info: Option<ObservableObject>,
     #[serde(rename = "uco-observable:registrantIDs")]
@@ -15055,7 +15055,7 @@ pub struct WhoIsFacet {
     #[serde(rename = "uco-observable:sponsoringRegistrar")]
     pub sponsoring_registrar: Option<String>,
     #[serde(rename = "uco-observable:status")]
-    pub status: Vec<String>,
+    pub status: Option<String>,
     #[serde(rename = "uco-observable:updatedDate")]
     pub updated_date: Option<String>,
 }
@@ -15074,14 +15074,14 @@ impl WhoIsFacet {
             ip_address: None,
             lookup_date: None,
             name_server: Vec::new(),
-            regional_internet_registry: Vec::new(),
+            regional_internet_registry: None,
             registrant_contact_info: None,
             registrant_i_ds: Vec::new(),
             registrar_info: None,
             remarks: None,
             server_name: None,
             sponsoring_registrar: None,
-            status: Vec::new(),
+            status: None,
             updated_date: None,
         }
     }
@@ -15097,14 +15097,14 @@ pub struct WhoIsFacetBuilder {
     ip_address: Option<ObservableObject>,
     lookup_date: Option<String>,
     name_server: Vec<ObservableObject>,
-    regional_internet_registry: Vec<String>,
+    regional_internet_registry: Option<String>,
     registrant_contact_info: Option<ObservableObject>,
     registrant_i_ds: Vec<String>,
     registrar_info: Option<WhoisRegistrarInfoType>,
     remarks: Option<String>,
     server_name: Option<ObservableObject>,
     sponsoring_registrar: Option<String>,
-    status: Vec<String>,
+    status: Option<String>,
     updated_date: Option<String>,
 }
 
@@ -15149,8 +15149,8 @@ impl WhoIsFacetBuilder {
         self
     }
 
-    pub fn regional_internet_registry(mut self, value: Vec<String>) -> Self {
-        self.regional_internet_registry = value;
+    pub fn regional_internet_registry(mut self, value: String) -> Self {
+        self.regional_internet_registry = Some(value);
         self
     }
 
@@ -15184,8 +15184,8 @@ impl WhoIsFacetBuilder {
         self
     }
 
-    pub fn status(mut self, value: Vec<String>) -> Self {
-        self.status = value;
+    pub fn status(mut self, value: String) -> Self {
+        self.status = Some(value);
         self
     }
 
@@ -15229,7 +15229,7 @@ pub struct WhoisContactFacet {
     #[serde(skip_serializing)]
     pub class_iri: &'static str,
     #[serde(rename = "uco-observable:whoisContactType")]
-    pub whois_contact_type: Vec<String>,
+    pub whois_contact_type: Option<String>,
 }
 
 impl WhoisContactFacet {
@@ -15238,19 +15238,19 @@ impl WhoisContactFacet {
 
     pub fn builder() -> WhoisContactFacetBuilder {
         WhoisContactFacetBuilder {
-            whois_contact_type: Vec::new(),
+            whois_contact_type: None,
         }
     }
 }
 
 #[derive(Debug, Default, Clone)]
 pub struct WhoisContactFacetBuilder {
-    whois_contact_type: Vec<String>,
+    whois_contact_type: Option<String>,
 }
 
 impl WhoisContactFacetBuilder {
-    pub fn whois_contact_type(mut self, value: Vec<String>) -> Self {
-        self.whois_contact_type = value;
+    pub fn whois_contact_type(mut self, value: String) -> Self {
+        self.whois_contact_type = Some(value);
         self
     }
 
@@ -17533,9 +17533,9 @@ pub struct WindowsTaskFacet {
     #[serde(rename = "uco-observable:parameters")]
     pub parameters: Option<String>,
     #[serde(rename = "uco-observable:priority")]
-    pub priority: Vec<serde_json::Value>,
+    pub priority: Option<serde_json::Value>,
     #[serde(rename = "uco-observable:status")]
-    pub status: Vec<String>,
+    pub status: Option<String>,
     #[serde(rename = "uco-observable:taskComment")]
     pub task_comment: Option<String>,
     #[serde(rename = "uco-observable:taskCreator")]
@@ -17567,8 +17567,8 @@ impl WindowsTaskFacet {
             next_run_time: None,
             observable_created_time: None,
             parameters: None,
-            priority: Vec::new(),
-            status: Vec::new(),
+            priority: None,
+            status: None,
             task_comment: None,
             task_creator: None,
             trigger_list: Vec::new(),
@@ -17593,8 +17593,8 @@ pub struct WindowsTaskFacetBuilder {
     next_run_time: Option<String>,
     observable_created_time: Option<String>,
     parameters: Option<String>,
-    priority: Vec<serde_json::Value>,
-    status: Vec<String>,
+    priority: Option<serde_json::Value>,
+    status: Option<String>,
     task_comment: Option<String>,
     task_creator: Option<String>,
     trigger_list: Vec<TriggerType>,
@@ -17668,13 +17668,13 @@ impl WindowsTaskFacetBuilder {
         self
     }
 
-    pub fn priority(mut self, value: Vec<serde_json::Value>) -> Self {
-        self.priority = value;
+    pub fn priority(mut self, value: serde_json::Value) -> Self {
+        self.priority = Some(value);
         self
     }
 
-    pub fn status(mut self, value: Vec<String>) -> Self {
-        self.status = value;
+    pub fn status(mut self, value: String) -> Self {
+        self.status = Some(value);
         self
     }
 
@@ -17921,7 +17921,7 @@ pub struct WindowsVolumeFacet {
     #[serde(rename = "uco-observable:driveLetter")]
     pub drive_letter: Option<String>,
     #[serde(rename = "uco-observable:driveType")]
-    pub drive_type: Vec<String>,
+    pub drive_type: Option<String>,
     #[serde(rename = "uco-observable:windowsVolumeAttributes")]
     pub windows_volume_attributes: Vec<WindowsVolumeAttributeVocab>,
 }
@@ -17933,7 +17933,7 @@ impl WindowsVolumeFacet {
     pub fn builder() -> WindowsVolumeFacetBuilder {
         WindowsVolumeFacetBuilder {
             drive_letter: None,
-            drive_type: Vec::new(),
+            drive_type: None,
             windows_volume_attributes: Vec::new(),
         }
     }
@@ -17942,7 +17942,7 @@ impl WindowsVolumeFacet {
 #[derive(Debug, Default, Clone)]
 pub struct WindowsVolumeFacetBuilder {
     drive_letter: Option<String>,
-    drive_type: Vec<String>,
+    drive_type: Option<String>,
     windows_volume_attributes: Vec<WindowsVolumeAttributeVocab>,
 }
 
@@ -17952,8 +17952,8 @@ impl WindowsVolumeFacetBuilder {
         self
     }
 
-    pub fn drive_type(mut self, value: Vec<String>) -> Self {
-        self.drive_type = value;
+    pub fn drive_type(mut self, value: String) -> Self {
+        self.drive_type = Some(value);
         self
     }
 
@@ -18057,7 +18057,7 @@ pub struct WirelessNetworkConnectionFacet {
     #[serde(rename = "uco-observable:ssid")]
     pub ssid: Option<String>,
     #[serde(rename = "uco-observable:wirelessNetworkSecurityMode")]
-    pub wireless_network_security_mode: Vec<String>,
+    pub wireless_network_security_mode: Option<String>,
 }
 
 impl WirelessNetworkConnectionFacet {
@@ -18069,7 +18069,7 @@ impl WirelessNetworkConnectionFacet {
             base_station: None,
             password: None,
             ssid: None,
-            wireless_network_security_mode: Vec::new(),
+            wireless_network_security_mode: None,
         }
     }
 }
@@ -18079,7 +18079,7 @@ pub struct WirelessNetworkConnectionFacetBuilder {
     base_station: Option<String>,
     password: Option<String>,
     ssid: Option<String>,
-    wireless_network_security_mode: Vec<String>,
+    wireless_network_security_mode: Option<String>,
 }
 
 impl WirelessNetworkConnectionFacetBuilder {
@@ -18098,8 +18098,8 @@ impl WirelessNetworkConnectionFacetBuilder {
         self
     }
 
-    pub fn wireless_network_security_mode(mut self, value: Vec<String>) -> Self {
-        self.wireless_network_security_mode = value;
+    pub fn wireless_network_security_mode(mut self, value: String) -> Self {
+        self.wireless_network_security_mode = Some(value);
         self
     }
 

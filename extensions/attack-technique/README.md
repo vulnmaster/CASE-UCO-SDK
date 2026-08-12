@@ -1,23 +1,35 @@
 # Technique Metaclass Extension (`attack-technique`)
 
-A local, forward-implementation of the `uco-action:Technique` **metaclass**
-and its supporting terms added on the UCO 1.5.0 track in
+A local implementation of the `uco-action:Technique` **metaclass** and its
+supporting terms, originally written ahead of release from
 [ucoProject/UCO PR #676](https://github.com/ucoProject/UCO/pull/676) ("Issue
 666: Add `UcoType` and `Technique`", by @ajnelson-nist), which resolves the
 backwards-compatible requirements of
 [issue #666](https://github.com/ucoProject/UCO/issues/666).
+
+> **Status: superseded upstream, retained for validation.** UCO 1.5.0 ships
+> `uco-core:UcoType`, `uco-action:Technique` and `uco-action:techniqueID`
+> natively, and this SDK now pins UCO 1.5.0. The definitions here are
+> byte-for-byte the same concepts in the same IRIs, so no instance data
+> changes. They cannot be deleted yet: `case_validate` is still pinned to
+> `--built-version case-1.4.0` because case-utils 0.17.0 bundles CASE only
+> through 1.4.0, and that closure has no `Technique`. Passing the UCO 1.5.0
+> files via `--ontology-graph` is not an alternative — two versions of one
+> ontology series in the same closure trip
+> `uco-owl:versionIRI-multiversion-shape`. **Retire this extension once
+> case-utils publishes a release bundling CASE 1.5.0** (tracked upstream in
+> [casework/CASE-Utilities-Python#182](https://github.com/casework/CASE-Utilities-Python/pull/182)).
 
 ## Why this exists
 
 Cyber threat intelligence graphs need to carry
 [MITRE ATT&CK](https://attack.mitre.org) (and
 [Engage](https://engage.mitre.org) / [SOLVE-IT](https://github.com/SOLVE-IT-DF/solve-it))
-technique mappings, but `uco-action:Technique` is not yet in a released UCO
-version. This extension reproduces the PR #676 feature-branch definitions
+technique mappings. When this extension was written, `uco-action:Technique`
+was not in any released UCO version. It reproduces the PR #676 definitions
 **verbatim, in their released `uco-core:` / `uco-action:` IRIs**, so CTI/APT
-exemplars can model techniques and validate today. Because the IRIs match the
-merged upstream terms, instance data survives the UCO 1.5.0 release unchanged
-and this extension can then be retired.
+exemplars can model techniques and validate against the ontology closure the
+validator actually loads.
 
 ## The model (per PR #676)
 

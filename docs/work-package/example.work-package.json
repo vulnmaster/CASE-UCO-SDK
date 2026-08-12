@@ -1,0 +1,25 @@
+{
+  "profile": "project-vic-investigator-work-package",
+  "profile_version": "1.0.0",
+  "work_package_id": "urn:uuid:10000000-0000-4000-8000-000000000001",
+  "case_graph": "example.case.jsonld",
+  "workflow": {
+    "work_order_id": "urn:uuid:10000000-0000-4000-8000-000000000010",
+    "status": "completed",
+    "inputs": ["urn:uuid:10000000-0000-4000-8000-000000000020"],
+    "outputs": ["urn:uuid:10000000-0000-4000-8000-000000000021"],
+    "approvals": ["urn:uuid:10000000-0000-4000-8000-000000000012"],
+    "tool_calls": ["urn:uuid:10000000-0000-4000-8000-000000000011"],
+    "citations": ["urn:uuid:10000000-0000-4000-8000-000000000020"]
+  },
+  "artifacts": [
+    {"node_id": "urn:uuid:10000000-0000-4000-8000-000000000020", "role": "immutable-source", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    {"node_id": "urn:uuid:10000000-0000-4000-8000-000000000021", "role": "derived", "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "derived_from": "urn:uuid:10000000-0000-4000-8000-000000000020"}
+  ],
+  "assertions": [
+    {"assertion_id": "urn:uuid:10000000-0000-4000-8000-000000000030", "kind": "tool-derived", "confidence": 1.0, "subject": "urn:uuid:10000000-0000-4000-8000-000000000021", "support": ["urn:uuid:10000000-0000-4000-8000-000000000011", "urn:uuid:10000000-0000-4000-8000-000000000020"]}
+  ],
+  "audit": [
+    {"event_id": "urn:uuid:10000000-0000-4000-8000-000000000040", "sequence": 1, "event_type": "work-package-completed", "actor": "urn:uuid:10000000-0000-4000-8000-000000000013", "timestamp": "2026-01-15T12:00:00Z"}
+  ]
+}

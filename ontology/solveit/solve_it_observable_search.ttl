@@ -13,12 +13,12 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/observable/search> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/search/0.1.9> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/search/0.1.10> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/observable/1.4.0> ;
     dcterms:title "SOLVE-IT Observable Search Module"@en ;
     dcterms:description "Classes for keyword search, indexing, and file system analysis."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.1.9" ;
+    owl:versionInfo "0.1.10" ;
     rdfs:label "SOLVE-IT Observable Search Module"@en .
 
 #################################################################

@@ -10,7 +10,7 @@
     {
       "role": "modeling_guidance",
       "path": "docs/recipes/cyber-threat-intelligence.md",
-      "sha256": "353187aa91e4cde8b2d6bd2ece80a9c363da4e80d74481f9434de88155f5c57b"
+      "sha256": "b442376bf56da220bb25bb348c2688061bf59ae321060ecbc5748535a127b884"
     },
     {
       "role": "output_artifact",
@@ -25,7 +25,7 @@
   },
   "recipe": {
     "path": "docs/recipes/cyber-threat-intelligence.md",
-    "sha256": "353187aa91e4cde8b2d6bd2ece80a9c363da4e80d74481f9434de88155f5c57b",
+    "sha256": "b442376bf56da220bb25bb348c2688061bf59ae321060ecbc5748535a127b884",
     "role": "modeling_guidance"
   },
   "output": {

@@ -15,13 +15,13 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/observable/sqlite> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/sqlite/0.1.9> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/sqlite/0.1.10> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/core/1.4.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/observable/1.4.0> ;
     dcterms:title "SOLVE-IT SQLite Module"@en ;
     dcterms:description "SQLite database structural representation for digital forensic analysis, including logical structure (tables, schemas, records), physical structure (pages), and WAL/journal representations."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.1.9" ;
+    owl:versionInfo "0.1.10" ;
     rdfs:label "SOLVE-IT SQLite Module"@en .
 
 #################################################################
@@ -162,7 +162,7 @@ solveit-observable:hasBlobContent rdf:type owl:ObjectProperty ;
     rdfs:domain solveit-observable:SQLiteField ;
     rdfs:range uco-observable:SQLiteBlob ;
     rdfs:label "has blob content"@en ;
-    rdfs:comment "Links to a CASE SQLiteBlob for binary field content."@en .
+    rdfs:comment "Links to a CASE SQLiteBlob for binary field content. The binary content bytes are carried by a ContentDataFacet on the linked SQLiteBlob."@en .
 
 solveit-observable:containsDataFrom rdf:type owl:ObjectProperty ;
     rdfs:domain solveit-observable:SQLitePage ;
@@ -226,7 +226,7 @@ solveit-observable:fieldType rdf:type owl:DatatypeProperty ;
     rdfs:domain solveit-observable:SQLiteFieldDefinition ;
     rdfs:range xsd:string ;
     rdfs:label "field type"@en ;
-    rdfs:comment "SQLite type affinity: TEXT, INTEGER, REAL, BLOB, NULL."@en .
+    rdfs:comment "The declared column type from the CREATE TABLE statement (e.g. TEXT, INTEGER, VARCHAR(20)). This may differ from the type affinity SQLite computes from it."@en .
 
 solveit-observable:fieldIndex rdf:type owl:DatatypeProperty ;
     rdfs:domain solveit-observable:SQLiteFieldDefinition ;
@@ -251,6 +251,12 @@ solveit-observable:pageType rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string ;
     rdfs:label "page type"@en ;
     rdfs:comment "e.g. b-tree leaf, b-tree interior, overflow, freelist."@en .
+
+solveit-observable:rowid rdf:type owl:DatatypeProperty ;
+    rdfs:domain solveit-observable:SQLiteRecord ;
+    rdfs:range xsd:integer ;
+    rdfs:label "rowid"@en ;
+    rdfs:comment "The rowid of this record within its table's B-tree. Omitted for records from WITHOUT ROWID tables."@en .
 
 solveit-observable:fieldContentText rdf:type owl:DatatypeProperty ;
     rdfs:domain solveit-observable:SQLiteField ;

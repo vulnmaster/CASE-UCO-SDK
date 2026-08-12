@@ -9,7 +9,7 @@ from datetime import datetime
 
 @dataclass
 class UcoThing:
-    """UcoThing is the top-level class within UCO."""
+    """UcoThing is the top-level class for individuals within UCO."""
 
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/UcoThing"
     NAMESPACE_PREFIX: str = "uco-core"
@@ -233,7 +233,7 @@ class Relationship(UcoObject):
 
 @dataclass
 class UcoType:
-    """UcoThing is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing."""
+    """UcoType is the top-level class for metaclasses within UCO.  An instance of core:UcoType is also an instance of owl:Class, and is or specializes core:UcoThing."""
 
     CLASS_IRI: str = "https://ontology.unifiedcyberontology.org/uco/core/UcoType"
     NAMESPACE_PREFIX: str = "uco-core"

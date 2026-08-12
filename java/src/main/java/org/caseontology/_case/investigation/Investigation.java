@@ -11,7 +11,7 @@ public class Investigation extends ContextualCompilation {
     public static final String NAMESPACE_PREFIX = "case-investigation";
 
     private List<String> focus;
-    private List<String> investigationForm;
+    private String investigationForm;
     private String investigationStatus;
     private List<Authorization> relevantAuthorization;
     private java.time.ZonedDateTime endTime;
@@ -19,15 +19,14 @@ public class Investigation extends ContextualCompilation {
 
     public Investigation() {
         this.focus = new ArrayList<>();
-        this.investigationForm = new ArrayList<>();
         this.relevantAuthorization = new ArrayList<>();
     }
 
     public List<String> getFocus() { return this.focus; }
     public Investigation setFocus(List<String> value) { this.focus = value; return this; }
 
-    public List<String> getInvestigationForm() { return this.investigationForm; }
-    public Investigation setInvestigationForm(List<String> value) { this.investigationForm = value; return this; }
+    public String getInvestigationForm() { return this.investigationForm; }
+    public Investigation setInvestigationForm(String value) { this.investigationForm = value; return this; }
 
     public String getInvestigationStatus() { return this.investigationStatus; }
     public Investigation setInvestigationStatus(String value) { this.investigationStatus = value; return this; }

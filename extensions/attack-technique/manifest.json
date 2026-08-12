@@ -1,9 +1,9 @@
 {
   "name": "attack-technique",
-  "display_name": "Technique Meta-Class Extension (UCO #666 forward-implementation)",
-  "version": "0.1.0",
+  "display_name": "Technique Meta-Class Extension (released upstream in UCO 1.5.0)",
+  "version": "0.2.0",
   "upstream_repo": "https://github.com/ucoProject/UCO",
-  "upstream_ref": "issues/666",
+  "upstream_ref": "1.5.0",
   "license": "Apache-2.0",
   "namespaces": {
     "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
@@ -19,7 +19,8 @@
   "bridge_files": [],
   "exemplar_files": [],
   "uco_compat": [
-    "1.4.0"
+    "1.4.0",
+    "1.5.0"
   ],
   "upper_ontology": "none",
   "cdo_shapes_compatibility": {

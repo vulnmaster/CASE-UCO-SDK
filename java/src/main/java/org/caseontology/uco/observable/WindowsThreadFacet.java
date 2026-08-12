@@ -12,6 +12,7 @@ public class WindowsThreadFacet extends Facet {
 
     private String context;
     private List<Long> creationFlags;
+    private java.time.ZonedDateTime creationTime;
     private java.time.ZonedDateTime observableCreatedTime;
     private List<byte[]> parameterAddress;
     private Long priority;
@@ -34,6 +35,9 @@ public class WindowsThreadFacet extends Facet {
 
     public List<Long> getCreationFlags() { return this.creationFlags; }
     public WindowsThreadFacet setCreationFlags(List<Long> value) { this.creationFlags = value; return this; }
+
+    public java.time.ZonedDateTime getCreationTime() { return this.creationTime; }
+    public WindowsThreadFacet setCreationTime(java.time.ZonedDateTime value) { this.creationTime = value; return this; }
 
     public java.time.ZonedDateTime getObservableCreatedTime() { return this.observableCreatedTime; }
     public WindowsThreadFacet setObservableCreatedTime(java.time.ZonedDateTime value) { this.observableCreatedTime = value; return this; }
