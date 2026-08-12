@@ -13,12 +13,12 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/observable/timeline> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/timeline/0.1.9> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/timeline/0.1.10> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/observable/1.4.0> ;
     dcterms:title "SOLVE-IT Observable Timeline Module"@en ;
     dcterms:description "Classes for forensic timeline analysis including timestamps, timeline entries, and temporal ordering."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.1.9" ;
+    owl:versionInfo "0.1.10" ;
     rdfs:label "SOLVE-IT Observable Timeline Module"@en .
 
 #################################################################

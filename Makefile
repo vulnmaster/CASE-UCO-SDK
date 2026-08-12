@@ -105,12 +105,12 @@ deprecate-recipe:
 #   make sync-solveit                # pin current upstream main
 #   make sync-solveit REF=<sha>      # pin a specific solve-it-ontology ref
 sync-solveit:
-	$(PYTHON) mcp_server/tools/sync_solveit.py --ontology-ref $(or $(REF),main)
+	PYTHONPATH=python:mcp_server $(PYTHON) mcp_server/tools/sync_solveit.py --ontology-ref $(or $(REF),main)
 
 # Regenerate the SOLVE-IT technique catalog + provenance from the
 # already-vendored files (offline):
 sync-solveit-offline:
-	$(PYTHON) mcp_server/tools/sync_solveit.py --skip-fetch
+	PYTHONPATH=python:mcp_server $(PYTHON) mcp_server/tools/sync_solveit.py --skip-fetch
 
 # Refresh the pinned MITRE ATT&CK catalog labels/comments from STIX 2.1
 # (partial membership: current catalog ∪ exemplar citations):

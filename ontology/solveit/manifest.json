@@ -1,7 +1,7 @@
 {
   "name": "solveit",
   "display_name": "SOLVE-IT Digital Forensics Knowledge Base and Ontology",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "upstream_repo": "https://github.com/SOLVE-IT-DF/solve-it-ontology",
   "upstream_ref": "main",
   "license": "MIT",
@@ -68,12 +68,12 @@
   },
   "provenance": {
     "ontology_repo": "https://github.com/SOLVE-IT-DF/solve-it-ontology",
-    "ontology_commit": "1d846949f97f68d05e3a80a5029fc2f648c61bf3",
+    "ontology_commit": "79d556dc14c1f5a283522e911c9a76f6a4af5c1b",
     "knowledge_base_repo": "https://github.com/SOLVE-IT-DF/solve-it",
     "knowledge_base_release": "v0.2026-06",
-    "ontology_version": "0.1.9",
+    "ontology_version": "0.1.10",
     "sync_tool": "mcp_server/tools/sync_solveit.py",
-    "technique_count": 187,
-    "synced": "2026-07-11T03:03:14+00:00"
+    "technique_count": 191,
+    "synced": "2026-08-12T00:59:29+00:00"
   }
 }

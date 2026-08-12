@@ -1509,3 +1509,35 @@
 	rdfs:comment "SOLVE-IT technique DFT-1193: Read metadata from within a forensic image container. Objective(s): Read data from digital evidence storage formats. See https://solveit-df.org for weaknesses and mitigations."@en ;
 	action:techniqueID "DFT-1193" ;
 	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1194>
+	a owl:Class , action:Technique ;
+	rdfs:subClassOf action:Action ;
+	rdfs:label "DFT-1194: Classify if audio is potentially synthetically generated"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1194: Classify if audio is potentially synthetically generated. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1194" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1195>
+	a owl:Class , action:Technique ;
+	rdfs:subClassOf action:Action ;
+	rdfs:label "DFT-1195: Generate Alternative Hypotheses"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1195: Generate Alternative Hypotheses. Objective(s): Evaluate evidence. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1195" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1196>
+	a owl:Class , action:Technique ;
+	rdfs:subClassOf action:Action ;
+	rdfs:label "DFT-1196: Extract operating system installation date"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1196: Extract operating system installation date. Objective(s): Extract artifacts stored by the operating system. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1196" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1197>
+	a owl:Class , action:Technique ;
+	rdfs:subClassOf action:Action ;
+	rdfs:label "DFT-1197: Determine mount point mappings within an operating system"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1197: Determine mount point mappings within an operating system. Objective(s): Extract artifacts stored by the operating system. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1197" ;
+	.

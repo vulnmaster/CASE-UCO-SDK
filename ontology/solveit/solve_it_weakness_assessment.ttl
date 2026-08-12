@@ -19,7 +19,7 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/weakness-assessment> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/weakness-assessment/0.1.9> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/weakness-assessment/0.1.10> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/core/1.4.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/analysis/1.4.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/identity/1.4.0> ,
@@ -27,7 +27,7 @@
     dcterms:title "SOLVE-IT Weakness Assessment Module"@en ;
     dcterms:description "Risk-based weakness assessment providing Likelihood x Impact (ISO 31000) and FMEA/RPN scoring frameworks for SOLVE-IT weaknesses."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.1.9" ;
+    owl:versionInfo "0.1.10" ;
     rdfs:label "SOLVE-IT Weakness Assessment Module"@en .
 
 #################################################################
