@@ -1,0 +1,260 @@
+# Trajectories Extension — SYNTHETIC non-CAC elder-fraud trajectory
+#
+# FICTIONAL exemplar only. All persons, places, amounts, dates, and
+# document identifiers below are invented to demonstrate the traj:*
+# metamodel (PhaseAssertion occupancy, Transition, StateMachineModel,
+# enactsAction, initialState). They do NOT describe any real
+# investigation, indictment, or court filing.
+
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Plug-in state vocabulary (synthetic offense stages, not CAC)
+#################################################################
+
+<urn:uuid:b1000001-0000-5000-8000-000000000001>
+	a skos:ConceptScheme ;
+	skos:prefLabel "Synthetic elder-fraud offense stages (traj demo)"@en ;
+	skos:note "Illustrative SKOS scheme for the trajectories metamodel exemplar. Not a published taxonomy."@en .
+
+<urn:uuid:b1000002-0000-5000-8000-000000000002>
+	a traj:State , skos:Concept ;
+	uco-core:name "Contact" ;
+	skos:prefLabel "Contact"@en ;
+	skos:definition "Opening cold call in which an impersonator first reaches the victim."@en ;
+	skos:inScheme <urn:uuid:b1000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:b1000003-0000-5000-8000-000000000003>
+	a traj:State , skos:Concept ;
+	uco-core:name "Trust cultivation" ;
+	skos:prefLabel "Trust cultivation"@en ;
+	skos:definition "Impersonator builds credibility (badge numbers, case file claims) so the victim treats later instructions as official."@en ;
+	skos:inScheme <urn:uuid:b1000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:b1000004-0000-5000-8000-000000000004>
+	a traj:State , skos:Concept ;
+	uco-core:name "Urgency / safekeeping coercion" ;
+	skos:prefLabel "Urgency / safekeeping coercion"@en ;
+	skos:definition "Victim is pressured to withdraw cash 'for safekeeping' under a fabricated deadline."@en ;
+	skos:inScheme <urn:uuid:b1000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:b1000005-0000-5000-8000-000000000005>
+	a traj:State , skos:Concept ;
+	uco-core:name "Asset extraction" ;
+	skos:prefLabel "Asset extraction"@en ;
+	skos:definition "Cash or instruments leave the victim's control (courier pickup, prepaid cards, mailed packages)."@en ;
+	skos:inScheme <urn:uuid:b1000001-0000-5000-8000-000000000001> .
+
+#################################################################
+# Synthetic evidence nodes
+#################################################################
+
+<urn:uuid:b2000001-0000-5000-8000-000000000001>
+	a uco-observable:ObservableObject , uco-core:UcoObject ;
+	uco-core:name "SYNTHETIC — call-center tip sheet (fictional Exhibit A)" ;
+	uco-core:description "Made-up analyst note summarizing a spoofed 'Regional Fraud Task Force' cold call to Victim V. Invented for trajectories metamodel demonstration; not a real filing." .
+
+<urn:uuid:b2000002-0000-5000-8000-000000000002>
+	a uco-identity:Person , uco-core:UcoObject ;
+	uco-core:name "SYNTHETIC Victim V" ;
+	uco-core:description "Fictional 74-year-old resident of 'Cedar Bend' (invented locality). In this demo narrative, callers posing as task-force agents claim her bank accounts are flagged, then direct a safekeeping cash withdrawal. Not a real person." .
+
+<urn:uuid:b2000003-0000-5000-8000-000000000003>
+	a uco-core:UcoObject ;
+	uco-core:name "SYNTHETIC — sealed envelope of $12,500 cash" ;
+	uco-core:description "Fictional cash envelope Victim V prepares after being told to 'quarantine' funds overnight for a courier. Invented prop for the exemplar." .
+
+<urn:uuid:b2000004-0000-5000-8000-000000000004>
+	a uco-identity:Person , uco-core:UcoObject ;
+	uco-core:name "SYNTHETIC Courier C" ;
+	uco-core:description "Fictional money courier who meets Victim V at a shopping-plaza parking stall and collects the sealed cash envelope after giving a pre-arranged passphrase. Invented for this exemplar." .
+
+<urn:uuid:b2000005-0000-5000-8000-000000000005>
+	a uco-action:Action , uco-core:UcoObject ;
+	uco-core:name "SYNTHETIC — Courier C collects $12,500 cash envelope from Victim V" ;
+	uco-core:description "Fictional handoff that completes the move into Asset extraction: Courier C presents the passphrase supplied by the impersonator and takes the sealed envelope. Demonstrates traj:enactsAction on the arriving transition." ;
+	uco-action:performer <urn:uuid:b2000004-0000-5000-8000-000000000004> ;
+	uco-action:object <urn:uuid:b2000003-0000-5000-8000-000000000003> .
+
+#################################################################
+# Intervals / confidence / PhaseAssertions / Trajectory
+#################################################################
+
+<urn:uuid:b3000001-0000-5000-8000-000000000001>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:b3000011-0000-5000-8000-000000000011> ;
+	time:hasEnd <urn:uuid:b3000012-0000-5000-8000-000000000012> .
+<urn:uuid:b3000011-0000-5000-8000-000000000011>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-02T14:00:00Z"^^xsd:dateTimeStamp .
+<urn:uuid:b3000012-0000-5000-8000-000000000012>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-02T14:45:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:b4000001-0000-5000-8000-000000000001>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "85"^^xsd:nonNegativeInteger .
+
+<urn:uuid:b5000001-0000-5000-8000-000000000001>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 0 — Contact" ;
+	uco-core:description "SYNTHETIC: tip sheet records the opening spoofed task-force call to Victim V." ;
+	traj:assertsState <urn:uuid:b1000002-0000-5000-8000-000000000002> ;
+	traj:atInterval <urn:uuid:b3000001-0000-5000-8000-000000000001> ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <urn:uuid:b2000001-0000-5000-8000-000000000001> ;
+	uco-core:hasFacet <urn:uuid:b4000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:b3000002-0000-5000-8000-000000000002>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:b3000021-0000-5000-8000-000000000021> ;
+	time:hasEnd <urn:uuid:b3000022-0000-5000-8000-000000000022> .
+<urn:uuid:b3000021-0000-5000-8000-000000000021>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-02T15:00:00Z"^^xsd:dateTimeStamp .
+<urn:uuid:b3000022-0000-5000-8000-000000000022>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-03T18:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:b4000002-0000-5000-8000-000000000002>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+
+<urn:uuid:b5000002-0000-5000-8000-000000000002>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 1 — Trust cultivation" ;
+	uco-core:description "SYNTHETIC: Victim V recounts follow-up calls citing a fake case number and warning her not to tell family." ;
+	traj:assertsState <urn:uuid:b1000003-0000-5000-8000-000000000003> ;
+	traj:atInterval <urn:uuid:b3000002-0000-5000-8000-000000000002> ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <urn:uuid:b2000002-0000-5000-8000-000000000002> ;
+	uco-core:hasFacet <urn:uuid:b4000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:b3000003-0000-5000-8000-000000000003>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:b3000031-0000-5000-8000-000000000031> ;
+	time:hasEnd <urn:uuid:b3000032-0000-5000-8000-000000000032> .
+<urn:uuid:b3000031-0000-5000-8000-000000000031>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-04T09:00:00Z"^^xsd:dateTimeStamp .
+<urn:uuid:b3000032-0000-5000-8000-000000000032>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-04T16:30:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:b4000003-0000-5000-8000-000000000003>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "88"^^xsd:nonNegativeInteger .
+
+<urn:uuid:b5000003-0000-5000-8000-000000000003>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 2 — Urgency / safekeeping" ;
+	uco-core:description "SYNTHETIC: Victim V prepares a sealed cash envelope after being told funds must be quarantined for a same-day courier." ;
+	traj:assertsState <urn:uuid:b1000004-0000-5000-8000-000000000004> ;
+	traj:atInterval <urn:uuid:b3000003-0000-5000-8000-000000000003> ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <urn:uuid:b2000003-0000-5000-8000-000000000003> ;
+	uco-core:hasFacet <urn:uuid:b4000003-0000-5000-8000-000000000003> .
+
+<urn:uuid:b3000004-0000-5000-8000-000000000004>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:b3000041-0000-5000-8000-000000000041> ;
+	time:hasEnd <urn:uuid:b3000042-0000-5000-8000-000000000042> .
+<urn:uuid:b3000041-0000-5000-8000-000000000041>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-04T17:00:00Z"^^xsd:dateTimeStamp .
+<urn:uuid:b3000042-0000-5000-8000-000000000042>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-09-04T17:20:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:b4000004-0000-5000-8000-000000000004>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "92"^^xsd:nonNegativeInteger .
+
+<urn:uuid:b5000004-0000-5000-8000-000000000004>
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy assertion 3 — Asset extraction" ;
+	uco-core:description "SYNTHETIC: Courier C collects the sealed $12,500 envelope from Victim V (asset extraction)." ;
+	traj:assertsState <urn:uuid:b1000005-0000-5000-8000-000000000005> ;
+	traj:atInterval <urn:uuid:b3000004-0000-5000-8000-000000000004> ;
+	traj:sequenceIndex "3"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <urn:uuid:b2000005-0000-5000-8000-000000000005> ;
+	uco-core:hasFacet <urn:uuid:b4000004-0000-5000-8000-000000000004> .
+
+<urn:uuid:b6000001-0000-5000-8000-000000000001>
+	a traj:Trajectory ;
+	uco-core:name "SYNTHETIC elder-fraud trajectory (Victim V cash-envelope handoff)" ;
+	uco-core:description "Fictional four-stage occupancy history invented to exercise traj:Trajectory / PhaseAssertion / Transition / StateMachineModel. Not based on any real case." ;
+	traj:hasPhaseAssertion
+		<urn:uuid:b5000001-0000-5000-8000-000000000001> ,
+		<urn:uuid:b5000002-0000-5000-8000-000000000002> ,
+		<urn:uuid:b5000003-0000-5000-8000-000000000003> ,
+		<urn:uuid:b5000004-0000-5000-8000-000000000004> .
+
+#################################################################
+# Transitions + inferred model
+#################################################################
+
+<urn:uuid:b7000001-0000-5000-8000-000000000001>
+	a uco-core:UcoObject ; uco-core:name "SYNTHETIC trigger: spoofed task-force opening claim" .
+<urn:uuid:b7000002-0000-5000-8000-000000000002>
+	a uco-core:UcoObject ; uco-core:name "SYNTHETIC trigger: same-day safekeeping courier instruction" .
+<urn:uuid:b7000003-0000-5000-8000-000000000003>
+	a uco-core:UcoObject ; uco-core:name "SYNTHETIC trigger: passphrase-verified envelope handoff" .
+
+<urn:uuid:b8000001-0000-5000-8000-000000000001>
+	a traj:Transition ;
+	uco-core:name "contact -> trust_cultivation" ;
+	traj:fromState <urn:uuid:b1000002-0000-5000-8000-000000000002> ;
+	traj:toState <urn:uuid:b1000003-0000-5000-8000-000000000003> ;
+	traj:trigger <urn:uuid:b7000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:b8000002-0000-5000-8000-000000000002>
+	a traj:Transition ;
+	uco-core:name "trust_cultivation -> urgency" ;
+	traj:fromState <urn:uuid:b1000003-0000-5000-8000-000000000003> ;
+	traj:toState <urn:uuid:b1000004-0000-5000-8000-000000000004> ;
+	traj:trigger <urn:uuid:b7000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:b8000003-0000-5000-8000-000000000003>
+	a traj:Transition ;
+	uco-core:name "urgency -> extraction" ;
+	traj:fromState <urn:uuid:b1000004-0000-5000-8000-000000000004> ;
+	traj:toState <urn:uuid:b1000005-0000-5000-8000-000000000005> ;
+	traj:trigger <urn:uuid:b7000003-0000-5000-8000-000000000003> ;
+	# Arriving-state convention: Action that produces Asset extraction.
+	traj:enactsAction <urn:uuid:b2000005-0000-5000-8000-000000000005> .
+
+<urn:uuid:b9000001-0000-5000-8000-000000000001>
+	a uco-tool:Tool ;
+	uco-core:name "SYNTHETIC CaseLinker trajectory estimator" ;
+	uco-core:description "version 0.0.0-demo (fictional tool run for exemplar provenance)" .
+
+<urn:uuid:b9000002-0000-5000-8000-000000000002>
+	a uco-action:Action ;
+	uco-core:name "SYNTHETIC — estimate elder-fraud transition probabilities" ;
+	uco-action:instrument <urn:uuid:b9000001-0000-5000-8000-000000000001> .
+
+<urn:uuid:ba000001-0000-5000-8000-000000000001>
+	a traj:TransitionEstimate ;
+	traj:ofTransition <urn:uuid:b8000001-0000-5000-8000-000000000001> ;
+	traj:transitionProbability "0.82"^^xsd:decimal ;
+	traj:sampleBasis "n=40 synthetic demo trajectories (illustrative only)"^^xsd:string ;
+	prov:wasGeneratedBy <urn:uuid:b9000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:ba000002-0000-5000-8000-000000000002>
+	a traj:TransitionEstimate ;
+	traj:ofTransition <urn:uuid:b8000002-0000-5000-8000-000000000002> ;
+	traj:transitionProbability "0.71"^^xsd:decimal ;
+	traj:sampleBasis "n=40 synthetic demo trajectories (illustrative only)"^^xsd:string ;
+	prov:wasGeneratedBy <urn:uuid:b9000002-0000-5000-8000-000000000002> .
+
+<urn:uuid:bb000001-0000-5000-8000-000000000001>
+	a traj:StateMachineModel ;
+	uco-core:name "SYNTHETIC elder-fraud stage Markov estimate (demo)" ;
+	traj:initialState <urn:uuid:b1000002-0000-5000-8000-000000000002> ;
+	traj:learnedFrom <urn:uuid:b6000001-0000-5000-8000-000000000001> ;
+	traj:hasTransition
+		<urn:uuid:b8000001-0000-5000-8000-000000000001> ,
+		<urn:uuid:b8000002-0000-5000-8000-000000000002> ,
+		<urn:uuid:b8000003-0000-5000-8000-000000000003> ;
+	traj:hasTransitionEstimate
+		<urn:uuid:ba000001-0000-5000-8000-000000000001> ,
+		<urn:uuid:ba000002-0000-5000-8000-000000000002> ;
+	prov:wasGeneratedBy <urn:uuid:b9000002-0000-5000-8000-000000000002> .
