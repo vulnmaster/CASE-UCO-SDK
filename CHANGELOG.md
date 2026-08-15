@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - Unreleased
+
+Recommended-path major generation. Public constructors were **not** deleted.
+
+### Added
+
+- Profile Contracts (`case_uco.contracts.load_contract`) synthesized from Composition Profile `facet_sets` and `topology/contracts/default-bindings.json`.
+- Continuous construction critique (`case_uco.critique.ProfileCritic`) with incremental, step, and graph-wide passes; two exporters (`to_compat_dict`, `to_critic_finding`).
+- Investigation Workflow Engine (`InvestigationWorkflow`, `case-uco-workflow` CLI, MCP `start_investigation_workflow` / `resume_investigation_workflow` / `critique_investigation`).
+- Vendored topology JSON in the wheel (`case_uco/topology/data/**` + `package-data`).
+- `CASEGraph.nodes()` / `iter_objects()`.
+- Additive `partition_by_profile(..., strategy=)` and `lookup_hash(..., method=)`.
+- Offline VICS / PhotoDNA / hash-match adapters; trajectory contracts over existing OWL.
+- C# / Java / Rust logical surface: `ProfileContract`, `ProfileCritic`, `InvestigationWorkflow`.
+
+### Changed
+
+- Recommended primary construction path is the Workflow Engine (see `docs/V2_ARCHITECTURE.md`).
+- C#/Java/Rust `RequiresCac` / `requiresCac` / `requires_cac` follow `required_modules` (HashIntelligence no longer injects CAC prefixes).
+- `topology/mappings/vics.json` status is `implemented-offline`.
+
+### Migration
+
+Keep calling `InvestigationBuilder`. Switch to `InvestigationWorkflow` for multi-step, large, or ICAC cases. See `docs/V2_ARCHITECTURE.md`.
+
 #### Topology Articulation (multi-language + dependent-only generate)
 
 - Fluent helpers and `InvestigationBuilder` now exist in **C#, Java, and

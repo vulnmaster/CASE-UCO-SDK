@@ -15,8 +15,8 @@ Machine-readable companions live under [`topology/`](topology/README.md).
 | 1 | Semantic core | CAC spine + seven Composition Profiles, queryable via runtime / CLI / MCP |
 | 2 | Generation | Content-hashed IR + skip-if-unchanged + **dependent-only** leaf-extension re-parse + fluent helpers in all four languages |
 | 3 | Runtime | Hash indexes, `partition_by_profile`, `xsd:hexBinary` hash serialization |
-| 4 | Agent / control | `InvestigationBuilder`, executable recipe DAGs, inline critique |
-| 5 | Interop | VICS/PhotoDNA mapping stub, topology lenses, change-proposal path |
+| 4 | Agent / control | **Investigation Workflow Engine** (recommended v2 path) + `InvestigationBuilder` + continuous critique |
+| 5 | Interop | Offline VICS/PhotoDNA adapters, trajectory contracts, change-proposal path |
 
 ## How to navigate
 
@@ -39,8 +39,25 @@ A structured PhotoDNA Facet is **not** in core. The interim pattern is
 `Hash.hashMethod="PhotoDNA"` plus a hashing `InvestigativeAction`. The
 upstream proposal is `change_proposals/photodna-perceptual-hash-facet.md`.
 
+Recommended v2 construction (see [`docs/V2_ARCHITECTURE.md`](docs/V2_ARCHITECTURE.md)):
+
 ```python
-from case_uco import CASEGraph, InvestigationBuilder, file_with_content_hashes
+from case_uco.workflow import InvestigationWorkflow
+
+wf = InvestigationWorkflow(
+    "hash-intelligence-vics",
+    profile_id="HashIntelligence",
+    scenario="CyberTip CSAM hashing",
+    working_dir="./run",
+    inputs={"hash_list": "./hashes.json"},
+)
+result = wf.run()
+```
+
+Mid-level builder (still fully supported):
+
+```python
+from case_uco import InvestigationBuilder
 
 builder = InvestigationBuilder("CyberTip CSAM hashing", profile_id="HashIntelligence")
 builder.add_csam_evidence("img.jpg", hashes=[("SHA256", "…"), ("PhotoDNA", "…")])

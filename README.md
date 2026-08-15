@@ -8,13 +8,31 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.23.1** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1231---2026-07-28)
+**v2.0.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#200---unreleased) · [v2 architecture](docs/V2_ARCHITECTURE.md)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
 The SDK is more than the four language bindings. It ships with a growing family of [extension ontologies](#bundled-extension-ontologies) (crimes against children, adversary engagement, cryptocurrency and financial crime, legal process, racketeering, weapons, controlled substances, MITRE ATT&CK techniques, the SOLVE-IT digital forensics knowledge base, forensic tool capabilities), a [recipe cookbook](docs/recipes/INDEX.md) of 77 modeling patterns, and an [MCP server](#ai-assisted-development) that gives AI agents a working knowledge of the Linux Foundation [Cyber Domain Ontology](https://cyberdomainontology.org/) ecosystem — the ontologies themselves, the upper-ontology profiles (BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, PROF), the [CDO Community Playground](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing), and the change-proposal process. Together these let an agent model **any concept adjacent to the cyber domain — or work done on, in, or through it** — and route any investigation submission to validated modeling patterns, drafting upstream ontology proposals when a concept doesn't exist yet.
 
 The SDK works with AI coding assistants (Cursor, Claude Code, Hermes, etc.) — see [AI-Assisted Development](#ai-assisted-development) below.
+
+### v2 recommended construction
+
+The recommended way to build investigation graphs is now a **profile-bound, continuously critiqued, resumable workflow**. `InvestigationBuilder` and the typed generators remain.
+
+```python
+from case_uco.workflow import InvestigationWorkflow
+
+wf = InvestigationWorkflow(
+    "field-triage",
+    scenario="seized laptop",
+    working_dir="./run",
+    inputs={"hash_list": "./hashes.json"},
+)
+print(wf.run().status)
+```
+
+See [`docs/V2_ARCHITECTURE.md`](docs/V2_ARCHITECTURE.md) for the migration path.
 
 ## What the SDK Does
 

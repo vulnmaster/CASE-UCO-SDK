@@ -19,8 +19,8 @@ environments.
 | 1. Semantic core | CAC spine + UCO hierarchy + Composition Profiles | `semantic-spine.json`, [`profiles/`](profiles/INDEX.md) |
 | 2. Generation | Versioned, content-hashed IR and incremental generation | `../generator/ir/` |
 | 3. Runtime | Partitioning, indexes, hash-intelligence helpers | documented in `sdk-layers.json` |
-| 4. Agent / control | Executable recipe DAGs and InvestigationBuilder | `recipe-dags/` |
-| 5. Interop & evolution | VICS / PhotoDNA mappings and change-proposal bridges | `mappings/` |
+| 4. Agent / control | Investigation Workflow Engine + InvestigationBuilder + continuous critique | `recipe-dags/`, `../topology/workflows/` |
+| 5. Interop & evolution | Offline VICS / PhotoDNA adapters, trajectories, change-proposal bridges | `mappings/`, `../topology/trajectories/` |
 
 ## Regenerating baseline artifacts
 

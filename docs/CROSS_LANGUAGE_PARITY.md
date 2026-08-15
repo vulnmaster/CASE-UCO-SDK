@@ -51,6 +51,10 @@ These operations exist in every language with parallel naming (adjusted only for
 | Lookup hash | `graph.lookup_hash(digest)` | `graph.LookupHash(digest)` | `graph.lookupHash(digest)` | `graph.lookup_hash(digest)` |
 | Partition by profile | `graph.partition_by_profile(id)` | `graph.PartitionByProfile(id)` | `graph.partitionByProfile(id)` | `graph.partition_by_profile(id)` |
 | Profile ids | `get_profile("HashIntelligence")` | `CompositionProfiles.HashIntelligence` | `CompositionProfiles.HASH_INTELLIGENCE` | `"HashIntelligence"` |
+| Load profile contract | `load_contract(id)` | `ProfileContract.Load(id)` | `ProfileContract.load(id)` | `contracts::load_contract(id)` |
+| Profile critic | `ProfileCritic` | `ProfileCritic` | `ProfileCritic` | (builder critique + contract) |
+| Workflow | `InvestigationWorkflow` | `InvestigationWorkflow` | `InvestigationWorkflow` | `InvestigationWorkflow` |
+| Workflow step / save | `step()` / `save()` | `Step()` / `Save()` | `step()` / `save()` | `step()` / `save()` |
 
 ### Registry / Discovery
 
