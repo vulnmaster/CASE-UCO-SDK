@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "framework": "Topology Articulation & Optimization Framework",
+  "mission": "Turn raw investigative material into validated, interoperable CASE/UCO + CAC knowledge graphs so children can be found and safeguarded faster, including in air-gapped environments.",
+  "observed_layers": [
+    {
+      "id": "ontology",
+      "path": [
+        "ontology/",
+        "extensions/"
+      ],
+      "role": "Vendored UCO / CASE / CAC / AEO / SOLVE-IT / upper profiles + SDK extensions.",
+      "strengths": [
+        "offline-first",
+        "SHACL-backed",
+        "CAC spine"
+      ],
+      "bottlenecks": [
+        "module/class explosion",
+        "no first-class Composition Profiles"
+      ]
+    },
+    {
+      "id": "generator",
+      "path": [
+        "generator/"
+      ],
+      "role": "Parse OWL/TTL + SHACL → OntologySchema → typed builders + registry.",
+      "strengths": [
+        "single source of truth",
+        "four-language emission"
+      ],
+      "bottlenecks": [
+        "full re-parse / re-generation cost",
+        "no versioned IR"
+      ]
+    },
+    {
+      "id": "runtime",
+      "path": [
+        "python/",
+        "csharp/",
+        "java/",
+        "rust/"
+      ],
+      "role": "CaseGraph + Facet duck-typing + Relationships + JSON-LD + required-field validation.",
+      "strengths": [
+        "facet flexibility",
+        "cross-language parity"
+      ],
+      "bottlenecks": [
+        "memory-bound SHACL on large graphs",
+        "no topology-aware partitioning",
+        "no first-class hash/VICS indexes"
+      ]
+    },
+    {
+      "id": "mcp",
+      "path": [
+        "mcp_server/"
+      ],
+      "role": "Discovery, hybrid routing, 77 recipes, document processing, SHACL, critic, proposals.",
+      "strengths": [
+        "AI-agent readiness",
+        "offline hybrid routing",
+        "critic loop"
+      ],
+      "bottlenecks": [
+        "sequential tool use",
+        "recipes are documents not executable DAGs"
+      ]
+    },
+    {
+      "id": "knowledge",
+      "path": [
+        "docs/recipes/",
+        "mcp_server/domain_index.py",
+        "ONTOLOGY_REFERENCE.md"
+      ],
+      "role": "Human/agent cookbook, task mappings, performance guidance.",
+      "strengths": [
+        "77 grounded recipes",
+        "CAC series",
+        "mapping guide"
+      ],
+      "bottlenecks": [
+        "cognitive load",
+        "duplicated guidance vs. no profile object"
+      ]
+    }
+  ],
+  "planned_layers": [
+    "Phase 1 — Semantic Core Topology (Composition Profiles)",
+    "Phase 2 — Generation Topology (IR + incremental generate + fluent helpers)",
+    "Phase 3 — Runtime Topology (partitioning, indexes, PhotoDNA/VICS patterns)",
+    "Phase 4 — Agent / Control Topology (recipe DAGs, InvestigationBuilder, inline critic)",
+    "Phase 5 — Interop & Evolution Topology (VICS mappings, lenses, TOPOLOGY.md)"
+  ]
+}

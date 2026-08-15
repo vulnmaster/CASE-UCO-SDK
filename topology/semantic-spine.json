@@ -1,0 +1,202 @@
+{
+  "schema_version": "1.0.0",
+  "cac_spine": {
+    "source": "ontology/cac/ontology/ontology/cacontology-core-spine.ttl",
+    "version": "3.0.0",
+    "upper_ontology": "gufo",
+    "kinds": [
+      "EnduringEntity",
+      "Occurrent",
+      "Situation",
+      "Role",
+      "Phase"
+    ],
+    "classes": [
+      {
+        "name": "Entity",
+        "iri": "https://cacontology.projectvic.org/core#Entity",
+        "kind": "root",
+        "comment": "Most general CAC spine class. Do not instantiate directly.",
+        "parents": []
+      },
+      {
+        "name": "EnduringEntity",
+        "iri": "https://cacontology.projectvic.org/core#EnduringEntity",
+        "kind": "enduring",
+        "comment": "Persists through time: people, orgs, devices, artifacts, places, results.",
+        "parents": [
+          "Entity",
+          "gufo:Object",
+          "uco-core:UcoObject"
+        ],
+        "children": [
+          "PersonLikeEntity",
+          "OrganizationLikeEntity",
+          "DigitalSystemEntity",
+          "Artifact",
+          "PlaceLikeEntity",
+          "AssessmentResult"
+        ]
+      },
+      {
+        "name": "Occurrent",
+        "iri": "https://cacontology.projectvic.org/core#Occurrent",
+        "kind": "occurrent",
+        "comment": "Things that happen or unfold in time. Do not instantiate directly.",
+        "parents": [
+          "Entity"
+        ],
+        "children": [
+          "Event"
+        ]
+      },
+      {
+        "name": "Event",
+        "iri": "https://cacontology.projectvic.org/core#Event",
+        "kind": "occurrent",
+        "comment": "Action, interaction, incident, hearing, or process step.",
+        "parents": [
+          "Occurrent",
+          "gufo:Event"
+        ],
+        "children": [
+          "ExploitationEvent",
+          "DetectionEvent",
+          "CoordinationEvent",
+          "SupportEvent",
+          "LegalEvent",
+          "InvestigativeAction"
+        ]
+      },
+      {
+        "name": "Situation",
+        "iri": "https://cacontology.projectvic.org/core#Situation",
+        "kind": "situation",
+        "comment": "A context or configuration that holds at a time. Aligned to gUFO Situation.",
+        "parents": [
+          "Entity",
+          "gufo:Situation"
+        ]
+      },
+      {
+        "name": "Role",
+        "iri": "https://cacontology.projectvic.org/core#Role",
+        "kind": "role",
+        "comment": "Non-rigid capacity borne by an enduring entity. Aligned to gUFO Role and UCO Role.",
+        "parents": [
+          "Entity",
+          "gufo:Role",
+          "uco-role:Role"
+        ]
+      },
+      {
+        "name": "Phase",
+        "iri": "https://cacontology.projectvic.org/core#Phase",
+        "kind": "phase",
+        "comment": "Temporal stage of an entity, process, or situation. Aligned to gUFO Phase.",
+        "parents": [
+          "Entity",
+          "gufo:Phase"
+        ]
+      }
+    ],
+    "object_properties": [
+      "hasPhase",
+      "isPhaseOf",
+      "assesses",
+      "generatedBy",
+      "usesMethod"
+    ],
+    "alignment": {
+      "EnduringEntity": [
+        "gufo:Object",
+        "uco-core:UcoObject"
+      ],
+      "Artifact": [
+        "uco-observable:ObservableObject"
+      ],
+      "Event": [
+        "gufo:Event"
+      ],
+      "InvestigativeAction": [
+        "case-investigation:InvestigativeAction",
+        "uco-action:Action"
+      ],
+      "Situation": [
+        "gufo:Situation"
+      ],
+      "Role": [
+        "gufo:Role",
+        "uco-role:Role"
+      ],
+      "Phase": [
+        "gufo:Phase"
+      ]
+    }
+  },
+  "uco_core_hierarchy": [
+    {
+      "name": "UcoThing",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoThing",
+      "comment": "Root of the UCO class hierarchy (disjoint from UcoType in 1.5.0)."
+    },
+    {
+      "name": "UcoObject",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+      "comment": "Identified characterization of a concept. Parent of most instance classes.",
+      "parent": "UcoThing"
+    },
+    {
+      "name": "Facet",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/core/Facet",
+      "comment": "Duck-typed property bundle attached via hasFacet. Never a top-level evidence item.",
+      "parent": "UcoObject"
+    },
+    {
+      "name": "Item",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/core/Item",
+      "comment": "A distinct object that can be characterized by Facets.",
+      "parent": "UcoObject"
+    },
+    {
+      "name": "Relationship",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/core/Relationship",
+      "comment": "Directed or undirected association between UcoObjects.",
+      "parent": "UcoObject"
+    },
+    {
+      "name": "UcoType",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoType",
+      "comment": "Metaclass anchor added in UCO 1.5.0; disjoint from UcoThing."
+    },
+    {
+      "name": "ObservableObject",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/observable/ObservableObject",
+      "comment": "Cyber-observable evidence carrier. Compose via hasFacet.",
+      "parent": "Item"
+    },
+    {
+      "name": "Action",
+      "iri": "https://ontology.unifiedcyberontology.org/uco/action/Action",
+      "comment": "Something that is done. Parent of InvestigativeAction.",
+      "parent": "UcoObject"
+    },
+    {
+      "name": "Investigation",
+      "iri": "https://ontology.caseontology.org/case/investigation/Investigation",
+      "comment": "CASE investigation container.",
+      "parent": "UcoObject"
+    },
+    {
+      "name": "InvestigativeAction",
+      "iri": "https://ontology.caseontology.org/case/investigation/InvestigativeAction",
+      "comment": "A discrete investigative step with instrument, object, and result.",
+      "parent": "Action"
+    }
+  ],
+  "facet_pattern": {
+    "host": "ObservableObject (or typed subclass)",
+    "attachment": "uco-core:hasFacet",
+    "rule": "One host per real-world thing; many Facets. Facets are never top-level evidence items."
+  }
+}

@@ -3,7 +3,8 @@
        test-extension-compat test-extension-main test-extension-develop test-extension-develop2 \
        playground-test test-docs sync-solveit sync-solveit-offline \
        sync-attack sync-attack-offline \
-       rebuild-upper-registry sync-upper sync-upstream
+       rebuild-upper-registry sync-upper sync-upstream \
+       topology-baseline test-topology
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -45,7 +46,7 @@ build-java:
 build-rust:
 	cd rust && cargo build
 
-test: test-generator test-python test-csharp test-java test-rust
+test: test-generator test-python test-csharp test-java test-rust test-topology
 
 test-generator:
 	PYTHONPATH=generator/src $(PYTHON) -m pytest generator/tests/ -v
@@ -179,6 +180,14 @@ smoke-java:
 
 smoke-rust:
 	cd rust && cargo run --example smoke
+
+# Topology baseline (stdlib only; offline). Regenerates topology/*.json + *.md
+# from vendored Turtle, registries, recipes, and domain_index.py.
+topology-baseline:
+	$(PYTHON) topology/scripts/build_baseline.py
+
+test-topology:
+	PYTHONPATH=topology $(PYTHON) -m pytest topology/tests/ -v
 
 check: generate build test lint smoke
 

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Topology Articulation (Phase 0)
+
+- Added `topology/` — a permanent, machine-readable articulation of the
+  SDK's logical-mechanistic topology. Regenerated offline by
+  `python topology/scripts/build_baseline.py` (also `make topology-baseline`).
+- Baseline artifacts: module-dependency DAG (JSON + Mermaid), class/facet
+  inventory (2,804 classes / 154 Facets / 78 modules), composition patterns
+  extracted from the 77-recipe catalog plus mapping-guide and task mappings,
+  CAC semantic spine, and the five observed SDK layers.
+- New invariant tests under `topology/tests/` (`make test-topology`).
+- Recorded the Phase 0 verification gate in `topology/baseline/verification.json`.
+
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
 generator, and repair of the extension compatibility harness.
 
