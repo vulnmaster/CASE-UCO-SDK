@@ -650,9 +650,11 @@ class CASEGraph:
             if not roots:
                 raise ValueError("roots is required for strategy='roots'")
             return self.partition_by_roots(roots)
-        if strategy == "forensic-boundary" and boundary_key:
+        if strategy == "forensic-boundary":
+            if not boundary_key:
+                raise ValueError("boundary_key is required for strategy='forensic-boundary'")
             return self.partition_by(boundary_key)
-        if strategy not in {"module-family", "forensic-boundary"}:
+        if strategy != "module-family":
             raise ValueError(f"Unsupported partition strategy: {strategy}")
         cac_hints = ("cacontology", "cac-core", "cac/")
         ext_hints = ("legalproc", "cryptoinv", "rico", "solveit", "toolcap")

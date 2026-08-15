@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from case_uco.helpers import file_with_content_hashes, model_csam_evidence, model_tool_run
+from case_uco.workflow.worklist import infer_boundary_key
 
 
 def _sha(text: str) -> str:
@@ -53,7 +54,8 @@ def ingest_hash_list(workflow: Any, args: dict[str, Any]) -> dict[str, Any]:
         rel = str(row.get("path") or row.get("file_name") or row.get("file") or "")
         if not rel:
             continue
-        boundary = row.get("boundary") or row.get("boundary_key") or "_default"
+        rel_guess = str(row.get("path") or row.get("file_name") or row.get("file") or "")
+        boundary = infer_boundary_key(rel_guess, row.get("boundary") or row.get("boundary_key"))
         key = identity_key(boundary, rel)
         hashes = list(row.get("hashes") or [])
         if row.get("method") and row.get("digest"):
@@ -210,19 +212,31 @@ def emit_jsonld(workflow: Any, args: dict[str, Any]) -> dict[str, Any]:
 
 
 def partition_forensic(workflow: Any, args: dict[str, Any]) -> dict[str, Any]:
-    from case_uco.workflow.worklist import partition_worklist
+    from case_uco.workflow.worklist import (
+        estimate_partition_triples,
+        partition_worklist,
+        ram_guard_findings,
+    )
 
     groups = partition_worklist(list(workflow.state.get("worklist") or []))
+    workflow.state["worklist"] = [item for items in groups.values() for item in items]
     partitions = workflow.state.setdefault("partitions", {})
+    policy = workflow.state.get("partition_policy") or {}
+    max_triples = int(policy.get("max_estimated_triples") or args.get("max_estimated_triples") or 200000)
     for key, items in groups.items():
         partitions[key] = {
             "graph_path": str(Path(workflow.state["working_dir"]) / f"{key}.jsonld"),
             "status": "planned",
-            "estimated_triples": 0,
+            "estimated_triples": estimate_partition_triples(items),
             "nodes": 0,
             "findings_open": 0,
             "work_items": len(items),
         }
+    guard = ram_guard_findings(groups, max_estimated_triples=max_triples)
+    if guard:
+        existing = list(workflow.state.get("findings") or [])
+        existing.extend(guard)
+        workflow.state["findings"] = existing
     return {"partitions": list(groups.keys()), "items": sum(len(v) for v in groups.values())}
 
 

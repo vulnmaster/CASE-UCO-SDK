@@ -42,6 +42,45 @@ def test_partition_worklist_by_boundary() -> None:
     assert set(groups) == {"C", "D", "_default"}
 
 
+def test_infer_boundary_from_first_path_component() -> None:
+    from case_uco.workflow.worklist import infer_boundary_key, ram_guard_findings
+
+    assert infer_boundary_key("C/DCIM/img.jpg") == "volume-C"
+    assert infer_boundary_key("phone1/DCIM/img.jpg") == "phone1"
+    assert infer_boundary_key("img.jpg") == "_default"
+    groups = partition_worklist([{"path": "C/a.bin"}, {"path": "D/b.bin"}])
+    assert set(groups) == {"volume-C", "volume-D"}
+    huge = ram_guard_findings({"volume-C": [{"path": f"C/{i}.bin"} for i in range(9000)]})
+    assert huge and huge[0]["rule_id"] == "PROF-PART-001"
+
+
+def test_forensic_boundary_requires_key() -> None:
+    import pytest
+
+    graph = CASEGraph()
+    file_with_content_hashes(graph, file_name="a.bin", hashes=[("SHA256", "cc")])
+    with pytest.raises(ValueError, match="boundary_key"):
+        graph.partition_by_profile("AirGappedFieldTriage", strategy="forensic-boundary")
+
+
+def test_parallel_scheduler_default_off() -> None:
+    from case_uco.workflow.parallel import run_partitions
+
+    seen: list[str] = []
+
+    def worker(key: str, items: list) -> int:
+        seen.append(key)
+        return len(items)
+
+    result = run_partitions({"A": [{}, {}], "B": [{}]}, worker)
+    assert result == {"A": 2, "B": 1}
+    assert set(seen) == {"A", "B"}
+    import pytest
+
+    with pytest.raises(NotImplementedError, match="2.1"):
+        run_partitions({"A": []}, worker, enabled=True)
+
+
 def test_partitioned_field_triage(tmp_path: Path) -> None:
     hashes = tmp_path / "hashes.json"
     hashes.write_text(
