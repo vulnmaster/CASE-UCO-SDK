@@ -1,0 +1,22 @@
+{
+  "id": "cac-csam-provenance",
+  "version": "1.0.0",
+  "profile": "HashIntelligence",
+  "title": "CAC CSAM forensic provenance",
+  "description": "Promoted from topology/recipe-dags/cac-csam-provenance.json. Optional process node is preserved as optional ingest.",
+  "air_gapped": true,
+  "related_recipes": ["docs/recipes/cac-csam-forensic-provenance.md"],
+  "related_dags": ["topology/recipe-dags/cac-csam-provenance.json"],
+  "inputs": [
+    { "name": "hash_list", "type": "json", "required": true }
+  ],
+  "steps": [
+    { "id": "load", "kind": "load_profile", "depends_on": [] },
+    { "id": "open", "kind": "build", "handler": "open_investigation", "depends_on": ["load"] },
+    { "id": "process", "kind": "ingest", "handler": "ingest_hash_list", "depends_on": ["open"], "optional": true },
+    { "id": "hash", "kind": "build", "handler": "hash_media", "args": { "csam": true }, "depends_on": ["process"] },
+    { "id": "critique", "kind": "critique", "depends_on": ["hash"], "critique": "graph", "on_blocking": "continue" },
+    { "id": "validate", "kind": "validate", "handler": "validate_partition", "depends_on": ["critique"], "on_blocking": "continue" },
+    { "id": "emit", "kind": "emit", "handler": "emit_jsonld", "depends_on": ["validate"] }
+  ]
+}

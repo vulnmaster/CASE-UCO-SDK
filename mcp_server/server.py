@@ -592,21 +592,107 @@ def list_recipe_dags() -> list[dict]:
 def build_investigation(
     scenario: str,
     profile_id: str | None = None,
+    evidence: list | None = None,
 ) -> dict:
     """Create a profile-aware InvestigationBuilder and return critique + size.
 
-    Does not write files. The originating agent then adds evidence via the
-    Python helpers or continues in-process. Fully offline.
+    Optional ``evidence`` is a list of {file_name, hashes} dicts. Empty-call
+    behaviour is unchanged. Fully offline.
     """
     from case_uco.builder import InvestigationBuilder
 
     builder = InvestigationBuilder(scenario, profile_id=profile_id)
+    for item in evidence or []:
+        name = item.get("file_name") or item.get("path") or "evidence.bin"
+        hashes = [tuple(h) for h in (item.get("hashes") or [])]
+        builder.add_file(name, hashes=hashes)
     return {
         "profile_id": builder.profile.id,
         "object_count": len(builder.graph),
         "critique": builder.critique(),
         "estimated_triples": builder.graph.estimate_triples(),
     }
+
+
+@mcp.tool
+def list_investigation_workflows() -> list:
+    """List vendored Investigation Workflow definitions (offline)."""
+    from case_uco.workflow import list_workflows
+
+    return [
+        {"id": w.id, "profile": w.profile, "title": w.title, "steps": [s.id for s in w.steps]}
+        for w in list_workflows()
+    ]
+
+
+@mcp.tool
+def get_investigation_workflow(workflow_id: str) -> dict:
+    """Return one Investigation Workflow definition."""
+    from case_uco.workflow import get_workflow
+
+    item = get_workflow(workflow_id)
+    if item is None:
+        return {"error": f"unknown workflow {workflow_id}"}
+    return {
+        "id": item.id,
+        "profile": item.profile,
+        "title": item.title,
+        "description": item.description,
+        "steps": [{"id": s.id, "kind": s.kind, "depends_on": list(s.depends_on)} for s in item.steps],
+        "inputs": list(item.inputs),
+    }
+
+
+@mcp.tool
+def start_investigation_workflow(
+    workflow_id: str,
+    working_dir: str,
+    scenario: str = "",
+    profile_id: str | None = None,
+    inputs: dict | None = None,
+) -> dict:
+    """Start an air-gapped Investigation Workflow and run until blocked/complete."""
+    from case_uco.workflow import InvestigationWorkflow
+
+    wf = InvestigationWorkflow(
+        workflow_id,
+        profile_id=profile_id,
+        scenario=scenario,
+        working_dir=working_dir,
+        inputs=inputs or {},
+    )
+    result = wf.run()
+    return {
+        "status": result.status,
+        "profile_id": result.profile_id,
+        "state_path": result.state_path,
+        "findings": result.findings,
+        "blocking_open": result.blocking_open,
+    }
+
+
+@mcp.tool
+def resume_investigation_workflow(state_path: str) -> dict:
+    """Resume an Investigation Workflow from workflow-state.json or its directory."""
+    from case_uco.workflow import InvestigationWorkflow
+
+    wf = InvestigationWorkflow.resume(state_path)
+    result = wf.run()
+    return {"status": result.status, "state_path": result.state_path, "findings": result.findings}
+
+
+@mcp.tool
+def critique_investigation(graph_path: str, profile_id: str) -> dict:
+    """Run ProfileCritic on a local graph file (no MCP critic session)."""
+    from case_uco.contracts import load_contract
+    from case_uco.critique import ProfileCritic
+    from case_uco.graph import CASEGraph
+
+    graph = CASEGraph()
+    graph.load_file(graph_path)
+    critic = ProfileCritic(load_contract(profile_id))
+    report = critic.evaluate(graph, when="graph")
+    return report.to_dict()
 
 
 @mcp.tool

@@ -12,6 +12,7 @@ from case_uco.typed_literal import TypedLiteral
 from case_uco.builder import InvestigationBuilder
 from case_uco.contracts import load_contract
 from case_uco.critique import ProfileCritic
+from case_uco.workflow import InvestigationWorkflow
 from case_uco.helpers import (
     file_with_content_hashes,
     model_csam_evidence,
@@ -29,6 +30,7 @@ __all__ = [
     "clear_class_registry_cache",
     "InvestigationBuilder",
     "ProfileCritic",
+    "InvestigationWorkflow",
     "load_contract",
     "file_with_content_hashes",
     "model_csam_evidence",

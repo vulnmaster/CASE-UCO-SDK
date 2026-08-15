@@ -1,0 +1,24 @@
+{
+  "id": "hash-intelligence-vics",
+  "version": "1.0.0",
+  "profile": "HashIntelligence",
+  "title": "Hash intelligence (local VICS / PhotoDNA list)",
+  "description": "HashIntelligence sequential workflow over a local hash list. Adapters land in Phase 5.",
+  "air_gapped": true,
+  "related_recipes": ["docs/recipes/vics-hash-intelligence.md", "docs/recipes/cac-csam-forensic-provenance.md"],
+  "related_dags": ["topology/recipe-dags/cac-csam-provenance.json"],
+  "inputs": [
+    { "name": "hash_list", "type": "json", "required": true }
+  ],
+  "partition_policy": { "strategy": "none" },
+  "adapters": ["photodna", "vics-catalog"],
+  "steps": [
+    { "id": "load", "kind": "load_profile", "depends_on": [] },
+    { "id": "open", "kind": "build", "handler": "open_investigation", "depends_on": ["load"] },
+    { "id": "ingest", "kind": "ingest", "handler": "ingest_hash_list", "depends_on": ["open"] },
+    { "id": "hash", "kind": "build", "handler": "hash_media", "args": { "csam": true }, "depends_on": ["ingest"] },
+    { "id": "critique", "kind": "critique", "depends_on": ["hash"], "critique": "graph", "on_blocking": "continue" },
+    { "id": "validate", "kind": "validate", "handler": "validate_partition", "depends_on": ["critique"], "on_blocking": "continue" },
+    { "id": "emit", "kind": "emit", "handler": "emit_jsonld", "depends_on": ["validate"] }
+  ]
+}

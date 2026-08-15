@@ -1,0 +1,25 @@
+{
+  "id": "field-triage",
+  "version": "1.0.0",
+  "profile": "AirGappedFieldTriage",
+  "title": "Air-gapped field triage",
+  "description": "Sequential Phase 2 workflow: profile → investigation → tool → ingest hash list → hash media → critique → validate → emit.",
+  "air_gapped": true,
+  "related_recipes": ["docs/recipes/starter-filesystem-report.md", "docs/recipes/large-datasets.md"],
+  "related_dags": ["topology/recipe-dags/field-triage.json"],
+  "inputs": [
+    { "name": "hash_list", "type": "json", "required": true },
+    { "name": "evidence_root", "type": "dir", "required": false }
+  ],
+  "partition_policy": { "strategy": "none" },
+  "steps": [
+    { "id": "load", "kind": "load_profile", "depends_on": [] },
+    { "id": "open", "kind": "build", "handler": "open_investigation", "depends_on": ["load"] },
+    { "id": "tool", "kind": "build", "handler": "model_tool_run", "args": { "tool_name": "Triage Collector", "action_name": "scan", "tool_version": "1.0" }, "depends_on": ["open"] },
+    { "id": "ingest", "kind": "ingest", "handler": "ingest_hash_list", "depends_on": ["tool"] },
+    { "id": "hash", "kind": "build", "handler": "hash_media", "depends_on": ["ingest"] },
+    { "id": "critique", "kind": "critique", "depends_on": ["hash"], "critique": "graph", "on_blocking": "continue" },
+    { "id": "validate", "kind": "validate", "handler": "validate_partition", "depends_on": ["critique"], "on_blocking": "continue" },
+    { "id": "emit", "kind": "emit", "handler": "emit_jsonld", "depends_on": ["validate"] }
+  ]
+}

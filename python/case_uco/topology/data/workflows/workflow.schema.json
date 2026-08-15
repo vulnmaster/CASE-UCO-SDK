@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/forest-savage1234/CASE-UCO-SDK/topology/workflows/workflow.schema.json",
+  "title": "CASE/UCO Investigation Workflow",
+  "type": "object",
+  "required": ["id", "version", "profile", "steps"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "profile": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "air_gapped": { "type": "boolean", "const": true },
+    "related_recipes": { "type": "array", "items": { "type": "string" } },
+    "related_dags": { "type": "array", "items": { "type": "string" } },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "enum": ["dir", "file", "tsv", "json"] },
+          "required": { "type": "boolean" },
+          "media_type": { "type": "string" }
+        }
+      }
+    },
+    "partition_policy": { "type": "object" },
+    "trajectories": { "type": "array", "items": { "type": "string" } },
+    "adapters": { "type": "array", "items": { "type": "string" } },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "kind"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "kind": {
+            "enum": ["load_profile", "ingest", "build", "adapter", "trajectory", "partition", "critique", "validate", "emit", "accept"]
+          },
+          "depends_on": { "type": "array", "items": { "type": "string" } },
+          "parallel_group": { "type": "string" },
+          "isolation": { "enum": ["exclusive", "partition", "readonly"] },
+          "optional": { "type": "boolean" },
+          "handler": { "type": "string" },
+          "args": { "type": "object" },
+          "partition_scope": { "enum": ["all", "each"] },
+          "critique": { "enum": ["incremental", "step", "graph", "none"] },
+          "on_blocking": { "enum": ["stop", "continue", "defer"] }
+        }
+      }
+    }
+  }
+}
