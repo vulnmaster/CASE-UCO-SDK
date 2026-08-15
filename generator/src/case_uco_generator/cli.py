@@ -47,6 +47,22 @@ def main(argv: list[str] | None = None) -> int:
     gen_parser.add_argument("--output-dir", type=Path, default=None)
     gen_parser.add_argument("--extensions-dir", type=Path, default=None)
     gen_parser.add_argument("--no-extensions", action="store_true")
+    gen_parser.add_argument(
+        "--incremental",
+        action="store_true",
+        default=True,
+        help="Skip parse+emission when Turtle sources match the IR manifest (default).",
+    )
+    gen_parser.add_argument(
+        "--no-incremental",
+        action="store_true",
+        help="Force a full re-parse even when sources are unchanged.",
+    )
+    gen_parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Alias for --no-incremental.",
+    )
 
     # --- scaffold subcommand ---
     scaf_parser = subparsers.add_parser(
@@ -134,6 +150,33 @@ def _cmd_generate(args) -> int:
         logging.error("Ontology directory not found: %s", ontology_dir)
         return 1
 
+    from case_uco_generator.incremental import (
+        sources_unchanged,
+        write_ir,
+        changed_files,
+    )
+
+    incremental = not (getattr(args, "no_incremental", False) or getattr(args, "force", False))
+    if incremental and sources_unchanged(repo_root):
+        logging.info(
+            "IR cache hit: Turtle sources unchanged. Skipping parse and emission. "
+            "Pass --force to regenerate."
+        )
+        return 0
+
+    if incremental:
+        delta = changed_files(repo_root)
+        if delta:
+            logging.info(
+                "Incremental generate: %d source file(s) changed; re-parsing dependents "
+                "(full import closure — parse_ontology is one graph).",
+                len(delta),
+            )
+            for path in delta[:20]:
+                logging.info("  changed: %s", path)
+            if len(delta) > 20:
+                logging.info("  ... %d more", len(delta) - 20)
+
     logging.info("Parsing ontology from %s ...", ontology_dir)
     schema = parse_ontology(ontology_dir, extensions_dir=extensions_dir)
     logging.info(
@@ -185,6 +228,7 @@ def _cmd_generate(args) -> int:
         total_files += 1
         logging.info("  -> %s (%s)", dest, lang_name)
 
+    write_ir(repo_root, schema)
     logging.info("Done: %d total files generated.", total_files)
     return 0
 

@@ -239,3 +239,4 @@ case_validate --built-version case-1.4.0 \
 ## Related
 
 - [cac-hotline-intake-lifecycle.md](cac-hotline-intake-lifecycle.md) — hotline intake, triage, and referral before/alongside the CyberTip
+- [vics-hash-intelligence.md](vics-hash-intelligence.md) — PhotoDNA / VICS catalog hashes on CyberTip media

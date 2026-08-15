@@ -1,0 +1,23 @@
+{
+  "id": "cac-csam-provenance",
+  "version": "1.0.0",
+  "profile": "HashIntelligence",
+  "recipe": "docs/recipes/cac-csam-forensic-provenance.md",
+  "description": "Executable agent DAG: route → discover → build hashed CSAM graph → validate → critic.",
+  "nodes": [
+    {"id": "route", "kind": "route", "tool": "route_cac_content"},
+    {"id": "discover", "kind": "discover", "tool": "get_composition_profile", "args": {"profile_id": "HashIntelligence"}},
+    {"id": "process", "kind": "process", "tool": "process_document_file", "optional": true},
+    {"id": "build", "kind": "build", "tool": "build_investigation", "args": {"profile_id": "HashIntelligence"}},
+    {"id": "validate", "kind": "validate", "tool": "validate_graph", "args": {"extensions": ["cac"]}},
+    {"id": "critic", "kind": "critic", "tool": "start_critic_review"}
+  ],
+  "edges": [
+    ["route", "discover"],
+    ["discover", "process"],
+    ["process", "build"],
+    ["discover", "build"],
+    ["build", "validate"],
+    ["validate", "critic"]
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-08-15T09:50:11.246523+00:00",
+  "source_aggregate_sha256": "0cb6c300b87365db66ec00492dfc86bd565263e8b7dcd11fdd03e21d2ac81f9b",
+  "source_file_count": 248,
+  "class_count": 0,
+  "facet_count": 0,
+  "module_counts": {},
+  "inheritance_edge_count": 0,
+  "recommended_facet_bundles": {
+    "AirGappedFieldTriage": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "Device": {
+        "required": [
+          "DeviceFacet"
+        ],
+        "recommended": [
+          "MobileDeviceFacet",
+          "OperatingSystemFacet",
+          "SIMCardFacet"
+        ]
+      },
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet"
+        ]
+      }
+    },
+    "CrossOntology": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet"
+        ]
+      },
+      "Location": {
+        "required": [],
+        "recommended": [
+          "LatLongCoordinatesFacet",
+          "SimpleAddressFacet"
+        ]
+      }
+    },
+    "FullCACLifecycle": {
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet",
+          "ConfidenceFacet"
+        ]
+      },
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "Device": {
+        "required": [
+          "DeviceFacet"
+        ],
+        "recommended": [
+          "MobileDeviceFacet",
+          "OperatingSystemFacet",
+          "SIMCardFacet"
+        ]
+      },
+      "Message": {
+        "required": [
+          "MessageFacet"
+        ],
+        "recommended": [
+          "ApplicationFacet",
+          "AccountFacet"
+        ]
+      },
+      "MessageThread": {
+        "required": [
+          "MessageThreadFacet"
+        ],
+        "recommended": [
+          "ApplicationFacet",
+          "AccountFacet",
+          "ApplicationAccountFacet"
+        ]
+      },
+      "Account": {
+        "required": [
+          "AccountFacet"
+        ],
+        "recommended": [
+          "DigitalAccountFacet",
+          "ApplicationAccountFacet"
+        ]
+      }
+    },
+    "HashIntelligence": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet",
+          "ConfidenceFacet"
+        ]
+      },
+      "ObservableObject": {
+        "required": [
+          "ContentDataFacet"
+        ],
+        "recommended": [
+          "FileFacet"
+        ]
+      }
+    },
+    "LegalProcess": {
+      "Person": {
+        "required": [],
+        "recommended": []
+      }
+    },
+    "MinimalForensics": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "ObservableObject": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": [
+          "DeviceFacet"
+        ]
+      },
+      "Device": {
+        "required": [
+          "DeviceFacet"
+        ],
+        "recommended": [
+          "OperatingSystemFacet"
+        ]
+      },
+      "DiskImage": {
+        "required": [
+          "ImageFacet",
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      }
+    },
+    "ToolMapping": {
+      "Tool": {
+        "required": [],
+        "recommended": [
+          "ConfigurationEntryFacet"
+        ]
+      }
+    }
+  },
+  "notes": "When source_aggregate_sha256 matches the live manifest, generate may skip parse and emission. A source change triggers a full re-parse of the changed files' import dependents (currently the whole closure, because parse_ontology loads one graph)."
+}

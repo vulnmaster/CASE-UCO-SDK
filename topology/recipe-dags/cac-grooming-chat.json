@@ -1,0 +1,20 @@
+{
+  "id": "cac-grooming-chat",
+  "version": "1.0.0",
+  "profile": "FullCACLifecycle",
+  "recipe": "docs/recipes/cac-grooming-chat-modeling.md",
+  "description": "Executable agent DAG for grooming chat evidence.",
+  "nodes": [
+    {"id": "route", "kind": "route", "tool": "route_cac_content"},
+    {"id": "discover", "kind": "discover", "tool": "get_composition_profile", "args": {"profile_id": "FullCACLifecycle"}},
+    {"id": "build", "kind": "build", "tool": "build_investigation"},
+    {"id": "validate", "kind": "validate", "tool": "validate_graph", "args": {"extensions": ["cac"]}},
+    {"id": "critic", "kind": "critic", "tool": "start_critic_review"}
+  ],
+  "edges": [
+    ["route", "discover"],
+    ["discover", "build"],
+    ["build", "validate"],
+    ["validate", "critic"]
+  ]
+}

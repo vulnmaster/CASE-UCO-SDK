@@ -150,3 +150,4 @@ Requires `CASE_UCO_EXTENSIONS=cac`. Use `route_cac_content` via the MCP server t
 |---|---|---|---|
 | Proposing Changes to CASE/UCO | [change-proposal.md](change-proposal.md) | Identify gaps, check existing proposals, and draft change proposals | — |
 | Authoring and Improving Recipes | [recipe-authoring.md](recipe-authoring.md) | Write and register a new recipe, or improve an existing one a live case proved wrong or incomplete (structure, grounding rules, re-validation, MCP index registration) | — |
+| VICS / PhotoDNA Hash Intelligence | [vics-hash-intelligence.md](vics-hash-intelligence.md) | Map VICS catalog fields and PhotoDNA hashes onto ContentDataFacet + hashing Actions (air-gapped stub) | `HashIntelligence` |

@@ -558,6 +558,92 @@ class CASEGraph:
         """
         return sum(self._count_triples(obj) for obj in self._objects)
 
+    def index_content_hashes(self) -> dict[str, list[dict[str, str]]]:
+        """Index cryptographic / perceptual hash values to node @ids.
+
+        Walks ``uco-observable:hash`` and ``uco-observable:hashes`` on every
+        top-level object and nested Facet. Offline. Used by HashIntelligence
+        and VICS-style catalog matching.
+        """
+        index: dict[str, list[dict[str, str]]] = {}
+
+        def walk(node: Any, owner_id: str) -> None:
+            if isinstance(node, list):
+                for item in node:
+                    walk(item, owner_id)
+                return
+            if not isinstance(node, dict):
+                return
+            oid = node.get("@id")
+            if isinstance(oid, str):
+                owner_id = oid
+            for key, value in node.items():
+                if key in {"uco-observable:hash", "uco-observable:hashes", "hash", "hashes"}:
+                    entries = value if isinstance(value, list) else [value]
+                    for entry in entries:
+                        if not isinstance(entry, dict):
+                            continue
+                        digest = (
+                            entry.get("uco-types:hashValue")
+                            or entry.get("hashValue")
+                            or entry.get("uco-observable:hashValue")
+                        )
+                        method = (
+                            entry.get("uco-types:hashMethod")
+                            or entry.get("hashMethod")
+                            or entry.get("uco-observable:hashMethod")
+                        )
+                        if isinstance(digest, dict):
+                            digest = digest.get("@value")
+                        if isinstance(method, dict):
+                            method = method.get("@value")
+                        if isinstance(digest, str) and digest:
+                            index.setdefault(digest.lower(), []).append(
+                                {
+                                    "id": owner_id,
+                                    "method": str(method or ""),
+                                }
+                            )
+                else:
+                    walk(value, owner_id)
+
+        for obj in self._objects:
+            walk(obj, str(obj.get("@id") or ""))
+        return index
+
+    def lookup_hash(self, digest: str) -> list[dict[str, str]]:
+        """Return nodes that carry ``digest`` (case-insensitive hex)."""
+        return list(self.index_content_hashes().get(digest.lower(), []))
+
+    def partition_by_profile(self, profile_id: str) -> dict[str, CASEGraph]:
+        """Partition by Composition Profile module family (additive wrapper).
+
+        Nodes whose ``@type`` local name belongs to a CAC module go to
+        ``cac``; legalproc/crypto to ``extensions``; everything else to
+        ``core``. The profile id is recorded on each partition's extra
+        context for later validation. Prefer forensic-root partitioning
+        via :meth:`partition_by_roots` for evidence graphs.
+        """
+        cac_hints = ("cacontology", "cac-core", "cac/")
+        ext_hints = ("legalproc", "cryptoinv", "rico", "solveit", "toolcap")
+
+        def boundary(node: dict[str, Any]) -> str:
+            types = node.get("@type")
+            if isinstance(types, str):
+                types = [types]
+            blob = " ".join(str(t) for t in (types or [])).lower()
+            if any(h in blob for h in cac_hints):
+                return "cac"
+            if any(h in blob for h in ext_hints):
+                return "extensions"
+            return "core"
+
+        parts = self.partition_by(boundary)
+        for name, graph in parts.items():
+            graph.topology_profile = profile_id  # type: ignore[attr-defined]
+            graph.topology_partition = name  # type: ignore[attr-defined]
+        return parts
+
     @staticmethod
     def _count_triples(obj: dict[str, Any]) -> int:
         count = 0

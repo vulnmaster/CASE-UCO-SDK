@@ -363,6 +363,8 @@ See the [bundled extensions](#bundled-extension-ontologies) for complete, valida
 
 With 428+ classes across 15 modules, finding the right class for your use case can be challenging. The SDK provides four ways to navigate the ontology.
 
+The [Topology Articulation](TOPOLOGY.md) adds Composition Profiles, incremental generation, fluent helpers, and an InvestigationBuilder on top of the four language bindings. Nothing in that layer requires network access at investigation time.
+
 ### Composition Profiles
 
 Seven versioned **Composition Profiles** (`MinimalForensics`, `AirGappedFieldTriage`, `HashIntelligence`, `ToolMapping`, `LegalProcess`, `FullCACLifecycle`, `CrossOntology`) declare the modules, Facet sets, and CAC spine anchors for a workflow so investigators and agents do not have to re-derive them from 2,800 classes. See [docs/COMPOSITION_PROFILES.md](docs/COMPOSITION_PROFILES.md) and [topology/profiles/](topology/profiles/INDEX.md).

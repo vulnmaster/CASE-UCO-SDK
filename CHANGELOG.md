@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Topology Articulation (Phases 2–5)
+
+- Incremental generate: content-hashed IR under `generator/ir/`. Unchanged
+  Turtle sources skip the ~10 minute parse (`--force` to rebuild).
+- Fluent helpers: `file_with_content_hashes`, `model_csam_evidence`,
+  `model_tool_run`, `raster_picture_with_hashes`.
+- Runtime: `CASEGraph.index_content_hashes` / `lookup_hash` /
+  `partition_by_profile`.
+- `InvestigationBuilder` with inline critique; MCP `build_investigation`
+  and `list_recipe_dags`.
+- VICS/PhotoDNA mapping stub + recipe; permanent [TOPOLOGY.md](TOPOLOGY.md).
+
 #### Topology Articulation (Phase 1 — Semantic Core)
 
 - Seven versioned **Composition Profiles** under `topology/profiles/`

@@ -575,6 +575,41 @@ def recommend_facet_set_for_profile(host: str, profile_id: str | None = None) ->
 
 
 @mcp.tool
+def list_recipe_dags() -> list[dict]:
+    """List executable recipe DAGs under topology/recipe-dags/."""
+    root = Path(__file__).resolve().parent.parent / "topology" / "recipe-dags"
+    dags = []
+    if root.is_dir():
+        for path in sorted(root.glob("*.json")):
+            try:
+                dags.append(json.loads(path.read_text(encoding="utf-8")))
+            except (OSError, json.JSONDecodeError):
+                continue
+    return dags
+
+
+@mcp.tool
+def build_investigation(
+    scenario: str,
+    profile_id: str | None = None,
+) -> dict:
+    """Create a profile-aware InvestigationBuilder and return critique + size.
+
+    Does not write files. The originating agent then adds evidence via the
+    Python helpers or continues in-process. Fully offline.
+    """
+    from case_uco.builder import InvestigationBuilder
+
+    builder = InvestigationBuilder(scenario, profile_id=profile_id)
+    return {
+        "profile_id": builder.profile.id,
+        "object_count": len(builder.graph),
+        "critique": builder.critique(),
+        "estimated_triples": builder.graph.estimate_triples(),
+    }
+
+
+@mcp.tool
 def get_cac_semantic_spine(class_name: str | None = None) -> dict:
     """CAC semantic spine (EnduringEntity / Occurrent / Situation / Role / Phase).
 

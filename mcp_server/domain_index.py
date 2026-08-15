@@ -1317,6 +1317,12 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "keywords": "recipe authoring improve update fix existing new recipe write recipe template pattern documentation contribute unseen novel workflow self-improving maintain catalog",
         "file": "docs/recipes/recipe-authoring.md",
     },
+    {
+        "title": "VICS / PhotoDNA Hash Intelligence",
+        "description": "Map VICS catalog fields and PhotoDNA hashes onto ContentDataFacet and hashing actions without a network client.",
+        "keywords": "vics photodna pdna perceptual hash catalog project vic hash intelligence csam",
+        "file": "docs/recipes/vics-hash-intelligence.md",
+    },
 ]
 
 # ---------------------------------------------------------------------------
