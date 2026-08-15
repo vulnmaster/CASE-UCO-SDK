@@ -1,0 +1,16 @@
+{
+  "id": "forensic-lifecycle",
+  "version": "1.0.0",
+  "title": "Forensic ActionLifecycle",
+  "profile_ids": ["MinimalForensics", "AirGappedFieldTriage", "ToolMapping"],
+  "air_gapped": true,
+  "bearer_types": ["ActionLifecycle"],
+  "link": { "predicate": "uco-core:hasFacet" },
+  "phases": [
+    { "id": "survey", "types": ["InvestigativeAction"], "required": false },
+    { "id": "preservation", "types": ["InvestigativeAction"], "required": false },
+    { "id": "examination", "types": ["InvestigativeAction"], "required": false },
+    { "id": "analysis", "types": ["InvestigativeAction"], "required": false },
+    { "id": "reporting", "types": ["InvestigativeAction"], "required": false }
+  ]
+}

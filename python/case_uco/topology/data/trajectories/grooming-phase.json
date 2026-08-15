@@ -1,0 +1,15 @@
+{
+  "id": "grooming-phase",
+  "version": "1.0.0",
+  "title": "Grooming phase progression",
+  "profile_ids": ["FullCACLifecycle"],
+  "air_gapped": true,
+  "bearer_types": ["OnlineGrooming"],
+  "link": { "predicate": "cac-core:hasPhase" },
+  "phases": [
+    { "id": "initial-contact", "types": ["InitialContactPhase"], "required": true },
+    { "id": "conditioning", "types": ["ConditioningPhase"], "required": true },
+    { "id": "isolation", "types": ["IsolationPhase"], "required": false },
+    { "id": "sexualization", "types": ["SexualizationPhase"], "required": false }
+  ]
+}

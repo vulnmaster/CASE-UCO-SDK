@@ -1,0 +1,18 @@
+{
+  "id": "cac-cybertip-intake",
+  "version": "1.0.0",
+  "profile": "FullCACLifecycle",
+  "title": "CyberTip intake (local export)",
+  "description": "FullCACLifecycle sequential intake over a local hashed-media list.",
+  "air_gapped": true,
+  "related_recipes": ["docs/recipes/cybertip-ncmec-workflow.md"],
+  "inputs": [{ "name": "hash_list", "type": "json", "required": true }],
+  "steps": [
+    { "id": "load", "kind": "load_profile", "depends_on": [] },
+    { "id": "open", "kind": "build", "handler": "open_investigation", "depends_on": ["load"] },
+    { "id": "ingest", "kind": "ingest", "handler": "ingest_hash_list", "depends_on": ["open"] },
+    { "id": "hash", "kind": "build", "handler": "hash_media", "args": { "csam": true }, "depends_on": ["ingest"] },
+    { "id": "critique", "kind": "critique", "depends_on": ["hash"], "critique": "graph", "on_blocking": "continue" },
+    { "id": "emit", "kind": "emit", "handler": "emit_jsonld", "depends_on": ["critique"] }
+  ]
+}

@@ -226,6 +226,22 @@ def partition_forensic(workflow: Any, args: dict[str, Any]) -> dict[str, Any]:
     return {"partitions": list(groups.keys()), "items": sum(len(v) for v in groups.values())}
 
 
+def apply_adapter(workflow: Any, args: dict[str, Any]) -> dict[str, Any]:
+    from case_uco.adapters import get_adapter
+
+    adapter_id = args.get("adapter") or (
+        workflow.definition.adapters[0] if getattr(workflow.definition, "adapters", None) else None
+    )
+    if not adapter_id:
+        raise ValueError("adapter id required")
+    source_key = args.get("input") or "catalog_path"
+    source = workflow.state["inputs"].get(source_key) or workflow.state["inputs"].get("hash_list")
+    if not source:
+        raise FileNotFoundError("adapter source input missing")
+    adapter = get_adapter(adapter_id)
+    return adapter.apply(workflow.builder, Path(source))
+
+
 HANDLERS = {
     "load_profile": lambda wf, args: {"profile_id": wf.builder.profile.id},
     "open_investigation": open_investigation,
@@ -237,4 +253,5 @@ HANDLERS = {
     "validate_partition": validate_partition,
     "emit_jsonld": emit_jsonld,
     "partition_forensic": partition_forensic,
+    "apply_adapter": apply_adapter,
 }
