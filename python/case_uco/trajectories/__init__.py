@@ -52,19 +52,25 @@ def evaluate_trajectory(graph: Any, trajectory_id: str) -> list[dict[str, Any]]:
             continue
         names = [t.split(":")[-1] for t in phase.get("types") or []]
         if not any(name.lower() in blob for name in names):
-            code = "PROF-TRAJ-NOT-GENERATED"
+            type_name = names[0] if names else phase["id"]
             if names and get_class(names[0]) is None:
-                hint = f"Type {names[0]} exists in OWL but is not generated; run the generator or use upsert_node."
+                code = "PROF-TRAJ-NOT-GENERATED"
+                hint = generate_lag_hint(type_name, trajectory_id, phase["id"])
             else:
                 code = "PROF-TRAJ-INCOMPLETE"
-                hint = f"Advance trajectory {trajectory_id} to phase {phase['id']}."
+                hint = f"Advance trajectory {trajectory_id} to phase {phase['id']} with advance() or an existing OWL type."
             findings.append(
                 {
                     "severity": "warning",
-                    "message": f"Trajectory {trajectory_id} missing phase {phase['id']}",
+                    "message": f"Trajectory {trajectory_id} missing phase {phase['id']}"
+                    + (f" ({type_name})" if type_name else ""),
                     "path": phase["id"],
                     "rule_id": code,
-                    "repair": {"hint": hint},
+                    "repair": {
+                        "hint": hint,
+                        "workflow_step": "advance_trajectory",
+                        "type": type_name,
+                    },
                 }
             )
     return findings
@@ -79,17 +85,42 @@ def advance(graph: Any, trajectory_id: str, phase_id: str, **kwargs: Any) -> Any
     type_name = (phase.get("types") or ["InvestigativeAction"])[0].split(":")[-1]
     info = get_class(type_name)
     if info is None:
+        placeholder_id = f"{getattr(graph, 'kb_prefix', 'http://example.org/kb/')}Phase-{phase_id}"
         graph.upsert_node(
-            f"{getattr(graph, 'kb_prefix', 'http://example.org/kb/')}Phase-{phase_id}",
+            placeholder_id,
             types=["uco-core:UcoObject"],
-            properties={"uco-core:name": phase_id, "uco-core:tag": f"trajectory:{trajectory_id}:{phase_id}"},
+            properties={
+                "uco-core:name": phase_id,
+                "uco-core:tag": f"trajectory:{trajectory_id}:{phase_id};generate-lag:{type_name};PROF-TRAJ-NOT-GENERATED",
+                "uco-core:description": generate_lag_hint(type_name, trajectory_id, phase_id),
+            },
         )
         return {
             "status": "not_generated",
             "rule_id": "PROF-TRAJ-NOT-GENERATED",
             "type": type_name,
-            "hint": "OWL term exists; run the existing generator. Not an ontology gap.",
+            "phase_id": phase_id,
+            "placeholder_id": placeholder_id,
+            "hint": generate_lag_hint(type_name, trajectory_id, phase_id),
+            "repair": {
+                "hint": generate_lag_hint(type_name, trajectory_id, phase_id),
+                "workflow_step": "advance_trajectory",
+                "type": type_name,
+            },
         }
     from case_uco.case.investigation import InvestigativeAction
 
     return graph.create(InvestigativeAction, name=f"{trajectory_id}:{phase_id}")
+
+
+def generate_lag_hint(type_name: str, trajectory_id: str, phase_id: str) -> str:
+    """Actionable generate-lag message. Not an ontology-gap / change-proposal."""
+    return (
+        f"{type_name} exists in OWL but is not in generated bindings "
+        f"(trajectory {trajectory_id} phase {phase_id}). "
+        "This is generate-lag, not a missing ontology term and not a change-proposal gap. "
+        "Run the existing generator (`case-uco-generate` from the repo, or "
+        "`python -m case_uco_generator`) and re-import the type. "
+        "Until then, advance() upserts a tagged uco-core:UcoObject placeholder; "
+        "do not invent a typed ConditioningPhase class by hand."
+    )

@@ -18,7 +18,15 @@ def test_conditioning_is_generate_lag_not_ontology_gap() -> None:
     result = advance(graph, "grooming-phase", "conditioning")
     if isinstance(result, dict):
         assert result.get("rule_id") == "PROF-TRAJ-NOT-GENERATED"
-        assert "generator" in result.get("hint", "").lower()
+        hint = result.get("hint", "").lower()
+        assert "generator" in hint
+        assert "conditioningphase" in hint
+        assert "change-proposal" in hint or "ontology gap" in hint
+        assert result.get("type") == "ConditioningPhase"
+        assert result.get("placeholder_id")
+        blob = graph.serialize().lower()
+        assert "generate-lag:conditioningphase" in blob
+        assert "uco-core:ucoobject" in blob or "ucoobject" in blob
 
 
 def test_evaluate_incomplete_trajectory() -> None:
