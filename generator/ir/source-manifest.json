@@ -1,0 +1,1248 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-08-15T09:50:10.568365+00:00",
+  "file_count": 248,
+  "aggregate_sha256": "0cb6c300b87365db66ec00492dfc86bd565263e8b7dcd11fdd03e21d2ac81f9b",
+  "files": [
+    {
+      "path": "extensions/attack-technique/attack-technique-shapes.ttl",
+      "sha256": "f6d54782d02d6bf47fad31123d9e1a0c149f45e13abfb0f22a7ee9df4978ecf6",
+      "bytes": 1116
+    },
+    {
+      "path": "extensions/attack-technique/attack-technique.ttl",
+      "sha256": "9eb56799da298e3fe72f880e3b6db101ac21c4bafc4af3aa8ea5a2ae8f7b6f2d",
+      "bytes": 4161
+    },
+    {
+      "path": "extensions/attack-technique/mitre-attack-catalog.ttl",
+      "sha256": "9a4fe7e5b508bd5b35f633525fb6ee9706f2f29a45146ef545c249c481fad8b9",
+      "bytes": 17492
+    },
+    {
+      "path": "extensions/cryptoinv/cryptoinv-shapes.ttl",
+      "sha256": "6ec2bbba54cbbe8324181f7f0fcd694e39fbf8ecc6a0809a0c4626dd9c24b046",
+      "bytes": 8613
+    },
+    {
+      "path": "extensions/cryptoinv/cryptoinv.ttl",
+      "sha256": "91f54d5ec3cf271393d31ecdb9ad51fa0ef0945761dc27288a9f9750ad7de82d",
+      "bytes": 30759
+    },
+    {
+      "path": "extensions/drugs/drugs-profile-gufo.ttl",
+      "sha256": "3767b578ac2021ce79ff3e524264766eee8a1a85ace73f9ea2316402fc23b0ee",
+      "bytes": 1215
+    },
+    {
+      "path": "extensions/drugs/drugs-shapes.ttl",
+      "sha256": "a7b6ca6c1c9e42ed173960a596d9958372b46c77673a7db9ee87edcddc4eb243",
+      "bytes": 1571
+    },
+    {
+      "path": "extensions/drugs/drugs.ttl",
+      "sha256": "58d3b4467b1f4abde1530f853a8b14dd69300c0d754f5691c01dff14da18d9f2",
+      "bytes": 7605
+    },
+    {
+      "path": "extensions/legalproc/legalproc-shapes.ttl",
+      "sha256": "f76b4594576abeb3cd25d3109d8289f70fbcda7fa061741dddd42fc985c0a03b",
+      "bytes": 3855
+    },
+    {
+      "path": "extensions/legalproc/legalproc.ttl",
+      "sha256": "21286bdc3b661b8a9450a99869914ad6554bc352d946edbfc91295c09c66ee04",
+      "bytes": 12890
+    },
+    {
+      "path": "extensions/rico/rico-shapes.ttl",
+      "sha256": "5d8e4d1abda827d7a38e81606b2bcf59eaa9152b98d2965521a17bcb8ded534a",
+      "bytes": 983
+    },
+    {
+      "path": "extensions/rico/rico.ttl",
+      "sha256": "2ce3c292aeb8ba5abc8d6079072400db5c270465178b5e91e8d32dd1d71f139a",
+      "bytes": 8248
+    },
+    {
+      "path": "extensions/toolcap/capability-pending.ttl",
+      "sha256": "1e0c5556399329ce9d4b23849f5c8272c3f99051d56ec8bbbbaad9a6090acbff",
+      "bytes": 4056
+    },
+    {
+      "path": "extensions/toolcap/toolcap-shapes.ttl",
+      "sha256": "544702e9bc00e559f557c546c7404d9660debb79fa91b1635825febc3e87826a",
+      "bytes": 8910
+    },
+    {
+      "path": "extensions/toolcap/toolcap.ttl",
+      "sha256": "03ae18e437889f93aa1ed57b10aa08b806d1fe45966a9cba051c5b77b472aa3e",
+      "bytes": 25620
+    },
+    {
+      "path": "extensions/weapons/weapons-profile-cco.ttl",
+      "sha256": "2846f93c24df6408c2c7a19aafe7dd34346dd2cd28e621ed9d64b86345ff19e0",
+      "bytes": 2173
+    },
+    {
+      "path": "extensions/weapons/weapons-profile-gufo.ttl",
+      "sha256": "d79cfc08e2f5562727426080c82d0f2afa41c5433c229f702bf592f0ebdf33e9",
+      "bytes": 1139
+    },
+    {
+      "path": "extensions/weapons/weapons-shapes.ttl",
+      "sha256": "29cdf9c4f0a0904fafe58236d36a7ce1ffd4cd9506d30f6d75ea7c86c45b8fd8",
+      "bytes": 1049
+    },
+    {
+      "path": "extensions/weapons/weapons.ttl",
+      "sha256": "64b744f23c3025ae6c97c59daa9766eaf66d9c3c1fbd1c53da58a21101904d93",
+      "bytes": 8747
+    },
+    {
+      "path": "ontology/aeo/ontology/ontology/attack/attack.ttl",
+      "sha256": "353618c639a9536e41e628c7cac9f06bdbcc2d41b450cf40448383f9e4b7b8d6",
+      "bytes": 2091
+    },
+    {
+      "path": "ontology/aeo/ontology/ontology/engagement/engagement.ttl",
+      "sha256": "5050ec6460875b30b1f74d6fb38564708deb9bb3ed59f77bbbe7a93ec57e361f",
+      "bytes": 17394
+    },
+    {
+      "path": "ontology/aeo/ontology/ontology/identity/identity.ttl",
+      "sha256": "62771d549349eb76aea7d871e3d2515a2d621997d1fa172bdbbf068bfc918822",
+      "bytes": 1293
+    },
+    {
+      "path": "ontology/aeo/ontology/ontology/master/ae.ttl",
+      "sha256": "21e04f1541018bd688aa02d5a5297ade18f73ee3ce1fbfb8bd187c0dfaa021e4",
+      "bytes": 1414
+    },
+    {
+      "path": "ontology/aeo/ontology/ontology/objective/objective.ttl",
+      "sha256": "dad6a42f609c43689453af1f8358e60d1569eb5f21a13e0adeeecdb9b0790023",
+      "bytes": 23037
+    },
+    {
+      "path": "ontology/aeo/ontology/ontology/role/role.ttl",
+      "sha256": "dbeb85a3870697676db49d865cbef514de9aae1b076af8c7feb1e753fe8248cb",
+      "bytes": 1489
+    },
+    {
+      "path": "ontology/aeo/ontology/ontology/vocabulary/vocabulary.ttl",
+      "sha256": "84089ef9a0e763ded1c307a90ba932bc027b543338d66304fb3c79d467d71bf7",
+      "bytes": 625
+    },
+    {
+      "path": "ontology/aeo/ontology/validator/ae_ontology.ttl",
+      "sha256": "a0adc878185743401d913f0a2db7212d758666aaf9cb25353eca7a7845085353",
+      "bytes": 27226
+    },
+    {
+      "path": "ontology/cac/local/cacontology-sdk-pending.ttl",
+      "sha256": "1d2099a09d402d3bea4bde567fe65aba2d58684bee72ddc777f90bca89884381",
+      "bytes": 12394
+    },
+    {
+      "path": "ontology/cac/ontology/analytics_demonstration/collected_sources/ipie-sr2026-1-tf-csea-systematic-review/skeleton.ttl",
+      "sha256": "1d66510dd025d2798463f6c8514594668db7e7b44b37afbfd39d0cc2a473cd1a",
+      "bytes": 5839
+    },
+    {
+      "path": "ontology/cac/ontology/analytics_demonstration/collected_sources/police1-modern-missing-child-investigations-2026/skeleton.ttl",
+      "sha256": "5db07873d8083044b597f96b91628cff56719c95855d59bcda7d48cbd718970d",
+      "bytes": 4491
+    },
+    {
+      "path": "ontology/cac/ontology/analytics_demonstration/collected_sources/thesun-livestreamed-csea-philippines-2026/skeleton.ttl",
+      "sha256": "3b4fa974d0314e8a3ce2bdb0ecf8334464cd69adf15b9c6a4c5f6aa309e6da64",
+      "bytes": 4557
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-ai-csam-shapes.ttl",
+      "sha256": "15b953514882e052f2e4b72504685d95b37fd4265210cc08bbfa3aa6ac98d2ad",
+      "bytes": 36093
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-ai-csam.ttl",
+      "sha256": "3a9610fb77cba9b1f39f3d3fcf7a72a4763ab627bb8cc919fa230734990ee570",
+      "bytes": 31709
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-analyst-wellbeing-shapes.ttl",
+      "sha256": "dc72c5fb4595e4afee3de6a41ff609ae33dcbb0814af324d639919575c07d8d7",
+      "bytes": 3973
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-analyst-wellbeing.ttl",
+      "sha256": "9261ce8ecbfde5cf209e6ac1038d8289392594007514970382abf63a6d9ee7de",
+      "bytes": 6908
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-asset-forfeiture-shapes.ttl",
+      "sha256": "1ae53c2d4b8daf932393ae8d3141640fddb1c291fad60b25b9d3f87f32f30319",
+      "bytes": 26986
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-asset-forfeiture.ttl",
+      "sha256": "33fb6054022e9f9a2709c4b9d30ab9d1d93f15246497bf70a71cf64a20de3dcc",
+      "bytes": 31313
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-athletic-exploitation-shapes.ttl",
+      "sha256": "a0b151c3cab32e901a8fc5f6a2a644a8360021785999bc7eed356ea78365c12d",
+      "bytes": 38754
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-athletic-exploitation.ttl",
+      "sha256": "8789389938a32cb2781c3dd3656ee3aded0691f53315eae79e77c9c8ed875a2f",
+      "bytes": 34090
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-bridge-case.ttl",
+      "sha256": "2f66255815b0cdc9a03a848904153dc9e3742b556ec23af77855af7b351440e0",
+      "bytes": 2629
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-bridge-gufo.ttl",
+      "sha256": "3a6d195d5608f87ffe069fc59f315186fc3ec58c10e4b572e0a3c6df85582240",
+      "bytes": 5144
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-bridge-uco.ttl",
+      "sha256": "6189c10275fe17dd0b54f7a67a9c072f96b25e47e95503911cea491e24d95ec8",
+      "bytes": 3237
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-case-management-shapes.ttl",
+      "sha256": "c8b50d12482c5ee8f7217a0f341b3692bce2c6ae7a2eb3734ca65bcf3b95935f",
+      "bytes": 26898
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-case-management.ttl",
+      "sha256": "a67596b56539a9cb65370a2e613faee0048c176035858214a6791ea08e2eb259",
+      "bytes": 54331
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-core-shapes.ttl",
+      "sha256": "04910bdf17172dba6e0002e128066f1a4e91e0ddf8c6e7c988a12aff0a582929",
+      "bytes": 21731
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-core-spine-shapes.ttl",
+      "sha256": "4e2025f28c7de91c9b056ac93a05109465ad2a0e4692dfd4945dc1e0cfd9771e",
+      "bytes": 9434
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-core-spine.ttl",
+      "sha256": "be4de3ca70614b38ef091b69a684bf24cfc17dd3baf7574bb5fa48e044e07f76",
+      "bytes": 17328
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-core.ttl",
+      "sha256": "79574f5f74b474cfc627540014910f371668bdecc5b639249967280cd11a8dff",
+      "bytes": 27651
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-custodial-shapes.ttl",
+      "sha256": "d880863addf9a9b9a612198ed1e89211025c8a5a9145d310e471988e998b36b7",
+      "bytes": 39800
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-custodial.ttl",
+      "sha256": "6e82489d4acb4cb6deddc53456309e92c03821e39392b2d3e6661b673b7154f6",
+      "bytes": 32928
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-detection-shapes.ttl",
+      "sha256": "b8187b03d3eccfc0baf6551fabafa8c20d976fb742466cc69d60fd321a97dbf6",
+      "bytes": 42697
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-detection.ttl",
+      "sha256": "87dd1dcb35de9d8012bdc0f0371b092a64f76ff04399437d9e452c415c6ba89a",
+      "bytes": 28946
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-educational-exploitation-shapes.ttl",
+      "sha256": "c3a724e9000ccb9f3c4825d79b93aca1b360f5c1d1dc643017e33c8b3ff5b788",
+      "bytes": 34586
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-educational-exploitation.ttl",
+      "sha256": "9714270a27caf94b1bde91039099698e9824793846aa01495dd3fa3142eb15a2",
+      "bytes": 53309
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-extremist-enterprises-shapes.ttl",
+      "sha256": "91346e37c7d85474374397f4fc2569a759c005158cd04f172a52586ec72dc551",
+      "bytes": 40519
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-extremist-enterprises.ttl",
+      "sha256": "9ade3b3fce3e38f871d5e7a64436366e07daf1bbfa329a2ba2b7ce9041aba291",
+      "bytes": 48466
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-forensics-extended-shapes.ttl",
+      "sha256": "9ea79a7c0dbb1d599aa9ebbd555dea95e089ab151d14c1730fc5db9683f30959",
+      "bytes": 27411
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-forensics-shapes.ttl",
+      "sha256": "2a2475a4170c0db3ad30cc296a88cd9aa66ab46eca3f16aee53c4c9afc1f7345",
+      "bytes": 34047
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-forensics.ttl",
+      "sha256": "c730dc4f79ae4918002cfeb7aeb2fb870accfe29dee3e2889b759de82f8d2eaf",
+      "bytes": 59488
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-grooming-shapes.ttl",
+      "sha256": "f2ec229a4759bbd263245caaa20063ddadd66382d0de3adeae5998a77bc08de6",
+      "bytes": 44171
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-grooming.ttl",
+      "sha256": "7f53ddb85dc25d8d5660d5bde3467dc23766fb24c4056728e68519acc9424cbe",
+      "bytes": 63606
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-hotlines-shapes.ttl",
+      "sha256": "42f65d52a22551bacc5e3fed5a114a2dcfc570b02e69edf2e8c051f8e412fba9",
+      "bytes": 22568
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-hotlines.ttl",
+      "sha256": "60f462325abcebd3128d54d1f0fedb2f14d69e2b804cd306deb5c3b0853c7f2d",
+      "bytes": 21713
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-institutional-exploitation-shapes.ttl",
+      "sha256": "2b6c2255c46406287bfaec86933da6de5453212bac2aa1aee3e61bef868b365f",
+      "bytes": 40320
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-institutional-exploitation.ttl",
+      "sha256": "9637eeb030b518a580c16a63e8d4331a4ffe682445730fd0494c1deae213469f",
+      "bytes": 45970
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-integration-patterns.ttl",
+      "sha256": "c2f0d2907a37e58b0fedf9119a7f25c191e17b690155931abd722958e3ce7c69",
+      "bytes": 25151
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-international-shapes.ttl",
+      "sha256": "8c570f86039bcced44dbcb4e5f3c4035ffbc2a8f526ed9f508e5c458a8187594",
+      "bytes": 53110
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-international.ttl",
+      "sha256": "be4b38cd79f224a94f5ca9a7aa46eb1bdc0d20b12efd3e6f612a2e7d02844288",
+      "bytes": 55471
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-investigation-coordination-shapes.ttl",
+      "sha256": "e263c68dd510a8962a8991a38f682ff2def1fddca40a26fb434826d8d09868c7",
+      "bytes": 50937
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-investigation-coordination.ttl",
+      "sha256": "4b55d439ef469e2beaef6b782ce0b39cfe94bcdf68c9296c1b665a0b8aa96948",
+      "bytes": 57774
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-law-enforcement-corruption-shapes.ttl",
+      "sha256": "52ff2b2fdb4ad9a8daf1d986727bf21ddf57d7e4f270b7e2cc0c438fbe45a8db",
+      "bytes": 29267
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-law-enforcement-corruption.ttl",
+      "sha256": "ed4e68ad4df7d1ea817561aeac605a86a49962487d6a6daef7eb59dc261c7d9a",
+      "bytes": 27831
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-legal-harmonization-shapes.ttl",
+      "sha256": "d0d2bf0001b310432917653ebebf77a3e5f3e07213e88d28097a659b6c3f001b",
+      "bytes": 48609
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-legal-harmonization.ttl",
+      "sha256": "a7c31c10105394f68d34e41df370ce621a466512ec645bf98fa21063eccb42db",
+      "bytes": 56434
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-legal-outcomes-shapes.ttl",
+      "sha256": "351285c4949f9b875c46aeb20e62c9e066ee788c0b3a328565734c463acde6eb",
+      "bytes": 43960
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-legal-outcomes.ttl",
+      "sha256": "0238825e8900e8f49909b767838b9d02173c326f3c214ad0dcdc4f53749203d2",
+      "bytes": 63287
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-multi-jurisdiction-shapes.ttl",
+      "sha256": "700f0bd58230becab953fece36a9ba7f11dbc280cd0a00a7089a32a4238da2ac",
+      "bytes": 56597
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-multi-jurisdiction.ttl",
+      "sha256": "31217458a347fff4e05533f90b97d03c66951812eb73a3b90dfe63cc1c4a2564",
+      "bytes": 64002
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-partnerships-shapes.ttl",
+      "sha256": "613aa7e23f1026c58e23728a293694d6698a5fce803455df8b5e731d05d01fec",
+      "bytes": 60999
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-partnerships.ttl",
+      "sha256": "e8c3b2035601e5a04e41e18ddc08b04cbcaac80efdaaa2781435c358c6ab460f",
+      "bytes": 26129
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-physical-evidence-shapes.ttl",
+      "sha256": "b952a134d29a5a7be1f93a685297a4deb8ed6e0ae6df05daa916d871a3b7c56a",
+      "bytes": 51252
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-physical-evidence.ttl",
+      "sha256": "c6218d8973c0d42389867e5665c3cc0c5a72f8f108b99e826c4e0abd9d025052",
+      "bytes": 46650
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-platform-infrastructure-shapes.ttl",
+      "sha256": "cf395f61080580666f53f7a04093771d500c5237c563b897066c83a9107187ae",
+      "bytes": 63803
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-platform-infrastructure.ttl",
+      "sha256": "266152a11971773a093847f07babba21334fc6c11040dbce2a1f92c6f23170ea",
+      "bytes": 38888
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-platforms-shapes.ttl",
+      "sha256": "39945954d42b39c6a338098e91107ac836e260c2334279b0d43e2d909e184092",
+      "bytes": 36322
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-platforms.ttl",
+      "sha256": "ae0e2db3c761a097fd540c32353df35683b7e8ba1ebea669d0dce0bdfab8584a",
+      "bytes": 61621
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-prevention-shapes.ttl",
+      "sha256": "91d0376c8441701bd94cce63bf74d49ebdfee45db9fe662119ad02a5df3975b3",
+      "bytes": 38388
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-prevention.ttl",
+      "sha256": "f35ebace8a202048304e093ee2e2e89085c004be708d1cbb1badd3f3b7e6254a",
+      "bytes": 55601
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-production-shapes.ttl",
+      "sha256": "ab66bf9a0e91678acc97116472a89b8340833a1eb2ac586b12b08a8fe3909b0e",
+      "bytes": 30481
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-production.ttl",
+      "sha256": "7c39aef3caf799e26b7dfc3579313e00e6f3dca46664931d3bf41c8d4e2689f2",
+      "bytes": 29334
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-recantation-shapes.ttl",
+      "sha256": "559561b3ae98c4c95eb16bdf0e8fd7e267f4ab9127ea02e5ab8cbc4256e9917c",
+      "bytes": 9336
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-recantation.ttl",
+      "sha256": "7ca72bfeff125a471b3ef11aa2f27ebba5513ddd00b5f9b62a5966f2164b6351",
+      "bytes": 22848
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-recruitment-networks-shapes.ttl",
+      "sha256": "4dac761bb10479d78e46c8f3b363dfbee467e03641578dea5d60b02723e781e6",
+      "bytes": 21916
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-recruitment-networks.ttl",
+      "sha256": "61dabdf3d86051093ea6c4a647a6de3f860dee1b681f8677edefaed49b893608",
+      "bytes": 23753
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sadistic-online-exploitation-shapes.ttl",
+      "sha256": "086f9db156c3c87707c94f37aa75764c1a316041f70f006fda7a8bece919784e",
+      "bytes": 3884
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sadistic-online-exploitation.ttl",
+      "sha256": "392ad52632ae5c561303f8f0003306977b29fddd5ed5b7fb3acdd0e468d322ee",
+      "bytes": 5054
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sex-offender-registry-shapes.ttl",
+      "sha256": "1cb10ed14021522d8ca25ffae2c646670f9490bc88c4ef1eae7b0774881ec06d",
+      "bytes": 29299
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sex-offender-registry.ttl",
+      "sha256": "2fad8f18af71420bbc48c218ae51385e6e4980bba06ee1f560c4b17ea6a18047",
+      "bytes": 41371
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sex-trafficking-shapes.ttl",
+      "sha256": "d24b6299c6e66dd2d4e6275f2a7462e9cb6f564aa64b8b623ec26820636892e0",
+      "bytes": 9882
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sex-trafficking.ttl",
+      "sha256": "a91a183c9c535d3fe8965312afff5ab7cdc92b2f295c953719aa2503bf547244",
+      "bytes": 24360
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sextortion-shapes.ttl",
+      "sha256": "d4cd7bc191d1f236adcf772004221739400163e320509786efd50ab25b7f787c",
+      "bytes": 31691
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-sextortion.ttl",
+      "sha256": "4e49a0d0dc195397f6adf9b02f12ac6f777cfbe4a4164ae883217577d23391e1",
+      "bytes": 34578
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-specialized-units-shapes.ttl",
+      "sha256": "d8562fb2195f865f412599707e07b241a8185c24a8f9ca0887da933b3dc5c47b",
+      "bytes": 31429
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-specialized-units.ttl",
+      "sha256": "b9fd7ee0fb2de3865c9ec1a672716dd5a7ce4c4c0b66e50ed513c787734fc915",
+      "bytes": 21341
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-stranger-abduction-shapes.ttl",
+      "sha256": "873feccb087f7ca500b8aac97a8cb098b705a95d0c0dd2862e0e49956e6c744c",
+      "bytes": 32290
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-stranger-abduction.ttl",
+      "sha256": "fe33889e400d0f005a9fd4b77ad3bb178472b9c2981811439cae4a40ff4682c7",
+      "bytes": 37476
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-street-recruitment-shapes.ttl",
+      "sha256": "56f058857387069982331d811b3359f1852dc0b3ec77aba4ed57e6950bc2b37f",
+      "bytes": 43472
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-street-recruitment.ttl",
+      "sha256": "dfc6cc3540b46467ab594f138289ff402c2e4ed054aeec9c641654d0871806a8",
+      "bytes": 37695
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-synthesis-shapes.ttl",
+      "sha256": "68ff18c73fe1e03c967e15185eeeb20930f94f4ab8c83e61f281f02aceeb953c",
+      "bytes": 14451
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-synthesis.ttl",
+      "sha256": "084251fb8774c98863ed42c92640a8beeb3deeddbf3e814f5e02899458f6da5c",
+      "bytes": 18196
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-tactical-shapes.ttl",
+      "sha256": "f662b6d6255dca39c7a0c0ed866aff1ce78de3d17e65873dc459f03391620544",
+      "bytes": 40515
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-tactical.ttl",
+      "sha256": "3ba23d2aa03984ea25c6cedb07d460ea685c60608517300a5e6fcbc9a700d6df",
+      "bytes": 27454
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-taskforce-shapes.ttl",
+      "sha256": "d69ef4d145585de69390d85043132bdbc1f94702516d75d0b766c97d6ef8c369",
+      "bytes": 27258
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-taskforce.ttl",
+      "sha256": "2a2a4ab8e87793b888eec3525635334e503a3039b96e3948f229c53cd3d5be1c",
+      "bytes": 58317
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-temporal-shapes.ttl",
+      "sha256": "552ef894ba2bcecc5bb986bf134825338ddbaa69598047d7651e9b8fa96f92ad",
+      "bytes": 7465
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-temporal.ttl",
+      "sha256": "eba7abd5616cd4ad55e2ce072c699719477ddce9d76d4f782cf06d7d879e2baa",
+      "bytes": 24032
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-training-shapes.ttl",
+      "sha256": "4c53677b78a52fa89d2ec4a4c5ebf8ee9fef8700f5eab9641d0d4135fc9ce257",
+      "bytes": 36364
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-training.ttl",
+      "sha256": "4c439dac35d838654c8a89e2d094530c6bd9bbb48ac624d8799feef7e653e9a5",
+      "bytes": 28262
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-undercover-shapes.ttl",
+      "sha256": "9dc4f2287add59c6c1f35c58cfa669492cbc124e91f5f7e2e577a9303a512f0d",
+      "bytes": 39610
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-undercover.ttl",
+      "sha256": "b73e965dbc279611f11c95aa240c3da2b2f845537792fa2928354e51d88b4aed",
+      "bytes": 54389
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-us-ncmec-shapes.ttl",
+      "sha256": "43b19587e90831aa2c562100211113e43d567bbb9cac40c1d513865a8a8bd4c9",
+      "bytes": 38119
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-us-ncmec.ttl",
+      "sha256": "ca0ecf93e3f98ab3433ddd09c020ba1ab3ee8aacb34a104a0f692a738fd5dd54",
+      "bytes": 26021
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-usa-federal-law-shapes.ttl",
+      "sha256": "786066fc1b5bb71805c9a5c582b419083c8ef23c78e974694df4cc1e0670a2f4",
+      "bytes": 23160
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-usa-federal-law.ttl",
+      "sha256": "ab203a1162152b2d3f36547971e9e92c0ef0dc7e9e0b97832cb859bf8c8b9989",
+      "bytes": 36366
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-usa-legislative-shapes.ttl",
+      "sha256": "aa3096ec7497ff777eda5504119c65a077937208d52d3947bbb555a31239007f",
+      "bytes": 16281
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-usa-legislative.ttl",
+      "sha256": "d7512d74f5f70665be0e46a7497424c7fab59cbde10fe979d70863af8b7b9c3e",
+      "bytes": 23042
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-victim-impact-shapes.ttl",
+      "sha256": "db1266a35822fa697fd6e7aac798f887322aff3cee71dd43f8a3c7cf32e90e1f",
+      "bytes": 30004
+    },
+    {
+      "path": "ontology/cac/ontology/ontology/cacontology-victim-impact.ttl",
+      "sha256": "b8abcf6244e5bc7ece5cf12d638e887f8cf91f475fb4fb89eff33d7a0c191426",
+      "bytes": 54041
+    },
+    {
+      "path": "ontology/cac/ontology/raven-us-extensions.ttl",
+      "sha256": "232fcd3e61b3cd3639ac470fb7ac8fcb9c82b112fe1eac1142b58070960cbe80",
+      "bytes": 33599
+    },
+    {
+      "path": "ontology/CASE/ontology/investigation/investigation.ttl",
+      "sha256": "45808ddf8b90d3b2c1ac067e39326a4affacff4faa1c5052fcdea14d552f8429",
+      "bytes": 11555
+    },
+    {
+      "path": "ontology/CASE/ontology/master/case.ttl",
+      "sha256": "e054af0e5d02dccbe89519d49ec0b7436ddc6b2addab8f0a159bda2732e8d3f3",
+      "bytes": 2038
+    },
+    {
+      "path": "ontology/CASE/ontology/vocabulary/vocabulary.ttl",
+      "sha256": "3fab3915e75dece0aa148260fe91018ae5d4b4476ae6b811a3f8274efed2a09e",
+      "bytes": 821
+    },
+    {
+      "path": "ontology/CASE/tests/examples/investigative_action_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/CASE/tests/examples/investigative_action_XFAIL_validation.ttl",
+      "sha256": "d0a86f679b0c186d0b34278cf0a52b43386d8b781f44167f92320a29f5487b7e",
+      "bytes": 1565
+    },
+    {
+      "path": "ontology/CASE/tests/shapes/case-qc.ttl",
+      "sha256": "0c1e2c9ee58099238e820f28385923ccad9176d311cce827b3e04548b50f2735",
+      "bytes": 1828
+    },
+    {
+      "path": "ontology/solveit/solve-it-kb.ttl",
+      "sha256": "10f128edee812e27d846331ae5d053d0e85c0b97cf7ced3b3be06c2b1468fad0",
+      "bytes": 516131
+    },
+    {
+      "path": "ontology/solveit/solve_it_analysis.ttl",
+      "sha256": "54339af94e903f510f4922c625ace4c80a3f57d84ca599e68bd74f8592aba4fa",
+      "bytes": 7858
+    },
+    {
+      "path": "ontology/solveit/solve_it_core.ttl",
+      "sha256": "8bc90a5caceb14b1fe168d260f381cb49adce9cd865132d20f1acee5fa32de72",
+      "bytes": 14251
+    },
+    {
+      "path": "ontology/solveit/solve_it_observable.ttl",
+      "sha256": "5c3c87accc5ef0c57d374043e24bd65870240760ca7825bd8b723819b44286c2",
+      "bytes": 25383
+    },
+    {
+      "path": "ontology/solveit/solve_it_observable_acquisition.ttl",
+      "sha256": "9f42075651c0d787b0402b0b005da0c9f86e6b9b51ac07ddec0466404e6215e4",
+      "bytes": 17274
+    },
+    {
+      "path": "ontology/solveit/solve_it_observable_search.ttl",
+      "sha256": "5d63ef9b559e56a0b8dc59815172e5e0209af855d6c00a5fa12645d0cf140279",
+      "bytes": 3627
+    },
+    {
+      "path": "ontology/solveit/solve_it_observable_shapes.ttl",
+      "sha256": "19e903a5b0cde153d4a20e3763627422533fabe727f40c6af6c4bab26e76e2c2",
+      "bytes": 8629
+    },
+    {
+      "path": "ontology/solveit/solve_it_observable_timeline.ttl",
+      "sha256": "76b6a6c3f3c1a39ca140c4a36df4a038603d5df529e6bfcc6eb4c6e0e47b65a7",
+      "bytes": 11416
+    },
+    {
+      "path": "ontology/solveit/solve_it_sqlite.ttl",
+      "sha256": "49b6ad3fc96b01dc2729665fabe8d9bcd18bcc9ffe6d8620c9fe329f188a233c",
+      "bytes": 14245
+    },
+    {
+      "path": "ontology/solveit/solve_it_tool_profile.ttl",
+      "sha256": "82d5900e0d799b2f0c16d5a0a750dadbf1189d7182f2176f5f1a5e231d0f3313",
+      "bytes": 7775
+    },
+    {
+      "path": "ontology/solveit/solve_it_weakness_assessment.ttl",
+      "sha256": "8effb2398ffe9530f2b07191429370f126bbc3c4e6c80ab1d7b9ac918934185d",
+      "bytes": 10472
+    },
+    {
+      "path": "ontology/solveit/solveit-local-anchors.ttl",
+      "sha256": "e20df40aa5a2aa033a2e1c8eeb0be65f1d015276840910625a01121403b2ca41",
+      "bytes": 1041
+    },
+    {
+      "path": "ontology/solveit/solveit-technique-catalog.ttl",
+      "sha256": "35095866e74871ea9381fc52c2746acee8a7ca8eeec50d3634c329bb0a5d1adf",
+      "bytes": 86175
+    },
+    {
+      "path": "ontology/UCO/ontology/co/co.ttl",
+      "sha256": "f19945e728fc55c55cf56dcbeb281ad0ca825f7e949bf476a3d9efc039ce3fb7",
+      "bytes": 4792
+    },
+    {
+      "path": "ontology/UCO/ontology/owl/owl.ttl",
+      "sha256": "f79b1bf4ae5492f097e6132771cc874099a896ebbc1cac34a0fa9fbeed7e5ab4",
+      "bytes": 15206
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/action/action.ttl",
+      "sha256": "ad6de005d4ef1ed1154e6c4b05be88693e7a02cde1dcb936280bc6722f6f870d",
+      "bytes": 15749
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/analysis/analysis.ttl",
+      "sha256": "912b92cf7b13777b3774bc2bfe262018c63c26d09bba67c5531f3675383bde20",
+      "bytes": 4498
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/configuration/configuration.ttl",
+      "sha256": "1570409b261854dccf0bbe5480d4ec684b60a24af2ab3ffe37b9403c1394c8d4",
+      "bytes": 6949
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/core/core.ttl",
+      "sha256": "cf40b20fa205d0452920acf24c8501b34e2cddd9bbf4e1413b8afdbcc447afd1",
+      "bytes": 24965
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/identity/identity.ttl",
+      "sha256": "2d22a15354d3b6e59bfbf447be8d670ec6083ffc9a73a183367b8819d239fa38",
+      "bytes": 9419
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/location/location.ttl",
+      "sha256": "80a39e7b6cefada6248a5e6b1b3cac147872fbc44ab3f132540b7f85eadf7cdc",
+      "bytes": 6316
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/marking/marking.ttl",
+      "sha256": "7930d83750d8de9671ceb6df679012a8387389f4b4e8e851df280b4f186f630b",
+      "bytes": 8811
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/master/uco.ttl",
+      "sha256": "05333e10bb072efe23cea5e71db7135775ecf6b9a21b8ca3535f429440373473",
+      "bytes": 2995
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/observable/observable.ttl",
+      "sha256": "7cb1a62ac630747ada02b92601226a1e033904deb83678ada570a8899390361a",
+      "bytes": 393712
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/pattern/pattern.ttl",
+      "sha256": "61d505c8afaa9ff86b7f42fd3be92adb4519a0ff9ba4d1e56809837e439b495c",
+      "bytes": 2182
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/role/role.ttl",
+      "sha256": "adba1cbdb23ce466f5d4a92b52a53ce842e87cc1c68043d64965d7406d1eb921",
+      "bytes": 1694
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/time/time.ttl",
+      "sha256": "8eafb020aa480d2f671e18124dc1724e899888cb1be7496d21606e4ef0762a97",
+      "bytes": 795
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/tool/tool.ttl",
+      "sha256": "2681ab78be3749aa7b997157b71c58ebfcc0e4576c39a71acb949746a34a5051",
+      "bytes": 12767
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/types/types.ttl",
+      "sha256": "6b59e862edee7f3b304bdb8bbeb2f9e4837f81774d58572ce2ad8456d61fe506",
+      "bytes": 15308
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/victim/victim.ttl",
+      "sha256": "2c5eba484416199bdbc971d394b7d13d2e784f3e01d108776ccd0dec12410c10",
+      "bytes": 1354
+    },
+    {
+      "path": "ontology/UCO/ontology/uco/vocabulary/vocabulary.ttl",
+      "sha256": "a512a921320f66521990ba75dfafccd4d4812f5c5ef4af3699d5afa4935b1b50",
+      "bytes": 29127
+    },
+    {
+      "path": "ontology/UCO/tests/examples/action_inheritance_PASS_validation.ttl",
+      "sha256": "df8c6ff10fcf74994c1638f1b9705b9ac814edf4986c47673e34aab955b9219e",
+      "bytes": 848
+    },
+    {
+      "path": "ontology/UCO/tests/examples/action_inheritance_XFAIL_validation.ttl",
+      "sha256": "62d57d6800c4fe097961a1df27e9b10ad88831449c8653bc71f730821d715194",
+      "bytes": 4217
+    },
+    {
+      "path": "ontology/UCO/tests/examples/action_result_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/alternate_data_stream_PASS_validation.ttl",
+      "sha256": "4d817238b3dc613b92ef278323daa90111eb5f6c750001fc2fb03da1370c770c",
+      "bytes": 1623
+    },
+    {
+      "path": "ontology/UCO/tests/examples/co_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/co_XFAIL_validation.ttl",
+      "sha256": "b33b74cc4105fb760364946bda8a3c75998665e93cf7e63368bb7f45af75190a",
+      "bytes": 5962
+    },
+    {
+      "path": "ontology/UCO/tests/examples/configuration_setting_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/configuration_setting_XFAIL_validation.ttl",
+      "sha256": "5ec6de378df11429b389703c9382962434379d3b0cd49d0f0a18a71f577bd890",
+      "bytes": 2037
+    },
+    {
+      "path": "ontology/UCO/tests/examples/database_records_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/database_records_XFAIL_validation.ttl",
+      "sha256": "022f0fa80ee757280ac26d5ec5d8f6ce665cd9fee3954574b5734f5c073e5a7e",
+      "bytes": 3053
+    },
+    {
+      "path": "ontology/UCO/tests/examples/dictionary_PASS_validation.ttl",
+      "sha256": "4e4befbd53b5c5baf961e02a6d89ba6404e8cc4481c14a4ea464efdfe7211ea6",
+      "bytes": 1591
+    },
+    {
+      "path": "ontology/UCO/tests/examples/dictionary_XFAIL_validation.ttl",
+      "sha256": "391fddf486b606b01e40759e4acdd960827abe78a5ca717f648cea80f388f13f",
+      "bytes": 5483
+    },
+    {
+      "path": "ontology/UCO/tests/examples/disjointedness_PASS_validation.ttl",
+      "sha256": "ece903b552b6dc79d282b26538e4486886b8eb8ce48159ac1617214456eb8529",
+      "bytes": 978
+    },
+    {
+      "path": "ontology/UCO/tests/examples/event_XFAIL_validation.ttl",
+      "sha256": "aa4ad33833d0a41cd4aa1ad9d8b1248249feb98aa43c3a8aba597639524fdcce",
+      "bytes": 867
+    },
+    {
+      "path": "ontology/UCO/tests/examples/file_url_PASS_validation.ttl",
+      "sha256": "2a1efe71bb59e829105235f757707db0052a694858162e1f737bdf05366b4f5f",
+      "bytes": 942
+    },
+    {
+      "path": "ontology/UCO/tests/examples/has_facet_inverse_functional_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/has_facet_inverse_functional_XFAIL_validation.ttl",
+      "sha256": "1cad617bbce7bcaa1dba1ab7345ba44252c339d50ea46cd6deb38678f4b92299",
+      "bytes": 2432
+    },
+    {
+      "path": "ontology/UCO/tests/examples/hash_PASS_validation.ttl",
+      "sha256": "e099fb976118c336f573ddcf53c9189dafa8297c93b96c27080c74b9662acc70",
+      "bytes": 3648
+    },
+    {
+      "path": "ontology/UCO/tests/examples/hash_XFAIL_validation.ttl",
+      "sha256": "df1f9b3c1c49c520556d2e7e050fed3aceaffd8c63cf86e5f90f9a48262f0951",
+      "bytes": 998
+    },
+    {
+      "path": "ontology/UCO/tests/examples/location_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/location_XFAIL_validation.ttl",
+      "sha256": "31fa5598664253f4dba2c5d8901386634baeec1b3332eb84d994df3c4ebebbe2",
+      "bytes": 2131
+    },
+    {
+      "path": "ontology/UCO/tests/examples/message_thread_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/message_thread_XFAIL_validation.ttl",
+      "sha256": "81834d31b2fdb6aa12e11284f98a1bbd15fc69f4d49ff50662f398f6d1a937fb",
+      "bytes": 5106
+    },
+    {
+      "path": "ontology/UCO/tests/examples/object_status_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/object_status_XFAIL_validation.ttl",
+      "sha256": "c8da8470ca47c51793ee92b55fdce2c3f5487a608d1873c058cb4d1f3c7c5b06",
+      "bytes": 1541
+    },
+    {
+      "path": "ontology/UCO/tests/examples/observable_creation_time_PASS_validation.ttl",
+      "sha256": "ea85a0c6badb45ad96ea99f719f87b99908d1efae3fe9e2972f14942e0a491b4",
+      "bytes": 1192
+    },
+    {
+      "path": "ontology/UCO/tests/examples/operating_system_PASS_validation.ttl",
+      "sha256": "e06db5f8e1f50dfb3d48e12215df008f7a066390b47a391ebdd90b6ce3e3d1f9",
+      "bytes": 3182
+    },
+    {
+      "path": "ontology/UCO/tests/examples/owl_axiom_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/owl_axiom_XFAIL_validation.ttl",
+      "sha256": "5b2040314f38750216f1738a743ce1c832a59359205e63f25faa011a1a38aafd",
+      "bytes": 1477
+    },
+    {
+      "path": "ontology/UCO/tests/examples/owl_properties_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/owl_properties_XFAIL_validation.ttl",
+      "sha256": "353cbce65b5db72ae381a3ebcf5b13d778233214528738034da4b4437bb83da3",
+      "bytes": 2964
+    },
+    {
+      "path": "ontology/UCO/tests/examples/rdf_list_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/rdf_list_XFAIL_validation.ttl",
+      "sha256": "4d7b557efd2a3bebe8ea1d89398bbd0a514894fb380b97022cfe2aa89b9b6176",
+      "bytes": 4943
+    },
+    {
+      "path": "ontology/UCO/tests/examples/relationship_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/relationship_XFAIL_validation.ttl",
+      "sha256": "40359f60af34a21adae039d47a386df99908bf705e18093cc722d41179c8b333",
+      "bytes": 7661
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_data_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_data_XFAIL_validation.ttl",
+      "sha256": "a693f420734310c2ec6e32121fbe3f510ee8b267ea255669b7a25959b308ed8f",
+      "bytes": 3263
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_ontology_PASS.ttl",
+      "sha256": "50812ebc186ad8739a5777e882414da88d0e7b0937e3a75ee27d0a38ca980c91",
+      "bytes": 4860
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_ontology_XFAIL.ttl",
+      "sha256": "1e5e3991ed91c62e4f377842e46d0bdfd3d6a02e352b3a7c2818fe574eff7ab4",
+      "bytes": 3506
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_ontology_XFAIL_owlrl_validation.ttl",
+      "sha256": "4cb15ce6a81176c38db03ddc1f1ae24704e8e2df914415fd286f1b9992a3c8b5",
+      "bytes": 5021
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_ontology_XFAIL_rdfs_validation.ttl",
+      "sha256": "4cb15ce6a81176c38db03ddc1f1ae24704e8e2df914415fd286f1b9992a3c8b5",
+      "bytes": 5021
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_ontology_XFAIL_validation.ttl",
+      "sha256": "89707186ad9609286c05c2c4ab976b6cce33681ca3ce29dee339312740ee65c1",
+      "bytes": 4472
+    },
+    {
+      "path": "ontology/UCO/tests/examples/technique/technique_shapes_PASS.ttl",
+      "sha256": "6ff8e7d3002983da357c8b0a373cbd1d4be193d4a5e086411cf729487d68ac92",
+      "bytes": 2114
+    },
+    {
+      "path": "ontology/UCO/tests/examples/thread_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/examples/thread_XFAIL_validation.ttl",
+      "sha256": "d865c3694fb014e6347df4904f162ae84613b074b667dbdbd6e7ed7509105f51",
+      "bytes": 3909
+    },
+    {
+      "path": "ontology/UCO/tests/examples/uco_thing_XFAIL_validation.ttl",
+      "sha256": "eac3c9667abaaf06afe9b3ee83e3e75b29344c1f6dce4013df641de9a8e0ad70",
+      "bytes": 4838
+    },
+    {
+      "path": "ontology/UCO/tests/examples/uco_type_PASS_validation.ttl",
+      "sha256": "a7cff04c1b6df618ef35ddd1b5a9997c4056a1066db4cd14da5640d4b1a038b5",
+      "bytes": 1479
+    },
+    {
+      "path": "ontology/UCO/tests/examples/uco_type_XFAIL_validation.ttl",
+      "sha256": "b229d98ec34973ca54c5d9962cdbcc29602eab7a327d0d4c4dde485c50ca4119",
+      "bytes": 3205
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_incompatibleWith_shape_PASS.ttl",
+      "sha256": "9c1660518aa3246cfbad7cbbf198d633d41dee6e41dae63416bb45bef036ea59",
+      "bytes": 8030
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_incompatibleWith_shape_PASS_validation.ttl",
+      "sha256": "72f80a3c5376d9ad4d5276f4dd4d67333c1891c3f8fa4e2febfd2bd7a7533ff2",
+      "bytes": 10714
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_ontologyIRI_versionIRI_prerequisite_shape_XFAIL.ttl",
+      "sha256": "12d985a58d150815f02a130d2027fe9f5c177ca9c174de40717210c4610656de",
+      "bytes": 535
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_ontologyIRI_versionIRI_prerequisite_shape_XFAIL_validation.ttl",
+      "sha256": "2a6c56c840b3a6ace098d3758a4c303e7746b9ecfffe3df72fc38e620a917bb1",
+      "bytes": 1254
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_shacl_paths_PASS.ttl",
+      "sha256": "6c16e9c2d784457bbf2e533e0e3a3e3d86af74cacbf8de1659c22cb6a638250b",
+      "bytes": 741
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_shacl_paths_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_versionIRI_multiversion_shape_PASS.ttl",
+      "sha256": "634f07f01eb5967bbeefa91d0c7dee54035f28dd0ef79e1fc1d765c9f1719346",
+      "bytes": 499
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_owl/owl_versionIRI_multiversion_shape_PASS_validation.ttl",
+      "sha256": "5461e3ad935ca4d2b33ab3928e1191591baaedfbb862e5d246f2d28cf8a8235c",
+      "bytes": 886
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/co_Collection_core_UcoObject_XFAIL.ttl",
+      "sha256": "94b5392b779248ba3bddacf11fd1f92ef3c1de842403293976e505d935adef1e",
+      "bytes": 1358
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/co_Collection_core_UcoObject_XFAIL_validation.ttl",
+      "sha256": "2836e2ec797fcf31f201acb946b9bdf52b2d4129073fe4c06a9e0f8e53466741",
+      "bytes": 1619
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/owl_Ontology_shape_property_owl_versionIRI_PASS.ttl",
+      "sha256": "bfbe9e590079070a59fc5ed00c8dd092698950f2d361218face6f0c519172835",
+      "bytes": 950
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/owl_Ontology_shape_property_owl_versionIRI_PASS_validation.ttl",
+      "sha256": "57987ec629a6c7331e98a1f6712004f8e30159eb1bfab5b69cfc71ce9c145a40",
+      "bytes": 339
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/owl_Ontology_shape_property_owl_versionIRI_XFAIL.ttl",
+      "sha256": "b1912b4535a0e7770b73de5ff1a0b9d602a8980b6ed452ba2cd4c1e63c4ceab3",
+      "bytes": 1112
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/owl_Ontology_shape_property_owl_versionIRI_XFAIL_validation.ttl",
+      "sha256": "c0495452acd3deae19d46d80ada20a8a9f16e86b7ed7896eb9ead055db788a63",
+      "bytes": 3060
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/owl_Ontology_shape_sparql_imports_XFAIL.ttl",
+      "sha256": "939af7de1e17533e5f9d9a688eb99b9ad8dcfac4771d76abeb390a5a15d3db1c",
+      "bytes": 1539
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/examples_uco_qc/owl_Ontology_shape_sparql_imports_XFAIL_validation.ttl",
+      "sha256": "877e2fc5a39222c5ebf03ca1ac659713dfd397876d27eacb8811577917b20659",
+      "bytes": 2234
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/uco-closure-qc.ttl",
+      "sha256": "7e9a91c022c9ac9ea2cc4ba477f83b2f452db3f2b9554b4f1f14efb0a50d4c2c",
+      "bytes": 1365
+    },
+    {
+      "path": "ontology/UCO/tests/shapes/uco-qc.ttl",
+      "sha256": "4a2b0f810b3ba7824e4a175dddd820ac2f6695229c06c5764baf78fe5971942a",
+      "bytes": 3229
+    },
+    {
+      "path": "ontology/UCO/tests/thing.ttl",
+      "sha256": "2e2d73d0ea839665f305e12ec50bd398fe8f4ed940f83e46b78f8f145851453c",
+      "bytes": 248
+    },
+    {
+      "path": "ontology/upper/geo.ttl",
+      "sha256": "7e6ee2d0ff5a04bd03cf849e822740204219bf11488a8036522a84d444f33619",
+      "bytes": 42071
+    },
+    {
+      "path": "ontology/upper/gufo.ttl",
+      "sha256": "0d76e628194fc19df092eee009e19b64c67298760cac455f7a0bea84933e1b4b",
+      "bytes": 102708
+    },
+    {
+      "path": "ontology/upper/org.ttl",
+      "sha256": "dbd30cca0a77b212c03291571803932f369acd1b64ba2ce5d202b9321a95c7d0",
+      "bytes": 85221
+    },
+    {
+      "path": "ontology/upper/prof.ttl",
+      "sha256": "57c0e49ba5fcfa07dadd14497f8c947b92afe576203e544faa4621a733b8f459",
+      "bytes": 10268
+    },
+    {
+      "path": "ontology/upper/prov-o.ttl",
+      "sha256": "809967808bc61bf2348cd7ac9553cd68ce32b507bc4dc5c9031b0ccbbf00a6ff",
+      "bytes": 70116
+    },
+    {
+      "path": "ontology/upper/sf.ttl",
+      "sha256": "9b5d0cb1286ec43222fe7432b8016dcf55e11d55b8234fa1150ee718645b1e5c",
+      "bytes": 16821
+    },
+    {
+      "path": "ontology/upper/shapes/sh-bfo.ttl",
+      "sha256": "af24ff0f93d93f37bb3c3a06260e6ea8ac218dd33557c17a36814fd537f27651",
+      "bytes": 41391
+    },
+    {
+      "path": "ontology/upper/shapes/sh-foaf.ttl",
+      "sha256": "bc1f5e18f95e98d2a41bbf43beeaf7bdf9b3c5aefd55e909b5492657bdbb878a",
+      "bytes": 2050
+    },
+    {
+      "path": "ontology/upper/shapes/sh-geo.ttl",
+      "sha256": "061d43419543a013dc4bb5c501184152b1c5cc173849dd38c0ca0bced7207feb",
+      "bytes": 12236
+    },
+    {
+      "path": "ontology/upper/shapes/sh-gufo.ttl",
+      "sha256": "73e62c37edfc1a485c5c3a4498d68848840fa84ab3192bae6f3cea1922f20408",
+      "bytes": 45346
+    },
+    {
+      "path": "ontology/upper/shapes/sh-org.ttl",
+      "sha256": "863580535f4da910b4904cc3534ce2ccef782c4c1418fd54210dd60965d3b400",
+      "bytes": 16027
+    },
+    {
+      "path": "ontology/upper/shapes/sh-prof.ttl",
+      "sha256": "927832576dcd1c04f40ecee49a3b582493f283eea3fed396a036c04408b06456",
+      "bytes": 4311
+    },
+    {
+      "path": "ontology/upper/shapes/sh-prov-o.ttl",
+      "sha256": "f356d19fe041b2be76ed5fe8d3ba4c017f271653075a221045ea48317dd11b42",
+      "bytes": 24373
+    },
+    {
+      "path": "ontology/upper/shapes/sh-time.ttl",
+      "sha256": "8d5236455491da28023db315c507efd0dcaf27957cfe41cb546e96d8b11c6590",
+      "bytes": 17500
+    },
+    {
+      "path": "ontology/upper/time.ttl",
+      "sha256": "85271ab459743afca94d80d0b2352fc1565fe6c4e392ea7c75cd901161bd96d2",
+      "bytes": 103271
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-08-15T14:00:42.477346+00:00",
+  "source_aggregate_sha256": "0cb6c300b87365db66ec00492dfc86bd565263e8b7dcd11fdd03e21d2ac81f9b",
+  "source_file_count": 248,
+  "class_count": 2804,
+  "facet_count": 154,
+  "module_counts": {
+    "case.investigation": 10,
+    "ext.aeo.attack": 3,
+    "ext.aeo.engagement": 21,
+    "ext.aeo.identity": 2,
+    "ext.attack-technique.attack": 27,
+    "ext.cac.cac-core": 16,
+    "ext.cac.cacontology": 31,
+    "ext.cac.cacontology-ai-csam": 37,
+    "ext.cac.cacontology-analyst-wellbeing": 4,
+    "ext.cac.cacontology-asset-forfeiture": 32,
+    "ext.cac.cacontology-athletic-exploitation": 50,
+    "ext.cac.cacontology-case-management": 51,
+    "ext.cac.cacontology-custodial": 37,
+    "ext.cac.cacontology-detection": 24,
+    "ext.cac.cacontology-educational-exploitation": 39,
+    "ext.cac.cacontology-extremist-enterprises": 47,
+    "ext.cac.cacontology-forensics": 48,
+    "ext.cac.cacontology-grooming": 77,
+    "ext.cac.cacontology-hotlines": 24,
+    "ext.cac.cacontology-institutional-exploitation": 45,
+    "ext.cac.cacontology-integration-patterns": 33,
+    "ext.cac.cacontology-international": 53,
+    "ext.cac.cacontology-investigation-coordination": 44,
+    "ext.cac.cacontology-law-enforcement-corruption": 27,
+    "ext.cac.cacontology-legal-harmonization": 78,
+    "ext.cac.cacontology-legal-outcomes": 61,
+    "ext.cac.cacontology-multi-jurisdiction": 81,
+    "ext.cac.cacontology-partnerships": 36,
+    "ext.cac.cacontology-physical-evidence": 44,
+    "ext.cac.cacontology-platform-infrastructure": 36,
+    "ext.cac.cacontology-platforms": 59,
+    "ext.cac.cacontology-prevention": 87,
+    "ext.cac.cacontology-production": 34,
+    "ext.cac.cacontology-recantation": 18,
+    "ext.cac.cacontology-recruitment-networks": 33,
+    "ext.cac.cacontology-sadistic-online-exploitation": 2,
+    "ext.cac.cacontology-sex-offender-registry": 62,
+    "ext.cac.cacontology-sex-trafficking": 35,
+    "ext.cac.cacontology-sextortion": 51,
+    "ext.cac.cacontology-specialized-units": 43,
+    "ext.cac.cacontology-stranger-abduction": 64,
+    "ext.cac.cacontology-street-recruitment": 61,
+    "ext.cac.cacontology-synthesis": 19,
+    "ext.cac.cacontology-tactical": 28,
+    "ext.cac.cacontology-taskforce": 69,
+    "ext.cac.cacontology-temporal": 26,
+    "ext.cac.cacontology-training": 42,
+    "ext.cac.cacontology-undercover": 58,
+    "ext.cac.cacontology-us-ncmec": 25,
+    "ext.cac.cacontology-usa-federal-law": 36,
+    "ext.cac.cacontology-usa-legislative": 18,
+    "ext.cac.cacontology-victim-impact": 67,
+    "ext.cryptoinv.cryptoinv": 10,
+    "ext.drugs.drug": 1,
+    "ext.legalproc.legalproc": 7,
+    "ext.rico.rico": 1,
+    "ext.solveit.solveit-analysis": 9,
+    "ext.solveit.solveit-core": 6,
+    "ext.solveit.solveit-data": 187,
+    "ext.solveit.solveit-observable": 88,
+    "ext.solveit.solveit-tool-profile": 4,
+    "ext.solveit.solveit-wa": 2,
+    "ext.toolcap.capability": 3,
+    "ext.toolcap.toolcap": 5,
+    "ext.weapons.weap": 8,
+    "uco.action": 7,
+    "uco.analysis": 5,
+    "uco.configuration": 3,
+    "uco.core": 22,
+    "uco.identity": 20,
+    "uco.location": 4,
+    "uco.marking": 7,
+    "uco.observable": 323,
+    "uco.pattern": 3,
+    "uco.role": 4,
+    "uco.tool": 10,
+    "uco.types": 9,
+    "uco.victim": 1
+  },
+  "inheritance_edge_count": 3137,
+  "recommended_facet_bundles": {
+    "AirGappedFieldTriage": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "Device": {
+        "required": [
+          "DeviceFacet"
+        ],
+        "recommended": [
+          "MobileDeviceFacet",
+          "OperatingSystemFacet",
+          "SIMCardFacet"
+        ]
+      },
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet"
+        ]
+      }
+    },
+    "CrossOntology": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet"
+        ]
+      },
+      "Location": {
+        "required": [],
+        "recommended": [
+          "LatLongCoordinatesFacet",
+          "SimpleAddressFacet"
+        ]
+      }
+    },
+    "FullCACLifecycle": {
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet",
+          "ConfidenceFacet"
+        ]
+      },
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "Device": {
+        "required": [
+          "DeviceFacet"
+        ],
+        "recommended": [
+          "MobileDeviceFacet",
+          "OperatingSystemFacet",
+          "SIMCardFacet"
+        ]
+      },
+      "Message": {
+        "required": [
+          "MessageFacet"
+        ],
+        "recommended": [
+          "ApplicationFacet",
+          "AccountFacet"
+        ]
+      },
+      "MessageThread": {
+        "required": [
+          "MessageThreadFacet"
+        ],
+        "recommended": [
+          "ApplicationFacet",
+          "AccountFacet",
+          "ApplicationAccountFacet"
+        ]
+      },
+      "Account": {
+        "required": [
+          "AccountFacet"
+        ],
+        "recommended": [
+          "DigitalAccountFacet",
+          "ApplicationAccountFacet"
+        ]
+      }
+    },
+    "HashIntelligence": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "RasterPicture": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet",
+          "RasterPictureFacet"
+        ],
+        "recommended": [
+          "EXIFFacet",
+          "ConfidenceFacet"
+        ]
+      },
+      "ObservableObject": {
+        "required": [
+          "ContentDataFacet"
+        ],
+        "recommended": [
+          "FileFacet"
+        ]
+      }
+    },
+    "LegalProcess": {
+      "Person": {
+        "required": [],
+        "recommended": []
+      }
+    },
+    "MinimalForensics": {
+      "File": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      },
+      "ObservableObject": {
+        "required": [
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": [
+          "DeviceFacet"
+        ]
+      },
+      "Device": {
+        "required": [
+          "DeviceFacet"
+        ],
+        "recommended": [
+          "OperatingSystemFacet"
+        ]
+      },
+      "DiskImage": {
+        "required": [
+          "ImageFacet",
+          "FileFacet",
+          "ContentDataFacet"
+        ],
+        "recommended": []
+      }
+    },
+    "ToolMapping": {
+      "Tool": {
+        "required": [],
+        "recommended": [
+          "ConfigurationEntryFacet"
+        ]
+      }
+    }
+  },
+  "notes": "When source_aggregate_sha256 matches the live manifest, generate skips OWL parse and class emission. A change under ontology/UCO or ontology/CASE forces a full parse. A leaf extension change re-parses UCO+CASE plus the changed module and its DAG dependents, then merges those classes into the runtime registry without rewriting core language bindings."
+}

@@ -1,0 +1,6152 @@
+{
+  "schema_version": "1.0.0",
+  "recipe_count": 79,
+  "recipes": [
+    {
+      "file": "docs/recipes/accounts.md",
+      "title": "Multi-Platform Account Linking",
+      "description": "Model cross-platform identity correlation across social media, email, and cloud accounts.",
+      "keywords": "account identity person facebook google email digital platform social media linking",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Account",
+        "AccountAuthenticationFacet",
+        "AccountFacet",
+        "Application",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "DigitalAccount",
+        "DigitalAccountFacet",
+        "EmailAccount",
+        "EmailAccountFacet",
+        "EmailAddress",
+        "EmailAddressFacet",
+        "Identity",
+        "ObservableObject",
+        "Pattern",
+        "Person",
+        "Relationship",
+        "Role",
+        "SimpleNameFacet"
+      ],
+      "facets_mentioned": [
+        "AccountAuthenticationFacet",
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "DigitalAccountFacet",
+        "EmailAccountFacet",
+        "EmailAddressFacet",
+        "SimpleNameFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "SimpleNameFacet"
+        ],
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "AccountAuthenticationFacet",
+          "AccountFacet",
+          "ApplicationAccountFacet",
+          "DigitalAccountFacet"
+        ],
+        [
+          "EmailAddressFacet"
+        ],
+        [
+          "AccountFacet",
+          "EmailAccountFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/advanced-file-patterns.md",
+      "title": "Advanced File Patterns",
+      "description": "Model archives, encryption, SQLite blobs, and nested containment chains.",
+      "keywords": "archive tar zip encrypted encoded base64 sqlite blob nested containment layer stream",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ContentData",
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "Disk",
+        "EncodedStreamFacet",
+        "EncryptedStreamFacet",
+        "File",
+        "FileFacet",
+        "Hash",
+        "Image",
+        "ImageFacet",
+        "ObservableObject",
+        "PathRelationFacet",
+        "Relationship",
+        "Role",
+        "SQLiteBlobFacet"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "EncodedStreamFacet",
+        "EncryptedStreamFacet",
+        "FileFacet",
+        "ImageFacet",
+        "PathRelationFacet",
+        "SQLiteBlobFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet",
+          "ImageFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "DataRangeFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "EncryptedStreamFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "PathRelationFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "EncodedStreamFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "SQLiteBlobFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/ai-analysis-pipeline.md",
+      "title": "AI/ML Analysis Pipelines",
+      "description": "Model AI/ML analysis workflows — multi-step inference, image search, per-result scoring, ranked outputs, and full provenance.",
+      "keywords": "ai ml machine learning inference pipeline image search semantic embedding clip model scoring ranking similarity confidence raster picture photo detection prediction neural network",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Age",
+        "Analysis",
+        "AnalyticTool",
+        "Artifact",
+        "ArtifactClassification",
+        "ArtifactClassificationResultFacet",
+        "ConfidenceFacet",
+        "ConfiguredTool",
+        "ContentDataFacet",
+        "Directory",
+        "File",
+        "FileFacet",
+        "Hash",
+        "Image",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Pattern",
+        "ProvenanceRecord",
+        "RasterPicture",
+        "RasterPictureFacet",
+        "Relationship",
+        "Role",
+        "Tool"
+      ],
+      "facets_mentioned": [
+        "ArtifactClassificationResultFacet",
+        "ConfidenceFacet",
+        "ContentDataFacet",
+        "FileFacet",
+        "RasterPictureFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "FileFacet + ContentDataFacet + RasterPictureFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/analysis.md",
+      "title": "Forensic Analysis and Artifact Classification",
+      "description": "Model malware analysis, automated classification with confidence scores.",
+      "keywords": "analysis malware reverse engineering classification confidence artifact yara ida",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Analysis",
+        "AnalyticTool",
+        "Artifact",
+        "ArtifactClassification",
+        "ArtifactClassificationResultFacet",
+        "ConfiguredTool",
+        "ContentDataFacet",
+        "File",
+        "FileFacet",
+        "Hash",
+        "Identity",
+        "Image",
+        "InvestigativeAction",
+        "ObservableObject",
+        "ProvenanceRecord",
+        "RasterPicture",
+        "Role",
+        "Tool"
+      ],
+      "facets_mentioned": [
+        "ArtifactClassificationResultFacet",
+        "ContentDataFacet",
+        "FileFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "ArtifactClassificationResultFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "ObservableObject + ArtifactClassificationResultFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/apple-unified-logs.md",
+      "title": "Apple Unified Logs and Analytic Tool Outputs",
+      "description": "Model Apple Unified Logging EventRecords and structured parser outputs from unifiedlog_iterator CSV, Notari SQLite, and iLEAPP with SOLVE-IT DFT-1066/1076 provenance.",
+      "keywords": "unified log unified logs apple oslog logarchive tracev3 unifiedlog_iterator mandiant notari ileapp sqlite csv eventrecord subsystem category locationd signpost persist timesync boot_uuid mach_continuous_time simpledump log show activity_id",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AnalyticTool",
+        "AppleUnifiedLogArchive",
+        "Application",
+        "ApplicationFacet",
+        "ContentDataFacet",
+        "Device",
+        "Dictionary",
+        "DictionaryEntry",
+        "Event",
+        "EventLog",
+        "EventRecord",
+        "EventRecordFacet",
+        "FileFacet",
+        "Hash",
+        "InvestigativeAction",
+        "ObservableObject",
+        "ObservableRelationship",
+        "Parser",
+        "Process",
+        "Role",
+        "SolveitInvestigativeAction",
+        "Tool",
+        "WirelessNetworkConnection"
+      ],
+      "facets_mentioned": [
+        "ApplicationFacet",
+        "ContentDataFacet",
+        "EventRecordFacet",
+        "FileFacet",
+        "UnifiedLogFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "EventRecordFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "Event + Dictionary",
+        "EventRecord + Event"
+      ],
+      "mapping_patterns": [
+        "AppleUnifiedLogArchive → EventRecord + Event + AnalyticTool outputs (CSV/SQLite)"
+      ],
+      "recommended_facets": [
+        "ApplicationFacet",
+        "EventRecordFacet"
+      ]
+    },
+    {
+      "file": "docs/recipes/bulk-extractor-path.md",
+      "title": "Bulk Extractor Forensic Paths",
+      "description": "Model nested containment paths from bulk extraction tools with byte offsets.",
+      "keywords": "bulk extractor forensic path nested containment compressed gzip offset binwalk",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "CompressedStreamFacet",
+        "ContentData",
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "EmailAddress",
+        "EmailAddressFacet",
+        "File",
+        "FileFacet",
+        "Hash",
+        "Image",
+        "ImageFacet",
+        "ObservableObject",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "URL"
+      ],
+      "facets_mentioned": [
+        "CompressedStreamFacet",
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "EmailAddressFacet",
+        "FileFacet",
+        "ImageFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ContentDataFacet",
+          "FileFacet",
+          "ImageFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "DataRangeFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "CompressedStreamFacet"
+        ],
+        [
+          "EmailAddressFacet"
+        ],
+        [
+          "DataRangeFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-csam-forensic-provenance.md",
+      "title": "CSAM Forensic Provenance and Victim Identification",
+      "description": "Model CSAM acquisition, chain of custody, hashing, correlation, and victim identification.",
+      "keywords": "csam forensic provenance photodna hash chain of custody victim identification cac ontology crimes against children purchasing operation csam purchasing",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "Analysis",
+        "BehavioralFingerprinting",
+        "ChainOfCustodyAction",
+        "ContentDataFacet",
+        "ContentHashingTool",
+        "CrossPlatformCorrelation",
+        "Event",
+        "EvidenceVerificationAction",
+        "FileFacet",
+        "ForensicAcquisitionAction",
+        "GeospatialCorrelation",
+        "Hash",
+        "MetadataCorrelation",
+        "Observable",
+        "OnlinePurchase",
+        "Person",
+        "RasterPicture",
+        "Relationship",
+        "Role",
+        "TemporalPatternAnalysis",
+        "Tool",
+        "Victim",
+        "VictimIdentificationProcess"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "FileFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-federal-prosecution-relationships.md",
+      "title": "Federal Prosecution Relationship Completeness",
+      "description": "Model federal indictment relationship wiring: defendant–counts, indictment–charges, multi-district prosecution, forfeiture–devices, and enterprise relators.",
+      "keywords": "federal prosecution indictment multi-defendant multi-district parallel jurisdiction co-conspirator 2252a federal charge conspiracy child exploitation enterprise csam production possession forfeiture cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "Access",
+        "AssetForfeitureAction",
+        "Bundle",
+        "CACInvestigation",
+        "CSAMIncident",
+        "ChildExploitationEnterprise",
+        "ConspiracyToCommitCSA",
+        "Device",
+        "EquipmentSeizureAction",
+        "Event",
+        "FederalCharge",
+        "FederalProsecution",
+        "FederalProsecutorRole",
+        "FileFacet",
+        "InternationalJurisdiction",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "MobileRecordingDevice",
+        "MultiDefendantIndictment",
+        "Note",
+        "ObservableObject",
+        "OffenderRole",
+        "Person",
+        "PreTrialPhase",
+        "ProductionOffense",
+        "ProvenanceRecord",
+        "Relationship",
+        "Role",
+        "Subject",
+        "UcoObject",
+        "Victim"
+      ],
+      "facets_mentioned": [
+        "FileFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-federal-trial-proceedings.md",
+      "title": "Federal Trial Proceedings and Docket Lifecycle",
+      "description": "Model superseding indictments, PACER docket milestones, competency proceedings, and government trial briefs with anticipated evidence.",
+      "keywords": "superseding indictment trial brief pacer docket competency 4241 speedy trial act jury trial anticipated evidence cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "BookingAction",
+        "Bundle",
+        "CACInvestigation",
+        "CSAMIncident",
+        "CommercialSexualExploitation",
+        "Event",
+        "FederalCharge",
+        "FederalProsecution",
+        "FileFacet",
+        "InvestigativeAction",
+        "LegalEvent",
+        "MinorTraffickingVictimRole",
+        "MultiDefendantIndictment",
+        "ObservableObject",
+        "Pattern",
+        "Person",
+        "PreTrialPhase",
+        "ProvenanceRecord",
+        "Relationship",
+        "Role",
+        "TrialPhase"
+      ],
+      "facets_mentioned": [
+        "FileFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-grooming-chat-modeling.md",
+      "title": "Online Grooming Chat Modeling",
+      "description": "Model grooming chat evidence and CAC behavioral interpretation with phase progression, role separation, and message-level classification.",
+      "keywords": "grooming csam child exploitation victim offender snapchat chat message phase escalation cac ontology crimes against children sexual solicitation soliciting a minor",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "Account",
+        "AccountFacet",
+        "Age",
+        "ApplicationAccount",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "AutomatedDetectionAction",
+        "CACInvestigation",
+        "ChildVictim",
+        "Contact",
+        "ContentDataFacet",
+        "EscalationPattern",
+        "Facet",
+        "GroomingMessage",
+        "GroomingPhase",
+        "Identity",
+        "InitialContactPhase",
+        "Investigation",
+        "InvestigationTrigger",
+        "InvestigativeAction",
+        "IsolationPhase",
+        "MaintenancePhase",
+        "Message",
+        "MessageFacet",
+        "MessageThread",
+        "MessageThreadFacet",
+        "NCMECCybertipReport",
+        "Observable",
+        "ObservableObject",
+        "OffenderRole",
+        "OnlineGrooming",
+        "Person",
+        "Phase",
+        "ProducedImage",
+        "RasterPicture",
+        "RasterPictureFacet",
+        "Relationship",
+        "Role",
+        "SecrecyRequest",
+        "SexualSolicitation",
+        "SexualizationPhase",
+        "SimpleNameFacet",
+        "SocialMediaPlatform",
+        "Subject",
+        "Thread",
+        "TrustBuildingPhase",
+        "Victim",
+        "VictimResponse",
+        "VictimRole"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "ContentDataFacet",
+        "MessageFacet",
+        "MessageThreadFacet",
+        "RasterPictureFacet",
+        "SimpleNameFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "AccountFacet",
+          "ApplicationAccountFacet"
+        ],
+        [
+          "MessageThreadFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "Message + GroomingMessage",
+        "Message + SecrecyRequest",
+        "Message + SexualSolicitation",
+        "Message + VictimResponse",
+        "Subject + OffenderRole",
+        "Victim + VictimRole"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-hotline-intake-lifecycle.md",
+      "title": "Hotline Intake and Referral Lifecycle",
+      "description": "Model hotline intake, triage, referral, and escalation to investigations.",
+      "keywords": "hotline intake referral cybertipline mandatory reporting cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "CACInvestigation",
+        "Investigation",
+        "InvestigativeAction",
+        "MandatoryReportingActivation",
+        "Role"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-icac-search-warrant-arrest.md",
+      "title": "ICAC Search Warrant Arrest (Press Release Pattern)",
+      "description": "Model routine ICAC search warrant execution, custody without incident, booking, and Maryland/state police press-release arrests.",
+      "keywords": "icac search warrant arrest without incident detention center held without bond child exploitation unit computer crimes unit annapolis anne arundel cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "ArrestOperation",
+        "Authorization",
+        "BookingAction",
+        "CACInvestigation",
+        "Computer",
+        "ConclusionPhase",
+        "ContentDataFacet",
+        "CorrectionalFacility",
+        "DynamicEntry",
+        "ExternalReference",
+        "FileFacet",
+        "GovernorsOfficeCrimePreventionFunding",
+        "HighRiskArrest",
+        "ICACtaskForce",
+        "InitialPhase",
+        "Investigation",
+        "InvestigativeAction",
+        "LegalProcessPhase",
+        "MarylandICACtaskForce",
+        "MarylandStatePoliceComputerCrimesUnit",
+        "ObservableObject",
+        "OnlineGrooming",
+        "OnlinePurchase",
+        "Organization",
+        "Pattern",
+        "Person",
+        "Relationship",
+        "Role",
+        "StateCharge",
+        "StateLocalFundingCombination",
+        "UcoObject"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "FileFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "MarylandStatePoliceComputerCrimesUnit + county"
+      ],
+      "mapping_patterns": [
+        "CACInvestigation + MarylandICACtaskForce + InvestigativeAction chain + Authorization + ArrestOperation (warrant_arrest) + BookingAction + CorrectionalFacility + StateCharge"
+      ],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-international-coordination.md",
+      "title": "International Coordination and Cross-Border Operations",
+      "description": "Model transnational investigations, Europol/Interpol coordination, and cross-border evidence sharing.",
+      "keywords": "international cross-border europol interpol extradition cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "CrossBorderOperation",
+        "EuropolCoordination",
+        "FederalJurisdiction",
+        "InternationalEvidenceSharing",
+        "InternationalJurisdiction",
+        "JointInvestigation",
+        "ProvenanceRecord",
+        "Role",
+        "TaskForce"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "title": "Legal Charges, Sentencing, and Case Outcomes",
+      "description": "Model indictments, charges, plea agreements, sentencing, and sex-offender registry outcomes.",
+      "keywords": "sentencing plea conviction charges registry legal outcome cac ontology crimes against children charged with without bond detention center",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "BookingAction",
+        "CACInvestigation",
+        "ComputerSeduceSolicitLure",
+        "CorrectionalFacility",
+        "CriminalCharge",
+        "FloridaStateCharge",
+        "GeorgiaStateCharge",
+        "Identity",
+        "Jurisdiction",
+        "Person",
+        "Plea",
+        "PleaAgreement",
+        "PrisonSentence",
+        "Relationship",
+        "Role",
+        "SentencingOutcome",
+        "StateCharge",
+        "SupervisedRelease"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-missing-child-investigation.md",
+      "title": "Missing Child Investigations",
+      "description": "Model missing-child reports, AMBER alerts, tracking, and recovery operations.",
+      "keywords": "missing child amber alert abduction runaway recovery cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "Alert",
+        "CACInvestigation",
+        "CellSiteFacet",
+        "Investigation",
+        "LatLongCoordinatesFacet",
+        "Location",
+        "Role",
+        "StrangerAbductionInvestigation"
+      ],
+      "facets_mentioned": [
+        "CellSiteFacet",
+        "LatLongCoordinatesFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-multi-jurisdiction-task-force.md",
+      "title": "Multi-Jurisdictional Task Force Operations",
+      "description": "Model ICAC task forces, joint investigations, jurisdictional handoffs, and mass rescue operations.",
+      "keywords": "task force icac multi-jurisdiction joint investigation mutual aid handoff mass rescue cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "CACInvestigation",
+        "FederalJurisdiction",
+        "Identity",
+        "InternationalJurisdiction",
+        "InvestigativeAction",
+        "JointInvestigation",
+        "Jurisdiction",
+        "JurisdictionalHandoff",
+        "LocalJurisdiction",
+        "MarylandStatePoliceComputerCrimesUnit",
+        "MassChildRescueOperation",
+        "MutualAidRequest",
+        "Organization",
+        "ProvenanceRecord",
+        "Role",
+        "StateJurisdiction",
+        "TaskForce",
+        "UcoObject",
+        "VictimExtraction"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "FederalJurisdiction + StateJurisdiction + LocalJurisdiction"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-pacer-document-ingestion.md",
+      "title": "PACER Document Ingestion (MCP Agent Workflow)",
+      "description": "Submit PACER PDF bundles via process_document_file, route CAC recipes, build merged validated investigation graphs for agents and Link-Look.",
+      "keywords": "pacer pdf indictment judgment trial brief process_document_file validate_graph icac federal court ecf docket ao 245b agent workflow cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "Action",
+        "ApplicationAccount",
+        "AssetForfeitureAction",
+        "Bundle",
+        "CACInvestigation",
+        "CSAMIncident",
+        "Call",
+        "ChildPornographyProduction",
+        "CommercialSexualExploitation",
+        "ContentDataFacet",
+        "ConvictionRecord",
+        "Event",
+        "ExtractedStringsFacet",
+        "FederalCharge",
+        "FederalProsecution",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "MinorTraffickingVictimRole",
+        "MonetaryPenalty",
+        "MultiDefendantIndictment",
+        "ObservableObject",
+        "Organization",
+        "Person",
+        "Post",
+        "PrisonSentence",
+        "ProvenanceRecord",
+        "Relationship",
+        "SentencingPhase",
+        "SexTraffickingOfMinors",
+        "SupervisedRelease",
+        "TrialPhase",
+        "Victim"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "ExtractedStringsFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "Conviction + PrisonSentence"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-production-case.md",
+      "title": "CSAM Production and Manufacturing Cases",
+      "description": "Model hands-on abuse and offender-produced CSAM with production environments and equipment.",
+      "keywords": "production manufactured produced image video hands-on abuse cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "AssetForfeitureAction",
+        "CSAMIncident",
+        "ChildVictim",
+        "ContentDataFacet",
+        "Device",
+        "FederalCharge",
+        "ForensicAcquisitionAction",
+        "Location",
+        "MobileRecordingDevice",
+        "ObservableObject",
+        "ProducedImage",
+        "ProducedVideo",
+        "RecordingEquipment",
+        "Relationship",
+        "Role",
+        "Victim",
+        "VictimRole"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-sextortion-coercion.md",
+      "title": "Sextortion and Online Coercion",
+      "description": "Model sextortion schemes, coercion demands, and compliance pressure on minor victims.",
+      "keywords": "sextortion coercion blackmail explicit images financial extortion cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "Bundle",
+        "CSAMIncident",
+        "ChildExploitationEnterprise",
+        "ChildVictim",
+        "FederalCharge",
+        "FederalProsecution",
+        "Identity",
+        "InternationalJurisdiction",
+        "Location",
+        "Message",
+        "MessageThread",
+        "MultiDefendantIndictment",
+        "OffenderRole",
+        "OnlinePredator",
+        "Pattern",
+        "Person",
+        "RasterPicture",
+        "Relationship",
+        "Role",
+        "Sextortion",
+        "VictimRole"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "Identity + VictimRole"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-tactical-undercover-operation.md",
+      "title": "Tactical Arrest and Undercover Operations",
+      "description": "Model high-risk arrests, dynamic entry, undercover stings, and asset forfeiture in CAC investigations.",
+      "keywords": "tactical arrest undercover swat dynamic entry warrant asset forfeiture cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "ApplicationAccount",
+        "ArrestOperation",
+        "AssetForfeitureAction",
+        "Authorization",
+        "DynamicEntry",
+        "HighRiskArrest",
+        "Identity",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Role",
+        "SuspectProfile",
+        "ThreatAssessment",
+        "UcoObject",
+        "UndercoverOperation"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "ThreatAssessment + SuspectProfile"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-trafficking-recruitment-network.md",
+      "title": "Child Sex Trafficking and Recruitment Networks",
+      "description": "Model trafficking enterprises, recruitment networks, pretext approaches, and digital-to-physical bridges using CAC Ontology classes.",
+      "keywords": "trafficking recruitment ring csec cse peer recruitment school street pretext cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "Action",
+        "ApplicationAccount",
+        "CACInvestigation",
+        "CSAMIncident",
+        "ClassmateRecruitmentNetwork",
+        "CommercialSexualExploitation",
+        "DigitalToPhysicalBridge",
+        "FederalCharge",
+        "FileFacet",
+        "GroomingSolicitation",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "MinorTraffickingVictimRole",
+        "ObservableObject",
+        "OnlineDatingPlatform",
+        "PeerRecruitmentNetwork",
+        "Person",
+        "PrimaryTraffickerRole",
+        "ProvenanceRecord",
+        "RecordingAction",
+        "Relationship",
+        "Role",
+        "SchoolBasedRecruitment",
+        "SexTraffickingOfMinors",
+        "Subject",
+        "TraffickingCell",
+        "TraffickingEnterprise",
+        "TraffickingRing",
+        "TransportationOfferApproach",
+        "UcoObject",
+        "Victim",
+        "VictimTransportation"
+      ],
+      "facets_mentioned": [
+        "FileFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cac-victim-rescue-extraction.md",
+      "title": "Victim Rescue, Extraction, and Post-Rescue Services",
+      "description": "Model emergency response, victim extraction, safety planning, and multi-agency victim services.",
+      "keywords": "rescue extraction victim service safety planning trauma recantation dcfs cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "ChildVictim",
+        "EmergencyResponse",
+        "HelpSeekingBarrier",
+        "MultiAgencyVictimResponse",
+        "OngoingDangerAssessment",
+        "Post",
+        "ProvenanceRecord",
+        "ReaffirmedDisclosureStatement",
+        "RecantationAssessment",
+        "Role",
+        "SafetyPlanning",
+        "TraumaIndicator",
+        "Victim",
+        "VictimExtraction"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "TraumaIndicator + HelpSeekingBarrier"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/call-log.md",
+      "title": "Call Log Records",
+      "description": "Model phone call records, carrier accounts, and conference bridges.",
+      "keywords": "call log phone carrier voip conference bridge dialer incoming outgoing missed",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Account",
+        "AccountFacet",
+        "Application",
+        "ApplicationFacet",
+        "Call",
+        "CallFacet",
+        "Identity",
+        "ObservableObject",
+        "Pattern",
+        "PhoneAccount",
+        "PhoneAccountFacet",
+        "Role"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ApplicationFacet",
+        "CallFacet",
+        "PhoneAccountFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "AccountFacet",
+          "PhoneAccountFacet"
+        ],
+        [
+          "AccountFacet",
+          "PhoneAccountFacet"
+        ],
+        [
+          "CallFacet"
+        ],
+        [
+          "CallFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "Call + CallFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cargo-theft-route-staging.md",
+      "title": "Cargo Theft, Route Staging, and Warehouse Movement",
+      "description": "Model freight route theft, geofence deviations, manifest anomalies, and warehouse staging.",
+      "keywords": "cargo theft freight route staging warehouse geofence manifest trailer tractor logistics supply chain",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ContentDataFacet",
+        "DeviceFacet",
+        "Event",
+        "File",
+        "FileFacet",
+        "GeoLocationEntryFacet",
+        "Hash",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "Message",
+        "MessageFacet",
+        "MessageThread",
+        "MessageThreadFacet",
+        "ObservableObject",
+        "Organization",
+        "Pattern",
+        "Person",
+        "ProvenanceRecord",
+        "Relationship",
+        "Role",
+        "SimpleAddressFacet",
+        "Tool",
+        "Vehicle"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DeviceFacet",
+        "FileFacet",
+        "GeoLocationEntryFacet",
+        "MessageFacet",
+        "MessageThreadFacet",
+        "SimpleAddressFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "MessageThreadFacet"
+        ],
+        [
+          "MessageFacet"
+        ],
+        [
+          "DeviceFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "GeoLocationEntryFacet"
+        ],
+        [
+          "SimpleAddressFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cell-site.md",
+      "title": "Cell Site and Tower Data",
+      "description": "Model cell tower connections, SIM cards, CDR data, and location tracking.",
+      "keywords": "cell site tower cdr sim card imei imsi carrier antenna location tracking mobile",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AccountFacet",
+        "AntennaFacet",
+        "Call",
+        "CellSite",
+        "CellSiteFacet",
+        "Device",
+        "DeviceFacet",
+        "Identity",
+        "LatLongCoordinatesFacet",
+        "Location",
+        "MobileAccount",
+        "MobileAccountFacet",
+        "MobileDeviceFacet",
+        "ObservableObject",
+        "OperatingSystemFacet",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "SIMCard",
+        "SIMCardFacet",
+        "SoftwareFacet"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "AntennaFacet",
+        "CellSiteFacet",
+        "DeviceFacet",
+        "LatLongCoordinatesFacet",
+        "MobileAccountFacet",
+        "MobileDeviceFacet",
+        "OperatingSystemFacet",
+        "SIMCardFacet",
+        "SoftwareFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet",
+          "MobileDeviceFacet"
+        ],
+        [
+          "SIMCardFacet"
+        ],
+        [
+          "AccountFacet"
+        ],
+        [
+          "LatLongCoordinatesFacet"
+        ],
+        [
+          "AntennaFacet",
+          "CellSiteFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "CellSite + CellSiteFacet + AntennaFacet",
+        "Device + DeviceFacet + MobileDeviceFacet",
+        "Location + LatLongCoordinatesFacet",
+        "SIMCard + SIMCardFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/chain-of-custody.md",
+      "title": "Chain of Custody",
+      "description": "Track evidence handling, transfers, and provenance records.",
+      "keywords": "custody chain provenance evidence handling transfer",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AccountFacet",
+        "ContentDataFacet",
+        "ContextualCompilation",
+        "DeviceFacet",
+        "Event",
+        "Examiner",
+        "FileFacet",
+        "Hash",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "ObservableObject",
+        "ProvenanceRecord",
+        "Relationship",
+        "SimpleAddressFacet",
+        "Tool",
+        "UcoObject"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ContentDataFacet",
+        "DeviceFacet",
+        "FileFacet",
+        "SimpleAddressFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "SimpleAddressFacet"
+        ],
+        [
+          "DeviceFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/change-proposal.md",
+      "title": "Proposing Changes to CASE/UCO",
+      "description": "Identify gaps, research existing proposals, and draft change proposals for new ontology concepts.",
+      "keywords": "change proposal gap missing concept extension contribute upstream issue ontology committee",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "DeviceFacet",
+        "Drone",
+        "Facet",
+        "FileFacet",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Relationship",
+        "Role",
+        "Tool",
+        "UcoObject"
+      ],
+      "facets_mentioned": [
+        "DeviceFacet",
+        "DroneTelemetryFacet",
+        "FileFacet",
+        "MyFacet",
+        "MyNewFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/configured-tool.md",
+      "title": "Configured Tools",
+      "description": "Model forensic tools with specific configurations, command-line flags, and rulesets.",
+      "keywords": "configured tool configuration ruleset flag parameter ida volatility",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AnalyticTool",
+        "Configuration",
+        "ConfigurationEntry",
+        "ConfiguredTool",
+        "File",
+        "FileFacet",
+        "Identity",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Pattern",
+        "Role",
+        "Tool",
+        "UcoObject"
+      ],
+      "facets_mentioned": [
+        "FileFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cross-domain-extensions.md",
+      "title": "Cross-Domain Extensions",
+      "description": "Legacy redirect to Cross-Ontology Composition; retained for routing compatibility.",
+      "keywords": "cross-domain extension composition cac aeo multi-domain combine namespaces packages",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "API",
+        "Investigation"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cross-ontology-composition.md",
+      "title": "Cross-Ontology Composition",
+      "description": "Authoritative composition policy for CASE/UCO, CAC, SOLVE-IT, SDK extensions, and upper profiles (BFO/gUFO/PROV-O/OWL-Time/GeoSPARQL/FOAF/ORG/PROF).",
+      "keywords": "cross-domain cross-ontology extension composition cac aeo multi-domain combine namespaces packages profile bfo gufo prov geosparql foaf org prof",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "API",
+        "Entity",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "ObservableObject",
+        "Person",
+        "Profile",
+        "ProvenanceRecord",
+        "Relationship",
+        "Tool"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cyber-threat-intelligence.md",
+      "title": "Cyber Threat Intelligence and APT Reporting",
+      "description": "Model an open-source CTI/APT threat report: the report and its graphics captured by hash, the threat actor as an Organization (no ThreatActor class), malware families/variants and toolkit, registry/service-DLL persistence (native UCO coverage), third-party cloud C2, victimology, IOCs, and MITRE ATT&CK techniques via the uco-action:Technique metaclass (UCO PR #676: a technique is an owl:Class subclassing uco-action:Action with techniqueID, punned onto the exhibiting Action; released in UCO 1.5.0 and mirrored by the attack-technique extension while case_validate remains pinned to case-1.4.0).",
+      "keywords": "apt advanced persistent threat threat actor cyber espionage group nation-state sagerunex darkwatchman fileless registry buffer keylogger dga tordwm spearphishing pony express backdoor implant rat malware family variant loader dll injection vmprotect command and control c2 beacon exfiltration lateral movement impacket wmi persistence service dll servicedll registry reg add windows service scheduled task cookie stealer venom proxy port relay htran mtrain victimology campaign threat spotlight ttp ttps mitre att&ck technique ioc yara clamav snort talos mandiant prevailion pact dropbox twitter zimbra cloud c2 windowsregistrykey registrydatatype",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "AnalyticResult",
+        "Annotation",
+        "Code",
+        "ConfidenceFacet",
+        "Configuration",
+        "ConfigurationEntry",
+        "ContentDataFacet",
+        "ContextualCompilation",
+        "DomainNameFacet",
+        "Event",
+        "ExternalReference",
+        "FileFacet",
+        "Grouping",
+        "IPv4AddressFacet",
+        "Investigation",
+        "Location",
+        "LogicalPattern",
+        "MaliciousTool",
+        "Note",
+        "ObservableObject",
+        "Organization",
+        "PatternExpression",
+        "Person",
+        "RasterPicture",
+        "RasterPictureFacet",
+        "Report",
+        "Role",
+        "SimpleAddressFacet",
+        "Software",
+        "T1041",
+        "T1112",
+        "T1490",
+        "Technique",
+        "Tool",
+        "URL",
+        "URLFacet",
+        "UcoInherentCharacterizationThing",
+        "UcoThing",
+        "UcoType",
+        "Victim",
+        "VictimTargeting",
+        "WindowsRegistryKey",
+        "WindowsRegistryKeyFacet",
+        "WindowsRegistryValue",
+        "WindowsService",
+        "WindowsServiceFacet",
+        "WindowsTask",
+        "WindowsTaskFacet"
+      ],
+      "facets_mentioned": [
+        "ConfidenceFacet",
+        "ContentDataFacet",
+        "DomainNameFacet",
+        "FileFacet",
+        "IPv4AddressFacet",
+        "RasterPictureFacet",
+        "SimpleAddressFacet",
+        "URLFacet",
+        "WindowsRegistryKeyFacet",
+        "WindowsServiceFacet",
+        "WindowsTaskFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "Grouping + analytic",
+        "registry + configuration + task + Action"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/cybertip-ncmec-workflow.md",
+      "title": "NCMEC CyberTip Reporting Workflow",
+      "description": "Model platform detection, ESP reporting, NCMEC CyberTip lifecycle, investigation triggering, and platform cooperation using CAC Ontology classes.",
+      "keywords": "cybertip ncmec platform reporting enticement detection investigation trigger esp cooperation cac ontology crimes against children",
+      "is_starter_kit": false,
+      "is_cac": true,
+      "classes_mentioned": [
+        "API",
+        "Account",
+        "AccountFacet",
+        "Action",
+        "Address",
+        "AnalyticTool",
+        "ApplicationAccount",
+        "AutomatedDetectionAction",
+        "CACInvestigation",
+        "ContentDataFacet",
+        "ElectronicServiceProvider",
+        "Enticement",
+        "ExternalReference",
+        "IPv4AddressFacet",
+        "IPv6AddressFacet",
+        "Identity",
+        "Investigation",
+        "InvestigationTrigger",
+        "InvestigativeAction",
+        "MachineLearningDetectionTool",
+        "MessageFacet",
+        "MessageThread",
+        "Module",
+        "NCMECCybertipReport",
+        "Observable",
+        "ObservableObject",
+        "OnlineEnticementIncident",
+        "PlatformCooperation",
+        "ProducedImage",
+        "RasterPicture",
+        "ReceiveCybertipAction",
+        "Relationship",
+        "Report",
+        "Role",
+        "SocialMediaPlatform",
+        "URL",
+        "UcoObject",
+        "Victim"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ContentDataFacet",
+        "IPv4AddressFacet",
+        "IPv6AddressFacet",
+        "MessageFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "IPv4AddressFacet"
+        ],
+        [
+          "IPv4AddressFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/database-records.md",
+      "title": "Database Record Extraction",
+      "description": "Model SQLite records, table fields, and containment relationships.",
+      "keywords": "database sqlite record table field row column wal journal sql",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "File",
+        "FileFacet",
+        "Message",
+        "MessageFacet",
+        "ObservableObject",
+        "ObservableRelationship",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "TableField",
+        "TableFieldFacet"
+      ],
+      "facets_mentioned": [
+        "FileFacet",
+        "MessageFacet",
+        "TableFieldFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "TableFieldFacet"
+        ],
+        [
+          "MessageFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "File + FileFacet",
+        "Message + MessageFacet",
+        "TableField + TableFieldFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/device.md",
+      "title": "Device and Workstation Modeling",
+      "description": "Model computers and workstations with hardware specs, network addresses, and OS.",
+      "keywords": "device workstation computer hardware cpu ram bios hostname ip address server desktop",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ComputerSpecificationFacet",
+        "Device",
+        "DeviceFacet",
+        "DomainNameFacet",
+        "IPv4AddressFacet",
+        "Identity",
+        "Laptop",
+        "ObservableObject",
+        "OperatingSystem",
+        "OperatingSystemFacet",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "Server",
+        "SoftwareFacet"
+      ],
+      "facets_mentioned": [
+        "ComputerSpecificationFacet",
+        "DeviceFacet",
+        "DomainNameFacet",
+        "IPv4AddressFacet",
+        "OperatingSystemFacet",
+        "SoftwareFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ComputerSpecificationFacet",
+          "DeviceFacet",
+          "DomainNameFacet",
+          "IPv4AddressFacet"
+        ],
+        [
+          "OperatingSystemFacet",
+          "SoftwareFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "OperatingSystem + SoftwareFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/elder-fraud-impersonation.md",
+      "title": "Elder Fraud and Government-Impersonation Schemes",
+      "description": "Model agent-impersonation call-center schemes: money couriers, prepaid-card and cash-handoff flows, spoofed calls, controlled-delivery stings, and records attribution.",
+      "keywords": "elder fraud impersonation false personation government agent scam treasury irs social security money mule courier runner green dot gift card prepaid card cash handoff controlled delivery tech support scam pop-up grandparent scam wire fraud conspiracy call center spoofed caller id",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Authorization",
+        "CallFacet",
+        "Computer",
+        "CriminalCharge",
+        "Device",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "Message",
+        "MessageFacet",
+        "MobileDevice",
+        "ObservableObject",
+        "Organization",
+        "PaymentCard",
+        "Person",
+        "PhoneAccount",
+        "PhoneAccountFacet",
+        "RestitutionOrder",
+        "Role",
+        "UcoObject",
+        "Victim"
+      ],
+      "facets_mentioned": [
+        "CallFacet",
+        "MessageFacet",
+        "PhoneAccountFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/email-messaging.md",
+      "title": "Email and Messaging",
+      "description": "Model email messages, attachments, and messaging platform data.",
+      "keywords": "email message attachment chat messaging calendar",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "EmailAddressFacet",
+        "EmailMessageFacet",
+        "ObservableObject",
+        "Subject"
+      ],
+      "facets_mentioned": [
+        "EmailAddressFacet",
+        "EmailMessageFacet",
+        "HasFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "EmailAddressFacet"
+        ],
+        [
+          "EmailMessageFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/espionage-classified-disclosure.md",
+      "title": "Espionage Act and Classified-Information Disclosure",
+      "description": "Model Espionage Act prosecutions: classified national defense information with uco-marking classification banners, SCIF removal chains, transmission actions, obstruction, and 793/794 counts.",
+      "keywords": "espionage act 793 794 classified national defense information ndi top secret sci security clearance scif sensitive compartmented noforn fvey unauthorized disclosure marking classification banner jwics leak discord clearance holder executive order 13526 obstruction destroyed devices",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Computer",
+        "CriminalCharge",
+        "Device",
+        "DigitalAccountFacet",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "MarkingDefinition",
+        "MarkingModel",
+        "Message",
+        "MessageFacet",
+        "ObservableObject",
+        "Organization",
+        "Person",
+        "Role",
+        "StatementMarking",
+        "Tablet",
+        "UcoObject"
+      ],
+      "facets_mentioned": [
+        "DigitalAccountFacet",
+        "MessageFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [
+        "MarkingDefinition + StatementMarking"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/event.md",
+      "title": "Events and Authentication Logs",
+      "description": "Model authentication events, login/logout actions, and system events.",
+      "keywords": "event authentication login logout mfa credential session log audit",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AccountFacet",
+        "Action",
+        "ApplicationAccount",
+        "ApplicationAccountFacet",
+        "Dictionary",
+        "DictionaryEntry",
+        "Event",
+        "EventRecord",
+        "Identity",
+        "Location",
+        "ObservableObject",
+        "OnlineService",
+        "Pattern",
+        "Person",
+        "Role",
+        "SimpleAddressFacet"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "SimpleAddressFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "AccountFacet",
+          "ApplicationAccountFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "EventRecord + Dictionary"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/exif-data.md",
+      "title": "EXIF and Image Metadata",
+      "description": "Model image files with EXIF metadata, camera identification, and provenance.",
+      "keywords": "exif image photo jpeg camera metadata gps picture raster",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AnalyticTool",
+        "ContentDataFacet",
+        "ControlledDictionary",
+        "ControlledDictionaryEntry",
+        "Device",
+        "DeviceFacet",
+        "DiskPartition",
+        "EXIFFacet",
+        "File",
+        "FileFacet",
+        "Hash",
+        "Identity",
+        "Image",
+        "InvestigativeAction",
+        "LatLongCoordinatesFacet",
+        "Location",
+        "ObservableObject",
+        "PathRelationFacet",
+        "Pattern",
+        "ProvenanceRecord",
+        "RasterPictureFacet",
+        "Relationship",
+        "Role",
+        "Tool"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DeviceFacet",
+        "EXIFFacet",
+        "FileFacet",
+        "LatLongCoordinatesFacet",
+        "PathRelationFacet",
+        "RasterPictureFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "Device + DeviceFacet",
+        "File + FileFacet + ContentDataFacet + RasterPictureFacet + EXIFFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/existence-intervals.md",
+      "title": "Existence Intervals and Temporal Modeling",
+      "description": "Model time-bounded existence with OWL-Time, gUFO, and BFO ontology patterns.",
+      "keywords": "temporal interval time owl-time gufo bfo existence period duration role cac",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Event",
+        "Person",
+        "Relationship"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/export-control-sanctions.md",
+      "title": "Export Control and Sanctions Evasion",
+      "description": "Model export-control and sanctions prosecutions: IEEPA/EAR counts, dated Entity List designations, gUFO-typed controlled goods, false EEI/AES filings, and the papered-consignee vs. true-end-user concealment chain.",
+      "keywords": "export control ieepa 1705 entity list ear eccn ear99 export license bis bureau of industry and security commerce sdn ofac sanctions embargo itar smuggling 554 false export information 305 shipper's export declaration electronic export information automated export system aes ultimate consignee end user transshipment freight forwarder dual use prc procurement intermediary",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Authorization",
+        "CriminalCharge",
+        "EmailMessage",
+        "EmailMessageFacet",
+        "Entity",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "ObservableObject",
+        "Organization",
+        "Person",
+        "Role",
+        "Sentence",
+        "UcoObject"
+      ],
+      "facets_mentioned": [
+        "EmailMessageFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/extensions.md",
+      "title": "Working with Extensions",
+      "description": "Use extension ontology classes alongside the core SDK.",
+      "keywords": "extension custom ontology scaffold toolcap",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Call",
+        "CapabilityMatrix",
+        "Facet",
+        "File",
+        "Note",
+        "Organization",
+        "Profile",
+        "Relative",
+        "Tool",
+        "ToolCapability",
+        "URL",
+        "UcoObject"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/file-fragments.md",
+      "title": "File Fragments and Multipart Files",
+      "description": "Model split files, fragment reassembly, and embedded data like thumbnails.",
+      "keywords": "fragment multipart split carve reassemble thumbnail embedded raw data",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ContentData",
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "File",
+        "FileFacet",
+        "FragmentFacet",
+        "Hash",
+        "Image",
+        "ObservableObject",
+        "RasterPicture",
+        "Relationship",
+        "Role"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "FileFacet",
+        "FragmentFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "FileFacet",
+          "FragmentFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "DataRangeFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/file-recovery.md",
+      "title": "File Recovery and Carving",
+      "description": "Model recovered and carved files with recovery status and reconstruction workflows.",
+      "keywords": "recovery carve carved reconstruct recovered scalpel photorec foremost deleted",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AnalyticTool",
+        "ContentData",
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "File",
+        "FileFacet",
+        "FragmentFacet",
+        "Hash",
+        "Identity",
+        "Image",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Pattern",
+        "ProvenanceRecord",
+        "RecoveredObject",
+        "RecoveredObjectFacet",
+        "Relationship",
+        "Role"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "FileFacet",
+        "FragmentFacet",
+        "RecoveredObjectFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ],
+        [
+          "DataRangeFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "RecoveredObject + RecoveredObjectFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/file-system.md",
+      "title": "File System Forensics",
+      "description": "Model files, directories, and file system metadata from a disk analysis.",
+      "keywords": "file directory filesystem disk analysis extraction",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ContentDataFacet",
+        "File",
+        "FileFacet",
+        "Hash",
+        "ObservableObject"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "FileFacet",
+        "HasFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/foaf-org-identity-roles.md",
+      "title": "FOAF/ORG Identity Roles and Organizations",
+      "description": "Integrate UCO people, accounts, and roles with FOAF agents and W3C ORG memberships, posts, and organizational units.",
+      "keywords": "foaf org identity account role membership post organization agency task force",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Account",
+        "AccountFacet",
+        "Identity",
+        "ObservableObject",
+        "Organization",
+        "Person",
+        "Relationship",
+        "Role"
+      ],
+      "facets_mentioned": [
+        "AccountFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "AccountFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/forensic-lifecycle.md",
+      "title": "Forensic Investigation Lifecycle",
+      "description": "Model ordered investigation phases: survey, preservation, examination, analysis, reporting.",
+      "keywords": "lifecycle phase survey preservation examination analysis reporting ordered action",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "ActionLifecycle",
+        "Analysis",
+        "Annotation",
+        "ArrayOfAction",
+        "Disk",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "Pattern",
+        "Phase",
+        "ProvenanceRecord",
+        "Relationship",
+        "Role",
+        "UcoObject"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/forensic-tool.md",
+      "title": "Modeling a Forensic Tool and Its Output",
+      "description": "Create an investigation with a tool and investigative action.",
+      "keywords": "tool investigation action forensic workflow",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Analysis",
+        "Investigation",
+        "InvestigativeAction",
+        "Tool"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/foundational-typing-bfo-gufo.md",
+      "title": "Foundational Typing (BFO and gUFO)",
+      "description": "Select and apply BFO or gUFO as an additional foundational layer on CASE/UCO nodes without replacing domain classes.",
+      "keywords": "bfo gufo foundational upper ontology endurant perdurant continuant occurrent relator role typing",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Event",
+        "FileFacet",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "ObservableObject",
+        "Person",
+        "Process",
+        "Role",
+        "Situation"
+      ],
+      "facets_mentioned": [
+        "FileFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/fraud-crypto-laundering.md",
+      "title": "Fraud, Cryptocurrency, and Money Laundering Investigations",
+      "description": "Model pig-butchering scams, blockchain tracing, exchange returns, and location correlation.",
+      "keywords": "fraud crypto cryptocurrency blockchain wallet exchange laundering pig butchering investment scam telegram geofence subpoena kyc trace",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Account",
+        "AccountFacet",
+        "Action",
+        "AssetSeizureAction",
+        "ContentDataFacet",
+        "CriminalCharge",
+        "CryptocurrencyAddressFacet",
+        "CryptocurrencyMixingService",
+        "CryptocurrencyTransactionFacet",
+        "CryptocurrencyWalletFacet",
+        "DarknetMarket",
+        "FileFacet",
+        "ForfeitureOrder",
+        "Identity",
+        "InstantMessagingAddress",
+        "InstantMessagingAddressFacet",
+        "Investigation",
+        "InvestigativeAction",
+        "Location",
+        "Message",
+        "MessageFacet",
+        "MessageThread",
+        "MessageThreadFacet",
+        "ObservableObject",
+        "ObservableRelationship",
+        "Organization",
+        "Pattern",
+        "Person",
+        "PleaAgreement",
+        "ProvenanceRecord",
+        "Relationship",
+        "RestitutionOrder",
+        "Role",
+        "SentencingOutcome",
+        "SimpleAddressFacet",
+        "Tool",
+        "URLFacet",
+        "VirtualAssetHoldingFacet",
+        "VirtualAssetServiceProvider"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ContentDataFacet",
+        "CryptocurrencyAddressFacet",
+        "CryptocurrencyTransactionFacet",
+        "CryptocurrencyWalletFacet",
+        "FileFacet",
+        "InstantMessagingAddressFacet",
+        "MessageFacet",
+        "MessageThreadFacet",
+        "SimpleAddressFacet",
+        "URLFacet",
+        "VirtualAssetHoldingFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "InstantMessagingAddressFacet"
+        ],
+        [
+          "URLFacet"
+        ],
+        [
+          "MessageThreadFacet"
+        ],
+        [
+          "MessageFacet"
+        ],
+        [
+          "SimpleAddressFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "Person + InstantMessagingAddress",
+        "Person + exchange"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/geosparql-geospatial-evidence.md",
+      "title": "GeoSPARQL Geospatial Evidence",
+      "description": "Enrich UCO Location with GeoSPARQL Feature/Geometry, WKT, CRS, and derived analytic geometries with provenance.",
+      "keywords": "geosparql geospatial geometry feature wkt crs polygon cell sector geofence route",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "InvestigativeAction",
+        "LatLongCoordinatesFacet",
+        "Location",
+        "Pattern",
+        "SimpleAddressFacet"
+      ],
+      "facets_mentioned": [
+        "LatLongCoordinatesFacet",
+        "SimpleAddressFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "SimpleAddressFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/insider-threat-trade-secrets.md",
+      "title": "Insider Threat, Trade Secret Theft, and Economic Espionage",
+      "description": "Model insider exfiltration of trade secrets: corporate telemetry, personal cloud accounts, per-category 1832/1831 counts, foreign-government-benefit evidence, and jury verdicts.",
+      "keywords": "insider threat trade secret economic espionage 1832 1831 exfiltration data loss prevention dlp badge access personal cloud account proprietary confidential employee resignation talent program foreign instrumentality startup competitor source code wechat jury verdict",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Account",
+        "Action",
+        "ApplicationFacet",
+        "Authorization",
+        "CriminalCharge",
+        "CriminalProceeding",
+        "DigitalAccountFacet",
+        "EmailMessage",
+        "InstantMessagingAddressFacet",
+        "Investigation",
+        "InvestigativeAction",
+        "Laptop",
+        "Location",
+        "Message",
+        "MessageFacet",
+        "MobileDevice",
+        "ObservableObject",
+        "Organization",
+        "Person",
+        "Role",
+        "UcoObject",
+        "Verdict",
+        "Victim"
+      ],
+      "facets_mentioned": [
+        "ApplicationFacet",
+        "DigitalAccountFacet",
+        "InstantMessagingAddressFacet",
+        "MessageFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/ios-sysdiagnose.md",
+      "title": "iOS / macOS Sysdiagnose Archives",
+      "description": "Model Apple sysdiagnose packages: device/OS, archive tree, system_logs.logarchive as AppleUnifiedLogArchive, Wi-Fi and BatteryBDC children, collection provenance.",
+      "keywords": "sysdiagnose sys diagnosis apple ios macos iphone logarchive system_logs unified logging ufade pymobiledevice3 libimobiledevice crash wifi batterybdc summaries tracev3 ips stackshot crashes_and_spins crash_reporter runningboard ioreg brctl incident_id crashreporterkey",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AppleUnifiedLogArchive",
+        "Device",
+        "DeviceFacet",
+        "Dictionary",
+        "DictionaryEntry",
+        "Event",
+        "EventLog",
+        "EventRecord",
+        "EventRecordFacet",
+        "Facet",
+        "FileFacet",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "MACAddressFacet",
+        "MobileDeviceFacet",
+        "ObservableObject",
+        "ObservableRelationship",
+        "OperatingSystem",
+        "ProvenanceRecord",
+        "Role",
+        "Software",
+        "SoftwareFacet",
+        "Tool",
+        "WirelessNetworkConnection",
+        "WirelessNetworkConnectionFacet"
+      ],
+      "facets_mentioned": [
+        "DeviceFacet",
+        "EventRecordFacet",
+        "FileFacet",
+        "MACAddressFacet",
+        "MobileDeviceFacet",
+        "SoftwareFacet",
+        "SysdiagnoseFacet",
+        "WirelessNetworkConnectionFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet"
+        ],
+        [
+          "SoftwareFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "MACAddressFacet"
+        ],
+        [
+          "WirelessNetworkConnectionFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "EventRecordFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "AppleUnifiedLogArchive + EventLog",
+        "Event + Dictionary"
+      ],
+      "mapping_patterns": [
+        "Device + sysdiagnose FileFacet directory + AppleUnifiedLogArchive/EventLog"
+      ],
+      "recommended_facets": [
+        "DeviceFacet",
+        "FileFacet",
+        "MobileDeviceFacet",
+        "SoftwareFacet"
+      ]
+    },
+    {
+      "file": "docs/recipes/large-datasets.md",
+      "title": "Managing Large Datasets",
+      "description": "Partition large evidence sets by forensic boundary, estimate graph sizes.",
+      "keywords": "large dataset partition split merge performance volume",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ContentDataFacet",
+        "Facet",
+        "FileFacet",
+        "Hash",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Tool",
+        "Volume"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "FileFacet",
+        "HasFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/legal-process-modeling.md",
+      "title": "Legal Process Modeling (Charges, Verdicts, Sentences)",
+      "description": "Model charging instruments, conspiracy/attempt/derivative charges, pleas, verdicts, sentences, forfeiture, and restitution for any investigation type via the legalproc extension.",
+      "keywords": "legal process charge criminal charge conspiracy attempt indictment superseding verdict plea sentence sentencing forfeiture restitution appeal docket count statute 924(c) violent crime prosecution legalproc",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Ammunition",
+        "ChargingInstrument",
+        "ControlledSubstance",
+        "CriminalCharge",
+        "CriminalProceeding",
+        "Firearm",
+        "ForfeitureOrder",
+        "Handgun",
+        "Investigation",
+        "ObservableObject",
+        "Organization",
+        "Person",
+        "Plea",
+        "Process",
+        "RestitutionOrder",
+        "Sentence",
+        "UcoObject",
+        "Verdict"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/location.md",
+      "title": "Location Modeling",
+      "description": "Model geospatial locations with street addresses and GPS coordinates.",
+      "keywords": "location address gps latitude longitude coordinates geolocation place site",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "InvestigativeAction",
+        "LatLongCoordinatesFacet",
+        "Location",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "SimpleAddressFacet"
+      ],
+      "facets_mentioned": [
+        "LatLongCoordinatesFacet",
+        "SimpleAddressFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "SimpleAddressFacet"
+        ],
+        [
+          "LatLongCoordinatesFacet"
+        ],
+        [
+          "LatLongCoordinatesFacet",
+          "SimpleAddressFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/mobile-device-sim.md",
+      "title": "Mobile Device and SIM Card",
+      "description": "Model a mobile handset with SIM card, carrier, IMEI/IMSI, and OS.",
+      "keywords": "mobile device sim card imei imsi iccid carrier bluetooth wifi mac handset smartphone",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AccountFacet",
+        "BluetoothAddressFacet",
+        "Device",
+        "DeviceFacet",
+        "Identity",
+        "MACAddressFacet",
+        "MobileAccount",
+        "MobileAccountFacet",
+        "MobileDevice",
+        "MobileDeviceFacet",
+        "ObservableObject",
+        "OperatingSystem",
+        "OperatingSystemFacet",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "SIMCard",
+        "SIMCardFacet",
+        "SoftwareFacet",
+        "WifiAddressFacet"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "BluetoothAddressFacet",
+        "DeviceFacet",
+        "MACAddressFacet",
+        "MobileAccountFacet",
+        "MobileDeviceFacet",
+        "OperatingSystemFacet",
+        "SIMCardFacet",
+        "SoftwareFacet",
+        "WifiAddressFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet",
+          "MobileDeviceFacet"
+        ],
+        [
+          "OperatingSystemFacet",
+          "SoftwareFacet"
+        ],
+        [
+          "SIMCardFacet"
+        ],
+        [
+          "AccountFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "OperatingSystem + SoftwareFacet",
+        "SIMCard + SIMCardFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/mobile-device.md",
+      "title": "Mobile Device Forensics",
+      "description": "Model mobile device extractions, app data, messages, and contacts.",
+      "keywords": "mobile phone device app message contact sms call cellebrite graykey",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AccountFacet",
+        "ApplicationFacet",
+        "Device",
+        "DeviceFacet",
+        "Identity",
+        "ObservableObject",
+        "OperatingSystemFacet",
+        "SoftwareFacet"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ApplicationFacet",
+        "DeviceFacet",
+        "HasFacet",
+        "OperatingSystemFacet",
+        "SoftwareFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet",
+          "OperatingSystemFacet",
+          "SoftwareFacet"
+        ],
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "AccountFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/network-artifacts.md",
+      "title": "Network Artifact Extraction",
+      "description": "Model network connections, DNS records, IP addresses, and URLs.",
+      "keywords": "network dns ip url connection traffic capture packet",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Artifact",
+        "ContentDataFacet",
+        "DomainName",
+        "DomainNameFacet",
+        "File",
+        "FileFacet",
+        "Hash",
+        "IPAddress",
+        "IPAddressFacet",
+        "MACAddress",
+        "MACAddressFacet",
+        "NetworkConnection",
+        "NetworkConnectionFacet",
+        "NetworkFlowFacet",
+        "NetworkInterface",
+        "NetworkInterfaceFacet",
+        "ObservableObject",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "TCPConnection",
+        "WifiAddress",
+        "WifiAddressFacet",
+        "WirelessNetworkConnection",
+        "WirelessNetworkConnectionFacet"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DomainNameFacet",
+        "FileFacet",
+        "HasFacet",
+        "IPAddressFacet",
+        "MACAddressFacet",
+        "NetworkConnectionFacet",
+        "NetworkFlowFacet",
+        "NetworkInterfaceFacet",
+        "WifiAddressFacet",
+        "WirelessNetworkConnectionFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ],
+        [
+          "WifiAddressFacet"
+        ],
+        [
+          "IPAddressFacet"
+        ],
+        [
+          "NetworkInterfaceFacet"
+        ],
+        [
+          "MACAddressFacet"
+        ],
+        [
+          "WirelessNetworkConnectionFacet"
+        ],
+        [
+          "IPAddressFacet"
+        ],
+        [
+          "DomainNameFacet"
+        ],
+        [
+          "DomainNameFacet"
+        ],
+        [
+          "NetworkConnectionFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/network-investigation.md",
+      "title": "Network Investigation with Bundle",
+      "description": "Model a complete network investigation with warrant, PCAP extraction, and provenance.",
+      "keywords": "network investigation bundle warrant authorization pcap capture connection host",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Analysis",
+        "AnalyticTool",
+        "ArtifactClassification",
+        "ArtifactClassificationResultFacet",
+        "Authorization",
+        "ContentDataFacet",
+        "DomainName",
+        "DomainNameFacet",
+        "File",
+        "FileFacet",
+        "Hash",
+        "IPAddress",
+        "IPAddressFacet",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "MACAddress",
+        "MACAddressFacet",
+        "NetworkConnection",
+        "NetworkConnectionFacet",
+        "NetworkFlowFacet",
+        "NetworkInterface",
+        "NetworkInterfaceFacet",
+        "Note",
+        "ObservableObject",
+        "Pattern",
+        "ProvenanceRecord",
+        "Relationship",
+        "Role",
+        "TCPConnection",
+        "Tool",
+        "WifiAddress",
+        "WifiAddressFacet",
+        "WirelessNetworkConnection",
+        "WirelessNetworkConnectionFacet"
+      ],
+      "facets_mentioned": [
+        "ArtifactClassificationResultFacet",
+        "ContentDataFacet",
+        "DomainNameFacet",
+        "FileFacet",
+        "IPAddressFacet",
+        "MACAddressFacet",
+        "NetworkConnectionFacet",
+        "NetworkFlowFacet",
+        "NetworkInterfaceFacet",
+        "WifiAddressFacet",
+        "WirelessNetworkConnectionFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ],
+        [
+          "WifiAddressFacet"
+        ],
+        [
+          "IPAddressFacet"
+        ],
+        [
+          "NetworkInterfaceFacet"
+        ],
+        [
+          "MACAddressFacet"
+        ],
+        [
+          "WirelessNetworkConnectionFacet"
+        ],
+        [
+          "IPAddressFacet"
+        ],
+        [
+          "DomainNameFacet"
+        ],
+        [
+          "DomainNameFacet"
+        ],
+        [
+          "NetworkConnectionFacet"
+        ],
+        [
+          "ArtifactClassificationResultFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "ArtifactClassificationResultFacet + confidence",
+        "FileFacet + ContentDataFacet",
+        "ObservableObject + ArtifactClassificationResultFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/owl-time-temporal-evidence.md",
+      "title": "OWL-Time Temporal Evidence",
+      "description": "Model exact timestamps with native CASE/UCO properties and qualified temporal resources with OWL-Time instants and intervals.",
+      "keywords": "owl-time temporal instant interval duration clock skew timezone approximate time",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "InvestigativeAction"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/partitions.md",
+      "title": "Disk Partitions and Volume Recovery",
+      "description": "Model disk partition structures, volumes, file systems, and deleted partition recovery.",
+      "keywords": "partition disk volume filesystem recovery deleted sector offset table gpt mbr",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Configuration",
+        "ConfigurationEntry",
+        "ConfiguredTool",
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "Device",
+        "DeviceFacet",
+        "Disk",
+        "DiskPartition",
+        "DiskPartitionFacet",
+        "File",
+        "FileFacet",
+        "FileSystem",
+        "Hash",
+        "Identity",
+        "InvestigativeAction",
+        "ObservableObject",
+        "ProvenanceRecord",
+        "RecoveredObjectFacet",
+        "Relationship",
+        "Role",
+        "Tool",
+        "Volume",
+        "VolumeFacet"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "DeviceFacet",
+        "DiskPartitionFacet",
+        "FileFacet",
+        "RecoveredObjectFacet",
+        "VolumeFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "DiskPartitionFacet"
+        ],
+        [
+          "DiskPartitionFacet"
+        ],
+        [
+          "DataRangeFacet"
+        ],
+        [
+          "DiskPartitionFacet",
+          "RecoveredObjectFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/prof-validation-profile-metadata.md",
+      "title": "PROF Validation Profile Metadata",
+      "description": "Declare intended ontology/profile bundles with PROF and record validation execution separately from conformance claims.",
+      "keywords": "prof profile validation metadata bundle shapes conformance validator fingerprint",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Entity",
+        "Investigation",
+        "Profile",
+        "UcoObject"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/prov-o-evidence-lineage.md",
+      "title": "PROV-O Evidence Lineage",
+      "description": "Combine PROV-O Entity/Activity/Agent multi-typing with CASE ProvenanceRecord and UCO actions without duplicating real-world things.",
+      "keywords": "prov-o provenance lineage derivation activity entity agent wasgeneratedby wasderivedfrom",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Bundle",
+        "Entity",
+        "Examiner",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Person",
+        "ProvenanceRecord",
+        "Tool"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/racketeering-enterprise.md",
+      "title": "Racketeering (RICO) and Criminal Enterprise",
+      "description": "Model racketeering prosecutions via the rico extension: the charged enterprise (rico:RacketeeringEnterprise with enterpriseType 'association-in-fact' or 'legal-entity'), functional member roles as rico:EnterpriseRole nodes with roleFunction, statutory predicate categories as rico:predicateStatute on RICO counts, multi-instrument per-defendant count tracking (PACER 1/1s/1ss suffixes), and enterprise conduct as Actions.",
+      "keywords": "racketeering rico 1962 1961 1963 criminal enterprise association-in-fact organized crime pattern of racketeering predicate act enterprise role organizer caller money launderer database hacker residential burglar target identifier gang syndicate mob crew division of labor social engineering enterprise",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "ChargingInstrument",
+        "CriminalCharge",
+        "EnterpriseRole",
+        "Investigation",
+        "Organization",
+        "Person",
+        "RacketeeringEnterprise",
+        "Relationship",
+        "Role",
+        "UcoObject",
+        "VirtualAssetServiceProvider"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/recipe-authoring.md",
+      "title": "Authoring and Improving Recipes",
+      "description": "Write a new recipe when an investigation pattern has no existing recipe, or improve an existing recipe a live case proved wrong or incomplete: structure, grounding rules, re-validation, cross-references, and registration in the MCP indexes.",
+      "keywords": "recipe authoring improve update fix existing new recipe write recipe template pattern documentation contribute unseen novel workflow self-improving maintain catalog",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Pattern",
+        "UcoObject"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/round-trip.md",
+      "title": "Round-Trip: Serialize and Deserialize",
+      "description": "Write a graph to JSON-LD and load it back with typed deserialization.",
+      "keywords": "serialize deserialize load save round-trip json-ld",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Tool"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/runtime-discovery.md",
+      "title": "Discovering Classes at Runtime",
+      "description": "Use the registry API to search for classes and inspect their properties.",
+      "keywords": "search discover find class registry introspection",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Facet",
+        "FileFacet",
+        "Tool"
+      ],
+      "facets_mentioned": [
+        "FileFacet"
+      ],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/sms-and-contacts.md",
+      "title": "SMS Messages and Contacts",
+      "description": "Model SMS/MMS messages and contact list entries with account linking.",
+      "keywords": "sms mms text message contact phone number account sim",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AccountFacet",
+        "Application",
+        "ApplicationFacet",
+        "Contact",
+        "ContactFacet",
+        "ContentDataFacet",
+        "EmailAccount",
+        "EmailAddressFacet",
+        "Message",
+        "MessageFacet",
+        "ObservableObject",
+        "ObservableRelationship",
+        "Pattern",
+        "PhoneAccount",
+        "PhoneAccountFacet",
+        "Relationship",
+        "Role",
+        "SMSMessage"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ApplicationFacet",
+        "ContactFacet",
+        "ContentDataFacet",
+        "EmailAddressFacet",
+        "MessageFacet",
+        "PhoneAccountFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "AccountFacet",
+          "PhoneAccountFacet"
+        ],
+        [
+          "AccountFacet",
+          "PhoneAccountFacet"
+        ],
+        [
+          "MessageFacet"
+        ],
+        [
+          "ContactFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "Contact + ContactFacet",
+        "EmailAccount + EmailAddressFacet",
+        "PhoneAccount + PhoneAccountFacet",
+        "SMSMessage + MessageFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/solve-it-investigation-planning.md",
+      "title": "SOLVE-IT Investigation Planning and Error Mitigation",
+      "description": "Plan and document forensic method with the pinned SOLVE-IT knowledge base (23 objectives, 187 techniques, 339 weaknesses, 270 mitigations): state objectives, record SolveitInvestigativeAction with usedTechnique/appliedMitigation, type acquisition outputs with SOLVE-IT observables, rate weaknesses (ASTM E3016-18) with solveit-wa:WeaknessEvaluation, and optionally type actions with punned DFT-* technique classes (UCO 1.5.0 metaclass style). Discover techniques with plan_solveit_workflow / search_solveit / get_solveit_details.",
+      "keywords": "solve-it solveit technique selection objective forensic method methodology error mitigation analysis weakness mitigation astm e3016 disk imaging acquisition plan hash verification write blocker dual-tool verification tool testing quality assurance qa lab accreditation error rate daubert examination report investigative action dft dfw dfm dfo weakness evaluation rpn likelihood impact",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Analysis",
+        "AnalyticResult",
+        "Bitstream",
+        "FileSet",
+        "HashVerificationResult",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "KeywordIndex",
+        "LogicalImageContainer",
+        "Mitigation",
+        "Objective",
+        "Outcome",
+        "PhysicalImageContainer",
+        "RawImage",
+        "Role",
+        "SolveitInvestigativeAction",
+        "Technique",
+        "Timeline",
+        "TimelineEntry",
+        "WeaknessEvaluation",
+        "WeaknessEvaluationSet",
+        "Wordlist"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/solveit-plan-execution-provenance.md",
+      "title": "SOLVE-IT Plan versus Execution Provenance",
+      "description": "Distinguish planned forensic methods from executed SolveitInvestigativeAction occurrences with PROV-O and OWL-Time.",
+      "keywords": "solve-it plan execution provenance deviation mitigation weakness re-execution",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Entity",
+        "InvestigativeAction",
+        "Role",
+        "SolveitInvestigativeAction",
+        "UcoObject"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/spear-phishing.md",
+      "title": "Spear Phishing and Attack Narratives",
+      "description": "Model spear-phishing attack chains with malware delivery and victim targeting.",
+      "keywords": "spear phishing attack malware email payload exploit victim threat narrative incident",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "ContentDataFacet",
+        "Device",
+        "DeviceFacet",
+        "EmailAddress",
+        "EmailAddressFacet",
+        "EmailMessage",
+        "EmailMessageFacet",
+        "Event",
+        "File",
+        "FileFacet",
+        "Hash",
+        "Identity",
+        "Investigation",
+        "InvestigativeAction",
+        "MaliciousTool",
+        "ObservableAction",
+        "ObservableObject",
+        "Person",
+        "Relationship",
+        "Role",
+        "Software",
+        "SoftwareFacet",
+        "Tool",
+        "URL",
+        "URLFacet",
+        "Victim"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "DeviceFacet",
+        "EmailAddressFacet",
+        "EmailMessageFacet",
+        "FileFacet",
+        "SoftwareFacet",
+        "URLFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "EmailAddressFacet"
+        ],
+        [
+          "EmailAddressFacet"
+        ],
+        [
+          "EmailMessageFacet"
+        ],
+        [
+          "URLFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "DeviceFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/starter-email-export.md",
+      "title": "Starter Kit: Email Export Mapping",
+      "description": "End-to-end mapping of an email export to CASE/UCO.",
+      "keywords": "starter kit email export pst mbox mapping end-to-end",
+      "is_starter_kit": true,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Code",
+        "ContentDataFacet",
+        "EmailAddressFacet",
+        "EmailMessageFacet",
+        "FileFacet",
+        "Hash",
+        "ObservableObject"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "EmailAddressFacet",
+        "EmailMessageFacet",
+        "FileFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "EmailAddressFacet"
+        ],
+        [
+          "EmailAddressFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "EmailMessageFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [
+        "ObservableObject + EmailMessageFacet + EmailAddressFacet"
+      ],
+      "recommended_facets": [
+        "ContentDataFacet",
+        "EmailAccountFacet",
+        "EmailAddressFacet",
+        "EmailMessageFacet"
+      ]
+    },
+    {
+      "file": "docs/recipes/starter-filesystem-report.md",
+      "title": "Starter Kit: Filesystem Report Mapping",
+      "description": "End-to-end mapping of a filesystem report to CASE/UCO.",
+      "keywords": "starter kit filesystem file report triage mapping end-to-end hash",
+      "is_starter_kit": true,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Code",
+        "ContentDataFacet",
+        "FileFacet",
+        "Hash",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Report",
+        "Tool"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "FileFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [
+        "ObservableObject + FileFacet + ContentDataFacet"
+      ],
+      "recommended_facets": [
+        "ContentDataFacet",
+        "FileFacet"
+      ]
+    },
+    {
+      "file": "docs/recipes/starter-mobile-extraction.md",
+      "title": "Starter Kit: Mobile Extraction Mapping",
+      "description": "End-to-end mapping of a mobile device extraction to CASE/UCO.",
+      "keywords": "starter kit mobile phone extraction cellebrite graykey mapping end-to-end",
+      "is_starter_kit": true,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ApplicationFacet",
+        "Code",
+        "Device",
+        "DeviceFacet",
+        "Identity",
+        "MessageFacet",
+        "MobileDeviceFacet",
+        "ObservableObject",
+        "SIMCardFacet",
+        "Tool"
+      ],
+      "facets_mentioned": [
+        "ApplicationFacet",
+        "DeviceFacet",
+        "MessageFacet",
+        "MobileDeviceFacet",
+        "SIMCardFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "DeviceFacet",
+          "MobileDeviceFacet"
+        ],
+        [
+          "SIMCardFacet"
+        ],
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "MessageFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [
+        "ObservableObject + DeviceFacet + ApplicationFacet + MessageFacet"
+      ],
+      "recommended_facets": [
+        "ApplicationFacet",
+        "ContactFacet",
+        "DeviceFacet",
+        "MessageFacet"
+      ]
+    },
+    {
+      "file": "docs/recipes/starter-tool-run.md",
+      "title": "Starter Kit: Tool Run Mapping",
+      "description": "End-to-end mapping of a forensic tool run to CASE/UCO.",
+      "keywords": "starter kit tool run action autopsy encase mapping end-to-end",
+      "is_starter_kit": true,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Analysis",
+        "Code",
+        "ContentDataFacet",
+        "FileFacet",
+        "Hash",
+        "Investigation",
+        "InvestigativeAction",
+        "ObservableObject",
+        "ProvenanceRecord",
+        "Tool"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "FileFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [],
+      "mapping_patterns": [
+        "Investigation + InvestigativeAction + Tool + ObservableObject"
+      ],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/threaded-messaging.md",
+      "title": "Threaded Messaging (WhatsApp, Chat)",
+      "description": "Model ordered chat conversations with threads, participants, and attachments.",
+      "keywords": "thread chat whatsapp messenger conversation participant attachment media social",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "AccountFacet",
+        "Application",
+        "ApplicationAccount",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "ContentData",
+        "ContentDataFacet",
+        "Message",
+        "MessageFacet",
+        "MessageThread",
+        "MessageThreadFacet",
+        "ObservableObject",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "Thread",
+        "ThreadItem",
+        "URL",
+        "URLFacet"
+      ],
+      "facets_mentioned": [
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "ContentDataFacet",
+        "MessageFacet",
+        "MessageThreadFacet",
+        "URLFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "ApplicationFacet"
+        ],
+        [
+          "AccountFacet",
+          "ApplicationAccountFacet"
+        ],
+        [
+          "AccountFacet",
+          "ApplicationAccountFacet"
+        ],
+        [
+          "MessageFacet"
+        ],
+        [
+          "MessageFacet"
+        ],
+        [
+          "ContentDataFacet",
+          "URLFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "Message + MessageFacet",
+        "MessageThread + MessageThreadFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/usn-journal.md",
+      "title": "Windows USN Journal",
+      "description": "Model NTFS change journal entries with structured reason flags, rename modeling, and provenance.",
+      "keywords": "usn journal ntfs change journal windows filesystem timeline rename reason flags",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "ContentDataFacet",
+        "Dictionary",
+        "DictionaryEntry",
+        "Directory",
+        "Event",
+        "EventRecord",
+        "EventRecordFacet",
+        "File",
+        "FileFacet",
+        "FileSystemFacet",
+        "Hash",
+        "Investigation",
+        "InvestigativeAction",
+        "NTFSFileFacet",
+        "ObservableObject",
+        "ObservableRelationship",
+        "Parser",
+        "Pattern",
+        "Relationship",
+        "Role",
+        "Tool",
+        "Volume",
+        "WindowsVolumeFacet"
+      ],
+      "facets_mentioned": [
+        "ContentDataFacet",
+        "EventRecordFacet",
+        "FileFacet",
+        "FileSystemFacet",
+        "NTFSFileFacet",
+        "WindowsVolumeFacet"
+      ],
+      "has_facet_sets": [
+        [
+          "FileFacet"
+        ],
+        [
+          "FileSystemFacet",
+          "WindowsVolumeFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "EventRecordFacet"
+        ],
+        [
+          "FileFacet"
+        ],
+        [
+          "FileFacet"
+        ]
+      ],
+      "plus_patterns": [
+        "ObservableObject + ContentDataFacet",
+        "ObservableObject + EventRecordFacet",
+        "ObservableObject + WindowsVolumeFacet + FileSystemFacet"
+      ],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    },
+    {
+      "file": "docs/recipes/weapons-drug-evidence.md",
+      "title": "Weapons and Drug Evidence",
+      "description": "Model firearms, ammunition, and edged weapons with queryable make/model/caliber/serialNumber via the weapons extension (class tree mirrors the CCO Artifact Ontology weapon hierarchy, BFO 2020; gUFO FunctionalComplex bridge; NIEM-aligned properties), and seized/charged controlled-substance portions via the drugs extension (drug:ControlledSubstance with ChEBI IRI reference for chemical identity, CSA schedule, mass, purity basis 'mixture' vs 'actual', verbatim quantityDescription; grounded as gufo:Quantity).",
+      "keywords": "weapon firearm handgun pistol revolver rifle shotgun long gun ammunition magazine caliber serial number obliterated 922(g) 924(c) 922(k) felon in possession brandish drug controlled substance methamphetamine fentanyl cocaine heroin narcotics schedule ii 841 846 drug quantity mixture actual purity gram kilogram chebi cco common core ontologies gufo quantity seizure forfeiture",
+      "is_starter_kit": false,
+      "is_cac": false,
+      "classes_mentioned": [
+        "Action",
+        "Ammunition",
+        "Artifact",
+        "ControlledSubstance",
+        "CuttingWeapon",
+        "Firearm",
+        "ForfeitureOrder",
+        "Handgun",
+        "LongGun",
+        "ObservableObject",
+        "Relationship",
+        "Rifle",
+        "Shotgun",
+        "UcoObject",
+        "Victim",
+        "Weapon"
+      ],
+      "facets_mentioned": [],
+      "has_facet_sets": [],
+      "plus_patterns": [],
+      "mapping_patterns": [],
+      "recommended_facets": []
+    }
+  ],
+  "facet_frequency_across_recipes": [
+    [
+      "FileFacet",
+      44
+    ],
+    [
+      "ContentDataFacet",
+      31
+    ],
+    [
+      "AccountFacet",
+      14
+    ],
+    [
+      "DeviceFacet",
+      12
+    ],
+    [
+      "ApplicationFacet",
+      8
+    ],
+    [
+      "EmailAddressFacet",
+      7
+    ],
+    [
+      "MessageFacet",
+      7
+    ],
+    [
+      "DataRangeFacet",
+      6
+    ],
+    [
+      "SimpleAddressFacet",
+      6
+    ],
+    [
+      "ApplicationAccountFacet",
+      5
+    ],
+    [
+      "DomainNameFacet",
+      5
+    ],
+    [
+      "PhoneAccountFacet",
+      4
+    ],
+    [
+      "SoftwareFacet",
+      4
+    ],
+    [
+      "IPAddressFacet",
+      4
+    ],
+    [
+      "EventRecordFacet",
+      3
+    ],
+    [
+      "MessageThreadFacet",
+      3
+    ],
+    [
+      "MobileDeviceFacet",
+      3
+    ],
+    [
+      "SIMCardFacet",
+      3
+    ],
+    [
+      "LatLongCoordinatesFacet",
+      3
+    ],
+    [
+      "IPv4AddressFacet",
+      3
+    ],
+    [
+      "OperatingSystemFacet",
+      3
+    ],
+    [
+      "EmailMessageFacet",
+      3
+    ],
+    [
+      "URLFacet",
+      3
+    ],
+    [
+      "MACAddressFacet",
+      3
+    ],
+    [
+      "WirelessNetworkConnectionFacet",
+      3
+    ],
+    [
+      "DiskPartitionFacet",
+      3
+    ],
+    [
+      "ImageFacet",
+      2
+    ],
+    [
+      "ArtifactClassificationResultFacet",
+      2
+    ],
+    [
+      "CallFacet",
+      2
+    ],
+    [
+      "WifiAddressFacet",
+      2
+    ],
+    [
+      "NetworkInterfaceFacet",
+      2
+    ],
+    [
+      "NetworkConnectionFacet",
+      2
+    ],
+    [
+      "SimpleNameFacet",
+      1
+    ],
+    [
+      "AccountAuthenticationFacet",
+      1
+    ],
+    [
+      "DigitalAccountFacet",
+      1
+    ],
+    [
+      "EmailAccountFacet",
+      1
+    ],
+    [
+      "EncryptedStreamFacet",
+      1
+    ],
+    [
+      "PathRelationFacet",
+      1
+    ],
+    [
+      "EncodedStreamFacet",
+      1
+    ],
+    [
+      "SQLiteBlobFacet",
+      1
+    ],
+    [
+      "CompressedStreamFacet",
+      1
+    ],
+    [
+      "GeoLocationEntryFacet",
+      1
+    ],
+    [
+      "AntennaFacet",
+      1
+    ],
+    [
+      "CellSiteFacet",
+      1
+    ],
+    [
+      "TableFieldFacet",
+      1
+    ],
+    [
+      "ComputerSpecificationFacet",
+      1
+    ],
+    [
+      "FragmentFacet",
+      1
+    ],
+    [
+      "InstantMessagingAddressFacet",
+      1
+    ],
+    [
+      "RecoveredObjectFacet",
+      1
+    ],
+    [
+      "ContactFacet",
+      1
+    ],
+    [
+      "FileSystemFacet",
+      1
+    ],
+    [
+      "WindowsVolumeFacet",
+      1
+    ]
+  ],
+  "class_frequency_across_recipes": [
+    [
+      "ObservableObject",
+      56
+    ],
+    [
+      "Role",
+      55
+    ],
+    [
+      "InvestigativeAction",
+      42
+    ],
+    [
+      "Relationship",
+      40
+    ],
+    [
+      "FileFacet",
+      33
+    ],
+    [
+      "Identity",
+      31
+    ],
+    [
+      "Investigation",
+      31
+    ],
+    [
+      "ContentDataFacet",
+      30
+    ],
+    [
+      "Pattern",
+      26
+    ],
+    [
+      "Person",
+      26
+    ],
+    [
+      "Tool",
+      26
+    ],
+    [
+      "Hash",
+      21
+    ],
+    [
+      "ProvenanceRecord",
+      21
+    ],
+    [
+      "Location",
+      21
+    ],
+    [
+      "UcoObject",
+      21
+    ],
+    [
+      "Action",
+      20
+    ],
+    [
+      "File",
+      17
+    ],
+    [
+      "Device",
+      14
+    ],
+    [
+      "Event",
+      14
+    ],
+    [
+      "Organization",
+      14
+    ],
+    [
+      "AccountFacet",
+      13
+    ],
+    [
+      "Victim",
+      13
+    ],
+    [
+      "DeviceFacet",
+      12
+    ],
+    [
+      "CACInvestigation",
+      11
+    ],
+    [
+      "MessageFacet",
+      11
+    ],
+    [
+      "Message",
+      10
+    ],
+    [
+      "ApplicationFacet",
+      9
+    ],
+    [
+      "Analysis",
+      8
+    ],
+    [
+      "AnalyticTool",
+      8
+    ],
+    [
+      "RasterPicture",
+      8
+    ],
+    [
+      "CriminalCharge",
+      8
+    ],
+    [
+      "Account",
+      7
+    ],
+    [
+      "Image",
+      7
+    ],
+    [
+      "ApplicationAccount",
+      7
+    ],
+    [
+      "SimpleAddressFacet",
+      7
+    ],
+    [
+      "EmailAddressFacet",
+      6
+    ],
+    [
+      "ObservableRelationship",
+      6
+    ],
+    [
+      "URL",
+      6
+    ],
+    [
+      "CSAMIncident",
+      6
+    ],
+    [
+      "FederalCharge",
+      6
+    ],
+    [
+      "Facet",
+      6
+    ],
+    [
+      "MessageThread",
+      6
+    ],
+    [
+      "Authorization",
+      6
+    ],
+    [
+      "SoftwareFacet",
+      6
+    ],
+    [
+      "Application",
+      5
+    ],
+    [
+      "ContentData",
+      5
+    ],
+    [
+      "DataRangeFacet",
+      5
+    ],
+    [
+      "Bundle",
+      5
+    ],
+    [
+      "LatLongCoordinatesFacet",
+      5
+    ],
+    [
+      "Entity",
+      5
+    ],
+    [
+      "Code",
+      5
+    ],
+    [
+      "ApplicationAccountFacet",
+      4
+    ],
+    [
+      "Artifact",
+      4
+    ],
+    [
+      "ConfiguredTool",
+      4
+    ],
+    [
+      "RasterPictureFacet",
+      4
+    ],
+    [
+      "Dictionary",
+      4
+    ],
+    [
+      "DictionaryEntry",
+      4
+    ],
+    [
+      "EventRecord",
+      4
+    ],
+    [
+      "WirelessNetworkConnection",
+      4
+    ],
+    [
+      "AssetForfeitureAction",
+      4
+    ],
+    [
+      "FederalProsecution",
+      4
+    ],
+    [
+      "InternationalJurisdiction",
+      4
+    ],
+    [
+      "MultiDefendantIndictment",
+      4
+    ],
+    [
+      "Note",
+      4
+    ],
+    [
+      "Subject",
+      4
+    ],
+    [
+      "ChildVictim",
+      4
+    ],
+    [
+      "MessageThreadFacet",
+      4
+    ],
+    [
+      "Call",
+      4
+    ],
+    [
+      "MobileDeviceFacet",
+      4
+    ],
+    [
+      "OperatingSystemFacet",
+      4
+    ],
+    [
+      "DomainNameFacet",
+      4
+    ],
+    [
+      "URLFacet",
+      4
+    ],
+    [
+      "EmailMessageFacet",
+      4
+    ],
+    [
+      "MACAddressFacet",
+      4
+    ],
+    [
+      "DigitalAccountFacet",
+      3
+    ],
+    [
+      "EmailAddress",
+      3
+    ],
+    [
+      "Disk",
+      3
+    ],
+    [
+      "ArtifactClassification",
+      3
+    ],
+    [
+      "ArtifactClassificationResultFacet",
+      3
+    ],
+    [
+      "EventRecordFacet",
+      3
+    ]
+  ],
+  "cooccurring_facet_sets": [
+    {
+      "facets": [
+        "FileFacet"
+      ],
+      "occurrences": 24
+    },
+    {
+      "facets": [
+        "ContentDataFacet",
+        "FileFacet"
+      ],
+      "occurrences": 17
+    },
+    {
+      "facets": [
+        "ContentDataFacet"
+      ],
+      "occurrences": 11
+    },
+    {
+      "facets": [
+        "ApplicationFacet"
+      ],
+      "occurrences": 8
+    },
+    {
+      "facets": [
+        "EmailAddressFacet"
+      ],
+      "occurrences": 7
+    },
+    {
+      "facets": [
+        "MessageFacet"
+      ],
+      "occurrences": 7
+    },
+    {
+      "facets": [
+        "DeviceFacet"
+      ],
+      "occurrences": 7
+    },
+    {
+      "facets": [
+        "DataRangeFacet"
+      ],
+      "occurrences": 6
+    },
+    {
+      "facets": [
+        "SimpleAddressFacet"
+      ],
+      "occurrences": 5
+    },
+    {
+      "facets": [
+        "AccountFacet",
+        "ApplicationAccountFacet"
+      ],
+      "occurrences": 4
+    },
+    {
+      "facets": [
+        "AccountFacet",
+        "PhoneAccountFacet"
+      ],
+      "occurrences": 4
+    },
+    {
+      "facets": [
+        "AccountFacet"
+      ],
+      "occurrences": 4
+    },
+    {
+      "facets": [
+        "IPAddressFacet"
+      ],
+      "occurrences": 4
+    },
+    {
+      "facets": [
+        "DomainNameFacet"
+      ],
+      "occurrences": 4
+    },
+    {
+      "facets": [
+        "EventRecordFacet"
+      ],
+      "occurrences": 3
+    },
+    {
+      "facets": [
+        "MessageThreadFacet"
+      ],
+      "occurrences": 3
+    },
+    {
+      "facets": [
+        "DeviceFacet",
+        "MobileDeviceFacet"
+      ],
+      "occurrences": 3
+    },
+    {
+      "facets": [
+        "SIMCardFacet"
+      ],
+      "occurrences": 3
+    },
+    {
+      "facets": [
+        "EmailMessageFacet"
+      ],
+      "occurrences": 3
+    },
+    {
+      "facets": [
+        "MACAddressFacet"
+      ],
+      "occurrences": 3
+    },
+    {
+      "facets": [
+        "WirelessNetworkConnectionFacet"
+      ],
+      "occurrences": 3
+    },
+    {
+      "facets": [
+        "ArtifactClassificationResultFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "CallFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "LatLongCoordinatesFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "IPv4AddressFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "OperatingSystemFacet",
+        "SoftwareFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "URLFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "WifiAddressFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "NetworkInterfaceFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "NetworkConnectionFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "DiskPartitionFacet"
+      ],
+      "occurrences": 2
+    },
+    {
+      "facets": [
+        "SimpleNameFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "AccountAuthenticationFacet",
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "DigitalAccountFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "AccountFacet",
+        "EmailAccountFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "FileFacet",
+        "ImageFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "EncryptedStreamFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "PathRelationFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "EncodedStreamFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "ContentDataFacet",
+        "SQLiteBlobFacet"
+      ],
+      "occurrences": 1
+    },
+    {
+      "facets": [
+        "ContentDataFacet",
+        "FileFacet",
+        "ImageFacet"
+      ],
+      "occurrences": 1
+    }
+  ],
+  "recommended_facet_sets": {
+    "ObservableObject": {
+      "observed_sets": [
+        {
+          "facets": [
+            "FileFacet"
+          ],
+          "recipe_occurrences": 24
+        },
+        {
+          "facets": [
+            "ContentDataFacet",
+            "FileFacet"
+          ],
+          "recipe_occurrences": 17
+        },
+        {
+          "facets": [
+            "ContentDataFacet"
+          ],
+          "recipe_occurrences": 11
+        },
+        {
+          "facets": [
+            "ApplicationFacet"
+          ],
+          "recipe_occurrences": 8
+        },
+        {
+          "facets": [
+            "EmailAddressFacet"
+          ],
+          "recipe_occurrences": 7
+        }
+      ],
+      "union_recommended": [
+        "ApplicationFacet",
+        "ContentDataFacet",
+        "EmailAddressFacet",
+        "FileFacet"
+      ]
+    },
+    "Disk": {
+      "observed_sets": [
+        {
+          "facets": [
+            "ContentDataFacet"
+          ],
+          "recipe_occurrences": 3
+        },
+        {
+          "facets": [
+            "DataRangeFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "DiskPartitionFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "FileFacet",
+            "ImageFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "EncryptedStreamFacet"
+          ],
+          "recipe_occurrences": 1
+        }
+      ],
+      "union_recommended": [
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "DiskPartitionFacet",
+        "EncryptedStreamFacet",
+        "FileFacet",
+        "ImageFacet"
+      ]
+    },
+    "File": {
+      "observed_sets": [
+        {
+          "facets": [
+            "FileFacet"
+          ],
+          "recipe_occurrences": 16
+        },
+        {
+          "facets": [
+            "ContentDataFacet",
+            "FileFacet"
+          ],
+          "recipe_occurrences": 11
+        },
+        {
+          "facets": [
+            "ContentDataFacet"
+          ],
+          "recipe_occurrences": 9
+        },
+        {
+          "facets": [
+            "DataRangeFacet"
+          ],
+          "recipe_occurrences": 6
+        },
+        {
+          "facets": [
+            "DeviceFacet"
+          ],
+          "recipe_occurrences": 4
+        }
+      ],
+      "union_recommended": [
+        "ContentDataFacet",
+        "DataRangeFacet",
+        "DeviceFacet",
+        "FileFacet"
+      ]
+    },
+    "Directory": {
+      "observed_sets": [
+        {
+          "facets": [
+            "FileFacet"
+          ],
+          "recipe_occurrences": 9
+        },
+        {
+          "facets": [
+            "ContentDataFacet",
+            "FileFacet"
+          ],
+          "recipe_occurrences": 4
+        },
+        {
+          "facets": [
+            "FileSystemFacet",
+            "WindowsVolumeFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "EventRecordFacet"
+          ],
+          "recipe_occurrences": 1
+        }
+      ],
+      "union_recommended": [
+        "ContentDataFacet",
+        "EventRecordFacet",
+        "FileFacet",
+        "FileSystemFacet",
+        "WindowsVolumeFacet"
+      ]
+    },
+    "RasterPicture": {
+      "observed_sets": [
+        {
+          "facets": [
+            "ContentDataFacet",
+            "FileFacet"
+          ],
+          "recipe_occurrences": 5
+        },
+        {
+          "facets": [
+            "ContentDataFacet"
+          ],
+          "recipe_occurrences": 3
+        },
+        {
+          "facets": [
+            "IPv4AddressFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "FileFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "ArtifactClassificationResultFacet"
+          ],
+          "recipe_occurrences": 1
+        }
+      ],
+      "union_recommended": [
+        "ArtifactClassificationResultFacet",
+        "ContentDataFacet",
+        "EXIFFacet",
+        "FileFacet",
+        "IPv4AddressFacet",
+        "RasterPictureFacet"
+      ]
+    },
+    "AppleUnifiedLogArchive": {
+      "observed_sets": [
+        {
+          "facets": [
+            "FileFacet"
+          ],
+          "recipe_occurrences": 6
+        },
+        {
+          "facets": [
+            "EventRecordFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "ApplicationFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "DeviceFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "SoftwareFacet"
+          ],
+          "recipe_occurrences": 1
+        }
+      ],
+      "union_recommended": [
+        "ApplicationFacet",
+        "DeviceFacet",
+        "EventRecordFacet",
+        "FileFacet",
+        "SoftwareFacet"
+      ]
+    },
+    "Device": {
+      "observed_sets": [
+        {
+          "facets": [
+            "FileFacet"
+          ],
+          "recipe_occurrences": 6
+        },
+        {
+          "facets": [
+            "DeviceFacet"
+          ],
+          "recipe_occurrences": 4
+        },
+        {
+          "facets": [
+            "ApplicationFacet"
+          ],
+          "recipe_occurrences": 3
+        },
+        {
+          "facets": [
+            "DeviceFacet",
+            "MobileDeviceFacet"
+          ],
+          "recipe_occurrences": 3
+        },
+        {
+          "facets": [
+            "SIMCardFacet"
+          ],
+          "recipe_occurrences": 3
+        }
+      ],
+      "union_recommended": [
+        "ApplicationFacet",
+        "DeviceFacet",
+        "FileFacet",
+        "MobileDeviceFacet",
+        "OperatingSystemFacet",
+        "SIMCardFacet"
+      ]
+    },
+    "EventRecord": {
+      "observed_sets": [
+        {
+          "facets": [
+            "FileFacet"
+          ],
+          "recipe_occurrences": 14
+        },
+        {
+          "facets": [
+            "EventRecordFacet"
+          ],
+          "recipe_occurrences": 3
+        },
+        {
+          "facets": [
+            "ApplicationFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "AccountFacet",
+            "ApplicationAccountFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "DeviceFacet"
+          ],
+          "recipe_occurrences": 1
+        }
+      ],
+      "union_recommended": [
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "DeviceFacet",
+        "EventRecordFacet",
+        "FileFacet"
+      ]
+    },
+    "ApplicationAccount": {
+      "observed_sets": [
+        {
+          "facets": [
+            "AccountFacet",
+            "ApplicationAccountFacet"
+          ],
+          "recipe_occurrences": 4
+        },
+        {
+          "facets": [
+            "ApplicationFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "IPv4AddressFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "MessageFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "MessageThreadFacet"
+          ],
+          "recipe_occurrences": 1
+        }
+      ],
+      "union_recommended": [
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "IPv4AddressFacet",
+        "MessageFacet",
+        "MessageThreadFacet"
+      ]
+    },
+    "MessageThread": {
+      "observed_sets": [
+        {
+          "facets": [
+            "MessageFacet"
+          ],
+          "recipe_occurrences": 4
+        },
+        {
+          "facets": [
+            "AccountFacet",
+            "ApplicationAccountFacet"
+          ],
+          "recipe_occurrences": 3
+        },
+        {
+          "facets": [
+            "MessageThreadFacet"
+          ],
+          "recipe_occurrences": 3
+        },
+        {
+          "facets": [
+            "ApplicationFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "SimpleAddressFacet"
+          ],
+          "recipe_occurrences": 2
+        }
+      ],
+      "union_recommended": [
+        "AccountFacet",
+        "ApplicationAccountFacet",
+        "ApplicationFacet",
+        "MessageFacet",
+        "MessageThreadFacet",
+        "SimpleAddressFacet"
+      ]
+    },
+    "EmailMessage": {
+      "observed_sets": [
+        {
+          "facets": [
+            "EmailAddressFacet"
+          ],
+          "recipe_occurrences": 2
+        },
+        {
+          "facets": [
+            "EmailMessageFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "URLFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "ContentDataFacet",
+            "FileFacet"
+          ],
+          "recipe_occurrences": 1
+        },
+        {
+          "facets": [
+            "DeviceFacet"
+          ],
+          "recipe_occurrences": 1
+        }
+      ],
+      "union_recommended": [
+        "ContentDataFacet",
+        "DeviceFacet",
+        "EmailAddressFacet",
+        "EmailMessageFacet",
+        "FileFacet",
+        "URLFacet"
+      ]
+    },
+    "MobileDevice": {
+      "observed_sets": [
+        {
+          "facets": [
+            "DeviceFacet",
+            "MobileDeviceFacet",
+            "OperatingSystemFacet",
+            "SIMCardFacet"
+          ],
+          "recipe_occurrences": 0
+        }
+      ],
+      "union_recommended": [
+        "DeviceFacet",
+        "MobileDeviceFacet",
+        "OperatingSystemFacet",
+        "SIMCardFacet"
+      ]
+    },
+    "Message": {
+      "observed_sets": [
+        {
+          "facets": [
+            "MessageFacet",
+            "ApplicationFacet"
+          ],
+          "recipe_occurrences": 0
+        }
+      ],
+      "union_recommended": [
+        "MessageFacet",
+        "ApplicationFacet"
+      ]
+    },
+    "Account": {
+      "observed_sets": [
+        {
+          "facets": [
+            "AccountFacet",
+            "DigitalAccountFacet"
+          ],
+          "recipe_occurrences": 0
+        }
+      ],
+      "union_recommended": [
+        "AccountFacet",
+        "DigitalAccountFacet"
+      ]
+    },
+    "NetworkConnection": {
+      "observed_sets": [
+        {
+          "facets": [
+            "NetworkConnectionFacet",
+            "IPAddressFacet"
+          ],
+          "recipe_occurrences": 0
+        }
+      ],
+      "union_recommended": [
+        "NetworkConnectionFacet",
+        "IPAddressFacet"
+      ]
+    },
+    "DiskImage": {
+      "observed_sets": [
+        {
+          "facets": [
+            "ImageFacet",
+            "FileFacet",
+            "ContentDataFacet"
+          ],
+          "recipe_occurrences": 0
+        }
+      ],
+      "union_recommended": [
+        "ImageFacet",
+        "FileFacet",
+        "ContentDataFacet"
+      ]
+    }
+  },
+  "mapping_guide_patterns": [
+    {
+      "source": "filesystem report",
+      "pattern": "ObservableObject + FileFacet + ContentDataFacet",
+      "classes": [
+        "ObservableObject",
+        "FileFacet",
+        "ContentDataFacet",
+        "InvestigativeAction",
+        "Tool"
+      ],
+      "facets": [
+        "FileFacet",
+        "ContentDataFacet"
+      ],
+      "anti_patterns": [
+        "Don't create a separate ObservableObject for each facet — one object can have multiple facets",
+        "Don't use Tool as a top-level evidence item — it describes the instrument, not the evidence"
+      ],
+      "starter_kit": "docs/recipes/starter-filesystem-report.md",
+      "code_skeleton": "graph.create(ObservableObject, has_facet=[FileFacet(file_name=...), ContentDataFacet(hash_method=..., hash_value=...)])"
+    },
+    {
+      "source": "mobile device extraction",
+      "pattern": "ObservableObject + DeviceFacet + ApplicationFacet + MessageFacet",
+      "classes": [
+        "ObservableObject",
+        "DeviceFacet",
+        "ApplicationFacet",
+        "MessageFacet",
+        "ContactFacet",
+        "InvestigativeAction",
+        "Tool"
+      ],
+      "facets": [
+        "DeviceFacet",
+        "ApplicationFacet",
+        "MessageFacet",
+        "ContactFacet"
+      ],
+      "anti_patterns": [
+        "Don't model the phone as an InvestigativeAction — the phone is an ObservableObject, the extraction is the action",
+        "Don't flatten app data into one facet — use separate facets for messages, contacts, call logs"
+      ],
+      "starter_kit": "docs/recipes/starter-mobile-extraction.md",
+      "code_skeleton": "device = graph.create(ObservableObject, has_facet=[DeviceFacet(manufacturer=..., model=...)])"
+    },
+    {
+      "source": "iOS sysdiagnose archive",
+      "pattern": "Device + sysdiagnose FileFacet directory + AppleUnifiedLogArchive/EventLog",
+      "classes": [
+        "ObservableObject",
+        "DeviceFacet",
+        "MobileDeviceFacet",
+        "OperatingSystem",
+        "SoftwareFacet",
+        "FileFacet",
+        "AppleUnifiedLogArchive",
+        "EventLog",
+        "WirelessNetworkConnection",
+        "InvestigativeAction",
+        "Tool"
+      ],
+      "facets": [
+        "DeviceFacet",
+        "MobileDeviceFacet",
+        "SoftwareFacet",
+        "FileFacet"
+      ],
+      "anti_patterns": [
+        "Don't flatten the sysdiagnose tree into one File observable — keep logarchive and high-value children linked",
+        "Don't invent a SysdiagnoseFacet — use FileFacet directories plus AppleUnifiedLogArchive"
+      ],
+      "starter_kit": "docs/recipes/ios-sysdiagnose.md",
+      "code_skeleton": "logarchive = graph.create(AppleUnifiedLogArchive, name='system_logs.logarchive', has_facet=[FileFacet(is_directory=[True])])"
+    },
+    {
+      "source": "Apple unified logs",
+      "pattern": "AppleUnifiedLogArchive → EventRecord + Event + AnalyticTool outputs (CSV/SQLite)",
+      "classes": [
+        "AppleUnifiedLogArchive",
+        "EventLog",
+        "EventRecord",
+        "EventRecordFacet",
+        "Event",
+        "Dictionary",
+        "DictionaryEntry",
+        "AnalyticTool",
+        "SolveitInvestigativeAction",
+        "ApplicationFacet"
+      ],
+      "facets": [
+        "EventRecordFacet",
+        "ApplicationFacet"
+      ],
+      "anti_patterns": [
+        "Don't invent UnifiedLogFacet — map rows with EventRecordFacet and Dictionary attributes",
+        "Don't claim message text without running a parser on the binary logarchive"
+      ],
+      "starter_kit": "docs/recipes/apple-unified-logs.md",
+      "code_skeleton": "record = graph.create(EventRecord, has_facet=[EventRecordFacet(event_record_text=..., event_record_service_name=...)])"
+    },
+    {
+      "source": "email export",
+      "pattern": "ObservableObject + EmailMessageFacet + EmailAddressFacet",
+      "classes": [
+        "ObservableObject",
+        "EmailMessageFacet",
+        "EmailAddressFacet",
+        "EmailAccountFacet",
+        "ContentDataFacet"
+      ],
+      "facets": [
+        "EmailMessageFacet",
+        "EmailAddressFacet",
+        "EmailAccountFacet",
+        "ContentDataFacet"
+      ],
+      "anti_patterns": [
+        "Don't model sender and recipient as the same ObservableObject — use separate EmailAddressFacet instances",
+        "Don't skip the EmailAccountFacet when account-level metadata is available"
+      ],
+      "starter_kit": "docs/recipes/starter-email-export.md",
+      "code_skeleton": "graph.create(ObservableObject, has_facet=[EmailMessageFacet(subject=..., sent_time=...)])"
+    },
+    {
+      "source": "forensic tool run",
+      "pattern": "Investigation + InvestigativeAction + Tool + ObservableObject",
+      "classes": [
+        "Investigation",
+        "InvestigativeAction",
+        "Tool",
+        "ObservableObject",
+        "ProvenanceRecord"
+      ],
+      "facets": [],
+      "anti_patterns": [
+        "Don't omit the Tool object — always record which tool (and version) performed the action",
+        "Don't model tool output without linking it to the InvestigativeAction that produced it"
+      ],
+      "starter_kit": "docs/recipes/starter-tool-run.md",
+      "code_skeleton": "tool = graph.create(Tool, name=..., version=...)\naction = graph.create(InvestigativeAction, name=..., instrument=tool)"
+    },
+    {
+      "source": "pcap network capture",
+      "pattern": "ObservableObject + NetworkConnectionFacet + IPAddressFacet",
+      "classes": [
+        "ObservableObject",
+        "NetworkConnectionFacet",
+        "IPAddressFacet",
+        "DomainNameFacet",
+        "URLFacet",
+        "InvestigativeAction",
+        "Tool"
+      ],
+      "facets": [
+        "NetworkConnectionFacet",
+        "IPAddressFacet",
+        "DomainNameFacet",
+        "URLFacet"
+      ],
+      "anti_patterns": [
+        "Don't model each packet as a separate ObservableObject — group by connection or flow",
+        "Don't put IP addresses in NetworkConnectionFacet text fields — use separate IPAddressFacet objects"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "graph.create(ObservableObject, has_facet=[NetworkConnectionFacet(src_ip=..., dst_ip=..., dst_port=...)])"
+    },
+    {
+      "source": "disk image",
+      "pattern": "ObservableObject + ImageFacet + ContentDataFacet + FileFacet",
+      "classes": [
+        "ObservableObject",
+        "ImageFacet",
+        "FileFacet",
+        "ContentDataFacet",
+        "InvestigativeAction",
+        "Tool"
+      ],
+      "facets": [
+        "ImageFacet",
+        "FileFacet",
+        "ContentDataFacet"
+      ],
+      "anti_patterns": [
+        "Don't confuse ImageFacet (disk image metadata) with picture/photo image data",
+        "Don't skip ContentDataFacet — hash values are critical for disk image integrity"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "graph.create(ObservableObject, has_facet=[ImageFacet(image_type=...), ContentDataFacet(hash_method='SHA-256', hash_value=...)])"
+    },
+    {
+      "source": "browser history",
+      "pattern": "ObservableObject + URLHistoryFacet + BrowserBookmarkFacet + CookieFacet",
+      "classes": [
+        "ObservableObject",
+        "URLHistoryFacet",
+        "BrowserBookmarkFacet",
+        "CookieFacet",
+        "URLFacet",
+        "ApplicationFacet"
+      ],
+      "facets": [
+        "URLHistoryFacet",
+        "BrowserBookmarkFacet",
+        "CookieFacet",
+        "URLFacet",
+        "ApplicationFacet"
+      ],
+      "anti_patterns": [
+        "Don't model each URL visit as a separate ObservableObject — use URLHistoryFacet entries",
+        "Don't forget ApplicationFacet to identify which browser produced the history"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "graph.create(ObservableObject, has_facet=[URLHistoryFacet(browser_info=..., url=..., last_visited=...)])"
+    },
+    {
+      "source": "ai ml image analysis",
+      "pattern": "InvestigativeAction (per pipeline step) + AnalyticTool + RasterPicture + ConfidenceFacet + Relationship",
+      "classes": [
+        "InvestigativeAction",
+        "AnalyticTool",
+        "RasterPicture",
+        "RasterPictureFacet",
+        "FileFacet",
+        "ContentDataFacet",
+        "ConfidenceFacet",
+        "Relationship",
+        "ProvenanceRecord",
+        "Directory"
+      ],
+      "facets": [
+        "RasterPictureFacet",
+        "FileFacet",
+        "ContentDataFacet",
+        "ConfidenceFacet"
+      ],
+      "anti_patterns": [
+        "Don't hide structured facts (model name, query, thresholds, scores) inside uco-core:description as JSON strings — use explicit properties or ConfiguredTool",
+        "Don't use ArtifactClassification for tool endpoint names — classification describes what the artifact IS (content label), not which tool processed it",
+        "Don't model a multi-step pipeline as a single InvestigativeAction — each model/step gets its own action with its own inputs, outputs, and timestamps",
+        "Don't use generic File or ObservableObject for image files — use RasterPicture with RasterPictureFacet",
+        "Don't omit per-result scores — use ConfidenceFacet on each result for ranking and explainability",
+        "Don't omit hashes and sizes on evidence files — without them the graph is a workflow log, not an evidentiary record"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "# One InvestigativeAction per pipeline step\nstep = graph.create(InvestigativeAction, name=..., instrument=[tool], object=[inputs], result=[outputs])\n# RasterPicture with score\nimg = graph.create(RasterPicture, has_facet=[FileFacet(...), ContentDataFacet(hash=[...]), RasterPictureFacet(...), ConfidenceFacet(confidence=0.87)])\n# Explicit relationship\ngraph.create(Relationship, source=[img], target=input_dir, kind_of_relationship='Selected_From', is_directional=True)"
+    },
+    {
+      "source": "registry artifacts",
+      "pattern": "ObservableObject + WindowsRegistryKeyFacet + WindowsRegistryValueFacet",
+      "classes": [
+        "ObservableObject",
+        "WindowsRegistryKeyFacet",
+        "WindowsRegistryValueFacet",
+        "FileFacet"
+      ],
+      "facets": [
+        "WindowsRegistryKeyFacet",
+        "WindowsRegistryValueFacet",
+        "FileFacet"
+      ],
+      "anti_patterns": [
+        "Don't model registry values without their parent key — always include the key path",
+        "Don't use generic FileFacet for registry hive content — use the specific registry facets"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "graph.create(ObservableObject, has_facet=[WindowsRegistryKeyFacet(key=...)])"
+    },
+    {
+      "source": "child sex trafficking ring or recruitment network",
+      "pattern": "CACInvestigation + TraffickingEnterprise + (TraffickingRing | TraffickingCell) + TraffickingVictimRole + (PeerRecruitmentNetwork | ClassmateRecruitmentNetwork) + (SchoolBasedRecruitment | StreetBasedRecruitment with pretext approach) + DigitalToPhysicalBridge",
+      "classes": [
+        "CACInvestigation",
+        "TraffickingEnterprise",
+        "TraffickingRing",
+        "TraffickingCell",
+        "TraffickingVictimRole",
+        "MinorTraffickingVictimRole",
+        "TraffickingVictimRescue",
+        "VictimRotation",
+        "InterstateVictimTransport",
+        "InterstateTraffickingNetwork",
+        "PeerRecruitmentNetwork",
+        "ClassmateRecruitmentNetwork",
+        "SchoolBasedRecruitment",
+        "StreetBasedRecruitment",
+        "HelpOfferApproach",
+        "FoodOfferApproach",
+        "TransportationOfferApproach",
+        "PhoneChargingOffer",
+        "RapidEscalationRecruitment",
+        "DigitalToPhysicalBridge",
+        "MandatoryReportingActivation",
+        "Identity",
+        "Location",
+        "Relationship"
+      ],
+      "facets": [],
+      "anti_patterns": [
+        "Don't model a trafficking ring as a single Identity — use TraffickingEnterprise (or TraffickingRing/TraffickingCell) so role hierarchy and victim relationships have a structural anchor",
+        "Don't reuse generic InvestigativeAction for each pretext approach — use the specific *OfferApproach subclass so analysts can query approach patterns",
+        "Don't treat 'online recruitment then in-person meet' as one event — split it: one online behavior event plus a DigitalToPhysicalBridge for the meet, so the timeline shows the transition",
+        "Don't forget to set CASE_UCO_EXTENSIONS=cac so trafficking and recruitment classes load"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "# Requires CASE_UCO_EXTENSIONS=cac\nring = graph.create(TraffickingRing, name='Ring 2026-014')\nvictim_role = graph.create(MinorTraffickingVictimRole, name='Victim A role')\napproach = graph.create(TransportationOfferApproach, name='Bus-stop ride offer')\nbridge = graph.create(DigitalToPhysicalBridge, name='IG DM -> motel meet')\ngraph.create(Relationship, source=[approach], target=[victim_role], kind_of_relationship='Targeted')"
+    },
+    {
+      "source": "multi-jurisdictional rescue or task force operation",
+      "pattern": "CACInvestigation + TaskForce + (LocalJurisdiction | StateJurisdiction | FederalJurisdiction | InternationalJurisdiction) + JointInvestigation + (MassChildRescueOperation | VictimExtraction) + JurisdictionalHandoff + MutualAidRequest",
+      "classes": [
+        "CACInvestigation",
+        "TaskForce",
+        "JointInvestigation",
+        "Jurisdiction",
+        "LocalJurisdiction",
+        "StateJurisdiction",
+        "FederalJurisdiction",
+        "InternationalJurisdiction",
+        "JurisdictionalHandoff",
+        "MutualAidRequest",
+        "MassChildRescueOperation",
+        "VictimExtraction",
+        "EmergencyResponse",
+        "InvestigativeAction",
+        "ProvenanceRecord",
+        "Identity",
+        "Location"
+      ],
+      "facets": [],
+      "anti_patterns": [
+        "Don't model the task force as a generic Identity — use TaskForce so participating jurisdictions/agencies have a structural relationship",
+        "Don't bury jurisdictional transitions in a description string — use JurisdictionalHandoff (and MutualAidRequest where relevant) so the chain is queryable",
+        "Don't lose per-victim provenance during a mass rescue — pair MassChildRescueOperation with one VictimExtraction per victim, each with its own ProvenanceRecord"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "# Requires CASE_UCO_EXTENSIONS=cac\ntf = graph.create(TaskForce, name='Regional ICAC Task Force')\nop = graph.create(MassChildRescueOperation, name='Operation Lighthouse')\nfed = graph.create(FederalJurisdiction, name='HSI - Field Office X')\nstate = graph.create(StateJurisdiction, name='State Police')\ngraph.create(JurisdictionalHandoff, source=[state], target=[fed], name='Lead transferred to HSI')"
+    },
+    {
+      "source": "tactical arrest or high-risk operation",
+      "pattern": "CACInvestigation + (ArrestOperation | HighRiskArrest) + DynamicEntry + SuspectProfile + ThreatAssessment + AssetForfeitureAction",
+      "classes": [
+        "CACInvestigation",
+        "ArrestOperation",
+        "HighRiskArrest",
+        "DynamicEntry",
+        "SuspectProfile",
+        "ThreatAssessment",
+        "UndercoverOperation",
+        "AssetForfeitureAction",
+        "InvestigativeAction",
+        "Tool",
+        "Identity",
+        "Location"
+      ],
+      "facets": [],
+      "anti_patterns": [
+        "Don't collapse pre-op planning and the entry into one action — pre-op SuspectProfile/ThreatAssessment justify the operational posture and need their own records",
+        "Don't model seized property as plain ObservableObject — use AssetForfeitureAction so the legal-process linkage is explicit"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "# Requires CASE_UCO_EXTENSIONS=cac\nta = graph.create(ThreatAssessment, name='Pre-op threat assessment')\narrest = graph.create(HighRiskArrest, name='Arrest of subject X')\nentry = graph.create(DynamicEntry, name='Front-door dynamic entry')\nforfeiture = graph.create(AssetForfeitureAction, name='Vehicle and electronics seizure')"
+    },
+    {
+      "source": "victim rescue extraction and post-rescue services",
+      "pattern": "CACInvestigation + EmergencyResponse + VictimExtraction + OngoingDangerAssessment + SafetyPlanning + MultiAgencyVictimResponse + TraumaIndicator + HelpSeekingBarrier",
+      "classes": [
+        "CACInvestigation",
+        "EmergencyResponse",
+        "VictimExtraction",
+        "OngoingDangerAssessment",
+        "SafetyPlanning",
+        "MultiAgencyVictimResponse",
+        "TraumaIndicator",
+        "HelpSeekingBarrier",
+        "RecantationAssessment",
+        "PartialRecantationStatement",
+        "ReaffirmedDisclosureStatement",
+        "PostRecantationForensicInterview",
+        "ChildVictim",
+        "InvestigativeAction"
+      ],
+      "facets": [],
+      "anti_patterns": [
+        "Don't treat post-rescue services as out-of-scope — model MultiAgencyVictimResponse and SafetyPlanning so downstream services are auditable",
+        "Don't conflate recantation with case closure — RecantationAssessment is its own event and may coexist with an ongoing investigation; pair it with ReaffirmedDisclosureStatement when the disclosure is later reaffirmed"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "# Requires CASE_UCO_EXTENSIONS=cac\nextraction = graph.create(VictimExtraction, name='Victim extraction at motel')\ndanger = graph.create(OngoingDangerAssessment, name='Trafficker still at-large')\nplan = graph.create(SafetyPlanning, name='Initial safety plan with DCFS')"
+    },
+    {
+      "source": "csam provenance forensics and victim identification",
+      "pattern": "ForensicAcquisitionAction + ChainOfCustodyAction (per event) + EvidenceVerificationAction + (MetadataCorrelation | TemporalPatternAnalysis | GeospatialCorrelation | CrossPlatformCorrelation | BehavioralFingerprinting) + VictimIdentificationProcess",
+      "classes": [
+        "ForensicAcquisitionAction",
+        "ChainOfCustodyAction",
+        "EvidenceVerificationAction",
+        "MetadataCorrelation",
+        "TemporalPatternAnalysis",
+        "GeospatialCorrelation",
+        "CrossPlatformCorrelation",
+        "BehavioralFingerprinting",
+        "VictimIdentificationProcess",
+        "ContentHashingTool",
+        "RasterPicture",
+        "RasterPictureFacet",
+        "FileFacet",
+        "ContentDataFacet",
+        "ProvenanceRecord",
+        "Relationship"
+      ],
+      "facets": [
+        "RasterPictureFacet",
+        "FileFacet",
+        "ContentDataFacet"
+      ],
+      "anti_patterns": [
+        "Don't merge acquisition, verification, and analysis into one action — each is its own auditable step with its own tool, operator, and timestamp",
+        "Don't omit hashes on CSAM artifacts — without ContentDataFacet entries the chain of custody is unverifiable",
+        "Don't store correlation findings only in description text — use the matching CAC correlation class so the result is queryable"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "# Requires CASE_UCO_EXTENSIONS=cac\nacq = graph.create(ForensicAcquisitionAction, name='Acquisition of seized device')\nverify = graph.create(EvidenceVerificationAction, name='SHA-256 verification')\nimg = graph.create(RasterPicture, has_facet=[FileFacet(file_name=...), ContentDataFacet(hash_method='SHA-256', hash_value='...'), RasterPictureFacet(...)])\nvid = graph.create(VictimIdentificationProcess, name='Match against known-victim DB')"
+    },
+    {
+      "source": "icac search warrant arrest",
+      "pattern": "CACInvestigation + MarylandICACtaskForce + InvestigativeAction chain + Authorization + ArrestOperation (warrant_arrest) + BookingAction + CorrectionalFacility + StateCharge",
+      "classes": [
+        "CACInvestigation",
+        "MarylandICACtaskForce",
+        "MarylandStatePoliceComputerCrimesUnit",
+        "InvestigativeAction",
+        "Authorization",
+        "ArrestOperation",
+        "BookingAction",
+        "CorrectionalFacility",
+        "StateCharge",
+        "OnlineGrooming",
+        "OnlinePurchase",
+        "Identity",
+        "Organization",
+        "Location"
+      ],
+      "facets": [],
+      "anti_patterns": [
+        "Don't use HighRiskArrest or DynamicEntry when the narrative says custody was without incident",
+        "Don't duplicate MSP CCU as both a specialized unit and a separate performer Organization",
+        "Don't leave OnlineGrooming or OnlinePurchase isolated — add uco-action:performer (suspect) and investigation Concerns links",
+        "Don't create empty Phase nodes — use typed phases with occursDuringPhase on actions or omit phases",
+        "Don't embed ExternalReference as a blank node — give it an explicit @id IRI",
+        "Don't put grooming events in Investigation.uco-core:object — reserve object for ObservableObject evidence"
+      ],
+      "starter_kit": "docs/recipes/cac-icac-search-warrant-arrest.md",
+      "code_skeleton": "# Requires CASE_UCO_EXTENSIONS=cac\ngrooming = graph.add_node('kb:grooming-1', 'cacontology-grooming:OnlineGrooming', {\n    'uco-action:performer': {'@id': 'kb:suspect'},\n    'cacontology-grooming:targetsVictim': {'@id': 'kb:minor-victim'},\n})\ngraph.add_node('kb:rel-1', 'uco-core:Relationship', {\n    'uco-core:source': [{'@id': 'kb:investigation'}],\n    'uco-core:target': [{'@id': 'kb:grooming-1'}],\n    'uco-core:kindOfRelationship': 'Concerns',\n})"
+    },
+    {
+      "source": "cybertip grooming report",
+      "pattern": "CACInvestigation + GroomingBehavior + NCMECCybertipReport + GroomingMessage + ChildVictim + OnlinePredator",
+      "classes": [
+        "CACInvestigation",
+        "GroomingBehavior",
+        "OnlineGrooming",
+        "GroomingMessage",
+        "ChildVictim",
+        "OnlinePredator",
+        "NCMECCybertipReport",
+        "OnlineEnticementIncident",
+        "AutomatedDetectionAction",
+        "ElectronicServiceProvider",
+        "MessageThread",
+        "MessageFacet",
+        "ApplicationAccount",
+        "RasterPicture",
+        "Relationship"
+      ],
+      "facets": [
+        "MessageFacet"
+      ],
+      "anti_patterns": [
+        "Don't use generic InvestigativeAction for grooming phases — use GroomingBehavior with grooming stage properties from the CAC extension",
+        "Don't model the CyberTip as a plain ObservableObject — use NCMECCybertipReport with incident type and annotations from the CAC extension",
+        "Don't use freetext descriptions for grooming phases — use the structured GroomingPhase classes (InitialContactPhase, TrustBuildingPhase, etc.)",
+        "Don't forget to set CASE_UCO_EXTENSIONS=cac to load CAC classes in the MCP server"
+      ],
+      "starter_kit": null,
+      "code_skeleton": "# Requires CASE_UCO_EXTENSIONS=cac\n# CAC grooming + NCMEC classes\ngrooming = graph.create(OnlineGrooming, name=..., grooming_stage='trust_building')\nvictim = graph.create(ChildVictim, name=...)\noffender = graph.create(OnlinePredator, name=...)\ncybertip = graph.create(NCMECCybertipReport, name=...)\n# Link to core UCO messaging\nthread = graph.create(MessageThread, has_facet=[MessageThreadFacet(participant=[offender_acct, victim_acct])])"
+    }
+  ],
+  "task_to_classes_patterns": [
+    {
+      "task": "model a forensic disk image extraction",
+      "classes": [
+        "Investigation",
+        "InvestigativeAction",
+        "Tool",
+        "ObservableObject",
+        "ImageFacet",
+        "FileFacet",
+        "ContentDataFacet"
+      ],
+      "facets": [
+        "ImageFacet",
+        "FileFacet",
+        "ContentDataFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "InvestigativeAction": "The extraction action performed",
+        "Tool": "The forensic tool used (e.g., FTK Imager, dd)",
+        "ObservableObject": "The disk or device being imaged",
+        "ImageFacet": "Disk image metadata (format, size)",
+        "FileFacet": "Output image file details",
+        "ContentDataFacet": "Hash values of the image"
+      }
+    },
+    {
+      "task": "model mobile app data extraction",
+      "classes": [
+        "Investigation",
+        "InvestigativeAction",
+        "Tool",
+        "ObservableObject",
+        "DeviceFacet",
+        "ApplicationFacet",
+        "MessageFacet",
+        "ContactFacet"
+      ],
+      "facets": [
+        "DeviceFacet",
+        "ApplicationFacet",
+        "MessageFacet",
+        "ContactFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "InvestigativeAction": "The extraction action",
+        "Tool": "The extraction tool (e.g., Cellebrite, GrayKey)",
+        "ObservableObject": "The mobile device",
+        "DeviceFacet": "Device make, model, serial number",
+        "ApplicationFacet": "The app being examined",
+        "MessageFacet": "Chat messages found",
+        "ContactFacet": "Contacts extracted"
+      }
+    },
+    {
+      "task": "model network traffic capture",
+      "classes": [
+        "Investigation",
+        "InvestigativeAction",
+        "Tool",
+        "ObservableObject",
+        "NetworkConnectionFacet",
+        "IPAddressFacet",
+        "DomainNameFacet",
+        "URLFacet"
+      ],
+      "facets": [
+        "NetworkConnectionFacet",
+        "IPAddressFacet",
+        "DomainNameFacet",
+        "URLFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "InvestigativeAction": "The capture action",
+        "Tool": "The capture tool (e.g., Wireshark, tcpdump)",
+        "ObservableObject": "Network connection or packet capture",
+        "NetworkConnectionFacet": "Connection details (src/dst IP, ports)",
+        "IPAddressFacet": "IP address details",
+        "DomainNameFacet": "Domain name resolution",
+        "URLFacet": "URLs observed in traffic"
+      }
+    },
+    {
+      "task": "model email evidence",
+      "classes": [
+        "Investigation",
+        "ObservableObject",
+        "EmailMessageFacet",
+        "EmailAddressFacet",
+        "EmailAccountFacet",
+        "ContentDataFacet"
+      ],
+      "facets": [
+        "EmailMessageFacet",
+        "EmailAddressFacet",
+        "EmailAccountFacet",
+        "ContentDataFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "ObservableObject": "The email message",
+        "EmailMessageFacet": "Email headers, subject, body",
+        "EmailAddressFacet": "Sender/recipient addresses",
+        "EmailAccountFacet": "Email account details",
+        "ContentDataFacet": "Attachments and content hashes"
+      }
+    },
+    {
+      "task": "model file system analysis",
+      "classes": [
+        "Investigation",
+        "InvestigativeAction",
+        "Tool",
+        "ObservableObject",
+        "FileFacet",
+        "ContentDataFacet",
+        "FileSystemFacet"
+      ],
+      "facets": [
+        "FileFacet",
+        "ContentDataFacet",
+        "FileSystemFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "InvestigativeAction": "The analysis action",
+        "Tool": "The analysis tool (e.g., Autopsy, EnCase)",
+        "ObservableObject": "Files and directories found",
+        "FileFacet": "File name, path, size, timestamps",
+        "ContentDataFacet": "File hash values",
+        "FileSystemFacet": "File system type and metadata"
+      }
+    },
+    {
+      "task": "model browser history",
+      "classes": [
+        "ObservableObject",
+        "BrowserBookmarkFacet",
+        "URLHistoryFacet",
+        "URLFacet",
+        "CookieFacet",
+        "ApplicationFacet"
+      ],
+      "facets": [
+        "BrowserBookmarkFacet",
+        "URLHistoryFacet",
+        "URLFacet",
+        "CookieFacet",
+        "ApplicationFacet"
+      ],
+      "notes": {
+        "ObservableObject": "Browser artifact",
+        "BrowserBookmarkFacet": "Bookmarked URLs",
+        "URLHistoryFacet": "Browsing history entries",
+        "URLFacet": "URL details",
+        "CookieFacet": "Browser cookies",
+        "ApplicationFacet": "The browser application"
+      }
+    },
+    {
+      "task": "model chain of custody",
+      "classes": [
+        "Investigation",
+        "ProvenanceRecord",
+        "InvestigativeAction",
+        "Role",
+        "Identity",
+        "ObservableObject"
+      ],
+      "facets": [],
+      "notes": {
+        "Investigation": "The case container",
+        "ProvenanceRecord": "Custody transfer record",
+        "InvestigativeAction": "Each custody event (receipt, transfer, analysis)",
+        "Role": "Role of the person in custody chain",
+        "Identity": "Person involved in custody",
+        "ObservableObject": "The evidence item"
+      }
+    },
+    {
+      "task": "model user account activity",
+      "classes": [
+        "ObservableObject",
+        "AccountFacet",
+        "DigitalAccountFacet",
+        "ApplicationAccountFacet",
+        "Identity"
+      ],
+      "facets": [
+        "AccountFacet",
+        "DigitalAccountFacet",
+        "ApplicationAccountFacet"
+      ],
+      "notes": {
+        "ObservableObject": "The account",
+        "AccountFacet": "Account username, creation date",
+        "DigitalAccountFacet": "Digital account details",
+        "ApplicationAccountFacet": "App-specific account info",
+        "Identity": "The account owner"
+      }
+    },
+    {
+      "task": "model GPS or location data",
+      "classes": [
+        "ObservableObject",
+        "LatLongCoordinatesFacet",
+        "GeoLocationEntryFacet",
+        "CellSiteFacet"
+      ],
+      "facets": [
+        "LatLongCoordinatesFacet",
+        "GeoLocationEntryFacet",
+        "CellSiteFacet"
+      ],
+      "notes": {
+        "ObservableObject": "The location-bearing artifact",
+        "LatLongCoordinatesFacet": "GPS coordinates",
+        "GeoLocationEntryFacet": "Location log entry",
+        "CellSiteFacet": "Cell tower connection data"
+      }
+    },
+    {
+      "task": "model fraud or cryptocurrency laundering investigation",
+      "classes": [
+        "Investigation",
+        "Person",
+        "Organization",
+        "MessageThread",
+        "InstantMessagingAddress",
+        "InvestigativeAction",
+        "ObservableObject",
+        "Location",
+        "Relationship",
+        "CryptocurrencyAddressFacet",
+        "CryptocurrencyTransactionFacet",
+        "CryptocurrencyWalletFacet",
+        "VirtualAssetHoldingFacet",
+        "CriminalCharge",
+        "ForfeitureOrder"
+      ],
+      "facets": [
+        "CryptocurrencyAddressFacet",
+        "CryptocurrencyTransactionFacet",
+        "CryptocurrencyWalletFacet",
+        "VirtualAssetHoldingFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "Person": "Victims, groomers, mules, exchange account holders",
+        "Organization": "Exchanges and fake investment platforms",
+        "MessageThread": "Coercion and grooming chat evidence",
+        "InstantMessagingAddress": "Telegram or messaging handles",
+        "InvestigativeAction": "Blockchain trace and exchange analysis actions",
+        "ObservableObject": "Wallet addresses and exchange account IDs",
+        "Location": "Registered addresses and meetup sites",
+        "Relationship": "Links between people, wallets, and locations",
+        "CryptocurrencyAddressFacet": "Blockchain address details (cryptoinv extension)",
+        "CryptocurrencyTransactionFacet": "On-chain transaction details (cryptoinv extension)",
+        "CryptocurrencyWalletFacet": "Wallet / address-cluster details (cryptoinv extension)",
+        "VirtualAssetHoldingFacet": "Point-in-time asset holdings and fiat value (cryptoinv extension)",
+        "CriminalCharge": "Charged counts with statute citations (cryptoinv extension)",
+        "ForfeitureOrder": "Forfeited property and money judgments (cryptoinv extension)"
+      }
+    },
+    {
+      "task": "model violent crime or criminal prosecution",
+      "classes": [
+        "Investigation",
+        "Person",
+        "Organization",
+        "InvestigativeAction",
+        "Action",
+        "ObservableObject",
+        "Relationship",
+        "ChargingInstrument",
+        "CriminalCharge",
+        "Verdict",
+        "Plea",
+        "Sentence",
+        "ForfeitureOrder",
+        "RestitutionOrder"
+      ],
+      "facets": [],
+      "notes": {
+        "Investigation": "The case container (legalproc:caseIdentifier holds the docket number)",
+        "Person": "Defendants and victims (initials only when charged that way)",
+        "Organization": "Investigating agencies, prosecuting offices, criminal organizations",
+        "InvestigativeAction": "Warrant executions, arrests, forensic actions",
+        "Action": "Criminal conduct (shootings, assaults) distinct from investigative actions",
+        "ObservableObject": "Digital overt acts: messages, social posts, internet searches",
+        "Relationship": "Charged_With, Victim_Of, Possessed_By, Member_Of edges",
+        "ChargingInstrument": "Complaints, indictments, superseding indictments (legalproc extension)",
+        "CriminalCharge": "Counts with statute, offenseForm (conspiracy/attempt/derivative), disposition (legalproc extension)",
+        "Verdict": "Guilty / not-guilty findings per charge (legalproc extension)",
+        "Plea": "Guilty / not-guilty / nolo pleas (legalproc extension)",
+        "Sentence": "Recommended and imposed sentences, verbatim terms (legalproc extension)",
+        "ForfeitureOrder": "Forfeited weapons and property (legalproc extension)",
+        "RestitutionOrder": "Victim compensation amounts (legalproc extension)"
+      }
+    },
+    {
+      "task": "model cargo theft route staging investigation",
+      "classes": [
+        "Investigation",
+        "Vehicle",
+        "MessageThread",
+        "File",
+        "Location",
+        "Event",
+        "InvestigativeAction",
+        "Organization",
+        "Relationship"
+      ],
+      "facets": [],
+      "notes": {
+        "Investigation": "The case container",
+        "Vehicle": "Tractors and trailers with telematics identifiers",
+        "MessageThread": "Route planning communications",
+        "File": "Manifests and bills of lading",
+        "Location": "Corridor geofences and staging warehouses",
+        "Event": "Route deviation or arrival alerts",
+        "InvestigativeAction": "Geofence analysis and warehouse search",
+        "Organization": "Carriers and warehouse lessees",
+        "Relationship": "Links between vehicles, locations, and events"
+      }
+    },
+    {
+      "task": "model malware analysis",
+      "classes": [
+        "Investigation",
+        "InvestigativeAction",
+        "Tool",
+        "ObservableObject",
+        "FileFacet",
+        "ContentDataFacet",
+        "WindowsPEBinaryFileFacet",
+        "OperatingSystemFacet"
+      ],
+      "facets": [
+        "FileFacet",
+        "ContentDataFacet",
+        "WindowsPEBinaryFileFacet",
+        "OperatingSystemFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "InvestigativeAction": "The analysis action",
+        "Tool": "The analysis tool",
+        "ObservableObject": "The malware sample",
+        "FileFacet": "File details of the sample",
+        "ContentDataFacet": "Hash values",
+        "WindowsPEBinaryFileFacet": "PE header details",
+        "OperatingSystemFacet": "Target OS"
+      }
+    },
+    {
+      "task": "model social media evidence",
+      "classes": [
+        "ObservableObject",
+        "MessageFacet",
+        "AccountFacet",
+        "ProfileFacet",
+        "URLFacet",
+        "ApplicationFacet"
+      ],
+      "facets": [
+        "MessageFacet",
+        "AccountFacet",
+        "ProfileFacet",
+        "URLFacet",
+        "ApplicationFacet"
+      ],
+      "notes": {
+        "ObservableObject": "Social media content",
+        "MessageFacet": "Messages or posts",
+        "AccountFacet": "Social media account",
+        "ProfileFacet": "User profile data",
+        "URLFacet": "Links to content",
+        "ApplicationFacet": "The social media platform"
+      }
+    },
+    {
+      "task": "model registry or configuration artifacts",
+      "classes": [
+        "ObservableObject",
+        "WindowsRegistryKeyFacet",
+        "WindowsRegistryValueFacet",
+        "ConfigurationEntryFacet"
+      ],
+      "facets": [
+        "WindowsRegistryKeyFacet",
+        "WindowsRegistryValueFacet",
+        "ConfigurationEntryFacet"
+      ],
+      "notes": {
+        "ObservableObject": "The registry or config artifact",
+        "WindowsRegistryKeyFacet": "Registry key path and values",
+        "WindowsRegistryValueFacet": "Specific registry value",
+        "ConfigurationEntryFacet": "Configuration setting"
+      }
+    },
+    {
+      "task": "model wireless network evidence",
+      "classes": [
+        "ObservableObject",
+        "WifiAddressFacet",
+        "NetworkConnectionFacet",
+        "SSIDFacet"
+      ],
+      "facets": [
+        "WifiAddressFacet",
+        "NetworkConnectionFacet",
+        "SSIDFacet"
+      ],
+      "notes": {
+        "ObservableObject": "The wireless network",
+        "WifiAddressFacet": "WiFi MAC address",
+        "NetworkConnectionFacet": "Connection details",
+        "SSIDFacet": "Network name / SSID"
+      }
+    },
+    {
+      "task": "model a forensic tool and its capabilities",
+      "classes": [
+        "Tool",
+        "ObservableObject",
+        "ConfigurationEntryFacet"
+      ],
+      "facets": [
+        "ConfigurationEntryFacet"
+      ],
+      "notes": {
+        "Tool": "The forensic tool",
+        "ObservableObject": "Tool-related observable",
+        "ConfigurationEntryFacet": "Tool configuration"
+      }
+    },
+    {
+      "task": "model AI image analysis or ML inference pipeline",
+      "classes": [
+        "Investigation",
+        "InvestigativeAction",
+        "AnalyticTool",
+        "RasterPicture",
+        "RasterPictureFacet",
+        "FileFacet",
+        "ContentDataFacet",
+        "ConfidenceFacet",
+        "Relationship",
+        "ProvenanceRecord"
+      ],
+      "facets": [
+        "RasterPictureFacet",
+        "FileFacet",
+        "ContentDataFacet",
+        "ConfidenceFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "InvestigativeAction": "Each step in the analysis pipeline (one per model/tool)",
+        "AnalyticTool": "The AI/ML model or analysis tool",
+        "RasterPicture": "Image files (use instead of File for .jpg, .png, etc.)",
+        "RasterPictureFacet": "Image dimensions, compression, picture type",
+        "FileFacet": "Filename, path, size, timestamps",
+        "ContentDataFacet": "Hashes and MIME type for evidentiary integrity",
+        "ConfidenceFacet": "Per-result similarity/confidence score",
+        "Relationship": "Explicit input/output links (Selected_From, Derived_From)",
+        "ProvenanceRecord": "Groups the pipeline and its artifacts"
+      }
+    },
+    {
+      "task": "model digital evidence for court",
+      "classes": [
+        "Investigation",
+        "ProvenanceRecord",
+        "InvestigativeAction",
+        "Tool",
+        "ObservableObject",
+        "ContentDataFacet"
+      ],
+      "facets": [
+        "ContentDataFacet"
+      ],
+      "notes": {
+        "Investigation": "The case container",
+        "ProvenanceRecord": "Provenance and chain of custody",
+        "InvestigativeAction": "Each forensic step taken",
+        "Tool": "Tools used with version information",
+        "ObservableObject": "Evidence items",
+        "ContentDataFacet": "Hash values for integrity verification"
+      }
+    },
+    {
+      "task": "model online grooming and cybertip workflow",
+      "classes": [
+        "CACInvestigation",
+        "GroomingBehavior",
+        "OnlineGrooming",
+        "GroomingMessage",
+        "ChildVictim",
+        "OnlinePredator",
+        "NCMECCybertipReport",
+        "OnlineEnticementIncident",
+        "MessageThread",
+        "MessageFacet",
+        "ApplicationAccount",
+        "RasterPicture",
+        "Relationship"
+      ],
+      "facets": [
+        "MessageFacet"
+      ],
+      "notes": {
+        "CACInvestigation": "The CAC-specific investigation container (from cac extension)",
+        "GroomingBehavior": "The grooming behavior event with phases (from cac extension)",
+        "OnlineGrooming": "Online grooming behavior subclass (from cac extension)",
+        "GroomingMessage": "Grooming-specific message with explicitness/tone (from cac extension)",
+        "ChildVictim": "Child victim role with vulnerability modeling (from cac extension)",
+        "OnlinePredator": "Online predator role (from cac extension)",
+        "NCMECCybertipReport": "NCMEC CyberTipline report structure (from cac extension)",
+        "OnlineEnticementIncident": "NCMEC incident type for enticement (from cac extension)",
+        "MessageThread": "Core UCO chat thread container",
+        "MessageFacet": "Core UCO message metadata",
+        "ApplicationAccount": "Core UCO social media account",
+        "RasterPicture": "Core UCO image for CSAM evidence",
+        "Relationship": "Core UCO links between entities"
+      }
+    },
+    {
+      "task": "model child sex trafficking ring or recruitment network",
+      "classes": [
+        "CACInvestigation",
+        "TraffickingEnterprise",
+        "TraffickingRing",
+        "TraffickingCell",
+        "TraffickingVictimRole",
+        "MinorTraffickingVictimRole",
+        "TraffickingVictimRescue",
+        "VictimRotation",
+        "InterstateVictimTransport",
+        "InterstateTraffickingNetwork",
+        "PeerRecruitmentNetwork",
+        "ClassmateRecruitmentNetwork",
+        "SchoolBasedRecruitment",
+        "StreetBasedRecruitment",
+        "HelpOfferApproach",
+        "FoodOfferApproach",
+        "TransportationOfferApproach",
+        "PhoneChargingOffer",
+        "RapidEscalationRecruitment",
+        "DigitalToPhysicalBridge",
+        "MandatoryReportingActivation",
+        "Identity",
+        "Relationship"
+      ],
+      "facets": [],
+      "notes": {
+        "CACInvestigation": "The CAC investigation container (from cac extension)",
+        "TraffickingEnterprise": "Trafficking ring / network organization (from cac extension)",
+        "TraffickingRing": "Specific ring structure with role hierarchy (from cac extension)",
+        "TraffickingCell": "Sub-cell within a ring (from cac extension)",
+        "TraffickingVictimRole": "Victim role in the trafficking enterprise (from cac extension)",
+        "MinorTraffickingVictimRole": "Minor-specific trafficking victim role (from cac extension)",
+        "TraffickingVictimRescue": "Rescue event tied to a trafficking victim (from cac extension)",
+        "VictimRotation": "Movement of victims between locations/buyers (from cac extension)",
+        "InterstateVictimTransport": "Cross-state movement of victims (from cac extension)",
+        "InterstateTraffickingNetwork": "Trafficking network spanning multiple states (from cac extension)",
+        "PeerRecruitmentNetwork": "Peer-to-peer recruitment chains (from cac extension)",
+        "ClassmateRecruitmentNetwork": "Classmate-to-classmate recruitment chains (from cac extension)",
+        "SchoolBasedRecruitment": "Recruitment occurring at or via schools (from cac extension)",
+        "StreetBasedRecruitment": "Pretext-based street recruitment (from cac extension)",
+        "HelpOfferApproach": "'Need help?' pretext approach (from cac extension)",
+        "FoodOfferApproach": "Food-offer pretext approach (from cac extension)",
+        "TransportationOfferApproach": "Transportation-offer pretext approach (from cac extension)",
+        "PhoneChargingOffer": "Phone-charging pretext approach (from cac extension)",
+        "RapidEscalationRecruitment": "Compressed-timeline recruitment pattern (from cac extension)",
+        "DigitalToPhysicalBridge": "Online-to-offline meet event (from cac extension)",
+        "MandatoryReportingActivation": "Triggering of mandatory-reporter obligations (from cac extension)",
+        "Identity": "Core UCO identity for traffickers, recruiters, victims",
+        "Relationship": "Core UCO link between participants and the enterprise"
+      }
+    },
+    {
+      "task": "model multi-jurisdictional task force operation or rescue",
+      "classes": [
+        "CACInvestigation",
+        "Jurisdiction",
+        "LocalJurisdiction",
+        "StateJurisdiction",
+        "FederalJurisdiction",
+        "InternationalJurisdiction",
+        "TaskForce",
+        "JointInvestigation",
+        "JurisdictionalHandoff",
+        "MutualAidRequest",
+        "MassChildRescueOperation",
+        "InvestigativeAction",
+        "ProvenanceRecord"
+      ],
+      "facets": [],
+      "notes": {
+        "CACInvestigation": "The CAC investigation container (from cac extension)",
+        "Jurisdiction": "Jurisdiction at any level (from cac extension)",
+        "LocalJurisdiction": "City/county-level jurisdiction (from cac extension)",
+        "StateJurisdiction": "State-level jurisdiction (from cac extension)",
+        "FederalJurisdiction": "Federal jurisdiction (e.g., FBI, HSI) (from cac extension)",
+        "InternationalJurisdiction": "Cross-border jurisdiction (from cac extension)",
+        "TaskForce": "Multi-agency task force (e.g., ICAC) (from cac extension)",
+        "JointInvestigation": "Investigation spanning agencies (from cac extension)",
+        "JurisdictionalHandoff": "Transfer of investigative lead between agencies (from cac extension)",
+        "MutualAidRequest": "Cross-jurisdiction request for assistance (from cac extension)",
+        "MassChildRescueOperation": "Coordinated multi-victim rescue (from cac extension)",
+        "InvestigativeAction": "Core CASE action for each operational step",
+        "ProvenanceRecord": "Provenance binding the operation's evidence"
+      }
+    },
+    {
+      "task": "model tactical arrest or high-risk operation",
+      "classes": [
+        "CACInvestigation",
+        "ArrestOperation",
+        "HighRiskArrest",
+        "DynamicEntry",
+        "SuspectProfile",
+        "ThreatAssessment",
+        "UndercoverOperation",
+        "AssetForfeitureAction",
+        "InvestigativeAction",
+        "Tool",
+        "Identity"
+      ],
+      "facets": [],
+      "notes": {
+        "CACInvestigation": "The CAC investigation container (from cac extension)",
+        "ArrestOperation": "Arrest operation event (from cac extension)",
+        "HighRiskArrest": "High-risk arrest sub-type (from cac extension)",
+        "DynamicEntry": "Forced/dynamic entry event (from cac extension)",
+        "SuspectProfile": "Pre-operation suspect threat/profile (from cac extension)",
+        "ThreatAssessment": "Pre-operation threat assessment (from cac extension)",
+        "UndercoverOperation": "Undercover operation context (from cac extension)",
+        "AssetForfeitureAction": "Property seizure tied to CSE/trafficking (from cac extension)",
+        "InvestigativeAction": "Core CASE action wrapper",
+        "Tool": "Core UCO tool for tactical equipment, where applicable",
+        "Identity": "Core UCO identity for officers and suspects"
+      }
+    },
+    {
+      "task": "model victim rescue extraction and post-rescue services",
+      "classes": [
+        "CACInvestigation",
+        "EmergencyResponse",
+        "VictimExtraction",
+        "OngoingDangerAssessment",
+        "SafetyPlanning",
+        "MultiAgencyVictimResponse",
+        "TraumaIndicator",
+        "HelpSeekingBarrier",
+        "RecantationAssessment",
+        "PartialRecantationStatement",
+        "ReaffirmedDisclosureStatement",
+        "PostRecantationForensicInterview",
+        "ChildVictim",
+        "InvestigativeAction"
+      ],
+      "facets": [],
+      "notes": {
+        "CACInvestigation": "The CAC investigation container (from cac extension)",
+        "EmergencyResponse": "Initial emergency response to identified victim (from cac extension)",
+        "VictimExtraction": "Physical extraction of a victim (from cac extension)",
+        "OngoingDangerAssessment": "Post-rescue danger assessment (from cac extension)",
+        "SafetyPlanning": "Victim safety plan (from cac extension)",
+        "MultiAgencyVictimResponse": "DCFS / medical / mental-health coordination (from cac extension)",
+        "TraumaIndicator": "Observed trauma indicator on victim (from cac extension)",
+        "HelpSeekingBarrier": "Barrier preventing victim from seeking help (from cac extension)",
+        "RecantationAssessment": "Victim recantation assessment (from cac extension)",
+        "PartialRecantationStatement": "Partial recantation statement (from cac extension)",
+        "ReaffirmedDisclosureStatement": "Disclosure reaffirmed after pressure to recant (from cac extension)",
+        "PostRecantationForensicInterview": "Forensic interview following recantation (from cac extension)",
+        "ChildVictim": "Child victim role with vulnerability modeling (from cac extension)",
+        "InvestigativeAction": "Core CASE action wrapper"
+      }
+    },
+    {
+      "task": "model CSAM provenance forensics and victim identification",
+      "classes": [
+        "ForensicAcquisitionAction",
+        "ChainOfCustodyAction",
+        "EvidenceVerificationAction",
+        "MetadataCorrelation",
+        "TemporalPatternAnalysis",
+        "GeospatialCorrelation",
+        "CrossPlatformCorrelation",
+        "BehavioralFingerprinting",
+        "VictimIdentificationProcess",
+        "ContentHashingTool",
+        "RasterPicture",
+        "ContentDataFacet",
+        "ProvenanceRecord",
+        "Relationship"
+      ],
+      "facets": [
+        "ContentDataFacet"
+      ],
+      "notes": {
+        "ForensicAcquisitionAction": "Forensic acquisition of CSAM evidence (from cac extension)",
+        "ChainOfCustodyAction": "Each chain-of-custody event (from cac extension)",
+        "EvidenceVerificationAction": "Hash/signature verification (from cac extension)",
+        "MetadataCorrelation": "EXIF / file-system / app metadata correlation (from cac extension)",
+        "TemporalPatternAnalysis": "Temporal-pattern analysis across artifacts (from cac extension)",
+        "GeospatialCorrelation": "Geospatial correlation of CSAM/related evidence (from cac extension)",
+        "CrossPlatformCorrelation": "Same actor/victim across multiple platforms (from cac extension)",
+        "BehavioralFingerprinting": "Behavioral pattern fingerprinting of an offender (from cac extension)",
+        "VictimIdentificationProcess": "Victim ID workflow against known-victim data (from cac extension)",
+        "ContentHashingTool": "PhotoDNA / perceptual hashing tool (from cac extension)",
+        "RasterPicture": "Core UCO image for the CSAM artifact",
+        "ContentDataFacet": "Core UCO hashes for evidentiary integrity",
+        "ProvenanceRecord": "Core CASE provenance record",
+        "Relationship": "Core UCO links between artifacts, actors, and actions"
+      }
+    },
+    {
+      "task": "model CSAM detection and platform reporting to NCMEC",
+      "classes": [
+        "AutomatedDetectionAction",
+        "ContentHashingTool",
+        "MachineLearningDetectionTool",
+        "DetectionResult",
+        "NCMECCybertipReport",
+        "PlatformCooperation",
+        "ElectronicServiceProvider",
+        "ContentModerationAction",
+        "InvestigativeAction",
+        "AnalyticTool"
+      ],
+      "facets": [],
+      "notes": {
+        "AutomatedDetectionAction": "Platform CSAM detection action (from cac extension)",
+        "ContentHashingTool": "PhotoDNA or perceptual hashing tool (from cac extension)",
+        "MachineLearningDetectionTool": "ML-based CSAM classifier (from cac extension)",
+        "DetectionResult": "Detection confidence and classification (from cac extension)",
+        "NCMECCybertipReport": "NCMEC CyberTipline report (from cac extension)",
+        "PlatformCooperation": "ESP cooperation with law enforcement (from cac extension)",
+        "ElectronicServiceProvider": "The reporting platform organization (from cac extension)",
+        "ContentModerationAction": "Platform content moderation event (from cac extension)",
+        "InvestigativeAction": "Core CASE investigative action",
+        "AnalyticTool": "Core UCO analytic tool"
+      }
+    }
+  ],
+  "core_patterns": [
+    {
+      "name": "ObservableObject + Facets",
+      "description": "The most common pattern. Create an ObservableObject and attach one or more Facets to describe it. A single observable can have multiple facets (e.g., FileFacet + ContentDataFacet for a file with its hash).",
+      "python_example": "graph.create(ObservableObject, has_facet=[\n    FileFacet(file_name='evidence.dd', size_in_bytes=1073741824),\n    ContentDataFacet(hash_method='SHA-256', hash_value='abc123...'),\n])"
+    },
+    {
+      "name": "Investigation + Action + Tool",
+      "description": "Model a forensic workflow: an Investigation contains InvestigativeActions, each performed by a Tool that produces ObservableObjects as output.",
+      "python_example": "inv = graph.create(Investigation, name='Case 2024-001')\ntool = graph.create(Tool, name='Autopsy', version='4.21.0')\naction = graph.create(InvestigativeAction, name='Disk analysis')"
+    },
+    {
+      "name": "Identity + Role",
+      "description": "Associate a person or organization with a role in the investigation (examiner, subject, witness).",
+      "python_example": "person = graph.create(Identity, name='Jane Smith')\nrole = graph.create(Role, name='Lead Examiner')"
+    },
+    {
+      "name": "Provenance + Chain of Custody",
+      "description": "Track evidence handling with ProvenanceRecord and sequential InvestigativeActions for each custody event.",
+      "python_example": "record = graph.create(ProvenanceRecord,\n    description='Evidence received from field office')"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix types: <https://ontology.unifiedcyberontology.org/uco/types/> .
+
+# SKETCH ONLY — not vendored into ontology/UCO. For committee review.
+
+observable:PerceptualHashFacet
+    a owl:Class , sh:NodeShape ;
+    rdfs:subClassOf core:Facet ;
+    rdfs:label "PerceptualHashFacet"@en ;
+    rdfs:comment "A grouping of characteristics unique to a perceptual or robust image hash (e.g. PhotoDNA) and an optional catalog match. Does not replace ContentDataFacet cryptographic hashes."@en ;
+    sh:targetClass observable:PerceptualHashFacet ;
+    sh:property [
+        sh:path observable:perceptualHashMethod ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "perceptualHashMethod is required."@en ;
+    ] ;
+    sh:property [
+        sh:path observable:perceptualHashValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "perceptualHashValue is required."@en ;
+    ] ;
+    sh:property [
+        sh:path observable:perceptualHashVersion ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path observable:matchDistance ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path observable:matchThreshold ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path observable:catalogIdentifier ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path observable:hash ;
+        sh:class types:Hash ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    .
+
+observable:perceptualHashMethod a owl:DatatypeProperty ;
+    rdfs:label "perceptualHashMethod"@en ;
+    rdfs:domain observable:PerceptualHashFacet ;
+    rdfs:range xsd:string .
+
+observable:perceptualHashValue a owl:DatatypeProperty ;
+    rdfs:label "perceptualHashValue"@en ;
+    rdfs:domain observable:PerceptualHashFacet .
+
+observable:perceptualHashVersion a owl:DatatypeProperty ;
+    rdfs:label "perceptualHashVersion"@en ;
+    rdfs:domain observable:PerceptualHashFacet ;
+    rdfs:range xsd:string .
+
+observable:matchDistance a owl:DatatypeProperty ;
+    rdfs:label "matchDistance"@en ;
+    rdfs:domain observable:PerceptualHashFacet ;
+    rdfs:range xsd:decimal .
+
+observable:matchThreshold a owl:DatatypeProperty ;
+    rdfs:label "matchThreshold"@en ;
+    rdfs:domain observable:PerceptualHashFacet ;
+    rdfs:range xsd:decimal .
+
+observable:catalogIdentifier a owl:DatatypeProperty ;
+    rdfs:label "catalogIdentifier"@en ;
+    rdfs:domain observable:PerceptualHashFacet ;
+    rdfs:range xsd:string .

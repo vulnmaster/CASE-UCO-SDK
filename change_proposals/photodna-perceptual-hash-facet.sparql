@@ -1,0 +1,13 @@
+# Competency: every PhotoDNA characterization has a method, a value,
+# and is attached to a RasterPicture or ObservableObject via hasFacet.
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+
+SELECT ?media ?method ?value ?catalog
+WHERE {
+  ?media uco-core:hasFacet ?facet .
+  ?facet a uco-observable:PerceptualHashFacet ;
+         uco-observable:perceptualHashMethod ?method ;
+         uco-observable:perceptualHashValue ?value .
+  OPTIONAL { ?facet uco-observable:catalogIdentifier ?catalog . }
+}

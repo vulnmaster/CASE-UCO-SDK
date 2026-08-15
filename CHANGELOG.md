@@ -7,6 +7,66 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Topology Articulation (multi-language + dependent-only generate)
+
+- Fluent helpers and `InvestigationBuilder` now exist in **C#, Java, and
+  Rust** with the same Composition Profile IDs as Python
+  (`docs/CROSS_LANGUAGE_PARITY.md`).
+- `CaseGraph.LookupHash` / `lookupHash` / `lookup_hash` and
+  `PartitionByProfile` / `partitionByProfile` / `partition_by_profile`
+  added in all four languages. C# and Java serialize `byte[]` hash
+  values as `xsd:hexBinary` (additive serialization fix).
+- Incremental generate plans a **dependent-only** parse for leaf
+  extension Turtle changes (UCO+CASE + changed module + DAG dependents).
+  Core ontology changes and `--force` still do a full parse.
+- Review hardening: Java `StandardCharsets.UTF_8` (compile) and
+  `InvestigationBuilder.getScenario()` (parity + `-Werror`); subset
+  `merge_registry` updates only `ext.*` records in `_emit_registry`
+  shape and copies onto existing C#/Java/Rust registries; `write_ir`
+  never shrinks global class counts (falls back to the last full IR
+  or `_registry.json`). Rust `file_with_content_hashes` now hosts
+  hashes on `ObservableObject`, matching Python/C#/Java.
+- Ready-to-copy PR body: `topology/PR_DESCRIPTION.md`.
+- Upstream change-proposal skeleton (does **not** alter core OWL):
+  `change_proposals/photodna-perceptual-hash-facet.md`.
+
+#### Topology Articulation (Phases 2–5)
+
+- Incremental generate: content-hashed IR under `generator/ir/`. Unchanged
+  Turtle sources skip the ~10 minute parse (`--force` to rebuild).
+- Fluent helpers: `file_with_content_hashes`, `model_csam_evidence`,
+  `model_tool_run`, `raster_picture_with_hashes`.
+- Runtime: `CASEGraph.index_content_hashes` / `lookup_hash` /
+  `partition_by_profile`.
+- `InvestigationBuilder` with inline critique; MCP `build_investigation`
+  and `list_recipe_dags`.
+- VICS/PhotoDNA mapping stub + recipe; permanent [TOPOLOGY.md](TOPOLOGY.md).
+
+#### Topology Articulation (Phase 1 — Semantic Core)
+
+- Seven versioned **Composition Profiles** under `topology/profiles/`
+  (`MinimalForensics`, `AirGappedFieldTriage`, `HashIntelligence`,
+  `ToolMapping`, `LegalProcess`, `FullCACLifecycle`, `CrossOntology`).
+- Queryable at runtime via `case_uco.topology` and `case_uco.registry`
+  (`list_profiles`, `get_profile`, `recommend_profile`).
+- CLI: `case-uco-explore profiles|profile|spine` — JSON only, no OWL parse.
+- MCP tools: `list_composition_profiles`, `get_composition_profile`,
+  `recommend_composition_profile`, `recommend_facet_set_for_profile`,
+  `get_cac_semantic_spine`, plus resource `case-uco://composition-profiles`.
+- Docs: `docs/COMPOSITION_PROFILES.md`, `topology/profiles/INDEX.md`.
+
+#### Topology Articulation (Phase 0)
+
+- Added `topology/` — a permanent, machine-readable articulation of the
+  SDK's logical-mechanistic topology. Regenerated offline by
+  `python topology/scripts/build_baseline.py` (also `make topology-baseline`).
+- Baseline artifacts: module-dependency DAG (JSON + Mermaid), class/facet
+  inventory (2,804 classes / 154 Facets / 78 modules), composition patterns
+  extracted from the 77-recipe catalog plus mapping-guide and task mappings,
+  CAC semantic spine, and the five observed SDK layers.
+- New invariant tests under `topology/tests/` (`make test-topology`).
+- Recorded the Phase 0 verification gate in `topology/baseline/verification.json`.
+
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
 generator, and repair of the extension compatibility harness.
 

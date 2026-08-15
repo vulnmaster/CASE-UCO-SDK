@@ -1,0 +1,105 @@
+{
+  "profiles": [
+    {
+      "id": "MinimalForensics",
+      "version": "1.0.0",
+      "keywords": [
+        "triage",
+        "file",
+        "hash",
+        "starter",
+        "disk",
+        "field"
+      ],
+      "air_gapped": true
+    },
+    {
+      "id": "AirGappedFieldTriage",
+      "version": "1.0.0",
+      "keywords": [
+        "air-gap",
+        "offline",
+        "field",
+        "triage",
+        "partition",
+        "laptop",
+        "zero-egress"
+      ],
+      "air_gapped": true
+    },
+    {
+      "id": "HashIntelligence",
+      "version": "1.0.0",
+      "keywords": [
+        "hash",
+        "photodna",
+        "vics",
+        "perceptual",
+        "sha256",
+        "csam",
+        "integrity",
+        "match"
+      ],
+      "air_gapped": true
+    },
+    {
+      "id": "ToolMapping",
+      "version": "1.0.0",
+      "keywords": [
+        "tool",
+        "autopsy",
+        "cellebrite",
+        "solve-it",
+        "configured",
+        "provenance",
+        "method"
+      ],
+      "air_gapped": true
+    },
+    {
+      "id": "LegalProcess",
+      "version": "1.0.0",
+      "keywords": [
+        "charge",
+        "indictment",
+        "plea",
+        "sentence",
+        "pacer",
+        "docket",
+        "forfeiture",
+        "legalproc"
+      ],
+      "air_gapped": true
+    },
+    {
+      "id": "FullCACLifecycle",
+      "version": "1.0.0",
+      "keywords": [
+        "cac",
+        "csam",
+        "grooming",
+        "trafficking",
+        "cybertip",
+        "ncmec",
+        "icac",
+        "rescue",
+        "child"
+      ],
+      "air_gapped": true
+    },
+    {
+      "id": "CrossOntology",
+      "version": "1.0.0",
+      "keywords": [
+        "composition",
+        "gufo",
+        "bfo",
+        "prov",
+        "cross-ontology",
+        "extension",
+        "profile"
+      ],
+      "air_gapped": true
+    }
+  ]
+}

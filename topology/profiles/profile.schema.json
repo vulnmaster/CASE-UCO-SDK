@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/forest-savage1234/CASE-UCO-SDK/topology/profiles/profile.schema.json",
+  "title": "CASE/UCO Composition Profile",
+  "description": "Versioned, offline-loadable composition profile. Profiles lower the cognitive load of correct CASE/UCO + CAC modeling without changing the ontology.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "title",
+    "description",
+    "required_modules",
+    "recommended_modules",
+    "facet_sets",
+    "spine_anchors",
+    "upper_ontology_profiles",
+    "recipe_skeleton"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9]+$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "mission": { "type": "string" },
+    "air_gapped": { "type": "boolean" },
+    "required_modules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommended_modules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "facet_sets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["required", "recommended"],
+        "properties": {
+          "required": { "type": "array", "items": { "type": "string" } },
+          "recommended": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "spine_anchors": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "upper_ontology_profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_recipes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recipe_skeleton": {
+      "type": "object",
+      "required": ["summary", "steps"],
+      "properties": {
+        "summary": { "type": "string" },
+        "steps": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -293,6 +293,133 @@ public class CaseGraph {
         return objects.size();
     }
 
+    public String topologyProfile;
+    public String topologyPartition;
+
+    /** Index cryptographic / perceptual hash values to node @ids. */
+    public Map<String, List<HashHit>> indexContentHashes() {
+        Map<String, List<HashHit>> index = new LinkedHashMap<>();
+        for (Map<String, Object> obj : objects) {
+            Object id = obj.get("@id");
+            walkHashes(obj, id == null ? "" : id.toString(), index);
+        }
+        return index;
+    }
+
+    public List<HashHit> lookupHash(String digest) {
+        if (digest == null) {
+            return new ArrayList<>();
+        }
+        List<HashHit> hits = indexContentHashes().get(digest.toLowerCase(java.util.Locale.ROOT));
+        return hits == null ? new ArrayList<>() : hits;
+    }
+
+    public Map<String, CaseGraph> partitionByProfile(String profileId) {
+        Map<String, List<Map<String, Object>>> buckets = new LinkedHashMap<>();
+        for (Map<String, Object> obj : objects) {
+            String key = classifyPartition(obj);
+            buckets.computeIfAbsent(key, k -> new ArrayList<>()).add(obj);
+        }
+        Map<String, CaseGraph> parts = new LinkedHashMap<>();
+        for (Map.Entry<String, List<Map<String, Object>>> e : buckets.entrySet()) {
+            CaseGraph g = new CaseGraph();
+            Map<String, Object> doc = new LinkedHashMap<>();
+            doc.put("@context", new LinkedHashMap<>(context));
+            doc.put("@graph", e.getValue());
+            g.load(toJsonString(doc, -1));
+            g.topologyProfile = profileId;
+            g.topologyPartition = e.getKey();
+            parts.put(e.getKey(), g);
+        }
+        return parts;
+    }
+
+    private static String classifyPartition(Map<String, Object> node) {
+        Object types = node.get("@type");
+        String blob = types == null ? "" : types.toString().toLowerCase();
+        if (blob.contains("cacontology") || blob.contains("cac-core") || blob.contains("cac/")) {
+            return "cac";
+        }
+        if (blob.contains("legalproc") || blob.contains("cryptoinv") || blob.contains("rico")
+                || blob.contains("solveit") || blob.contains("toolcap")) {
+            return "extensions";
+        }
+        return "core";
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void walkHashes(Object node, String ownerId, Map<String, List<HashHit>> index) {
+        if (node instanceof List) {
+            for (Object item : (List<?>) node) {
+                walkHashes(item, ownerId, index);
+            }
+            return;
+        }
+        if (!(node instanceof Map)) {
+            return;
+        }
+        Map<String, Object> dict = (Map<String, Object>) node;
+        Object id = dict.get("@id");
+        if (id instanceof String) {
+            ownerId = (String) id;
+        }
+        for (Map.Entry<String, Object> kv : dict.entrySet()) {
+            String key = kv.getKey();
+            if ("uco-observable:hash".equals(key) || "uco-observable:hashes".equals(key)
+                    || "hash".equals(key) || "hashes".equals(key)) {
+                Object raw = kv.getValue();
+                List<?> entries = raw instanceof List ? (List<?>) raw : Collections.singletonList(raw);
+                for (Object entry : entries) {
+                    if (!(entry instanceof Map)) {
+                        continue;
+                    }
+                    Map<String, Object> map = (Map<String, Object>) entry;
+                    String digest = extractLexical(map, "uco-types:hashValue", "hashValue");
+                    String method = extractLexical(map, "uco-types:hashMethod", "hashMethod");
+                    if (digest == null || digest.isEmpty()) {
+                        continue;
+                    }
+                    index.computeIfAbsent(digest.toLowerCase(java.util.Locale.ROOT), k -> new ArrayList<>())
+                            .add(new HashHit(ownerId, method == null ? "" : method));
+                }
+            } else {
+                walkHashes(kv.getValue(), ownerId, index);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static String extractLexical(Map<String, Object> map, String... keys) {
+        for (String key : keys) {
+            if (!map.containsKey(key) || map.get(key) == null) {
+                continue;
+            }
+            Object raw = map.get(key);
+            if (raw instanceof Map) {
+                Object inner = ((Map<String, Object>) raw).get("@value");
+                if (inner != null) {
+                    return inner.toString();
+                }
+            }
+            return raw.toString();
+        }
+        return null;
+    }
+
+    private static String toHexLower(byte[] bytes) {
+        if (bytes == null || bytes.length == 0) {
+            return "";
+        }
+        char[] hex = "0123456789abcdef".toCharArray();
+        char[] out = new char[bytes.length * 2];
+        for (int i = 0; i < bytes.length; i++) {
+            int v = bytes[i] & 0xFF;
+            out[i * 2] = hex[v >>> 4];
+            out[i * 2 + 1] = hex[v & 0x0F];
+        }
+        return new String(out);
+    }
+
     /**
      * Serialize the graph to a JSON-LD-compatible map.
      */
@@ -1532,6 +1659,9 @@ public class CaseGraph {
         }
         if (value instanceof String) {
             return value;
+        }
+        if (value instanceof byte[]) {
+            return typedLiteral("xsd:hexBinary", toHexLower((byte[]) value));
         }
         if (value instanceof Boolean) {
             return typedLiteral("xsd:boolean", ((Boolean) value) ? "true" : "false");

@@ -1,0 +1,55 @@
+{
+  "id": "LegalProcess",
+  "version": "1.0.0",
+  "title": "Legal Process",
+  "description": "Charges, instruments, pleas, verdicts, sentences, and forfeiture — CASE investigation plus legalproc (and CAC legal-outcomes when the case is a crime against children).",
+  "mission": "Keep charging and sentencing queryable and distinct from the investigative narrative so PACER/docket ingestion can land in the right spine kinds.",
+  "air_gapped": true,
+  "required_modules": [
+    "case.investigation",
+    "uco.core",
+    "uco.identity",
+    "uco.role",
+    "ext.legalproc.legalproc"
+  ],
+  "recommended_modules": [
+    "ext.cac.cacontology-legal-outcomes",
+    "ext.cac.cacontology-usa-federal-law",
+    "ext.rico.rico",
+    "uco.marking"
+  ],
+  "facet_sets": {
+    "Person": {
+      "required": [],
+      "recommended": [],
+      "notes": "Person/Identity is the bearer. Victim and defendant are Roles, not types of person."
+    }
+  },
+  "spine_anchors": [
+    "cac-core:PersonLikeEntity",
+    "cac-core:Role",
+    "cac-core:LegalEvent",
+    "cac-core:Situation",
+    "cac-core:OrganizationLikeEntity"
+  ],
+  "upper_ontology_profiles": ["gufo", "foaf", "org"],
+  "related_recipes": [
+    "docs/recipes/legal-process-modeling.md",
+    "docs/recipes/cac-legal-sentencing-outcomes.md",
+    "docs/recipes/cac-federal-prosecution-relationships.md",
+    "docs/recipes/cac-federal-trial-proceedings.md",
+    "docs/recipes/cac-pacer-document-ingestion.md"
+  ],
+  "recipe_skeleton": {
+    "summary": "Investigation + Identity/Role + ChargingInstrument + CriminalCharge + disposition nodes.",
+    "steps": [
+      "Create Investigation (legalproc:caseIdentifier holds the docket number when known).",
+      "Create Person/Identity for defendants and victims; attach Role nodes (do not subclass Person as Defendant).",
+      "Create ChargingInstrument and CriminalCharge with statute citations.",
+      "Add Plea / Verdict / Sentence / ForfeitureOrder as they occur.",
+      "Wire Relationship kinds Charged_With, Victim_Of, Member_Of.",
+      "For CAC cases, prefer CAC legal-outcomes classes alongside legalproc."
+    ]
+  },
+  "keywords": ["charge", "indictment", "plea", "sentence", "pacer", "docket", "forfeiture", "legalproc"]
+}

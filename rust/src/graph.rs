@@ -170,6 +170,10 @@ pub struct CaseGraph {
     used_prefix_set: HashSet<String>,
     /// Named duplicate policy (default [`DuplicatePolicy::Reject`]).
     pub on_duplicate: DuplicatePolicy,
+    /// Optional partition metadata set by [`CaseGraph::partition_by_profile`].
+    pub topology_profile: Option<String>,
+    /// Optional partition name set by [`CaseGraph::partition_by_profile`].
+    pub topology_partition: Option<String>,
 }
 
 impl CaseGraph {
@@ -183,6 +187,8 @@ impl CaseGraph {
             iri_index: HashMap::new(),
             used_prefix_set: HashSet::new(),
             on_duplicate: DuplicatePolicy::Reject,
+            topology_profile: None,
+            topology_partition: None,
         }
     }
 
@@ -463,6 +469,47 @@ impl CaseGraph {
     /// Return the number of objects in the graph.
     pub fn len(&self) -> usize {
         self.objects.len()
+    }
+
+    pub fn index_content_hashes(&self) -> HashMap<String, Vec<HashHit>> {
+        let mut index: HashMap<String, Vec<HashHit>> = HashMap::new();
+        for obj in &self.objects {
+            let owner = obj
+                .get("@id")
+                .and_then(|v| v.as_str())
+                .unwrap_or("")
+                .to_string();
+            walk_hashes(obj, &owner, &mut index);
+        }
+        index
+    }
+
+    pub fn lookup_hash(&self, digest: &str) -> Vec<HashHit> {
+        self.index_content_hashes()
+            .get(&digest.to_ascii_lowercase())
+            .cloned()
+            .unwrap_or_default()
+    }
+
+    pub fn partition_by_profile(&self, profile_id: &str) -> Result<HashMap<String, CaseGraph>, LoadError> {
+        let mut buckets: HashMap<String, Vec<Value>> = HashMap::new();
+        for obj in &self.objects {
+            let key = classify_partition(obj);
+            buckets.entry(key).or_default().push(obj.clone());
+        }
+        let mut parts = HashMap::new();
+        for (name, nodes) in buckets {
+            let mut g = CaseGraph::new("http://example.org/kb/");
+            let doc = json!({
+                "@context": self.context,
+                "@graph": nodes,
+            });
+            g.load(&doc.to_string())?;
+            g.topology_profile = Some(profile_id.to_string());
+            g.topology_partition = Some(name.clone());
+            parts.insert(name, g);
+        }
+        Ok(parts)
     }
 
     /// Return true if the graph contains no objects.
@@ -763,6 +810,8 @@ impl CaseGraph {
                 iri_index: HashMap::new(),
                 used_prefix_set: HashSet::new(),
                 on_duplicate: DuplicatePolicy::MergeCompatible,
+                topology_profile: None,
+                topology_partition: None,
             };
 
             for node_id in &closure {
@@ -798,6 +847,8 @@ impl CaseGraph {
                 iri_index: HashMap::new(),
                 used_prefix_set: HashSet::new(),
                 on_duplicate: self.on_duplicate,
+                topology_profile: None,
+                topology_partition: None,
             };
             for obj in chunk {
                 part.append_object(obj.clone())
@@ -1078,6 +1129,102 @@ impl CaseGraph {
             other => other,
         }
     }
+}
+
+/// One hit from [`CaseGraph::lookup_hash`].
+#[derive(Debug, Clone)]
+pub struct HashHit {
+    pub id: String,
+    pub method: String,
+}
+
+fn classify_partition(node: &Value) -> String {
+    let blob = match node.get("@type") {
+        Some(Value::String(s)) => s.to_ascii_lowercase(),
+        Some(Value::Array(items)) => items
+            .iter()
+            .filter_map(|v| v.as_str())
+            .collect::<Vec<_>>()
+            .join(" ")
+            .to_ascii_lowercase(),
+        _ => String::new(),
+    };
+    if blob.contains("cacontology") || blob.contains("cac-core") || blob.contains("cac/") {
+        return "cac".into();
+    }
+    if blob.contains("legalproc")
+        || blob.contains("cryptoinv")
+        || blob.contains("rico")
+        || blob.contains("solveit")
+        || blob.contains("toolcap")
+    {
+        return "extensions".into();
+    }
+    "core".into()
+}
+
+fn walk_hashes(node: &Value, owner_id: &str, index: &mut HashMap<String, Vec<HashHit>>) {
+    match node {
+        Value::Array(items) => {
+            for item in items {
+                walk_hashes(item, owner_id, index);
+            }
+        }
+        Value::Object(map) => {
+            let owner = map
+                .get("@id")
+                .and_then(|v| v.as_str())
+                .unwrap_or(owner_id)
+                .to_string();
+            for (key, value) in map {
+                if key == "uco-observable:hash"
+                    || key == "uco-observable:hashes"
+                    || key == "hash"
+                    || key == "hashes"
+                {
+                    let entries = match value {
+                        Value::Array(list) => list.clone(),
+                        other => vec![other.clone()],
+                    };
+                    for entry in entries {
+                        if let Value::Object(hm) = entry {
+                            let digest = extract_lexical(&hm, &["uco-types:hashValue", "hashValue"]);
+                            let method =
+                                extract_lexical(&hm, &["uco-types:hashMethod", "hashMethod"]);
+                            if let Some(digest) = digest {
+                                if !digest.is_empty() {
+                                    index
+                                        .entry(digest.to_ascii_lowercase())
+                                        .or_default()
+                                        .push(HashHit {
+                                            id: owner.clone(),
+                                            method: method.unwrap_or_default(),
+                                        });
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    walk_hashes(value, &owner, index);
+                }
+            }
+        }
+        _ => {}
+    }
+}
+
+fn extract_lexical(map: &Map<String, Value>, keys: &[&str]) -> Option<String> {
+    for key in keys {
+        if let Some(raw) = map.get(*key) {
+            if let Some(inner) = raw.get("@value").and_then(|v| v.as_str()) {
+                return Some(inner.to_string());
+            }
+            if let Some(s) = raw.as_str() {
+                return Some(s.to_string());
+            }
+        }
+    }
+    None
 }
 
 struct GraphSnapshot {

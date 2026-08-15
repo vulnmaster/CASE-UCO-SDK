@@ -32,7 +32,17 @@ graph = CASEGraph()
 # ... add your objects ...
 estimated = graph.estimate_triples()
 print(f"This graph will produce ~{estimated} triples")
+
+# Topology helpers (Phase 3): hash index + profile partition
+from case_uco import file_with_content_hashes
+file_with_content_hashes(graph, file_name="a.bin", hashes=[("SHA256", "…")])
+print(graph.lookup_hash("…"))
+parts = graph.partition_by_profile("AirGappedFieldTriage")
 ```
+
+Prefer `partition_by_roots` / one graph per forensic boundary over
+`split()`. `InvestigationBuilder` plus the `AirGappedFieldTriage`
+profile encodes that default. See [TOPOLOGY.md](../TOPOLOGY.md).
 
 ## Memory and Performance Benchmarks
 

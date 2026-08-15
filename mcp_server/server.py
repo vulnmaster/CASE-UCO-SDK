@@ -9,6 +9,9 @@ programmatically instead of parsing markdown documentation. Tool groups:
   list_all_vocabs, find_classes_for_domain, suggest_classes_for_input, and
   get_uco_profiles (UCO alignments with BFO, gUFO, PROV-O, OWL-Time,
   GeoSPARQL, FOAF, ORG).
+- Composition Profiles: list_composition_profiles, get_composition_profile,
+  recommend_composition_profile, recommend_facet_set_for_profile,
+  get_semantic_spine (CAC EnduringEntity/Occurrent/Situation/Role/Phase).
 - Recipes and mapping guidance: get_recipe (single best match), get_recipes
   (ranked multi-match), and guide_mapping (per-evidence-source patterns,
   anti-patterns, and code skeletons).
@@ -70,6 +73,15 @@ from case_uco.registry import (
     list_vocabs,
     suggest_for_concept,
     modeling_warnings,
+    list_profiles as registry_list_profiles,
+    get_profile as registry_get_profile,
+    recommend_profile as registry_recommend_profile,
+)
+from case_uco.topology import (
+    get_semantic_spine,
+    list_spine_kinds,
+    recommend_facet_set,
+    spine_kind_for_class,
 )
 from domain_index import (
     TASK_TO_CLASSES,
@@ -508,6 +520,109 @@ def get_class_details(name: str, scope: str = "all") -> dict | None:
             for p in cls.get("properties", [])
         ],
     }
+
+
+@mcp.tool
+def list_composition_profiles() -> list[dict]:
+    """List first-class Composition Profiles.
+
+    Profiles declare required modules, recommended Facet sets, CAC spine
+    anchors, and a recipe skeleton. They do not change the ontology. Fully
+    offline.
+    """
+    return [
+        {
+            "id": p["id"],
+            "version": p["version"],
+            "title": p["title"],
+            "description": p["description"],
+            "air_gapped": p.get("air_gapped", True),
+            "keywords": p.get("keywords", []),
+        }
+        for p in registry_list_profiles()
+    ]
+
+
+@mcp.tool
+def get_composition_profile(profile_id: str) -> dict | None:
+    """Return one Composition Profile by id (e.g. FullCACLifecycle).
+
+    Includes required/recommended modules, Facet sets per host type, spine
+    anchors, upper-ontology profiles, related recipes, and the recipe skeleton.
+    """
+    return registry_get_profile(profile_id)
+
+
+@mcp.tool
+def recommend_composition_profile(scenario: str) -> list[dict]:
+    """Rank Composition Profiles for a free-text investigative scenario.
+
+    Offline lexical ranking. Example: "field triage of hashed images on a
+    laptop with no network" → AirGappedFieldTriage, HashIntelligence,
+    MinimalForensics.
+    """
+    return registry_recommend_profile(scenario)
+
+
+@mcp.tool
+def recommend_facet_set_for_profile(host: str, profile_id: str | None = None) -> list[dict]:
+    """Recommended Facet bundle for a host type (File, RasterPicture, Device, …).
+
+    Optionally scoped to one Composition Profile. These are recommendations,
+    not SHACL requirements.
+    """
+    return recommend_facet_set(host, profile_id)
+
+
+@mcp.tool
+def list_recipe_dags() -> list[dict]:
+    """List executable recipe DAGs under topology/recipe-dags/."""
+    root = Path(__file__).resolve().parent.parent / "topology" / "recipe-dags"
+    dags = []
+    if root.is_dir():
+        for path in sorted(root.glob("*.json")):
+            try:
+                dags.append(json.loads(path.read_text(encoding="utf-8")))
+            except (OSError, json.JSONDecodeError):
+                continue
+    return dags
+
+
+@mcp.tool
+def build_investigation(
+    scenario: str,
+    profile_id: str | None = None,
+) -> dict:
+    """Create a profile-aware InvestigationBuilder and return critique + size.
+
+    Does not write files. The originating agent then adds evidence via the
+    Python helpers or continues in-process. Fully offline.
+    """
+    from case_uco.builder import InvestigationBuilder
+
+    builder = InvestigationBuilder(scenario, profile_id=profile_id)
+    return {
+        "profile_id": builder.profile.id,
+        "object_count": len(builder.graph),
+        "critique": builder.critique(),
+        "estimated_triples": builder.graph.estimate_triples(),
+    }
+
+
+@mcp.tool
+def get_cac_semantic_spine(class_name: str | None = None) -> dict:
+    """CAC semantic spine (EnduringEntity / Occurrent / Situation / Role / Phase).
+
+    If class_name is given, return that spine class only. Otherwise return
+    the full spine document plus the UCO core hierarchy.
+    """
+    if class_name:
+        match = spine_kind_for_class(class_name)
+        return match or {"error": f"no spine class named {class_name}"}
+    spine = get_semantic_spine()
+    spine = dict(spine)
+    spine["kinds"] = [kind.as_dict() for kind in list_spine_kinds()]
+    return spine
 
 
 @mcp.tool
@@ -1796,6 +1911,18 @@ def get_domains() -> str:
         lines.append(f"## {cat['title']}")
         lines.append(cat["description"])
         lines.append(f"Keywords: {', '.join(cat['keywords'])}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+@mcp.resource("case-uco://composition-profiles")
+def get_composition_profiles_resource() -> str:
+    """First-class Composition Profiles (modules, Facet sets, spine anchors)."""
+    lines = ["# Composition Profiles\n"]
+    for profile in registry_list_profiles():
+        lines.append(f"## {profile['id']} v{profile['version']}")
+        lines.append(profile["title"])
+        lines.append(profile["description"])
         lines.append("")
     return "\n".join(lines)
 

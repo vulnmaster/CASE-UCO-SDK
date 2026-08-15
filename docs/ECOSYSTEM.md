@@ -2,6 +2,11 @@
 
 The CASE/UCO SDK produces JSON-LD graphs. This guide covers the companion tools you need to validate and query those graphs, the community projects that extend CASE/UCO into specialized domains, and the upstream ontology sources.
 
+The SDK's own topology — Composition Profiles, incremental generation,
+fluent helpers in all four languages, and the VICS/PhotoDNA mapping stub —
+is documented in [TOPOLOGY.md](../TOPOLOGY.md). Ready-to-open PR text:
+[topology/PR_DESCRIPTION.md](../topology/PR_DESCRIPTION.md).
+
 ## Companion Tools
 
 These tools complete the developer workflow — validation, querying, and format conversion for the graphs your SDK code produces.

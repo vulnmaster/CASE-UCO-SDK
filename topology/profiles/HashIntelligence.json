@@ -1,0 +1,63 @@
+{
+  "id": "HashIntelligence",
+  "version": "1.0.0",
+  "title": "Hash Intelligence (PhotoDNA / VICS-ready)",
+  "description": "Integrity and hash-matching profile. Cryptographic hashes live on ContentDataFacet; perceptual / PhotoDNA-style and VICS catalog matches are modeled as Tool + Action + AssessmentResult patterns ready for a first-class Facet later.",
+  "mission": "Make every CSAM/hash-matching workflow produce queryable, court-defensible hash records without inventing new ontology terms.",
+  "air_gapped": true,
+  "required_modules": [
+    "uco.core",
+    "uco.observable",
+    "uco.types",
+    "uco.tool",
+    "uco.action",
+    "uco.analysis",
+    "case.investigation"
+  ],
+  "recommended_modules": [
+    "ext.cac.cacontology-forensics",
+    "ext.cac.cacontology-detection",
+    "ext.solveit.solveit-core"
+  ],
+  "facet_sets": {
+    "File": {
+      "required": ["FileFacet", "ContentDataFacet"],
+      "recommended": [],
+      "notes": "Populate Hash.hashMethod + Hash.hashValue for SHA-256 at minimum. Additional Hash entries carry MD5/SHA-1 when a lab still emits them."
+    },
+    "RasterPicture": {
+      "required": ["FileFacet", "ContentDataFacet", "RasterPictureFacet"],
+      "recommended": ["EXIFFacet", "ConfidenceFacet"],
+      "notes": "PhotoDNA / PDNA / perceptual hashes are recorded as additional Hash objects (hashMethod vocabulary or typed literal) plus a ContentHashingTool InvestigativeAction. Do not invent PhotoDNAFacet in instance data."
+    },
+    "ObservableObject": {
+      "required": ["ContentDataFacet"],
+      "recommended": ["FileFacet"]
+    }
+  },
+  "spine_anchors": [
+    "cac-core:Artifact",
+    "cac-core:DetectionEvent",
+    "cac-core:AssessmentResult",
+    "cac-core:InvestigativeAction"
+  ],
+  "upper_ontology_profiles": ["prov-o"],
+  "related_recipes": [
+    "docs/recipes/cac-csam-forensic-provenance.md",
+    "docs/recipes/cybertip-ncmec-workflow.md",
+    "docs/recipes/exif-data.md",
+    "docs/recipes/starter-filesystem-report.md"
+  ],
+  "recipe_skeleton": {
+    "summary": "Hashed media + hashing tool action + optional match/assessment result.",
+    "steps": [
+      "Create ContentHashingTool (or Tool) with name/version (e.g. PhotoDNA, VICS catalog matcher).",
+      "Create EvidenceVerificationAction or InvestigativeAction with instrument=tool.",
+      "Create RasterPicture/File with FileFacet + ContentDataFacet hashes (crypto + perceptual).",
+      "If a catalog match exists, record AssessmentResult (CAC) or ConfidenceFacet; do not collapse match metadata into description JSON.",
+      "Link Relationship kind Derived_From / Selected_From as appropriate.",
+      "Validate with extensions=['cac'] when CAC classes are used."
+    ]
+  },
+  "keywords": ["hash", "photodna", "vics", "perceptual", "sha256", "csam", "integrity", "match"]
+}

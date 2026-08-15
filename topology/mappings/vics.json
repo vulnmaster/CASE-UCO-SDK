@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "title": "VICS ↔ CASE/UCO/CAC mapping stub",
+  "status": "stub",
+  "air_gapped": true,
+  "note": "Project VIC VICS catalog records become CASE/UCO observables plus HashIntelligence actions. This stub does not implement a network VICS client — air-gapped labs load a local catalog export.",
+  "mappings": [
+    {
+      "vics": "Media.SHA256",
+      "case": "ContentDataFacet.hash[Hash.hashMethod=SHA256]",
+      "profile": "HashIntelligence"
+    },
+    {
+      "vics": "Media.MD5",
+      "case": "ContentDataFacet.hash[Hash.hashMethod=MD5]",
+      "profile": "HashIntelligence"
+    },
+    {
+      "vics": "Media.PhotoDNA",
+      "case": "ContentDataFacet.hash[Hash.hashMethod=PhotoDNA] + InvestigativeAction instrument=ContentHashingTool",
+      "profile": "HashIntelligence",
+      "gap": "No first-class PhotoDNA Facet in UCO 1.5.0. Do not invent one in instance data. Propose upstream if a structured PDNA payload is required."
+    },
+    {
+      "vics": "Media.Category",
+      "case": "ArtifactClassification / ConfidenceFacet",
+      "profile": "HashIntelligence"
+    },
+    {
+      "vics": "Victim.Identifier",
+      "case": "cac-core:PersonLikeEntity + Role (do not type the person as the identifier)",
+      "profile": "FullCACLifecycle"
+    },
+    {
+      "vics": "Series / CategoryID",
+      "case": "Relationship kind=Member_Of to a series ObservableObject",
+      "profile": "HashIntelligence"
+    }
+  ]
+}

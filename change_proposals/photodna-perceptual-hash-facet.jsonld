@@ -1,0 +1,57 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+    "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+    "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+    "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:img-1",
+      "@type": "uco-observable:RasterPicture",
+      "uco-core:hasFacet": [
+        {
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": "exhibit.jpg"
+        },
+        {
+          "@type": "uco-observable:ContentDataFacet",
+          "uco-observable:hash": [
+            {
+              "@type": "uco-types:Hash",
+              "uco-types:hashMethod": "SHA256",
+              "uco-types:hashValue": { "@type": "xsd:hexBinary", "@value": "aa" }
+            }
+          ]
+        },
+        {
+          "@type": "uco-observable:PerceptualHashFacet",
+          "uco-observable:perceptualHashMethod": "PhotoDNA",
+          "uco-observable:perceptualHashValue": { "@type": "xsd:hexBinary", "@value": "bb" },
+          "uco-observable:perceptualHashVersion": "2.0",
+          "uco-observable:matchDistance": 0.0,
+          "uco-observable:catalogIdentifier": "vics:media-123"
+        }
+      ]
+    },
+    {
+      "@id": "kb:tool-photodna",
+      "@type": "uco-tool:Tool",
+      "uco-core:name": "PhotoDNA",
+      "uco-tool:version": "2.0",
+      "uco-tool:toolType": "Content hashing"
+    },
+    {
+      "@id": "kb:action-hash",
+      "@type": "case-investigation:InvestigativeAction",
+      "uco-core:name": "PhotoDNA hash of exhibit.jpg",
+      "uco-action:instrument": [{ "@id": "kb:tool-photodna" }],
+      "uco-action:object": [{ "@id": "kb:img-1" }],
+      "uco-action:result": [{ "@id": "kb:img-1" }]
+    }
+  ]
+}

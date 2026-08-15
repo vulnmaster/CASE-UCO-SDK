@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "phase": 0,
+  "recorded_at": "2026-08-15T09:40:00+00:00",
+  "source_commit": "2e8f186",
+  "source_commit_subject": "Merge pull request #103 from vulnmaster/chore/align-ontologies-and-dependencies",
+  "environment": {
+    "os": "windows",
+    "python": "3.14.2",
+    "shell": "powershell",
+    "gnu_make": false,
+    "dotnet_sdk": false,
+    "jdk_maven": false,
+    "cargo": "1.96.0",
+    "note": "GNU Make is not installed on this Windows host. The Makefile targets were executed via the documented native equivalent: python -m venv .venv; pip install -r requirements.txt; PYTHONPATH=generator/src;python python -m case_uco_generator generate --lang python; pytest."
+  },
+  "gate": {
+    "requested": "make init && make generate && make check",
+    "executed": [
+      "git clone --recurse-submodules https://github.com/forest-savage1234/CASE-UCO-SDK.git",
+      "git submodule status (CASE 1.5.0 8073d5a, UCO 1.5.0 7ebb395, CAC v3.1.0 93de063, AEO ac8a56a)",
+      "python -m venv .venv && pip install -r requirements.txt",
+      "python topology/scripts/build_baseline.py",
+      "python -m case_uco_generator generate --lang python",
+      "pytest topology/tests generator/tests python/tests"
+    ]
+  },
+  "generate_python": {
+    "duration_seconds": 623.13,
+    "classes": 2933,
+    "classes_with_shacl": 1269,
+    "tbox_only": 1664,
+    "vocabs": 54,
+    "modules": 79,
+    "core_ttl_files": 20,
+    "core_triples": 13524,
+    "extension_ttl_files": 136,
+    "files_emitted": 23,
+    "note": "Full parse + Python emission is the Phase-2 incremental-generation baseline. Generated registries/docs were reverted so the Phase-0 commit contains only topology artifacts."
+  },
+  "tests": {
+    "topology/tests": {"passed": 8, "failed": 0},
+    "generator/tests": {"passed": 2, "failed": 0},
+    "python/tests": {
+      "passed": 111,
+      "failed": 2,
+      "skipped": 5,
+      "failures": [
+        {
+          "id": "python/tests/test_darkwatchman_release.py::test_builder_output_matches_committed_graph",
+          "reason": "Rebuilt SHA-256 differs from committed JSON-LD. Pre-existing Windows serialization/line-ending sensitivity; topology files do not participate.",
+          "pre_existing": true
+        },
+        {
+          "id": "python/tests/test_darkwatchman_release.py::test_darkwatchman_critic_casegraph_raw_with_manifest",
+          "reason": "critic.deterministic.CriticError: source_outside_read_roots. Workspace policy path mismatch on this host; topology files do not participate.",
+          "pre_existing": true
+        }
+      ]
+    },
+    "csharp": "skipped — no .NET SDK installed",
+    "java": "skipped — no JDK/Maven installed",
+    "rust": "not run in Phase 0 (cargo present; deferred to keep the baseline commit additive)"
+  },
+  "observed_bottlenecks": [
+    "Full generator parse of core + 136 extension Turtle files takes ~10 minutes on this host before any language backend runs.",
+    "2,804 registered classes / 154 Facets / 78 modules; CAC alone is 1,992 T-Box classes across 47 modules.",
+    "Composition is taught only through 79 recipes + mapping guide + TASK_TO_CLASSES — no first-class Composition Profile object.",
+    "FileFacet + ContentDataFacet is the dominant empirical bundle (17 co-occurring has_facet sets) and the seed for HashIntelligence / MinimalForensics / AirGappedFieldTriage.",
+    "CaseGraph already has experimental partition_by / partition_by_label / partition_by_roots and write_streaming; Phase 3 should promote those to topology-aware, documented helpers rather than replace them."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "field-triage",
+  "version": "1.0.0",
+  "profile": "AirGappedFieldTriage",
+  "recipe": "docs/recipes/starter-filesystem-report.md",
+  "description": "Air-gapped field triage DAG: profile → hashed files → partition → validate.",
+  "nodes": [
+    {"id": "discover", "kind": "discover", "tool": "get_composition_profile", "args": {"profile_id": "AirGappedFieldTriage"}},
+    {"id": "build", "kind": "build", "tool": "build_investigation"},
+    {"id": "validate", "kind": "validate", "tool": "validate_graph"}
+  ],
+  "edges": [
+    ["discover", "build"],
+    ["build", "validate"]
+  ]
+}

@@ -111,8 +111,24 @@ ORDER BY ?vocab
 """
 
 
-def load_ontology(ontology_root: Path) -> Graph:
-    """Load all UCO and CASE Turtle files into a single RDFLib graph."""
+def _allowed(ttl_file: Path, allowed: set[str] | None, repo_root: Path | None) -> bool:
+    if allowed is None:
+        return True
+    if repo_root is None:
+        return True
+    try:
+        rel = ttl_file.resolve().relative_to(repo_root.resolve()).as_posix()
+    except ValueError:
+        return True
+    return rel in allowed
+
+
+def load_ontology(
+    ontology_root: Path,
+    allowed: set[str] | None = None,
+    repo_root: Path | None = None,
+) -> Graph:
+    """Load UCO and CASE Turtle files into a single RDFLib graph."""
     g = Graph()
 
     uco_dir = ontology_root / "UCO" / "ontology" / "uco"
@@ -124,6 +140,8 @@ def load_ontology(ontology_root: Path) -> Graph:
             logger.warning("Ontology directory not found: %s", ttl_dir)
             continue
         for ttl_file in ttl_dir.rglob("*.ttl"):
+            if not _allowed(ttl_file, allowed, repo_root):
+                continue
             try:
                 g.parse(str(ttl_file), format="turtle")
                 ttl_count += 1
@@ -134,6 +152,8 @@ def load_ontology(ontology_root: Path) -> Graph:
     co_dir = ontology_root / "UCO" / "ontology" / "co"
     if co_dir.exists():
         for ttl_file in co_dir.rglob("*.ttl"):
+            if not _allowed(ttl_file, allowed, repo_root):
+                continue
             try:
                 g.parse(str(ttl_file), format="turtle")
                 ttl_count += 1
@@ -419,6 +439,8 @@ _NON_EXTENSION_DIRS = {"CASE", "UCO", "upper"}
 def load_extensions(
     g: Graph,
     extensions_dir: Path | list[Path],
+    allowed: set[str] | None = None,
+    repo_root: Path | None = None,
 ) -> dict[str, tuple[str, str]]:
     """Load extension ontology TTL files into the graph and return namespace mappings.
 
@@ -455,10 +477,14 @@ def load_extensions(
             manifest = load_extension_manifest(ext_dir)
             if manifest is not None:
                 seen_names.add(ext_name)
-                ttl_count += _load_extension_from_manifest(g, ext_dir, manifest, ext_modules)
+                ttl_count += _load_extension_from_manifest(
+                    g, ext_dir, manifest, ext_modules, allowed=allowed, repo_root=repo_root
+                )
             elif root.name == "extensions":
                 seen_names.add(ext_name)
-                ttl_count += _load_extension_legacy(g, ext_dir, ext_name, ext_modules)
+                ttl_count += _load_extension_legacy(
+                    g, ext_dir, ext_name, ext_modules, allowed=allowed, repo_root=repo_root
+                )
 
     logger.info("Loaded %d extension Turtle files", ttl_count)
     return ext_modules
@@ -483,6 +509,8 @@ def _load_extension_from_manifest(
     ext_dir: Path,
     manifest: dict,
     ext_modules: dict[str, tuple[str, str]],
+    allowed: set[str] | None = None,
+    repo_root: Path | None = None,
 ) -> int:
     """Load extension files according to its manifest.json.  Returns count of parsed files."""
     ext_name = manifest["name"]
@@ -496,6 +524,8 @@ def _load_extension_from_manifest(
             ttl_file = ext_dir / rel_path
             if not ttl_file.exists():
                 logger.warning("Extension %s: file not found: %s", ext_name, ttl_file)
+                continue
+            if not _allowed(ttl_file, allowed, repo_root):
                 continue
             try:
                 ttl_content = ttl_file.read_text(encoding="utf-8")
@@ -522,11 +552,15 @@ def _load_extension_legacy(
     ext_dir: Path,
     ext_name: str,
     ext_modules: dict[str, tuple[str, str]],
+    allowed: set[str] | None = None,
+    repo_root: Path | None = None,
 ) -> int:
     """Legacy loader for extension directories without manifest.json."""
     ttl_count = 0
     for ttl_file in sorted(ext_dir.glob("*.ttl")):
         if "exemplar" in ttl_file.name:
+            continue
+        if not _allowed(ttl_file, allowed, repo_root):
             continue
         try:
             g.parse(str(ttl_file), format="turtle")
@@ -545,18 +579,26 @@ def _load_extension_legacy(
 def parse_ontology(
     ontology_root: Path,
     extensions_dir: Path | list[Path] | None = None,
+    allowed: set[str] | None = None,
+    repo_root: Path | None = None,
 ) -> OntologySchema:
     """Parse the UCO/CASE ontology and return a typed schema model.
 
     If extensions_dir is provided (a single root or a list of roots),
     extension ontologies are loaded and their classes are included with
     module keys like ``ext.<name>``.
+
+    ``allowed`` is an optional set of repo-relative POSIX paths. When set,
+    only those Turtle files are parsed (used by dependent-only incremental
+    generate). Pass ``repo_root`` so path checks resolve correctly.
     """
-    g = load_ontology(ontology_root)
+    g = load_ontology(ontology_root, allowed=allowed, repo_root=repo_root)
 
     ext_modules: dict[str, tuple[str, str]] = {}
     if extensions_dir is not None:
-        ext_modules = load_extensions(g, extensions_dir)
+        ext_modules = load_extensions(
+            g, extensions_dir, allowed=allowed, repo_root=repo_root
+        )
 
     schema = OntologySchema()
 

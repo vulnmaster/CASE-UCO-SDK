@@ -47,6 +47,22 @@ def main(argv: list[str] | None = None) -> int:
     gen_parser.add_argument("--output-dir", type=Path, default=None)
     gen_parser.add_argument("--extensions-dir", type=Path, default=None)
     gen_parser.add_argument("--no-extensions", action="store_true")
+    gen_parser.add_argument(
+        "--incremental",
+        action="store_true",
+        default=True,
+        help="Skip parse+emission when Turtle sources match the IR manifest (default).",
+    )
+    gen_parser.add_argument(
+        "--no-incremental",
+        action="store_true",
+        help="Force a full re-parse even when sources are unchanged.",
+    )
+    gen_parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Alias for --no-incremental.",
+    )
 
     # --- scaffold subcommand ---
     scaf_parser = subparsers.add_parser(
@@ -134,6 +150,58 @@ def _cmd_generate(args) -> int:
         logging.error("Ontology directory not found: %s", ontology_dir)
         return 1
 
+    from case_uco_generator.incremental import (
+        sources_unchanged,
+        write_ir,
+        changed_files,
+        plan_reparse,
+        merge_registry,
+    )
+
+    incremental = not (getattr(args, "no_incremental", False) or getattr(args, "force", False))
+    from case_uco_generator.backends.helpers_backend import emit_topology_helpers
+    emit_topology_helpers(repo_root)
+
+    if incremental and sources_unchanged(repo_root):
+        logging.info(
+            "IR cache hit: Turtle sources unchanged. Skipping OWL parse and class emission. "
+            "Pass --force to regenerate."
+        )
+        return 0
+
+    if incremental:
+        delta = changed_files(repo_root)
+        if delta:
+            plan = plan_reparse(repo_root, delta)
+            logging.info(
+                "Incremental generate: %d source file(s) changed; plan=%s (%s).",
+                len(delta), plan.get("mode"), plan.get("reason"),
+            )
+            for path in delta[:20]:
+                logging.info("  changed: %s", path)
+            if len(delta) > 20:
+                logging.info("  ... %d more", len(delta) - 20)
+            if plan.get("mode") == "subset":
+                allowed = set(plan.get("paths") or [])
+                logging.info(
+                    "Dependent-only parse of %d Turtle files (%d modules).",
+                    len(allowed), len(plan.get("modules") or []),
+                )
+                schema = parse_ontology(
+                    ontology_dir,
+                    extensions_dir=extensions_dir,
+                    allowed=allowed,
+                    repo_root=repo_root,
+                )
+                merge_registry(repo_root, schema)
+                write_ir(repo_root, schema)
+                logging.info(
+                    "Subset parse complete: %d classes in closure. "
+                    "Core language bindings left unchanged.",
+                    len(schema.classes),
+                )
+                return 0
+
     logging.info("Parsing ontology from %s ...", ontology_dir)
     schema = parse_ontology(ontology_dir, extensions_dir=extensions_dir)
     logging.info(
@@ -185,6 +253,7 @@ def _cmd_generate(args) -> int:
         total_files += 1
         logging.info("  -> %s (%s)", dest, lang_name)
 
+    write_ir(repo_root, schema)
     logging.info("Done: %d total files generated.", total_files)
     return 0
 

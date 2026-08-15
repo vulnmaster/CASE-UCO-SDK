@@ -2,6 +2,8 @@
 
 Auto-generated reference for all classes, properties, and vocabulary types in the CASE/UCO ontology. Use this document to discover which classes model your domain and what properties they expose.
 
+For the recommended **module + Facet + spine** starting points (Composition Profiles), see [docs/COMPOSITION_PROFILES.md](docs/COMPOSITION_PROFILES.md) and [topology/profiles/INDEX.md](topology/profiles/INDEX.md). That index is hand-maintained and will survive regeneration of this file.
+
 | Metric | Count |
 |--------|-------|
 | Classes | 2877 |

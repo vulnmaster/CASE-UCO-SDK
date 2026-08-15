@@ -2,7 +2,7 @@
 
 Practical patterns for common digital forensics and cyber-investigation workflows. Each recipe shows how to model real-world data using the SDK across all four supported languages.
 
-For the full class reference, see [ONTOLOGY_REFERENCE.md](../../ONTOLOGY_REFERENCE.md). For domain-to-class mapping, see [MAPPING_GUIDE.md](../MAPPING_GUIDE.md). For performance guidance, see [PERFORMANCE_GUIDE.md](../PERFORMANCE_GUIDE.md).
+For the full class reference, see [ONTOLOGY_REFERENCE.md](../../ONTOLOGY_REFERENCE.md). For domain-to-class mapping, see [MAPPING_GUIDE.md](../MAPPING_GUIDE.md). For performance guidance, see [PERFORMANCE_GUIDE.md](../PERFORMANCE_GUIDE.md). For first-class Composition Profiles (modules + Facet sets + CAC spine), see [COMPOSITION_PROFILES.md](../COMPOSITION_PROFILES.md).
 
 ---
 
@@ -150,3 +150,4 @@ Requires `CASE_UCO_EXTENSIONS=cac`. Use `route_cac_content` via the MCP server t
 |---|---|---|---|
 | Proposing Changes to CASE/UCO | [change-proposal.md](change-proposal.md) | Identify gaps, check existing proposals, and draft change proposals | — |
 | Authoring and Improving Recipes | [recipe-authoring.md](recipe-authoring.md) | Write and register a new recipe, or improve an existing one a live case proved wrong or incomplete (structure, grounding rules, re-validation, MCP index registration) | — |
+| VICS / PhotoDNA Hash Intelligence | [vics-hash-intelligence.md](vics-hash-intelligence.md) | Map VICS catalog fields and PhotoDNA hashes onto ContentDataFacet + hashing Actions (air-gapped stub) | `HashIntelligence` |
