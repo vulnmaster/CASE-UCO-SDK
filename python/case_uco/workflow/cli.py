@@ -14,6 +14,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="case-uco-workflow")
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("list", help="List investigation workflows")
+    sub.add_parser("trajectories", help="List vendored trajectory contracts")
+    sub.add_parser("adapters", help="List offline interop adapters")
     show = sub.add_parser("show", help="Show one workflow definition")
     show.add_argument("workflow_id")
     start = sub.add_parser("start", help="Start a workflow run")
@@ -34,6 +36,18 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "list":
         for item in list_workflows():
             print(f"{item.id:28s}  {item.profile:22s}  {item.title}")
+        return 0
+    if args.command == "trajectories":
+        from case_uco.trajectories import list_trajectories
+
+        for item in list_trajectories():
+            print(f"{item.id:28s}  {item.title}")
+        return 0
+    if args.command == "adapters":
+        from case_uco.adapters import list_adapters
+
+        for item in list_adapters():
+            print(f"{item['id']:28s}  {','.join(item['profile_ids'])}")
         return 0
     if args.command == "show":
         item = get_workflow(args.workflow_id)

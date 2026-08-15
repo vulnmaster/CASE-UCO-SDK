@@ -152,6 +152,18 @@ _ADAPTERS = {
 }
 
 
+def list_adapters() -> list[dict[str, Any]]:
+    """Offline listing of installed interop adapters."""
+    return [
+        {
+            "id": adapter.id,
+            "profile_ids": list(adapter.profile_ids),
+            "air_gapped": adapter.air_gapped,
+        }
+        for adapter in _ADAPTERS.values()
+    ]
+
+
 def get_adapter(adapter_id: str) -> Any:
     if adapter_id not in _ADAPTERS:
         raise ValueError(f"Unknown adapter: {adapter_id}")

@@ -28,6 +28,25 @@ def trajectory_dirs() -> list[Path]:
     return [d for d in dirs if d.is_dir()]
 
 
+def list_trajectories() -> list[TrajectoryContract]:
+    """Offline listing of vendored trajectory contracts."""
+    seen: set[str] = set()
+    out: list[TrajectoryContract] = []
+    for directory in trajectory_dirs():
+        for path in sorted(directory.glob("*.json")):
+            if path.name == "trajectory.schema.json":
+                continue
+            tid = path.stem
+            if tid in seen:
+                continue
+            seen.add(tid)
+            try:
+                out.append(load_trajectory(tid))
+            except (OSError, ValueError, KeyError):
+                continue
+    return out
+
+
 def load_trajectory(trajectory_id: str) -> TrajectoryContract:
     for directory in trajectory_dirs():
         path = directory / f"{trajectory_id}.json"

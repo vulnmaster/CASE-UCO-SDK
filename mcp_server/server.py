@@ -615,6 +615,22 @@ def build_investigation(
 
 
 @mcp.tool
+def list_investigation_trajectories() -> list:
+    """List vendored trajectory contracts (offline)."""
+    from case_uco.trajectories import list_trajectories
+
+    return [{"id": t.id, "title": t.title, "version": t.version} for t in list_trajectories()]
+
+
+@mcp.tool
+def list_investigation_adapters() -> list:
+    """List offline VICS / PhotoDNA / hash-match adapters. No network."""
+    from case_uco.adapters import list_adapters
+
+    return list_adapters()
+
+
+@mcp.tool
 def list_investigation_workflows() -> list:
     """List vendored Investigation Workflow definitions (offline)."""
     from case_uco.workflow import list_workflows
