@@ -22,7 +22,7 @@ public final class CompositionProfiles {
     private CompositionProfiles() {}
 
     public static boolean requiresCac(String profileId) {
-        return FULL_CAC_LIFECYCLE.equals(profileId) || HASH_INTELLIGENCE.equals(profileId);
+        return FULL_CAC_LIFECYCLE.equals(profileId) || CROSS_ONTOLOGY.equals(profileId);
     }
 
     public static String resolve(String profileId, String scenario) {

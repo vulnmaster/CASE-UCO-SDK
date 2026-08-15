@@ -69,3 +69,24 @@ fn partition_by_profile_returns_core() {
         .expect("parts");
     assert!(parts.contains_key("core"));
 }
+
+#[test]
+fn profile_contract_load_hash_intelligence() {
+    let contract = case_uco::contracts::load_contract("HashIntelligence");
+    assert_eq!(contract.profile_id, "HashIntelligence");
+    assert!(contract.check_ids.iter().any(|c| c == "PROF-HI-001"));
+}
+
+#[test]
+fn investigation_workflow_step_and_save() {
+    let dir = std::env::temp_dir().join(format!("case-uco-wf-{}", std::process::id()));
+    let mut wf = case_uco::workflow::InvestigationWorkflow::new(
+        "field-triage",
+        "seized laptop",
+        &dir,
+        None,
+    )
+    .expect("wf");
+    assert_eq!(wf.step().as_deref(), Some("load"));
+    assert!(dir.join("workflow-state.json").exists());
+}

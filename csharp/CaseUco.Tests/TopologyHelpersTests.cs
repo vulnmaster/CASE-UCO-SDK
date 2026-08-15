@@ -62,5 +62,29 @@ namespace CaseUco.Tests
             var parts = graph.PartitionByProfile(CompositionProfiles.MinimalForensics);
             Assert.True(parts.ContainsKey("core"));
         }
+
+        [Fact]
+        public void ProfileContract_Load_HashIntelligence()
+        {
+            var contract = ProfileContract.Load(CompositionProfiles.HashIntelligence);
+            Assert.Equal(CompositionProfiles.HashIntelligence, contract.ProfileId);
+            Assert.Contains("PROF-HI-001", contract.CheckIds);
+        }
+
+        [Fact]
+        public void RequiresCac_HashIntelligence_IsFalse()
+        {
+            Assert.False(CompositionProfiles.RequiresCac(CompositionProfiles.HashIntelligence));
+            Assert.True(CompositionProfiles.RequiresCac(CompositionProfiles.FullCACLifecycle));
+        }
+
+        [Fact]
+        public void InvestigationWorkflow_StepAndSave()
+        {
+            var dir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "case-uco-wf-" + System.Guid.NewGuid().ToString("N"));
+            var wf = new InvestigationWorkflow("field-triage", "seized laptop", dir);
+            Assert.Equal("load", wf.Step());
+            Assert.True(System.IO.File.Exists(System.IO.Path.Combine(dir, "workflow-state.json")));
+        }
     }
 }

@@ -1,5 +1,7 @@
 package org.caseontology;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -64,5 +66,26 @@ public class TopologyHelpersTest {
             graph, "a.bin", Collections.singletonList(new String[] { "SHA256", "cc" }));
         Map<String, CaseGraph> parts = graph.partitionByProfile(CompositionProfiles.MINIMAL_FORENSICS);
         assertTrue(parts.containsKey("core"));
+    }
+
+    @Test
+    public void profileContractLoadHashIntelligence() {
+        ProfileContract contract = ProfileContract.load(CompositionProfiles.HASH_INTELLIGENCE);
+        assertEquals(CompositionProfiles.HASH_INTELLIGENCE, contract.profileId);
+        assertTrue(contract.checkIds.contains("PROF-HI-001"));
+    }
+
+    @Test
+    public void requiresCacHashIntelligenceIsFalse() {
+        assertFalse(CompositionProfiles.requiresCac(CompositionProfiles.HASH_INTELLIGENCE));
+        assertTrue(CompositionProfiles.requiresCac(CompositionProfiles.FULL_CAC_LIFECYCLE));
+    }
+
+    @Test
+    public void investigationWorkflowStepAndSave() throws Exception {
+        Path dir = Files.createTempDirectory("case-uco-wf-");
+        InvestigationWorkflow wf = new InvestigationWorkflow("field-triage", "seized laptop", dir, null);
+        assertEquals("load", wf.step());
+        assertTrue(Files.exists(dir.resolve("workflow-state.json")));
     }
 }

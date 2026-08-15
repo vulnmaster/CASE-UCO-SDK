@@ -12,11 +12,31 @@ public final class InvestigationBuilder {
         public final String severity;
         public final String message;
         public final String path;
+        public final String ruleId;
+        public final String findingId;
+        public final String recommendedChange;
+        public final String repairHint;
 
         public CritiqueFinding(String severity, String message, String path) {
+            this(severity, message, path, null, null, null, null);
+        }
+
+        public CritiqueFinding(
+            String severity,
+            String message,
+            String path,
+            String ruleId,
+            String findingId,
+            String recommendedChange,
+            String repairHint
+        ) {
             this.severity = severity;
             this.message = message;
             this.path = path;
+            this.ruleId = ruleId;
+            this.findingId = findingId;
+            this.recommendedChange = recommendedChange;
+            this.repairHint = repairHint;
         }
     }
 

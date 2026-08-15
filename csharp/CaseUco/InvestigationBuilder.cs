@@ -10,6 +10,10 @@ namespace CaseUco
         public string Severity { get; set; }
         public string Message { get; set; }
         public string Path { get; set; }
+        public string RuleId { get; set; }
+        public string FindingId { get; set; }
+        public string RecommendedChange { get; set; }
+        public string RepairHint { get; set; }
     }
 
     /// <summary>

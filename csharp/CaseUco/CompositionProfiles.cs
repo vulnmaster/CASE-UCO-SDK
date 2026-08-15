@@ -24,7 +24,8 @@ namespace CaseUco
 
         public static bool RequiresCac(string profileId)
         {
-            return profileId == FullCACLifecycle || profileId == HashIntelligence;
+            // Align with Python: "ext.cac" in required_modules only.
+            return profileId == FullCACLifecycle || profileId == CrossOntology;
         }
 
         public static string Resolve(string profileId, string scenario)

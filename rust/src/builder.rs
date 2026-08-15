@@ -4,11 +4,15 @@ use crate::graph::{CaseGraph, GraphError, LoadError};
 use crate::helpers::{self, CsamEvidence, ToolRun};
 use std::collections::HashMap;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct CritiqueFinding {
     pub severity: String,
     pub message: String,
     pub path: String,
+    pub rule_id: Option<String>,
+    pub finding_id: Option<String>,
+    pub recommended_change: Option<String>,
+    pub repair_hint: Option<String>,
 }
 
 pub struct InvestigationBuilder {
@@ -58,6 +62,7 @@ impl InvestigationBuilder {
                     self.profile_id
                 ),
                 path: file_name.into(),
+                ..Default::default()
             });
         }
         helpers::file_with_content_hashes(&mut self.graph, file_name, hashes)
@@ -73,6 +78,7 @@ impl InvestigationBuilder {
                 severity: "error".into(),
                 message: format!("{file_name}: CSAM evidence must carry hashes"),
                 path: file_name.into(),
+                ..Default::default()
             });
         }
         helpers::model_csam_evidence(&mut self.graph, file_name, hashes, "PhotoDNA", None)
@@ -89,6 +95,7 @@ impl InvestigationBuilder {
                 severity: "warning".into(),
                 message: format!("Tool {tool_name} has no version"),
                 path: tool_name.into(),
+                ..Default::default()
             });
         }
         helpers::model_tool_run(&mut self.graph, tool_name, action_name, tool_version)
@@ -104,7 +111,7 @@ impl InvestigationBuilder {
 }
 
 fn requires_cac(profile_id: &str) -> bool {
-    profile_id == "FullCACLifecycle" || profile_id == "HashIntelligence"
+    profile_id == "FullCACLifecycle" || profile_id == "CrossOntology"
 }
 
 fn resolve_profile(profile_id: Option<&str>, scenario: &str) -> Result<String, LoadError> {
