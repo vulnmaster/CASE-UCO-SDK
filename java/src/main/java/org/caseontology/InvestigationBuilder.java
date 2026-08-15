@@ -44,6 +44,7 @@ public final class InvestigationBuilder {
         this.graph = extra.isEmpty() ? new CaseGraph(kbPrefix) : new CaseGraph(kbPrefix, extra);
     }
 
+    public String getScenario() { return scenario; }
     public String getProfileId() { return profileId; }
     public CaseGraph getGraph() { return graph; }
 

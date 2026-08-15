@@ -132,7 +132,7 @@ public final class CompositionHelpers {
             }
             return bytes;
         } catch (NumberFormatException ex) {
-            return lexical.getBytes(java.nio.charset.StandardCharsets.UTF8);
+            return lexical.getBytes(java.nio.charset.StandardCharsets.UTF_8);
         }
     }
 }

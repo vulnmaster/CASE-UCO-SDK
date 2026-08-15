@@ -16,6 +16,8 @@ fn file_with_content_hashes_is_indexed() {
     let hits = graph.lookup_hash("E3B0C44298FC1C149AFBF4C8996FB924");
     assert!(!hits.is_empty());
     assert_eq!(hits[0].method, "SHA256");
+    let json = graph.serialize().expect("json");
+    assert!(json.contains("uco-observable:ObservableObject"));
 }
 
 #[test]

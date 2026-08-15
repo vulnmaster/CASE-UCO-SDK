@@ -2,7 +2,9 @@
 
 use crate::case::investigation::InvestigativeAction;
 use crate::graph::{CaseGraph, GraphError};
-use crate::uco::observable::{ContentDataFacet, FileFacet, RasterPicture, RasterPictureFacet};
+use crate::uco::observable::{
+    ContentDataFacet, FileFacet, ObservableObject, RasterPicture, RasterPictureFacet,
+};
 use crate::uco::tool::Tool;
 use serde_json::{json, Value};
 
@@ -29,14 +31,14 @@ fn hashes_json(hashes: &[(&str, &str)]) -> Value {
     Value::Array(hashes.iter().map(|(m, v)| hash_entry(m, v)).collect())
 }
 
-/// ObservableObject-equivalent RasterPicture + FileFacet + ContentDataFacet.
+/// ObservableObject + FileFacet + ContentDataFacet (MinimalForensics).
 pub fn file_with_content_hashes(
     graph: &mut CaseGraph,
     file_name: &str,
     hashes: &[(&str, &str)],
 ) -> Result<String, GraphError> {
-    let picture = RasterPicture::builder().build();
-    let id = graph.create(&picture);
+    let host = ObservableObject::builder().build();
+    let id = graph.create(&host);
     let file_facet = FileFacet::builder()
         .file_name(vec![file_name.to_string()])
         .build();

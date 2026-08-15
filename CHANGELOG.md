@@ -19,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Incremental generate plans a **dependent-only** parse for leaf
   extension Turtle changes (UCO+CASE + changed module + DAG dependents).
   Core ontology changes and `--force` still do a full parse.
+- Review hardening: Java `StandardCharsets.UTF_8` (compile) and
+  `InvestigationBuilder.getScenario()` (parity + `-Werror`); subset
+  `merge_registry` updates only `ext.*` records in `_emit_registry`
+  shape and copies onto existing C#/Java/Rust registries; `write_ir`
+  never shrinks global class counts (falls back to the last full IR
+  or `_registry.json`). Rust `file_with_content_hashes` now hosts
+  hashes on `ObservableObject`, matching Python/C#/Java.
 - Ready-to-copy PR body: `topology/PR_DESCRIPTION.md`.
 - Upstream change-proposal skeleton (does **not** alter core OWL):
   `change_proposals/photodna-perceptual-hash-facet.md`.

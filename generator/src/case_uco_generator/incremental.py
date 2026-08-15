@@ -153,8 +153,30 @@ def plan_reparse(repo_root: Path, changed: list[str] | None = None) -> dict[str,
     }
 
 
+_REGISTRY_COPIES = (
+    Path("csharp") / "CaseUco" / "_registry.json",
+    Path("java") / "src" / "main" / "resources" / "_registry.json",
+    Path("rust") / "src" / "_registry.json",
+)
+
+
+def _sync_language_registries(repo_root: Path, source: Path) -> None:
+    """Copy the merged Python registry onto existing C#/Java/Rust copies."""
+    import shutil
+
+    for rel in _REGISTRY_COPIES:
+        dest = repo_root / rel
+        if dest.is_file():
+            shutil.copy2(source, dest)
+
+
 def merge_registry(repo_root: Path, schema: Any) -> Path | None:
-    """Merge subset-parsed classes into the existing runtime registry."""
+    """Merge subset-parsed *extension* classes into the existing runtime registry.
+
+    Subset parses include UCO/CASE ancestors so SPARQL subclass queries
+    resolve. Those ancestor records are a partial extract and must not
+    overwrite the last full-generate core class records.
+    """
     dest = repo_root / "python" / "case_uco" / "_registry.json"
     if not dest.is_file():
         return None
@@ -162,34 +184,37 @@ def merge_registry(repo_root: Path, schema: Any) -> Path | None:
         registry = json.loads(dest.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return None
+    from case_uco_generator.schema_model import iri_local_name
+
     classes = registry.setdefault("classes", {})
     modules = set(registry.get("modules") or [])
+    resolve_all = getattr(schema, "resolve_all_properties", None)
     for cls in schema.classes.values():
-        # Subset parses include UCO/CASE ancestors for SPARQL. Do not
-        # overwrite core class records from a partial property extract.
         if not str(getattr(cls, "module", "")).startswith("ext."):
             continue
+        props = resolve_all(cls) if callable(resolve_all) else list(getattr(cls, "properties", []) or [])
         classes[cls.name] = {
             "iri": cls.iri,
             "module": cls.module,
             "description": getattr(cls, "description", "") or "",
-            "parents": list(getattr(cls, "all_parent_names", []) or []),
+            "parents": list(getattr(cls, "all_parent_names", None) or []),
             "is_facet": bool(getattr(cls, "is_facet", False)),
             "properties": [
                 {
                     "name": prop.name,
-                    "type": prop.type_name_for("python"),
+                    "type": iri_local_name(prop.range_iri),
                     "type_iri": prop.range_iri,
                     "cardinality": prop.cardinality.value,
                     "required": prop.cardinality.is_required,
                     "description": prop.description,
                 }
-                for prop in cls.properties
+                for prop in props
             ],
         }
         modules.add(cls.module)
     registry["modules"] = sorted(modules)
     dest.write_text(json.dumps(registry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _sync_language_registries(repo_root, dest)
     return dest
 
 
@@ -241,6 +266,73 @@ def changed_files(repo_root: Path) -> list[str]:
     return sorted(changed)
 
 
+def _registry_summary(repo_root: Path) -> dict[str, Any]:
+    """Derive global IR counts from the last full-generate registry."""
+    dest = repo_root / "python" / "case_uco" / "_registry.json"
+    if not dest.is_file():
+        return {}
+    try:
+        registry = json.loads(dest.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    classes = registry.get("classes") or {}
+    module_counts: dict[str, int] = {}
+    facet_count = 0
+    inheritance = 0
+    for record in classes.values():
+        if not isinstance(record, dict):
+            continue
+        module = str(record.get("module") or "unknown")
+        module_counts[module] = module_counts.get(module, 0) + 1
+        if record.get("is_facet"):
+            facet_count += 1
+        parents = record.get("parents") or []
+        if isinstance(parents, list):
+            inheritance += len(parents)
+    return {
+        "class_count": len(classes),
+        "facet_count": facet_count,
+        "module_counts": dict(sorted(module_counts.items())),
+        "inheritance_edge_count": inheritance,
+    }
+
+
+def _resolve_ir_counts(
+    repo_root: Path,
+    previous_ir: dict[str, Any],
+    *,
+    class_count: int,
+    facet_count: int,
+    modules: dict[str, int],
+    inheritance_edge_count: int,
+) -> tuple[int, int, dict[str, int], int]:
+    """Keep global IR counts from the last full write; never shrink on subset.
+
+    A subset parse (or ``schema=None``) must not replace a known full
+    inventory with a partial one. If the previous IR was already zeroed,
+    fall back to counting the runtime registry.
+    """
+    prev_count = int(previous_ir.get("class_count") or 0)
+    if prev_count and (not class_count or class_count < prev_count):
+        prev_modules = previous_ir.get("module_counts") or modules
+        return (
+            prev_count,
+            int(previous_ir.get("facet_count") or facet_count),
+            prev_modules if isinstance(prev_modules, dict) else modules,
+            int(previous_ir.get("inheritance_edge_count") or inheritance_edge_count),
+        )
+    if class_count == 0:
+        summary = _registry_summary(repo_root)
+        if summary.get("class_count"):
+            return (
+                int(summary["class_count"]),
+                int(summary.get("facet_count") or 0),
+                summary.get("module_counts") or modules,
+                int(summary.get("inheritance_edge_count") or 0),
+            )
+    return class_count, facet_count, modules, inheritance_edge_count
+
+
 def write_ir(repo_root: Path, schema: Any | None = None) -> Path:
     """Write the source manifest and a compact IR summary.
 
@@ -288,14 +380,14 @@ def write_ir(repo_root: Path, schema: Any | None = None) -> Path:
             previous_ir = json.loads(ir_path(repo_root).read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             previous_ir = {}
-    # A subset parse must not shrink the recorded global class counts.
-    if previous_ir.get("class_count") and class_count and class_count < int(previous_ir["class_count"]):
-        class_count = int(previous_ir["class_count"])
-        facet_count = int(previous_ir.get("facet_count") or facet_count)
-        modules = previous_ir.get("module_counts") or modules
-        inheritance_edge_count = int(previous_ir.get("inheritance_edge_count") or len(inheritance))
-    else:
-        inheritance_edge_count = len(inheritance)
+    class_count, facet_count, modules, inheritance_edge_count = _resolve_ir_counts(
+        repo_root,
+        previous_ir,
+        class_count=class_count,
+        facet_count=facet_count,
+        modules=modules,
+        inheritance_edge_count=len(inheritance),
+    )
 
     payload = {
         "schema_version": IR_VERSION,

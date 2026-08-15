@@ -34,7 +34,7 @@ The SDK was funded by Project VIC International so that raw investigative materi
 **Incremental generate**
 
 - Unchanged Turtle → skip OWL parse and class emission.
-- Leaf extension change → re-parse UCO+CASE + that module and its DAG dependents; merge into `_registry.json`; do **not** rewrite core bindings.
+- Leaf extension change → re-parse UCO+CASE + that module and its DAG dependents; merge **only** `ext.*` classes into `_registry.json` (same record shape as a full emit); do **not** rewrite core bindings or shrink IR class counts.
 - `ontology/UCO` or `ontology/CASE` change, or `--force` → full parse.
 
 ## Intentionally out of scope

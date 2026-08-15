@@ -53,6 +53,7 @@ public class TopologyHelpersTest {
         assertTrue(sawError);
         assertTrue(sawVersion);
         assertEquals(CompositionProfiles.AIR_GAPPED_FIELD_TRIAGE, builder.getProfileId());
+        assertEquals("field triage of hashed images", builder.getScenario());
         assertTrue(builder.build().size() >= 2);
     }
 

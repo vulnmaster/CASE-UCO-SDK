@@ -310,7 +310,7 @@ public class CaseGraph {
         if (digest == null) {
             return new ArrayList<>();
         }
-        List<HashHit> hits = indexContentHashes().get(digest.toLowerCase());
+        List<HashHit> hits = indexContentHashes().get(digest.toLowerCase(java.util.Locale.ROOT));
         return hits == null ? new ArrayList<>() : hits;
     }
 
@@ -379,7 +379,7 @@ public class CaseGraph {
                     if (digest == null || digest.isEmpty()) {
                         continue;
                     }
-                    index.computeIfAbsent(digest.toLowerCase(), k -> new ArrayList<>())
+                    index.computeIfAbsent(digest.toLowerCase(java.util.Locale.ROOT), k -> new ArrayList<>())
                             .add(new HashHit(ownerId, method == null ? "" : method));
                 }
             } else {
