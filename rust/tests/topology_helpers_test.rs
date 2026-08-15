@@ -90,3 +90,27 @@ fn investigation_workflow_step_and_save() {
     assert_eq!(wf.step().as_deref(), Some("load"));
     assert!(dir.join("workflow-state.json").exists());
 }
+
+#[test]
+fn investigation_workflow_resume_restores_completed_steps() {
+    let dir = std::env::temp_dir().join(format!("case-uco-wf-resume-{}", std::process::id()));
+    let mut wf = case_uco::workflow::InvestigationWorkflow::new(
+        "field-triage",
+        "seized laptop",
+        &dir,
+        None,
+    )
+    .expect("wf");
+    assert_eq!(wf.step().as_deref(), Some("load"));
+    let mut resumed = case_uco::workflow::InvestigationWorkflow::resume(&dir).expect("resume");
+    assert!(resumed.completed_steps.iter().any(|s| s == "load"));
+    assert_eq!(resumed.step().as_deref(), Some("open"));
+}
+
+#[test]
+fn profile_contract_full_cac_includes_spine_checks() {
+    let contract = case_uco::contracts::load_contract("FullCACLifecycle");
+    assert!(contract.check_ids.iter().any(|c| c == "PROF-CAC-003"));
+    let legal = case_uco::contracts::load_contract("LegalProcess");
+    assert!(legal.check_ids.iter().any(|c| c == "PROF-LEGAL-001"));
+}

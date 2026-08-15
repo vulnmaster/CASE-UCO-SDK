@@ -88,4 +88,21 @@ public class TopologyHelpersTest {
         assertEquals("load", wf.step());
         assertTrue(Files.exists(dir.resolve("workflow-state.json")));
     }
+
+    @Test
+    public void investigationWorkflowResumeRestoresCompletedSteps() throws Exception {
+        Path dir = Files.createTempDirectory("case-uco-wf-");
+        InvestigationWorkflow wf = new InvestigationWorkflow("field-triage", "seized laptop", dir, null);
+        assertEquals("load", wf.step());
+        InvestigationWorkflow resumed = InvestigationWorkflow.resume(dir);
+        assertTrue(resumed.completedSteps.contains("load"));
+        assertEquals("open", resumed.step());
+    }
+
+    @Test
+    public void profileContractLoadFullCacIncludesSpineChecks() {
+        ProfileContract contract = ProfileContract.load(CompositionProfiles.FULL_CAC_LIFECYCLE);
+        assertTrue(contract.checkIds.contains("PROF-CAC-003"));
+        assertTrue(ProfileContract.load(CompositionProfiles.LEGAL_PROCESS).checkIds.contains("PROF-LEGAL-001"));
+    }
 }

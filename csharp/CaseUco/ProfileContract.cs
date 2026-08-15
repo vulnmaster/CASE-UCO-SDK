@@ -30,7 +30,14 @@ namespace CaseUco
                 checks.Add("PROF-HI-002");
             }
             if (id == CompositionProfiles.FullCACLifecycle)
+            {
                 checks.Add("PROF-CAC-001");
+                checks.Add("PROF-CAC-002");
+                checks.Add("PROF-CAC-003");
+                checks.Add("PROF-CAC-004");
+            }
+            if (id == CompositionProfiles.LegalProcess)
+                checks.Add("PROF-LEGAL-001");
             if (id == CompositionProfiles.AirGappedFieldTriage)
                 checks.Add("PROF-AIR-001");
             return new ProfileContract(id, "1.0.0", "1.0.0", checks);

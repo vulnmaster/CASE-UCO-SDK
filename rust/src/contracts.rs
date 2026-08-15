@@ -22,6 +22,12 @@ pub fn load_contract(profile_id: &str) -> ProfileContract {
     }
     if id == "FullCACLifecycle" {
         checks.push("PROF-CAC-001".into());
+        checks.push("PROF-CAC-002".into());
+        checks.push("PROF-CAC-003".into());
+        checks.push("PROF-CAC-004".into());
+    }
+    if id == "LegalProcess" {
+        checks.push("PROF-LEGAL-001".into());
     }
     if id == "AirGappedFieldTriage" {
         checks.push("PROF-AIR-001".into());

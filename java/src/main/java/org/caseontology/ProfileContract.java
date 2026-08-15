@@ -31,6 +31,12 @@ public final class ProfileContract {
         }
         if (CompositionProfiles.FULL_CAC_LIFECYCLE.equals(id)) {
             checks.add("PROF-CAC-001");
+            checks.add("PROF-CAC-002");
+            checks.add("PROF-CAC-003");
+            checks.add("PROF-CAC-004");
+        }
+        if (CompositionProfiles.LEGAL_PROCESS.equals(id)) {
+            checks.add("PROF-LEGAL-001");
         }
         if (CompositionProfiles.AIR_GAPPED_FIELD_TRIAGE.equals(id)) {
             checks.add("PROF-AIR-001");

@@ -86,5 +86,24 @@ namespace CaseUco.Tests
             Assert.Equal("load", wf.Step());
             Assert.True(System.IO.File.Exists(System.IO.Path.Combine(dir, "workflow-state.json")));
         }
+
+        [Fact]
+        public void InvestigationWorkflow_ResumeRestoresCompletedSteps()
+        {
+            var dir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "case-uco-wf-" + System.Guid.NewGuid().ToString("N"));
+            var wf = new InvestigationWorkflow("field-triage", "seized laptop", dir);
+            Assert.Equal("load", wf.Step());
+            var resumed = InvestigationWorkflow.Resume(dir);
+            Assert.Contains("load", resumed.CompletedSteps);
+            Assert.Equal("open", resumed.Step());
+        }
+
+        [Fact]
+        public void ProfileContract_Load_FullCacIncludesSpineChecks()
+        {
+            var contract = ProfileContract.Load(CompositionProfiles.FullCACLifecycle);
+            Assert.Contains("PROF-CAC-003", contract.CheckIds);
+            Assert.Contains("PROF-LEGAL-001", ProfileContract.Load(CompositionProfiles.LegalProcess).CheckIds);
+        }
     }
 }
