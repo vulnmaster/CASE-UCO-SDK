@@ -72,6 +72,8 @@ def main(argv: list[str] | None = None) -> int:
     sp_profile = subparsers.add_parser("profile", help="Show one Composition Profile")
     sp_profile.add_argument("name", help="Profile id (e.g. MinimalForensics, FullCACLifecycle)")
     subparsers.add_parser("spine", help="Show the CAC semantic spine and UCO core hierarchy")
+    sp_contract = subparsers.add_parser("contract", help="Show a synthesized Profile Contract (no OWL parse)")
+    sp_contract.add_argument("name", help="Profile id (e.g. HashIntelligence)")
 
     args = parser.parse_args(argv)
 
@@ -84,7 +86,7 @@ def main(argv: list[str] | None = None) -> int:
         parser.print_help()
         return 1
 
-    if args.command in {"profiles", "profile", "spine"}:
+    if args.command in {"profiles", "profile", "spine", "contract"}:
         return _cmd_topology(args)
 
     repo_root = Path.cwd()
@@ -204,6 +206,23 @@ def _cmd_topology(args: argparse.Namespace) -> int:
         print(f"  {profile.recipe_skeleton.get('summary', '')}")
         for step in profile.recipe_skeleton.get("steps", []):
             print(f"  - {step}")
+        print()
+        return 0
+
+    if args.command == "contract":
+        from case_uco.contracts import load_contract
+
+        try:
+            contract = load_contract(args.name)
+        except ValueError as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+            return 1
+        print(f"\n# {contract.profile_id} v{contract.profile_version} contract {contract.contract_schema_version}\n")
+        print(f"Checks ({len(contract.checks)}):")
+        for check in contract.checks:
+            print(f"  {check.id:20s}  {check.kind:28s}  when={check.when}  blocking={check.blocking}")
+        print("\nDefault validation:", contract.default_validation)
+        print("Partition policy:", contract.partition_policy)
         print()
         return 0
 

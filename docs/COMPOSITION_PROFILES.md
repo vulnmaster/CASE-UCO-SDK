@@ -68,6 +68,30 @@ Role ≠ person. Phase ≠ investigation.
 
 Profiles are additive. Existing builders, generated classes, and recipes
 are unchanged. Validation is still SHACL + concept coverage. Everything
-is air-gapped: profile JSON is vendored under `topology/profiles/`.
+is air-gapped: profile JSON is vendored under `topology/profiles/` and
+copied into the wheel at `case_uco/topology/data/profiles/` (see
+`python/pyproject.toml` package-data).
+
+## Runtime contracts (v2)
+
+A Composition Profile is also a **runtime contract**. `load_contract(profile_id)`
+synthesizes evaluable checks from `topology/contracts/default-bindings.json`
+plus the profile's `facet_sets`. v1.0.0 profile documents remain valid;
+an optional `contract` object may be authored later.
+
+```python
+from case_uco.contracts import load_contract
+from case_uco import InvestigationBuilder
+
+contract = load_contract("HashIntelligence")
+builder = InvestigationBuilder("CyberTip hashing", profile_id="HashIntelligence")
+builder.add_csam_evidence("img.jpg", hashes=[])
+print(builder.critique())          # still list[dict] with severity/message/path
+print(builder.critique_report().blocking_open)
+```
+
+`case-uco-explore contract HashIntelligence` prints the synthesized checks
+(JSON only, no OWL parse).
 
 Canonical files: [`topology/profiles/`](../topology/profiles/INDEX.md).
+Design: [`docs/design/v2-construction-rearchitecture.md`](design/v2-construction-rearchitecture.md).

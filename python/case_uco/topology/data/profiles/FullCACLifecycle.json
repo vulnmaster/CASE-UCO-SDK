@@ -1,0 +1,100 @@
+{
+  "id": "FullCACLifecycle",
+  "version": "1.0.0",
+  "title": "Full CAC Lifecycle",
+  "description": "End-to-end Crimes Against Children modeling: hotline/CyberTip intake, grooming or trafficking conduct, CSAM forensic provenance, rescue, task-force coordination, and legal outcomes. Anchors every class to the CAC semantic spine.",
+  "mission": "Give LE and child-protection teams — and the agents that assist them — one profile that selects the right CAC modules, Facet sets, and spine kinds so children can be identified, located, and safeguarded faster.",
+  "air_gapped": true,
+  "required_modules": [
+    "uco.core",
+    "uco.observable",
+    "uco.action",
+    "uco.identity",
+    "uco.role",
+    "uco.tool",
+    "uco.types",
+    "case.investigation",
+    "ext.cac.cac-core",
+    "ext.cac.cacontology-hotlines",
+    "ext.cac.cacontology-us-ncmec",
+    "ext.cac.cacontology-grooming",
+    "ext.cac.cacontology-forensics",
+    "ext.cac.cacontology-detection",
+    "ext.cac.cacontology-legal-outcomes"
+  ],
+  "recommended_modules": [
+    "ext.cac.cacontology-sex-trafficking",
+    "ext.cac.cacontology-sextortion",
+    "ext.cac.cacontology-taskforce",
+    "ext.cac.cacontology-multi-jurisdiction",
+    "ext.cac.cacontology-production",
+    "ext.cac.cacontology-victim-impact",
+    "ext.legalproc.legalproc",
+    "ext.cac.cacontology-tactical"
+  ],
+  "facet_sets": {
+    "RasterPicture": {
+      "required": ["FileFacet", "ContentDataFacet", "RasterPictureFacet"],
+      "recommended": ["EXIFFacet", "ConfidenceFacet"],
+      "notes": "CSAM artifacts are RasterPicture (or File) observables, never a CAC class standing in for the bytes."
+    },
+    "File": {
+      "required": ["FileFacet", "ContentDataFacet"],
+      "recommended": []
+    },
+    "Device": {
+      "required": ["DeviceFacet"],
+      "recommended": ["MobileDeviceFacet", "OperatingSystemFacet", "SIMCardFacet"]
+    },
+    "Message": {
+      "required": ["MessageFacet"],
+      "recommended": ["ApplicationFacet", "AccountFacet"]
+    },
+    "MessageThread": {
+      "required": ["MessageThreadFacet"],
+      "recommended": ["ApplicationFacet", "AccountFacet", "ApplicationAccountFacet"]
+    },
+    "Account": {
+      "required": ["AccountFacet"],
+      "recommended": ["DigitalAccountFacet", "ApplicationAccountFacet"]
+    }
+  },
+  "spine_anchors": [
+    "cac-core:EnduringEntity",
+    "cac-core:PersonLikeEntity",
+    "cac-core:OrganizationLikeEntity",
+    "cac-core:Artifact",
+    "cac-core:Occurrent",
+    "cac-core:Event",
+    "cac-core:ExploitationEvent",
+    "cac-core:DetectionEvent",
+    "cac-core:InvestigativeAction",
+    "cac-core:Situation",
+    "cac-core:Role",
+    "cac-core:Phase"
+  ],
+  "upper_ontology_profiles": ["gufo", "prov-o", "owl-time"],
+  "related_recipes": [
+    "docs/recipes/cac-hotline-intake-lifecycle.md",
+    "docs/recipes/cybertip-ncmec-workflow.md",
+    "docs/recipes/cac-grooming-chat-modeling.md",
+    "docs/recipes/cac-csam-forensic-provenance.md",
+    "docs/recipes/cac-trafficking-recruitment-network.md",
+    "docs/recipes/cac-victim-rescue-extraction.md",
+    "docs/recipes/cac-multi-jurisdiction-task-force.md",
+    "docs/recipes/cac-legal-sentencing-outcomes.md"
+  ],
+  "recipe_skeleton": {
+    "summary": "CACInvestigation + spine-typed roles/events/phases + hashed media + legal outcomes.",
+    "steps": [
+      "Create CACInvestigation (not a bare Investigation) when the case is CAC.",
+      "Anchor people as PersonLikeEntity + Role (ChildVictim, OnlinePredator, …). Never type the person as the role.",
+      "Model conduct as ExploitationEvent / GroomingBehavior with Phase progression.",
+      "Model intake as hotline/NCMECCybertipReport (Situation/Event as declared by the module).",
+      "Model media as RasterPicture + HashIntelligence Facet set; record ForensicAcquisitionAction and EvidenceVerificationAction separately.",
+      "Model rescue / task force / charges with the matching CAC modules.",
+      "Validate with extensions=['cac'] (or cac:full)."
+    ]
+  },
+  "keywords": ["cac", "csam", "grooming", "trafficking", "cybertip", "ncmec", "icac", "rescue", "child"]
+}

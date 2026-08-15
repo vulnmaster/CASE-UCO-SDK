@@ -44,6 +44,7 @@ include = ["case_uco*"]
     "_registry.json",
     "_concept_index.json",
     "validation/upper_ontology_registry.json",
+    "topology/data/**/*.json",
     "py.typed",
 ]
 

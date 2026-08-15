@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0.0",
+  "all_profiles": [
+    {
+      "id": "PROF-FACET-001",
+      "when": "incremental",
+      "severity": "high",
+      "blocking": true,
+      "applies_to": ["File", "ObservableObject", "RasterPicture"],
+      "kind": "required_facets",
+      "params": {},
+      "repair": {
+        "helper": "file_with_content_hashes",
+        "builder_method": "add_file",
+        "hint": "Attach the profile's required Facets for this host (FileFacet + ContentDataFacet for files)."
+      }
+    },
+    {
+      "id": "PROF-HASH-001",
+      "when": "incremental",
+      "severity": "high",
+      "blocking": true,
+      "applies_to": ["File", "ObservableObject", "RasterPicture"],
+      "kind": "hash_presence",
+      "params": {},
+      "repair": {
+        "helper": "file_with_content_hashes",
+        "builder_method": "add_file",
+        "hint": "Provide at least one Hash (SHA-256 recommended) on ContentDataFacet."
+      }
+    },
+    {
+      "id": "PROF-TOOL-001",
+      "when": "incremental",
+      "severity": "medium",
+      "blocking": false,
+      "applies_to": ["Tool"],
+      "kind": "tool_version",
+      "params": {},
+      "repair": {
+        "helper": "model_tool_run",
+        "builder_method": "add_tool_run",
+        "hint": "Set Tool.version so the run is reproducible."
+      }
+    },
+    {
+      "id": "PROF-ACTION-001",
+      "when": "graph",
+      "severity": "high",
+      "blocking": true,
+      "applies_to": ["InvestigativeAction"],
+      "kind": "action_instrument",
+      "params": {},
+      "repair": {
+        "helper": "model_tool_run",
+        "builder_method": "add_tool_run",
+        "hint": "Hashing/acquisition actions need instrument + object."
+      }
+    },
+    {
+      "id": "PROF-SHACL-001",
+      "when": "graph",
+      "severity": "high",
+      "blocking": true,
+      "applies_to": ["*"],
+      "kind": "shacl_signal",
+      "params": {},
+      "repair": { "hint": "Fix SHACL violations or install case_validate; never treat skipped SHACL as conforms." }
+    },
+    {
+      "id": "PROF-COV-001",
+      "when": "graph",
+      "severity": "high",
+      "blocking": true,
+      "applies_to": ["*"],
+      "kind": "concept_coverage_signal",
+      "params": {},
+      "repair": { "hint": "Use generated classes or draft a change proposal for undeclared concepts." }
+    }
+  ],
+  "by_profile": {
+    "HashIntelligence": [
+      {
+        "id": "PROF-HASH-002",
+        "when": "incremental",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["RasterPicture"],
+        "kind": "hash_presence",
+        "params": { "methods_required": ["SHA256"], "methods_recommended": ["PhotoDNA", "PDNA"] },
+        "repair": {
+          "helper": "model_csam_evidence",
+          "builder_method": "add_csam_evidence",
+          "hint": "Provide SHA-256; add PhotoDNA as an additional Hash, not a new Observable."
+        }
+      },
+      {
+        "id": "PROF-HI-001",
+        "when": "step",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["RasterPicture"],
+        "kind": "hash_intelligence_mission",
+        "params": {},
+        "repair": {
+          "helper": "model_csam_evidence",
+          "builder_method": "add_csam_evidence",
+          "hint": "Record hashing Tool + InvestigativeAction; do not invent PhotoDNAFacet."
+        }
+      },
+      {
+        "id": "PROF-HI-002",
+        "when": "incremental",
+        "severity": "critical",
+        "blocking": true,
+        "applies_to": ["*"],
+        "kind": "no_invented_photodna_facet",
+        "params": {},
+        "repair": { "hint": "Use Hash.hashMethod=PhotoDNA plus a hashing InvestigativeAction." }
+      }
+    ],
+    "FullCACLifecycle": [
+      {
+        "id": "PROF-CAC-001",
+        "when": "step",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["*"],
+        "kind": "cac_lifecycle_mission",
+        "params": {},
+        "repair": { "hint": "Use CACInvestigation, Role≠person, media as RasterPicture/File with hashes." }
+      },
+      {
+        "id": "PROF-CAC-002",
+        "when": "graph",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["Person", "Identity"],
+        "kind": "spine_role_separation",
+        "params": {},
+        "repair": { "hint": "Do not type the person as the Role." }
+      },
+      {
+        "id": "PROF-HI-001",
+        "when": "step",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["RasterPicture"],
+        "kind": "hash_intelligence_mission",
+        "params": {},
+        "repair": {
+          "helper": "model_csam_evidence",
+          "builder_method": "add_csam_evidence",
+          "hint": "CSAM media must carry hashes and a hashing action."
+        }
+      }
+    ],
+    "AirGappedFieldTriage": [
+      {
+        "id": "PROF-AIR-001",
+        "when": "step",
+        "severity": "medium",
+        "blocking": false,
+        "applies_to": ["*"],
+        "kind": "airgap_partition",
+        "params": { "max_estimated_triples": 200000 },
+        "repair": { "hint": "Partition at the forensic boundary (one graph per volume)." }
+      }
+    ],
+    "LegalProcess": [
+      {
+        "id": "PROF-LEGAL-001",
+        "when": "step",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["*"],
+        "kind": "legal_process_mission",
+        "params": {},
+        "repair": { "hint": "Keep Person+Role distinct; check Charged_With direction." }
+      }
+    ],
+    "ToolMapping": [
+      {
+        "id": "PROF-TOOL-001",
+        "when": "incremental",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["Tool"],
+        "kind": "tool_version",
+        "params": {},
+        "repair": {
+          "helper": "model_tool_run",
+          "builder_method": "add_tool_run",
+          "hint": "ToolMapping requires a versioned Tool."
+        }
+      }
+    ],
+    "CrossOntology": [
+      {
+        "id": "PROF-XO-001",
+        "when": "graph",
+        "severity": "high",
+        "blocking": true,
+        "applies_to": ["*"],
+        "kind": "cross_ontology_single_foundation",
+        "params": {},
+        "repair": { "hint": "Use at most one of BFO or gUFO." }
+      }
+    ]
+  },
+  "default_validation": {
+    "MinimalForensics": { "extensions": [], "profiles": [], "strict_concepts": true },
+    "AirGappedFieldTriage": { "extensions": [], "profiles": [], "strict_concepts": true },
+    "HashIntelligence": { "extensions": [], "profiles": ["prov-o"], "strict_concepts": true },
+    "ToolMapping": { "extensions": [], "profiles": [], "strict_concepts": true },
+    "LegalProcess": { "extensions": ["legalproc"], "profiles": ["gufo"], "strict_concepts": true },
+    "FullCACLifecycle": { "extensions": ["cac"], "profiles": ["gufo"], "strict_concepts": true },
+    "CrossOntology": { "extensions": ["cac"], "profiles": ["gufo"], "strict_concepts": true }
+  },
+  "partition_policy": {
+    "AirGappedFieldTriage": {
+      "strategy": "forensic-boundary",
+      "boundary": "volume",
+      "max_estimated_triples": 200000
+    },
+    "*": { "strategy": "none" }
+  }
+}

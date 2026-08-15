@@ -206,6 +206,15 @@ class CASEGraph:
             return None
         return copy.deepcopy(obj)
 
+    def nodes(self) -> list[dict[str, Any]]:
+        """Return deep copies of top-level JSON-LD objects (read-only)."""
+        return [copy.deepcopy(obj) for obj in self._objects]
+
+    def iter_objects(self):
+        """Iterate deep copies of top-level JSON-LD objects."""
+        for obj in self._objects:
+            yield copy.deepcopy(obj)
+
     def upsert_node(
         self,
         node_id: str,

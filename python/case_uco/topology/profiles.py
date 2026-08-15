@@ -44,6 +44,7 @@ class CompositionProfile:
     recipe_skeleton: dict[str, Any] = field(default_factory=dict)
     keywords: tuple[str, ...] = ()
     source_path: str = ""
+    contract: dict[str, Any] = field(default_factory=dict)
 
     def facet_set_for(self, host: str) -> FacetSet | None:
         key = host.lower()
@@ -53,7 +54,7 @@ class CompositionProfile:
         return None
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        payload = {
             "id": self.id,
             "version": self.version,
             "title": self.title,
@@ -70,6 +71,9 @@ class CompositionProfile:
             "keywords": list(self.keywords),
             "source_path": self.source_path,
         }
+        if self.contract:
+            payload["contract"] = dict(self.contract)
+        return payload
 
 
 def _parse_profile(path: Path, raw: dict[str, Any]) -> CompositionProfile:
@@ -99,6 +103,7 @@ def _parse_profile(path: Path, raw: dict[str, Any]) -> CompositionProfile:
         recipe_skeleton=dict(raw.get("recipe_skeleton") or {}),
         keywords=tuple(raw.get("keywords") or []),
         source_path=str(path),
+        contract=dict(raw.get("contract") or {}),
     )
 
 

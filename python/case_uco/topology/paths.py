@@ -41,6 +41,20 @@ def profile_dirs() -> list[Path]:
     return _unique(dirs)
 
 
+def contract_dirs() -> list[Path]:
+    """Directories that may contain default-bindings.json (offline)."""
+    dirs: list[Path] = []
+    env = os.environ.get("CASE_UCO_TOPOLOGY_DIR")
+    if env:
+        root = Path(env)
+        dirs.append(root / "contracts" if root.name != "contracts" else root)
+    for root in repo_root_candidates():
+        dirs.append(root / "topology" / "contracts")
+    packaged = Path(__file__).resolve().parent / "data" / "contracts"
+    dirs.append(packaged)
+    return _unique(dirs)
+
+
 def topology_file(name: str) -> Path | None:
     env = os.environ.get("CASE_UCO_TOPOLOGY_DIR")
     candidates: list[Path] = []
