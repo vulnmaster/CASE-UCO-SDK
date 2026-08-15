@@ -37,4 +37,4 @@ __all__ = [
     "model_tool_run",
     "raster_picture_with_hashes",
 ]
-__version__ = "2.0.0"
+__version__ = "2.0.1"

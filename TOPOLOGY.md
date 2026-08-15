@@ -39,7 +39,7 @@ A structured PhotoDNA Facet is **not** in core. The interim pattern is
 `Hash.hashMethod="PhotoDNA"` plus a hashing `InvestigativeAction`. The
 upstream proposal is `change_proposals/photodna-perceptual-hash-facet.md`.
 
-Recommended v2 construction (see [`docs/V2_ARCHITECTURE.md`](docs/V2_ARCHITECTURE.md)):
+Recommended v2 construction (see [`docs/V2_ARCHITECTURE.md`](docs/V2_ARCHITECTURE.md); **2.0.1** is the quality increment on the 2.0.0 generation):
 
 ```python
 from case_uco.workflow import InvestigationWorkflow

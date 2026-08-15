@@ -1,6 +1,6 @@
 [package]
 name = "case-uco"
-version = "2.0.0"
+version = "2.0.1"
 edition = "2021"
 description = "Standard library for constructing CASE/UCO ontology graphs"
 license = "Apache-2.0"

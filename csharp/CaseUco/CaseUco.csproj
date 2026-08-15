@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>CaseUco</RootNamespace>
     <PackageId>CaseUco</PackageId>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <Description>Standard library for constructing CASE/UCO ontology graphs</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/vulnmaster/CASE-UCO-SDK</RepositoryUrl>

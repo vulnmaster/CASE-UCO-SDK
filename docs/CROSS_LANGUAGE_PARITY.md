@@ -55,6 +55,8 @@ These operations exist in every language with parallel naming (adjusted only for
 | Profile critic | `ProfileCritic` | `ProfileCritic` | `ProfileCritic` | (builder critique + contract) |
 | Workflow | `InvestigationWorkflow` | `InvestigationWorkflow` | `InvestigationWorkflow` | `InvestigationWorkflow` |
 | Workflow step / save | `step()` / `save()` | `Step()` / `Save()` | `step()` / `save()` | `step()` / `save()` |
+| Workflow resume | `resume(dir)` | `Resume(dir)` | `resume(dir)` | `resume(dir)` |
+| Workflow handler hook | (Python built-ins) | `RegisterHandler` | `registerHandler` | `register_handler` |
 
 ### Registry / Discovery
 
@@ -133,7 +135,13 @@ These differences follow each language's conventions and are not bugs:
 **#72 note:** Python, C#, and Java `partition_by_roots` / `PartitionByRoots` /
 `partitionByRoots` follow **outgoing and incoming** nested `@id` references when
 `include_incoming` is enabled (default). Rust currently implements outgoing
-closure only; parity for incoming reverse refs is tracked as follow-on work.
+closure only; incoming reverse-ref parity is **2.1** (authoring host has no
+MSVC linker).
+
+**v2 workflow note:** Python ships the full sequential engine. C#/Java/Rust
+ship the logical surface (load/save state, step cursor, `Resume`, handler
+extension point). Full `hash_media` / adapter / partition *handlers* are **2.1**.
+Do not advertise `CRIT-H-*` ID stability outside Python.
 
 ### Why `create()` vs `Add()`
 

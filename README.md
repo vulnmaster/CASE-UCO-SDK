@@ -8,7 +8,7 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v2.0.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#200---unreleased) · [v2 architecture](docs/V2_ARCHITECTURE.md)
+**v2.0.1** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#201---unreleased) · [v2 architecture](docs/V2_ARCHITECTURE.md)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -32,7 +32,7 @@ wf = InvestigationWorkflow(
 print(wf.run().status)
 ```
 
-See [`docs/V2_ARCHITECTURE.md`](docs/V2_ARCHITECTURE.md) for the migration path.
+See [`docs/V2_ARCHITECTURE.md`](docs/V2_ARCHITECTURE.md) for the migration path. **2.0.0** is the recommended-path generation; **2.0.1** is the quality increment (richer offline critique, resume/handler hooks, partition harden, actionable generate-lag). Full C#/Java/Rust workflow handlers remain **2.1**.
 
 ## What the SDK Does
 
@@ -589,6 +589,8 @@ All four language packages are released in lockstep from the same ontology sourc
 
 | SDK Version | UCO | CASE | Python `case-uco` | C# `CaseUco` | Java `case-uco` | Rust `case-uco` |
 |-------------|-----|------|-------------------|--------------|-----------------|-----------------|
+| 2.0.1 | 1.5.0 | 1.5.0 | 2.0.1 | 2.0.1 | 2.0.1 | 2.0.1 |
+| 2.0.0 | 1.5.0 | 1.5.0 | 2.0.0 | 2.0.0 | 2.0.0 | 2.0.0 |
 | 1.23.1 | 1.4.0 | 1.4.0 | 1.23.1 | 1.23.1 | 1.23.1 | 1.23.1 |
 | 1.23.0 | 1.4.0 | 1.4.0 | 1.23.0 | 1.23.0 | 1.23.0 | 1.23.0 |
 | 1.22.4 | 1.4.0 | 1.4.0 | 1.22.4 | 1.22.4 | 1.22.4 | 1.22.4 |

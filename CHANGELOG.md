@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - Unreleased
+
+Quality increment on the 2.0.0 construction generation. No new architecture. Public constructors were **not** deleted.
+
+### Added
+
+- Construction critique now evaluates the rest of the design's offline subset: `CRIT-H-DERIVED-NO-HASH`, `CRIT-H-DERIVED-NO-PROVENANCE`, `CRIT-H-CHARGED-WITH-REVERSED`, `CRIT-H-IMAGE-CONTAINER-MISMATCH`, `CRIT-H-ORPHAN-TOP-LEVEL`.
+- Graph-pass kinds that were no-ops now fire: `tool_version`, `action_instrument`, `cac_lifecycle_mission`, `legal_process_mission`, `spine_kind_present`, `trajectory_completeness`.
+- C#/Java/Rust `Resume` restores `completed_steps` and the saved graph; `RegisterHandler` / `WorkflowStepHandler` is the documented 2.1 extension point.
+- Worklist `infer_boundary_key` (drive letter → `volume-X`); `PROF-PART-001` RAM-guard; `workflow.parallel.run_partitions(enabled=False)` sequential default.
+- Actionable `PROF-TRAJ-NOT-GENERATED` (type name, generator command, `upsert_node` placeholder).
+- Offline `hash-match` records `AnalyticResult` + `InvestigativeAction` against the live graph; VICS adapter tags `vics-media-id`.
+- CLI `case-uco-workflow trajectories|adapters`; MCP `list_investigation_trajectories` / `list_investigation_adapters`.
+
+### Changed
+
+- `partition_by_profile(..., strategy="forensic-boundary")` without `boundary_key` now raises instead of silently falling through to module-family.
+- Package versions are **2.0.1**. The recommended-path major remains the 2.0.0 generation.
+
+### Still 2.1
+
+- Full C#/Java/Rust workflow handlers (Python-parity `hash_media` / adapters / partition scheduler).
+- Rust `partition_by_roots` incoming closure.
+- Remaining MCP-only `CRIT-H-*` rules and feeding construction findings into `start_critic_review`.
+- Live `ProcessPoolExecutor` (opt-in API raises `NotImplementedError` until 2.1).
+- Generating `ConditioningPhase` bindings (generator run, not a 2.0.1 code change).
+
 ## [2.0.0] - Unreleased
 
 Recommended-path major generation. Public constructors were **not** deleted.

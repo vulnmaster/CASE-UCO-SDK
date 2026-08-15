@@ -1,38 +1,26 @@
-# feat: v2 construction re-architecture — contracts, workflow engine, continuous critique
+# feat: v2.0.1 quality increment — critique, resume, partitions, generate-lag
 
-This pull request is a **coherent, capability-defining re-architecture** of how investigation graphs are *constructed* in the CASE/UCO SDK. It is proposed as the foundation of **v2.0.0**: a recommended-path major, not a deleted-API major.
+This pull request is the **2.0.1 quality increment** on the already-landed v2 construction re-architecture (2.0.0 recommended-path major). It does not invent architecture. It raises correctness, guidance, test coverage, and documentation honesty so the branch can be labeled **v2.0.1**.
 
-It is written with respect for existing users and for Project VIC’s mission: turn raw investigative material into validated CASE/UCO + CAC graphs so children can be found and safeguarded faster — including on air-gapped field laptops.
+The generational claim stays with **2.0.0**: Profile contracts + continuous critique + Investigation Workflow Engine as the recommended path + partition awareness + trajectories + offline adapters + four-language logical surface. Public constructors were not deleted.
 
-## Why this is a generation, not a feature pile
+## What 2.0.1 reviews
 
-The Topology Articulation Framework (upstream PR #106) made the ontology navigable. That was necessary and it remains. What it did not yet do is make **correct construction under operational pressure** the center of gravity.
-
-v2 does:
-
-1. **Composition Profiles are runtime contracts.** Required Facets, hash presence, tool version, mission checks, and honest SHACL/coverage signals are evaluable — not just documented.
-2. **An Investigation Workflow Engine is the recommended primary path.** Operators and agents load a profile + local evidence, execute a resumable multi-step workflow, and receive a validated graph or structured remaining findings.
-3. **Continuous critique is construction semantics.** It runs on each add and at every step. The MCP critic remains the acceptance loop; it is not replaced.
-4. **Large cases are first-class.** Worklists partition by forensic boundary before heavy build. `partition_by_profile` default behaviour is unchanged.
-5. **Trajectories and VICS/PhotoDNA sit in the same model.** JSON contracts over existing OWL. Offline adapters. No invented core terms.
-
-Existing `InvestigationBuilder`, fluent helpers, generated classes, and Topology tests remain the floor.
-
-## What to review
-
-1. `docs/V2_ARCHITECTURE.md` — landed center of gravity and migration.
-2. `docs/design/v2-construction-rearchitecture.md` — Phase 0 design.
-3. `python/case_uco/{contracts,critique,workflow,adapters,trajectories}/`
-4. `topology/{contracts,workflows,trajectories}/`
-5. Language logical surface: `ProfileContract`, `InvestigationWorkflow`, CAC-prefix fix.
+1. `docs/design/v2.0.1-refinement-plan.md` — what closed vs what stays 2.1.
+2. Construction critique expansion (`CRIT-H-DERIVED-*`, `CHARGED-WITH-REVERSED`, `IMAGE-CONTAINER-MISMATCH`, `ORPHAN-TOP-LEVEL`; live mission checks).
+3. C#/Java/Rust `Resume` + `RegisterHandler` (source-level; CI compiles). Full handlers remain 2.1.
+4. Forensic-boundary harden, worklist inference, RAM-guard `PROF-PART-001`. Process pool stays opt-in/off.
+5. Actionable `PROF-TRAJ-NOT-GENERATED`; offline hash-match / VICS tag.
+6. Wheel-surface packaging tests; CLI/MCP discovery for trajectories and adapters.
+7. Version metadata **2.0.1** and precise CHANGELOG / architecture docs.
 
 ## Constraints honored
 
 - Investigation-time behaviour is offline.
 - Generator remains the source of truth for typed classes.
 - No new core OWL terms. PhotoDNA stays `Hash.hashMethod` + action.
-- PySHACL is not rewritten.
-- Additive wherever possible; frozen `critique()` triples keep Topology helper tests green.
+- Frozen `InvestigationBuilder.critique()` triples unchanged.
+- Additive wherever possible.
 
 ## Test results (authoring host)
 
@@ -46,10 +34,15 @@ Existing `InvestigationBuilder`, fluent helpers, generated classes, and Topology
 | `python/tests/test_workflow_partitions.py` | passed |
 | `python/tests/test_trajectories.py` | passed |
 | `python/tests/test_adapters_hash_intel.py` | passed |
+| `python/tests/test_packaging_profiles.py` | passed |
+| `python/tests/test_host_resolution.py` | passed |
+| `python/tests/test_critic_id_stability.py` | passed |
 | `topology/tests/test_profiles.py` | passed |
-| C# / Java | helpers + logical surface added; .NET SDK / JDK not installed on this host — CI `make test` is the gate |
+| `topology/tests/test_baseline_artifacts.py` | passed |
+| C# / Java | helpers + logical surface + resume tests added; .NET SDK / JDK not installed on this host — CI `make test` is the gate |
 | Rust | `cargo test` needs MSVC `link.exe` on this host — not run; CI is the gate |
+| `case_validate` / PySHACL | not installed; construction tests skip SHACL honestly (`validator_unavailable`) |
 
 ## Semver honesty
 
-`2.0.0` marks a new recommended primary interface. Constructors were not removed. Full C#/Java/Rust workflow runners are scoped as 2.1.
+`2.0.0` remains the recommended-path major. `2.0.1` is a quality increment. Full C#/Java/Rust workflow runners, incoming Rust `partition_by_roots`, the rest of the MCP `CRIT-H-*` set, and generating `ConditioningPhase` bindings are **2.1**.

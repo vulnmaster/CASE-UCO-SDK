@@ -1,8 +1,10 @@
 # CASE-UCO-SDK v2 — Construction Re-Architecture (landed)
 
 **Generation:** 2.0.0 (recommended-path major; public constructors were not deleted)  
+**Quality increment:** **2.0.1** — critique richness, resume/handler hooks, partition harden, generate-lag messaging, packaging honesty. Not a new architecture.  
 **Branch:** `feature/v2-capability-defining-rearchitecture`  
-**Design (Phase 0):** [`docs/design/v2-construction-rearchitecture.md`](design/v2-construction-rearchitecture.md)
+**Design (Phase 0):** [`docs/design/v2-construction-rearchitecture.md`](design/v2-construction-rearchitecture.md)  
+**2.0.1 plan:** [`docs/design/v2.0.1-refinement-plan.md`](design/v2.0.1-refinement-plan.md)
 
 ## Center of gravity
 
@@ -57,14 +59,16 @@ print(b.critique_report().blocking_open)
 3. For multi-step / large / ICAC cases, switch to `InvestigationWorkflow` or `case-uco-workflow`.
 4. Agents: prefer `start_investigation_workflow` over an empty `build_investigation`. `build_investigation(..., evidence=)` is additive.
 
-`2.0.0` is a **recommended-path major**, not a deleted-API major. Full C#/Java/Rust runners are **2.1**; 2.0 ships the logical surface (`ProfileContract`, `InvestigationWorkflow` step/state, additive `CritiqueFinding` fields).
+`2.0.0` is a **recommended-path major**, not a deleted-API major. `2.0.1` is the quality increment on that generation. Full C#/Java/Rust *handlers* remain **2.1**; 2.0.x ships the logical surface (`ProfileContract`, `InvestigationWorkflow` step/state/`Resume`, `RegisterHandler` extension point, additive `CritiqueFinding` fields).
+
+Construction critique in 2.0.1 covers the design's offline subset (`CRIT-H-INV-NO-OBJECT`, `ACTION-COMPLETENESS`, `IDENTITY-CONFLATION`, `DERIVED-NO-HASH`, `DERIVED-NO-PROVENANCE`, `CHARGED-WITH-REVERSED`, `IMAGE-CONTAINER-MISMATCH`, `ORPHAN-TOP-LEVEL`) plus contract mission checks. The MCP critic remains the acceptance loop. `ConditioningPhase` is still generate-lag (`PROF-TRAJ-NOT-GENERATED`). Process pools stay opt-in and off.
 
 ## Air-gap and ontology constraints
 
 - Investigation-time modules do not open sockets. Adapters refuse `http:` / `https:`.
 - Profiles, workflows, trajectories, and mappings are vendored under `python/case_uco/topology/data/` and listed in `pyproject.toml` package-data.
 - Generator remains the source of truth for typed classes.
-- No core OWL terms were invented. PhotoDNA remains extra `Hash` + action. `ConditioningPhase` generate-lag is `PROF-TRAJ-NOT-GENERATED`, not a change-proposal gap.
+- No core OWL terms were invented. PhotoDNA remains extra `Hash` + action. `ConditioningPhase` generate-lag is `PROF-TRAJ-NOT-GENERATED` (type name + generator command + `upsert_node` placeholder), not a change-proposal gap.
 - SHACL still goes through `case_validate`. Missing validator → `skipped` / `validator_unavailable`, never `conforms=True`.
 
 ## Intentional interface changes
