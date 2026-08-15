@@ -26,22 +26,13 @@ The generational claim stays with **2.0.0**: Profile contracts + continuous crit
 
 | Suite | Result |
 |---|---|
-| `python/tests/test_helpers_and_builder.py` | passed |
-| `python/tests/test_composition_profiles.py` | passed |
-| `python/tests/test_profile_contracts.py` | passed |
-| `python/tests/test_continuous_critique.py` | passed |
-| `python/tests/test_workflow_engine.py` | passed |
-| `python/tests/test_workflow_partitions.py` | passed |
-| `python/tests/test_trajectories.py` | passed |
-| `python/tests/test_adapters_hash_intel.py` | passed |
-| `python/tests/test_packaging_profiles.py` | passed |
-| `python/tests/test_host_resolution.py` | passed |
-| `python/tests/test_critic_id_stability.py` | passed |
-| `topology/tests/test_profiles.py` | passed |
-| `topology/tests/test_baseline_artifacts.py` | passed |
-| C# / Java | helpers + logical surface + resume tests added; .NET SDK / JDK not installed on this host — CI `make test` is the gate |
-| Rust | `cargo test` needs MSVC `link.exe` on this host — not run; CI is the gate |
+| `python/tests/` except exhaustive / darkwatchman / attack-catalog | **163 passed, 4 skipped** |
+| v2 construction floor (contracts, critique, workflow, partitions, trajectories, adapters, packaging, host resolution, critic IDs, helpers) | **57 passed** (subset of the 163) |
+| `topology/tests/test_profiles.py` + `test_baseline_artifacts.py` | **12 passed** |
+| C# / Java | helpers + logical surface + resume tests added; .NET SDK / JDK not installed — CI `make test` is the gate |
+| Rust `cargo test` / `cargo check` | MSVC `link.exe` missing — not run; CI is the gate |
 | `case_validate` / PySHACL | not installed; construction tests skip SHACL honestly (`validator_unavailable`) |
+| `tests/test_exhaustive.py`, `test_darkwatchman_release.py`, `test_attack_catalog_coverage.py` | not run here (long / environment-heavy; not required for the 2.0.1 surface) |
 
 ## Semver honesty
 
