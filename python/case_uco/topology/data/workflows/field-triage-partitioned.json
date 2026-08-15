@@ -1,0 +1,28 @@
+{
+  "id": "field-triage-partitioned",
+  "version": "1.0.0",
+  "profile": "AirGappedFieldTriage",
+  "title": "Air-gapped field triage (forensic-boundary partitions)",
+  "description": "Phase 4: partition the worklist by boundary_key before hash_media. Sequential by default; set CASE_UCO_WORKFLOW_PARALLEL=1 for process-per-partition.",
+  "air_gapped": true,
+  "related_recipes": ["docs/recipes/large-datasets.md"],
+  "related_dags": ["topology/recipe-dags/field-triage.json"],
+  "inputs": [
+    { "name": "hash_list", "type": "json", "required": true }
+  ],
+  "partition_policy": {
+    "strategy": "forensic-boundary",
+    "boundary": "volume",
+    "max_estimated_triples": 200000
+  },
+  "steps": [
+    { "id": "load", "kind": "load_profile", "depends_on": [] },
+    { "id": "open", "kind": "build", "handler": "open_investigation", "depends_on": ["load"] },
+    { "id": "ingest", "kind": "ingest", "handler": "ingest_hash_list", "depends_on": ["open"] },
+    { "id": "partition", "kind": "partition", "handler": "partition_forensic", "depends_on": ["ingest"] },
+    { "id": "hash", "kind": "build", "handler": "hash_media", "depends_on": ["partition"] },
+    { "id": "critique", "kind": "critique", "depends_on": ["hash"], "critique": "graph", "on_blocking": "continue" },
+    { "id": "validate", "kind": "validate", "handler": "validate_partition", "depends_on": ["critique"], "on_blocking": "continue" },
+    { "id": "emit", "kind": "emit", "handler": "emit_jsonld", "depends_on": ["validate"] }
+  ]
+}

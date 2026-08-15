@@ -209,6 +209,23 @@ def emit_jsonld(workflow: Any, args: dict[str, Any]) -> dict[str, Any]:
     return {"path": str(path), **stats}
 
 
+def partition_forensic(workflow: Any, args: dict[str, Any]) -> dict[str, Any]:
+    from case_uco.workflow.worklist import partition_worklist
+
+    groups = partition_worklist(list(workflow.state.get("worklist") or []))
+    partitions = workflow.state.setdefault("partitions", {})
+    for key, items in groups.items():
+        partitions[key] = {
+            "graph_path": str(Path(workflow.state["working_dir"]) / f"{key}.jsonld"),
+            "status": "planned",
+            "estimated_triples": 0,
+            "nodes": 0,
+            "findings_open": 0,
+            "work_items": len(items),
+        }
+    return {"partitions": list(groups.keys()), "items": sum(len(v) for v in groups.values())}
+
+
 HANDLERS = {
     "load_profile": lambda wf, args: {"profile_id": wf.builder.profile.id},
     "open_investigation": open_investigation,
@@ -219,4 +236,5 @@ HANDLERS = {
     "critique_graph": critique_graph,
     "validate_partition": validate_partition,
     "emit_jsonld": emit_jsonld,
+    "partition_forensic": partition_forensic,
 }

@@ -620,19 +620,40 @@ class CASEGraph:
             walk(obj, str(obj.get("@id") or ""))
         return index
 
-    def lookup_hash(self, digest: str) -> list[dict[str, str]]:
-        """Return nodes that carry ``digest`` (case-insensitive hex)."""
-        return list(self.index_content_hashes().get(digest.lower(), []))
+    def lookup_hash(self, digest: str, method: str | None = None) -> list[dict[str, str]]:
+        """Return nodes that carry ``digest`` (case-insensitive hex).
 
-    def partition_by_profile(self, profile_id: str) -> dict[str, CASEGraph]:
+        Optional ``method`` filters by hash method (e.g. ``SHA256``).
+        """
+        hits = list(self.index_content_hashes().get(digest.lower(), []))
+        if method:
+            wanted = method.lower()
+            hits = [h for h in hits if str(h.get("method") or "").lower() == wanted]
+        return hits
+
+    def partition_by_profile(
+        self,
+        profile_id: str,
+        *,
+        strategy: str = "module-family",
+        roots: list[str] | None = None,
+        boundary_key: str | None = None,
+    ) -> dict[str, CASEGraph]:
         """Partition by Composition Profile module family (additive wrapper).
 
-        Nodes whose ``@type`` local name belongs to a CAC module go to
-        ``cac``; legalproc/crypto to ``extensions``; everything else to
-        ``core``. The profile id is recorded on each partition's extra
-        context for later validation. Prefer forensic-root partitioning
-        via :meth:`partition_by_roots` for evidence graphs.
+        Default ``strategy='module-family'`` is unchanged (existing tests
+        assert ``\"core\" in parts``). ``strategy='roots'`` delegates to
+        :meth:`partition_by_roots`. ``strategy='forensic-boundary'`` uses
+        ``boundary_key`` with :meth:`partition_by` when provided.
         """
+        if strategy == "roots":
+            if not roots:
+                raise ValueError("roots is required for strategy='roots'")
+            return self.partition_by_roots(roots)
+        if strategy == "forensic-boundary" and boundary_key:
+            return self.partition_by(boundary_key)
+        if strategy not in {"module-family", "forensic-boundary"}:
+            raise ValueError(f"Unsupported partition strategy: {strategy}")
         cac_hints = ("cacontology", "cac-core", "cac/")
         ext_hints = ("legalproc", "cryptoinv", "rico", "solveit", "toolcap")
 
