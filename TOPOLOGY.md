@@ -13,8 +13,8 @@ Machine-readable companions live under [`topology/`](topology/README.md).
 |---|---|---|
 | 0 | Baseline | Module DAG, class/facet inventory, recipe composition patterns |
 | 1 | Semantic core | CAC spine + seven Composition Profiles, queryable via runtime / CLI / MCP |
-| 2 | Generation | Content-hashed IR + incremental `generate` (skip when Turtle is unchanged) + fluent helpers |
-| 3 | Runtime | Hash indexes, `partition_by_profile`, streaming writers (existing) |
+| 2 | Generation | Content-hashed IR + skip-if-unchanged + **dependent-only** leaf-extension re-parse + fluent helpers in all four languages |
+| 3 | Runtime | Hash indexes, `partition_by_profile`, `xsd:hexBinary` hash serialization |
 | 4 | Agent / control | `InvestigationBuilder`, executable recipe DAGs, inline critique |
 | 5 | Interop | VICS/PhotoDNA mapping stub, topology lenses, change-proposal path |
 
@@ -27,6 +27,17 @@ case-uco-explore spine
 python -m case_uco_generator generate          # incremental by default
 python -m case_uco_generator generate --force  # full re-parse
 ```
+
+Generate behaviour:
+
+1. Unchanged Turtle SHA-256 → skip OWL parse (~0.8 s).
+2. Leaf extension change → parse UCO+CASE + that module + DAG dependents;
+   merge into `_registry.json`; do not rewrite core language bindings.
+3. `ontology/UCO` or `ontology/CASE` change, or `--force` → full parse.
+
+A structured PhotoDNA Facet is **not** in core. The interim pattern is
+`Hash.hashMethod="PhotoDNA"` plus a hashing `InvestigativeAction`. The
+upstream proposal is `change_proposals/photodna-perceptual-hash-facet.md`.
 
 ```python
 from case_uco import CASEGraph, InvestigationBuilder, file_with_content_hashes

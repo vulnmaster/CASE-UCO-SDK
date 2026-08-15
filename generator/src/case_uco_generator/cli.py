@@ -154,12 +154,17 @@ def _cmd_generate(args) -> int:
         sources_unchanged,
         write_ir,
         changed_files,
+        plan_reparse,
+        merge_registry,
     )
 
     incremental = not (getattr(args, "no_incremental", False) or getattr(args, "force", False))
+    from case_uco_generator.backends.helpers_backend import emit_topology_helpers
+    emit_topology_helpers(repo_root)
+
     if incremental and sources_unchanged(repo_root):
         logging.info(
-            "IR cache hit: Turtle sources unchanged. Skipping parse and emission. "
+            "IR cache hit: Turtle sources unchanged. Skipping OWL parse and class emission. "
             "Pass --force to regenerate."
         )
         return 0
@@ -167,15 +172,35 @@ def _cmd_generate(args) -> int:
     if incremental:
         delta = changed_files(repo_root)
         if delta:
+            plan = plan_reparse(repo_root, delta)
             logging.info(
-                "Incremental generate: %d source file(s) changed; re-parsing dependents "
-                "(full import closure — parse_ontology is one graph).",
-                len(delta),
+                "Incremental generate: %d source file(s) changed; plan=%s (%s).",
+                len(delta), plan.get("mode"), plan.get("reason"),
             )
             for path in delta[:20]:
                 logging.info("  changed: %s", path)
             if len(delta) > 20:
                 logging.info("  ... %d more", len(delta) - 20)
+            if plan.get("mode") == "subset":
+                allowed = set(plan.get("paths") or [])
+                logging.info(
+                    "Dependent-only parse of %d Turtle files (%d modules).",
+                    len(allowed), len(plan.get("modules") or []),
+                )
+                schema = parse_ontology(
+                    ontology_dir,
+                    extensions_dir=extensions_dir,
+                    allowed=allowed,
+                    repo_root=repo_root,
+                )
+                merge_registry(repo_root, schema)
+                write_ir(repo_root, schema)
+                logging.info(
+                    "Subset parse complete: %d classes in closure. "
+                    "Core language bindings left unchanged.",
+                    len(schema.classes),
+                )
+                return 0
 
     logging.info("Parsing ontology from %s ...", ontology_dir)
     schema = parse_ontology(ontology_dir, extensions_dir=extensions_dir)

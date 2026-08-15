@@ -241,6 +241,141 @@ namespace CaseUco
         /// <summary>Return the number of objects in the graph.</summary>
         public int Count => _objects.Count;
 
+        /// <summary>
+        /// Index cryptographic / perceptual hash values to node @ids (HashIntelligence).
+        /// </summary>
+        public Dictionary<string, List<HashHit>> IndexContentHashes()
+        {
+            var index = new Dictionary<string, List<HashHit>>(StringComparer.OrdinalIgnoreCase);
+            foreach (var obj in _objects)
+                WalkHashes(obj, obj.TryGetValue("@id", out var idObj) ? idObj as string ?? "" : "", index);
+            return index;
+        }
+
+        /// <summary>Return nodes that carry <paramref name="digest"/> (case-insensitive hex).</summary>
+        public List<HashHit> LookupHash(string digest)
+        {
+            if (digest == null)
+                return new List<HashHit>();
+            IndexContentHashes().TryGetValue(digest.ToLowerInvariant(), out var hits);
+            return hits ?? new List<HashHit>();
+        }
+
+        /// <summary>
+        /// Partition by Composition Profile module family (core / cac / extensions).
+        /// </summary>
+        public Dictionary<string, CaseGraph> PartitionByProfile(string profileId)
+        {
+            var parts = PartitionByLabel(node =>
+            {
+                if (!node.TryGetValue("@type", out var typesObj) || typesObj == null)
+                    return "core";
+                var blob = typesObj.ToString().ToLowerInvariant();
+                if (typesObj is IEnumerable enumerable && !(typesObj is string))
+                {
+                    var partsType = new List<string>();
+                    foreach (var item in enumerable)
+                        if (item != null) partsType.Add(item.ToString());
+                    blob = string.Join(" ", partsType).ToLowerInvariant();
+                }
+                if (blob.Contains("cacontology") || blob.Contains("cac-core") || blob.Contains("cac/"))
+                    return "cac";
+                if (blob.Contains("legalproc") || blob.Contains("cryptoinv") || blob.Contains("rico")
+                    || blob.Contains("solveit") || blob.Contains("toolcap"))
+                    return "extensions";
+                return "core";
+            });
+            foreach (var kv in parts)
+            {
+                kv.Value.TopologyProfile = profileId;
+                kv.Value.TopologyPartition = kv.Key;
+            }
+            return parts;
+        }
+
+        /// <summary>Optional partition metadata set by <see cref="PartitionByProfile"/>.</summary>
+        public string TopologyProfile { get; set; }
+
+        /// <summary>Optional partition name set by <see cref="PartitionByProfile"/>.</summary>
+        public string TopologyPartition { get; set; }
+
+        static void WalkHashes(object node, string ownerId, Dictionary<string, List<HashHit>> index)
+        {
+            if (node is List<object> list)
+            {
+                foreach (var item in list)
+                    WalkHashes(item, ownerId, index);
+                return;
+            }
+            var dict = node as Dictionary<string, object>;
+            if (dict == null)
+                return;
+            if (dict.TryGetValue("@id", out var idObj) && idObj is string sid)
+                ownerId = sid;
+            foreach (var kv in dict)
+            {
+                if (kv.Key == "uco-observable:hash" || kv.Key == "uco-observable:hashes"
+                    || kv.Key == "hash" || kv.Key == "hashes")
+                {
+                    var entries = kv.Value as IEnumerable;
+                    if (entries == null || kv.Value is string)
+                        entries = new[] { kv.Value };
+                    foreach (var entry in entries)
+                    {
+                        var map = entry as Dictionary<string, object>;
+                        if (map == null)
+                            continue;
+                        var digest = ExtractLexical(map, "uco-types:hashValue", "hashValue", "uco-observable:hashValue");
+                        var method = ExtractLexical(map, "uco-types:hashMethod", "hashMethod", "uco-observable:hashMethod");
+                        if (string.IsNullOrEmpty(digest))
+                            continue;
+                        var key = digest.ToLowerInvariant();
+                        if (!index.TryGetValue(key, out var hits))
+                        {
+                            hits = new List<HashHit>();
+                            index[key] = hits;
+                        }
+                        hits.Add(new HashHit { Id = ownerId, Method = method ?? "" });
+                    }
+                }
+                else
+                {
+                    WalkHashes(kv.Value, ownerId, index);
+                }
+            }
+        }
+
+        static string ExtractLexical(Dictionary<string, object> map, params string[] keys)
+        {
+            foreach (var key in keys)
+            {
+                if (!map.TryGetValue(key, out var raw) || raw == null)
+                    continue;
+                if (raw is Dictionary<string, object> typed
+                    && typed.TryGetValue("@value", out var inner) && inner != null)
+                    return inner.ToString();
+                if (raw is Dictionary<string, string> typedS
+                    && typedS.TryGetValue("@value", out var innerS) && innerS != null)
+                    return innerS;
+                return raw.ToString();
+            }
+            return null;
+        }
+
+        static string ToHexLower(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0)
+                return "";
+            var chars = new char[bytes.Length * 2];
+            const string hex = "0123456789abcdef";
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                chars[i * 2] = hex[bytes[i] >> 4];
+                chars[i * 2 + 1] = hex[bytes[i] & 0xF];
+            }
+            return new string(chars);
+        }
+
         /// <summary>Load a JSON-LD string into this graph (transactional; named OnDuplicate policy).</summary>
         public void Load(string json, string onDuplicate = null)
         {
@@ -1656,6 +1791,9 @@ namespace CaseUco
 
             if (value is bool boolValue)
                 return TypedLiteral("xsd:boolean", boolValue ? "true" : "false");
+
+            if (value is byte[] bytes)
+                return TypedLiteral("xsd:hexBinary", ToHexLower(bytes));
 
             if (value is sbyte || value is byte || value is short || value is ushort ||
                 value is int || value is uint || value is long || value is ulong)

@@ -28,6 +28,28 @@ def test_manifest_stable_hash(tmp_path: Path) -> None:
     assert first["file_count"] > 50
 
 
+def test_plan_reparse_leaf_extension_is_subset() -> None:
+    root = Path(__file__).resolve().parents[2]
+    from case_uco_generator.incremental import plan_reparse
+
+    plan = plan_reparse(root, ["extensions/cryptoinv/cryptoinv.ttl"])
+    assert plan["mode"] == "subset"
+    assert plan["reason"] == "extension-leaf-delta"
+    assert any(p.startswith("ontology/UCO/") or "/uco/" in p for p in plan["paths"])
+    assert "extensions/cryptoinv/cryptoinv.ttl" in plan["paths"]
+    cac_hits = [p for p in plan["paths"] if "cacontology" in p]
+    assert cac_hits == []
+
+
+def test_plan_reparse_core_forces_full() -> None:
+    root = Path(__file__).resolve().parents[2]
+    from case_uco_generator.incremental import plan_reparse
+
+    plan = plan_reparse(root, ["ontology/UCO/ontology/uco/core/core.ttl"])
+    assert plan["mode"] == "full"
+    assert plan["reason"] == "core-ontology-changed"
+
+
 def test_write_ir_round_trip(tmp_path: Path) -> None:
     # Write into a temp copy of the repo root structure.
     (tmp_path / "ontology").mkdir()

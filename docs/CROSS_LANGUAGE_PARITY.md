@@ -41,6 +41,16 @@ These operations exist in every language with parallel naming (adjusted only for
 | Merge on load (opt-in) | `on_duplicate="merge_compatible"` | `RejectDuplicates = false` | `setRejectDuplicates(false)` | `set_reject_duplicates(false)` |
 | Duplicate node error | `DuplicateNodeError` | `InvalidOperationException` | `IllegalStateException` | `DuplicateNodeError` / `GraphError` / `LoadError` |
 | Validate | `graph.validate()` | `graph.ValidateGraph()` | `graph.validate()` | `graph.validate()` |
+| File + hashes | `file_with_content_hashes(graph, …)` | `CompositionHelpers.FileWithContentHashes(graph, …)` | `CompositionHelpers.fileWithContentHashes(graph, …)` | `helpers::file_with_content_hashes(&mut graph, …)` |
+| CSAM / PhotoDNA evidence | `model_csam_evidence(graph, …)` | `CompositionHelpers.ModelCsamEvidence(graph, …)` | `CompositionHelpers.modelCsamEvidence(graph, …)` | `helpers::model_csam_evidence(&mut graph, …)` |
+| Tool run | `model_tool_run(graph, …)` | `CompositionHelpers.ModelToolRun(graph, …)` | `CompositionHelpers.modelToolRun(graph, …)` | `helpers::model_tool_run(&mut graph, …)` |
+| Investigation builder | `InvestigationBuilder(scenario, profile_id=…)` | `new InvestigationBuilder(scenario, profileId)` | `new InvestigationBuilder(scenario, profileId)` | `InvestigationBuilder::new(scenario, Some(id))` |
+| Add CSAM on builder | `builder.add_csam_evidence(…)` | `builder.AddCsamEvidence(…)` | `builder.addCsamEvidence(…)` | `builder.add_csam_evidence(…)` |
+| Build / critique | `builder.build()` / `builder.critique()` | `builder.Build()` / `builder.Critique()` | `builder.build()` / `builder.critique()` | `builder.build()` / `builder.critique()` |
+| Hash index | `graph.index_content_hashes()` | `graph.IndexContentHashes()` | `graph.indexContentHashes()` | `graph.index_content_hashes()` |
+| Lookup hash | `graph.lookup_hash(digest)` | `graph.LookupHash(digest)` | `graph.lookupHash(digest)` | `graph.lookup_hash(digest)` |
+| Partition by profile | `graph.partition_by_profile(id)` | `graph.PartitionByProfile(id)` | `graph.partitionByProfile(id)` | `graph.partition_by_profile(id)` |
+| Profile ids | `get_profile("HashIntelligence")` | `CompositionProfiles.HashIntelligence` | `CompositionProfiles.HASH_INTELLIGENCE` | `"HashIntelligence"` |
 
 ### Registry / Discovery
 
@@ -114,6 +124,7 @@ These differences follow each language's conventions and are not bugs:
 | Graph validation wrapper | `graph.validate()` | `graph.ValidateGraph()` | `graph.validate()` | `graph.validate()` | Wraps case_validate; requires case-utils on PATH |
 | Smoke test binary | — | `CaseUco.Smoke` | `SmokeTest` | `examples/smoke` | Python uses pytest instead |
 | Catalog bench harness (#73) | `run_python_bench.py` | `run_csharp_bench.sh` | `run_java_bench.sh` | `run_rust_bench.sh` | Python has full workload suite + baseline compare |
+| Helper construction | kwargs | object initializers | JavaBean setters | builders + `add_property` for inherited `hasFacet`/`name` | Rust generated types do not inherit `UcoObject.has_facet`; helpers attach Facets via `uco-core:hasFacet` |
 
 **#72 note:** Python, C#, and Java `partition_by_roots` / `PartitionByRoots` /
 `partitionByRoots` follow **outgoing and incoming** nested `@id` references when

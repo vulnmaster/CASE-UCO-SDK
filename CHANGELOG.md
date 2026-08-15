@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Topology Articulation (multi-language + dependent-only generate)
+
+- Fluent helpers and `InvestigationBuilder` now exist in **C#, Java, and
+  Rust** with the same Composition Profile IDs as Python
+  (`docs/CROSS_LANGUAGE_PARITY.md`).
+- `CaseGraph.LookupHash` / `lookupHash` / `lookup_hash` and
+  `PartitionByProfile` / `partitionByProfile` / `partition_by_profile`
+  added in all four languages. C# and Java serialize `byte[]` hash
+  values as `xsd:hexBinary` (additive serialization fix).
+- Incremental generate plans a **dependent-only** parse for leaf
+  extension Turtle changes (UCO+CASE + changed module + DAG dependents).
+  Core ontology changes and `--force` still do a full parse.
+- Ready-to-copy PR body: `topology/PR_DESCRIPTION.md`.
+- Upstream change-proposal skeleton (does **not** alter core OWL):
+  `change_proposals/photodna-perceptual-hash-facet.md`.
+
 #### Topology Articulation (Phases 2–5)
 
 - Incremental generate: content-hashed IR under `generator/ir/`. Unchanged

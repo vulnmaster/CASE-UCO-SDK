@@ -363,7 +363,7 @@ See the [bundled extensions](#bundled-extension-ontologies) for complete, valida
 
 With 428+ classes across 15 modules, finding the right class for your use case can be challenging. The SDK provides four ways to navigate the ontology.
 
-The [Topology Articulation](TOPOLOGY.md) adds Composition Profiles, incremental generation, fluent helpers, and an InvestigationBuilder on top of the four language bindings. Nothing in that layer requires network access at investigation time.
+The [Topology Articulation](TOPOLOGY.md) adds Composition Profiles, incremental generation, fluent helpers, and an InvestigationBuilder on top of the four language bindings (Python, C#, Java, Rust — see [CROSS_LANGUAGE_PARITY.md](docs/CROSS_LANGUAGE_PARITY.md)). Nothing in that layer requires network access at investigation time.
 
 ### Composition Profiles
 
