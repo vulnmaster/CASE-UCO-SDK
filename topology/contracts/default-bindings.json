@@ -153,6 +153,29 @@
           "builder_method": "add_csam_evidence",
           "hint": "CSAM media must carry hashes and a hashing action."
         }
+      },
+      {
+        "id": "PROF-CAC-003",
+        "when": "graph",
+        "severity": "medium",
+        "blocking": false,
+        "applies_to": ["*"],
+        "kind": "spine_kind_present",
+        "params": { "kinds": ["Role", "Phase", "InvestigativeAction"] },
+        "repair": { "hint": "Anchor FullCACLifecycle graphs with Role, Phase, and InvestigativeAction." }
+      },
+      {
+        "id": "PROF-CAC-004",
+        "when": "step",
+        "severity": "medium",
+        "blocking": false,
+        "applies_to": ["*"],
+        "kind": "trajectory_completeness",
+        "params": {
+          "trajectories": ["grooming-phase"],
+          "hosts": ["Message", "OnlineGrooming", "InitialContactPhase"]
+        },
+        "repair": { "hint": "Advance grooming-phase using existing OWL types; generate-lag is PROF-TRAJ-NOT-GENERATED." }
       }
     ],
     "AirGappedFieldTriage": [
