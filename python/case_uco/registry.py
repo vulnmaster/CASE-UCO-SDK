@@ -369,3 +369,25 @@ def modeling_warnings(class_name: str) -> list[str]:
         warnings.extend(_MODELING_WARNINGS[canonical_name])
 
     return warnings
+
+
+def list_profiles() -> list[dict[str, Any]]:
+    """Return Composition Profiles as dicts (additive topology API)."""
+    from case_uco.topology.profiles import list_profiles as _list
+
+    return [profile.as_dict() for profile in _list()]
+
+
+def get_profile(profile_id: str) -> dict[str, Any] | None:
+    """Return one Composition Profile by id, or None."""
+    from case_uco.topology.profiles import get_profile as _get
+
+    profile = _get(profile_id)
+    return None if profile is None else profile.as_dict()
+
+
+def recommend_profile(scenario: str) -> list[dict[str, Any]]:
+    """Rank Composition Profiles for a free-text scenario."""
+    from case_uco.topology.profiles import recommend_profile as _recommend
+
+    return _recommend(scenario)

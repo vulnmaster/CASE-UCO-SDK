@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Topology Articulation (Phase 1 — Semantic Core)
+
+- Seven versioned **Composition Profiles** under `topology/profiles/`
+  (`MinimalForensics`, `AirGappedFieldTriage`, `HashIntelligence`,
+  `ToolMapping`, `LegalProcess`, `FullCACLifecycle`, `CrossOntology`).
+- Queryable at runtime via `case_uco.topology` and `case_uco.registry`
+  (`list_profiles`, `get_profile`, `recommend_profile`).
+- CLI: `case-uco-explore profiles|profile|spine` — JSON only, no OWL parse.
+- MCP tools: `list_composition_profiles`, `get_composition_profile`,
+  `recommend_composition_profile`, `recommend_facet_set_for_profile`,
+  `get_cac_semantic_spine`, plus resource `case-uco://composition-profiles`.
+- Docs: `docs/COMPOSITION_PROFILES.md`, `topology/profiles/INDEX.md`.
+
 #### Topology Articulation (Phase 0)
 
 - Added `topology/` — a permanent, machine-readable articulation of the

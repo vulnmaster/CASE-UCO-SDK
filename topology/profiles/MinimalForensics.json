@@ -1,0 +1,63 @@
+{
+  "id": "MinimalForensics",
+  "version": "1.0.0",
+  "title": "Minimal Forensics",
+  "description": "Smallest CASE/UCO slice that still produces a validated evidence graph: one investigation, one tool-backed action, and hashed file/device observables.",
+  "mission": "Get a field examiner or agent from a file listing to a SHACL-valid graph without loading CAC or upper profiles.",
+  "air_gapped": true,
+  "required_modules": [
+    "uco.core",
+    "uco.observable",
+    "uco.action",
+    "uco.tool",
+    "uco.types",
+    "case.investigation"
+  ],
+  "recommended_modules": [
+    "uco.identity",
+    "uco.role"
+  ],
+  "facet_sets": {
+    "File": {
+      "required": ["FileFacet", "ContentDataFacet"],
+      "recommended": [],
+      "notes": "One ObservableObject (or File) per real-world file. Hash lives on ContentDataFacet, never as a bare string."
+    },
+    "ObservableObject": {
+      "required": ["FileFacet", "ContentDataFacet"],
+      "recommended": ["DeviceFacet"]
+    },
+    "Device": {
+      "required": ["DeviceFacet"],
+      "recommended": ["OperatingSystemFacet"]
+    },
+    "DiskImage": {
+      "required": ["ImageFacet", "FileFacet", "ContentDataFacet"],
+      "recommended": []
+    }
+  },
+  "spine_anchors": [
+    "cac-core:EnduringEntity",
+    "cac-core:Artifact",
+    "cac-core:InvestigativeAction"
+  ],
+  "upper_ontology_profiles": [],
+  "related_recipes": [
+    "docs/recipes/starter-filesystem-report.md",
+    "docs/recipes/starter-tool-run.md",
+    "docs/recipes/file-system.md",
+    "docs/recipes/chain-of-custody.md"
+  ],
+  "recipe_skeleton": {
+    "summary": "Investigation + Tool + InvestigativeAction + hashed File observables.",
+    "steps": [
+      "Create Investigation as the case container.",
+      "Create Tool with name and version.",
+      "Create InvestigativeAction; set instrument=Tool.",
+      "For each file: ObservableObject with FileFacet + ContentDataFacet(Hash).",
+      "Link action object/result to the observables.",
+      "Validate before writing."
+    ]
+  },
+  "keywords": ["triage", "file", "hash", "starter", "disk", "field"]
+}

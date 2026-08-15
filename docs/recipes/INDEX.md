@@ -2,7 +2,7 @@
 
 Practical patterns for common digital forensics and cyber-investigation workflows. Each recipe shows how to model real-world data using the SDK across all four supported languages.
 
-For the full class reference, see [ONTOLOGY_REFERENCE.md](../../ONTOLOGY_REFERENCE.md). For domain-to-class mapping, see [MAPPING_GUIDE.md](../MAPPING_GUIDE.md). For performance guidance, see [PERFORMANCE_GUIDE.md](../PERFORMANCE_GUIDE.md).
+For the full class reference, see [ONTOLOGY_REFERENCE.md](../../ONTOLOGY_REFERENCE.md). For domain-to-class mapping, see [MAPPING_GUIDE.md](../MAPPING_GUIDE.md). For performance guidance, see [PERFORMANCE_GUIDE.md](../PERFORMANCE_GUIDE.md). For first-class Composition Profiles (modules + Facet sets + CAC spine), see [COMPOSITION_PROFILES.md](../COMPOSITION_PROFILES.md).
 
 ---
 

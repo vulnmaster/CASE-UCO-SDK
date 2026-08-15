@@ -16,7 +16,7 @@ environments.
 | Layer | What it articulates | Primary artifacts |
 |---|---|---|
 | 0. Baseline | Observed module DAG, class/facet inventory, recipe composition patterns | `module-dependency-dag.*`, `class-and-facet-inventory.*`, `composition-patterns.*` |
-| 1. Semantic core | CAC spine + UCO hierarchy + Composition Profiles | `semantic-spine.json`, `profiles/` |
+| 1. Semantic core | CAC spine + UCO hierarchy + Composition Profiles | `semantic-spine.json`, [`profiles/`](profiles/INDEX.md) |
 | 2. Generation | Versioned, content-hashed IR and incremental generation | `../generator/ir/` |
 | 3. Runtime | Partitioning, indexes, hash-intelligence helpers | documented in `sdk-layers.json` |
 | 4. Agent / control | Executable recipe DAGs and InvestigationBuilder | `recipe-dags/` |
