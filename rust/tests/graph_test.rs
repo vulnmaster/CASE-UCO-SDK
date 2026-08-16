@@ -1,9 +1,10 @@
 //! Tests for CaseGraph builder and JSON-LD serialization.
 
-use case_uco::graph::CaseGraph;
+use case_uco::graph::{CaseGraph, GraphError, PartitionBoundary, PartitionOptions};
 use case_uco::uco::observable::ObservableObject;
 use case_uco::uco::tool::Tool;
 use serde_json::Value;
+use std::collections::BTreeMap;
 
 #[test]
 fn test_create_tool() {
@@ -364,6 +365,169 @@ fn test_partition_by_roots_reject_shared() {
         .err()
         .expect("overlap should fail");
     assert!(err.to_string().contains("shared node"));
+}
+
+#[test]
+fn test_partition_marking_boundary_fails_closed() {
+    let mut graph = CaseGraph::new("http://example.org/kb/");
+    graph
+        .upsert_node(
+            "kb:public-root",
+            Some(serde_json::json!("uco-core:UcoObject")),
+            serde_json::json!({
+                "uco-core:objectMarking": {"@id": "kb:public-marking"},
+                "uco-core:object": {"@id": "kb:protected"}
+            })
+            .as_object()
+            .cloned(),
+        )
+        .expect("public root");
+    graph
+        .upsert_node(
+            "kb:protected",
+            Some(serde_json::json!("uco-core:UcoObject")),
+            serde_json::json!({
+                "uco-core:objectMarking": {"@id": "kb:secret-marking"}
+            })
+            .as_object()
+            .cloned(),
+        )
+        .expect("protected");
+    let options = PartitionOptions {
+        include_incoming: false,
+        boundary_policy: "marking-and-authorization".into(),
+        ..PartitionOptions::default()
+    };
+
+    let error = graph
+        .partition_by_roots_with_manifest(&["kb:public-root".into()], &options)
+        .err()
+        .expect("boundary must fail");
+    match error {
+        GraphError::PartitionBoundary {
+            root_id,
+            node_id,
+            missing_markings,
+            ..
+        } => {
+            assert_eq!(root_id, "kb:public-root");
+            assert_eq!(node_id, "kb:protected");
+            assert!(missing_markings.contains(&graph.expand_iri("kb:secret-marking")));
+        }
+        other => panic!("unexpected error: {other}"),
+    }
+}
+
+#[test]
+fn test_partition_home_route_preserves_union() {
+    let mut graph = CaseGraph::new("http://example.org/kb/");
+    for (id, properties) in [
+        (
+            "kb:public-root",
+            serde_json::json!({
+                "uco-core:objectMarking": {"@id": "kb:public-marking"},
+                "uco-core:object": {"@id": "kb:protected"}
+            }),
+        ),
+        (
+            "kb:secret-root",
+            serde_json::json!({
+                "uco-core:objectMarking": [
+                    {"@id": "kb:public-marking"},
+                    {"@id": "kb:secret-marking"}
+                ],
+                "uco-core:object": {"@id": "kb:protected"}
+            }),
+        ),
+        (
+            "kb:protected",
+            serde_json::json!({
+                "uco-core:objectMarking": {"@id": "kb:secret-marking"},
+                "uco-core:name": "protected evidence"
+            }),
+        ),
+    ] {
+        graph
+            .upsert_node(
+                id,
+                Some(serde_json::json!("uco-core:UcoObject")),
+                properties.as_object().cloned(),
+            )
+            .expect("node");
+    }
+    let mut root_boundaries = BTreeMap::new();
+    root_boundaries.insert(
+        "kb:public-root".into(),
+        PartitionBoundary {
+            markings: vec!["kb:public-marking".into()],
+            authorizations: vec![],
+        },
+    );
+    root_boundaries.insert(
+        "kb:secret-root".into(),
+        PartitionBoundary {
+            markings: vec!["kb:public-marking".into(), "kb:secret-marking".into()],
+            authorizations: vec![],
+        },
+    );
+    let options = PartitionOptions {
+        include_incoming: false,
+        boundary_policy: "marking-and-authorization".into(),
+        cross_boundary_policy: "home-partition-reference".into(),
+        root_boundaries,
+        validation_bundle: serde_json::json!({"extensions": ["example:full"]}),
+        ..PartitionOptions::default()
+    };
+
+    let result = graph
+        .partition_by_roots_with_manifest(
+            &["kb:public-root".into(), "kb:secret-root".into()],
+            &options,
+        )
+        .expect("partition");
+    assert!(!result.partitions["kb:public-root"].contains("kb:protected"));
+    assert!(result.partitions["kb:secret-root"].contains("kb:protected"));
+    assert_eq!(
+        result.manifest["validation_mode"],
+        serde_json::json!("referenced-partition-set")
+    );
+    assert_eq!(
+        result.manifest["home_partition_routes"]["kb:protected"],
+        serde_json::json!("kb:secret-root")
+    );
+    assert!(graph.verify_partition_union(&result.partitions).equivalent);
+}
+
+#[test]
+fn test_partition_support_graph_safe_manifest() {
+    let mut graph = CaseGraph::new("http://example.org/kb/");
+    graph
+        .upsert_node("kb:shared", Some(serde_json::json!("uco-core:UcoObject")), None)
+        .expect("shared");
+    for root in ["kb:a", "kb:b"] {
+        graph
+            .upsert_node(
+                root,
+                Some(serde_json::json!("uco-core:UcoObject")),
+                serde_json::json!({"uco-core:object": {"@id": "kb:shared"}})
+                    .as_object()
+                    .cloned(),
+            )
+            .expect("root");
+    }
+    let options = PartitionOptions {
+        include_incoming: false,
+        shared_node_policy: "support-graph".into(),
+        manifest_detail: "safe".into(),
+        ..PartitionOptions::default()
+    };
+
+    let result = graph
+        .partition_by_roots_with_manifest(&["kb:a".into(), "kb:b".into()], &options)
+        .expect("partition");
+    assert!(result.partitions.contains_key("_support"));
+    assert!(result.manifest["partitions"]["kb:a"].get("node_ids").is_none());
+    assert!(graph.verify_partition_union(&result.partitions).equivalent);
 }
 
 #[test]

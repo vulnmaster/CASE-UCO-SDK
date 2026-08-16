@@ -1354,6 +1354,7 @@ MAPPING_GUIDE_INDEX: list[dict] = [
             "sysdiagnose", "system_logs", "logarchive", "iphone-os", "ufade",
             "pymobiledevice3", "summaries", "batterybdc", "tracev3",
             "ips", "stackshot", "crashes_and_spins", "runningboard",
+            "full sysdiagnose", "sysdiagnose_", "wifi/", "preferences/",
         ],
         "pattern": "Device + sysdiagnose FileFacet directory + AppleUnifiedLogArchive/EventLog",
         "classes": [
@@ -1364,6 +1365,7 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         "anti_patterns": [
             "Don't flatten the sysdiagnose tree into one File observable — keep logarchive and high-value children linked",
             "Don't invent a SysdiagnoseFacet — use FileFacet directories plus AppleUnifiedLogArchive",
+            "Don't label a standalone logarchive + crash/syslog FOSS collect as a full sysdiagnose — classify the local package shape first",
         ],
         "starter_kit": "docs/recipes/ios-sysdiagnose.md",
         "code_skeleton": "logarchive = graph.create(AppleUnifiedLogArchive, name='system_logs.logarchive', has_facet=[FileFacet(is_directory=[True])])",
@@ -1374,6 +1376,7 @@ MAPPING_GUIDE_INDEX: list[dict] = [
             "unified log", "unified logs", "oslog", "unifiedlog_iterator", "notari",
             "ileapp", "signpost", "subsystem", "category", "tracev3",
             "timesync", "boot_uuid", "mach_continuous_time", "simpledump",
+            "standalone", "foss", "crash pull", "live syslog", "apps list",
         ],
         "pattern": "AppleUnifiedLogArchive → EventRecord + Event + AnalyticTool outputs (CSV/SQLite)",
         "classes": [
@@ -1384,6 +1387,8 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         "anti_patterns": [
             "Don't invent UnifiedLogFacet — map rows with EventRecordFacet and Dictionary attributes",
             "Don't claim message text without running a parser on the binary logarchive",
+            "Don't expand million-row decoder output into one graph — retain CSV/JSONL externally and sample a bounded number of EventRecords",
+            "Don't assert device-absolute UTC without explicit timesync anchoring; preserve continuous time and boot UUID evidence",
         ],
         "starter_kit": "docs/recipes/apple-unified-logs.md",
         "code_skeleton": "record = graph.create(EventRecord, has_facet=[EventRecordFacet(event_record_text=..., event_record_service_name=...)])",

@@ -70,17 +70,33 @@ class PythonBackend(CodegenBackend):
             "    DuplicateClassIriError,\n"
             "    DuplicateNodeError,\n"
             "    InvalidSplitSizeError,\n"
+            "    PartitionBoundaryError,\n"
+            "    class_registry_cache_info,\n"
             "    clear_class_registry_cache,\n"
+            "    discover_extension_class_providers,\n"
+            "    register_extension_classes,\n"
+            "    unregister_extension_source,\n"
+            ")\n"
+            "from case_uco.streaming import (\n"
+            "    BoundedStreamingWriteMetrics,\n"
+            "    JsonLdStreamWriter,\n"
             ")\n"
             "from case_uco.typed_literal import TypedLiteral\n\n"
             "__all__ = [\n"
+            '    "BoundedStreamingWriteMetrics",\n'
             '    "CASEGraph",\n'
             '    "DeserializationWarning",\n'
             '    "DuplicateClassIriError",\n'
             '    "DuplicateNodeError",\n'
             '    "InvalidSplitSizeError",\n'
+            '    "JsonLdStreamWriter",\n'
+            '    "PartitionBoundaryError",\n'
             '    "TypedLiteral",\n'
+            '    "class_registry_cache_info",\n'
             '    "clear_class_registry_cache",\n'
+            '    "discover_extension_class_providers",\n'
+            '    "register_extension_classes",\n'
+            '    "unregister_extension_source",\n'
             "]\n"
             f'__version__ = "{self._package_version()}"\n',
             encoding="utf-8",

@@ -257,8 +257,8 @@ jobs:
       - name: Type check
         run: cd python && mypy case_uco/ --ignore-missing-imports
 
-  bench-python:
-    name: Benchmark Python (advisory)
+  bench-cross-language:
+    name: Cross-language benchmark + RDF gate
     needs: generate
     runs-on: ubuntu-latest
     steps:
@@ -270,6 +270,17 @@ jobs:
         with:
           python-version: "3.12"
 
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "8.0.x"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: dtolnay/rust-toolchain@stable
+
       - name: Download generated sources
         uses: actions/download-artifact@v8
         with:
@@ -279,11 +290,10 @@ jobs:
       - name: Install dependencies
         run: pip install rdflib jinja2
 
-      - name: Run synthetic performance benchmarks (small tier)
-        run: |
-          mkdir -p artifacts/bench
-          python3 benchmarks/run_python_bench.py --tier small --out artifacts/bench/python-small.json
-          test -s artifacts/bench/python-small.json
+      - name: Run four-language workloads and RDF equivalence (small tier)
+        env:
+          CASE_UCO_BENCH_REPEATS: "3"
+        run: ./benchmarks/run_release_benchmarks.sh --tier small
 
       - name: Compare against baseline (v1.22 advisory median policy)
         run: |
@@ -292,12 +302,12 @@ jobs:
             --result artifacts/bench/python-small.json \
             --advisory
 
-      - name: Upload bench result
+      - name: Upload benchmark and release reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: python-bench-small
-          path: artifacts/bench/python-small.json
+          name: cross-language-bench-small
+          path: artifacts/bench/
           if-no-files-found: warn
 
   test-critic-windows:

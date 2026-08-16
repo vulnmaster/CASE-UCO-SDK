@@ -8,7 +8,7 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.23.1** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1231---2026-07-28)
+**v1.24.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1240---2026-08-16)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -20,7 +20,8 @@ The SDK works with AI coding assistants (Cursor, Claude Code, Hermes, etc.) — 
 
 The SDK is auto-generated from the official CASE 1.5.0 and UCO 1.5.0 ontology sources. Every class, property, and vocabulary term in the published specifications has a corresponding typed class in each language. The generated code gives you:
 
-- **Full ontology coverage** — all 428 classes across 15 modules (including extensions)
+- **Full core ontology coverage** — all 428 CASE/UCO classes across 15 modules,
+  plus discoverable bundled extension classes in the runtime registry
 - **Typed properties** with correct JSON-LD serialization (IRIs, typed literals, nested objects)
 - **Required-field validation** — ontology-mandated properties are checked before graph insertion
 - **Automatic JSON-LD context** — the standard CASE/UCO namespace prefixes are built in; serialized output includes only the prefixes actually used in the graph
@@ -40,7 +41,7 @@ Beyond the generated code, the repository provides:
 
 Install the SDK package for your language. No need to clone the repo or run the generator.
 
-**v1.23.1** ships installable artifacts on the [GitHub Release](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.23.1) (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations). Registry publication to PyPI, NuGet, Maven Central, and crates.io is opt-in and is **not** enabled for this tag. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
+**v1.24.0** ships installable artifacts on the [GitHub Release](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.24.0) (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations). Registry publication to PyPI, NuGet, Maven Central, and crates.io is opt-in and is **not** enabled for this tag. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
 
 When registry packages are published in a later release:
 
@@ -56,7 +57,7 @@ For Java (once on Maven Central), add to your `pom.xml`:
 <dependency>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.23.1</version>
+    <version>1.24.0</version>
 </dependency>
 ```
 
@@ -76,6 +77,24 @@ Only install what you need for your language:
 | C# | .NET SDK 8.0+ |
 | Java | JDK 11+ and Maven |
 | Rust | Rust toolchain (cargo) |
+
+### Baseline compute requirements
+
+The SDK does not require a GPU. These figures cover the SDK, language
+toolchains, validation data, caches, and generated artifacts; evidence storage
+is excluded and must be sized separately.
+
+| Item | Minimum baseline | Recommended |
+| --- | ---: | ---: |
+| CPU | 4 cores | 8 or more cores for concurrent generation and validation |
+| RAM | 8 GB | 16 GB; large in-memory graphs may require 32–64 GB |
+| GPU | None | None |
+| VRAM (if GPU) | — | — |
+| App/DB disk (excluding evidence) | 20 GB | 40 GB or more for build caches and generated artifacts |
+
+See [Compute and Platform Support](docs/COMPUTE.md) for scope, architecture
+support, and the native-validation checklist. The machine-readable baseline is
+[`catalog/compute.yaml`](catalog/compute.yaml).
 
 ### Contribute to the SDK (Developer Install)
 
@@ -559,6 +578,7 @@ All four language packages are released in lockstep from the same ontology sourc
 
 | SDK Version | UCO | CASE | Python `case-uco` | C# `CaseUco` | Java `case-uco` | Rust `case-uco` |
 |-------------|-----|------|-------------------|--------------|-----------------|-----------------|
+| 1.24.0 | 1.5.0 | 1.5.0 | 1.24.0 | 1.24.0 | 1.24.0 | 1.24.0 |
 | 1.23.1 | 1.4.0 | 1.4.0 | 1.23.1 | 1.23.1 | 1.23.1 | 1.23.1 |
 | 1.23.0 | 1.4.0 | 1.4.0 | 1.23.0 | 1.23.0 | 1.23.0 | 1.23.0 |
 | 1.22.4 | 1.4.0 | 1.4.0 | 1.22.4 | 1.22.4 | 1.22.4 | 1.22.4 |

@@ -42,6 +42,8 @@ fastmcp dev mcp_server/server.py
 | `get_recipes` | `scenario: str, limit?: int, include_content?: bool` | Find multiple ranked recipes for multi-domain scenarios |
 | `route_investigation_content` | `content_text?, source_path?, max_families?` | Classify ANY submission by investigation family (CAC, violent crime, financial/crypto, court filings, intrusion, mobile, email, filesystem, civil, corporate) and return recipes, extensions, namespaces, CDO upper-ontology profiles — or the extension-gap workflow for unseen data types |
 | `route_cac_content` | `content_text?, source_path?, output_format?, include_recipe_content?, max_recipes?` | Detect CAC domains in submitted content and return multiple CAC recipes plus validation guidance |
+| `classify_apple_package_shape` | `package_root, profile?` | Fail-closed classification of a bounded local Apple directory/inventory as full sysdiagnose or standalone FOSS logarchive package; safe metadata only |
+| `build_acquisition_package_graph` | `package_root, output_path, profile?, max_event_records?, shareable?, event_excerpt_path?, event_message_policy?, extensions?` | Write a bounded Apple/SOLVE-IT package graph with optional CSV/JSONL event sample and share-safe path/identifier/message handling |
 | `list_all_vocabs` | (none) | All vocabulary/enum types with members |
 | `process_document_file` | `source_path, output_path, file_kind?, upload_id?, progress_output?` | Process a supported local synthetic document (receipt image, PDF, Office, CSV/table) into bounded CASE/UCO-shaped JSON-LD |
 | `validate_graph` | `graph_path: str, allow_warning?: bool, extensions?: list[str]` | Run `case_validate` against JSON-LD/Turtle; `extensions=['cac']` uses the press-release subset; `extensions=['cac:full']` uses the full manifest |
@@ -64,9 +66,10 @@ When you describe a forensic scenario in natural language, the AI agent:
 2. Calls `find_classes_for_domain` or `search_classes` to identify relevant types
 3. Calls `get_class_details` on each type to see its properties
 4. For CAC content, calls `route_cac_content` to get multiple matching recipes and validation guidance
-5. Optionally calls `get_recipe` or `get_recipes` to find code examples
-6. Writes correct SDK code using the exact class names and property names
-7. Calls `validate_graph` with the matching `extensions=[...]` on the finished graph — strict concept coverage rejects undeclared terms and routes the agent to the change-proposal / extension workflow
+5. For Apple collection packages, calls `classify_apple_package_shape` before choosing full-sysdiagnose versus standalone-FOSS guidance, then optionally calls `build_acquisition_package_graph` for a bounded share-safe graph
+6. Optionally calls `get_recipe` or `get_recipes` to find code examples
+7. Writes correct SDK code using the exact class names and property names
+8. Calls `validate_graph` with the matching `extensions=[...]` on the finished graph — strict concept coverage rejects undeclared terms and routes the agent to the change-proposal / extension workflow
 
 This is much faster and more accurate than the agent reading markdown documentation.
 
@@ -132,6 +135,37 @@ mcp_servers:
 Run `/reload-mcp` in Hermes after editing the config. All tools are then
 discoverable by the agent alongside its built-in tools.
 
+Apple package workflow (issue #99):
+
+```text
+classify_apple_package_shape(package_root="/cases/evidence/apple-collect", profile="auto")
+build_acquisition_package_graph(
+  package_root="/cases/evidence/apple-collect",
+  output_path="/cases/workspace/apple-package.jsonld",
+  profile="auto",
+  max_event_records=50,
+  event_excerpt_path="/cases/evidence/apple-collect/unifiedlog_excerpt.jsonl",
+  shareable=true,
+  event_message_policy="omit",
+  extensions=["solveit"],
+)
+validate_graph(
+  graph_path="/cases/workspace/apple-package.jsonld",
+  extensions=["solveit"],
+  strict_concepts=true,
+)
+```
+
+`auto` intentionally refuses unsupported or ambiguous trees. A full
+`sysdiagnose_*` tree requires `system_logs.logarchive` plus strong sysdiagnose
+markers; standalone FOSS `logarchive` + crash pull + live syslog/apps inventory
+uses separate guidance and must not be called a full sysdiagnose. Binary
+`.tracev3` stores stay external. CSV/JSONL decoder output also stays external;
+only the bounded `max_event_records` sample is represented as `EventRecord` /
+`Event`. Shareable mode normalizes `filePath`, redacts common identifiers, and
+omits messages by default. Device-absolute time is not asserted unless inventory
+metadata explicitly establishes timesync anchoring.
+
 Law-enforcement deployment notes:
 
 - The server is local-only (stdio); it performs no network calls at runtime.
@@ -151,7 +185,8 @@ Law-enforcement deployment notes:
 ### Filesystem workspace policy
 
 Production deployments should confine the file-handling tools
-(`process_document_file`, `validate_graph`) to explicit directories via
+(`process_document_file`, `classify_apple_package_shape`,
+`build_acquisition_package_graph`, `validate_graph`) to explicit directories via
 environment variables on the server process:
 
 ```yaml

@@ -4,8 +4,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 | Metric | Count |
 |--------|-------|
-| Classes | 2877 |
-| Direct properties | 2418 |
+| Classes | 2933 |
+| Direct properties | 2467 |
 | Modules | 79 |
 | Vocabulary types | 54 |
 
@@ -17,7 +17,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 - [ext.aeo.identity](#extaeoidentity) (2 classes)
 - [ext.aeo.objective](#extaeoobjective) (1 classes)
 - [ext.attack-technique.attack](#extattack-techniqueattack) (27 classes)
-- [ext.cac.cac-core](#extcaccac-core) (19 classes)
+- [ext.cac.cac-core](#extcaccac-core) (20 classes)
 - [ext.cac.cacontology](#extcaccacontology) (34 classes)
 - [ext.cac.cacontology-ai-csam](#extcaccacontology-ai-csam) (37 classes)
 - [ext.cac.cacontology-analyst-wellbeing](#extcaccacontology-analyst-wellbeing) (4 classes)
@@ -28,8 +28,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 - [ext.cac.cacontology-detection](#extcaccacontology-detection) (27 classes)
 - [ext.cac.cacontology-educational-exploitation](#extcaccacontology-educational-exploitation) (40 classes)
 - [ext.cac.cacontology-extremist-enterprises](#extcaccacontology-extremist-enterprises) (48 classes)
-- [ext.cac.cacontology-forensics](#extcaccacontology-forensics) (50 classes)
-- [ext.cac.cacontology-grooming](#extcaccacontology-grooming) (78 classes)
+- [ext.cac.cacontology-forensics](#extcaccacontology-forensics) (54 classes)
+- [ext.cac.cacontology-grooming](#extcaccacontology-grooming) (84 classes)
 - [ext.cac.cacontology-hotlines](#extcaccacontology-hotlines) (26 classes)
 - [ext.cac.cacontology-institutional-exploitation](#extcaccacontology-institutional-exploitation) (45 classes)
 - [ext.cac.cacontology-integration-patterns](#extcaccacontology-integration-patterns) (33 classes)
@@ -37,12 +37,12 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 - [ext.cac.cacontology-investigation-coordination](#extcaccacontology-investigation-coordination) (54 classes)
 - [ext.cac.cacontology-law-enforcement-corruption](#extcaccacontology-law-enforcement-corruption) (27 classes)
 - [ext.cac.cacontology-legal-harmonization](#extcaccacontology-legal-harmonization) (78 classes)
-- [ext.cac.cacontology-legal-outcomes](#extcaccacontology-legal-outcomes) (62 classes)
+- [ext.cac.cacontology-legal-outcomes](#extcaccacontology-legal-outcomes) (81 classes)
 - [ext.cac.cacontology-multi-jurisdiction](#extcaccacontology-multi-jurisdiction) (83 classes)
 - [ext.cac.cacontology-partnerships](#extcaccacontology-partnerships) (39 classes)
 - [ext.cac.cacontology-physical-evidence](#extcaccacontology-physical-evidence) (44 classes)
 - [ext.cac.cacontology-platform-infrastructure](#extcaccacontology-platform-infrastructure) (37 classes)
-- [ext.cac.cacontology-platforms](#extcaccacontology-platforms) (60 classes)
+- [ext.cac.cacontology-platforms](#extcaccacontology-platforms) (71 classes)
 - [ext.cac.cacontology-prevention](#extcaccacontology-prevention) (87 classes)
 - [ext.cac.cacontology-production](#extcaccacontology-production) (34 classes)
 - [ext.cac.cacontology-recantation](#extcaccacontology-recantation) (18 classes)
@@ -50,7 +50,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 - [ext.cac.cacontology-sadistic-online-exploitation](#extcaccacontology-sadistic-online-exploitation) (2 classes)
 - [ext.cac.cacontology-sex-offender-registry](#extcaccacontology-sex-offender-registry) (62 classes)
 - [ext.cac.cacontology-sex-trafficking](#extcaccacontology-sex-trafficking) (37 classes)
-- [ext.cac.cacontology-sextortion](#extcaccacontology-sextortion) (52 classes)
+- [ext.cac.cacontology-sextortion](#extcaccacontology-sextortion) (54 classes)
 - [ext.cac.cacontology-specialized-units](#extcaccacontology-specialized-units) (46 classes)
 - [ext.cac.cacontology-stranger-abduction](#extcaccacontology-stranger-abduction) (64 classes)
 - [ext.cac.cacontology-street-recruitment](#extcaccacontology-street-recruitment) (64 classes)
@@ -60,17 +60,17 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 - [ext.cac.cacontology-temporal](#extcaccacontology-temporal) (26 classes)
 - [ext.cac.cacontology-training](#extcaccacontology-training) (42 classes)
 - [ext.cac.cacontology-undercover](#extcaccacontology-undercover) (58 classes)
-- [ext.cac.cacontology-us-ncmec](#extcaccacontology-us-ncmec) (25 classes)
+- [ext.cac.cacontology-us-ncmec](#extcaccacontology-us-ncmec) (29 classes)
 - [ext.cac.cacontology-usa-federal-law](#extcaccacontology-usa-federal-law) (40 classes)
 - [ext.cac.cacontology-usa-legislative](#extcaccacontology-usa-legislative) (18 classes)
-- [ext.cac.cacontology-victim-impact](#extcaccacontology-victim-impact) (67 classes)
+- [ext.cac.cacontology-victim-impact](#extcaccacontology-victim-impact) (72 classes)
 - [ext.cryptoinv.cryptoinv](#extcryptoinvcryptoinv) (13 classes)
 - [ext.drugs.drug](#extdrugsdrug) (1 classes)
 - [ext.legalproc.legalproc](#extlegalproclegalproc) (8 classes)
 - [ext.rico.rico](#extricorico) (2 classes)
 - [ext.solveit.solveit-analysis](#extsolveitsolveit-analysis) (9 classes)
 - [ext.solveit.solveit-core](#extsolveitsolveit-core) (6 classes)
-- [ext.solveit.solveit-data](#extsolveitsolveit-data) (187 classes)
+- [ext.solveit.solveit-data](#extsolveitsolveit-data) (191 classes)
 - [ext.solveit.solveit-observable](#extsolveitsolveit-observable) (88 classes)
 - [ext.solveit.solveit-tool-profile](#extsolveitsolveit-tool-profile) (4 classes)
 - [ext.solveit.solveit-wa](#extsolveitsolveit-wa) (2 classes)
@@ -2070,6 +2070,14 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
 
+### ConditioningPhase
+
+*Temporal phase in which an offender shapes victim readiness, situational constraints, or compliance preparatory to the primary exploitation act — through rapport, deception, isolation, normalization, desensitization, dependency, or compliance training.*
+
+**Parents:** Phase | **IRI:** `https://cacontology.projectvic.org/core#ConditioningPhase`
+
+*No direct or inherited properties.*
+
 ### CoordinationEvent
 
 *An event representing coordination, information sharing, or collaborative activity among stakeholders.*
@@ -2690,7 +2698,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *Legal indictment involving multiple defendants in coordinated criminal enterprise (e.g., 19-count superseding indictment).*
 
-**Parents:** ObservableObject | **IRI:** `https://cacontology.projectvic.org#MultiDefendantIndictment`
+**Parents:** Indictment, ObservableObject | **IRI:** `https://cacontology.projectvic.org#MultiDefendantIndictment`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -2707,6 +2715,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| chargingInstrumentCounts | integer | zero_or_one | No | Total number of counts charged in a charging instrument. Generalizes indictment-specific count properties to complain... |
+| filedDate | date | zero_or_one | No | Date the charging instrument was filed with the court. |
 
 ### OffenderRole
 
@@ -2827,7 +2837,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 ### Subject
 
-*Role of a person whose conduct is within the scope of a CAC investigation. Equivalent to case-investigation:Subject (https://ontology.caseontology.org/case/investigation/Subject); alias pending the alignment decision in CAC-Ontology issue #41.*
+*Continuity alias for the investigation-subject role. Deprecated in favor of case-investigation:Subject (a uco-role:Role whose conduct is within the scope of an investigation); new graphs should use the CASE class directly.*
 
 **Parents:** Role | **IRI:** `https://cacontology.projectvic.org#Subject`
 
@@ -9069,6 +9079,29 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *No direct or inherited properties.*
 
+### AttributionAssessment
+
+*Analytic conclusion that two or more observables (accounts, IP addresses, devices) are controlled by the same subject, with stated confidence and method. The assessment is an interpretation layered over the correlation evidence supporting it.*
+
+**Parents:** ObservableObject | **IRI:** `https://cacontology.projectvic.org/forensics#AttributionAssessment`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| attributionConfidence | string | zero_or_one | No | Confidence level of the attribution assessment (high, medium, low). |
+
 ### AutomatedContentAnalysis
 
 *Automated analysis of large volumes of content using machine learning and AI for rapid classification and triage.*
@@ -9271,6 +9304,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | automationPercentage | decimal | exactly_one | Yes | Percentage of processing performed through automated analysis. |
 | falsePositiveRate | decimal | zero_or_one | No | False positive rate for automated content analysis (0.0-1.0). |
 | processingSpeed | decimal | zero_or_one | No | Processing speed in files per hour for automated systems. |
+
+### CorrelationEvidence
+
+*Structured evidence that observables are linked by overlapping usage, records, or artifacts. Superclass for typed correlation evidence supporting attribution assessments.*
+
+**Parents:** ObservableObject | **IRI:** `https://cacontology.projectvic.org/forensics#CorrelationEvidence`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| correlationMethod | string | zero_or_more | No | Method used to establish the correlation (e.g., 'comparative log review', 'carrier subscriber production', 'court-ord... |
+| correlationTimeWindowEnd | dateTime | zero_or_one | No | End of the temporal bounds of the overlap analysis. |
+| correlationTimeWindowStart | dateTime | zero_or_one | No | Start of the temporal bounds of the overlap analysis. |
 
 ### CrossPlatformCorrelation
 
@@ -9924,6 +9982,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | exactly_one | Yes | The initial time of a time range. |
 | devicesRecovered | nonNegativeInteger | exactly_one | Yes | Number of hidden devices recovered during search. |
 
+### IPCorrelationEvidence
+
+*Structured evidence of overlapping IP usage across accounts, sessions, or platforms within a date-time scope (e.g., 13 of 20 platform session IPs matching another platform's access logs for the same subscriber).*
+
+**Parents:** CorrelationEvidence | **IRI:** `https://cacontology.projectvic.org/forensics#IPCorrelationEvidence`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| correlationMethod | string | zero_or_more | No | Method used to establish the correlation (e.g., 'comparative log review', 'carrier subscriber production', 'court-ord... |
+| correlationTimeWindowEnd | dateTime | zero_or_one | No | End of the temporal bounds of the overlap analysis. |
+| correlationTimeWindowStart | dateTime | zero_or_one | No | Start of the temporal bounds of the overlap analysis. |
+
 ### ImageAnalysisForVictimID
 
 *Analysis of seized images to identify and remove child victims from continued exploitation.*
@@ -10502,6 +10585,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | hashDatabaseSize | decimal | exactly_one | Yes | Size of hash database used for comparison in millions of entries. |
 | hashMatchesFound | nonNegativeInteger | zero_or_one | No | Number of hash matches found against known illegal content databases. |
 
+### SubscriberRecordCorrelation
+
+*Evidence linking a platform account to carrier or ISP subscriber records (e.g., produced under legal process).*
+
+**Parents:** CorrelationEvidence | **IRI:** `https://cacontology.projectvic.org/forensics#SubscriberRecordCorrelation`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| correlationMethod | string | zero_or_more | No | Method used to establish the correlation (e.g., 'comparative log review', 'carrier subscriber production', 'court-ord... |
+| correlationTimeWindowEnd | dateTime | zero_or_one | No | End of the temporal bounds of the overlap analysis. |
+| correlationTimeWindowStart | dateTime | zero_or_one | No | Start of the temporal bounds of the overlap analysis. |
+
 ### TemporalPatternAnalysis
 
 *Analysis of temporal patterns and timing correlations across different pieces of evidence.*
@@ -10743,10 +10851,23 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
+
+### AccountReplacementEvent
+
+*Pattern where an offender whose account is banned or blocked creates a new account and returns to an earlier offense phase (typically initial contact). The lifecycle resets rather than terminates — structurally distinct from a coercion cycle.*
+
+**Parents:** ExploitationEvent | **IRI:** `https://cacontology.projectvic.org/grooming#AccountReplacementEvent`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| originalAccountId | Account | zero_or_one | No | Reference to the banned or blocked account if known. |
+| replacementAccountId | Account | zero_or_one | No | Reference to the new account used to resume contact if known. |
+| resumesAt | Phase | exactly_one | Yes | Phase instance the offender returns to after account replacement (typically InitialContactPhase). |
+| triggeredBy | string | exactly_one | Yes | What triggered account replacement (victim_block, platform_ban, detection_risk, voluntary). |
 
 ### AlcoholFacilitatedGrooming
 
@@ -10766,7 +10887,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10789,7 +10910,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10812,7 +10933,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10835,7 +10956,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10860,6 +10981,41 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
 
+### ConditioningBehavior
+
+*Offender behavior that shapes victim readiness, compliance, dependency, or situational constraints preparatory to direct exploitation.*
+
+**Parents:** GroomingBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#ConditioningBehavior`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| hasBeginPointInXSDDateTimeStamp | dateTimeStamp | zero_or_one | No |  |
+| hasEndPointInXSDDateTimeStamp | dateTimeStamp | zero_or_one | No |  |
+| comment | string | zero_or_one | No |  |
+| label | string | zero_or_one | No |  |
+| analysisCompleteness | double | zero_or_one | No |  |
+| behaviorFrequency | string | zero_or_one | No |  |
+| behaviorIntensity | string | zero_or_one | No |  |
+| behaviorType | string | exactly_one | Yes |  |
+| dataConfidence | double | zero_or_one | No |  |
+| groomingEffectiveness | double | zero_or_one | No |  |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
+| manipulationLevel | string | zero_or_one | No |  |
+| endTime | dateTime | zero_or_one | No | The ending time of a time range. |
+| startTime | dateTime | zero_or_one | No | The initial time of a time range. |
+
+### ConditioningPhase
+
+*Grooming-process phase in which the offender conditions the victim or situation for exploitation — including rapport, isolation, normalization, and compliance shaping prior to the primary exploitation act.*
+
+**Parents:** ConditioningPhase, GroomingPhase | **IRI:** `https://cacontology.projectvic.org/grooming#ConditioningPhase`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| conditioningMode | string | zero_or_one | No | Dominant mechanism through which conditioning is accomplished in a documented offense phase instance. |
+| hasGroomingPhaseBeginPoint | dateTimeStamp | zero_or_one | No | Temporal begin point for grooming phase. |
+| hasGroomingPhaseEndPoint | dateTimeStamp | zero_or_one | No | Temporal end point for grooming phase. |
+
 ### CrossInstitutionalGrooming
 
 *Grooming targeting students from multiple educational institutions.*
@@ -10878,7 +11034,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10901,7 +11057,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10924,7 +11080,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10947,7 +11103,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -10978,7 +11134,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11028,7 +11184,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11040,6 +11196,29 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 **Parents:** GroomingPhase | **IRI:** `https://cacontology.projectvic.org/grooming#ExploitationPhase`
 
 *No direct or inherited properties.*
+
+### FabricatedPersona
+
+*A fabricated identity (e.g., a fictitious minor peer) created and controlled by an offender to contact, groom, lure, or coerce victims. The same persona may be reused across victims and platforms. Complements PeerPersonaGrooming / TeenageImpersonationGrooming behavior classes: the behavior classes type the grooming activity, while FabricatedPersona types the persona artifact itself. See also impersonatesRole / impersonatedRole for role-level alignment.*
+
+**Parents:** Identity | **IRI:** `https://cacontology.projectvic.org/grooming#FabricatedPersona`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| claimedAge | string | zero_or_one | No | Age or age range the fabricated persona claims (e.g., '15', '15-16'). |
+| claimedDisplayName | string | zero_or_one | No | Display name the fabricated persona presents to victims (e.g., 'Amy Jennings'). |
+| claimedGender | string | zero_or_one | No | Gender the fabricated persona claims to victims. |
 
 ### GraphicConversationGrooming
 
@@ -11059,7 +11238,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11082,7 +11261,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11155,7 +11334,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11178,7 +11357,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11201,7 +11380,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11254,7 +11433,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11277,7 +11456,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11300,7 +11479,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11309,7 +11488,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *Attempts to separate child from parents, friends, or other support systems.*
 
-**Parents:** GroomingBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#IsolationBehavior`
+**Parents:** ConditioningBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#IsolationBehavior`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -11323,7 +11502,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11332,9 +11511,39 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *Phase aimed at separating victim from support systems and creating dependency.*
 
-**Parents:** GroomingPhase | **IRI:** `https://cacontology.projectvic.org/grooming#IsolationPhase`
+**Parents:** ConditioningPhase | **IRI:** `https://cacontology.projectvic.org/grooming#IsolationPhase`
 
-*No direct or inherited properties.*
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| conditioningMode | string | zero_or_one | No | Dominant mechanism through which conditioning is accomplished in a documented offense phase instance. |
+| hasGroomingPhaseBeginPoint | dateTimeStamp | zero_or_one | No | Temporal begin point for grooming phase. |
+| hasGroomingPhaseEndPoint | dateTimeStamp | zero_or_one | No | Temporal end point for grooming phase. |
+
+### IsolationTactics
+
+*Isolation conditioning behavior separating the victim from support systems.*
+
+**Parents:** ConditioningBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#IsolationTactics`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| hasBeginPointInXSDDateTimeStamp | dateTimeStamp | zero_or_one | No |  |
+| hasEndPointInXSDDateTimeStamp | dateTimeStamp | zero_or_one | No |  |
+| comment | string | zero_or_one | No |  |
+| label | string | zero_or_one | No |  |
+| analysisCompleteness | double | zero_or_one | No |  |
+| behaviorFrequency | string | zero_or_one | No |  |
+| behaviorIntensity | string | zero_or_one | No |  |
+| behaviorType | string | exactly_one | Yes |  |
+| dataConfidence | double | zero_or_one | No |  |
+| groomingEffectiveness | double | zero_or_one | No |  |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
+| manipulationLevel | string | zero_or_one | No |  |
+| endTime | dateTime | zero_or_one | No | The ending time of a time range. |
+| startTime | dateTime | zero_or_one | No | The initial time of a time range. |
+| isolationEffectiveness | string | zero_or_one | No |  |
+| isolationMethod | string | exactly_one | Yes | Method used to isolate victim (vehicle_transport, location_change, privacy_creation). |
+| isolationProgressRate | double | zero_or_one | No |  |
 
 ### LocationSpecificGrooming
 
@@ -11354,7 +11563,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11405,7 +11614,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11428,7 +11637,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11437,7 +11646,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *Gradual introduction of sexual topics to normalize inappropriate behavior.*
 
-**Parents:** GroomingBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#NormalizationBehavior`
+**Parents:** ConditioningBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#NormalizationBehavior`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -11451,7 +11660,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11474,7 +11683,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11517,7 +11726,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11606,7 +11815,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11629,7 +11838,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11652,7 +11861,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11675,7 +11884,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11706,7 +11915,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11757,7 +11966,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11780,7 +11989,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11803,7 +12012,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11834,7 +12043,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11879,7 +12088,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11905,7 +12114,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11928,7 +12137,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -11959,13 +12168,17 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *Phase involving introduction of sexual content and normalization of inappropriate behavior.*
 
-**Parents:** GroomingPhase | **IRI:** `https://cacontology.projectvic.org/grooming#SexualizationPhase`
+**Parents:** ConditioningPhase | **IRI:** `https://cacontology.projectvic.org/grooming#SexualizationPhase`
 
-*No direct or inherited properties.*
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| conditioningMode | string | zero_or_one | No | Dominant mechanism through which conditioning is accomplished in a documented offense phase instance. |
+| hasGroomingPhaseBeginPoint | dateTimeStamp | zero_or_one | No | Temporal begin point for grooming phase. |
+| hasGroomingPhaseEndPoint | dateTimeStamp | zero_or_one | No | Temporal end point for grooming phase. |
 
 ### SkippedGroomingPhases
 
-*Grooming that bypasses traditional phases like trust building, isolation, and normalization.*
+*Grooming that bypasses traditional conditioning phases such as trust building, isolation, and normalization.*
 
 **Parents:** RapidEscalationGrooming | **IRI:** `https://cacontology.projectvic.org/grooming#SkippedGroomingPhases`
 
@@ -11981,7 +12194,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -12004,7 +12217,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -12027,7 +12240,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -12050,7 +12263,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -12073,7 +12286,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -12096,16 +12309,16 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
 
-### TrustBuildingBehavior
+### TrustBuilding
 
-*Early grooming stage focused on establishing emotional connection with the child victim.*
+*Trust-rapport conditioning behavior establishing emotional connection with the child victim.*
 
-**Parents:** GroomingBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#TrustBuildingBehavior`
+**Parents:** ConditioningBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#TrustBuilding`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -12119,7 +12332,33 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
+| manipulationLevel | string | zero_or_one | No |  |
+| endTime | dateTime | zero_or_one | No | The ending time of a time range. |
+| startTime | dateTime | zero_or_one | No | The initial time of a time range. |
+| trustBuildingMethod | string | exactly_one | Yes | Method used to build trust during conditioning (active_listening, emotional_support, shared_interests, etc.). |
+| trustDevelopmentRate | double | zero_or_one | No | Rate at which trust is developed during conditioning, typically between 0.0 and 1.0. |
+| trustLevel | string | zero_or_one | No | Assessed level of trust established during trust-rapport conditioning. |
+
+### TrustBuildingBehavior
+
+*Early grooming stage focused on establishing emotional connection with the child victim.*
+
+**Parents:** ConditioningBehavior | **IRI:** `https://cacontology.projectvic.org/grooming#TrustBuildingBehavior`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| hasBeginPointInXSDDateTimeStamp | dateTimeStamp | zero_or_one | No |  |
+| hasEndPointInXSDDateTimeStamp | dateTimeStamp | zero_or_one | No |  |
+| comment | string | zero_or_one | No |  |
+| label | string | zero_or_one | No |  |
+| analysisCompleteness | double | zero_or_one | No |  |
+| behaviorFrequency | string | zero_or_one | No |  |
+| behaviorIntensity | string | zero_or_one | No |  |
+| behaviorType | string | exactly_one | Yes |  |
+| dataConfidence | double | zero_or_one | No |  |
+| groomingEffectiveness | double | zero_or_one | No |  |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -12128,9 +12367,13 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *Phase focused on building emotional connection and trust with victim.*
 
-**Parents:** GroomingPhase | **IRI:** `https://cacontology.projectvic.org/grooming#TrustBuildingPhase`
+**Parents:** ConditioningPhase | **IRI:** `https://cacontology.projectvic.org/grooming#TrustBuildingPhase`
 
-*No direct or inherited properties.*
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| conditioningMode | string | zero_or_one | No | Dominant mechanism through which conditioning is accomplished in a documented offense phase instance. |
+| hasGroomingPhaseBeginPoint | dateTimeStamp | zero_or_one | No | Temporal begin point for grooming phase. |
+| hasGroomingPhaseEndPoint | dateTimeStamp | zero_or_one | No | Temporal end point for grooming phase. |
 
 ### TrustThroughAnonymity
 
@@ -12150,7 +12393,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -12195,7 +12438,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -18339,6 +18582,30 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 ## ext.cac.cacontology-legal-outcomes
 
+### AVAAAssessment
+
+*Assessment under the Amy, Vicky, and Andy Child Pornography Victim Assistance Act of 2018 (18 U.S.C. § 2259A).*
+
+**Parents:** SpecialAssessment | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#AVAAAssessment`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| concurrentWith | CriminalSentence | zero_or_more | No | Links one criminal sentence to another sentence that is ordered to run concurrently. |
+| sentenceConcurrency | string | zero_or_one | No | Indicates whether a criminal sentence is concurrent, consecutive, or mixed with respect to other sentences (values: c... |
+
 ### AppealProcess
 
 *Legal process to challenge conviction or sentence in higher court. Modeled as gUFO Event.*
@@ -18583,6 +18850,30 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
 
+### ChargingInstrument
+
+*Abstract superclass for formal charging documents: criminal complaint, indictment, criminal information, and superseding instruments. Modeled as gUFO Object.*
+
+**Parents:** Artifact, ObservableObject | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#ChargingInstrument`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| chargingInstrumentCounts | integer | zero_or_one | No | Total number of counts charged in a charging instrument. Generalizes indictment-specific count properties to complain... |
+| filedDate | date | zero_or_one | No | Date the charging instrument was filed with the court. |
+
 ### CommonwealthChildAbuseOffense
 
 *Child abuse offense under Commonwealth law subject to mandatory minimum sentencing provisions. Modeled as gUFO Object.*
@@ -18628,6 +18919,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | state | string | zero_or_one | No |  |
 | concurrentWith | CriminalSentence | zero_or_more | No | Links one criminal sentence to another sentence that is ordered to run concurrently. |
 | sentenceConcurrency | string | zero_or_one | No | Indicates whether a criminal sentence is concurrent, consecutive, or mixed with respect to other sentences (values: c... |
+
+### ComputerInternetMonitoringCondition
+
+*Condition requiring participation in a computer and internet monitoring program, commonly including device inventory, disclosure of accounts and credentials, consent to unannounced examination, and prohibitions on encryption or data-erasure tools.*
+
+**Parents:** SupervisedReleaseCondition | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#ComputerInternetMonitoringCondition`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| conditionText | string | zero_or_one | No | Verbatim or summarized text of the condition as imposed in the judgment. |
+| defendantPaysCost | boolean | zero_or_one | No | Whether the defendant bears the cost of the required program or monitoring. |
+| requiresProbationApproval | boolean | zero_or_one | No | Whether the restricted activity is allowed only with prior written approval of the probation officer. |
 
 ### ComputerSeduceSolicitLure
 
@@ -18683,9 +18999,9 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 ### ConvictionRecord
 
-*Record of a criminal conviction (verdict or plea) against a defendant. Already targeted by ConvictionRecordShape in cacontology-legal-outcomes-shapes.ttl; OWL class pending upstream per CAC-Ontology issue #36.*
+*A durable record that a person was convicted of one or more criminal charges (e.g., by jury verdict, bench trial, or plea agreement). Used for current-case dispositions and for limited prior-conviction history relevant to charging or sentencing. Trauma-informed modeling: store only structured legal facts needed for interoperability; do not encode graphic offense narrative in this class. Modeled as gUFO Object.*
 
-**Parents:** UcoObject | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#ConvictionRecord`
+**Parents:** Artifact, UcoObject, ObservableObject | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#ConvictionRecord`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -18700,10 +19016,12 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
-| chargeCount | nonNegativeInteger | exactly_one | Yes | Number of criminal charges, or the ordinal count number of a charge within its charging instrument. Upstream proposal... |
-| convictionDate | dateTime | exactly_one | Yes | Date of conviction. Referenced by ConvictionRecordShape; declaration pending upstream per CAC-Ontology issue #36. |
-| convictionType | string | exactly_one | Yes | How the conviction was obtained: jury_verdict, bench_trial, plea_agreement, default_judgment, or summary_conviction. ... |
-| priorConvictions | nonNegativeInteger | zero_or_one | No |  |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| chargeCount | nonNegativeInteger | exactly_one | Yes | The total number of criminal charges associated with a ConvictionRecord or LegalProceeding (aggregate total, not the ... |
+| convictionDate | dateTime | exactly_one | Yes | Date and time when the conviction was entered (verdict, acceptance of plea, or equivalent disposition). Required by C... |
+| convictionType | string | exactly_one | Yes | How the conviction was obtained. Allowed values (ConvictionRecordShape): jury_verdict, bench_trial, plea_agreement, d... |
+| priorConvictions | nonNegativeInteger | zero_or_one | No | Number of prior criminal convictions associated with the subject of this ConvictionRecord (aggregate count for histor... |
 
 ### CriminalCharge
 
@@ -18726,6 +19044,54 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+
+### CriminalComplaint
+
+*A written statement of the essential facts constituting the offense charged, made under oath before a magistrate judge (or clerk where authorized) prior to indictment. Fed. R. Crim. P. 3. Modeled as gUFO Object.*
+
+**Parents:** ChargingInstrument | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#CriminalComplaint`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| chargingInstrumentCounts | integer | zero_or_one | No | Total number of counts charged in a charging instrument. Generalizes indictment-specific count properties to complain... |
+| filedDate | date | zero_or_one | No | Date the charging instrument was filed with the court. |
+
+### CriminalInformation
+
+*A charging instrument filed by the prosecutor without grand-jury action, typically after the defendant waives indictment. Fed. R. Crim. P. 7(b). Modeled as gUFO Object.*
+
+**Parents:** ChargingInstrument | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#CriminalInformation`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| chargingInstrumentCounts | integer | zero_or_one | No | Total number of counts charged in a charging instrument. Generalizes indictment-specific count properties to complain... |
+| filedDate | date | zero_or_one | No | Date the charging instrument was filed with the court. |
 
 ### CriminalSentence
 
@@ -18954,6 +19320,78 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
 
+### Indictment
+
+*A grand-jury charging instrument. Fed. R. Crim. P. 6, 7. Modeled as gUFO Object.*
+
+**Parents:** ChargingInstrument | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#Indictment`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| chargingInstrumentCounts | integer | zero_or_one | No | Total number of counts charged in a charging instrument. Generalizes indictment-specific count properties to complain... |
+| filedDate | date | zero_or_one | No | Date the charging instrument was filed with the court. |
+
+### InstallmentPaymentSchedule
+
+*Payment schedule requiring periodic installments, typically with a monthly minimum and a commencement trigger.*
+
+**Parents:** PaymentSchedule | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#InstallmentPaymentSchedule`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| dueTiming | string | zero_or_one | No | When payment is due (e.g., 'immediately', 'on_date', 'after_release', 'monthly_installments'). |
+| totalAmountUSD | decimal | zero_or_one | No | Total amount of the payment schedule in U.S. dollars. |
+
+### JVTAAssessment
+
+*Assessment under the Justice for Victims of Trafficking Act of 2015 (18 U.S.C. § 3014).*
+
+**Parents:** SpecialAssessment | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#JVTAAssessment`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| concurrentWith | CriminalSentence | zero_or_more | No | Links one criminal sentence to another sentence that is ordered to run concurrently. |
+| sentenceConcurrency | string | zero_or_one | No | Indicates whether a criminal sentence is concurrent, consecutive, or mixed with respect to other sentences (values: c... |
+
 ### JudgeRole
 
 *Role of judge presiding over CAC legal proceedings. Modeled as anti-rigid gUFO Role.*
@@ -19066,6 +19504,54 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
 
+### LumpSumPaymentSchedule
+
+*Payment schedule requiring a lump-sum payment (e.g., due immediately, on a date, or after release).*
+
+**Parents:** PaymentSchedule | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#LumpSumPaymentSchedule`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| dueTiming | string | zero_or_one | No | When payment is due (e.g., 'immediately', 'on_date', 'after_release', 'monthly_installments'). |
+| totalAmountUSD | decimal | zero_or_one | No | Total amount of the payment schedule in U.S. dollars. |
+
+### MagistrateComplaint
+
+*A criminal complaint sworn before a federal magistrate judge, typically supported by a law-enforcement agent affidavit or statement of facts. Modeled as gUFO Object.*
+
+**Parents:** CriminalComplaint | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#MagistrateComplaint`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| chargingInstrumentCounts | integer | zero_or_one | No | Total number of counts charged in a charging instrument. Generalizes indictment-specific count properties to complain... |
+| filedDate | date | zero_or_one | No | Date the charging instrument was filed with the court. |
+
 ### MandatoryMinimumSentencing
 
 *Sentencing under mandatory minimum provisions for Commonwealth child sexual abuse offenses. Modeled as gUFO Object.*
@@ -19089,6 +19575,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | state | string | zero_or_one | No |  |
 | concurrentWith | CriminalSentence | zero_or_more | No | Links one criminal sentence to another sentence that is ordered to run concurrently. |
 | sentenceConcurrency | string | zero_or_one | No | Indicates whether a criminal sentence is concurrent, consecutive, or mixed with respect to other sentences (values: c... |
+
+### MinorContactRestrictionCondition
+
+*Condition restricting contact with persons under a specified age, typically requiring written probation approval and/or presence of a responsible adult aware of the offense history.*
+
+**Parents:** SupervisedReleaseCondition | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#MinorContactRestrictionCondition`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| conditionText | string | zero_or_one | No | Verbatim or summarized text of the condition as imposed in the judgment. |
+| defendantPaysCost | boolean | zero_or_one | No | Whether the defendant bears the cost of the required program or monitoring. |
+| requiresProbationApproval | boolean | zero_or_one | No | Whether the restricted activity is allowed only with prior written approval of the probation officer. |
 
 ### MonetaryPenalty
 
@@ -19135,6 +19646,30 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+
+### PaymentSchedule
+
+*Schedule of criminal monetary payments imposed in a judgment (AO 245B Schedule of Payments). Modeled as gUFO Object.*
+
+**Parents:** Artifact, ObservableObject | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#PaymentSchedule`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| dueTiming | string | zero_or_one | No | When payment is due (e.g., 'immediately', 'on_date', 'after_release', 'monthly_installments'). |
+| totalAmountUSD | decimal | zero_or_one | No | Total amount of the payment schedule in U.S. dollars. |
 
 ### PleaBargaining
 
@@ -19205,6 +19740,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
+
+### ProbationSearchCondition
+
+*Condition authorizing probation-officer searches of person, property, residence, vehicle, or devices, typically on reasonable suspicion and at a reasonable time and manner.*
+
+**Parents:** SupervisedReleaseCondition | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#ProbationSearchCondition`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| conditionText | string | zero_or_one | No | Verbatim or summarized text of the condition as imposed in the judgment. |
+| defendantPaysCost | boolean | zero_or_one | No | Whether the defendant bears the cost of the required program or monitoring. |
+| requiresProbationApproval | boolean | zero_or_one | No | Whether the restricted activity is allowed only with prior written approval of the probation officer. |
 
 ### ProbationSentence
 
@@ -19277,6 +19837,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
 
+### SORNAComplianceCondition
+
+*Condition requiring compliance with the Sex Offender Registration and Notification Act (34 U.S.C. § 20901 et seq.) as directed by the probation officer or registration authority.*
+
+**Parents:** SupervisedReleaseCondition | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#SORNAComplianceCondition`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| conditionText | string | zero_or_one | No | Verbatim or summarized text of the condition as imposed in the judgment. |
+| defendantPaysCost | boolean | zero_or_one | No | Whether the defendant bears the cost of the required program or monitoring. |
+| requiresProbationApproval | boolean | zero_or_one | No | Whether the restricted activity is allowed only with prior written approval of the probation officer. |
+
 ### SentencingHearing
 
 *Court proceeding where sentence is determined and imposed. Modeled as gUFO Event.*
@@ -19319,6 +19904,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | appliesStandardOfReview | StandardOfReview | zero_or_more | No | Links an appellate issue to the standard of review applied by the appellate court. |
 | citesEvidenceRule | EvidenceRule | zero_or_more | No | Links an appellate issue to an evidence rule cited or applied in the issue analysis. |
 | issueDisposition | AppellateDisposition | one_or_more | Yes | Links an appellate issue to its disposition. |
+
+### SexOffenderTreatmentCondition
+
+*Condition requiring participation in a sex-offense-specific treatment program, commonly including polygraph examination, confidentiality waiver, and cost provisions.*
+
+**Parents:** SupervisedReleaseCondition | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#SexOffenderTreatmentCondition`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| conditionText | string | zero_or_one | No | Verbatim or summarized text of the condition as imposed in the judgment. |
+| defendantPaysCost | boolean | zero_or_one | No | Whether the defendant bears the cost of the required program or monitoring. |
+| requiresProbationApproval | boolean | zero_or_one | No | Whether the restricted activity is allowed only with prior written approval of the probation officer. |
 
 ### SexTrafficking
 
@@ -19408,6 +20018,30 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
 
+### SpecialAssessment
+
+*Mandatory special assessment imposed per count of conviction (18 U.S.C. § 3013), or a statute-specific additional assessment. Modeled as gUFO Object.*
+
+**Parents:** MonetaryPenalty | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#SpecialAssessment`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| concurrentWith | CriminalSentence | zero_or_more | No | Links one criminal sentence to another sentence that is ordered to run concurrently. |
+| sentenceConcurrency | string | zero_or_one | No | Indicates whether a criminal sentence is concurrent, consecutive, or mixed with respect to other sentences (values: c... |
+
 ### StandardOfReview
 
 *Appellate standard of review applied to an appellate issue (e.g., de novo, abuse of discretion, plain error). Modeled as gUFO Object.*
@@ -19453,6 +20087,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
 
+### SubstanceAbuseTreatmentCondition
+
+*Condition requiring substance-abuse testing and/or treatment (residential or outpatient), commonly with urinalysis limits, abstinence requirements, and cost provisions.*
+
+**Parents:** SupervisedReleaseCondition | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#SubstanceAbuseTreatmentCondition`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| conditionText | string | zero_or_one | No | Verbatim or summarized text of the condition as imposed in the judgment. |
+| defendantPaysCost | boolean | zero_or_one | No | Whether the defendant bears the cost of the required program or monitoring. |
+| requiresProbationApproval | boolean | zero_or_one | No | Whether the restricted activity is allowed only with prior written approval of the probation officer. |
+
 ### SufficiencyOfEvidenceIssue
 
 *Appellate issue challenging whether the evidence was sufficient to sustain a conviction under the applicable legal standard. Modeled as gUFO Object.*
@@ -19478,6 +20137,30 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | citesEvidenceRule | EvidenceRule | zero_or_more | No | Links an appellate issue to an evidence rule cited or applied in the issue analysis. |
 | issueDisposition | AppellateDisposition | one_or_more | Yes | Links an appellate issue to its disposition. |
 
+### SupersedingIndictment
+
+*An indictment that replaces an earlier charging instrument in the same case, typically adding, modifying, or dropping counts or defendants. Modeled as gUFO Object.*
+
+**Parents:** Indictment | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#SupersedingIndictment`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| chargingInstrumentCounts | integer | zero_or_one | No | Total number of counts charged in a charging instrument. Generalizes indictment-specific count properties to complain... |
+| filedDate | date | zero_or_one | No | Date the charging instrument was filed with the court. |
+
 ### SupervisedRelease
 
 *Period of supervision following completion of prison sentence. Modeled as gUFO Object.*
@@ -19501,6 +20184,31 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | state | string | zero_or_one | No |  |
 | concurrentWith | CriminalSentence | zero_or_more | No | Links one criminal sentence to another sentence that is ordered to run concurrently. |
 | sentenceConcurrency | string | zero_or_one | No | Indicates whether a criminal sentence is concurrent, consecutive, or mixed with respect to other sentences (values: c... |
+
+### SupervisedReleaseCondition
+
+*A special condition of supervised release or probation imposed in a criminal judgment. Modeled as gUFO Object.*
+
+**Parents:** Artifact, ObservableObject | **IRI:** `https://cacontology.projectvic.org/legal-outcomes#SupervisedReleaseCondition`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| conditionText | string | zero_or_one | No | Verbatim or summarized text of the condition as imposed in the judgment. |
+| defendantPaysCost | boolean | zero_or_one | No | Whether the defendant bears the cost of the required program or monitoring. |
+| requiresProbationApproval | boolean | zero_or_one | No | Whether the restricted activity is allowed only with prior written approval of the probation officer. |
 
 ### TraffickingOfPersonsForSexualServitudeCharge
 
@@ -23807,6 +24515,57 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | suspensionReason | string | zero_or_one | No | The reason for account suspension or termination. |
 | startTime | dateTime | exactly_one | Yes | The initial time of a time range. |
 
+### AffordanceMisuse
+
+*Annotation linking a platform affordance to the phase transition it enabled — affordances on offense trajectory edges rather than platform nodes alone.*
+
+**Parents:** Relationship | **IRI:** `https://cacontology.projectvic.org/platforms#AffordanceMisuse`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| endTime | dateTime | zero_or_more | No | The ending time of a time range. |
+| isDirectional | boolean | exactly_one | Yes | A specification whether or not a relationship assertion is limited to the context FROM a source object(s) TO a target... |
+| kindOfRelationship | string | zero_or_one | No | A characterization of the nature of a relationship between objects. |
+| source | UcoObject | one_or_more | Yes | The originating node of a specified relationship. |
+| startTime | dateTime | zero_or_more | No | The initial time of a time range. |
+| target | UcoObject | exactly_one | Yes | The terminating node of a specified relationship. |
+| affordanceClass | PlatformAffordance | exactly_one | Yes | The platform affordance category misused to enable the transition. |
+| enablesTransitionFrom | Phase | exactly_one | Yes | Phase instance from which the affordance-enabled transition originates. |
+| enablesTransitionTo | Phase | exactly_one | Yes | Phase instance to which the affordance-enabled transition leads. |
+| misuseDescription | string | exactly_one | Yes | Narrative description of how the affordance was misused to enable the phase transition. |
+| platform | DigitalService | zero_or_one | No | Optional platform instance that carried the misused affordance. |
+
+### Anonymity
+
+*Platform affordance enabling pseudonymous or minimally verified contact.*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#Anonymity`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+
 ### AnonymityProtectionLevel
 
 *Level of anonymity protection provided by platform features and policies.*
@@ -23857,6 +24616,59 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 *Opportunities provided by platform for anonymous users to initiate contact with other users.*
 
 **Parents:** EnduringEntity, UcoObject | **IRI:** `https://cacontology.projectvic.org/platforms#AnonymousContactOpportunity`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+
+### ChannelMigrationEvent
+
+*Documented offense pattern where contact is initiated on one platform and deliberately moved to a second platform before escalation, to access more capable channels and/or sever the evidence trail on the originating platform.*
+
+**Parents:** ExploitationEvent | **IRI:** `https://cacontology.projectvic.org/platforms#ChannelMigrationEvent`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| fromPlatform | DigitalService | exactly_one | Yes | Originating platform from which the offender migrated contact. |
+| migrationRationale | string | exactly_one | Yes | Why the offender migrated channels (capability_upgrade, evidence_evasion, both). |
+| occursBetween | Phase | one_or_more | Yes | Offense phase instances separated by this channel migration event (earlier phase, later phase). |
+| toPlatform | DigitalService | exactly_one | Yes | Destination platform to which contact was migrated. |
+
+### CoercionLeverage
+
+*Platform affordance that amplifies coercive leverage (screenshots, forwarding, contact export, payment rails).*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#CoercionLeverage`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+
+### ContactDiscovery
+
+*Platform affordance for finding or matching with new contacts (search, suggestions, random matching).*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#ContactDiscovery`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -23935,6 +24747,26 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
 | queueSize | nonNegativeInteger | zero_or_one | No | Number of items currently in a content moderation queue. |
+
+### Coordination
+
+*Platform affordance for group coordination, encrypted channels, or multi-party planning.*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#Coordination`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
 
 ### CrossPlatformEvidence
 
@@ -24117,6 +24949,26 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 
+### DistributionInfrastructure
+
+*Platform affordance for sharing or broadcasting content to audiences beyond direct dyadic chat.*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#DistributionInfrastructure`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+
 ### ElectronicDeviceEvidence
 
 *Digital evidence found on electronic devices including computers, phones, and storage media.*
@@ -24198,6 +25050,26 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
 | startTime | dateTime | exactly_one | Yes | The initial time of a time range. |
 
+### Ephemerality
+
+*Platform affordance where messages or media auto-delete, reducing forensic retention on the platform.*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#Ephemerality`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+
 ### FileHostingService
 
 *A service for storing and sharing files online (e.g., Google Drive, Dropbox, OneDrive, MEGA). Modeled as gUFO Object.*
@@ -24243,6 +25115,26 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | state | string | zero_or_one | No |  |
 | contactInitiationMethod | string | zero_or_one | No | Method for anonymous contact initiation (random_matching, public_rooms, profile_search, interest_based). |
 | guestAccountsAllowed | boolean | zero_or_one | No | Whether platform allows guest accounts with minimal verification. |
+
+### GenerativeSynthesis
+
+*Platform affordance for AI-generated or synthetic media creation and manipulation.*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#GenerativeSynthesis`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
 
 ### GuestChatFeature
 
@@ -24540,6 +25432,26 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 *Chat rooms open to anonymous users without verification or moderation.*
 
 **Parents:** AnonymousContactOpportunity | **IRI:** `https://cacontology.projectvic.org/platforms#OpenChatRooms`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+
+### PlatformAffordance
+
+*A platform capability that offenders may misuse to advance an offense trajectory (anonymity, ephemerality, unmonitored communication, etc.).*
+
+**Parents:** DigitalSystemEntity, UcoObject | **IRI:** `https://cacontology.projectvic.org/platforms#PlatformAffordance`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -24935,6 +25847,26 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 **IRI:** `https://cacontology.projectvic.org/platforms#TemporaryAccountSystem`
 
 *No direct or inherited properties.*
+
+### UnmonitoredCommunication
+
+*Platform affordance for private channels with limited proactive moderation or parental visibility.*
+
+**Parents:** PlatformAffordance | **IRI:** `https://cacontology.projectvic.org/platforms#UnmonitoredCommunication`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
 
 ### UserRiskClassification
 
@@ -30020,6 +30952,19 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *No direct or inherited properties.*
 
+### CoercionCycle
+
+*Self-sustaining sextortion loop in which retained imagery becomes perpetual leverage: the offender redeploys the same retained material to demand new content, extending leverage further without acquiring new initial leverage. Structurally distinct from a single threat-delivery event; the cycle has no natural termination except apprehension or removal of material. Modeled as a complex exploitation event (occurrent) rather than a situation, because gUFO declares events and situations disjoint; the persisting leverage state is carried by the retained artifact via sustainedBy.*
+
+**Parents:** ExploitationEvent | **IRI:** `https://cacontology.projectvic.org/sextortion#CoercionCycle`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| coercionCycleDemandType | string | exactly_one | Yes | Type of demand driving a coercion cycle iteration (imagery_quota, live_conduct, financial, victim_recruitment). |
+| cyclesBetween | Phase | one_or_more | Yes | Phase instances that form the coercion loop (typically threat delivery and exploitation phases in sextortion, or equi... |
+| sustainedBy | Artifact | one_or_more | Yes | Retained material or artifact that powers the coercion cycle (e.g., intimate images retained from prior exploitation). |
+| terminationCondition | string | zero_or_one | No | How the coercion cycle ended if known (apprehension, material_removal, victim_ceased_response, unknown). |
+
 ### ComplianceResponse
 
 *Victim complies with initial requests before recognizing threat.*
@@ -30258,6 +31203,14 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 *Phase where intimate images are obtained from victims.*
 
 **Parents:** Phase | **IRI:** `https://cacontology.projectvic.org/sextortion#ImageAcquisitionPhase`
+
+*No direct or inherited properties.*
+
+### ImageLeakThreat
+
+*Threat mechanism involving threatened release of the victim's sexual imagery to family, friends, school, or the public to compel compliance (Issue #36). Provides typed coercion semantics beyond boolean usesThreats flags.*
+
+**Parents:** ThreatMechanism | **IRI:** `https://cacontology.projectvic.org/sextortion#ImageLeakThreat`
 
 *No direct or inherited properties.*
 
@@ -30749,7 +31702,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 *Phase focused on building trust and rapport with victim.*
 
-**Parents:** Phase | **IRI:** `https://cacontology.projectvic.org/sextortion#TrustBuildingPhase`
+**Parents:** ConditioningPhase | **IRI:** `https://cacontology.projectvic.org/sextortion#TrustBuildingPhase`
 
 *No direct or inherited properties.*
 
@@ -32588,7 +33541,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -32704,7 +33657,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -32754,7 +33707,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -32791,7 +33744,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -32895,7 +33848,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -33137,7 +34090,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -33292,7 +34245,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | behaviorType | string | exactly_one | Yes |  |
 | dataConfidence | double | zero_or_one | No |  |
 | groomingEffectiveness | double | zero_or_one | No |  |
-| groomingStage | string | exactly_one | Yes | Stage of grooming process (initial_contact, trust_building, isolation, sexualization, maintenance). |
+| groomingStage | string | exactly_one | Yes | Behavior-axis stage tag on GroomingBehavior instances (not the offense-trajectory phase class used in state machines). |
 | manipulationLevel | string | zero_or_one | No |  |
 | endTime | dateTime | zero_or_one | No | The ending time of a time range. |
 | startTime | dateTime | zero_or_one | No | The initial time of a time range. |
@@ -38787,6 +39740,32 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | accountConfidence | string | zero_or_one | No | Confidence level in account linking (verified, probable, possible). |
 | linkedToAccount | DigitalAccount | one_or_more | Yes | Links account linking to digital account. |
 
+### AggregateReportStatistic
+
+*A single published aggregate statistic about CyberTipline reporting or related NCMEC program activity (e.g., annual report volume, category growth rate, cumulative hash counts), as stated in NCMEC public transparency data. Each instance carries exactly one primary numeric value; compound published claims should be decomposed into one instance per value. Instances are statistical claims about report populations, not individual report instances.*
+
+**Parents:** Assertion | **IRI:** `https://cacontology.projectvic.org/us/ncmec#AggregateReportStatistic`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| statement | string | zero_or_more | No | A textual statement of an assertion. |
+| percentChangeFromPriorPeriod | decimal | zero_or_one | No | Published percentage change of this statistic relative to the prior reporting period (positive for increase, negative... |
+| reportingPeriod | string | exactly_one | Yes | The reporting period the statistic covers, as stated in the published source (e.g., '2025', 'as of 2025-12-31', '2023... |
+| statisticQualifier | string | zero_or_one | No | Qualifier applied to the statistic value in the published source (e.g., 'more than', 'approximately', 'just over', 'a... |
+| statisticUnit | string | exactly_one | Yes | The unit of the statistic value (e.g., 'reports', 'files', 'percent', 'hashes', 'days', 'organizations', 'reports per... |
+| statisticValue | decimal | exactly_one | Yes | The primary numeric value of the published statistic. |
+
 ### CSAMSolicitationAnnotation
 
 *Annotation indicating the report is associated with solicitation of CSAM. Source: NCMEC Cybertip API Section B.1.1, reportAnnotations/csamSolicitation element.*
@@ -38883,6 +39862,89 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 *Analytical processing and assessment of NCMEC CyberTip reports by law enforcement.*
 
 **Parents:** ObservableObject | **IRI:** `https://cacontology.projectvic.org/us/ncmec#CyberTipAnalysis`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_one | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+| analysisConfidence | string | zero_or_one | No | Confidence level in tip analysis (high, medium, low). |
+| analysisOf | NCMECCybertipReport | exactly_one | Yes | Links analysis to the NCMEC tip being analyzed. |
+| performer | Person | exactly_one | Yes | The primary performer of an action. |
+| createdTime | dateTime | zero_or_one | No |  |
+| endTime | dateTime | zero_or_one | No | The ending time of a time range. |
+| startTime | dateTime | exactly_one | Yes | The initial time of a time range. |
+
+### CybertipExtractedIdentifierSet
+
+*An information artifact representing the set of identifiers extracted from a CyberTipline report, used to support triage, enrichment, and routing.*
+
+**Parents:** ObservableObject | **IRI:** `https://cacontology.projectvic.org/us/ncmec#CybertipExtractedIdentifierSet`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| hasChanged | boolean | zero_or_one | No |  |
+| state | string | zero_or_one | No |  |
+
+### CybertipIdentifierExtractionAction
+
+*A CAC-domain action that extracts structured identifiers (screen names, phone numbers, IP addresses, email addresses) from a CyberTipline report document, including by OCR or document parsing.*
+
+**Parents:** Action | **IRI:** `https://cacontology.projectvic.org/us/ncmec#CybertipIdentifierExtractionAction`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### CybertipJurisdictionRoutingAssessment
+
+*A triage assessment that uses extracted identifiers and enrichment results to recommend or determine the responsible jurisdiction or agency for routing or investigation.*
+
+**Parents:** CyberTipAnalysis | **IRI:** `https://cacontology.projectvic.org/us/ncmec#CybertipJurisdictionRoutingAssessment`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -40651,6 +41713,28 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | indicatorSeverity | string | exactly_one | Yes |  |
 | indicatorType | string | exactly_one | Yes | Type of trauma indicator (behavioral, emotional, physical, cognitive, social). |
 
+### FamilyRejectionVulnerability
+
+*A vulnerability factor where rejection by caregivers or family contributes to isolation, homelessness, dependency, or reduced reporting options.*
+
+**Parents:** VulnerabilityContext | **IRI:** `https://cacontology.projectvic.org/victim-impact#FamilyRejectionVulnerability`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| associatedWithFamilyRejection | boolean | zero_or_one | No | Whether the vulnerability context includes rejection by caregivers or family. |
+| associatedWithHousingInstability | boolean | zero_or_one | No | Whether the vulnerability context includes homelessness, runaway status, couch-surfing, or unstable housing. |
+
 ### FamilyReunification
 
 *Process of reuniting trafficking victims with their families.*
@@ -40849,6 +41933,28 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### HousingInstabilityVulnerability
+
+*A vulnerability factor where unstable housing (homelessness, runaway status, couch-surfing) increases susceptibility to grooming, coercion, trafficking, or survival-based exploitation.*
+
+**Parents:** VulnerabilityContext | **IRI:** `https://cacontology.projectvic.org/victim-impact#HousingInstabilityVulnerability`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| associatedWithFamilyRejection | boolean | zero_or_one | No | Whether the vulnerability context includes rejection by caregivers or family. |
+| associatedWithHousingInstability | boolean | zero_or_one | No | Whether the vulnerability context includes homelessness, runaway status, couch-surfing, or unstable housing. |
 
 ### HumanTraffickingSquad
 
@@ -41128,6 +42234,26 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
 
+### ProtectiveAffirmingSupport
+
+*A protective factor representing access to affirming adults, services, shelters, school personnel, advocates, or community resources that mitigate vulnerability.*
+
+**Parents:** UcoObject | **IRI:** `https://cacontology.projectvic.org/victim-impact#ProtectiveAffirmingSupport`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+
 ### PsychologicalHarm
 
 *Mental or emotional harm experienced by child victims.*
@@ -41225,6 +42351,28 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+
+### SOGIVulnerabilityContext
+
+*A vulnerability context related to sexual orientation, gender identity, or expression — typically arising from family rejection, housing instability, lack of trusted adults, coercive dependency, or barriers to reporting or accessing services. The elevated risk arises from marginalization circumstances, not from the minor's identity itself.*
+
+**Parents:** VulnerabilityContext | **IRI:** `https://cacontology.projectvic.org/victim-impact#SOGIVulnerabilityContext`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| associatedWithFamilyRejection | boolean | zero_or_one | No | Whether the vulnerability context includes rejection by caregivers or family. |
+| associatedWithHousingInstability | boolean | zero_or_one | No | Whether the vulnerability context includes homelessness, runaway status, couch-surfing, or unstable housing. |
 
 ### SafetyPlanning
 
@@ -41644,6 +42792,28 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 |----------|------|-------------|----------|-------------|
 | serviceProvider | string | zero_or_one | No | Organization or entity providing support services. |
 | serviceType | string | exactly_one | Yes | Type of support service (advocacy, safety, educational, legal, financial). |
+
+### VulnerabilityContext
+
+*A contextual circumstance that may increase a minor's risk of exploitation or trafficking (e.g., family rejection, housing instability, coercive dependency, barriers to reporting). A context describes observed circumstances, never an inherent attribute of identity.*
+
+**Parents:** UcoObject | **IRI:** `https://cacontology.projectvic.org/victim-impact#VulnerabilityContext`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| associatedWithFamilyRejection | boolean | zero_or_one | No | Whether the vulnerability context includes rejection by caregivers or family. |
+| associatedWithHousingInstability | boolean | zero_or_one | No | Whether the vulnerability context includes homelessness, runaway status, couch-surfing, or unstable housing. |
 
 ## ext.cryptoinv.cryptoinv
 
@@ -48656,6 +49826,138 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 *SOLVE-IT technique DFT-1193: Read metadata from within a forensic image container. Objective(s): Read data from digital evidence storage formats. See https://solveit-df.org for weaknesses and mitigations.*
 
 **Parents:** Action | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1193`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### techniqueDFT-1194
+
+*SOLVE-IT technique DFT-1194: Classify if audio is potentially synthetically generated. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** Action | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1194`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### techniqueDFT-1195
+
+*SOLVE-IT technique DFT-1195: Generate Alternative Hypotheses. Objective(s): Evaluate evidence. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** Action | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1195`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### techniqueDFT-1196
+
+*SOLVE-IT technique DFT-1196: Extract operating system installation date. Objective(s): Extract artifacts stored by the operating system. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** Action | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1196`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### techniqueDFT-1197
+
+*SOLVE-IT technique DFT-1197: Determine mount point mappings within an operating system. Objective(s): Extract artifacts stored by the operating system. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** Action | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1197`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|

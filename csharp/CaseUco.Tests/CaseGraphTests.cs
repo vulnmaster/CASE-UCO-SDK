@@ -12,6 +12,19 @@ namespace CaseUco.Tests
 {
     public class CaseGraphTests
     {
+        public class DynamicExtension
+        {
+            public const string ClassIri = "https://example.org/dynamic/DynamicExtension";
+            public const string NamespacePrefix = "dyn";
+            [JsonLdProperty("dyn:value")]
+            public string Value { get; set; }
+        }
+
+        public class ConflictingToolExtension
+        {
+            public const string ClassIri = Tool.ClassIri;
+        }
+
         [Fact]
         public void CreateTool_ProducesValidJsonLd()
         {
@@ -279,6 +292,53 @@ namespace CaseUco.Tests
         }
 
         [Fact]
+        public void ExtensionAssemblyRegistration_InvalidatesAndReportsMetrics()
+        {
+            const string source = "case-uco-tests-dynamic";
+            CaseGraph.UnregisterExtensionAssembly(source);
+            CaseGraph.ClearClassRegistryCache();
+            var before = CaseGraph.GetClassRegistryCacheMetrics();
+            var generation = CaseGraph.RegisterExtensionTypes(
+                new[] { typeof(DynamicExtension) }, source);
+            Assert.True(generation > before.Generation);
+
+            var json = @"{
+                ""@context"": {
+                    ""kb"": ""http://example.org/kb/"",
+                    ""dyn"": ""https://example.org/dynamic/""
+                },
+                ""@graph"": [
+                    {
+                        ""@id"": ""kb:dynamic"",
+                        ""@type"": ""dyn:DynamicExtension"",
+                        ""dyn:value"": ""loaded without restart""
+                    }
+                ]
+            }";
+            var first = CaseGraph.FromJsonLd(json);
+            var second = CaseGraph.FromJsonLd(json);
+            Assert.IsType<DynamicExtension>(first.Objects[0]);
+            Assert.IsType<DynamicExtension>(second.Objects[0]);
+            var info = CaseGraph.GetClassRegistryCacheMetrics();
+            Assert.True(info.Hits > before.Hits);
+            Assert.True(info.RegisteredExtensions >= 1);
+
+            CaseGraph.UnregisterExtensionAssembly(source);
+            var raw = CaseGraph.FromJsonLd(json);
+            Assert.IsType<Dictionary<string, object>>(raw.Objects[0]);
+        }
+
+        [Fact]
+        public void ExtensionAssemblyRegistration_RejectsBuiltinConflict()
+        {
+            Assert.Throws<ClassRegistryConflictException>(() =>
+                CaseGraph.RegisterExtensionTypes(
+                    new[] { typeof(ConflictingToolExtension) },
+                    "case-uco-tests-conflict"));
+            CaseGraph.UnregisterExtensionAssembly("case-uco-tests-conflict");
+        }
+
+        [Fact]
         public void WriteStreaming_Roundtrip()
         {
             var graph = new CaseGraph();
@@ -298,6 +358,83 @@ namespace CaseUco.Tests
             {
                 if (System.IO.File.Exists(path))
                     System.IO.File.Delete(path);
+            }
+        }
+
+        [Fact]
+        public void BoundedWriter_StreamsFrozenContextAndCapsNodes()
+        {
+            var path = System.IO.Path.Join(System.IO.Path.GetTempPath(), $"caseuco-bounded-{Guid.NewGuid()}.jsonld");
+            try
+            {
+                var context = new Dictionary<string, string>
+                {
+                    ["kb"] = "https://example.org/kb/",
+                    ["uco-core"] = "https://ontology.unifiedcyberontology.org/uco/core/",
+                };
+                BoundedStreamingWriteResult metrics;
+                using (var writer = new JsonLdStreamWriter(path, context, maxNodeBytes: 1024))
+                {
+                    for (var i = 0; i < 100; i++)
+                    {
+                        writer.WriteNode(new Dictionary<string, object>
+                        {
+                            ["@id"] = $"kb:node-{i}",
+                            ["@type"] = "uco-core:UcoObject",
+                            ["uco-core:name"] = $"Node {i}",
+                        });
+                    }
+                    metrics = writer.Metrics;
+                }
+                using var doc = JsonDocument.Parse(System.IO.File.ReadAllText(path));
+                Assert.Equal(100, doc.RootElement.GetProperty("@graph").GetArrayLength());
+                Assert.Equal(100, metrics.Nodes);
+                Assert.True(metrics.MaxNodeBytesWritten <= 1024);
+            }
+            finally
+            {
+                if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
+            }
+        }
+
+        [Fact]
+        public void BoundedWriter_FailurePreservesExistingDestination()
+        {
+            var path = System.IO.Path.Join(System.IO.Path.GetTempPath(), $"caseuco-bounded-fail-{Guid.NewGuid()}.jsonld");
+            System.IO.File.WriteAllText(path, "SURVIVE");
+            try
+            {
+                var context = new Dictionary<string, string>
+                {
+                    ["kb"] = "https://example.org/kb/",
+                    ["uco-core"] = "https://ontology.unifiedcyberontology.org/uco/core/",
+                };
+                Assert.Throws<ArgumentException>(() =>
+                {
+                    using var writer = new JsonLdStreamWriter(path, context, maxNodeBytes: 128);
+                    writer.WriteNode(new Dictionary<string, object>
+                    {
+                        ["@id"] = "kb:bad",
+                        ["@type"] = "evil:Fabricated",
+                    });
+                });
+                Assert.Equal("SURVIVE", System.IO.File.ReadAllText(path));
+
+                Assert.Throws<InvalidOperationException>(() =>
+                {
+                    using var writer = new JsonLdStreamWriter(path, context, maxNodeBytes: 128);
+                    writer.WriteNode(new Dictionary<string, object>
+                    {
+                        ["@id"] = "kb:large",
+                        ["@type"] = "uco-core:UcoObject",
+                        ["uco-core:name"] = new string('x', 1000),
+                    });
+                });
+                Assert.Equal("SURVIVE", System.IO.File.ReadAllText(path));
+            }
+            finally
+            {
+                if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
             }
         }
 
@@ -426,6 +563,115 @@ namespace CaseUco.Tests
             var parts = graph.PartitionByRoots(new[] { "kb:root-a", "kb:root-b" }, "shared");
             Assert.True(parts.TryGetValue("_shared", out var sharedPart));
             Assert.True(sharedPart.Contains("kb:shared"));
+        }
+
+        [Fact]
+        public void PartitionByRootsWithManifest_MarkingBoundaryFailsClosed()
+        {
+            var graph = new CaseGraph();
+            graph.UpsertNode("kb:public-root", "uco-core:UcoObject", new Dictionary<string, object>
+            {
+                ["uco-core:objectMarking"] = new Dictionary<string, object> { ["@id"] = "kb:public-marking" },
+                ["uco-core:object"] = new Dictionary<string, object> { ["@id"] = "kb:protected" },
+            });
+            graph.UpsertNode("kb:protected", "uco-core:UcoObject", new Dictionary<string, object>
+            {
+                ["uco-core:objectMarking"] = new Dictionary<string, object> { ["@id"] = "kb:secret-marking" },
+            });
+
+            var error = Assert.Throws<PartitionBoundaryException>(() =>
+                graph.PartitionByRootsWithManifest(new[] { "kb:public-root" }, new PartitionOptions
+                {
+                    IncludeIncoming = false,
+                    BoundaryPolicy = "marking-and-authorization",
+                }));
+
+            Assert.Equal("kb:public-root", error.RootId);
+            Assert.Equal("kb:protected", error.NodeId);
+            Assert.Contains(graph.ExpandIri("kb:secret-marking"), error.MissingMarkings);
+        }
+
+        [Fact]
+        public void PartitionByRootsWithManifest_HomeRoutePreservesUnion()
+        {
+            var graph = new CaseGraph();
+            graph.UpsertNode("kb:public-root", "uco-core:UcoObject", new Dictionary<string, object>
+            {
+                ["uco-core:objectMarking"] = new Dictionary<string, object> { ["@id"] = "kb:public-marking" },
+                ["uco-core:object"] = new Dictionary<string, object> { ["@id"] = "kb:protected" },
+            });
+            graph.UpsertNode("kb:secret-root", "uco-core:UcoObject", new Dictionary<string, object>
+            {
+                ["uco-core:objectMarking"] = new List<object>
+                {
+                    new Dictionary<string, object> { ["@id"] = "kb:public-marking" },
+                    new Dictionary<string, object> { ["@id"] = "kb:secret-marking" },
+                },
+                ["uco-core:object"] = new Dictionary<string, object> { ["@id"] = "kb:protected" },
+            });
+            graph.UpsertNode("kb:protected", "uco-core:UcoObject", new Dictionary<string, object>
+            {
+                ["uco-core:objectMarking"] = new Dictionary<string, object> { ["@id"] = "kb:secret-marking" },
+                ["uco-core:name"] = "protected evidence",
+            });
+
+            var result = graph.PartitionByRootsWithManifest(
+                new[] { "kb:public-root", "kb:secret-root" },
+                new PartitionOptions
+                {
+                    IncludeIncoming = false,
+                    BoundaryPolicy = "marking-and-authorization",
+                    CrossBoundaryPolicy = "home-partition-reference",
+                    RootBoundaries = new Dictionary<string, PartitionBoundary>
+                    {
+                        ["kb:public-root"] = new PartitionBoundary
+                        {
+                            Markings = new[] { "kb:public-marking" },
+                        },
+                        ["kb:secret-root"] = new PartitionBoundary
+                        {
+                            Markings = new[] { "kb:public-marking", "kb:secret-marking" },
+                        },
+                    },
+                    ValidationBundle = new Dictionary<string, object>
+                    {
+                        ["extensions"] = new List<object> { "example:full" },
+                    },
+                });
+
+            Assert.False(result.Partitions["kb:public-root"].Contains("kb:protected"));
+            Assert.True(result.Partitions["kb:secret-root"].Contains("kb:protected"));
+            Assert.Equal("referenced-partition-set", result.Manifest["validation_mode"]);
+            var routes = Assert.IsType<Dictionary<string, string>>(result.Manifest["home_partition_routes"]);
+            Assert.Equal("kb:secret-root", routes["kb:protected"]);
+            Assert.True(graph.VerifyPartitionUnion(result.Partitions).Equivalent);
+        }
+
+        [Fact]
+        public void PartitionByRootsWithManifest_SupportGraphSafeManifest()
+        {
+            var graph = new CaseGraph();
+            graph.UpsertNode("kb:shared", "uco-core:UcoObject");
+            foreach (var root in new[] { "kb:a", "kb:b" })
+                graph.UpsertNode(root, "uco-core:UcoObject", new Dictionary<string, object>
+                {
+                    ["uco-core:object"] = new Dictionary<string, object> { ["@id"] = "kb:shared" },
+                });
+
+            var result = graph.PartitionByRootsWithManifest(
+                new[] { "kb:a", "kb:b" },
+                new PartitionOptions
+                {
+                    IncludeIncoming = false,
+                    SharedNodePolicy = "support-graph",
+                    ManifestDetail = "safe",
+                });
+
+            Assert.True(result.Partitions.ContainsKey("_support"));
+            var manifests = Assert.IsType<Dictionary<string, object>>(result.Manifest["partitions"]);
+            var a = Assert.IsType<Dictionary<string, object>>(manifests["kb:a"]);
+            Assert.False(a.ContainsKey("node_ids"));
+            Assert.True(graph.VerifyPartitionUnion(result.Partitions).Equivalent);
         }
 
         [Fact]

@@ -574,9 +574,6 @@ def build() -> CASEGraph:
         ul_records.append(record)
         ul_events.append(event)
 
-    ul_record = ul_records[0]
-    ul_event = ul_events[0]
-
     # SolveitInvestigativeAction (case_uco_solveit >= 0.2.0) serializes
     # uco-action:* keys and SOLVE-IT method links natively.
     parse_iterator = graph.create(

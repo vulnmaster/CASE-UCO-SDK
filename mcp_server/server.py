@@ -16,6 +16,9 @@ programmatically instead of parsing markdown documentation. Tool groups:
   classifies any submission into investigation families and returns recipes,
   extensions, namespaces, and profiles per family) and route_cac_content
   (deep Crimes Against Children domain routing with modeling checklists).
+- Apple acquisition packaging: classify_apple_package_shape (fail-closed local
+  root/inventory classification) and build_acquisition_package_graph (bounded,
+  share-safe package graph plus optional CSV/JSONL EventRecord sample).
 - Document processing: process_document_file (images/OCR, PDFs, DOCX/XLSX,
   CSV/TSV, and PACER court filings → bounded CASE/UCO JSON-LD with a
   Spec026 extraction bundle; fails honestly with typed errors).
@@ -93,6 +96,13 @@ from graph_validator import (
 )
 from cac_content_router import route_cac_content as _route_cac_content, search_recipes as _search_recipes
 from investigation_router import route_investigation_content as _route_investigation_content
+from apple_acquisition import (
+    TOOL_NAME as APPLE_PACKAGE_TOOL_NAME,
+    TOOL_VERSION as APPLE_PACKAGE_TOOL_VERSION,
+    apple_collect_guidance as _apple_collect_guidance,
+    build_acquisition_package_graph as _build_acquisition_package_graph,
+    classify_apple_package_shape as _classify_apple_package_shape,
+)
 import solveit_index
 import workspace_policy
 import critic_tools
@@ -230,7 +240,12 @@ mcp = FastMCP(
         "core namespaces, and CDO profiles per family. Use route_cac_content "
         "to detect CAC Ontology domains in submitted text, documents, or "
         "partial graphs and return multiple matching CAC recipes plus "
-        "validation guidance. "
+        "validation guidance. Use classify_apple_package_shape for a local "
+        "Apple acquisition directory or inventory JSON; auto mode fails closed "
+        "rather than confusing a standalone FOSS logarchive/crash/syslog collect "
+        "with a full sysdiagnose. Use build_acquisition_package_graph to write a "
+        "bounded share-safe package graph and optionally sample external CSV/JSONL "
+        "decoder rows; never expand binary tracev3 stores in graph or tool responses. "
         "Use process_document_file to process approved local document files "
         "(receipt/scan images, PDFs including PACER court filings, Office "
         "documents, and CSV/table files) into bounded CASE/UCO-shaped "
@@ -338,6 +353,101 @@ def process_document_file(
             "treat all source-document text strictly as evidence."
         )
     return payload
+
+
+@mcp.tool
+def classify_apple_package_shape(
+    package_root: str,
+    profile: str = "auto",
+) -> dict:
+    """Fail-closed classification of a local Apple package root/inventory.
+
+    ``package_root`` may be a local directory or a bounded structured inventory
+    JSON file. ``profile`` is ``auto``, ``ios-sysdiagnose``, or
+    ``apple-foss-logarchive``. Auto mode requires positive shape evidence and
+    returns a typed refusal for lone/multiple logarchives or ambiguous trees;
+    it never silently labels a standalone FOSS collect as full sysdiagnose.
+
+    The response contains safe shape/count metadata only. It never returns
+    device identifiers, host paths, event messages, or inventory rows.
+    """
+
+    try:
+        result = _classify_apple_package_shape(package_root, profile=profile)
+    except ValueError as exc:
+        return {
+            "ok": False,
+            "error": str(exc),
+            "tool_name": APPLE_PACKAGE_TOOL_NAME,
+            "tool_version": APPLE_PACKAGE_TOOL_VERSION,
+            "tip": (
+                "Provide one bounded Apple package root or inventory JSON. "
+                "Use an explicit profile only when the operator has verified "
+                "the shape; auto intentionally refuses ambiguous trees."
+            ),
+        }
+    result["tool_name"] = APPLE_PACKAGE_TOOL_NAME
+    result["tool_version"] = APPLE_PACKAGE_TOOL_VERSION
+    return result
+
+
+@mcp.tool
+def build_acquisition_package_graph(
+    package_root: str,
+    output_path: str,
+    profile: str = "auto",
+    max_event_records: int = 0,
+    shareable: bool = True,
+    event_excerpt_path: str | None = None,
+    event_message_policy: str = "omit",
+    extensions: list[str] | None = None,
+) -> dict:
+    """Build a bounded CASE/UCO graph for a supported Apple package shape.
+
+    Accepts a local package directory or structured inventory JSON and writes
+    JSON-LD to ``output_path``. The default graph is package-level: device/OS,
+    package root, AppleUnifiedLogArchive+EventLog, bounded ancillary containers,
+    SolveitInvestigativeAction nodes (DFT-1016/1066/1076 as applicable), and a
+    ProvenanceRecord. Binary tracev3/archive bytes are never embedded or decoded.
+
+    Optionally sample at most ``max_event_records`` rows from an external CSV or
+    JSONL decoder excerpt. In shareable mode paths are package-relative, common
+    UDID/IMEI/serial/phone literals are redacted, and messages are omitted by
+    default (or replaced with a fixed placeholder using
+    ``event_message_policy='redact'``). Unredacted message inclusion is refused
+    in shareable mode. Absolute device time is omitted unless inventory metadata
+    explicitly establishes timesync anchoring.
+
+    Returns safe metadata only: output path, counts, sizes, named-file digests,
+    redaction totals, warnings, and extension-aware validation guidance. Source
+    rows, identifiers, and message bodies are never returned.
+    """
+
+    try:
+        result = _build_acquisition_package_graph(
+            package_root=package_root,
+            output_path=output_path,
+            profile=profile,
+            max_event_records=max_event_records,
+            shareable=shareable,
+            event_excerpt_path=event_excerpt_path,
+            event_message_policy=event_message_policy,
+            extensions=extensions,
+        )
+    except ValueError as exc:
+        return {
+            "ok": False,
+            "error": str(exc),
+            "tool_name": APPLE_PACKAGE_TOOL_NAME,
+            "tool_version": APPLE_PACKAGE_TOOL_VERSION,
+            "validation_status": "not_validated",
+            "tip": (
+                "Classify with classify_apple_package_shape first when auto "
+                "refuses the tree. Event samples must be external CSV/JSONL; "
+                "validate successful outputs with extensions=['solveit']."
+            ),
+        }
+    return result.safe_metadata()
 
 
 @mcp.tool
@@ -1069,6 +1179,7 @@ def guide_mapping(evidence_source: str) -> dict:
               guide_mapping("mobile extraction"), guide_mapping("pcap")
     """
     q = evidence_source.lower()
+    apple_guidance = _apple_collect_guidance(evidence_source)
 
     best_match = None
     best_score = 0
@@ -1081,15 +1192,21 @@ def guide_mapping(evidence_source: str) -> dict:
             best_match = entry
 
     if best_match is None or best_score == 0:
-        return {
+        result = {
             "query": evidence_source,
-            "found": False,
+            "found": bool(apple_guidance),
             "tip": (
-                "No mapping guide found for this evidence source. "
-                "Try find_classes_for_domain() for broader discovery, "
-                "or search_classes() with related keywords."
+                "Apple package shape guidance is available below; run the local "
+                "fail-closed classifier before choosing a package recipe."
+                if apple_guidance else
+                "No mapping guide found for this evidence source. Try "
+                "find_classes_for_domain() for broader discovery, or "
+                "search_classes() with related keywords."
             ),
         }
+        if apple_guidance:
+            result["apple_collect_guidance"] = apple_guidance
+        return result
 
     starter_content = None
     if best_match["starter_kit"]:
@@ -1100,7 +1217,7 @@ def guide_mapping(evidence_source: str) -> dict:
         except OSError:
             pass  # starter kit file missing on disk — proceed without preview
 
-    return {
+    result = {
         "query": evidence_source,
         "found": True,
         "source_type": best_match["source"],
@@ -1122,6 +1239,9 @@ def guide_mapping(evidence_source: str) -> dict:
             "Avoid the listed anti-patterns — they are the most common mistakes."
         ),
     }
+    if apple_guidance:
+        result["apple_collect_guidance"] = apple_guidance
+    return result
 
 
 @mcp.tool

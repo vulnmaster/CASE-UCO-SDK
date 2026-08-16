@@ -19,18 +19,25 @@
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::path::PathBuf;
-use std::sync::OnceLock;
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::{OnceLock, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
-static REGISTRY: OnceLock<Registry> = OnceLock::new();
+static REGISTRY: OnceLock<RwLock<RegistryState>> = OnceLock::new();
+static REGISTRY_HITS: AtomicU64 = AtomicU64::new(0);
+static REGISTRY_MISSES: AtomicU64 = AtomicU64::new(0);
+static REGISTRY_GENERATION: AtomicU64 = AtomicU64::new(0);
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
 struct RawRegistry {
+    #[serde(default)]
     modules: Vec<String>,
+    #[serde(default)]
     classes: HashMap<String, RawClass>,
+    #[serde(default)]
     vocabs: HashMap<String, RawVocab>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
 struct RawClass {
     iri: String,
     module: String,
@@ -40,7 +47,7 @@ struct RawClass {
     properties: Vec<RawProperty>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
 struct RawProperty {
     name: String,
     #[serde(rename = "type")]
@@ -51,7 +58,7 @@ struct RawProperty {
     description: String,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
 struct RawVocab {
     iri: String,
     members: Vec<String>,
@@ -95,27 +102,221 @@ struct Registry {
     vocabs: HashMap<String, RawVocab>,
 }
 
-fn load() -> &'static Registry {
+struct RegistryState {
+    base: RawRegistry,
+    extensions: HashMap<String, RawRegistry>,
+    registry: Registry,
+}
+
+/// Observable registry cache state (#82).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct RegistryCacheMetrics {
+    pub hits: u64,
+    pub misses: u64,
+    pub generation: u64,
+    pub registered_extensions: usize,
+    pub cached_classes: usize,
+}
+
+/// Fail-closed extension registry error (#82).
+#[derive(Debug)]
+pub enum RegistryError {
+    InvalidJson(serde_json::Error),
+    InvalidSource,
+    DuplicateClassIri {
+        iri: String,
+        existing: String,
+        conflicting: String,
+    },
+    DuplicateClassName(String),
+    DuplicateVocab(String),
+}
+
+impl std::fmt::Display for RegistryError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::InvalidJson(e) => write!(f, "invalid extension registry JSON: {e}"),
+            Self::InvalidSource => write!(f, "extension registry source must be non-empty"),
+            Self::DuplicateClassIri { iri, existing, conflicting } => write!(
+                f,
+                "duplicate class IRI '{iri}': {existing} vs {conflicting}"
+            ),
+            Self::DuplicateClassName(name) => write!(f, "duplicate class name '{name}'"),
+            Self::DuplicateVocab(name) => write!(f, "duplicate vocabulary '{name}'"),
+        }
+    }
+}
+
+impl std::error::Error for RegistryError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::InvalidJson(e) => Some(e),
+            _ => None,
+        }
+    }
+}
+
+fn load() -> &'static RwLock<RegistryState> {
     REGISTRY.get_or_init(|| {
+        REGISTRY_MISSES.fetch_add(1, Ordering::Relaxed);
         let json = load_json();
         let raw: RawRegistry = match serde_json::from_str(&json) {
             Ok(v) => v,
             Err(e) => panic!("Failed to parse _registry.json: {e}"),
         };
+        let registry = Registry::from_raw(raw.clone());
+        RwLock::new(RegistryState {
+            base: raw,
+            extensions: HashMap::new(),
+            registry,
+        })
+    })
+}
 
-        let classes_lower: HashMap<String, String> = raw
+fn read_state(lock: &RwLock<RegistryState>) -> RwLockReadGuard<'_, RegistryState> {
+    match lock.read() {
+        Ok(state) => state,
+        Err(poisoned) => poisoned.into_inner(),
+    }
+}
+
+fn write_state(lock: &RwLock<RegistryState>) -> RwLockWriteGuard<'_, RegistryState> {
+    match lock.write() {
+        Ok(state) => state,
+        Err(poisoned) => poisoned.into_inner(),
+    }
+}
+
+impl Registry {
+    fn from_raw(raw: RawRegistry) -> Self {
+        let classes_lower = raw
             .classes
             .keys()
             .map(|k| (k.to_lowercase(), k.clone()))
             .collect();
-
-        Registry {
+        Self {
             modules: raw.modules,
             classes: raw.classes,
             classes_lower,
             vocabs: raw.vocabs,
         }
-    })
+    }
+}
+
+fn composed_raw(
+    base: &RawRegistry,
+    extensions: &HashMap<String, RawRegistry>,
+) -> Result<RawRegistry, RegistryError> {
+    let mut merged = base.clone();
+    let mut iri_owners: HashMap<String, String> = merged
+        .classes
+        .iter()
+        .map(|(name, cls)| (cls.iri.clone(), name.clone()))
+        .collect();
+    let mut sources: Vec<&String> = extensions.keys().collect();
+    sources.sort();
+    for source in sources {
+        let extension = &extensions[source];
+        for module in &extension.modules {
+            if !merged.modules.contains(module) {
+                merged.modules.push(module.clone());
+            }
+        }
+        let mut class_names: Vec<&String> = extension.classes.keys().collect();
+        class_names.sort();
+        for name in class_names {
+            let class = &extension.classes[name];
+            if let Some(existing_name) = iri_owners.get(&class.iri) {
+                let existing = &merged.classes[existing_name];
+                if existing_name != name || existing != class {
+                    return Err(RegistryError::DuplicateClassIri {
+                        iri: class.iri.clone(),
+                        existing: existing_name.clone(),
+                        conflicting: name.clone(),
+                    });
+                }
+                continue;
+            }
+            if let Some(existing) = merged.classes.get(name) {
+                if existing != class {
+                    return Err(RegistryError::DuplicateClassName(name.clone()));
+                }
+                continue;
+            }
+            iri_owners.insert(class.iri.clone(), name.clone());
+            merged.classes.insert(name.clone(), class.clone());
+        }
+        for (name, vocab) in &extension.vocabs {
+            if let Some(existing) = merged.vocabs.get(name) {
+                if existing != vocab {
+                    return Err(RegistryError::DuplicateVocab(name.clone()));
+                }
+            } else {
+                merged.vocabs.insert(name.clone(), vocab.clone());
+            }
+        }
+    }
+    merged.modules.sort();
+    Ok(merged)
+}
+
+/// Register or atomically replace one trusted extension metadata registry (#82).
+pub fn register_extension_json(source: &str, json: &str) -> Result<u64, RegistryError> {
+    let source = source.trim();
+    if source.is_empty() {
+        return Err(RegistryError::InvalidSource);
+    }
+    let extension: RawRegistry = serde_json::from_str(json).map_err(RegistryError::InvalidJson)?;
+    let lock = load();
+    let mut state = write_state(lock);
+    let mut candidate = state.extensions.clone();
+    candidate.insert(source.to_string(), extension);
+    let merged = composed_raw(&state.base, &candidate)?;
+    state.extensions = candidate;
+    state.registry = Registry::from_raw(merged);
+    Ok(REGISTRY_GENERATION.fetch_add(1, Ordering::Relaxed) + 1)
+}
+
+/// Unregister one extension source and rebuild the composite registry (#82).
+pub fn unregister_extension(source: &str) -> u64 {
+    let lock = load();
+    let mut state = write_state(lock);
+    let mut candidate = state.extensions.clone();
+    if candidate.remove(source).is_none() {
+        return REGISTRY_GENERATION.load(Ordering::Relaxed);
+    }
+    match composed_raw(&state.base, &candidate) {
+        Ok(merged) => {
+            state.extensions = candidate;
+            state.registry = Registry::from_raw(merged);
+            REGISTRY_GENERATION.fetch_add(1, Ordering::Relaxed) + 1
+        }
+        Err(_) => REGISTRY_GENERATION.load(Ordering::Relaxed),
+    }
+}
+
+/// Reload the generated base registry while retaining registered extensions (#82).
+pub fn clear_registry_cache() -> Result<u64, RegistryError> {
+    let raw: RawRegistry = serde_json::from_str(&load_json()).map_err(RegistryError::InvalidJson)?;
+    let lock = load();
+    let mut state = write_state(lock);
+    let merged = composed_raw(&raw, &state.extensions)?;
+    state.base = raw;
+    state.registry = Registry::from_raw(merged);
+    Ok(REGISTRY_GENERATION.fetch_add(1, Ordering::Relaxed) + 1)
+}
+
+/// Return cache hit/miss and generation counters (#82).
+pub fn cache_metrics() -> RegistryCacheMetrics {
+    let lock = load();
+    let state = read_state(lock);
+    RegistryCacheMetrics {
+        hits: REGISTRY_HITS.load(Ordering::Relaxed),
+        misses: REGISTRY_MISSES.load(Ordering::Relaxed),
+        generation: REGISTRY_GENERATION.load(Ordering::Relaxed),
+        registered_extensions: state.extensions.len(),
+        cached_classes: state.registry.classes.len(),
+    }
 }
 
 fn load_json() -> String {
@@ -162,7 +363,10 @@ fn raw_to_class(name: &str, raw: &RawClass) -> OntologyClass {
 
 /// Search for classes by keyword (case-insensitive substring match on name and description).
 pub fn search(query: &str) -> Vec<OntologyClass> {
-    let reg = load();
+    let lock = load();
+    REGISTRY_HITS.fetch_add(1, Ordering::Relaxed);
+    let state = read_state(lock);
+    let reg = &state.registry;
     let q = query.to_lowercase();
     let mut results: Vec<OntologyClass> = reg
         .classes
@@ -178,7 +382,10 @@ pub fn search(query: &str) -> Vec<OntologyClass> {
 
 /// List all module names.
 pub fn list_modules() -> Vec<String> {
-    let reg = load();
+    let lock = load();
+    REGISTRY_HITS.fetch_add(1, Ordering::Relaxed);
+    let state = read_state(lock);
+    let reg = &state.registry;
     let mut modules = reg.modules.clone();
     modules.sort();
     modules
@@ -186,7 +393,10 @@ pub fn list_modules() -> Vec<String> {
 
 /// List class names, optionally filtered by module (partial match).
 pub fn list_classes(module: Option<&str>) -> Vec<String> {
-    let reg = load();
+    let lock = load();
+    REGISTRY_HITS.fetch_add(1, Ordering::Relaxed);
+    let state = read_state(lock);
+    let reg = &state.registry;
     let mut results: Vec<String> = match module {
         None => reg.classes.keys().cloned().collect(),
         Some(m) => {
@@ -204,7 +414,10 @@ pub fn list_classes(module: Option<&str>) -> Vec<String> {
 
 /// Get full details for a class by name (case-insensitive).
 pub fn get_class(name: &str) -> Option<OntologyClass> {
-    let reg = load();
+    let lock = load();
+    REGISTRY_HITS.fetch_add(1, Ordering::Relaxed);
+    let state = read_state(lock);
+    let reg = &state.registry;
     let canonical = reg.classes_lower.get(&name.to_lowercase())?;
     let raw = reg.classes.get(canonical)?;
     Some(raw_to_class(canonical, raw))
@@ -212,7 +425,10 @@ pub fn get_class(name: &str) -> Option<OntologyClass> {
 
 /// Find classes that have a property of the given type (case-insensitive).
 pub fn find_by_property_type(type_name: &str) -> Vec<OntologyClass> {
-    let reg = load();
+    let lock = load();
+    REGISTRY_HITS.fetch_add(1, Ordering::Relaxed);
+    let state = read_state(lock);
+    let reg = &state.registry;
     let t = type_name.to_lowercase();
     let mut results: Vec<OntologyClass> = reg
         .classes
@@ -230,7 +446,10 @@ pub fn find_by_property_type(type_name: &str) -> Vec<OntologyClass> {
 
 /// Find all Facet classes.
 pub fn find_facets() -> Vec<OntologyClass> {
-    let reg = load();
+    let lock = load();
+    REGISTRY_HITS.fetch_add(1, Ordering::Relaxed);
+    let state = read_state(lock);
+    let reg = &state.registry;
     let mut results: Vec<OntologyClass> = reg
         .classes
         .iter()
@@ -243,7 +462,10 @@ pub fn find_facets() -> Vec<OntologyClass> {
 
 /// List all vocabulary types with their members.
 pub fn list_vocabs() -> Vec<OntologyVocab> {
-    let reg = load();
+    let lock = load();
+    REGISTRY_HITS.fetch_add(1, Ordering::Relaxed);
+    let state = read_state(lock);
+    let reg = &state.registry;
     let mut results: Vec<OntologyVocab> = reg
         .vocabs
         .iter()
