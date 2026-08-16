@@ -68,6 +68,12 @@ pub enum GraphError {
     NotFound(String),
     InvalidArgument(String),
     InvalidSplitSize(isize),
+    PartitionBoundary {
+        root_id: String,
+        node_id: String,
+        missing_markings: Vec<String>,
+        missing_authorizations: Vec<String>,
+    },
 }
 
 impl std::fmt::Display for GraphError {
@@ -79,6 +85,15 @@ impl std::fmt::Display for GraphError {
             GraphError::InvalidSplitSize(n) => {
                 write!(f, "split max_objects must be a positive integer, got {n}")
             }
+            GraphError::PartitionBoundary {
+                root_id,
+                node_id,
+                missing_markings,
+                missing_authorizations,
+            } => write!(
+                f,
+                "partition root '{root_id}' is not authorized for node '{node_id}'; missing markings={missing_markings:?}, missing authorizations={missing_authorizations:?}"
+            ),
         }
     }
 }
@@ -139,16 +154,19 @@ enum SharedPolicy {
     Reject,
     /// Assign each shared node only to the first root partition that reaches it.
     First,
+    /// Put shared nodes into a dedicated support graph.
+    Support,
 }
 
 impl SharedPolicy {
     fn parse(name: &str) -> Result<Self, GraphError> {
         match name {
-            "duplicate" => Ok(Self::Duplicate),
-            "reject" => Ok(Self::Reject),
-            "first" => Ok(Self::First),
+            "duplicate" | "replicate-identical" => Ok(Self::Duplicate),
+            "reject" | "error-on-cross-boundary" => Ok(Self::Reject),
+            "first" | "home-partition-reference" => Ok(Self::First),
+            "support-graph" | "shared" | "isolate-shared" | "_shared" => Ok(Self::Support),
             other => Err(GraphError::InvalidArgument(format!(
-                "Unknown shared policy: '{other}'. Expected one of: duplicate, reject, first"
+                "Unknown shared policy: '{other}'. Expected duplicate/replicate-identical, reject/error-on-cross-boundary, first/home-partition-reference, or support-graph"
             ))),
         }
     }
@@ -159,6 +177,59 @@ impl SharedPolicy {
 pub struct StreamingWriteMetrics {
     pub nodes: usize,
     pub bytes_written: u64,
+}
+
+/// Marking and authorization scope allowed for one partition root (#79).
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct PartitionBoundary {
+    pub markings: Vec<String>,
+    pub authorizations: Vec<String>,
+}
+
+/// Options for marking-safe dependency partitioning (#79).
+#[derive(Debug, Clone)]
+pub struct PartitionOptions {
+    pub shared_node_policy: String,
+    pub include_incoming: bool,
+    pub boundary_policy: String,
+    pub cross_boundary_policy: String,
+    pub root_boundaries: BTreeMap<String, PartitionBoundary>,
+    pub validation_bundle: Value,
+    pub manifest_detail: String,
+}
+
+impl Default for PartitionOptions {
+    fn default() -> Self {
+        Self {
+            shared_node_policy: "replicate-identical".to_string(),
+            include_incoming: true,
+            boundary_policy: "none".to_string(),
+            cross_boundary_policy: "error-on-cross-boundary".to_string(),
+            root_boundaries: BTreeMap::new(),
+            validation_bundle: Value::Null,
+            manifest_detail: "full".to_string(),
+        }
+    }
+}
+
+/// A partition set plus its reconstruction and validation manifest.
+pub struct PartitionResult {
+    pub partitions: BTreeMap<String, CaseGraph>,
+    pub manifest: Value,
+}
+
+/// Exact JSON-LD node-union verification evidence.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PartitionUnionVerification {
+    pub equivalent: bool,
+    pub source_nodes: usize,
+    pub union_nodes: usize,
+}
+
+#[derive(Debug, Clone, Default)]
+struct BoundarySets {
+    markings: HashSet<String>,
+    authorizations: HashSet<String>,
 }
 
 /// Build a CASE/UCO JSON-LD graph with typed objects.
@@ -719,70 +790,355 @@ impl CaseGraph {
         roots: &[String],
         shared_policy: &str,
     ) -> Result<BTreeMap<String, CaseGraph>, GraphError> {
+        let options = PartitionOptions {
+            shared_node_policy: shared_policy.to_string(),
+            ..PartitionOptions::default()
+        };
+        Ok(self.partition_by_roots_with_manifest(roots, &options)?.partitions)
+    }
+
+    /// Marking-safe root partitioning with reconstruction metadata (#79).
+    pub fn partition_by_roots_with_manifest(
+        &self,
+        roots: &[String],
+        options: &PartitionOptions,
+    ) -> Result<PartitionResult, GraphError> {
         if roots.is_empty() {
             return Err(GraphError::InvalidArgument(
                 "partition_by_roots requires at least one root @id".into(),
             ));
         }
-        let policy = SharedPolicy::parse(shared_policy)?;
-        let by_id = self.top_level_index();
+        let policy = SharedPolicy::parse(&options.shared_node_policy)?;
+        if options.boundary_policy != "none"
+            && options.boundary_policy != "marking-and-authorization"
+        {
+            return Err(GraphError::InvalidArgument(format!(
+                "Unknown boundary policy: '{}'",
+                options.boundary_policy
+            )));
+        }
+        if options.cross_boundary_policy != "error-on-cross-boundary"
+            && options.cross_boundary_policy != "home-partition-reference"
+        {
+            return Err(GraphError::InvalidArgument(format!(
+                "Unknown cross-boundary policy: '{}'",
+                options.cross_boundary_policy
+            )));
+        }
+        if options.manifest_detail != "full" && options.manifest_detail != "safe" {
+            return Err(GraphError::InvalidArgument(
+                "manifest_detail must be 'full' or 'safe'".into(),
+            ));
+        }
 
-        let mut closures: Vec<(String, HashSet<String>)> = Vec::with_capacity(roots.len());
+        let by_id = self.top_level_index();
+        let reverse = self.reverse_id_index(&by_id);
+        let mut closures: BTreeMap<String, HashSet<String>> = BTreeMap::new();
         for root in roots {
             if !self.contains(root) {
                 return Err(GraphError::NotFound(root.clone()));
             }
-            let closure = self.dependency_closure(root, &by_id);
-            closures.push((root.clone(), closure));
+            closures.entry(root.clone()).or_insert_with(|| {
+                self.dependency_closure_with_incoming(
+                    root,
+                    &by_id,
+                    &reverse,
+                    options.include_incoming,
+                )
+            });
         }
 
+        let mut boundaries: HashMap<String, BoundarySets> = HashMap::new();
+        for node in &self.objects {
+            if let Some(id) = node.get("@id").and_then(Value::as_str) {
+                boundaries.insert(self.expand_iri(id), self.partition_node_boundary(node));
+            }
+        }
+        let mut declared: BTreeMap<String, BoundarySets> = BTreeMap::new();
+        let mut omissions: BTreeMap<String, HashSet<String>> = closures
+            .keys()
+            .map(|root| (root.clone(), HashSet::new()))
+            .collect();
+        if options.boundary_policy == "marking-and-authorization" {
+            for root in closures.keys() {
+                let scope = if let Some(supplied) = options.root_boundaries.get(root) {
+                    BoundarySets {
+                        markings: supplied
+                            .markings
+                            .iter()
+                            .map(|value| self.expand_iri(value))
+                            .collect(),
+                        authorizations: supplied
+                            .authorizations
+                            .iter()
+                            .map(|value| self.expand_iri(value))
+                            .collect(),
+                    }
+                } else {
+                    boundaries
+                        .get(&self.expand_iri(root))
+                        .cloned()
+                        .unwrap_or_default()
+                };
+                declared.insert(root.clone(), scope);
+            }
+            for (root, members) in &mut closures {
+                let allowed = &declared[root];
+                let mut ordered_members: Vec<String> = members.iter().cloned().collect();
+                ordered_members.sort();
+                for node_id in ordered_members {
+                    let required = boundaries.get(&node_id).cloned().unwrap_or_default();
+                    let mut missing_markings: Vec<String> = required
+                        .markings
+                        .difference(&allowed.markings)
+                        .cloned()
+                        .collect();
+                    let mut missing_authorizations: Vec<String> = required
+                        .authorizations
+                        .difference(&allowed.authorizations)
+                        .cloned()
+                        .collect();
+                    missing_markings.sort();
+                    missing_authorizations.sort();
+                    if missing_markings.is_empty() && missing_authorizations.is_empty() {
+                        continue;
+                    }
+                    if self.expand_iri(root) == node_id
+                        || options.cross_boundary_policy == "error-on-cross-boundary"
+                    {
+                        return Err(GraphError::PartitionBoundary {
+                            root_id: root.clone(),
+                            node_id: self.original_id_for(&node_id, &by_id),
+                            missing_markings,
+                            missing_authorizations,
+                        });
+                    }
+                    members.remove(&node_id);
+                    let omission_set = omissions.get_mut(root).ok_or_else(|| {
+                        GraphError::InvalidArgument(
+                            "internal partition omission root is missing".to_string(),
+                        )
+                    })?;
+                    omission_set.insert(node_id);
+                }
+            }
+        }
+
+        let omitted: HashSet<String> = omissions
+            .values()
+            .flat_map(|values| values.iter().cloned())
+            .collect();
+        let mut boundary_homes: HashMap<String, String> = HashMap::new();
+        let mut ordered_omitted: Vec<String> = omitted.iter().cloned().collect();
+        ordered_omitted.sort();
+        for node_id in ordered_omitted {
+            let candidates: Vec<String> = closures
+                .iter()
+                .filter(|(_, members)| members.contains(&node_id))
+                .map(|(root, _)| root.clone())
+                .collect();
+            let Some(home) = candidates.first() else {
+                let required = boundaries.get(&node_id).cloned().unwrap_or_default();
+                let mut missing_markings: Vec<String> = required.markings.into_iter().collect();
+                let mut missing_authorizations: Vec<String> =
+                    required.authorizations.into_iter().collect();
+                missing_markings.sort();
+                missing_authorizations.sort();
+                return Err(GraphError::PartitionBoundary {
+                    root_id: "<no-authorized-home>".into(),
+                    node_id: self.original_id_for(&node_id, &by_id),
+                    missing_markings,
+                    missing_authorizations,
+                });
+            };
+            boundary_homes.insert(node_id, home.clone());
+        }
+
+        let mut node_owners: HashMap<String, Vec<String>> = HashMap::new();
+        for (root, members) in &closures {
+            for node_id in members {
+                node_owners.entry(node_id.clone()).or_default().push(root.clone());
+            }
+        }
+        for owners in node_owners.values_mut() {
+            owners.sort();
+        }
         if policy == SharedPolicy::Reject {
-            let mut seen: HashMap<String, String> = HashMap::new();
-            for (root, closure) in &closures {
-                for node_id in closure {
-                    if let Some(other) = seen.get(node_id) {
-                        if other != root {
-                            return Err(GraphError::InvalidArgument(format!(
-                                "shared node '{node_id}' appears in closures for '{other}' and '{root}' (shared_policy=reject)"
-                            )));
+            let mut overlap: Vec<String> = node_owners
+                .iter()
+                .filter(|(_, owners)| owners.len() > 1)
+                .map(|(node_id, _)| node_id.clone())
+                .collect();
+            overlap.sort();
+            if !overlap.is_empty() {
+                return Err(GraphError::InvalidArgument(format!(
+                    "shared nodes cross partition boundaries: {:?}",
+                    overlap.into_iter().take(5).collect::<Vec<_>>()
+                )));
+            }
+        }
+        let mut homes: HashMap<String, String> = HashMap::new();
+        if policy == SharedPolicy::First {
+            for (node_id, owners) in &node_owners {
+                if owners.len() > 1 {
+                    let original = self.original_id_for(node_id, &by_id);
+                    let home = if owners.contains(&original) {
+                        original
+                    } else {
+                        owners[0].clone()
+                    };
+                    homes.insert(node_id.clone(), home);
+                }
+            }
+        }
+
+        let mut partitions: BTreeMap<String, CaseGraph> = BTreeMap::new();
+        for (root, members) in &closures {
+            let mut part = self.partition_shell();
+            let mut ordered: Vec<String> = members.iter().cloned().collect();
+            ordered.sort();
+            for node_id in ordered {
+                let owner_count = node_owners[&node_id].len();
+                if owner_count > 1 && policy == SharedPolicy::Support {
+                    continue;
+                }
+                if owner_count > 1
+                    && policy == SharedPolicy::First
+                    && homes.get(&node_id) != Some(root)
+                {
+                    continue;
+                }
+                if let Some(node) = self.resolve_top_level(&node_id, &by_id) {
+                    part.append_object(node.clone()).map_err(GraphError::Duplicate)?;
+                }
+            }
+            partitions.insert(root.clone(), part);
+        }
+        if policy == SharedPolicy::Support {
+            let mut support = self.partition_shell();
+            let mut shared: Vec<String> = node_owners
+                .iter()
+                .filter(|(_, owners)| owners.len() > 1)
+                .map(|(node_id, _)| node_id.clone())
+                .collect();
+            shared.sort();
+            for node_id in shared {
+                if let Some(node) = self.resolve_top_level(&node_id, &by_id) {
+                    support
+                        .append_object(node.clone())
+                        .map_err(GraphError::Duplicate)?;
+                }
+            }
+            if !support.objects.is_empty() {
+                let key = if options.shared_node_policy == "support-graph" {
+                    "_support"
+                } else {
+                    "_shared"
+                };
+                partitions.insert(key.into(), support);
+            }
+        }
+
+        let mut partition_metadata = Map::new();
+        for (key, partition) in &partitions {
+            let hash = partition.graph_fingerprint(&partition.objects);
+            let mut metadata = Map::new();
+            metadata.insert("partition_id".into(), json!(format!("urn:sha256:{hash}")));
+            metadata.insert("node_count".into(), json!(partition.objects.len()));
+            metadata.insert("triple_estimate".into(), json!(partition.estimate_triples()));
+            metadata.insert("sha256".into(), json!(hash));
+            let scope = declared.get(key).cloned().unwrap_or_default();
+            metadata.insert("effective_markings".into(), json!(sorted_set(&scope.markings)));
+            metadata.insert(
+                "authorization_scope".into(),
+                json!(sorted_set(&scope.authorizations)),
+            );
+            if options.manifest_detail == "full" {
+                let mut ids: Vec<String> = partition
+                    .objects
+                    .iter()
+                    .filter_map(|node| node.get("@id").and_then(Value::as_str).map(str::to_string))
+                    .collect();
+                ids.sort();
+                metadata.insert("node_ids".into(), json!(ids));
+            }
+            partition_metadata.insert(key.clone(), Value::Object(metadata));
+        }
+        let mut routes = BTreeMap::new();
+        for (node_id, root) in homes.iter().chain(boundary_homes.iter()) {
+            routes.insert(self.original_id_for(node_id, &by_id), root.clone());
+        }
+        let omission_counts: BTreeMap<String, usize> = omissions
+            .iter()
+            .map(|(root, values)| (root.clone(), values.len()))
+            .collect();
+        let required: Vec<String> = partitions.keys().cloned().collect();
+        let source_hash = self.graph_fingerprint(&self.objects);
+        let referenced = policy == SharedPolicy::Support
+            || policy == SharedPolicy::First
+            || !omitted.is_empty();
+        let manifest = json!({
+            "schema_version": "2.0.0",
+            "dataset_id": format!("urn:sha256:{source_hash}"),
+            "source_graph_sha256": source_hash,
+            "strategy": if options.include_incoming { "outgoing_and_incoming_id_closure" } else { "outgoing_id_closure" },
+            "roots": closures.keys().cloned().collect::<Vec<_>>(),
+            "shared_node_policy": match policy {
+                SharedPolicy::Duplicate => "replicate-identical",
+                SharedPolicy::Reject => "error-on-cross-boundary",
+                SharedPolicy::First => "home-partition-reference",
+                SharedPolicy::Support => "support-graph",
+            },
+            "include_incoming": options.include_incoming,
+            "boundary_policy": options.boundary_policy,
+            "cross_boundary_policy": options.cross_boundary_policy,
+            "validation_mode": if referenced { "referenced-partition-set" } else { "self-contained" },
+            "validation_bundle": options.validation_bundle,
+            "partitions": Value::Object(partition_metadata),
+            "home_partition_routes": if options.manifest_detail == "full" { json!(routes) } else { json!({}) },
+            "home_partition_route_count": routes.len(),
+            "boundary_omission_counts": omission_counts,
+            "reconstruction": {
+                "operation": "rdf-union",
+                "deduplicate_by": "@id with identical assertions",
+                "requires_partitions": required,
+            }
+        });
+        Ok(PartitionResult { partitions, manifest })
+    }
+
+    /// Verify that the exact JSON-LD node union reconstructs this graph.
+    pub fn verify_partition_union(
+        &self,
+        partitions: &BTreeMap<String, CaseGraph>,
+    ) -> PartitionUnionVerification {
+        let mut source: BTreeMap<String, Value> = BTreeMap::new();
+        for node in &self.objects {
+            if let Some(id) = node.get("@id").and_then(Value::as_str) {
+                source.insert(self.expand_iri(id), node.clone());
+            }
+        }
+        let mut union: BTreeMap<String, Value> = BTreeMap::new();
+        let mut conflict = false;
+        for partition in partitions.values() {
+            for node in &partition.objects {
+                if let Some(id) = node.get("@id").and_then(Value::as_str) {
+                    let expanded = self.expand_iri(id);
+                    if let Some(existing) = union.get(&expanded) {
+                        if existing != node {
+                            conflict = true;
                         }
                     } else {
-                        seen.insert(node_id.clone(), root.clone());
+                        union.insert(expanded, node.clone());
                     }
                 }
             }
         }
-
-        let mut assigned: HashSet<String> = HashSet::new();
-        let mut partitions: BTreeMap<String, CaseGraph> = BTreeMap::new();
-
-        for (root, closure) in closures {
-            let mut part = CaseGraph {
-                context: self.context.clone(),
-                objects: Vec::new(),
-                iri_index: HashMap::new(),
-                used_prefix_set: HashSet::new(),
-                on_duplicate: DuplicatePolicy::MergeCompatible,
-            };
-
-            for node_id in &closure {
-                if policy == SharedPolicy::First && assigned.contains(node_id) {
-                    continue;
-                }
-                let Some(node) = self.resolve_top_level(node_id, &by_id) else {
-                    continue;
-                };
-                part.append_object(node.clone())
-                    .map_err(GraphError::Duplicate)?;
-                if policy == SharedPolicy::First {
-                    assigned.insert(node_id.clone());
-                }
-            }
-
-            partitions.insert(root, part);
+        PartitionUnionVerification {
+            equivalent: !conflict && source == union,
+            source_nodes: source.len(),
+            union_nodes: union.len(),
         }
-
-        Ok(partitions)
     }
 
     /// Split the graph into smaller chunks of at most `max_objects` each.
@@ -843,6 +1199,133 @@ impl CaseGraph {
         by_id
     }
 
+    fn partition_shell(&self) -> CaseGraph {
+        CaseGraph {
+            context: self.context.clone(),
+            objects: Vec::new(),
+            iri_index: HashMap::new(),
+            used_prefix_set: HashSet::new(),
+            on_duplicate: DuplicatePolicy::MergeCompatible,
+        }
+    }
+
+    fn reverse_id_index(
+        &self,
+        by_id: &HashMap<String, usize>,
+    ) -> HashMap<String, HashSet<String>> {
+        let mut reverse: HashMap<String, HashSet<String>> = HashMap::new();
+        for node in &self.objects {
+            let Some(owner) = node.get("@id").and_then(Value::as_str) else {
+                continue;
+            };
+            let owner = self.expand_iri(owner);
+            let mut refs = HashSet::new();
+            collect_nested_id_refs(node, &mut refs);
+            for referenced in refs {
+                let expanded = self.expand_iri(&referenced);
+                if expanded != owner && by_id.contains_key(&expanded) {
+                    reverse.entry(expanded).or_default().insert(owner.clone());
+                }
+            }
+        }
+        reverse
+    }
+
+    fn dependency_closure_with_incoming(
+        &self,
+        root: &str,
+        by_id: &HashMap<String, usize>,
+        reverse: &HashMap<String, HashSet<String>>,
+        include_incoming: bool,
+    ) -> HashSet<String> {
+        let mut closure = HashSet::new();
+        let mut queue = VecDeque::new();
+        queue.push_back(self.expand_iri(root));
+        while let Some(id) = queue.pop_front() {
+            if !closure.insert(id.clone()) {
+                continue;
+            }
+            let Some(node) = self.resolve_top_level(&id, by_id) else {
+                continue;
+            };
+            let mut refs = HashSet::new();
+            collect_nested_id_refs(node, &mut refs);
+            for referenced in refs {
+                let expanded = self.expand_iri(&referenced);
+                if by_id.contains_key(&expanded) && !closure.contains(&expanded) {
+                    queue.push_back(expanded);
+                }
+            }
+            if include_incoming {
+                if let Some(referrers) = reverse.get(&id) {
+                    for referrer in referrers {
+                        if !closure.contains(referrer) {
+                            queue.push_back(referrer.clone());
+                        }
+                    }
+                }
+            }
+        }
+        closure
+    }
+
+    fn partition_node_boundary(&self, node: &Value) -> BoundarySets {
+        fn collect(graph: &CaseGraph, value: &Value, output: &mut HashSet<String>) {
+            match value {
+                Value::String(text) => {
+                    output.insert(graph.expand_iri(text));
+                }
+                Value::Object(map) => {
+                    if let Some(id) = map.get("@id").and_then(Value::as_str) {
+                        output.insert(graph.expand_iri(id));
+                    }
+                }
+                Value::Array(values) => {
+                    for value in values {
+                        collect(graph, value, output);
+                    }
+                }
+                _ => {}
+            }
+        }
+
+        let mut result = BoundarySets::default();
+        let Some(map) = node.as_object() else {
+            return result;
+        };
+        for (key, value) in map {
+            let expanded = self.expand_iri(key);
+            let local = expanded
+                .rsplit(['/', '#'])
+                .next()
+                .unwrap_or(expanded.as_str());
+            if local == "objectMarking" {
+                collect(self, value, &mut result.markings);
+            } else if local == "relevantAuthorization" || local == "requiredAuthorization" {
+                collect(self, value, &mut result.authorizations);
+            }
+        }
+        result
+    }
+
+    fn original_id_for(&self, node_id: &str, by_id: &HashMap<String, usize>) -> String {
+        self.resolve_top_level(node_id, by_id)
+            .and_then(|node| node.get("@id"))
+            .and_then(Value::as_str)
+            .unwrap_or(node_id)
+            .to_string()
+    }
+
+    fn graph_fingerprint(&self, nodes: &[Value]) -> String {
+        let context: BTreeMap<&String, &String> = self.context.iter().collect();
+        let document = json!({"@context": context, "@graph": nodes});
+        let encoded = document.to_string().into_bytes();
+        Sha256::digest(encoded)
+            .iter()
+            .map(|byte| format!("{byte:02x}"))
+            .collect()
+    }
+
     fn resolve_top_level<'a>(
         &'a self,
         node_id: &str,
@@ -853,37 +1336,6 @@ impl CaseGraph {
         }
         let expanded = self.expand_iri(node_id);
         by_id.get(&expanded).map(|&idx| &self.objects[idx])
-    }
-
-    fn dependency_closure(&self, root: &str, by_id: &HashMap<String, usize>) -> HashSet<String> {
-        let mut closure = HashSet::new();
-        let mut queue = VecDeque::new();
-        queue.push_back(root.to_string());
-
-        while let Some(id) = queue.pop_front() {
-            if !closure.insert(id.clone()) {
-                continue;
-            }
-            let Some(node) = self.resolve_top_level(&id, by_id) else {
-                continue;
-            };
-            let mut refs = HashSet::new();
-            collect_nested_id_refs(node, &mut refs);
-            for ref_id in refs {
-                let next = if by_id.contains_key(&ref_id) {
-                    ref_id
-                } else {
-                    let expanded = self.expand_iri(&ref_id);
-                    if by_id.contains_key(&expanded) {
-                        expanded
-                    } else {
-                        continue;
-                    }
-                };
-                queue.push_back(next);
-            }
-        }
-        closure
     }
 
     fn append_object(&mut self, obj: Value) -> Result<(), DuplicateNodeError> {
@@ -919,19 +1371,10 @@ impl CaseGraph {
 
     fn find_object_index(&self, node_id: &str) -> Option<usize> {
         let expanded = self.expand_iri(node_id);
-        if let Some(&idx) = self.iri_index.get(&expanded) {
-            if idx < self.objects.len() {
-                return Some(idx);
-            }
-        }
-        for (i, obj) in self.objects.iter().enumerate() {
-            if let Some(oid) = obj.get("@id").and_then(|v| v.as_str()) {
-                if oid == node_id || self.expand_iri(oid) == expanded {
-                    return Some(i);
-                }
-            }
-        }
-        None
+        self.iri_index
+            .get(&expanded)
+            .copied()
+            .filter(|index| *index < self.objects.len())
     }
 
     fn ingest_raw_node(&mut self, raw: Value, policy: DuplicatePolicy) -> Result<(), LoadError> {
@@ -1459,6 +1902,12 @@ fn collect_prefixes(value: &Value, context_keys: &HashSet<&str>, out: &mut HashS
         }
         _ => {}
     }
+}
+
+fn sorted_set(values: &HashSet<String>) -> Vec<String> {
+    let mut result: Vec<String> = values.iter().cloned().collect();
+    result.sort();
+    result
 }
 
 fn default_context() -> HashMap<String, String> {

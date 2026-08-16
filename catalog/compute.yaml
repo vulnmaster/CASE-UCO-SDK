@@ -1,0 +1,35 @@
+schema_version: "1.0"
+component: case_uco_sdk
+source_of_truth: docs/COMPUTE.md
+
+minimum:
+  cpu_cores: 4
+  ram_gb: 8
+  gpu: none
+  vram_gb: null
+  app_database_disk_gb: 20
+
+recommended:
+  cpu_cores: 8
+  ram_gb: 16
+  large_in_memory_graph_ram_gb:
+    minimum: 32
+    maximum: 64
+  gpu: none
+  vram_gb: null
+  app_database_disk_gb: 40
+
+storage_scope:
+  app_database_disk_includes:
+    - sdk
+    - language_toolchains
+    - package_caches
+    - temporary_validation_data
+    - generated_artifacts
+  app_database_disk_excludes:
+    - source_evidence
+    - forensic_images
+    - exports
+    - backups
+    - replicas
+  evidence_storage: size_separately

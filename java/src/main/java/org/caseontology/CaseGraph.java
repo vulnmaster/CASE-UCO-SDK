@@ -21,7 +21,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.ServiceLoader;
+import java.util.Comparator;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,6 +42,13 @@ public class CaseGraph {
     private static final ConcurrentHashMap<Class<?>, List<FieldBinding>> FIELD_BINDING_CACHE = new ConcurrentHashMap<>();
     private static final Object CLASS_REGISTRY_LOCK = new Object();
     private static volatile boolean classRegistryBuilt = false;
+    private static final ConcurrentHashMap<String, WeakReference<ClassRegistryProvider>>
+        EXPLICIT_CLASS_PROVIDERS = new ConcurrentHashMap<>();
+    private static volatile WeakReference<ClassLoader> providerClassLoader =
+        new WeakReference<>(CaseGraph.class.getClassLoader());
+    private static final AtomicLong CLASS_REGISTRY_HITS = new AtomicLong();
+    private static final AtomicLong CLASS_REGISTRY_MISSES = new AtomicLong();
+    private static final AtomicLong CLASS_REGISTRY_GENERATION = new AtomicLong();
 
     private final Map<String, String> context;
     private final List<Map<String, Object>> objects;
@@ -508,10 +519,39 @@ public class CaseGraph {
      */
     public static void clearClassRegistryCache() {
         synchronized (CLASS_REGISTRY_LOCK) {
-            CLASS_REGISTRY_CACHE.clear();
-            FIELD_BINDING_CACHE.clear();
-            classRegistryBuilt = false;
+            clearClassRegistryCacheLocked();
         }
+    }
+
+    private static void clearClassRegistryCacheLocked() {
+        CLASS_REGISTRY_CACHE.clear();
+        FIELD_BINDING_CACHE.clear();
+        classRegistryBuilt = false;
+        CLASS_REGISTRY_GENERATION.incrementAndGet();
+    }
+
+    /** Observable registry state for benchmarks and dynamic-loading tests (#82). */
+    public static final class ClassRegistryCacheMetrics {
+        private final long hits;
+        private final long misses;
+        private final long generation;
+        private final int registeredProviders;
+        private final int cachedClasses;
+
+        public ClassRegistryCacheMetrics(
+                long hits, long misses, long generation,
+                int registeredProviders, int cachedClasses) {
+            this.hits = hits;
+            this.misses = misses;
+            this.generation = generation;
+            this.registeredProviders = registeredProviders;
+            this.cachedClasses = cachedClasses;
+        }
+        public long getHits() { return hits; }
+        public long getMisses() { return misses; }
+        public long getGeneration() { return generation; }
+        public int getRegisteredProviders() { return registeredProviders; }
+        public int getCachedClasses() { return cachedClasses; }
     }
 
     /** Expose field-binding cache size for warm-path unit tests (#70). */
@@ -765,6 +805,7 @@ public class CaseGraph {
         ensureClassRegistryBuilt();
         Class<?> cached = CLASS_REGISTRY_CACHE.get(expandedIri);
         if (cached != null) {
+            CLASS_REGISTRY_HITS.incrementAndGet();
             return cached;
         }
 
@@ -790,9 +831,11 @@ public class CaseGraph {
                     continue;
                 }
                 CLASS_REGISTRY_CACHE.putIfAbsent(expandedIri, cls);
+                CLASS_REGISTRY_MISSES.incrementAndGet();
                 return cls;
             } catch (Exception ignored) {}
         }
+        CLASS_REGISTRY_MISSES.incrementAndGet();
         return null;
     }
 
@@ -829,14 +872,121 @@ public class CaseGraph {
                 if (!iri.equals(classIri)) {
                     continue;
                 }
-                Class<?> existing = CLASS_REGISTRY_CACHE.putIfAbsent(iri, cls);
-                if (existing != null && existing != cls) {
-                    throw new IllegalStateException(
-                        "Duplicate CLASS_IRI '" + iri + "': " + existing.getName() + " vs " + cls.getName());
-                }
+                addRegistryClass(iri, cls);
             } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ignored) {
             }
         }
+
+        List<ClassRegistryProvider> providers = new ArrayList<>();
+        ClassLoader loader = providerClassLoader.get();
+        if (loader == null) {
+            loader = CaseGraph.class.getClassLoader();
+            providerClassLoader = new WeakReference<>(loader);
+        }
+        for (ClassRegistryProvider provider : ServiceLoader.load(ClassRegistryProvider.class, loader)) {
+            providers.add(provider);
+        }
+        for (Map.Entry<String, WeakReference<ClassRegistryProvider>> entry
+                : EXPLICIT_CLASS_PROVIDERS.entrySet()) {
+            ClassRegistryProvider provider = entry.getValue().get();
+            if (provider != null) {
+                providers.add(provider);
+            } else {
+                EXPLICIT_CLASS_PROVIDERS.remove(entry.getKey(), entry.getValue());
+            }
+        }
+        providers.sort(Comparator
+            .comparingInt(ClassRegistryProvider::priority).reversed()
+            .thenComparing(ClassRegistryProvider::source));
+        Set<String> loadedSources = new HashSet<>();
+        for (ClassRegistryProvider provider : providers) {
+            if (provider.source() == null || provider.source().trim().isEmpty()) {
+                throw new IllegalArgumentException("ClassRegistryProvider source must be non-empty");
+            }
+            if (!loadedSources.add(provider.source())) {
+                continue;
+            }
+            Collection<Class<?>> classes = provider.classes();
+            if (classes == null) {
+                throw new IllegalArgumentException(
+                    "ClassRegistryProvider '" + provider.source() + "' returned null classes");
+            }
+            for (Class<?> cls : classes) {
+                try {
+                    Field iriField = cls.getDeclaredField("CLASS_IRI");
+                    String iri = (String) iriField.get(null);
+                    if (iri == null || iri.trim().isEmpty()) {
+                        throw new IllegalArgumentException(
+                            "Extension class " + cls.getName() + " has no CLASS_IRI");
+                    }
+                    addRegistryClass(iri, cls);
+                } catch (NoSuchFieldException | IllegalAccessException ex) {
+                    throw new IllegalArgumentException(
+                        "Extension class " + cls.getName() + " has no accessible CLASS_IRI", ex);
+                }
+            }
+        }
+    }
+
+    private static void addRegistryClass(String iri, Class<?> cls) {
+        Class<?> existing = CLASS_REGISTRY_CACHE.putIfAbsent(iri, cls);
+        if (existing != null && existing != cls) {
+            throw new ClassRegistryConflictException(iri, existing, cls);
+        }
+    }
+
+    /** Explicitly register a trusted provider and rebuild atomically (#82). */
+    public static long registerClassRegistryProvider(ClassRegistryProvider provider) {
+        Objects.requireNonNull(provider, "provider");
+        String source = Objects.requireNonNull(provider.source(), "provider.source").trim();
+        if (source.isEmpty()) {
+            throw new IllegalArgumentException("ClassRegistryProvider source must be non-empty");
+        }
+        synchronized (CLASS_REGISTRY_LOCK) {
+            WeakReference<ClassRegistryProvider> prior = EXPLICIT_CLASS_PROVIDERS.put(
+                source, new WeakReference<>(provider));
+            clearClassRegistryCacheLocked();
+            try {
+                buildClassRegistry();
+                classRegistryBuilt = true;
+                return CLASS_REGISTRY_GENERATION.get();
+            } catch (RuntimeException ex) {
+                if (prior == null) EXPLICIT_CLASS_PROVIDERS.remove(source);
+                else EXPLICIT_CLASS_PROVIDERS.put(source, prior);
+                CLASS_REGISTRY_CACHE.clear();
+                FIELD_BINDING_CACHE.clear();
+                classRegistryBuilt = false;
+                throw ex;
+            }
+        }
+    }
+
+    /** Remove one explicitly registered provider and invalidate caches (#82). */
+    public static long unregisterClassRegistryProvider(String source) {
+        synchronized (CLASS_REGISTRY_LOCK) {
+            if (EXPLICIT_CLASS_PROVIDERS.remove(source) != null) {
+                clearClassRegistryCacheLocked();
+            }
+            return CLASS_REGISTRY_GENERATION.get();
+        }
+    }
+
+    /** Select a new ServiceLoader class loader and invalidate without retaining it strongly. */
+    public static long reloadClassRegistryProviders(ClassLoader loader) {
+        Objects.requireNonNull(loader, "loader");
+        synchronized (CLASS_REGISTRY_LOCK) {
+            providerClassLoader = new WeakReference<>(loader);
+            clearClassRegistryCacheLocked();
+            return CLASS_REGISTRY_GENERATION.get();
+        }
+    }
+
+    /** Process-wide class lookup counters and cache generation (#82). */
+    public static ClassRegistryCacheMetrics classRegistryCacheMetrics() {
+        return new ClassRegistryCacheMetrics(
+            CLASS_REGISTRY_HITS.get(), CLASS_REGISTRY_MISSES.get(),
+            CLASS_REGISTRY_GENERATION.get(), EXPLICIT_CLASS_PROVIDERS.size(),
+            CLASS_REGISTRY_CACHE.size());
     }
 
     private static String moduleToPackage(String module) {
@@ -1035,52 +1185,240 @@ public class CaseGraph {
      */
     public Map<String, CaseGraph> partitionByRoots(
             Collection<String> rootIris, String sharedNodePolicy, boolean includeIncoming) {
+        return partitionByRootsWithManifest(
+            rootIris,
+            new PartitionOptions()
+                .setSharedNodePolicy(sharedNodePolicy)
+                .setIncludeIncoming(includeIncoming)).getPartitions();
+    }
+
+    /** Marking-safe root partitioning with reconstruction metadata (#79). */
+    public PartitionResult partitionByRootsWithManifest(
+            Collection<String> rootIris, PartitionOptions options) {
         if (rootIris == null || rootIris.isEmpty()) {
             throw new IllegalArgumentException("rootIris must be a non-empty collection");
         }
-        String policy = normalizeSharedNodePolicy(sharedNodePolicy);
+        if (options == null) {
+            options = new PartitionOptions();
+        }
+        String requestedPolicy = options.getSharedNodePolicy();
+        String policy = normalizeSharedNodePolicy(requestedPolicy);
+        if (!"none".equals(options.getBoundaryPolicy())
+                && !"marking-and-authorization".equals(options.getBoundaryPolicy())) {
+            throw new IllegalArgumentException("Unknown boundaryPolicy: " + options.getBoundaryPolicy());
+        }
+        if (!"error-on-cross-boundary".equals(options.getCrossBoundaryPolicy())
+                && !"home-partition-reference".equals(options.getCrossBoundaryPolicy())) {
+            throw new IllegalArgumentException(
+                "Unknown crossBoundaryPolicy: " + options.getCrossBoundaryPolicy());
+        }
+        if (!"full".equals(options.getManifestDetail())
+                && !"safe".equals(options.getManifestDetail())) {
+            throw new IllegalArgumentException("manifestDetail must be 'full' or 'safe'");
+        }
+
         Map<String, Map<String, Object>> byExpandedId = buildExpandedIdIndex();
         Map<String, Set<String>> reverseIndex = buildReverseIdIndex(byExpandedId);
+        Map<String, Set<String>> closures = new LinkedHashMap<>();
+        for (String root : new LinkedHashSet<>(rootIris)) {
+            String expanded = expandIri(root);
+            if (byExpandedId.containsKey(expanded)) {
+                closures.put(root, dependencyClosure(
+                    root, byExpandedId, reverseIndex, options.isIncludeIncoming()));
+            }
+        }
 
-        Map<String, Set<String>> rootClosures = new LinkedHashMap<>();
-        for (String root : rootIris) {
-            rootClosures.put(root, dependencyClosure(root, byExpandedId, reverseIndex, includeIncoming));
+        Map<String, BoundarySets> boundaries = new LinkedHashMap<>();
+        for (Map.Entry<String, Map<String, Object>> entry : byExpandedId.entrySet()) {
+            boundaries.put(entry.getKey(), extractPartitionBoundary(entry.getValue()));
+        }
+        Map<String, BoundarySets> declared = new LinkedHashMap<>();
+        Map<String, Set<String>> omissions = new LinkedHashMap<>();
+        for (String root : closures.keySet()) {
+            omissions.put(root, new LinkedHashSet<>());
+        }
+        if ("marking-and-authorization".equals(options.getBoundaryPolicy())) {
+            for (String root : closures.keySet()) {
+                PartitionBoundary supplied = options.getRootBoundaries().get(root);
+                if (supplied == null) {
+                    declared.put(root, boundaries.get(expandIri(root)));
+                } else {
+                    Set<String> markings = new LinkedHashSet<>();
+                    for (String value : supplied.getMarkings()) markings.add(expandIri(value));
+                    Set<String> authorizations = new LinkedHashSet<>();
+                    for (String value : supplied.getAuthorizations()) authorizations.add(expandIri(value));
+                    declared.put(root, new BoundarySets(markings, authorizations));
+                }
+            }
+            for (Map.Entry<String, Set<String>> entry : closures.entrySet()) {
+                BoundarySets allowed = declared.get(entry.getKey());
+                for (String nodeId : new ArrayList<>(entry.getValue())) {
+                    BoundarySets required = boundaries.get(nodeId);
+                    List<String> missingMarkings = sortedDifference(required.markings, allowed.markings);
+                    List<String> missingAuthorizations = sortedDifference(
+                        required.authorizations, allowed.authorizations);
+                    if (missingMarkings.isEmpty() && missingAuthorizations.isEmpty()) continue;
+                    if (expandIri(entry.getKey()).equals(nodeId)
+                            || "error-on-cross-boundary".equals(options.getCrossBoundaryPolicy())) {
+                        throw new PartitionBoundaryException(
+                            entry.getKey(), originalId(byExpandedId.get(nodeId), nodeId),
+                            missingMarkings, missingAuthorizations);
+                    }
+                    entry.getValue().remove(nodeId);
+                    omissions.get(entry.getKey()).add(nodeId);
+                }
+            }
+        }
+
+        Map<String, String> boundaryHomes = new LinkedHashMap<>();
+        Set<String> omittedNodes = new LinkedHashSet<>();
+        for (Set<String> omitted : omissions.values()) omittedNodes.addAll(omitted);
+        List<String> sortedOmitted = new ArrayList<>(omittedNodes);
+        Collections.sort(sortedOmitted);
+        for (String nodeId : sortedOmitted) {
+            List<String> candidates = new ArrayList<>();
+            for (Map.Entry<String, Set<String>> entry : closures.entrySet()) {
+                if (entry.getValue().contains(nodeId)) candidates.add(entry.getKey());
+            }
+            Collections.sort(candidates);
+            if (candidates.isEmpty()) {
+                BoundarySets required = boundaries.get(nodeId);
+                throw new PartitionBoundaryException(
+                    "<no-authorized-home>", originalId(byExpandedId.get(nodeId), nodeId),
+                    sorted(required.markings), sorted(required.authorizations));
+            }
+            boundaryHomes.put(nodeId, candidates.get(0));
         }
 
         Map<String, Set<String>> nodeOwners = new LinkedHashMap<>();
-        for (Map.Entry<String, Set<String>> entry : rootClosures.entrySet()) {
+        for (Map.Entry<String, Set<String>> entry : closures.entrySet()) {
             for (String nodeId : entry.getValue()) {
                 nodeOwners.computeIfAbsent(nodeId, ignored -> new LinkedHashSet<>()).add(entry.getKey());
             }
         }
+        if ("error-on-cross-boundary".equals(policy)) {
+            List<String> overlap = new ArrayList<>();
+            for (Map.Entry<String, Set<String>> entry : nodeOwners.entrySet()) {
+                if (entry.getValue().size() > 1) overlap.add(entry.getKey());
+            }
+            Collections.sort(overlap);
+            if (!overlap.isEmpty()) {
+                throw new IllegalStateException("shared nodes cross partition boundaries: " + overlap);
+            }
+        }
+        Map<String, String> homes = new LinkedHashMap<>();
+        if ("home-partition-reference".equals(policy)) {
+            for (Map.Entry<String, Set<String>> entry : nodeOwners.entrySet()) {
+                if (entry.getValue().size() <= 1) continue;
+                List<String> owners = new ArrayList<>(entry.getValue());
+                Collections.sort(owners);
+                String compactNodeId = originalId(byExpandedId.get(entry.getKey()), entry.getKey());
+                homes.put(entry.getKey(), owners.contains(compactNodeId) ? compactNodeId : owners.get(0));
+            }
+        }
 
         Map<String, CaseGraph> partitions = new LinkedHashMap<>();
-        for (String root : rootIris) {
-            partitions.put(root, newPartitionGraph());
+        for (Map.Entry<String, Set<String>> entry : closures.entrySet()) {
+            CaseGraph partition = newPartitionGraph();
+            for (String nodeId : entry.getValue()) {
+                int ownerCount = nodeOwners.get(nodeId).size();
+                if (ownerCount > 1 && "support-graph".equals(policy)) continue;
+                if (ownerCount > 1 && "home-partition-reference".equals(policy)
+                        && !entry.getKey().equals(homes.get(nodeId))) continue;
+                appendPartitionNode(partition, byExpandedId.get(nodeId));
+            }
+            partitions.put(entry.getKey(), partition);
         }
-        CaseGraph sharedPartition = null;
-        if ("isolate-shared".equals(policy)) {
-            sharedPartition = newPartitionGraph();
-            partitions.put("_shared", sharedPartition);
+        if ("support-graph".equals(policy)) {
+            CaseGraph support = newPartitionGraph();
+            for (Map.Entry<String, Set<String>> entry : nodeOwners.entrySet()) {
+                if (entry.getValue().size() > 1) appendPartitionNode(support, byExpandedId.get(entry.getKey()));
+            }
+            if (!support.objects.isEmpty()) {
+                partitions.put("support-graph".equals(requestedPolicy) ? "_support" : "_shared", support);
+            }
         }
 
-        for (Map.Entry<String, Set<String>> entry : nodeOwners.entrySet()) {
-            Map<String, Object> node = byExpandedId.get(entry.getKey());
-            if (node == null) {
-                continue;
-            }
-            Set<String> owners = entry.getValue();
-            if (owners.size() == 1) {
-                appendPartitionNode(partitions.get(owners.iterator().next()), node);
-            } else if ("replicate-identical".equals(policy)) {
-                for (String owner : owners) {
-                    appendPartitionNode(partitions.get(owner), node);
+        Map<String, Object> partitionMetadata = new LinkedHashMap<>();
+        for (Map.Entry<String, CaseGraph> entry : partitions.entrySet()) {
+            String hash = entry.getValue().graphFingerprint(entry.getValue().objects);
+            Map<String, Object> metadata = new LinkedHashMap<>();
+            metadata.put("partition_id", "urn:sha256:" + hash);
+            metadata.put("node_count", entry.getValue().objects.size());
+            metadata.put("triple_estimate", entry.getValue().estimateTriples());
+            metadata.put("sha256", hash);
+            BoundarySets scope = declared.get(entry.getKey());
+            metadata.put("effective_markings", scope == null ? new ArrayList<>() : sorted(scope.markings));
+            metadata.put("authorization_scope", scope == null ? new ArrayList<>() : sorted(scope.authorizations));
+            if ("full".equals(options.getManifestDetail())) {
+                List<String> nodeIds = new ArrayList<>();
+                for (Map<String, Object> node : entry.getValue().objects) {
+                    nodeIds.add(originalId(node, ""));
                 }
-            } else {
-                appendPartitionNode(sharedPartition, node);
+                Collections.sort(nodeIds);
+                metadata.put("node_ids", nodeIds);
+            }
+            partitionMetadata.put(entry.getKey(), metadata);
+        }
+        Map<String, String> routes = new LinkedHashMap<>();
+        for (Map.Entry<String, String> entry : homes.entrySet()) {
+            routes.put(originalId(byExpandedId.get(entry.getKey()), entry.getKey()), entry.getValue());
+        }
+        for (Map.Entry<String, String> entry : boundaryHomes.entrySet()) {
+            routes.put(originalId(byExpandedId.get(entry.getKey()), entry.getKey()), entry.getValue());
+        }
+        boolean referenced = "support-graph".equals(policy)
+            || "home-partition-reference".equals(policy) || !omittedNodes.isEmpty();
+        String sourceHash = graphFingerprint(objects);
+        Map<String, Object> manifest = new LinkedHashMap<>();
+        manifest.put("schema_version", "2.0.0");
+        manifest.put("dataset_id", "urn:sha256:" + sourceHash);
+        manifest.put("source_graph_sha256", sourceHash);
+        manifest.put("strategy", options.isIncludeIncoming()
+            ? "outgoing_and_incoming_id_closure" : "outgoing_id_closure");
+        manifest.put("roots", new ArrayList<>(closures.keySet()));
+        manifest.put("shared_node_policy", policy);
+        manifest.put("include_incoming", options.isIncludeIncoming());
+        manifest.put("boundary_policy", options.getBoundaryPolicy());
+        manifest.put("cross_boundary_policy", options.getCrossBoundaryPolicy());
+        manifest.put("validation_mode", referenced ? "referenced-partition-set" : "self-contained");
+        manifest.put("validation_bundle", options.getValidationBundle());
+        manifest.put("partitions", partitionMetadata);
+        manifest.put("home_partition_routes", "full".equals(options.getManifestDetail())
+            ? routes : new LinkedHashMap<String, String>());
+        manifest.put("home_partition_route_count", routes.size());
+        Map<String, Object> omissionCounts = new LinkedHashMap<>();
+        for (Map.Entry<String, Set<String>> entry : omissions.entrySet()) {
+            omissionCounts.put(entry.getKey(), entry.getValue().size());
+        }
+        manifest.put("boundary_omission_counts", omissionCounts);
+        Map<String, Object> reconstruction = new LinkedHashMap<>();
+        reconstruction.put("operation", "rdf-union");
+        reconstruction.put("deduplicate_by", "@id with identical assertions");
+        reconstruction.put("requires_partitions", sorted(partitions.keySet()));
+        manifest.put("reconstruction", reconstruction);
+        return new PartitionResult(partitions, manifest);
+    }
+
+    /** Verify that the exact JSON-LD node union reconstructs this graph. */
+    public PartitionUnionVerification verifyPartitionUnion(Map<String, CaseGraph> partitions) {
+        if (partitions == null) throw new IllegalArgumentException("partitions is required");
+        Map<String, String> source = new LinkedHashMap<>();
+        for (Map<String, Object> node : objects) {
+            source.put(expandIri(originalId(node, "")), toJsonString(node, 0));
+        }
+        Map<String, String> union = new LinkedHashMap<>();
+        boolean conflict = false;
+        for (CaseGraph partition : partitions.values()) {
+            for (Map<String, Object> node : partition.objects) {
+                String id = expandIri(originalId(node, ""));
+                String value = toJsonString(node, 0);
+                if (union.containsKey(id) && !union.get(id).equals(value)) conflict = true;
+                else union.put(id, value);
             }
         }
-        return partitions;
+        return new PartitionUnionVerification(
+            !conflict && source.equals(union), source.size(), union.size());
     }
 
     public Map<String, CaseGraph> partitionByRoots(Collection<String> rootIris, String sharedNodePolicy) {
@@ -1128,24 +1466,11 @@ public class CaseGraph {
         iriIndex.put(expanded, index);
     }
 
-    @SuppressWarnings("unchecked")
     private Map<String, Object> findObject(String nodeId) {
         String expanded = expandIri(nodeId);
         Integer idx = iriIndex.get(expanded);
         if (idx != null && idx < objects.size()) {
             return objects.get(idx);
-        }
-        for (int i = 0; i < objects.size(); i++) {
-            Map<String, Object> obj = objects.get(i);
-            Object oidObj = obj.get("@id");
-            if (!(oidObj instanceof String)) {
-                continue;
-            }
-            String oid = (String) oidObj;
-            if (oid.equals(nodeId) || expandIri(oid).equals(expanded)) {
-                indexNode(oid, i);
-                return obj;
-            }
         }
         return null;
     }
@@ -1627,7 +1952,7 @@ public class CaseGraph {
     }
 
     @SuppressWarnings("unchecked")
-    private String toJsonString(Object obj, int indent) {
+    static String toJsonString(Object obj, int indent) {
         String pad = "    ".repeat(indent);
         String pad1 = "    ".repeat(indent + 1);
 
@@ -1755,16 +2080,96 @@ public class CaseGraph {
         return sb.toString();
     }
 
+    private static final class BoundarySets {
+        private final Set<String> markings;
+        private final Set<String> authorizations;
+
+        private BoundarySets(Set<String> markings, Set<String> authorizations) {
+            this.markings = markings;
+            this.authorizations = authorizations;
+        }
+    }
+
+    private BoundarySets extractPartitionBoundary(Map<String, Object> node) {
+        Set<String> markings = new LinkedHashSet<>();
+        Set<String> authorizations = new LinkedHashSet<>();
+        for (Map.Entry<String, Object> entry : node.entrySet()) {
+            String expanded = expandIri(entry.getKey());
+            int split = Math.max(expanded.lastIndexOf('/'), expanded.lastIndexOf('#'));
+            String local = expanded.substring(split + 1);
+            if ("objectMarking".equals(local)) {
+                collectBoundaryIds(entry.getValue(), markings);
+            } else if ("relevantAuthorization".equals(local)
+                    || "requiredAuthorization".equals(local)) {
+                collectBoundaryIds(entry.getValue(), authorizations);
+            }
+        }
+        return new BoundarySets(markings, authorizations);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void collectBoundaryIds(Object value, Set<String> output) {
+        if (value instanceof String) {
+            output.add(expandIri((String) value));
+        } else if (value instanceof Map) {
+            Object id = ((Map<String, Object>) value).get("@id");
+            if (id instanceof String) output.add(expandIri((String) id));
+        } else if (value instanceof Collection) {
+            for (Object item : (Collection<?>) value) collectBoundaryIds(item, output);
+        }
+    }
+
+    private static List<String> sorted(Collection<String> values) {
+        List<String> result = new ArrayList<>(values);
+        Collections.sort(result);
+        return result;
+    }
+
+    private static List<String> sortedDifference(Set<String> required, Set<String> allowed) {
+        Set<String> difference = new LinkedHashSet<>(required);
+        difference.removeAll(allowed);
+        return sorted(difference);
+    }
+
+    private String graphFingerprint(Collection<Map<String, Object>> nodes) {
+        Map<String, Object> document = new LinkedHashMap<>();
+        List<String> contextKeys = new ArrayList<>(context.keySet());
+        Collections.sort(contextKeys);
+        Map<String, Object> sortedContext = new LinkedHashMap<>();
+        for (String key : contextKeys) sortedContext.put(key, context.get(key));
+        document.put("@context", sortedContext);
+        document.put("@graph", new ArrayList<>(nodes));
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256")
+                .digest(toJsonString(document, 0).getBytes(StandardCharsets.UTF_8));
+            StringBuilder result = new StringBuilder();
+            for (byte value : digest) result.append(String.format("%02x", value & 0xff));
+            return result.toString();
+        } catch (NoSuchAlgorithmException error) {
+            throw new IllegalStateException("SHA-256 is unavailable", error);
+        }
+    }
+
+    private static String originalId(Map<String, Object> node, String fallback) {
+        if (node != null && node.get("@id") instanceof String) return (String) node.get("@id");
+        return fallback;
+    }
+
     private static String normalizeSharedNodePolicy(String policy) {
-        if (policy == null || policy.isEmpty()) {
+        if (policy == null || policy.isEmpty() || "replicate-identical".equals(policy)) {
             return "replicate-identical";
         }
-        if ("replicate-identical".equals(policy) || "isolate-shared".equals(policy) || "_shared".equals(policy)) {
-            return "_shared".equals(policy) ? "isolate-shared" : policy;
+        if ("shared".equals(policy) || "isolate-shared".equals(policy)
+                || "_shared".equals(policy) || "support-graph".equals(policy)) {
+            return "support-graph";
+        }
+        if ("home-partition-reference".equals(policy)
+                || "error-on-cross-boundary".equals(policy)) {
+            return policy;
         }
         throw new IllegalArgumentException(
-            "Unknown sharedNodePolicy: '" + policy +
-            "'. Expected one of: replicate-identical, isolate-shared, _shared");
+            "Unknown sharedNodePolicy: '" + policy + "'. Expected replicate-identical, "
+            + "support-graph, home-partition-reference, or error-on-cross-boundary");
     }
 
     private CaseGraph newPartitionGraph() {

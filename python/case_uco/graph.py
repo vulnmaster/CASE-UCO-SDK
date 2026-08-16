@@ -30,13 +30,15 @@ _builtin_id = id
 
 # Duplicate @id policies — all SDK languages must default to ``reject``.
 # Aliases: ``error`` → ``reject``.
-DUPLICATE_POLICIES = frozenset({
-    "reject",
-    "error",
-    "merge_identical",
-    "merge_compatible",
-    "replace",
-})
+DUPLICATE_POLICIES = frozenset(
+    {
+        "reject",
+        "error",
+        "merge_identical",
+        "merge_compatible",
+        "replace",
+    }
+)
 
 _KIND_SLUG_RE = re.compile(r"[^A-Za-z0-9._-]+")
 _KIND_SLUG_MAX_LEN = 64
@@ -69,6 +71,27 @@ class InvalidSplitSizeError(ValueError):
         )
 
 
+class PartitionBoundaryError(ValueError):
+    """A partition plan would widen marking or authorization access (#79)."""
+
+    def __init__(
+        self,
+        root_id: str,
+        node_id: str,
+        missing_markings: list[str],
+        missing_authorizations: list[str],
+    ) -> None:
+        self.root_id = root_id
+        self.node_id = node_id
+        self.missing_markings = missing_markings
+        self.missing_authorizations = missing_authorizations
+        super().__init__(
+            f"partition root {root_id!r} is not authorized for node {node_id!r}; "
+            f"missing markings={missing_markings}, "
+            f"missing authorizations={missing_authorizations}"
+        )
+
+
 @dataclass(frozen=True)
 class DeserializationWarning:
     """Typed diagnostic when a JSON-LD node falls back to a raw dict."""
@@ -76,6 +99,7 @@ class DeserializationWarning:
     node_id: str | None
     reason: str
     detail: str = ""
+
 
 # Standard CASE/UCO JSON-LD context prefixes
 DEFAULT_CONTEXT: dict[str, str] = {
@@ -253,9 +277,7 @@ class CASEGraph:
     def add_property(self, node_id: str, key: str, value: Any) -> None:
         """Add or merge a property on an existing node (``merge_compatible``)."""
         obj = self._require_object(node_id)
-        self._apply_property(
-            obj, key, value, node_id=node_id, mode="merge_compatible"
-        )
+        self._apply_property(obj, key, value, node_id=node_id, mode="merge_compatible")
         self._track_prefixes_for({key: value})
 
     def set_property(self, node_id: str, key: str, value: Any) -> None:
@@ -335,10 +357,12 @@ class CASEGraph:
         """Return the number of objects in the graph."""
         return len(self._objects)
 
-    def serialize(self, format: str = "json-ld", indent: int = 4) -> str:
+    def serialize(self, format: str = "json-ld", indent: int | None = 4) -> str:
         """Serialize the graph to JSON-LD string."""
         if format != "json-ld":
-            raise ValueError(f"Unsupported format: {format}. Only 'json-ld' is supported.")
+            raise ValueError(
+                f"Unsupported format: {format}. Only 'json-ld' is supported."
+            )
         doc = {
             "@context": self._pruned_context(),
             "@graph": self._objects,
@@ -372,7 +396,9 @@ class CASEGraph:
         Returns ``{"nodes": N, "bytes_written": B}``.
         """
         if format != "json-ld":
-            raise ValueError(f"Unsupported format: {format}. Only 'json-ld' is supported.")
+            raise ValueError(
+                f"Unsupported format: {format}. Only 'json-ld' is supported."
+            )
         import os
         import tempfile
 
@@ -394,6 +420,7 @@ class CASEGraph:
             pad = " " * indent
             bytes_written = 0
             with open(out_path, "w", encoding="utf-8") as f:
+
                 def _w(s: str) -> None:
                     nonlocal bytes_written
                     f.write(s)
@@ -406,7 +433,9 @@ class CASEGraph:
                 _w(f'{pad}"@graph": [\n')
                 for i, obj in enumerate(self._objects):
                     chunk = json.dumps(obj, indent=indent, default=str)
-                    indented = "\n".join(pad + pad + line for line in chunk.splitlines())
+                    indented = "\n".join(
+                        pad + pad + line for line in chunk.splitlines()
+                    )
                     _w(indented)
                     if i + 1 < len(self._objects):
                         _w(",\n")
@@ -613,7 +642,7 @@ class CASEGraph:
         for i in range(0, len(self._objects), max_objects):
             chunk = CASEGraph(kb_prefix=self.kb_prefix)
             chunk._context = dict(self._context)
-            for obj in self._objects[i:i + max_objects]:
+            for obj in self._objects[i : i + max_objects]:
                 chunk._append_object(copy.deepcopy(obj))
             chunks.append(chunk)
         return chunks
@@ -685,13 +714,17 @@ class CASEGraph:
             for part_name in {s_part, t_part} - {None}:
                 pg = partitions.setdefault(
                     part_name,  # type: ignore[arg-type]
-                    CASEGraph(kb_prefix=self.kb_prefix, extra_context=dict(self._context)),
+                    CASEGraph(
+                        kb_prefix=self.kb_prefix, extra_context=dict(self._context)
+                    ),
                 )
                 pg.on_duplicate = "merge_compatible"
                 for nid in (sid, tid, obj.get("@id")):
                     if nid and nid in by_id:
                         try:
-                            pg._ingest_raw_node(dict(by_id[nid]), policy="merge_compatible")
+                            pg._ingest_raw_node(
+                                dict(by_id[nid]), policy="merge_compatible"
+                            )
                         except DuplicateNodeError:
                             # Already present under merge_compatible; keep existing node.
                             pass
@@ -732,6 +765,11 @@ class CASEGraph:
         boundary_key: Callable[[dict[str, Any]], str | None] | None = None,
         include_incoming: bool = True,
         return_manifest: bool = False,
+        boundary_policy: str = "none",
+        cross_boundary_policy: str = "error-on-cross-boundary",
+        root_boundaries: dict[str, dict[str, list[str]]] | None = None,
+        validation_bundle: dict[str, Any] | None = None,
+        manifest_detail: str = "full",
     ) -> dict[str, CASEGraph] | tuple[dict[str, CASEGraph], dict[str, Any]]:
         """Dependency-aware graph partitioning (#72).
 
@@ -759,6 +797,11 @@ class CASEGraph:
             shared_node_policy=shared_node_policy,
             include_incoming=include_incoming,
             return_manifest=return_manifest,
+            boundary_policy=boundary_policy,
+            cross_boundary_policy=cross_boundary_policy,
+            root_boundaries=root_boundaries,
+            validation_bundle=validation_bundle,
+            manifest_detail=manifest_detail,
         )
 
     def partition_by_roots(
@@ -768,6 +811,11 @@ class CASEGraph:
         shared_node_policy: str = "replicate-identical",
         include_incoming: bool = True,
         return_manifest: bool = False,
+        boundary_policy: str = "none",
+        cross_boundary_policy: str = "error-on-cross-boundary",
+        root_boundaries: dict[str, dict[str, list[str]]] | None = None,
+        validation_bundle: dict[str, Any] | None = None,
+        manifest_detail: str = "full",
     ) -> dict[str, CASEGraph] | tuple[dict[str, CASEGraph], dict[str, Any]]:
         """Partition by experimental root closure (#72).
 
@@ -777,11 +825,38 @@ class CASEGraph:
         ``{"@id": root}`` (or any already-seen node) are pulled into the
         closure. This includes Relationships pointing *to* a root.
 
-        Still not fully marking-safe and not an RDF-union equivalence
-        partition. When ``return_manifest`` is True, returns
-        ``(partitions, manifest)`` with schema_version ``1.0.0``; otherwise
-        returns only the partition map (backward compatible).
+        ``boundary_policy="marking-and-authorization"`` compares each node's
+        ``uco-core:objectMarking`` and relevant/required authorization IRIs
+        against the root's declared boundary. The default cross-boundary policy
+        fails closed; ``home-partition-reference`` omits protected content from
+        unauthorized partitions while recording safe routing evidence.
+
+        Shared policies are ``replicate-identical``, ``support-graph`` (aliases
+        ``shared`` / ``isolate-shared``), ``home-partition-reference``, and
+        ``error-on-cross-boundary``. When ``return_manifest`` is True, returns
+        ``(partitions, manifest)`` with schema_version ``2.0.0``.
         """
+        supported_shared = {
+            "replicate-identical",
+            "shared",
+            "isolate-shared",
+            "support-graph",
+            "home-partition-reference",
+            "error-on-cross-boundary",
+        }
+        if shared_node_policy not in supported_shared:
+            raise ValueError(f"Unsupported shared_node_policy: {shared_node_policy}")
+        if boundary_policy not in {"none", "marking-and-authorization"}:
+            raise ValueError(f"Unsupported boundary_policy: {boundary_policy}")
+        if cross_boundary_policy not in {
+            "error-on-cross-boundary",
+            "home-partition-reference",
+        }:
+            raise ValueError(
+                f"Unsupported cross_boundary_policy: {cross_boundary_policy}"
+            )
+        if manifest_detail not in {"full", "safe"}:
+            raise ValueError("manifest_detail must be 'full' or 'safe'")
         by_id: dict[str, dict[str, Any]] = {}
         for obj in self._objects:
             oid = obj.get("@id")
@@ -791,7 +866,12 @@ class CASEGraph:
             empty: dict[str, CASEGraph] = {}
             if return_manifest:
                 return empty, self._empty_partition_manifest(
-                    roots, shared_node_policy, include_incoming
+                    roots,
+                    shared_node_policy,
+                    include_incoming,
+                    boundary_policy,
+                    cross_boundary_policy,
+                    validation_bundle,
                 )
             return empty
 
@@ -836,22 +916,116 @@ class CASEGraph:
                             queue.append(referrer)
             closures[root] = seen
 
+        boundary_omissions: dict[str, set[str]] = {root: set() for root in closures}
+        node_boundaries = {
+            node_id: self._partition_node_boundary(node)
+            for node_id, node in by_id.items()
+        }
+        declared_boundaries: dict[str, dict[str, set[str]]] = {}
+        if boundary_policy == "marking-and-authorization":
+            for root in closures:
+                supplied = (root_boundaries or {}).get(root)
+                if supplied is None:
+                    declared_boundaries[root] = {
+                        "markings": set(node_boundaries[root]["markings"]),
+                        "authorizations": set(node_boundaries[root]["authorizations"]),
+                    }
+                else:
+                    declared_boundaries[root] = {
+                        "markings": {
+                            self.expand_iri(value)
+                            for value in supplied.get("markings", [])
+                        },
+                        "authorizations": {
+                            self.expand_iri(value)
+                            for value in supplied.get("authorizations", [])
+                        },
+                    }
+
+            for root, members in closures.items():
+                allowed = declared_boundaries[root]
+                for node_id in list(members):
+                    required = node_boundaries[node_id]
+                    missing_markings = sorted(
+                        required["markings"] - allowed["markings"]
+                    )
+                    missing_authorizations = sorted(
+                        required["authorizations"] - allowed["authorizations"]
+                    )
+                    if not missing_markings and not missing_authorizations:
+                        continue
+                    if (
+                        node_id == root
+                        or cross_boundary_policy == "error-on-cross-boundary"
+                    ):
+                        raise PartitionBoundaryError(
+                            root,
+                            node_id,
+                            missing_markings,
+                            missing_authorizations,
+                        )
+                    members.remove(node_id)
+                    boundary_omissions[root].add(node_id)
+
+        boundary_home_by_node: dict[str, str] = {}
+        if any(boundary_omissions.values()):
+            for omitted_id in sorted(set().union(*boundary_omissions.values())):
+                candidates = sorted(
+                    root for root, members in closures.items() if omitted_id in members
+                )
+                if not candidates:
+                    required = node_boundaries[omitted_id]
+                    raise PartitionBoundaryError(
+                        "<no-authorized-home>",
+                        omitted_id,
+                        sorted(required["markings"]),
+                        sorted(required["authorizations"]),
+                    )
+                boundary_home_by_node[omitted_id] = candidates[0]
+
         membership_count: dict[str, int] = {}
         for members in closures.values():
             for nid in members:
                 membership_count[nid] = membership_count.get(nid, 0) + 1
 
         partitions: dict[str, CASEGraph] = {}
+        requested_shared_policy = shared_node_policy
         shared_policy = shared_node_policy
+        if shared_policy in {"shared", "isolate-shared"}:
+            shared_policy = "support-graph"
+        if shared_policy == "error-on-cross-boundary":
+            overlap = sorted(
+                nid for nid, count in membership_count.items() if count > 1
+            )
+            if overlap:
+                raise ValueError(
+                    "shared nodes cross partition boundaries under "
+                    f"error-on-cross-boundary: {overlap[:5]}"
+                )
+
+        home_by_node: dict[str, str] = {}
+        if shared_policy == "home-partition-reference":
+            for node_id, count in membership_count.items():
+                if count > 1:
+                    owners = sorted(
+                        root for root, members in closures.items() if node_id in members
+                    )
+                    if node_id in owners:
+                        home_by_node[node_id] = node_id
+                    else:
+                        home_by_node[node_id] = owners[0]
         for root, members in closures.items():
             pg = CASEGraph(kb_prefix=self.kb_prefix, extra_context=dict(self._context))
             pg.on_duplicate = "merge_compatible"
             for nid in members:
-                if membership_count.get(nid, 0) > 1 and shared_policy in {
-                    "shared",
-                    "isolate-shared",
-                }:
-                    continue
+                if membership_count.get(nid, 0) > 1:
+                    if shared_policy == "support-graph":
+                        continue
+                    if (
+                        shared_policy == "home-partition-reference"
+                        and home_by_node.get(nid) != root
+                    ):
+                        continue
                 try:
                     pg._ingest_raw_node(dict(by_id[nid]), policy="merge_compatible")
                 except DuplicateNodeError:
@@ -859,26 +1033,48 @@ class CASEGraph:
                     pass
             partitions[root] = pg
 
-        if shared_policy in {"shared", "isolate-shared"}:
-            shared = CASEGraph(kb_prefix=self.kb_prefix, extra_context=dict(self._context))
+        if shared_policy == "support-graph":
+            shared = CASEGraph(
+                kb_prefix=self.kb_prefix, extra_context=dict(self._context)
+            )
             shared.on_duplicate = "merge_compatible"
             for nid, count in membership_count.items():
                 if count > 1:
                     try:
-                        shared._ingest_raw_node(dict(by_id[nid]), policy="merge_compatible")
+                        shared._ingest_raw_node(
+                            dict(by_id[nid]), policy="merge_compatible"
+                        )
                     except DuplicateNodeError:
                         # Already present under merge_compatible; ignore.
                         pass
             if len(shared) > 0:
-                partitions["_shared"] = shared
+                # Preserve the pre-1.24 key for callers using the legacy
+                # aliases while giving the explicit policy its clearer name.
+                support_key = (
+                    "_support"
+                    if requested_shared_policy == "support-graph"
+                    else "_shared"
+                )
+                partitions[support_key] = shared
 
         if not return_manifest:
             return partitions
 
-        replicated = sorted(nid for nid, count in membership_count.items() if count > 1)
+        replicated = sorted(
+            nid
+            for nid, count in membership_count.items()
+            if count > 1 and shared_policy == "replicate-identical"
+        )
         cross_rels = self._cross_partition_relationship_ids(by_id, closures)
+        source_fingerprint = self._graph_fingerprint(self._objects)
+        referenced_mode = shared_policy in {
+            "support-graph",
+            "home-partition-reference",
+        } or any(boundary_omissions.values())
         manifest: dict[str, Any] = {
-            "schema_version": "1.0.0",
+            "schema_version": "2.0.0",
+            "dataset_id": f"urn:sha256:{source_fingerprint}",
+            "source_graph_sha256": source_fingerprint,
             "strategy": (
                 "outgoing_and_incoming_id_closure"
                 if include_incoming
@@ -887,26 +1083,132 @@ class CASEGraph:
             "roots": list(roots),
             "shared_node_policy": shared_policy,
             "include_incoming": include_incoming,
+            "boundary_policy": boundary_policy,
+            "cross_boundary_policy": cross_boundary_policy,
+            "validation_mode": (
+                "referenced-partition-set" if referenced_mode else "self-contained"
+            ),
+            "validation_bundle": copy.deepcopy(validation_bundle),
             "partitions": {
-                root: {
-                    "node_count": len(members),
-                    "node_ids": sorted(members),
+                partition_key: {
+                    "partition_id": f"urn:sha256:{self._graph_fingerprint(partition._objects)}",
+                    "node_count": len(partition),
+                    "triple_estimate": partition.estimate_triples(),
+                    "sha256": self._graph_fingerprint(partition._objects),
+                    "effective_markings": sorted(
+                        declared_boundaries.get(partition_key, {}).get(
+                            "markings", set()
+                        )
+                    ),
+                    "authorization_scope": sorted(
+                        declared_boundaries.get(partition_key, {}).get(
+                            "authorizations", set()
+                        )
+                    ),
+                    **(
+                        {
+                            "node_ids": sorted(
+                                node.get("@id")
+                                for node in partition._objects
+                                if isinstance(node.get("@id"), str)
+                            )
+                        }
+                        if manifest_detail == "full"
+                        else {}
+                    ),
                 }
-                for root, members in closures.items()
+                for partition_key, partition in partitions.items()
             },
             "replicated_node_ids": replicated,
             "cross_partition_relationship_ids": cross_rels,
+            "home_partition_routes": (
+                dict(sorted({**home_by_node, **boundary_home_by_node}.items()))
+                if manifest_detail == "full"
+                else {}
+            ),
+            "home_partition_route_count": len(
+                {**home_by_node, **boundary_home_by_node}
+            ),
+            "boundary_omission_counts": {
+                root: len(ids) for root, ids in boundary_omissions.items()
+            },
+            "reconstruction": {
+                "operation": "rdf-union",
+                "deduplicate_by": "@id with identical assertions",
+                "requires_partitions": sorted(partitions),
+            },
         }
         return partitions, manifest
 
-    @staticmethod
+    def _partition_node_boundary(self, node: dict[str, Any]) -> dict[str, set[str]]:
+        markings: set[str] = set()
+        authorizations: set[str] = set()
+
+        def ids(value: Any) -> list[str]:
+            found: list[str] = []
+            if isinstance(value, dict):
+                node_id = value.get("@id")
+                if isinstance(node_id, str):
+                    found.append(self.expand_iri(node_id))
+            elif isinstance(value, list):
+                for item in value:
+                    found.extend(ids(item))
+            elif isinstance(value, str):
+                found.append(self.expand_iri(value))
+            return found
+
+        for key, value in node.items():
+            expanded_key = self.expand_iri(key)
+            local = expanded_key.rsplit("/", 1)[-1].rsplit("#", 1)[-1]
+            if local == "objectMarking":
+                markings.update(ids(value))
+            elif local in {"relevantAuthorization", "requiredAuthorization"}:
+                authorizations.update(ids(value))
+        return {"markings": markings, "authorizations": authorizations}
+
+    def _graph_fingerprint(self, objects: list[dict[str, Any]]) -> str:
+        payload = json.dumps(
+            {"@context": dict(sorted(self._context.items())), "@graph": objects},
+            sort_keys=True,
+            separators=(",", ":"),
+            default=str,
+        ).encode("utf-8")
+        return hashlib.sha256(payload).hexdigest()
+
+    def verify_partition_union(
+        self, partitions: dict[str, CASEGraph]
+    ) -> dict[str, Any]:
+        """Prove reconstructed partition RDF is isomorphic to the source (#79)."""
+
+        from rdflib import Graph
+        from rdflib.compare import to_isomorphic
+
+        source = Graph()
+        source.parse(data=self.serialize(indent=None), format="json-ld")
+        union = Graph()
+        for partition in partitions.values():
+            union.parse(data=partition.serialize(indent=None), format="json-ld")
+        equivalent = to_isomorphic(source) == to_isomorphic(union)
+        return {
+            "equivalent": equivalent,
+            "source_triples": len(source),
+            "union_triples": len(union),
+        }
+
     def _empty_partition_manifest(
+        self,
         roots: list[str],
         shared_node_policy: str,
         include_incoming: bool,
+        boundary_policy: str,
+        cross_boundary_policy: str,
+        validation_bundle: dict[str, Any] | None,
     ) -> dict[str, Any]:
+        source_fingerprint = self._graph_fingerprint([])
         return {
-            "schema_version": "1.0.0",
+            "schema_version": "2.0.0",
+            "dataset_id": f"urn:sha256:{source_fingerprint}",
+            "source_graph_sha256": source_fingerprint,
             "strategy": (
                 "outgoing_and_incoming_id_closure"
                 if include_incoming
@@ -915,9 +1217,21 @@ class CASEGraph:
             "roots": list(roots),
             "shared_node_policy": shared_node_policy,
             "include_incoming": include_incoming,
+            "boundary_policy": boundary_policy,
+            "cross_boundary_policy": cross_boundary_policy,
+            "validation_mode": "self-contained",
+            "validation_bundle": copy.deepcopy(validation_bundle),
             "partitions": {},
             "replicated_node_ids": [],
             "cross_partition_relationship_ids": [],
+            "home_partition_routes": {},
+            "home_partition_route_count": 0,
+            "boundary_omission_counts": {},
+            "reconstruction": {
+                "operation": "rdf-union",
+                "deduplicate_by": "@id with identical assertions",
+                "requires_partitions": [],
+            },
         }
 
     @staticmethod
@@ -928,7 +1242,8 @@ class CASEGraph:
         if not isinstance(types, list):
             return False
         return any(
-            t in (
+            t
+            in (
                 "uco-core:Relationship",
                 "https://ontology.unifiedcyberontology.org/uco/core/Relationship",
             )
@@ -979,7 +1294,9 @@ class CASEGraph:
         return sorted(cross)
 
     @classmethod
-    def merge_files(cls, paths: list[str], kb_prefix: str = "http://example.org/kb/") -> CASEGraph:
+    def merge_files(
+        cls, paths: list[str], kb_prefix: str = "http://example.org/kb/"
+    ) -> CASEGraph:
         """Load and merge multiple JSON-LD graph files into a single graph.
 
         Contexts are merged (later files override earlier ones for
@@ -1049,14 +1366,6 @@ class CASEGraph:
         expanded = self.expand_iri(node_id)
         idx = self._iri_index.get(expanded)
         if idx is None:
-            # Fallback linear scan then rebuild index (legacy graphs / tests).
-            for i, obj in enumerate(self._objects):
-                oid = obj.get("@id")
-                if oid is None:
-                    continue
-                if oid == node_id or self.expand_iri(oid) == expanded:
-                    self._index_node(oid, i)
-                    return obj
             return None
         if idx >= len(self._objects):
             return None
@@ -1265,7 +1574,9 @@ class CASEGraph:
             range_iri = f.metadata.get("range_iri")
 
             if isinstance(value, list):
-                result[prop_key] = [self._convert_value(v, range_iri=range_iri) for v in value]
+                result[prop_key] = [
+                    self._convert_value(v, range_iri=range_iri) for v in value
+                ]
             else:
                 result[prop_key] = self._convert_value(value, range_iri=range_iri)
 
@@ -1314,7 +1625,9 @@ class CASEGraph:
         if isinstance(value, datetime):
             return self._typed_literal("xsd:dateTime", value)
         if isinstance(value, date):
-            return self._typed_literal("xsd:dateTime", datetime.combine(value, datetime.min.time()))
+            return self._typed_literal(
+                "xsd:dateTime", datetime.combine(value, datetime.min.time())
+            )
         if isinstance(value, bool):
             return self._typed_literal("xsd:boolean", value)
         if isinstance(value, int):
@@ -1342,7 +1655,9 @@ class CASEGraph:
             if field_info.name in ("CLASS_IRI", "NAMESPACE_PREFIX"):
                 continue
 
-            metadata: dict[str, Any] = dict(field_info.metadata) if field_info.metadata else {}
+            metadata: dict[str, Any] = (
+                dict(field_info.metadata) if field_info.metadata else {}
+            )
             if not metadata:
                 continue
 
@@ -1360,7 +1675,9 @@ class CASEGraph:
                         f"{type(instance).__name__}.{field_info.name} requires at least one value."
                     )
 
-            if cardinality in {"exactly_one", "zero_or_one"} and isinstance(value, list):
+            if cardinality in {"exactly_one", "zero_or_one"} and isinstance(
+                value, list
+            ):
                 raise ValueError(
                     f"{type(instance).__name__}.{field_info.name} does not accept multiple values."
                 )
@@ -1409,9 +1726,7 @@ class CASEGraph:
         if isinstance(context, dict):
             graph._merge_context(context)
 
-        policy = graph._normalize_duplicate_policy(
-            on_duplicate or graph.on_duplicate
-        )
+        policy = graph._normalize_duplicate_policy(on_duplicate or graph.on_duplicate)
         ctx = context if isinstance(context, dict) else {}
 
         typed_objects: list[Any] = []
@@ -1473,9 +1788,7 @@ class CASEGraph:
         return None
 
     @staticmethod
-    def _collect_prefixes(
-        node: Any, context_keys: set[str], out: set[str]
-    ) -> None:
+    def _collect_prefixes(node: Any, context_keys: set[str], out: set[str]) -> None:
         if isinstance(node, dict):
             for key, val in node.items():
                 p = CASEGraph._extract_prefix(key, context_keys)
@@ -1500,7 +1813,7 @@ class CASEGraph:
         """Compact a full IRI to prefixed form using the context."""
         for prefix, ns in self._context.items():
             if iri.startswith(ns):
-                local = iri[len(ns):]
+                local = iri[len(ns) :]
                 return f"{prefix}:{local}"
         return iri
 
@@ -1508,6 +1821,27 @@ class CASEGraph:
 _CLASS_REGISTRY_CACHE: dict[str, type] | None = None
 _CLASS_FIELD_CACHE: dict[type, tuple[Any, ...]] | None = None
 _CLASS_REGISTRY_LOCK = threading.RLock()
+_CLASS_REGISTRY_HITS = 0
+_CLASS_REGISTRY_MISSES = 0
+_CLASS_REGISTRY_GENERATION = 0
+
+
+@dataclass(frozen=True)
+class ExtensionClassRegistration:
+    """One explicitly trusted dynamic deserialization registration (#82).
+
+    Registration priority is recorded for diagnostics and future ordering, but
+    never resolves a duplicate IRI. Conflicting class IRIs always fail closed.
+    """
+
+    class_iri: str
+    cls: type
+    source: str
+    priority: int = 0
+    context: tuple[tuple[str, str], ...] = ()
+
+
+_REGISTERED_EXTENSION_CLASSES: dict[str, ExtensionClassRegistration] = {}
 
 
 class DuplicateClassIriError(ValueError):
@@ -1521,11 +1855,13 @@ def _build_class_registry(extra_classes: list[type] | None = None) -> dict[str, 
     ``extra_classes`` are layered on a shallow copy so callers cannot mutate
     the shared cache. Construction is thread-safe.
     """
-    global _CLASS_REGISTRY_CACHE
+    global _CLASS_REGISTRY_CACHE, _CLASS_REGISTRY_HITS, _CLASS_REGISTRY_MISSES
     with _CLASS_REGISTRY_LOCK:
         if _CLASS_REGISTRY_CACHE is None:
+            _CLASS_REGISTRY_MISSES += 1
             registry: dict[str, type] = {}
             import importlib
+
             module_names = [
                 "case_uco.case.investigation",
                 "case_uco.uco.action",
@@ -1551,7 +1887,11 @@ def _build_class_registry(extra_classes: list[type] | None = None) -> dict[str, 
                     continue
                 for attr_name in dir(mod):
                     attr = getattr(mod, attr_name)
-                    if isinstance(attr, type) and is_dataclass(attr) and hasattr(attr, "CLASS_IRI"):
+                    if (
+                        isinstance(attr, type)
+                        and is_dataclass(attr)
+                        and hasattr(attr, "CLASS_IRI")
+                    ):
                         iri = attr.CLASS_IRI
                         existing = registry.get(iri)
                         if existing is not None and existing is not attr:
@@ -1561,7 +1901,18 @@ def _build_class_registry(extra_classes: list[type] | None = None) -> dict[str, 
                                 f"{attr.__module__}.{attr.__name__}"
                             )
                         registry[iri] = attr
+            for iri, registration in _REGISTERED_EXTENSION_CLASSES.items():
+                existing = registry.get(iri)
+                if existing is not None and existing is not registration.cls:
+                    raise DuplicateClassIriError(
+                        f"registered extension CLASS_IRI {iri!r} from "
+                        f"{registration.source!r} conflicts with "
+                        f"{existing.__module__}.{existing.__name__}"
+                    )
+                registry[iri] = registration.cls
             _CLASS_REGISTRY_CACHE = registry
+        else:
+            _CLASS_REGISTRY_HITS += 1
 
         result = dict(_CLASS_REGISTRY_CACHE)
     if extra_classes:
@@ -1593,11 +1944,153 @@ def _cached_dataclass_fields(cls: type) -> tuple[Any, ...]:
 
 
 def clear_class_registry_cache() -> None:
-    """Invalidate the process-wide deserialization class/field registries (#70)."""
-    global _CLASS_REGISTRY_CACHE, _CLASS_FIELD_CACHE
+    """Invalidate caches while preserving explicit extension registrations."""
+    global _CLASS_REGISTRY_CACHE, _CLASS_FIELD_CACHE, _CLASS_REGISTRY_GENERATION
     with _CLASS_REGISTRY_LOCK:
         _CLASS_REGISTRY_CACHE = None
         _CLASS_FIELD_CACHE = None
+        _CLASS_REGISTRY_GENERATION += 1
+
+
+def register_extension_classes(
+    classes: list[type],
+    *,
+    source: str,
+    priority: int = 0,
+    context: dict[str, str] | None = None,
+) -> int:
+    """Register trusted extension dataclasses and invalidate typed caches (#82).
+
+    The call is atomic: every class is validated before any registration is
+    installed. Duplicate IRIs never use priority as an override; an actionable
+    :class:`DuplicateClassIriError` is raised instead. Returns the new cache
+    generation, or the current generation for an idempotent registration.
+    """
+
+    global _CLASS_REGISTRY_CACHE, _CLASS_FIELD_CACHE, _CLASS_REGISTRY_GENERATION
+    clean_source = source.strip()
+    if not clean_source:
+        raise ValueError("extension registration source must be non-empty")
+    normalized_context = tuple(sorted((context or {}).items()))
+    candidates: list[ExtensionClassRegistration] = []
+    seen: dict[str, type] = {}
+    for cls in classes:
+        iri = getattr(cls, "CLASS_IRI", None)
+        if not isinstance(cls, type) or not is_dataclass(cls):
+            raise TypeError("extension registrations must be dataclass types")
+        if not isinstance(iri, str) or not iri.strip():
+            raise ValueError(
+                f"extension class {cls.__module__}.{cls.__name__} has no CLASS_IRI"
+            )
+        prior = seen.get(iri)
+        if prior is not None and prior is not cls:
+            raise DuplicateClassIriError(
+                f"extension registration batch contains duplicate CLASS_IRI {iri!r}: "
+                f"{prior.__module__}.{prior.__name__} vs {cls.__module__}.{cls.__name__}"
+            )
+        seen[iri] = cls
+        candidates.append(
+            ExtensionClassRegistration(
+                class_iri=iri,
+                cls=cls,
+                source=clean_source,
+                priority=priority,
+                context=normalized_context,
+            )
+        )
+
+    with _CLASS_REGISTRY_LOCK:
+        # Build the current generation first so built-in conflicts are checked.
+        current = _build_class_registry()
+        changed = False
+        for registration in candidates:
+            existing_type = current.get(registration.class_iri)
+            existing_registration = _REGISTERED_EXTENSION_CLASSES.get(
+                registration.class_iri
+            )
+            if existing_type is not None and existing_type is not registration.cls:
+                owner = (
+                    existing_registration.source
+                    if existing_registration is not None
+                    else f"{existing_type.__module__}.{existing_type.__name__}"
+                )
+                raise DuplicateClassIriError(
+                    f"CLASS_IRI {registration.class_iri!r} from "
+                    f"{registration.source!r} conflicts with {owner!r}"
+                )
+            if existing_registration == registration:
+                continue
+            _REGISTERED_EXTENSION_CLASSES[registration.class_iri] = registration
+            changed = True
+        if changed:
+            _CLASS_REGISTRY_CACHE = None
+            _CLASS_FIELD_CACHE = None
+            _CLASS_REGISTRY_GENERATION += 1
+        return _CLASS_REGISTRY_GENERATION
+
+
+def unregister_extension_source(source: str) -> int:
+    """Remove all registrations from ``source`` and invalidate caches (#82)."""
+
+    global _CLASS_REGISTRY_CACHE, _CLASS_FIELD_CACHE, _CLASS_REGISTRY_GENERATION
+    with _CLASS_REGISTRY_LOCK:
+        doomed = [
+            iri
+            for iri, registration in _REGISTERED_EXTENSION_CLASSES.items()
+            if registration.source == source
+        ]
+        for iri in doomed:
+            del _REGISTERED_EXTENSION_CLASSES[iri]
+        if doomed:
+            _CLASS_REGISTRY_CACHE = None
+            _CLASS_FIELD_CACHE = None
+            _CLASS_REGISTRY_GENERATION += 1
+        return _CLASS_REGISTRY_GENERATION
+
+
+def discover_extension_class_providers(
+    group: str = "case_uco.class_registry",
+) -> list[str]:
+    """Explicitly load trusted Python entry-point class providers (#82).
+
+    Provider entry points may return an iterable of dataclass types or an
+    object exposing a ``classes`` iterable. Discovery is opt-in because loading
+    an entry point executes package code. Each successful provider is recorded
+    under its entry-point name and automatically invalidates the registry.
+    """
+
+    from importlib.metadata import entry_points
+
+    try:
+        providers = entry_points(group=group)
+    except TypeError:  # Python <3.10 mapping API.
+        providers = getattr(entry_points(), "get")(group, ())
+    loaded: list[str] = []
+    for entry_point in providers:
+        provider = entry_point.load()
+        supplied = (
+            provider()
+            if callable(provider) and not isinstance(provider, type)
+            else provider
+        )
+        classes = getattr(supplied, "classes", supplied)
+        register_extension_classes(list(classes), source=entry_point.name)
+        loaded.append(entry_point.name)
+    return loaded
+
+
+def class_registry_cache_info() -> dict[str, int]:
+    """Return stable process-wide cache observability counters (#82)."""
+
+    with _CLASS_REGISTRY_LOCK:
+        return {
+            "hits": _CLASS_REGISTRY_HITS,
+            "misses": _CLASS_REGISTRY_MISSES,
+            "generation": _CLASS_REGISTRY_GENERATION,
+            "registered_extensions": len(_REGISTERED_EXTENSION_CLASSES),
+            "cached_classes": len(_CLASS_REGISTRY_CACHE or {}),
+            "cached_field_classes": len(_CLASS_FIELD_CACHE or {}),
+        }
 
 
 def _expand_iri(compact: str, context: dict[str, str]) -> str:
@@ -1635,12 +2128,11 @@ def _jsonld_values_equal(a: Any, b: Any) -> bool:
         if "@value" in a or "@value" in b:
             if "@value" not in a or "@value" not in b:
                 return False
-            return (
-                _normalize_literal_type(a.get("@type"))
-                == _normalize_literal_type(b.get("@type"))
-                and _normalize_literal_value(a.get("@value"), a.get("@type"))
-                == _normalize_literal_value(b.get("@value"), b.get("@type"))
-            )
+            return _normalize_literal_type(a.get("@type")) == _normalize_literal_type(
+                b.get("@type")
+            ) and _normalize_literal_value(
+                a.get("@value"), a.get("@type")
+            ) == _normalize_literal_value(b.get("@value"), b.get("@type"))
         if "@id" in a or "@id" in b:
             if "@id" not in a or "@id" not in b:
                 return False
@@ -1650,7 +2142,9 @@ def _jsonld_values_equal(a: Any, b: Any) -> bool:
         return all(_jsonld_values_equal(a[k], b[k]) for k in a)
     if isinstance(a, list) and isinstance(b, list):
         if _is_id_ref_list(a) and _is_id_ref_list(b):
-            return sorted(str(_id_of(x)) for x in a) == sorted(str(_id_of(x)) for x in b)
+            return sorted(str(_id_of(x)) for x in a) == sorted(
+                str(_id_of(x)) for x in b
+            )
         if len(a) != len(b):
             return False
         return all(_jsonld_values_equal(x, y) for x, y in zip(a, b))
@@ -1700,9 +2194,7 @@ def _select_most_specific_class(classes: list[type]) -> type | None:
         return classes[0]
     # Keep classes that are not a superclass of another match.
     specific = [
-        c
-        for c in classes
-        if not any(o is not c and issubclass(o, c) for o in classes)
+        c for c in classes if not any(o is not c and issubclass(o, c) for o in classes)
     ]
     if len(specific) == 1:
         return specific[0]
@@ -1735,9 +2227,7 @@ def _rehydrate_with_diagnostics(
     node_id = raw.get("@id") if isinstance(raw.get("@id"), str) else None
     type_value = raw.get("@type")
     if not type_value:
-        return raw, DeserializationWarning(
-            node_id, "missing_type", "node has no @type"
-        )
+        return raw, DeserializationWarning(node_id, "missing_type", "node has no @type")
 
     type_list = type_value if isinstance(type_value, list) else [type_value]
     matched: list[type] = []
@@ -1823,6 +2313,8 @@ def _coerce_value(
         return value
 
     if isinstance(value, list):
-        return [_coerce_value(item, field_info, iri_to_class, context) for item in value]
+        return [
+            _coerce_value(item, field_info, iri_to_class, context) for item in value
+        ]
 
     return value

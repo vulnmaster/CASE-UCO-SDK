@@ -29,6 +29,60 @@ Validated against `examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld`
 - For Windows USN-style journals use [usn-journal.md](usn-journal.md); for
   generic auth events use [event.md](event.md)
 
+## Classify the package before modeling
+
+Do not infer “sysdiagnose” from the presence of a `.logarchive` alone. Use the
+local fail-closed MCP classifier before selecting a package recipe:
+
+| Local shape | Classification and recipe |
+|---|---|
+| Full `sysdiagnose_*` tree with `system_logs.logarchive` and strong markers such as `WiFi/`, `summaries/`, `logs/`, `crashes_and_spins/`, `Preferences/` | `ios-sysdiagnose`; start with [ios-sysdiagnose.md](ios-sysdiagnose.md), then use this recipe for decoded rows |
+| Standalone FOSS `.logarchive` plus crash pull and live syslog/apps inventory, without a full sysdiagnose tree | `apple-foss-logarchive`; use this recipe plus [starter-mobile-extraction.md](starter-mobile-extraction.md). **Do not claim a full sysdiagnose.** |
+| Lone `.logarchive`, multiple archives, or weak/conflicting markers | `auto` refuses with a typed ambiguity error; the operator must inspect and select an explicit supported profile only when the shape is known |
+
+```text
+classify_apple_package_shape(package_root="/local/evidence/apple-collect", profile="auto")
+```
+
+The classifier reads only a bounded local tree/inventory and returns counts and
+shape signals, not paths, identifiers, or source rows.
+
+## Bounded package graph helper
+
+`build_acquisition_package_graph` turns a supported local directory or structured
+inventory JSON into the package-level CASE/UCO shape used by this recipe:
+Investigation, device/OS, package root, `AppleUnifiedLogArchive` + `EventLog`,
+bounded ancillary containers, `SolveitInvestigativeAction` nodes, and a
+`ProvenanceRecord`. It does **not** decode `.tracev3`, embed archive bytes, expand
+every crash report/app, or return source literals in the MCP response.
+
+```text
+build_acquisition_package_graph(
+  package_root="/local/evidence/apple-collect",
+  output_path="/local/work/apple-package.jsonld",
+  profile="auto",
+  event_excerpt_path="/local/evidence/apple-collect/unifiedlog_excerpt.jsonl",
+  max_event_records=50,
+  shareable=true,
+  event_message_policy="omit",  # or "redact" for a fixed placeholder
+  extensions=["solveit"],
+)
+# Then use extension-aware MCP validation, not plain `case_validate --extension`:
+validate_graph(
+  graph_path="/local/work/apple-package.jsonld",
+  extensions=["solveit"],
+  strict_concepts=true,
+)
+```
+
+The result is safe metadata only: output path, counts, aggregate sizes, bounded
+named-file digests, redaction totals, warnings, and the next validation call.
+It never includes an event body, raw row, UDID, IMEI, serial number, or phone
+number. `shareable=true` rewrites `filePath` values to package-relative paths,
+redacts common identifier literals, and refuses unredacted message inclusion.
+Use `shareable=false` only for an approved local-only Tier T2 workspace; the
+operator remains responsible for access control and review before sharing.
+
 ## Classes and properties
 
 | Class | Role |
@@ -124,6 +178,10 @@ sysdiagnose packages), Mandiant `unifiedlog_iterator` wall-clock stamps stay
 epoch-relative — do **not** invent absolute `startTime` values. Prefer
 `mach_continuous_time` / `boot_uuid` / `timezone_name` dictionary entries
 from real parse rows (see `examples/sysdiagnose/unifiedlog_iterator_sample_rows.json`).
+The helper only emits `observableCreatedTime` / absolute `startTime` when an
+inventory explicitly states `metadata.timesync_anchored=true`; merely finding a
+file named `timesync` is not proof of a successful conversion. Apply DFM-1179
+and document the decoder/timebase evidence supporting any UTC assertion.
 
 ```python
 from case_uco.uco.core import Event
@@ -202,6 +260,20 @@ Prefer dual-tool verification: run Mandiant iterator **and** Notari (or
 `log show`) and link both result files to the same archive via separate
 actions that share `object=[logarchive]`.
 
+### Scale knob: external excerpt + bounded sample
+
+Keep million-row CSV/JSONL decoder output as a hashed external file observable.
+Set `max_event_records` to the smallest reviewable sample needed (default `0`,
+hard maximum `1000`); each sampled row becomes one `EventRecord` plus one
+`Event`. Do not convert the full decoder dump into one giant JSON-LD graph.
+Partition the external output at natural forensic boundaries (query, subsystem,
+time window, or parser filter), retain its digest/provenance, and regenerate a
+new bounded sample when a different question is asked.
+
+`event_message_policy="omit"` is the shareable default. `"redact"` writes only
+`[REDACTED:message]`; `"include"` is accepted only with `shareable=false` for
+approved local-only work. Raw CSV/JSONL lines are never embedded.
+
 ### Structured artifacts already inside sysdiagnose
 
 BatteryBDC daily CSVs (`logs/BatteryBDC/BDC_Daily_*.csv`) are structured
@@ -215,10 +287,10 @@ not duplicate them.
 
 ## Anti-patterns
 
-- **One EventRecord for the entire multi-GB CSV.** Partition by natural
-  forensic boundaries (time window, subsystem of interest, filtered Notari
-  DB) — never invent an arbitrary “first N thousand rows” split that breaks
-  relationships.
+- **Turning a million-row CSV/JSONL into one giant graph.** Retain the decoder
+  output externally and represent an optional bounded sample. Partition source
+  output at natural forensic boundaries (time window, subsystem, parser query,
+  filtered Notari DB), not arbitrary chunks that break relationships.
 - **Putting subsystem only in free-text description.** Use
   `eventRecordServiceName` and/or `DictionaryEntry`.
 - **Using a pre-0.2.0 `case_uco_solveit` package.** Older
@@ -241,7 +313,10 @@ not duplicate them.
    CSV/SQLite/JSONL that holds them.
 5. Record parse step(s) as `SolveitInvestigativeAction` with DFT-1066/1076
    and applied mitigations (at least dual-tool when both tools exist).
-6. Validate with `validate_graph(..., extensions=['solveit'])`.
+6. For shared/review graphs, enable shareable mode and confirm paths,
+   identifiers, and messages were normalized/redacted; never place Tier T2
+   source paths or message bodies in agent-visible responses.
+7. Validate with `validate_graph(..., extensions=['solveit'], strict_concepts=True)`.
 
 ## Validated exemplar
 

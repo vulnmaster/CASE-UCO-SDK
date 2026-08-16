@@ -1,0 +1,62 @@
+name: Medium and large benchmark tiers
+
+on:
+  schedule:
+    - cron: "17 6 * * 0"
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: Benchmark tier
+        required: true
+        default: medium
+        type: choice
+        options:
+          - medium
+          - large
+      repeats:
+        description: Repetitions per workload
+        required: true
+        default: "1"
+        type: string
+
+jobs:
+  benchmark:
+    name: ${{ github.event_name == 'schedule' && 'medium' || inputs.tier }} release gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      BENCH_TIER: ${{ github.event_name == 'schedule' && 'medium' || inputs.tier }}
+      CASE_UCO_BENCH_REPEATS: ${{ github.event_name == 'schedule' && '3' || inputs.repeats }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "8.0.x"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Python dependencies
+        run: pip install rdflib jinja2
+
+      - name: Run complete benchmark release gate
+        run: ./benchmarks/run_release_benchmarks.sh --tier "${BENCH_TIER}"
+
+      - name: Upload versioned release evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cross-language-bench-${{ env.BENCH_TIER }}
+          path: artifacts/bench/
+          if-no-files-found: error

@@ -280,6 +280,47 @@ def test_installed_extensions_discovered() -> None:
     assert installed["legalproc"]["namespaces"]["legalproc"] == "https://ontology.caseontology.org/case/criminal/"
 
 
+def test_full_sysdiagnose_routing_guidance_is_distinct() -> None:
+    payload = route_investigation_content(
+        PROJECT_ROOT,
+        content_text=(
+            "Full sysdiagnose_2026.08.11_iPhone-OS tree with "
+            "system_logs.logarchive, WiFi/, summaries/, crashes_and_spins/, "
+            "Preferences/, and BatteryBDC files."
+        ),
+    )
+    guidance = payload["apple_collect_guidance"]
+    assert guidance["claimed_shape"] == "ios-sysdiagnose"
+    assert guidance["recipes"][0] == "docs/recipes/ios-sysdiagnose.md"
+    assert payload["next_tools"]["apple_package_classifier"] is not None
+
+
+def test_standalone_foss_collect_is_not_claimed_as_sysdiagnose() -> None:
+    payload = route_investigation_content(
+        PROJECT_ROOT,
+        content_text=(
+            "FOSS iOS collection with standalone.logarchive, crash pull, "
+            "live syslog, and installed apps list; this is not a sysdiagnose. "
+            "The archive has no timesync."
+        ),
+    )
+    guidance = payload["apple_collect_guidance"]
+    assert guidance["claimed_shape"] == "apple-foss-logarchive"
+    assert "docs/recipes/ios-sysdiagnose.md" not in guidance["recipes"]
+    assert guidance["recipes"][0] == "docs/recipes/apple-unified-logs.md"
+    assert "omit absolute device UTC" in guidance["timesync_guidance"]
+
+
+def test_ambiguous_logarchive_routing_defers_to_local_classifier() -> None:
+    payload = route_investigation_content(
+        PROJECT_ROOT,
+        content_text="Apple iOS standalone .logarchive collected for review.",
+    )
+    guidance = payload["apple_collect_guidance"]
+    assert guidance["claimed_shape"] == "unconfirmed-apple-logarchive"
+    assert "classify_apple_package_shape" in guidance["authoritative_next_tool"]
+
+
 def test_gap_guidance_is_self_contained() -> None:
     guidance = build_extension_gap_guidance()
     joined = " ".join(guidance["workflow"])

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "case-uco"
-version = "1.23.1"
+version = "1.24.0"
 description = "Standard library for constructing CASE/UCO ontology graphs"
 requires-python = ">=3.9"
 license = {text = "Apache-2.0"}

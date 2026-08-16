@@ -49,4 +49,7 @@ evaluation/routing/report.json
 evaluation/critic/reports/*.json
 !evaluation/critic/reports/.gitkeep
 
+# Synthetic benchmark outputs — publish as CI/release artifacts, not source
+artifacts/bench/
+
 opencode.json

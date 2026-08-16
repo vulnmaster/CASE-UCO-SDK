@@ -1,7 +1,8 @@
 """Filesystem trust boundary for MCP tools that accept local paths.
 
-``process_document_file`` and ``validate_graph`` accept caller-controlled
-paths. In an agent-connected deployment the MCP server should not be an
+``process_document_file``, the Apple package classifier/builder, and
+``validate_graph`` accept caller-controlled paths. In an agent-connected
+deployment the MCP server should not be an
 arbitrary file read/write primitive, so deployments can configure a
 workspace policy through environment variables:
 

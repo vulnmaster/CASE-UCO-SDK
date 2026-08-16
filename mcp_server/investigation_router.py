@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 import semantic_retrieval
+from apple_acquisition import apple_collect_guidance
 from cac_content_router import (
     GENERIC_CAC_KEYWORDS,
     _normalize_text,
@@ -1310,6 +1311,7 @@ def route_investigation_content(
             if profile in UPPER_PROFILE_HINTS
         }
 
+    apple_guidance = apple_collect_guidance(text)
     payload: dict[str, Any] = {
         "ok": True,
         "input_type": input_type,
@@ -1334,9 +1336,19 @@ def route_investigation_content(
             "upper_ontologies": "get_uco_profiles(query)",
             "per_source_mapping": "guide_mapping(evidence_source)",
             "validation": "validate_graph(graph_path, extensions=[...])",
+            "apple_package_classifier": (
+                "classify_apple_package_shape(package_root, profile='auto')"
+                if apple_guidance else None
+            ),
+            "apple_package_builder": (
+                "build_acquisition_package_graph(..., extensions=['solveit'])"
+                if apple_guidance else None
+            ),
         },
         **input_metadata,
     }
+    if apple_guidance:
+        payload["apple_collect_guidance"] = apple_guidance
     if integrity_failures:
         payload["extension_integrity_failures"] = integrity_failures
     if extraction_quality.get("noisy_extraction"):

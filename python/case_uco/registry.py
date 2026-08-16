@@ -29,6 +29,21 @@ _CONCEPT_INDEX: dict[str, Any] | None = None
 _logger = logging.getLogger(__name__)
 
 
+def clear_registry_cache() -> None:
+    """Invalidate introspection and concept caches before extension reload (#82)."""
+
+    global _REGISTRY, _CONCEPT_INDEX
+    _REGISTRY = None
+    _CONCEPT_INDEX = None
+
+
+def reload_extension_registries() -> dict[str, Any]:
+    """Reload built-in metadata and currently installed extension entry points."""
+
+    clear_registry_cache()
+    return _load()
+
+
 def _load() -> dict[str, Any]:
     global _REGISTRY
     if _REGISTRY is None:

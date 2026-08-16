@@ -11,6 +11,7 @@ rather than infer requirements from developer CI runners.
 | CPU | 4 cores | 8 or more cores for concurrent generation and validation |
 | RAM | 8 GB | 16 GB; 32–64 GB for large in-memory graphs |
 | GPU | Not required | Not required |
+| VRAM | Not applicable | Not applicable |
 | Application/database disk | 20 GB | 40 GB or more for build caches and generated artifacts |
 | Evidence storage | Not included | Size separately for retention and replication requirements |
 

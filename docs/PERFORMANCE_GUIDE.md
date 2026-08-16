@@ -123,11 +123,15 @@ for volume in disk_image.volumes:
     g.write(f"volume-{volume.name}.jsonld")
 ```
 
-Public synthetic benchmarks live under `benchmarks/` (#73):
+Public synthetic benchmarks live under `benchmarks/` (#81):
 
 ```bash
+CASE_UCO_BENCH_REPEATS=3 \
+  ./benchmarks/run_release_benchmarks.sh --tier small
+
 python3 benchmarks/run_python_bench.py --tier small \
-  --out artifacts/bench/python-small.json
+  --out artifacts/bench/python-small.json \
+  --graph-out artifacts/bench/python-small.jsonld
 python3 benchmarks/compare_baseline.py \
   --baseline benchmarks/baselines/python-small.json \
   --result artifacts/bench/python-small.json
@@ -137,17 +141,29 @@ python3 benchmarks/compare_baseline.py \
 ./benchmarks/run_rust_bench.sh --tier small
 ```
 
-CI runs the Python small tier and fails if any timing key exceeds the committed
-baseline by more than +100% (lenient host variance). Phase-2 **bounded writer**
-(chunked/back-pressured streaming for multi-GB graphs) is deferred; current
-`write_streaming` is incremental + atomic with metrics, not a bounded buffer
-pipeline.
+The complete gate runs the same four workload families in Python, C#, Java,
+and Rust; records repeated timing dispersion and memory; verifies the emitted
+graphs are RDF-isomorphic; and writes a versioned release report. Python also
+measures bundle resolution, closed-world concept coverage, and SHACL when the
+validator is available. The small tier remains suitable for PR CI, medium is
+the 10,000-node nightly profile, and large is the 100,000-node release profile.
 
-> **`split()` safety note:** The SDK's `split()` helper divides by object index.
+For an explicit per-node allocation cap, use the v1.24 bounded writer
+(`JsonLdStreamWriter` / language-equivalent). It freezes the context, rejects
+unknown prefixes before destination replacement, and preserves prior bytes on
+failure. The older `write_streaming` convenience method remains incremental
+and atomic but does not promise a caller-configured node-size bound.
+
+> **Partition safety note:** The SDK's `split()` helper divides by object index.
 > It is safe for **catalog-style graphs** where objects are independent (file hash
 > lists, DNS records, IoC feeds). It is **not safe** for investigative graphs with
 > cross-object relationships — use `partition(strategy="roots")` or source-level
-> partitioning for those.
+> partitioning for those. For marked or authorization-scoped evidence, enable
+> `boundary_policy="marking-and-authorization"`; the default cross-boundary
+> behavior fails closed. `home-partition-reference` and `support-graph` retain
+> a complete reconstructable set and emit a v2 manifest. Validate
+> `self-contained` partitions separately, but validate a
+> `referenced-partition-set` only after reconstructing its declared RDF union.
 
 ```python
 # Strategy 3: Merge multiple graph files for analysis

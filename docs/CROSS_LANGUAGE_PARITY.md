@@ -110,15 +110,17 @@ These differences follow each language's conventions and are not bugs:
 | Typed deserialization | `from_jsonld()` | `FromJsonLd()` | `fromJsonLd()` | `from_jsonld()` | Python returns typed objects; C#/Java use reflection; Rust returns serde_json::Value |
 | Property metadata cache (#70) | dataclass field cache | Type→property attr map | Class→field map | N/A | Cleared via `clear_*_class_registry_cache` |
 | Streaming write metrics (#71) | `dict` return | `StreamingWriteResult` | `StreamingWriteResult` | `StreamingWriteMetrics` | Atomic temp+rename default |
-| Root partition incoming closure (#72) | `include_incoming=True` | `includeIncoming=true` | `includeIncoming=true` | outgoing-only today | Python also supports `return_manifest` |
+| Marking-safe root partitions (#79) | `return_manifest=True` | `PartitionByRootsWithManifest()` | `partitionByRootsWithManifest()` | `partition_by_roots_with_manifest()` | Incoming/outgoing closure, boundary policies, v2 manifest, union proof |
+| Bounded JSON-LD writer (#80) | `JsonLdStreamWriter` | `JsonLdStreamWriter` | `JsonLdStreamWriter` | `JsonLdStreamWriter` | Frozen context, per-node cap, atomic failure preservation |
+| Extension registry invalidation (#82) | entry points + explicit providers | explicit types/assemblies | `ServiceLoader` + explicit providers | explicit metadata JSON | Generation + hit/miss metrics; Rust has no runtime reflection |
 | Graph validation wrapper | `graph.validate()` | `graph.ValidateGraph()` | `graph.validate()` | `graph.validate()` | Wraps case_validate; requires case-utils on PATH |
 | Smoke test binary | — | `CaseUco.Smoke` | `SmokeTest` | `examples/smoke` | Python uses pytest instead |
-| Catalog bench harness (#73) | `run_python_bench.py` | `run_csharp_bench.sh` | `run_java_bench.sh` | `run_rust_bench.sh` | Python has full workload suite + baseline compare |
+| Full benchmark harness (#81) | `run_python_bench.py` | `run_csharp_bench.sh` | `run_java_bench.sh` | `run_rust_bench.sh` | Four workloads, memory/dispersion, RDF equivalence, tiered release report |
 
-**#72 note:** Python, C#, and Java `partition_by_roots` / `PartitionByRoots` /
-`partitionByRoots` follow **outgoing and incoming** nested `@id` references when
-`include_incoming` is enabled (default). Rust currently implements outgoing
-closure only; parity for incoming reverse refs is tracked as follow-on work.
+**#79 note:** All four languages follow outgoing and incoming nested `@id`
+references by default. Legacy partition APIs remain available; use the
+manifest-returning API when marking/authorization boundaries or portable
+reconstruction evidence matter.
 
 ### Why `create()` vs `Add()`
 

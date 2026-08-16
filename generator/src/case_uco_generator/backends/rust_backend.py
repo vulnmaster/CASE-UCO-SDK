@@ -57,6 +57,8 @@ class RustBackend(CodegenBackend):
         lib_rs.write_text(
             "// Auto-generated CASE/UCO standard library for Rust\n\n"
             "pub mod graph;\n"
+            "pub mod registry;\n"
+            "pub mod streaming;\n"
             "pub mod uco;\n"
             "pub mod case;\n",
             encoding="utf-8",

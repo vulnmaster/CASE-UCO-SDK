@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 
 namespace CaseUco
 {
@@ -19,6 +20,11 @@ namespace CaseUco
     {
         private static readonly object RegistryLock = new object();
         private static volatile Dictionary<string, Type> _classRegistryCache;
+        private static readonly Dictionary<string, ExtensionTypeRegistration> ExtensionTypes =
+            new Dictionary<string, ExtensionTypeRegistration>(StringComparer.Ordinal);
+        private static long _classRegistryHits;
+        private static long _classRegistryMisses;
+        private static long _classRegistryGeneration;
 
         /// <summary>
         /// Test hook: when non-null, invoked immediately before atomic replace.
@@ -379,7 +385,13 @@ namespace CaseUco
         private static Type FindTypeByClassIri(string expandedIri)
         {
             EnsureClassRegistryCache();
-            return _classRegistryCache.TryGetValue(expandedIri, out var type) ? type : null;
+            if (_classRegistryCache.TryGetValue(expandedIri, out var type))
+            {
+                Interlocked.Increment(ref _classRegistryHits);
+                return type;
+            }
+            Interlocked.Increment(ref _classRegistryMisses);
+            return null;
         }
 
         private static void EnsureClassRegistryCache()
@@ -397,30 +409,117 @@ namespace CaseUco
         private static Dictionary<string, Type> BuildClassRegistryCache()
         {
             var registry = new Dictionary<string, Type>(StringComparer.Ordinal);
-            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            AddAssemblyTypes(registry, typeof(CaseGraph).Assembly);
+            foreach (var registration in ExtensionTypes.Values.ToList())
             {
-                Type[] types;
-                try { types = asm.GetTypes(); }
-                catch (ReflectionTypeLoadException ex) { types = ex.Types.Where(t => t != null).ToArray(); }
-
-                foreach (var type in types.Where(t =>
-                    t.IsClass && !t.IsAbstract && t.Namespace != null &&
-                    t.Namespace.StartsWith("CaseUco")))
+                foreach (var weakType in registration.Types)
                 {
-                    var field = type.GetField("ClassIri", BindingFlags.Public | BindingFlags.Static);
-                    if (field == null)
-                        continue;
-                    var iri = (string)field.GetValue(null);
-                    if (iri == null)
-                        continue;
-                    if (registry.TryGetValue(iri, out var existing) && existing != type)
-                    {
-                        throw new ClassRegistryConflictException(iri, existing, type);
-                    }
-                    registry[iri] = type;
+                    if (weakType.TryGetTarget(out var extensionType))
+                        AddRegistryType(registry, extensionType);
                 }
             }
             return registry;
+        }
+
+        private static void AddAssemblyTypes(Dictionary<string, Type> registry, Assembly assembly)
+        {
+            Type[] types;
+            try { types = assembly.GetTypes(); }
+            catch (ReflectionTypeLoadException ex) { types = ex.Types.Where(t => t != null).ToArray(); }
+
+            foreach (var type in types.Where(t => t.IsClass && !t.IsAbstract))
+            {
+                AddRegistryType(registry, type);
+            }
+        }
+
+        private static void AddRegistryType(Dictionary<string, Type> registry, Type type)
+        {
+            if (type == null || !type.IsClass || type.IsAbstract)
+                return;
+            var field = type.GetField("ClassIri", BindingFlags.Public | BindingFlags.Static);
+            if (field == null || field.FieldType != typeof(string))
+                return;
+            var iri = (string)field.GetValue(null);
+            if (string.IsNullOrWhiteSpace(iri))
+                return;
+            if (registry.TryGetValue(iri, out var existing) && existing != type)
+                throw new ClassRegistryConflictException(iri, existing, type);
+            registry[iri] = type;
+        }
+
+        /// <summary>
+        /// Explicitly trust an extension assembly for typed deserialization (#82).
+        /// Registration is atomic, uses weak assembly references, rejects duplicate
+        /// ClassIri values, and invalidates the current cache generation.
+        /// </summary>
+        public static long RegisterExtensionAssembly(Assembly assembly, string source, int priority = 0)
+        {
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+            Type[] types;
+            try { types = assembly.GetTypes(); }
+            catch (ReflectionTypeLoadException ex) { types = ex.Types.Where(t => t != null).ToArray(); }
+            return RegisterExtensionTypes(types, source, priority);
+        }
+
+        /// <summary>
+        /// Register an explicit trusted set of extension types (#82). Weak type
+        /// references avoid pinning collectible extension assemblies.
+        /// </summary>
+        public static long RegisterExtensionTypes(IEnumerable<Type> types, string source, int priority = 0)
+        {
+            if (types == null) throw new ArgumentNullException(nameof(types));
+            if (string.IsNullOrWhiteSpace(source))
+                throw new ArgumentException("Extension source must be non-empty", nameof(source));
+            var selected = types.Where(t => t != null).Distinct().ToList();
+            if (selected.Count == 0)
+                throw new ArgumentException("At least one extension type is required", nameof(types));
+            lock (RegistryLock)
+            {
+                var hadPrior = ExtensionTypes.TryGetValue(source, out var prior);
+                ExtensionTypes[source] = new ExtensionTypeRegistration(selected, priority);
+                try
+                {
+                    var candidate = BuildClassRegistryCache();
+                    _classRegistryCache = candidate;
+                    _propertyBindingCache = null;
+                    return ++_classRegistryGeneration;
+                }
+                catch
+                {
+                    if (hadPrior) ExtensionTypes[source] = prior;
+                    else ExtensionTypes.Remove(source);
+                    _classRegistryCache = null;
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>Remove one extension source and invalidate the registry (#82).</summary>
+        public static long UnregisterExtensionAssembly(string source)
+        {
+            lock (RegistryLock)
+            {
+                if (!ExtensionTypes.Remove(source))
+                    return _classRegistryGeneration;
+                _classRegistryCache = null;
+                _propertyBindingCache = null;
+                return ++_classRegistryGeneration;
+            }
+        }
+
+        /// <summary>Current cache generation and hit/miss counters (#82).</summary>
+        public static ClassRegistryCacheMetrics GetClassRegistryCacheMetrics()
+        {
+            lock (RegistryLock)
+            {
+                return new ClassRegistryCacheMetrics(
+                    Interlocked.Read(ref _classRegistryHits),
+                    Interlocked.Read(ref _classRegistryMisses),
+                    _classRegistryGeneration,
+                    ExtensionTypes.Count,
+                    _classRegistryCache?.Count ?? 0);
+            }
         }
 
         /// <summary>Invalidate the process-wide deserialization class registry (#70).</summary>
@@ -430,6 +529,18 @@ namespace CaseUco
             {
                 _classRegistryCache = null;
                 _propertyBindingCache = null;
+                _classRegistryGeneration++;
+            }
+        }
+
+        private sealed class ExtensionTypeRegistration
+        {
+            public List<WeakReference<Type>> Types { get; }
+            public int Priority { get; }
+            public ExtensionTypeRegistration(IEnumerable<Type> types, int priority)
+            {
+                Types = types.Select(t => new WeakReference<Type>(t)).ToList();
+                Priority = priority;
             }
         }
 
@@ -928,77 +1039,250 @@ namespace CaseUco
             string sharedNodePolicy = "replicate-identical",
             bool includeIncoming = true)
         {
+            return PartitionByRootsWithManifest(rootIris, new PartitionOptions
+            {
+                SharedNodePolicy = sharedNodePolicy,
+                IncludeIncoming = includeIncoming,
+            }).Partitions;
+        }
+
+        /// <summary>
+        /// Marking-safe root partitioning with a reconstruction/validation manifest (#79).
+        /// </summary>
+        public PartitionResult PartitionByRootsWithManifest(
+            IEnumerable<string> rootIris,
+            PartitionOptions options = null)
+        {
             if (rootIris == null)
                 throw new ArgumentNullException(nameof(rootIris));
-            sharedNodePolicy = NormalizeSharedNodePolicy(sharedNodePolicy);
+            options = options ?? new PartitionOptions();
+            var requestedPolicy = options.SharedNodePolicy ?? "replicate-identical";
+            var sharedPolicy = NormalizeSharedNodePolicy(requestedPolicy);
+            if (options.BoundaryPolicy != "none"
+                && options.BoundaryPolicy != "marking-and-authorization")
+                throw new ArgumentException("Unknown boundary policy", nameof(options));
+            if (options.CrossBoundaryPolicy != "error-on-cross-boundary"
+                && options.CrossBoundaryPolicy != "home-partition-reference")
+                throw new ArgumentException("Unknown cross-boundary policy", nameof(options));
+            if (options.ManifestDetail != "full" && options.ManifestDetail != "safe")
+                throw new ArgumentException("ManifestDetail must be 'full' or 'safe'", nameof(options));
 
             var byId = BuildNodeIndex();
             var reverseIndex = BuildReverseIdIndex(byId);
-
             var rootEntries = new List<(string Key, string Expanded)>();
             foreach (var root in rootIris.Where(r => !string.IsNullOrEmpty(r)))
             {
                 var expanded = ExpandIri(root);
-                if (rootEntries.Any(entry => entry.Expanded == expanded))
-                    continue;
-                rootEntries.Add((root, expanded));
+                if (!rootEntries.Any(entry => entry.Expanded == expanded))
+                    rootEntries.Add((root, expanded));
             }
+            if (rootEntries.Count == 0)
+                throw new ArgumentException("rootIris must contain at least one root", nameof(rootIris));
 
-            var rootReachable = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+            var closures = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
             foreach (var entry in rootEntries.Where(e => byId.ContainsKey(e.Expanded)))
-            {
-                rootReachable[entry.Expanded] = CollectReachable(
-                    entry.Expanded, byId, reverseIndex, includeIncoming);
-            }
+                closures[entry.Expanded] = CollectReachable(
+                    entry.Expanded, byId, reverseIndex, options.IncludeIncoming);
 
-            var nodeRoots = new Dictionary<string, List<string>>(StringComparer.Ordinal);
-            foreach (var kv in rootReachable)
+            var boundaries = byId.ToDictionary(
+                pair => pair.Key,
+                pair => ExtractPartitionBoundary(pair.Value),
+                StringComparer.Ordinal);
+            var declared = new Dictionary<string, PartitionBoundarySets>(StringComparer.Ordinal);
+            var omissions = closures.Keys.ToDictionary(
+                root => root,
+                _ => new HashSet<string>(StringComparer.Ordinal),
+                StringComparer.Ordinal);
+            if (options.BoundaryPolicy == "marking-and-authorization")
             {
-                foreach (var nodeId in kv.Value)
+                foreach (var entry in rootEntries.Where(e => closures.ContainsKey(e.Expanded)))
                 {
-                    if (!nodeRoots.TryGetValue(nodeId, out var roots))
+                    PartitionBoundary supplied = null;
+                    options.RootBoundaries?.TryGetValue(entry.Key, out supplied);
+                    declared[entry.Expanded] = supplied == null
+                        ? boundaries[entry.Expanded]
+                        : new PartitionBoundarySets(
+                            new HashSet<string>((supplied.Markings ?? Array.Empty<string>()).Select(ExpandIri), StringComparer.Ordinal),
+                            new HashSet<string>((supplied.Authorizations ?? Array.Empty<string>()).Select(ExpandIri), StringComparer.Ordinal));
+                }
+                foreach (var entry in closures)
+                {
+                    var allowed = declared[entry.Key];
+                    foreach (var nodeId in entry.Value.ToList())
                     {
-                        roots = new List<string>();
-                        nodeRoots[nodeId] = roots;
+                        var required = boundaries[nodeId];
+                        var missingMarkings = required.Markings.Except(allowed.Markings).OrderBy(x => x).ToList();
+                        var missingAuthorizations = required.Authorizations.Except(allowed.Authorizations).OrderBy(x => x).ToList();
+                        if (missingMarkings.Count == 0 && missingAuthorizations.Count == 0)
+                            continue;
+                        if (nodeId == entry.Key || options.CrossBoundaryPolicy == "error-on-cross-boundary")
+                            throw new PartitionBoundaryException(
+                                RootKeyForExpanded(rootEntries, entry.Key),
+                                OriginalId(byId[nodeId], nodeId),
+                                missingMarkings,
+                                missingAuthorizations);
+                        entry.Value.Remove(nodeId);
+                        omissions[entry.Key].Add(nodeId);
                     }
-                    if (!roots.Contains(kv.Key))
-                        roots.Add(kv.Key);
                 }
             }
+
+            var boundaryHomes = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var nodeId in omissions.Values.SelectMany(ids => ids).Distinct().OrderBy(x => x))
+            {
+                var candidates = closures
+                    .Where(entry => entry.Value.Contains(nodeId))
+                    .Select(entry => entry.Key)
+                    .OrderBy(x => x)
+                    .ToList();
+                if (candidates.Count == 0)
+                    throw new PartitionBoundaryException(
+                        "<no-authorized-home>", OriginalId(byId[nodeId], nodeId),
+                        boundaries[nodeId].Markings.OrderBy(x => x).ToList(),
+                        boundaries[nodeId].Authorizations.OrderBy(x => x).ToList());
+                boundaryHomes[nodeId] = candidates[0];
+            }
+
+            var nodeOwners = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+            foreach (var entry in closures)
+                foreach (var nodeId in entry.Value)
+                {
+                    if (!nodeOwners.TryGetValue(nodeId, out var owners))
+                        nodeOwners[nodeId] = owners = new List<string>();
+                    owners.Add(entry.Key);
+                }
+            if (sharedPolicy == "error-on-cross-boundary")
+            {
+                var overlap = nodeOwners.Where(pair => pair.Value.Count > 1).Select(pair => pair.Key).OrderBy(x => x).ToList();
+                if (overlap.Count > 0)
+                    throw new InvalidOperationException(
+                        $"shared nodes cross partition boundaries: {string.Join(", ", overlap.Take(5))}");
+            }
+
+            var homeByNode = new Dictionary<string, string>(StringComparer.Ordinal);
+            if (sharedPolicy == "home-partition-reference")
+                foreach (var entry in nodeOwners.Where(pair => pair.Value.Count > 1))
+                    homeByNode[entry.Key] = entry.Value.Contains(entry.Key)
+                        ? entry.Key
+                        : entry.Value.OrderBy(x => x).First();
 
             var partitions = new Dictionary<string, CaseGraph>(StringComparer.Ordinal);
-            foreach (var entry in rootEntries.Where(e => !partitions.ContainsKey(e.Key)))
+            foreach (var entry in rootEntries.Where(e => closures.ContainsKey(e.Expanded)))
             {
-                partitions[entry.Key] = CreatePartitionShell();
+                var part = CreatePartitionShell();
+                foreach (var nodeId in closures[entry.Expanded])
+                {
+                    var ownerCount = nodeOwners[nodeId].Count;
+                    if (ownerCount > 1 && sharedPolicy == "support-graph")
+                        continue;
+                    if (ownerCount > 1 && sharedPolicy == "home-partition-reference"
+                        && homeByNode[nodeId] != entry.Expanded)
+                        continue;
+                    IngestIntoPartition(part, byId[nodeId]);
+                }
+                partitions[entry.Key] = part;
+            }
+            if (sharedPolicy == "support-graph")
+            {
+                var support = CreatePartitionShell();
+                foreach (var entry in nodeOwners.Where(pair => pair.Value.Count > 1))
+                    IngestIntoPartition(support, byId[entry.Key]);
+                if (support._objects.Count > 0)
+                    partitions[requestedPolicy == "support-graph" ? "_support" : "_shared"] = support;
             }
 
-            foreach (var kv in nodeRoots.Where(pair => byId.ContainsKey(pair.Key)))
+            var sourceHash = GraphFingerprint(_objects);
+            var partitionManifest = new Dictionary<string, object>(StringComparer.Ordinal);
+            foreach (var entry in partitions)
             {
-                var node = byId[kv.Key];
-
-                if (kv.Value.Count == 1)
+                var partHash = GraphFingerprint(entry.Value._objects);
+                var detail = new Dictionary<string, object>(StringComparer.Ordinal)
                 {
-                    var rootKey = RootKeyForExpanded(rootEntries, kv.Value[0]);
-                    IngestIntoPartition(partitions[rootKey], node);
-                    continue;
-                }
-
-                if (sharedNodePolicy == "replicate-identical")
-                {
-                    foreach (var rootKey in kv.Value.Select(
-                        expandedRoot => RootKeyForExpanded(rootEntries, expandedRoot)))
-                    {
-                        IngestIntoPartition(partitions[rootKey], node);
-                    }
-                    continue;
-                }
-
-                if (!partitions.ContainsKey("_shared"))
-                    partitions["_shared"] = CreatePartitionShell();
-                IngestIntoPartition(partitions["_shared"], node);
+                    ["partition_id"] = $"urn:sha256:{partHash}",
+                    ["node_count"] = entry.Value._objects.Count,
+                    ["triple_estimate"] = entry.Value.EstimateTriples(),
+                    ["sha256"] = partHash,
+                    ["effective_markings"] = entry.Key.StartsWith("_", StringComparison.Ordinal)
+                        ? new List<string>()
+                        : declared.TryGetValue(ExpandIri(entry.Key), out var scope)
+                            ? scope.Markings.OrderBy(x => x).ToList()
+                            : new List<string>(),
+                    ["authorization_scope"] = entry.Key.StartsWith("_", StringComparison.Ordinal)
+                        ? new List<string>()
+                        : declared.TryGetValue(ExpandIri(entry.Key), out var authScope)
+                            ? authScope.Authorizations.OrderBy(x => x).ToList()
+                            : new List<string>(),
+                };
+                if (options.ManifestDetail == "full")
+                    detail["node_ids"] = entry.Value._objects
+                        .Select(node => OriginalId(node, null))
+                        .Where(id => id != null).OrderBy(id => id).ToList();
+                partitionManifest[entry.Key] = detail;
             }
+            var routes = homeByNode.Concat(boundaryHomes)
+                .GroupBy(pair => pair.Key).ToDictionary(
+                    group => OriginalId(byId[group.Key], group.Key),
+                    group => RootKeyForExpanded(rootEntries, group.Last().Value),
+                    StringComparer.Ordinal);
+            var referenced = sharedPolicy == "support-graph"
+                || sharedPolicy == "home-partition-reference"
+                || omissions.Values.Any(ids => ids.Count > 0);
+            var manifest = new Dictionary<string, object>(StringComparer.Ordinal)
+            {
+                ["schema_version"] = "2.0.0",
+                ["dataset_id"] = $"urn:sha256:{sourceHash}",
+                ["source_graph_sha256"] = sourceHash,
+                ["strategy"] = options.IncludeIncoming ? "outgoing_and_incoming_id_closure" : "outgoing_id_closure",
+                ["roots"] = rootEntries.Select(entry => entry.Key).ToList(),
+                ["shared_node_policy"] = sharedPolicy,
+                ["include_incoming"] = options.IncludeIncoming,
+                ["boundary_policy"] = options.BoundaryPolicy,
+                ["cross_boundary_policy"] = options.CrossBoundaryPolicy,
+                ["validation_mode"] = referenced ? "referenced-partition-set" : "self-contained",
+                ["validation_bundle"] = options.ValidationBundle,
+                ["partitions"] = partitionManifest,
+                ["home_partition_routes"] = options.ManifestDetail == "full" ? routes : new Dictionary<string, string>(),
+                ["home_partition_route_count"] = routes.Count,
+                ["boundary_omission_counts"] = omissions.ToDictionary(
+                    entry => RootKeyForExpanded(rootEntries, entry.Key), entry => (object)entry.Value.Count),
+                ["reconstruction"] = new Dictionary<string, object>
+                {
+                    ["operation"] = "rdf-union",
+                    ["deduplicate_by"] = "@id with identical assertions",
+                    ["requires_partitions"] = partitions.Keys.OrderBy(x => x).ToList(),
+                },
+            };
+            return new PartitionResult(partitions, manifest);
+        }
 
-            return partitions;
+        /// <summary>Verify that the exact JSON-LD node union reconstructs this graph.</summary>
+        public PartitionUnionVerification VerifyPartitionUnion(IDictionary<string, CaseGraph> partitions)
+        {
+            if (partitions == null)
+                throw new ArgumentNullException(nameof(partitions));
+            var source = _objects.ToDictionary(
+                node => ExpandIri(OriginalId(node, "")),
+                node => ToJsonString(node, -1),
+                StringComparer.Ordinal);
+            var union = new Dictionary<string, string>(StringComparer.Ordinal);
+            var conflict = false;
+            foreach (var partition in partitions.Values)
+                foreach (var node in partition._objects)
+                {
+                    var id = ExpandIri(OriginalId(node, ""));
+                    var value = ToJsonString(node, -1);
+                    if (union.TryGetValue(id, out var existing) && existing != value)
+                        conflict = true;
+                    else
+                        union[id] = value;
+                }
+            return new PartitionUnionVerification
+            {
+                Equivalent = !conflict && source.Count == union.Count
+                    && source.All(pair => union.TryGetValue(pair.Key, out var value) && value == pair.Value),
+                SourceNodes = source.Count,
+                UnionNodes = union.Count,
+            };
         }
 
         /// <summary>
@@ -1116,12 +1400,88 @@ namespace CaseUco
             return basePath + Path.DirectorySeparatorChar + relativeOrAbsolute;
         }
 
+        private sealed class PartitionBoundarySets
+        {
+            public PartitionBoundarySets(HashSet<string> markings, HashSet<string> authorizations)
+            {
+                Markings = markings;
+                Authorizations = authorizations;
+            }
+
+            public HashSet<string> Markings { get; }
+            public HashSet<string> Authorizations { get; }
+        }
+
+        private PartitionBoundarySets ExtractPartitionBoundary(Dictionary<string, object> node)
+        {
+            var markings = new HashSet<string>(StringComparer.Ordinal);
+            var authorizations = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var entry in node)
+            {
+                var expanded = ExpandIri(entry.Key);
+                var slash = expanded.LastIndexOf('/');
+                var hash = expanded.LastIndexOf('#');
+                var local = expanded.Substring(Math.Max(slash, hash) + 1);
+                if (local == "objectMarking")
+                    CollectBoundaryIds(entry.Value, markings);
+                else if (local == "relevantAuthorization" || local == "requiredAuthorization")
+                    CollectBoundaryIds(entry.Value, authorizations);
+            }
+            return new PartitionBoundarySets(markings, authorizations);
+        }
+
+        private void CollectBoundaryIds(object value, HashSet<string> output)
+        {
+            if (value is string text)
+            {
+                output.Add(ExpandIri(text));
+                return;
+            }
+            if (value is Dictionary<string, object> dictionary)
+            {
+                if (dictionary.TryGetValue("@id", out var id) && id is string idText)
+                    output.Add(ExpandIri(idText));
+                return;
+            }
+            if (value is IList list)
+                foreach (var item in list)
+                    CollectBoundaryIds(item, output);
+        }
+
+        private string GraphFingerprint(IEnumerable<Dictionary<string, object>> nodes)
+        {
+            var sortedContext = _context.OrderBy(pair => pair.Key).ToDictionary(
+                pair => pair.Key, pair => (object)pair.Value, StringComparer.Ordinal);
+            var document = new Dictionary<string, object>(StringComparer.Ordinal)
+            {
+                ["@context"] = sortedContext,
+                ["@graph"] = nodes.Cast<object>().ToList(),
+            };
+            var bytes = Encoding.UTF8.GetBytes(ToJsonString(document, -1));
+            using (var sha256 = SHA256.Create())
+                return string.Concat(sha256.ComputeHash(bytes).Select(
+                    value => value.ToString("x2", CultureInfo.InvariantCulture)));
+        }
+
+        private static string OriginalId(Dictionary<string, object> node, string fallback)
+        {
+            return node != null && node.TryGetValue("@id", out var id) && id is string text
+                ? text
+                : fallback;
+        }
+
         private static string NormalizeSharedNodePolicy(string policy)
         {
-            if (policy == "replicate-identical" || policy == "shared")
+            if (string.IsNullOrEmpty(policy) || policy == "replicate-identical")
+                return "replicate-identical";
+            if (policy == "shared" || policy == "isolate-shared" || policy == "_shared"
+                || policy == "support-graph")
+                return "support-graph";
+            if (policy == "home-partition-reference" || policy == "error-on-cross-boundary")
                 return policy;
             throw new ArgumentException(
-                $"Unknown sharedNodePolicy: '{policy}'. Expected 'replicate-identical' or 'shared'.",
+                $"Unknown sharedNodePolicy: '{policy}'. Expected replicate-identical, " +
+                "support-graph, home-partition-reference, or error-on-cross-boundary.",
                 nameof(policy));
         }
 
@@ -1330,17 +1690,6 @@ namespace CaseUco
             var expanded = ExpandIri(nodeId);
             if (_iriIndex.TryGetValue(expanded, out var idx) && idx < _objects.Count)
                 return _objects[idx];
-            for (var i = 0; i < _objects.Count; i++)
-            {
-                var obj = _objects[i];
-                if (!obj.TryGetValue("@id", out var oidObj) || !(oidObj is string oid))
-                    continue;
-                if (oid == nodeId || ExpandIri(oid) == expanded)
-                {
-                    IndexNode(oid, i);
-                    return obj;
-                }
-            }
             return null;
         }
 
@@ -1733,7 +2082,7 @@ namespace CaseUco
             ["xsd"] = "http://www.w3.org/2001/XMLSchema#",
         };
 
-        private string ToJsonString(object value, int indent)
+        internal static string ToJsonString(object value, int indent)
         {
             if (value == null)
                 return "null";
@@ -1755,7 +2104,7 @@ namespace CaseUco
             return "\"" + Escape(Convert.ToString(value, CultureInfo.InvariantCulture)) + "\"";
         }
 
-        private string SerializeDictionary(IDictionary dictionary, int indent)
+        private static string SerializeDictionary(IDictionary dictionary, int indent)
         {
             var items = new List<string>();
             foreach (DictionaryEntry entry in dictionary)
@@ -1774,7 +2123,7 @@ namespace CaseUco
             return "{\n" + childPad + string.Join(",\n" + childPad, items) + "\n" + pad + "}";
         }
 
-        private string SerializeEnumerable(IEnumerable enumerable, int indent)
+        private static string SerializeEnumerable(IEnumerable enumerable, int indent)
         {
             var items = new List<string>();
             foreach (var item in enumerable)
@@ -1791,12 +2140,12 @@ namespace CaseUco
             return "[\n" + childPad + string.Join(",\n" + childPad, items) + "\n" + pad + "]";
         }
 
-        private int NextIndent(int indent)
+        private static int NextIndent(int indent)
         {
             return indent < 0 ? -1 : indent + 1;
         }
 
-        private string Escape(string value)
+        private static string Escape(string value)
         {
             return value
                 .Replace("\\", "\\\\")
@@ -1918,6 +2267,27 @@ namespace CaseUco
         }
     }
 
+    /// <summary>Observable process-wide typed registry state (#82).</summary>
+    public sealed class ClassRegistryCacheMetrics
+    {
+        public long Hits { get; }
+        public long Misses { get; }
+        public long Generation { get; }
+        public int RegisteredExtensions { get; }
+        public int CachedClasses { get; }
+
+        public ClassRegistryCacheMetrics(
+            long hits, long misses, long generation,
+            int registeredExtensions, int cachedClasses)
+        {
+            Hits = hits;
+            Misses = misses;
+            Generation = generation;
+            RegisteredExtensions = registeredExtensions;
+            CachedClasses = cachedClasses;
+        }
+    }
+
     /// <summary>Typed diagnostic when a JSON-LD node falls back to a raw dictionary.</summary>
     public class DeserializationWarning
     {
@@ -1955,4 +2325,3 @@ namespace CaseUco
         }
     }
 }
-

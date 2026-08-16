@@ -11,8 +11,22 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
 import java.util.LinkedHashMap;
+import java.util.Collection;
 
 public class CaseGraphTest {
+    public static final class DynamicExtension {
+        public static final String CLASS_IRI = "https://example.org/dynamic/DynamicExtension";
+        public static final String NAMESPACE_PREFIX = "dyn";
+        private String value;
+        public DynamicExtension() {}
+        public String getValue() { return value; }
+        public void setValue(String value) { this.value = value; }
+    }
+
+    public static final class ConflictingToolExtension {
+        public static final String CLASS_IRI = Tool.CLASS_IRI;
+        public ConflictingToolExtension() {}
+    }
 
     @Test
     public void testCreateTool() {
@@ -280,6 +294,69 @@ public class CaseGraphTest {
     }
 
     @Test
+    public void testBoundedStreamWriterFrozenContextAndNodeCap() throws Exception {
+        java.nio.file.Path out = Files.createTempFile("case-graph-bounded", ".jsonld");
+        try {
+            Map<String, String> context = Map.of(
+                "kb", "https://example.org/kb/",
+                "uco-core", "https://ontology.unifiedcyberontology.org/uco/core/");
+            JsonLdStreamWriter.BoundedStreamingWriteResult metrics;
+            try (JsonLdStreamWriter writer = new JsonLdStreamWriter(
+                    out, context, 1024, true, true)) {
+                for (int i = 0; i < 100; i++) {
+                    Map<String, Object> node = new LinkedHashMap<>();
+                    node.put("@id", "kb:node-" + i);
+                    node.put("@type", "uco-core:UcoObject");
+                    node.put("uco-core:name", "Node " + i);
+                    writer.writeNode(node);
+                }
+                metrics = writer.metrics();
+            }
+            String json = Files.readString(out);
+            CaseGraph graph = new CaseGraph("https://example.org/kb/");
+            graph.load(json, "merge_compatible");
+            assertEquals(100, graph.size());
+            assertEquals(100, metrics.getNodes());
+            assertTrue(metrics.getMaxNodeBytesWritten() <= 1024);
+        } finally {
+            Files.deleteIfExists(out);
+        }
+    }
+
+    @Test
+    public void testBoundedStreamWriterFailurePreservesDestination() throws Exception {
+        java.nio.file.Path out = Files.createTempFile("case-graph-bounded-fail", ".jsonld");
+        Files.writeString(out, "SURVIVE");
+        Map<String, String> context = Map.of(
+            "kb", "https://example.org/kb/",
+            "uco-core", "https://ontology.unifiedcyberontology.org/uco/core/");
+        try {
+            try (JsonLdStreamWriter writer = new JsonLdStreamWriter(
+                    out, context, 128, true, true)) {
+                writer.writeNode(Map.of("@id", "kb:bad", "@type", "evil:Fabricated"));
+                fail("unknown prefix must fail");
+            } catch (IllegalArgumentException expected) {
+                assertTrue(expected.getMessage().contains("undeclared JSON-LD prefix"));
+            }
+            assertEquals("SURVIVE", Files.readString(out));
+
+            try (JsonLdStreamWriter writer = new JsonLdStreamWriter(
+                    out, context, 128, true, true)) {
+                writer.writeNode(Map.of(
+                    "@id", "kb:large",
+                    "@type", "uco-core:UcoObject",
+                    "uco-core:name", "x".repeat(1000)));
+                fail("oversized node must fail");
+            } catch (IllegalArgumentException expected) {
+                assertTrue(expected.getMessage().contains("maxNodeBytes"));
+            }
+            assertEquals("SURVIVE", Files.readString(out));
+        } finally {
+            Files.deleteIfExists(out);
+        }
+    }
+
+    @Test
     public void testFieldBindingCacheWarmPath() {
         CaseGraph.clearClassRegistryCache();
         assertEquals(0, CaseGraph.fieldBindingCacheCount());
@@ -304,6 +381,59 @@ public class CaseGraphTest {
         assertEquals(afterCold, CaseGraph.fieldBindingCacheCount());
         CaseGraph.clearClassRegistryCache();
         assertEquals(0, CaseGraph.fieldBindingCacheCount());
+    }
+
+    @Test
+    public void testDynamicClassRegistryProviderInvalidationAndMetrics() {
+        final String source = "java-test-dynamic-extension";
+        CaseGraph.unregisterClassRegistryProvider(source);
+        CaseGraph.clearClassRegistryCache();
+        CaseGraph.ClassRegistryCacheMetrics before = CaseGraph.classRegistryCacheMetrics();
+        ClassRegistryProvider provider = new ClassRegistryProvider() {
+            public String source() { return source; }
+            public Collection<Class<?>> classes() {
+                return Arrays.asList(DynamicExtension.class);
+            }
+        };
+        long generation = CaseGraph.registerClassRegistryProvider(provider);
+        assertTrue(generation > before.getGeneration());
+
+        String json = "{\"@context\":{" +
+            "\"kb\":\"http://example.org/kb/\"," +
+            "\"dyn\":\"https://example.org/dynamic/\"}," +
+            "\"@graph\":[{\"@id\":\"kb:dynamic\"," +
+            "\"@type\":\"dyn:DynamicExtension\"," +
+            "\"dyn:value\":\"loaded without restart\"}]}";
+        CaseGraph.FromJsonLdResult first = CaseGraph.fromJsonLd(json);
+        CaseGraph.FromJsonLdResult second = CaseGraph.fromJsonLd(json);
+        assertTrue(first.getObjects().get(0) instanceof DynamicExtension);
+        assertTrue(second.getObjects().get(0) instanceof DynamicExtension);
+        CaseGraph.ClassRegistryCacheMetrics info = CaseGraph.classRegistryCacheMetrics();
+        assertTrue(info.getHits() > before.getHits());
+        assertTrue(info.getRegisteredProviders() >= 1);
+
+        CaseGraph.unregisterClassRegistryProvider(source);
+        CaseGraph.FromJsonLdResult raw = CaseGraph.fromJsonLd(json);
+        assertTrue(raw.getObjects().get(0) instanceof Map);
+    }
+
+    @Test
+    public void testDynamicClassRegistryProviderRejectsBuiltinConflict() {
+        final String source = "java-test-conflict";
+        ClassRegistryProvider provider = new ClassRegistryProvider() {
+            public String source() { return source; }
+            public Collection<Class<?>> classes() {
+                return Arrays.asList(ConflictingToolExtension.class);
+            }
+        };
+        try {
+            CaseGraph.registerClassRegistryProvider(provider);
+            fail("expected ClassRegistryConflictException");
+        } catch (ClassRegistryConflictException expected) {
+            assertEquals(Tool.CLASS_IRI, expected.getClassIri());
+        } finally {
+            CaseGraph.unregisterClassRegistryProvider(source);
+        }
     }
 
     @Test
@@ -378,5 +508,91 @@ public class CaseGraphTest {
         assertTrue(parts.get("_shared").contains("kb:shared"));
         assertFalse(parts.get("kb:root-a").contains("kb:shared"));
         assertFalse(parts.get("kb:root-b").contains("kb:shared"));
+    }
+
+    @Test
+    public void testPartitionMarkingBoundaryFailsClosed() {
+        CaseGraph graph = new CaseGraph();
+        graph.upsertNode("kb:public-root", "uco-core:UcoObject", Map.of(
+            "uco-core:objectMarking", Map.of("@id", "kb:public-marking"),
+            "uco-core:object", Map.of("@id", "kb:protected")));
+        graph.upsertNode("kb:protected", "uco-core:UcoObject", Map.of(
+            "uco-core:objectMarking", Map.of("@id", "kb:secret-marking")));
+
+        try {
+            graph.partitionByRootsWithManifest(
+                Arrays.asList("kb:public-root"),
+                new PartitionOptions()
+                    .setIncludeIncoming(false)
+                    .setBoundaryPolicy("marking-and-authorization"));
+            fail("expected PartitionBoundaryException");
+        } catch (PartitionBoundaryException expected) {
+            assertEquals("kb:public-root", expected.getRootId());
+            assertEquals("kb:protected", expected.getNodeId());
+            assertTrue(expected.getMissingMarkings().contains(graph.expandIri("kb:secret-marking")));
+        }
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testPartitionHomeRoutePreservesUnion() {
+        CaseGraph graph = new CaseGraph();
+        graph.upsertNode("kb:public-root", "uco-core:UcoObject", Map.of(
+            "uco-core:objectMarking", Map.of("@id", "kb:public-marking"),
+            "uco-core:object", Map.of("@id", "kb:protected")));
+        graph.upsertNode("kb:secret-root", "uco-core:UcoObject", Map.of(
+            "uco-core:objectMarking", Arrays.asList(
+                Map.of("@id", "kb:public-marking"),
+                Map.of("@id", "kb:secret-marking")),
+            "uco-core:object", Map.of("@id", "kb:protected")));
+        graph.upsertNode("kb:protected", "uco-core:UcoObject", Map.of(
+            "uco-core:objectMarking", Map.of("@id", "kb:secret-marking"),
+            "uco-core:name", "protected evidence"));
+
+        Map<String, PartitionBoundary> boundaries = new LinkedHashMap<>();
+        boundaries.put("kb:public-root", new PartitionBoundary(
+            Arrays.asList("kb:public-marking"), null));
+        boundaries.put("kb:secret-root", new PartitionBoundary(
+            Arrays.asList("kb:public-marking", "kb:secret-marking"), null));
+        PartitionResult result = graph.partitionByRootsWithManifest(
+            Arrays.asList("kb:public-root", "kb:secret-root"),
+            new PartitionOptions()
+                .setIncludeIncoming(false)
+                .setBoundaryPolicy("marking-and-authorization")
+                .setCrossBoundaryPolicy("home-partition-reference")
+                .setRootBoundaries(boundaries)
+                .setValidationBundle(Map.of("extensions", Arrays.asList("example:full"))));
+
+        assertFalse(result.getPartitions().get("kb:public-root").contains("kb:protected"));
+        assertTrue(result.getPartitions().get("kb:secret-root").contains("kb:protected"));
+        assertEquals("referenced-partition-set", result.getManifest().get("validation_mode"));
+        Map<String, String> routes = (Map<String, String>) result.getManifest().get("home_partition_routes");
+        assertEquals("kb:secret-root", routes.get("kb:protected"));
+        assertTrue(graph.verifyPartitionUnion(result.getPartitions()).isEquivalent());
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testPartitionSupportGraphSafeManifest() {
+        CaseGraph graph = new CaseGraph();
+        graph.upsertNode("kb:shared", "uco-core:UcoObject", null);
+        for (String root : Arrays.asList("kb:a", "kb:b")) {
+            graph.upsertNode(root, "uco-core:UcoObject", Map.of(
+                "uco-core:object", Map.of("@id", "kb:shared")));
+        }
+
+        PartitionResult result = graph.partitionByRootsWithManifest(
+            Arrays.asList("kb:a", "kb:b"),
+            new PartitionOptions()
+                .setIncludeIncoming(false)
+                .setSharedNodePolicy("support-graph")
+                .setManifestDetail("safe"));
+
+        assertTrue(result.getPartitions().containsKey("_support"));
+        Map<String, Object> partitionMetadata =
+            (Map<String, Object>) result.getManifest().get("partitions");
+        Map<String, Object> a = (Map<String, Object>) partitionMetadata.get("kb:a");
+        assertFalse(a.containsKey("node_ids"));
+        assertTrue(graph.verifyPartitionUnion(result.getPartitions()).isEquivalent());
     }
 }

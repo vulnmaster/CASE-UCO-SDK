@@ -27,10 +27,16 @@ from case_uco.validation.graph import (
     validate_graph_file,
     validator_available,
 )
+from case_uco.validation.partition import (
+    PartitionValidationReport,
+    validate_partition_set,
+)
 
 __all__ = [
     "GraphValidationReport",
+    "PartitionValidationReport",
     "report_to_dict",
     "validate_graph_file",
+    "validate_partition_set",
     "validator_available",
 ]

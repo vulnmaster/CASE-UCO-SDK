@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.24.0] - 2026-08-16
+
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
-generator, and repair of the extension compatibility harness.
+generator, repair of the extension compatibility harness, bounded Apple
+acquisition-package tooling, and published deployment-compute requirements.
 
 #### Ontology alignment (CASE/UCO 1.5.0)
 
@@ -41,6 +44,10 @@ generator, and repair of the extension compatibility harness.
   `cryptoinv`, `drugs`, `legalproc`, `rico`, `toolcap` and `weapons`, each
   confirmed `Conforms: True` against the 1.5.0 closure rather than assumed
   from UCO's `owl:backwardCompatibleWith`.
+- Regenerated the ontology reference, mapping guide, and four runtime
+  registries from the complete pinned recursive checkout. They now expose
+  2,933 core and extension classes across 79 modules, matching the sources
+  used by the release workflow.
 
 #### Generator
 
@@ -78,6 +85,72 @@ generator, and repair of the extension compatibility harness.
   `examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py`, clearing the
   last two open CodeQL alerts (`py/unused-local-variable` #527, #528).
 
+#### Marking-safe partitioning (#79)
+
+- Added matching marking/authorization boundary policies to all four SDKs.
+  Partition plans fail closed by default; explicit home-reference and support
+  graph modes preserve a reconstructable union without copying protected node
+  content into an unauthorized partition.
+- Added v2 manifests with dataset/partition hashes, effective scopes, safe
+  manifest mode, routing/omission counts, validation-bundle identity, and
+  declared RDF-union reconstruction. Python performs an RDF-isomorphism proof;
+  native SDKs verify the exact JSON-LD assertion union.
+- Added partition-set validation orchestration: self-contained partitions are
+  validated independently, while referenced sets are reconstructed and
+  validated together.
+
+#### Bounded streaming writer (#80)
+
+- Added frozen-context, incremental JSON-LD writers with a configurable
+  per-node allocation cap in Python, C#, Java, and Rust. Unknown prefixes and
+  oversized nodes fail before atomic destination replacement; induced-failure
+  tests prove existing destination bytes survive.
+
+#### Cross-language benchmark release gate (#81)
+
+- Expanded C#, Java, and Rust from catalog-only timing to the same catalog,
+  relationship-rich partition, deserialization roundtrip, and streaming-write
+  workload families as Python, across 1K/10K/100K tiers.
+- Added repeated samples, min/max/median/mean/stdev/p95 dispersion, workload
+  memory metrics, process peak RSS, Python bundle/coverage/SHACL stages, and a
+  consolidated machine-readable/Markdown release report.
+- Every language now emits the same deterministic catalog fixture; the release
+  gate parses all four as RDF and fails unless their graphs are isomorphic.
+- Removed redundant fallback linear node scans after IRI-index misses in all
+  four runtimes, eliminating quadratic construction exposed by the
+  medium/large workloads. All supported mutation/load paths maintain the index.
+
+#### Extension registry invalidation (#82)
+
+- Added explicit extension registration/unregistration, deterministic
+  Class-IRI conflict rejection, cache generations, and hit/miss metrics across
+  the applicable runtimes. Python supports opt-in entry points, Java supports
+  `ServiceLoader`, C# supports explicit assemblies/types, and Rust exposes an
+  honest metadata registry rather than simulating runtime reflection.
+
+#### Apple acquisition packaging (#99)
+
+- Added fail-closed classification for full iOS `sysdiagnose_*` trees versus
+  standalone FOSS `.logarchive` collections. Ambiguous and unsupported package
+  layouts return typed errors instead of being mislabeled as sysdiagnose.
+- Added `build_acquisition_package_graph` for bounded package-level CASE/UCO +
+  SOLVE-IT JSON-LD. Binary `.tracev3` data and full decoder output remain
+  external; CSV/JSONL event samples are capped at 1,000 records.
+- Shareable mode normalizes paths, removes common device/person identifiers,
+  omits or replaces message bodies, and returns safe counts/digests rather than
+  source rows. Inventory walks, hashes, input lines, and output writes are
+  bounded, package-base containment is enforced, and graph writes are atomic.
+- Updated MCP routing and Apple recipes to distinguish acquisition shapes,
+  retain timebase caveats, and require extension-aware SOLVE-IT validation.
+
+#### Compute requirements (#100)
+
+- Published the minimum baseline (4 CPU cores, 8 GB RAM, no GPU/VRAM, and
+  20 GB application/database disk excluding evidence) in `README.md`,
+  `docs/COMPUTE.md`, and machine-readable `catalog/compute.yaml`.
+- Documented an 8-core/16 GB recommended tier and the 32–64 GB RAM range for
+  large in-memory graphs; evidence storage remains separately sized.
+
 #### Docs
 
 - Change-proposal guidance no longer presents 1.5.0 as an upcoming target and
@@ -85,6 +158,8 @@ generator, and repair of the extension compatibility harness.
   1.5.0 release `develop` still carried `owl:versionIRI core:1.5.0`.
 - `draft_change_proposal` defaults `target_release` to `1.6.0`; `1.5.0` is
   released and can no longer be proposed against.
+
+Package versions bumped to **1.24.0**.
 
 ## [1.23.1] - 2026-07-28
 
@@ -2203,7 +2278,9 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
-[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.23.0...HEAD
+[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.24.0...HEAD
+[1.24.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.23.1...v1.24.0
+[1.23.1]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.23.0...v1.23.1
 [1.23.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.4...v1.23.0
 [1.22.4]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.3...v1.22.4
 [1.22.3]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.2...v1.22.3

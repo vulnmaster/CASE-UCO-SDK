@@ -27,6 +27,63 @@ the DFRWS USA Sysdiagnosis workshop corpus layout
 - For **parsed** unified-log rows / iterator CSV / Notari SQLite / iLEAPP
   HTML, continue with [apple-unified-logs.md](apple-unified-logs.md)
 
+## Fail-closed package-shape check
+
+A `.logarchive` is not, by itself, a sysdiagnose. Before applying this recipe,
+run the local classifier against the directory or a structured inventory JSON:
+
+```text
+classify_apple_package_shape(package_root="/local/evidence/apple-collect", profile="auto")
+```
+
+`auto` classifies `ios-sysdiagnose` only when there is exactly one
+`system_logs.logarchive` plus strong sysdiagnose evidence: a `sysdiagnose_*`
+root with multiple expected directories, or at least four expected top-level
+markers (`WiFi/`, `summaries/`, `logs/`, `crashes_and_spins/`, `Preferences/`).
+It fails with typed errors for lone/multiple logarchives and weak or conflicting
+trees rather than guessing.
+
+A FOSS collection containing a standalone `.logarchive`, crash pull, live
+syslog, and apps list is **not** a full sysdiagnose. Route it to
+[apple-unified-logs.md](apple-unified-logs.md) plus
+[starter-mobile-extraction.md](starter-mobile-extraction.md), and preserve its
+actual package label. An explicit profile is an operator assertion and is still
+rejected when required shape evidence is absent.
+
+## Bounded/shareable graph automation
+
+For a verified sysdiagnose, the MCP helper builds a package-level graph without
+reading full archive content:
+
+```text
+build_acquisition_package_graph(
+  package_root="/local/evidence/sysdiagnose_...",
+  output_path="/local/work/sysdiagnose-package.jsonld",
+  profile="auto",
+  max_event_records=0,
+  shareable=true,
+  extensions=["solveit"],
+)
+validate_graph(
+  graph_path="/local/work/sysdiagnose-package.jsonld",
+  extensions=["solveit"],
+  strict_concepts=true,
+)
+```
+
+The builder inventory walk, depth, file count, hashing, and optional event
+sample are bounded. It models `.tracev3`/logarchive bytes as metadata-only,
+samples at most three crash `.ips` files by metadata/digest, and represents an
+apps inventory as a count rather than one node per identifier. Its MCP response
+contains only counts, sizes, bounded named-file digests, warnings, and validation
+guidance—never host paths, device identifiers, source rows, or message bodies.
+
+With `shareable=true` (default), `filePath` values are package-relative; common
+UDID/IMEI/serial/phone literals are redacted; and log messages are omitted or
+replaced by a fixed placeholder. Use local-only mode only inside an approved
+Tier T2 workspace, and perform a separate operator review before distributing
+any graph or excerpt.
+
 ## Classes and properties
 
 | Class | Role |
@@ -203,7 +260,16 @@ crash_record = graph.create(EventRecord,
 ```
 
 The header `timestamp` on `.ips` files **is** wall-clock (unlike unresolved
-unified-log rows), so `observableCreatedTime` is safe here.
+unified-log rows), so `observableCreatedTime` is safe here when the retained
+report header is actually parsed and its timezone is present. The bounded
+package helper does not parse crash bodies; its sampled crash nodes therefore
+remain metadata-only.
+
+For unified-log CSV/JSONL excerpts, finding a timesync file is not enough to
+assert device-absolute UTC. Only emit absolute event times when decoder/inventory
+metadata explicitly establishes timesync anchoring; otherwise preserve
+`mach_continuous_time`, `boot_uuid`, and tool-reported timestamps as attributes
+and apply DFM-1179 guidance.
 
 ## Anti-patterns
 
@@ -218,7 +284,11 @@ unified-log rows), so `observableCreatedTime` is safe here.
 - **Modeling every `summaries/*.log` as an Event.** Treat the summary dump as
   files unless a row is analytically relevant — then use `EventRecord`.
 - **Skipping solveit validation.** If you type `AppleUnifiedLogArchive`,
-  validate with `extensions=['solveit']`.
+  validate with MCP `validate_graph(..., extensions=['solveit'], strict_concepts=True)`;
+  plain `case_validate` does not provide an `--extension solveit` shortcut.
+- **Sharing absolute local paths, device identifiers, or syslog bodies.** Build
+  in shareable mode and review redaction metadata before moving a Tier T2 graph
+  into a review/exemplar channel.
 
 ## Checklist
 
@@ -230,7 +300,9 @@ unified-log rows), so `observableCreatedTime` is safe here.
 5. Record collection as `InvestigativeAction` with `instrument` / `object` /
    `result` and a `ProvenanceRecord`.
 6. Hand off parsing to [apple-unified-logs.md](apple-unified-logs.md).
-7. Validate: `validate_graph(path, extensions=['solveit'])`.
+7. For review/sharing, run the share-safety mode and verify relative paths,
+   identifier redaction, and message omission.
+8. Validate: `validate_graph(path, extensions=['solveit'], strict_concepts=True)`.
 
 ## Validated exemplar
 
