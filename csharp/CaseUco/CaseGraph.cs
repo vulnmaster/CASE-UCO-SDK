@@ -412,10 +412,15 @@ namespace CaseUco
             AddAssemblyTypes(registry, typeof(CaseGraph).Assembly);
             foreach (var registration in ExtensionTypes.Values.ToList())
             {
-                foreach (var weakType in registration.Types)
+                foreach (var extensionType in registration.Types
+                    .Select(weakType =>
+                    {
+                        weakType.TryGetTarget(out var resolvedType);
+                        return resolvedType;
+                    })
+                    .Where(resolvedType => resolvedType != null))
                 {
-                    if (weakType.TryGetTarget(out var extensionType))
-                        AddRegistryType(registry, extensionType);
+                    AddRegistryType(registry, extensionType);
                 }
             }
             return registry;

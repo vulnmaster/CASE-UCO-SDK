@@ -84,6 +84,12 @@ acquisition-package tooling, and published deployment-compute requirements.
 - Removed the unused `ul_record` / `ul_event` locals in
   `examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py`, clearing the
   last two open CodeQL alerts (`py/unused-local-variable` #527, #528).
+- Resolved nine findings surfaced when CodeQL analyzed the new v1.24 code
+  (#529–#537): benchmark temporary directories are securely randomized,
+  Java service-provider overrides are explicit, Python cleanup no longer uses
+  an empty exception handler, benchmark memory sampling avoids forced garbage
+  collection, C# cache pruning uses an explicit filter, and streaming output
+  paths are normalized before use.
 
 #### Marking-safe partitioning (#79)
 

@@ -390,7 +390,9 @@ public class CaseGraphTest {
         CaseGraph.clearClassRegistryCache();
         CaseGraph.ClassRegistryCacheMetrics before = CaseGraph.classRegistryCacheMetrics();
         ClassRegistryProvider provider = new ClassRegistryProvider() {
+            @Override
             public String source() { return source; }
+            @Override
             public Collection<Class<?>> classes() {
                 return Arrays.asList(DynamicExtension.class);
             }
@@ -421,7 +423,9 @@ public class CaseGraphTest {
     public void testDynamicClassRegistryProviderRejectsBuiltinConflict() {
         final String source = "java-test-conflict";
         ClassRegistryProvider provider = new ClassRegistryProvider() {
+            @Override
             public String source() { return source; }
+            @Override
             public Collection<Class<?>> classes() {
                 return Arrays.asList(ConflictingToolExtension.class);
             }

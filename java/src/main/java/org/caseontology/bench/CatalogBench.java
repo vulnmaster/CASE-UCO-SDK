@@ -35,8 +35,7 @@ public final class CatalogBench {
             ? ("large".equals(tier) ? 1 : 3)
             : Integer.parseInt(repeatsOption);
         if (repeats < 1) throw new IllegalArgumentException("--repeats must be positive");
-        Path workdir = Paths.get(System.getProperty("java.io.tmpdir"), "case-uco-bench-java");
-        Files.createDirectories(workdir);
+        Path workdir = Files.createTempDirectory("case-uco-bench-java-");
 
         Map<String, Object> workloads = new LinkedHashMap<>();
         workloads.put("catalog", measure(() -> runCatalog(n), repeats));
@@ -182,7 +181,6 @@ public final class CatalogBench {
         List<Map<String, Object>> samples = new ArrayList<>();
         List<Long> heaps = new ArrayList<>();
         for (int run = 0; run < repeats; run++) {
-            System.gc();
             samples.add(workload.run());
             Runtime runtime = Runtime.getRuntime();
             heaps.add(runtime.totalMemory() - runtime.freeMemory());
