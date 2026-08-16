@@ -44,19 +44,23 @@ namespace CaseUco
             if (context == null || context.Count == 0)
                 throw new ArgumentException("A non-empty frozen JSON-LD context is required", nameof(context));
             if (maxNodeBytes <= 0) throw new ArgumentOutOfRangeException(nameof(maxNodeBytes));
-            _path = path;
+            _path = Path.GetFullPath(path);
             _context = new Dictionary<string, string>(context, StringComparer.Ordinal);
             if (_context.Any(kv => string.IsNullOrWhiteSpace(kv.Key) || kv.Value == null))
                 throw new ArgumentException("Context prefixes and IRIs must be non-empty strings", nameof(context));
             MaxNodeBytes = maxNodeBytes;
             _atomic = atomic;
             _pretty = pretty;
-            var directory = Path.GetDirectoryName(Path.GetFullPath(path));
+            var directory = Path.GetDirectoryName(_path);
             if (string.IsNullOrEmpty(directory)) directory = ".";
             Directory.CreateDirectory(directory);
+            var temporaryName = $".case-uco-{Guid.NewGuid():N}.jsonld.tmp";
             _tmpPath = atomic
-                ? Path.Combine(directory, $".{Path.GetFileName(path)}.{Guid.NewGuid():N}.jsonld.tmp")
-                : path;
+                ? string.Concat(
+                    directory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
+                    Path.DirectorySeparatorChar,
+                    temporaryName)
+                : _path;
             _stream = new FileStream(_tmpPath, FileMode.Create, FileAccess.Write, FileShare.None);
             _writer = new StreamWriter(_stream, new UTF8Encoding(false));
             var sortedContext = _context.OrderBy(kv => kv.Key, StringComparer.Ordinal)

@@ -157,10 +157,7 @@ class JsonLdStreamWriter:
             self._handle.close()
             self._handle = None
         if self._tmp_path is not None:
-            try:
-                self._tmp_path.unlink()
-            except FileNotFoundError:
-                pass
+            self._tmp_path.unlink(missing_ok=True)
             self._tmp_path = None
 
     def __exit__(self, exc_type: Any, exc: Any, traceback: Any) -> None:

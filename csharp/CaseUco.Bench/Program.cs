@@ -183,10 +183,8 @@ static Dictionary<string, object?> Measure(Func<Dictionary<string, object?>> wor
     var heapSamples = new List<long>();
     for (var run = 0; run < repeats; run++)
     {
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
         samples.Add(workload());
-        heapSamples.Add(GC.GetGCMemoryInfo().HeapSizeBytes);
+        heapSamples.Add(GC.GetTotalMemory(forceFullCollection: false));
     }
     var representative = new Dictionary<string, object?>(samples[samples.Count / 2]);
     var dispersion = new Dictionary<string, object?>();

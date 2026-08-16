@@ -55,9 +55,10 @@ The final local gate passed on 2026-08-16:
 - Python sdist/wheel and Rust crate package verification passed; C# NuGet and
   Java JAR packaging passed earlier in the same gate.
 
-GitHub-hosted CI and CodeQL still need to run against the published commit.
-The tag remains blocked until those checks pass and alerts #527/#528 are
-confirmed closed by the new analysis.
+The first GitHub-hosted analysis of the merged release candidate closed alerts
+#527/#528 and surfaced nine findings in the newly added v1.24 code. The tag
+remains blocked until the follow-up checks pass and alerts #529–#537 are
+confirmed closed by analysis.
 
 ## Code scanning
 
@@ -65,7 +66,13 @@ confirmed closed by the new analysis.
 | --- | --- | --- | --- |
 | #527 | `py/unused-local-variable` | `examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py` (`ul_record`) | Fixed by deleting the unused assignment |
 | #528 | `py/unused-local-variable` | `examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py` (`ul_event`) | Fixed by deleting the unused assignment |
+| #529 | `java/local-temp-file-or-directory-information-disclosure` | `java/src/main/java/org/caseontology/bench/CatalogBench.java` | Fixed by using a securely randomized temporary directory |
+| #530–#533 | `java/missing-override-annotation` | `java/src/test/java/org/caseontology/CaseGraphTest.java` | Fixed by marking all anonymous service-provider method overrides |
+| #534 | `py/empty-except` | `python/case_uco/streaming.py` | Fixed by using `Path.unlink(missing_ok=True)` for idempotent cleanup |
+| #535 | `cs/call-to-gc` | `csharp/CaseUco.Bench/Program.cs` | Fixed by sampling live managed memory without forcing collection |
+| #536 | `cs/linq/missed-where` | `csharp/CaseUco/CaseGraph.cs` | Fixed by filtering resolved weak references before enumeration |
+| #537 | `cs/path-combine` | `csharp/CaseUco/JsonLdStreamWriter.cs` | Fixed by normalizing the destination and appending a generated relative temporary filename without `Path.Combine` |
 
-The alerts remain visible against `main` until the fixed commit is pushed and a
-new CodeQL analysis runs. They must be verified closed by analysis, not manually
-dismissed.
+Alerts #529–#537 remain visible against `main` until the follow-up commit is
+merged and a new CodeQL analysis runs. They must be verified closed by
+analysis, not manually dismissed.
