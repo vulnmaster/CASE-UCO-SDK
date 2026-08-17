@@ -1,0 +1,63 @@
+{
+  "id": "HashIntelligence",
+  "version": "1.0.0",
+  "title": "Hash Intelligence",
+  "description": "Integrity and hash-matching guidance. Cryptographic hashes live on ContentDataFacet. Additional Hash entries may record other hash methods. Tool and Action provenance record how hashes were produced. Catalog comparison or match results belong on an analysis or assessment result, not as intrinsic properties of the media hash.",
+  "mission": "Make hash-matching workflows produce queryable hash records using existing UCO Hash, Tool, and Action types — without inventing new ontology terms.",
+  "air_gapped": true,
+  "required_modules": [
+    "uco.core",
+    "uco.observable",
+    "uco.types",
+    "uco.tool",
+    "uco.action",
+    "uco.analysis",
+    "case.investigation"
+  ],
+  "recommended_modules": [
+    "ext.cac.cacontology-forensics",
+    "ext.cac.cacontology-detection",
+    "ext.solveit.solveit-core"
+  ],
+  "facet_sets": {
+    "File": {
+      "required": ["FileFacet", "ContentDataFacet"],
+      "recommended": [],
+      "notes": "Populate Hash.hashMethod + Hash.hashValue for SHA-256 at minimum. Additional Hash entries may carry MD5/SHA-1 when a lab still emits them."
+    },
+    "RasterPicture": {
+      "required": ["FileFacet", "ContentDataFacet", "RasterPictureFacet"],
+      "recommended": ["EXIFFacet", "ConfidenceFacet"],
+      "notes": "Perceptual or other non-cryptographic hashes are additional Hash objects (hashMethod + hashValue) plus a hashing InvestigativeAction. Do not invent a product-specific Facet in instance data."
+    },
+    "ObservableObject": {
+      "required": ["ContentDataFacet"],
+      "recommended": ["FileFacet"]
+    }
+  },
+  "spine_anchors": [
+    "cac-core:Artifact",
+    "cac-core:DetectionEvent",
+    "cac-core:AssessmentResult",
+    "cac-core:InvestigativeAction"
+  ],
+  "upper_ontology_profiles": ["prov-o"],
+  "related_recipes": [
+    "docs/recipes/cac-csam-forensic-provenance.md",
+    "docs/recipes/cybertip-ncmec-workflow.md",
+    "docs/recipes/exif-data.md",
+    "docs/recipes/starter-filesystem-report.md"
+  ],
+  "recipe_skeleton": {
+    "summary": "Hashed media + hashing tool action + optional match or assessment result.",
+    "steps": [
+      "Create a Tool with name and version for the hasher or matcher that was actually run.",
+      "Create EvidenceVerificationAction or InvestigativeAction with instrument=tool.",
+      "Create RasterPicture/File with FileFacet + ContentDataFacet hashes.",
+      "If a catalog match exists, record an AssessmentResult or analysis result; do not collapse match metadata into a description string.",
+      "Link Relationship kind Derived_From / Selected_From as appropriate.",
+      "Validate with extensions=['cac'] when CAC classes are used."
+    ]
+  },
+  "keywords": ["hash", "integrity", "sha256", "perceptual", "match"]
+}

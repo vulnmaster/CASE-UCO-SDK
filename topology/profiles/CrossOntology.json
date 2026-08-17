@@ -1,0 +1,67 @@
+{
+  "id": "CrossOntology",
+  "version": "1.0.0",
+  "title": "Cross-Ontology Composition",
+  "description": "Compose CASE/UCO core with CAC, legalproc, cryptoinv, and exactly one foundational upper profile (gUFO preferred for CAC). Dual BFO+gUFO typing is an anti-pattern.",
+  "mission": "Stop investigators and agents from inventing parallel hierarchies when a concept already lives in an extension or upper profile.",
+  "air_gapped": true,
+  "required_modules": [
+    "uco.core",
+    "uco.observable",
+    "uco.action",
+    "case.investigation",
+    "ext.cac.cac-core"
+  ],
+  "recommended_modules": [
+    "ext.legalproc.legalproc",
+    "ext.cryptoinv.cryptoinv",
+    "ext.rico.rico",
+    "ext.solveit.solveit-core",
+    "uco.marking",
+    "uco.identity",
+    "uco.location"
+  ],
+  "facet_sets": {
+    "File": {
+      "required": ["FileFacet", "ContentDataFacet"],
+      "recommended": []
+    },
+    "RasterPicture": {
+      "required": ["FileFacet", "ContentDataFacet", "RasterPictureFacet"],
+      "recommended": ["EXIFFacet"]
+    },
+    "Location": {
+      "required": [],
+      "recommended": ["LatLongCoordinatesFacet", "SimpleAddressFacet"],
+      "notes": "Location is not an ObservableObject. Use GeoSPARQL Feature/Geometry only when this profile is combined with the geosparql upper profile."
+    }
+  },
+  "spine_anchors": [
+    "cac-core:EnduringEntity",
+    "cac-core:Occurrent",
+    "cac-core:Situation",
+    "cac-core:Role",
+    "cac-core:Phase"
+  ],
+  "upper_ontology_profiles": ["gufo", "prov-o", "owl-time", "geosparql", "foaf", "org", "prof"],
+  "related_recipes": [
+    "docs/recipes/cross-ontology-composition.md",
+    "docs/recipes/foundational-typing-bfo-gufo.md",
+    "docs/recipes/prov-o-evidence-lineage.md",
+    "docs/recipes/owl-time-temporal-evidence.md",
+    "docs/recipes/geosparql-geospatial-evidence.md",
+    "docs/recipes/foaf-org-identity-roles.md",
+    "docs/recipes/prof-validation-profile-metadata.md"
+  ],
+  "recipe_skeleton": {
+    "summary": "Domain-first typing; one foundational profile per graph; extensions compose.",
+    "steps": [
+      "Pick the domain classes first (CASE/UCO + CAC + legalproc/cryptoinv as needed).",
+      "Choose one foundational profile: gUFO for CAC, BFO only when the rest of the graph already uses BFO.",
+      "Add PROV-O / OWL-Time / GeoSPARQL / FOAF / ORG only where they add queryable structure.",
+      "Declare intended profiles with PROF metadata; record validation separately.",
+      "Never owl:sameAs an uncertain identity; never dual-type BFO+gUFO."
+    ]
+  },
+  "keywords": ["composition", "gufo", "bfo", "prov", "cross-ontology", "extension", "profile"]
+}

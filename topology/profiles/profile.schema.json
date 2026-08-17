@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vulnmaster/CASE-UCO-SDK/blob/main/topology/profiles/profile.schema.json",
+  "title": "CASE/UCO Composition Profile",
+  "description": "Investigator guidance for choosing existing CASE/UCO/CAC modules and Facet bundles. Profiles are not ontology truth: they do not add, remove, or reinterpret OWL classes, SHACL shapes, or public constructors.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "title",
+    "description",
+    "required_modules",
+    "recommended_modules",
+    "facet_sets",
+    "spine_anchors",
+    "upper_ontology_profiles",
+    "recipe_skeleton"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Za-z0-9]+$",
+      "description": "Stable catalog identifier. Not an ontology class name."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Document version of this guidance file, independent of the SDK package version."
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "mission": {
+      "type": "string",
+      "description": "Plain-language purpose of this guidance. Not a new requirement on instance data."
+    },
+    "air_gapped": {
+      "type": "boolean",
+      "description": "When true, the profile is intended for offline use and contains no network-facing steps."
+    },
+    "required_modules": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Existing SDK module identifiers an investigator should expect to import."
+    },
+    "recommended_modules": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "facet_sets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["required", "recommended"],
+        "properties": {
+          "required": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "recommended": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "spine_anchors": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Existing CAC/UCO terms this workflow typically uses. Pointers only; not new classes."
+    },
+    "upper_ontology_profiles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "related_recipes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "recipe_skeleton": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "steps"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

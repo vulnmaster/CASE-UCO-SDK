@@ -18,6 +18,7 @@ on:
       - "examples/**"
       - "benchmarks/**"
       - "scripts/**"
+      - "topology/**"
       - "Makefile"
   pull_request:
     branches: [main, develop]
@@ -36,6 +37,7 @@ on:
       - "examples/**"
       - "benchmarks/**"
       - "scripts/**"
+      - "topology/**"
       - "Makefile"
 
 jobs:
