@@ -13,6 +13,11 @@ from case_uco.graph import (
     register_extension_classes,
     unregister_extension_source,
 )
+from case_uco.helpers import (
+    file_with_content_hashes,
+    model_tool_run,
+    raster_picture_with_hashes,
+)
 from case_uco.streaming import (
     BoundedStreamingWriteMetrics,
     JsonLdStreamWriter,
@@ -32,6 +37,9 @@ __all__ = [
     "class_registry_cache_info",
     "clear_class_registry_cache",
     "discover_extension_class_providers",
+    "file_with_content_hashes",
+    "model_tool_run",
+    "raster_picture_with_hashes",
     "register_extension_classes",
     "unregister_extension_source",
 ]

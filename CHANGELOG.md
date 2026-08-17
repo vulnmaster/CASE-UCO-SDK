@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Generic Python fluent helpers for hashed files, raster media, and
+  tool-run provenance (`file_with_content_hashes`,
+  `raster_picture_with_hashes`, `model_tool_run`). Additive wrappers
+  around existing constructors; they do not classify content. See
+  `docs/FLUENT_HELPERS.md`.
+
 ## [1.24.0] - 2026-08-16
 
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the

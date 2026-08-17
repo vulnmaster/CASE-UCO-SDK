@@ -486,6 +486,12 @@ Switching between languages? The parity contract documents what is identical vs.
 
 - **[docs/CROSS_LANGUAGE_PARITY.md](docs/CROSS_LANGUAGE_PARITY.md)** — canonical operation names, naming conventions, stability guarantees
 
+### Generic fluent helpers
+
+Optional Python wrappers around existing constructors for hashed files, raster media, and tool-run provenance. They do not classify content:
+
+- **[docs/FLUENT_HELPERS.md](docs/FLUENT_HELPERS.md)** — `file_with_content_hashes`, `raster_picture_with_hashes`, `model_tool_run`
+
 ### Recipes
 
 79 step-by-step patterns, each grounded in example graphs. Coverage spans classic forensic workflows (disk imaging, file systems, network artifacts, chain of custody, mobile forensics including iOS/macOS sysdiagnose and Apple Unified Logs) and whole investigation types: fraud and cryptocurrency laundering, elder fraud, espionage and classified disclosure, export control and sanctions evasion, cyber threat intelligence and APT reporting, insider threat and trade secrets, racketeering, weapons and drug evidence, cargo theft, upper-ontology composition, and a 16-recipe Crimes Against Children series (trafficking networks, CSAM provenance, sextortion, hotline intake, task force operations, federal prosecution, PACER document ingestion):
@@ -532,6 +538,7 @@ CASE-UCO-SDK/
 │   ├── rules/              AI agent guidance (SDK patterns, gap detection)
 │   └── mcp.json            MCP server configuration
 ├── docs/
+│   ├── FLUENT_HELPERS.md       Generic hashed-file, raster, and tool-run helpers
 │   ├── ECOSYSTEM.md            Companion tools, community extensions, ontology sources
 │   ├── MAPPING_GUIDE.md        Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md    Engineering tradeoffs and benchmarks
