@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Bounded, air-gapped Python adapter interface for authorized local
+  mappings (`apply_offline_adapter`, `OfflineAdapter`,
+  `LocalJsonRecordsAdapter`). Refuses remote URIs and oversize inputs.
+  Does not classify content and does not embed a licensed catalog.
+  See `docs/OFFLINE_ADAPTER.md`.
+
 ## [1.24.0] - 2026-08-16
 
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
