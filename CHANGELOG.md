@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Method-aware Python content-hash index keyed by normalized
+  `(hashMethod, hashValue)` (`CASEGraph.index_content_hashes`,
+  `CASEGraph.lookup_hash`). The cache is rebuilt on demand and
+  invalidated on every mutation and load path. See `docs/HASH_INDEX.md`.
+
 ## [1.24.0] - 2026-08-16
 
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the

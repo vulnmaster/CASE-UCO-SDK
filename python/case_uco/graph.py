@@ -168,6 +168,8 @@ class CASEGraph:
         # Policies: reject|error, merge_identical, merge_compatible, replace.
         self.on_duplicate: str = "reject"
         self.deserialization_warnings: list[DeserializationWarning] = []
+        # Method-aware content-hash cache. None means dirty / not yet built.
+        self._content_hash_index: dict[tuple[str, str], list[dict[str, str]]] | None = None
 
     def create(self, cls: Type[T], *, id: str | None = None, **kwargs: Any) -> T:
         """Create an instance of a CASE/UCO class and add it to the graph.
@@ -265,6 +267,7 @@ class CASEGraph:
                     obj, key, value, node_id=node_id, mode="merge_compatible"
                 )
         self._track_prefixes_for(obj)
+        self._invalidate_content_hash_index()
         return copy.deepcopy(obj)
 
     def add_type(self, node_id: str, type_iri: str) -> None:
@@ -273,18 +276,21 @@ class CASEGraph:
         merged = self._merge_types(obj.get("@type"), type_iri)
         obj["@type"] = self._normalize_type_value(merged)
         self._track_prefixes_for({"@type": type_iri})
+        self._invalidate_content_hash_index()
 
     def add_property(self, node_id: str, key: str, value: Any) -> None:
         """Add or merge a property on an existing node (``merge_compatible``)."""
         obj = self._require_object(node_id)
         self._apply_property(obj, key, value, node_id=node_id, mode="merge_compatible")
         self._track_prefixes_for({key: value})
+        self._invalidate_content_hash_index()
 
     def set_property(self, node_id: str, key: str, value: Any) -> None:
         """Replace a property value (scalar replacement / ``replace`` mode)."""
         obj = self._require_object(node_id)
         self._apply_property(obj, key, value, node_id=node_id, mode="replace")
         self._track_prefixes_for({key: value})
+        self._invalidate_content_hash_index()
 
     def link(
         self,
@@ -576,6 +582,59 @@ class CASEGraph:
             return validate_graph_file(tmp, **kwargs)
         finally:
             os.unlink(tmp)
+
+    def _invalidate_content_hash_index(self) -> None:
+        """Drop the cached hash index after any mutation or load."""
+        self._content_hash_index = None
+
+    def _content_hash_index_data(
+        self,
+    ) -> dict[tuple[str, str], list[dict[str, str]]]:
+        if self._content_hash_index is None:
+            from case_uco.hash_index import build_content_hash_index
+
+            self._content_hash_index = build_content_hash_index(self._objects)
+        return self._content_hash_index
+
+    def index_content_hashes(self) -> dict[str, dict[str, list[dict[str, str]]]]:
+        """Index content hashes by normalized ``(hashMethod, hashValue)``.
+
+        Walks ``uco-observable:hash`` / ``uco-observable:hashes`` (and the
+        unprefixed aliases) on every top-level object and nested Facet.
+        Standalone ``types:Hash`` nodes are included when referenced by
+        ``{"@id": ...}``. Offline. Does not classify content.
+        """
+        from case_uco.hash_index import nest_content_hash_index
+
+        return nest_content_hash_index(self._content_hash_index_data())
+
+    def lookup_hash(
+        self, digest: str, method: str | None = None
+    ) -> list[dict[str, str]]:
+        """Return nodes that carry ``digest``.
+
+        Digests and methods are matched after normalization (case, surrounding
+        whitespace, optional ``0x`` prefix). When ``method`` is omitted, every
+        method that recorded that digest is returned. When ``method`` is set,
+        only the composite ``(method, digest)`` key is consulted.
+        """
+        from case_uco.hash_index import normalize_hash_digest, normalize_hash_method
+
+        wanted_digest = normalize_hash_digest(digest)
+        if not wanted_digest:
+            return []
+        index = self._content_hash_index_data()
+        if method is not None:
+            wanted_method = normalize_hash_method(method)
+            if not wanted_method:
+                return []
+            return [dict(hit) for hit in index.get((wanted_method, wanted_digest), [])]
+        hits: list[dict[str, str]] = []
+        for (indexed_method, indexed_digest), entries in index.items():
+            if indexed_digest == wanted_digest:
+                hits.extend(dict(hit) for hit in entries)
+        hits.sort(key=lambda hit: (hit.get("method") or "", hit.get("id") or ""))
+        return hits
 
     def estimate_triples(self) -> int:
         """Estimate the number of RDF triples this graph will produce.
@@ -1342,6 +1401,7 @@ class CASEGraph:
         self._iri_index = snapshot["iri_index"]
         self._iri_aliases = snapshot["iri_aliases"]
         self._used_prefix_set = snapshot["used_prefix_set"]
+        self._invalidate_content_hash_index()
 
     def _append_object(self, obj: dict[str, Any]) -> None:
         node_id = obj.get("@id")
@@ -1354,6 +1414,7 @@ class CASEGraph:
         if node_id:
             self._index_node(node_id, len(self._objects) - 1)
         self._track_prefixes_for(obj)
+        self._invalidate_content_hash_index()
 
     def _index_node(self, node_id: str, index: int) -> None:
         expanded = self.expand_iri(node_id)
@@ -1402,11 +1463,13 @@ class CASEGraph:
         return policy
 
     def _ingest_raw_node(self, raw: dict[str, Any], *, policy: str) -> None:
+        self._invalidate_content_hash_index()
         policy = self._normalize_duplicate_policy(policy)
         node_id = raw.get("@id")
         if not node_id:
             self._objects.append(raw)
             self._track_prefixes_for(raw)
+            self._invalidate_content_hash_index()
             return
         existing = self._find_object(node_id)
         if existing is None:

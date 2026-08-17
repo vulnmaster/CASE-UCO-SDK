@@ -486,6 +486,13 @@ Switching between languages? The parity contract documents what is identical vs.
 
 - **[docs/CROSS_LANGUAGE_PARITY.md](docs/CROSS_LANGUAGE_PARITY.md)** — canonical operation names, naming conventions, stability guarantees
 
+### Method-aware hash index
+
+Optional Python lookup of content hashes already on a graph, keyed by
+normalized `(hashMethod, hashValue)`. It does not classify content:
+
+- **[docs/HASH_INDEX.md](docs/HASH_INDEX.md)** — `index_content_hashes`, `lookup_hash`
+
 ### Recipes
 
 79 step-by-step patterns, each grounded in example graphs. Coverage spans classic forensic workflows (disk imaging, file systems, network artifacts, chain of custody, mobile forensics including iOS/macOS sysdiagnose and Apple Unified Logs) and whole investigation types: fraud and cryptocurrency laundering, elder fraud, espionage and classified disclosure, export control and sanctions evasion, cyber threat intelligence and APT reporting, insider threat and trade secrets, racketeering, weapons and drug evidence, cargo theft, upper-ontology composition, and a 16-recipe Crimes Against Children series (trafficking networks, CSAM provenance, sextortion, hotline intake, task force operations, federal prosecution, PACER document ingestion):
@@ -532,6 +539,7 @@ CASE-UCO-SDK/
 │   ├── rules/              AI agent guidance (SDK patterns, gap detection)
 │   └── mcp.json            MCP server configuration
 ├── docs/
+│   ├── HASH_INDEX.md           Method-aware content-hash lookup
 │   ├── ECOSYSTEM.md            Companion tools, community extensions, ontology sources
 │   ├── MAPPING_GUIDE.md        Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md    Engineering tradeoffs and benchmarks
