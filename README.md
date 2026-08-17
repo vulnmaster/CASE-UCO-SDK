@@ -468,6 +468,12 @@ let info = registry::get_class("FileFacet").unwrap();
 // Also: list_modules(), list_classes(), find_facets(), find_by_property_type(), list_vocabs()
 ```
 
+### SDK Topology and Semantic Spine
+
+A short, hand-maintained map of the repository layers and the existing CAC organizing classes (not a generated inventory):
+
+- **[docs/SDK_TOPOLOGY.md](docs/SDK_TOPOLOGY.md)** — how the SDK is structured, and which CAC/UCO classes are the semantic spine. Documentation only; it does not add ontology terms.
+
 ### Ontology Reference
 
 A complete auto-generated reference of every class, property, and vocabulary type:
@@ -532,6 +538,7 @@ CASE-UCO-SDK/
 │   ├── rules/              AI agent guidance (SDK patterns, gap detection)
 │   └── mcp.json            MCP server configuration
 ├── docs/
+│   ├── SDK_TOPOLOGY.md         Concise repo map + CAC semantic spine
 │   ├── ECOSYSTEM.md            Companion tools, community extensions, ontology sources
 │   ├── MAPPING_GUIDE.md        Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md    Engineering tradeoffs and benchmarks

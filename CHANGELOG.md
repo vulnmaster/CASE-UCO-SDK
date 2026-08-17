@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Concise SDK topology and CAC semantic-spine documentation
+  (`docs/SDK_TOPOLOGY.md`). Hand-maintained map of existing repository
+  layers and existing CAC/UCO organizing classes. It does not add
+  ontology terms, change runtime behavior, or commit generated
+  inventories. Reproduce with `python scripts/print_sdk_topology.py`.
+
 ## [1.24.0] - 2026-08-16
 
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
