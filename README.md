@@ -486,6 +486,14 @@ Switching between languages? The parity contract documents what is identical vs.
 
 - **[docs/CROSS_LANGUAGE_PARITY.md](docs/CROSS_LANGUAGE_PARITY.md)** — canonical operation names, naming conventions, stability guarantees
 
+### Continuous critique
+
+Optional Python wrapper that runs the existing MCP critic `CRIT-H-*`
+heuristics on a live `CASEGraph`. It does not classify content and does
+not invent a second rule engine:
+
+- **[docs/CONTINUOUS_CRITIQUE.md](docs/CONTINUOUS_CRITIQUE.md)** — `critique_graph`, stable finding IDs, repair hints
+
 ### Recipes
 
 79 step-by-step patterns, each grounded in example graphs. Coverage spans classic forensic workflows (disk imaging, file systems, network artifacts, chain of custody, mobile forensics including iOS/macOS sysdiagnose and Apple Unified Logs) and whole investigation types: fraud and cryptocurrency laundering, elder fraud, espionage and classified disclosure, export control and sanctions evasion, cyber threat intelligence and APT reporting, insider threat and trade secrets, racketeering, weapons and drug evidence, cargo theft, upper-ontology composition, and a 16-recipe Crimes Against Children series (trafficking networks, CSAM provenance, sextortion, hotline intake, task force operations, federal prosecution, PACER document ingestion):
@@ -532,6 +540,7 @@ CASE-UCO-SDK/
 │   ├── rules/              AI agent guidance (SDK patterns, gap detection)
 │   └── mcp.json            MCP server configuration
 ├── docs/
+│   ├── CONTINUOUS_CRITIQUE.md  Existing MCP critic heuristics at construction time
 │   ├── ECOSYSTEM.md            Companion tools, community extensions, ontology sources
 │   ├── MAPPING_GUIDE.md        Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md    Engineering tradeoffs and benchmarks

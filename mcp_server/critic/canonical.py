@@ -240,8 +240,51 @@ def load_canonical_graph(path: Path) -> CanonicalGraphView:
     return _load_jsonld(path)
 
 
+def load_canonical_jsonld_text(
+    text: str, *, path_name: str = "memory.jsonld"
+) -> CanonicalGraphView:
+    """Build a canonical view from in-memory JSON-LD text.
+
+    Applies the same size bound and offline remote-context policy as
+    :func:`load_canonical_graph`. Does not read or write the filesystem.
+    """
+    if len(text.encode("utf-8")) > MAX_GRAPH_BYTES:
+        return CanonicalGraphView(
+            path_name=path_name,
+            kind="jsonld",
+            json_status="too_large",
+            rdf_status="too_large",
+            prefixes=dict(DEFAULT_PREFIXES),
+            nodes={},
+            top_level_order=[],
+            rdf_graph=None,
+            raw_document=None,
+            errors=["too_large"],
+        )
+    return _load_jsonld_text(text, path_name=path_name)
+
+
 def _load_jsonld(path: Path) -> CanonicalGraphView:
     path_name = path.name
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        return CanonicalGraphView(
+            path_name=path_name,
+            kind="jsonld",
+            json_status="json_syntax_error",
+            rdf_status="rdf_parse_error",
+            prefixes=dict(DEFAULT_PREFIXES),
+            nodes={},
+            top_level_order=[],
+            rdf_graph=None,
+            raw_document=None,
+            errors=[type(exc).__name__],
+        )
+    return _load_jsonld_text(text, path_name=path_name)
+
+
+def _load_jsonld_text(text: str, *, path_name: str) -> CanonicalGraphView:
     duplicate_keys: list[str] = []
 
     def pairs_hook(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -255,9 +298,8 @@ def _load_jsonld(path: Path) -> CanonicalGraphView:
         return out
 
     try:
-        text = path.read_text(encoding="utf-8")
         document = json.loads(text, object_pairs_hook=pairs_hook)
-    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+    except json.JSONDecodeError as exc:
         return CanonicalGraphView(
             path_name=path_name,
             kind="jsonld",

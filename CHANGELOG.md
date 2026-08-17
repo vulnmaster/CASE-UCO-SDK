@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Construction-time wrapper around the existing MCP critic heuristics
+  (`critique_graph` / `critic.continuous.critique_jsonld`). Stable
+  `finding_id` values and `repair_hint` from `recommended_change`. Does
+  not duplicate CRIT-H-* rules. See `docs/CONTINUOUS_CRITIQUE.md`.
+
 ## [1.24.0] - 2026-08-16
 
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
