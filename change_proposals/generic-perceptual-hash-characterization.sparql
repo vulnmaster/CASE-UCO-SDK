@@ -1,0 +1,28 @@
+# CQ1: Which Hash nodes on kb:file-1 are PHASH version 0.9.6?
+# Expected: kb:hash-phash-1
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX types: <https://ontology.unifiedcyberontology.org/uco/types/>
+
+SELECT ?hash
+WHERE {
+    <http://example.org/kb/file-1> uco-core:hasFacet ?facet .
+    ?facet uco-observable:hash ?hash .
+    ?hash a types:Hash ;
+          types:hashMethod "PHASH" ;
+          types:hashVersion "0.9.6" .
+}
+
+# ---
+
+# CQ2: Which tool produced kb:hash-phash-1?
+# Expected: kb:tool-1
+PREFIX uco-action: <https://ontology.unifiedcyberontology.org/uco/action/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+
+SELECT ?tool ?name
+WHERE {
+    ?action uco-action:result <http://example.org/kb/hash-phash-1> ;
+            uco-action:instrument ?tool .
+    ?tool uco-core:name ?name .
+}

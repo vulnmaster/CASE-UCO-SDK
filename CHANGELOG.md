@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Draft UCO change proposal for a generic perceptual-hash
+  characterization: optional `types:hashVersion` on `types:Hash`, with
+  provenance left on Action/Tool. Does not change vendored OWL. See
+  `change_proposals/generic-perceptual-hash-characterization.md`.
+
 ## [1.24.0] - 2026-08-16
 
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the
