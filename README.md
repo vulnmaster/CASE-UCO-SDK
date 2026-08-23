@@ -488,11 +488,11 @@ Switching between languages? The parity contract documents what is identical vs.
 
 ### Continuous critique
 
-Optional Python wrapper that runs the existing MCP critic `CRIT-H-*`
-heuristics on a live `CASEGraph`. It does not classify content and does
-not invent a second rule engine:
+Optional MCP critic entry that runs the existing `CRIT-H-*` heuristics
+on in-memory JSON-LD. It does not classify content and does not invent
+a second rule engine:
 
-- **[docs/CONTINUOUS_CRITIQUE.md](docs/CONTINUOUS_CRITIQUE.md)** — `critique_graph`, stable finding IDs, repair hints
+- **[docs/CONTINUOUS_CRITIQUE.md](docs/CONTINUOUS_CRITIQUE.md)** — `critique_jsonld`, stable finding IDs, repair hints
 
 ### Recipes
 
