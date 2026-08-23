@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Schema-validated Composition Profiles catalog under `topology/profiles/`.
-  Profiles are investigator guidance for choosing existing modules and Facet
-  bundles; they do not add ontology terms or change public constructors.
-  Discover them from a checkout with `case_uco.profiles.list_profiles` /
-  `get_profile`. See `docs/COMPOSITION_PROFILES.md`.
+- Schema-validated Composition Profiles catalog under `topology/profiles/`,
+  with one committed example profile (`MinimalForensics`). Profiles are
+  investigator guidance for choosing existing modules and Facet bundles; they
+  do not add ontology terms or change public constructors. Discover them from
+  a checkout with `case_uco.profiles.list_profiles` / `get_profile`. See
+  `docs/COMPOSITION_PROFILES.md`.
 
 ## [1.24.0] - 2026-08-16
 

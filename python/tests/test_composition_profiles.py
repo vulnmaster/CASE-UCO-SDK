@@ -24,12 +24,6 @@ SCHEMA_PATH = PROFILES_DIR / "profile.schema.json"
 
 REQUIRED_IDS = {
     "MinimalForensics",
-    "AirGappedFieldTriage",
-    "HashIntelligence",
-    "ToolMapping",
-    "LegalProcess",
-    "FullCACLifecycle",
-    "CrossOntology",
 }
 
 # Licensed / product-internal strings must not appear in this public catalog.
@@ -88,10 +82,10 @@ def test_loader_lists_and_gets_profiles() -> None:
     clear_profile_cache()
     profiles = list_profiles()
     assert {item.id for item in profiles} == REQUIRED_IDS
-    found = get_profile("hashintelligence")
+    found = get_profile("minimalforensics")
     assert found is not None
-    assert found.id == "HashIntelligence"
-    assert found.facet_set_for("RasterPicture") is not None
+    assert found.id == "MinimalForensics"
+    assert found.facet_set_for("File") is not None
     assert get_profile("DoesNotExist") is None
 
 

@@ -16,11 +16,5 @@ checkout with `case_uco.profiles.list_profiles` / `get_profile`, or point
 | Id | When to use it |
 |---|---|
 | `MinimalForensics` | File listing → hashed observables + one tool-backed action |
-| `AirGappedFieldTriage` | Same, plus offline / laptop-scale graph discipline |
-| `HashIntelligence` | Cryptographic (and optional perceptual) hashes + match results |
-| `ToolMapping` | Versioned tools, ConfiguredTool, SOLVE-IT methods |
-| `LegalProcess` | Charges, pleas, sentences, docket |
-| `FullCACLifecycle` | Hotline → conduct → media provenance → rescue → court |
-| `CrossOntology` | CASE/UCO + CAC + legal/crypto + one upper profile |
 
 See [docs/COMPOSITION_PROFILES.md](../../docs/COMPOSITION_PROFILES.md).

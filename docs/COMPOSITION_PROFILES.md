@@ -16,8 +16,9 @@ modules. The recipe cookbook already teaches the right Facet bundles
 (most commonly `FileFacet` + `ContentDataFacet` on one
 `ObservableObject`), but that knowledge lived only in markdown. Profiles
 make the same advice loadable so an examiner can ask "what do I attach
-to a `RasterPicture` in a CAC case?" and get a deterministic answer
-without re-reading the catalog.
+to a `File` in a minimal forensics graph?" and get a deterministic answer
+without re-reading the catalog. This PR ships one example:
+`MinimalForensics`.
 
 ## What this is not
 
@@ -40,8 +41,8 @@ from case_uco.profiles import list_profiles, get_profile
 for profile in list_profiles():
     print(profile.id, profile.title)
 
-hashing = get_profile("HashIntelligence")
-raster = hashing.facet_set_for("RasterPicture") if hashing else None
+minimal = get_profile("MinimalForensics")
+file_facets = minimal.facet_set_for("File") if minimal else None
 ```
 
 Override the catalog directory with `CASE_UCO_PROFILES_DIR` when loading
