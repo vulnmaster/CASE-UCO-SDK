@@ -1,0 +1,22 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix types: <https://ontology.unifiedcyberontology.org/uco/types/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+# Proposed SHACL only. Do not merge into vendored ontology/UCO from this file.
+
+types:Hash-hashVersion-shape
+    a sh:PropertyShape ;
+    rdfs:label "hash version shape"@en ;
+    rdfs:comment "Optional public version string on types:Hash. Cardinality 0..1; datatype xsd:string."@en ;
+    sh:path types:hashVersion ;
+    sh:datatype xsd:string ;
+    sh:nodeKind sh:Literal ;
+    sh:maxCount 1 .
+
+types:Hash-hashVersion-node-shape
+    a sh:NodeShape ;
+    rdfs:label "Hash hashVersion node shape"@en ;
+    rdfs:comment "Attaches the optional hashVersion property shape to types:Hash without closing the class."@en ;
+    sh:targetClass types:Hash ;
+    sh:property types:Hash-hashVersion-shape .

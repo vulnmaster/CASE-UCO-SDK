@@ -35,7 +35,7 @@
       "types:hashMethod": "SHA256",
       "types:hashValue": {
         "@type": "xsd:hexBinary",
-        "@value": "e3b0c44298fc1c149afbf4c8996fb92402706899c32911cf29121339aa1a904b"
+        "@value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     },
     {
@@ -60,7 +60,7 @@
       "uco-core:name": "Compute published perceptual hash",
       "uco-action:instrument": [{ "@id": "kb:tool-1" }],
       "uco-action:object": [{ "@id": "kb:file-1" }],
-      "uco-action:result": [{ "@id": "kb:hash-phash-1" }]
+      "uco-action:result": [{ "@id": "kb:file-1" }]
     }
   ]
 }

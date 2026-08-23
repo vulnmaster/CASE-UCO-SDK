@@ -2,17 +2,12 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix types: <https://ontology.unifiedcyberontology.org/uco/types/> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
 
 # Proposed T-Box only. Do not merge into vendored ontology/UCO from this file.
 
-types:hashVersion a owl:DatatypeProperty ;
+types:hashVersion
+    a owl:DatatypeProperty ;
     rdfs:label "hash version"@en ;
-    rdfs:comment "Public version identifier of the hash method implementation that produced hashValue."@en ;
+    rdfs:comment "Public version identifier of the hash method implementation that produced hashValue. The value is the version string published by the producing library or tool (for example a pHash release identifier; see https://www.phash.org/). It is not an algorithm specification and not a catalog schema."@en ;
     rdfs:domain types:Hash ;
     rdfs:range xsd:string .
-
-types:Hash-hashVersion-shape a sh:PropertyShape ;
-    sh:path types:hashVersion ;
-    sh:datatype xsd:string ;
-    sh:maxCount 1 .
