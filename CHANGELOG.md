@@ -7,6 +7,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.25.0] - 2026-08-25
+
+Remote SPARQL query and analysis for the MCP server, with CaseLinker as the
+first reference endpoint and a security boundary suitable for agent-facing
+network access.
+
+#### Remote SPARQL MCP workflow (#120)
+
+- Added `execute_sparql_query(query, endpoint_url?, timeout_seconds?)`, a
+  generic SPARQL 1.1 Protocol client for SELECT, ASK, CONSTRUCT, and DESCRIBE.
+  It uses CaseLinker's public CASE/UCO/CAC endpoint by default and accepts
+  other standards-compliant endpoints.
+- Results are normalized as SPARQL JSON bindings, ASK booleans, JSON-LD, or
+  RDF text with stable request/response metadata, query digest, bounded safe
+  summaries, and `content_trust: untrusted-external-sparql-results`. The full
+  query and remote HTTP error bodies are not reflected in tool results.
+- Added the `case-uco://sparql` MCP resource with the ontology-first query
+  workflow, CaseLinker endpoint profile, named-graph/default-union behavior,
+  safe starter queries, and privacy guidance.
+- Added query and transport controls: local rejection of SPARQL Update and
+  SERVICE, query/response/timeout caps, blocked redirects and URL credentials,
+  public-HTTPS-by-default endpoint validation, DNS/private-address rejection,
+  optional exact host allowlists, and fail-closed SPARQL egress under secure
+  deployment profiles unless explicitly enabled.
+- Added 35 focused offline tests plus an opt-in live CaseLinker smoke test,
+  covering query forms and lexical edge cases, SSRF and
+  secure-profile policies, request protocol, SELECT/ASK/CONSTRUCT response
+  normalization, HTTP errors, response bounds, and MCP tool/resource wiring.
+- Added `docs/SPARQL.md` with the query/analysis guide and a separate future
+  validated graph-loading contract for Oxigraph and Fuseki. Query execution
+  remains read-only; graph loading will require validation provenance,
+  configured write targets, dry-run/commit separation, idempotency, named-
+  graph ownership, and explicit overwrite authority.
+- Documented CaseLinker's current endpoint contract and identified its current
+  documentation posture: a README quick start, brief OpenAPI operation, and
+  executable live tests. A dedicated upstream API guide is recommended for
+  GET/POST encoding, content negotiation, response/error schemas, rate-limit
+  headers, namespaces, examples, and corpus/version metadata.
+
+#### Dependency maintenance
+
+- Merged Dependabot #117, updating the Rust `uuid` lockfile entry from 1.24.0
+  to 1.24.1 after the Rust tests, security audit, dependency review, and full
+  CI matrix passed.
+- Merged Dependabot #118, updating the test-only `Microsoft.NET.Test.Sdk`
+  dependency from 18.8.1 to 18.9.0 after the C# tests and full CI matrix
+  passed.
+- Merged Dependabot #119, updating the test-only
+  `xunit.runner.visualstudio` adapter from 3.1.5 to 4.0.0. The adapter remains
+  compatible with this .NET 8/xUnit v2 test project, and the C# tests and full
+  CI matrix passed on the update.
+
+Package versions bumped to **1.25.0**.
+
 ## [1.24.0] - 2026-08-16
 
 Alignment to the CASE and UCO 1.5.0 releases, a SHACL cardinality fix in the

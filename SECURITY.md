@@ -4,14 +4,14 @@
 
 | Version | Supported          |
 |---------|--------------------|
-| 1.19.x  | Yes (current)      |
-| < 1.19  | No                 |
+| 1.25.x  | Yes (current)      |
+| < 1.25  | No                 |
 
 Only the latest SDK release line receives security updates. This project
-tracks the CASE 1.4.0 and UCO 1.4.0 ontology releases; profiled upper
+tracks the CASE 1.5.0 and UCO 1.5.0 ontology releases; profiled upper
 ontologies (BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, PROF) are
-pinned in `mcp_server/upper_ontology_registry.json` with source URLs and
-version IRIs.
+pinned in `python/case_uco/validation/upper_ontology_registry.json` with
+source URLs and version IRIs.
 
 ## Reporting a Vulnerability
 
@@ -75,10 +75,34 @@ It does **not** cover:
 ## MCP Server Threat Model and Trust Boundaries
 
 The MCP server is designed for **local, stdio-based deployment** beside the
-agent host (Cursor, Hermes, Link-Look). It performs no network calls at
-runtime except `check_existing_proposals` (GitHub API, outbound HTTPS only).
+agent host (Cursor, Hermes, Link-Look). Its network-capable tools are
+`check_existing_proposals` (GitHub API, outbound HTTPS only) and
+`execute_sparql_query` (operator-selected SPARQL endpoint, with the controls
+below).
 Deployments should assume the connected agent is capable of calling any
 exposed tool with attacker-influenced arguments.
+
+### Outbound SPARQL and SSRF controls
+
+`execute_sparql_query` sends the full query to a remote endpoint and returns
+remote values to the agent. The client therefore enforces a query-only and
+egress boundary: SELECT/ASK/CONSTRUCT/DESCRIBE only; no SPARQL Update or
+SERVICE federation; bounded query, timeout, and response sizes; no redirects;
+no URL credentials; public HTTPS only by default; DNS/address checks that
+reject loopback, private, link-local, multicast, unspecified, and reserved
+targets; and typed errors that do not echo remote error bodies.
+
+The built-in CaseLinker host and an operator-configured default endpoint are
+allowed; every other public target requires an exact
+`CASE_UCO_SPARQL_ALLOWED_HOSTS` entry. Local/private endpoints such as Fuseki
+require an exact `CASE_UCO_SPARQL_ALLOWED_PRIVATE_HOSTS` entry. Secure
+deployment profiles deny SPARQL egress unless
+`CASE_UCO_SPARQL_ALLOW_NETWORK=1` is explicitly enabled.
+Every successful response is labeled
+`content_trust: untrusted-external-sparql-results`; returned literals must not
+be treated as instructions. Queries themselves can disclose identifiers and
+literals, so sensitive investigative values must not be sent to an endpoint
+that is not authorized for that data. See `docs/SPARQL.md`.
 
 ### Filesystem access controls (least privilege)
 
@@ -196,6 +220,7 @@ never appear in this repository, its issues, its test fixtures, or
 vulnerability reports. All bundled fixtures and exemplars are Tier T0
 public-safe synthetic data or derive from public court records. Deployments
 processing CJIS or similarly regulated data are responsible for their own
-compliance assessment; the local-only MCP design (no runtime cloud calls
-during document processing or validation) is intended to make that
-assessment tractable but does not itself constitute compliance.
+compliance assessment; document processing and validation remain local-only,
+and secure profiles disable remote SPARQL unless an operator explicitly
+enables it. That separation is intended to make the assessment tractable but
+does not itself constitute compliance.

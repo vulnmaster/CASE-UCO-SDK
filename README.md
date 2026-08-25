@@ -8,7 +8,7 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.24.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1240---2026-08-16)
+**v1.25.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1250---2026-08-25)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -32,7 +32,7 @@ Beyond the generated code, the repository provides:
 
 - **Bundled extension ontologies** — queryable through the same registry and MCP tools as core CASE/UCO (see [Bundled Extension Ontologies](#bundled-extension-ontologies))
 - **77 modeling recipes** — end-to-end modeling patterns for forensic workflows and whole investigation types, each grounded in example graphs ([docs/recipes/](docs/recipes/INDEX.md))
-- **An MCP server for AI agents** — ontology discovery, investigation routing, document processing, SHACL + concept-coverage validation, change-proposal drafting, and a resumable critic acceptance loop ([AI-Assisted Development](#ai-assisted-development))
+- **An MCP server for AI agents** — ontology discovery, investigation routing, document processing, SHACL + concept-coverage validation, remote SPARQL query/analysis, change-proposal drafting, and a resumable critic acceptance loop ([AI-Assisted Development](#ai-assisted-development))
 - **A change-proposal pipeline** — when a concept is missing, the tooling searches the UCO, CASE, and CAC issue trackers, drafts a filled-in proposal with tested example data, and supports local extension declarations so work is never blocked on upstream adoption ([change_proposals/](change_proposals/README.md))
 
 ## Installation
@@ -41,7 +41,7 @@ Beyond the generated code, the repository provides:
 
 Install the SDK package for your language. No need to clone the repo or run the generator.
 
-**v1.24.0** ships installable artifacts on the [GitHub Release](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.24.0) (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations). Registry publication to PyPI, NuGet, Maven Central, and crates.io is opt-in and is **not** enabled for this tag. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
+[**v1.25.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.25.0) adds the remote SPARQL MCP workflow and includes the reviewed Rust and .NET test-infrastructure dependency updates from Dependabot #117-119. Release artifacts (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations) are built from the reviewed tag. Registry publication to PyPI, NuGet, Maven Central, and crates.io remains opt-in. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
 
 When registry packages are published in a later release:
 
@@ -57,7 +57,7 @@ For Java (once on Maven Central), add to your `pom.xml`:
 <dependency>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.24.0</version>
+    <version>1.25.0</version>
 </dependency>
 ```
 
@@ -526,6 +526,7 @@ CASE-UCO-SDK/
 │   └── toolcap/            Forensic tool capability benchmarking (v0.4.0)
 ├── mcp_server/             MCP server for AI-assisted development
 │   ├── server.py           FastMCP server: discovery, routing, validation, proposals
+│   ├── sparql_client.py    Bounded query-only remote SPARQL client
 │   └── domain_index.py     Task-to-class mappings, recipe index, and proposal triage
 ├── change_proposals/       Drafted ontology change proposals (markdown + OWL + SHACL + JSON-LD + SPARQL)
 ├── .cursor/
@@ -536,6 +537,7 @@ CASE-UCO-SDK/
 │   ├── MAPPING_GUIDE.md        Domain mapping guide (auto-generated)
 │   ├── PERFORMANCE_GUIDE.md    Engineering tradeoffs and benchmarks
 │   ├── CROSS_LANGUAGE_PARITY.md  API parity contract across languages
+│   ├── SPARQL.md               Remote query guide and validated graph-load roadmap
 │   ├── templates/              Official change proposal template
 │   └── recipes/                Practical forensic workflow cookbook (one file per recipe)
 │       ├── INDEX.md         Recipe catalog and shared guidance
@@ -578,6 +580,7 @@ All four language packages are released in lockstep from the same ontology sourc
 
 | SDK Version | UCO | CASE | Python `case-uco` | C# `CaseUco` | Java `case-uco` | Rust `case-uco` |
 |-------------|-----|------|-------------------|--------------|-----------------|-----------------|
+| 1.25.0 | 1.5.0 | 1.5.0 | 1.25.0 | 1.25.0 | 1.25.0 | 1.25.0 |
 | 1.24.0 | 1.5.0 | 1.5.0 | 1.24.0 | 1.24.0 | 1.24.0 | 1.24.0 |
 | 1.23.1 | 1.4.0 | 1.4.0 | 1.23.1 | 1.23.1 | 1.23.1 | 1.23.1 |
 | 1.23.0 | 1.4.0 | 1.4.0 | 1.23.0 | 1.23.0 | 1.23.0 | 1.23.0 |
@@ -614,10 +617,11 @@ The SDK is designed to work with AI coding assistants like Cursor, Claude Code, 
 The MCP server is the centerpiece. It carries a working knowledge of the entire Linux Foundation [Cyber Domain Ontology](https://cyberdomainontology.org/) project — not just class lookup, but the ecosystem around it:
 
 - **Core + extension discovery** — every tool accepts a `scope` parameter, so the agent can search core CASE/UCO, the CAC Ontology, the Adversary Engagement Ontology, or any bundled extension with the same calls.
-- **Upper-ontology profiles** — `get_uco_profiles` surfaces UCO's alignments with BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, and FOAF, so graphs can interoperate with formal-reasoning, provenance, temporal, geospatial, and social-network tooling. Since v1.19.0 the upper-ontology sources and CDO-Shapes SHACL profiles are vendored under `ontology/upper/` (each profile reports its `local_source` / `local_shapes` paths), so profile inspection, conformance checks, and registry rebuilds all work fully offline — nothing in the SDK requires network access at investigation time.
+- **Upper-ontology profiles** — `get_uco_profiles` surfaces UCO's alignments with BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, and FOAF, so graphs can interoperate with formal-reasoning, provenance, temporal, geospatial, and social-network tooling. Since v1.19.0 the upper-ontology sources and CDO-Shapes SHACL profiles are vendored under `ontology/upper/` (each profile reports its `local_source` / `local_shapes` paths), so profile inspection, conformance checks, and registry rebuilds all work fully offline. Remote SPARQL is an optional, explicitly controlled network capability rather than a prerequisite for local modeling or validation.
 - **Investigation routing** — `route_investigation_content` classifies any submission (text, documents, partial graphs) into investigation families and returns the matching recipes, extensions, namespaces, and profiles; `route_cac_content` does deep routing within the crimes-against-children domain. Since v1.16.0 routing is hybrid: a deterministic keyword baseline plus an offline lexical-semantic stage with synonym expansion, per-family confidence scores, explainable match evidence, and calibrated abstention — colloquial phrasings route correctly, unknown content gets extension-gap guidance instead of a weak guess.
 - **Forensic method planning** — `plan_solveit_workflow` maps an investigation goal to [SOLVE-IT](https://solveit-df.org) objectives, candidate techniques, and per-technique weakness/mitigation checklists (ASTM E3016-18 Error Mitigation Analysis); `search_solveit` and `get_solveit_details` query the pinned knowledge base (23 objectives, 187 techniques, 339 weaknesses, 270 mitigations), and the `solveit` extension records the method in the graph via `SolveitInvestigativeAction` or the punned technique classes — kept current against SOLVE-IT's rapid release cycle with `make sync-solveit` and a weekly CI freshness check.
 - **Document processing** — `process_document_file` turns images, PDFs, Office documents, CSV tables, and PACER court filings into bounded CASE/UCO JSON-LD for human review. All extracted content is labeled untrusted evidence data, scanned for prompt-injection patterns, and confined by the configurable filesystem workspace policy (see [SECURITY.md](SECURITY.md)).
+- **Remote SPARQL query and analysis** — `execute_sparql_query` combines local ontology discovery with a bounded query-only SPARQL 1.1 client. It targets CaseLinker's public CASE/UCO/CAC corpus by default, accepts other standards-compliant endpoints, normalizes bindings/ASK/RDF results, and labels every remote value as untrusted external data. See [Remote SPARQL Query and Graph-Store Roadmap](docs/SPARQL.md).
 - **Validation** — the public Python API `case_uco.validation.validate_graph_file` (and MCP `validate_graph`) runs SHACL validation plus a closed-world concept-coverage check against core, loaded extensions, and profiled upper ontologies. Coverage is exact-term and role-aware: profiled upper-ontology terms (BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, PROF) are checked against pinned releases (`python/case_uco/validation/upper_ontology_registry.json`) so fabricated terms fail, and declared terms used in the wrong RDF position (a class as a predicate, a property as a type) are reported as role mismatches. The declared-term set refreshes automatically when ontology files change mid-process. Since v1.17.0 strict validation fails closed: reports carry a `verification_status`, and a missing or invalid registry, malformed extension manifest, missing dependency, or dependency cycle is a typed error rather than a silent pass. **Named extensions are an external-bundle contract:** the PyPI/GitHub wheel does not vendor `extensions/` Turtle files; pass `project_root=` (or explicit ontology paths) pointing at a CASE-UCO-Libraries checkout when using names such as `attack-technique:full`.
 - **Knowledge lifecycle** — learned recipes and extension ontologies follow a staged candidate → validated → operational → deprecated lifecycle with validation-gated promotion, recorded provenance, emergency revocation, and one-command git rollback (`make promote-extension` / `promote-recipe` / `deprecate-extension` / `deprecate-recipe` / `rollback-extension` / `lifecycle-status`). Promotion gates require conforming exemplars, failing negative fixtures when SHACL shapes ship, subclass anchoring to declared classes, and (when declared) passing competency queries; promotion authority follows the deployment profile.
 - **Secure deployment** — a filesystem workspace policy confines file-handling tools to configured read/write roots, and deployment profiles (`development`, `offline-investigation`, `production-authoring`, `production-review`) make it enforceable: in secure mode the server refuses to start on a misconfigured policy and fails closed at runtime, and `get_security_profile` reports the active posture. Routing quality is guarded by a held-out external evaluation corpus (`evaluation/routing/`, `make eval-routing`) that runs in CI with a governance rule preventing silent co-modification of router and corpus.
@@ -668,7 +672,8 @@ To load extension registries (CAC, AEO, and the rest), set `CASE_UCO_EXTENSIONS`
 
 ### MCP Tools Reference
 
-The MCP server exposes nineteen tools and four resources that the AI agent calls behind the scenes:
+The MCP server exposes tools and read-only context resources that the AI agent
+calls behind the scenes:
 
 | Tool | What it does |
 |------|-------------|
@@ -687,12 +692,13 @@ The MCP server exposes nineteen tools and four resources that the AI agent calls
 | `search_solveit` | Keyword search across the pinned SOLVE-IT knowledge base (objectives, techniques, weaknesses, mitigations) |
 | `get_solveit_details` | Full SOLVE-IT record with relationships — technique → weaknesses → mitigations, ASTM categories, CASE I/O classes |
 | `plan_solveit_workflow` | Map an investigation goal to SOLVE-IT objectives, candidate techniques, and an error-mitigation checklist |
+| `execute_sparql_query` | Run bounded query-only SPARQL 1.1 against CaseLinker by default or another standards-compliant endpoint |
 | `process_document_file` | Process images, PDFs, Office docs, CSV tables, and PACER filings into bounded CASE/UCO JSON-LD |
 | `validate_graph` | SHACL validation plus closed-world concept-coverage check against core, extensions, and profiles |
 | `check_existing_proposals` | Search open UCO/CASE/CAC GitHub issues for prior change proposals |
 | `draft_change_proposal` | Generate a filled-in change proposal from concept, scenario, and proposed classes |
 
-Resources (read-only context): `case-uco://domains`, `case-uco://profiles`, `case-uco://modules`, `case-uco://patterns`.
+Resources (read-only context): `case-uco://domains`, `case-uco://profiles`, `case-uco://modules`, `case-uco://patterns`, `case-uco://sparql`.
 
 ### What You Can Say
 
