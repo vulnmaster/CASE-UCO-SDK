@@ -71,12 +71,13 @@ from case_uco.uco.core import Relationship
 
 graph.create(Relationship,
     source=[action_release], target=action_receipt,
-    kind_of_relationship="custody-transfer",
+    kind_of_relationship="Related_To",
+    description=["Custody was transferred from the source release to the target receipt."],
     is_directional=True,
 )
 ```
 
-This gives graph consumers a typed, queryable edge between the two halves of a handoff without relying on name matching.
+This gives graph consumers a queryable edge between the two halves of a handoff without relying on name matching; the registered generic kind stays interoperable while the description preserves custody-transfer semantics.
 
 **Provenance record organization.** `ProvenanceRecord.object` is a flat list, but you can make it more useful to consumers by grouping entries consistently. Recommended order: primary evidence item first, then derived artifacts (images, hashes), then actions in chronological order. For complex chains, consider separate provenance records for the physical item custody vs. the digital artifact custody:
 
@@ -219,7 +220,8 @@ action_receipt = graph.create(InvestigativeAction,
 # Block: Link release → receipt as an explicit typed edge
 transfer = graph.create(Relationship,
     source=[action_release], target=action_receipt,
-    kind_of_relationship="custody-transfer",
+    kind_of_relationship="Related_To",
+    description=["Custody was transferred from the source release to the target receipt."],
     is_directional=True,
 )
 

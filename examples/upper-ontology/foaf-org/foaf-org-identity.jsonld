@@ -269,7 +269,7 @@
                 "@type": "xsd:boolean",
                 "@value": "true"
             },
-            "uco-core:kindOfRelationship": "attributed-controller",
+            "uco-core:kindOfRelationship": "Related_To",
             "uco-core:source": [
                 {
                     "@id": "kb:person-1"
@@ -289,7 +289,7 @@
                 "@type": "xsd:boolean",
                 "@value": "true"
             },
-            "uco-core:kindOfRelationship": "attributed-controller",
+            "uco-core:kindOfRelationship": "Related_To",
             "uco-core:source": [
                 {
                     "@id": "kb:person-2"

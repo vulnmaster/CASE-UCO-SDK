@@ -13,20 +13,20 @@ Model SMS/MMS messages and contact list entries extracted from a mobile device, 
 | `Contact` | A contact list entry |
 | `ContactFacet` | Contact details: name, phone, email, nickname |
 | `PhoneAccount` / `EmailAccount` | Accounts linked to the contact |
-| `ObservableRelationship` | Links contacts to their accounts (`Has_Account`) |
+| `ObservableRelationship` | Links contacts to accounts with registered `Related_To` and an attribution description |
 
 ## Pattern
 
 ```
 Contact + ContactFacet
     │
-    ├── Has_Account ──▶ PhoneAccount + PhoneAccountFacet
-    └── Has_Account ──▶ EmailAccount + EmailAddressFacet
+    ├── Related_To ──▶ PhoneAccount + PhoneAccountFacet (description: contact phone account)
+    └── Related_To ──▶ EmailAccount + EmailAddressFacet (description: contact email account)
 
 SMSMessage + MessageFacet
-    ├── from ──▶ PhoneAccount (sender)
-    ├── to ──▶ PhoneAccount (recipient)
-    └── application ──▶ Application (messaging app)
+    ├── uco-observable:from ──▶ PhoneAccount (sender)
+    ├── uco-observable:to ──▶ PhoneAccount (recipient)
+    └── uco-observable:application ──▶ Application (messaging app)
 ```
 
 <details open><summary>Python</summary>
@@ -93,7 +93,8 @@ contact = graph.create(Contact,
 # Link contact to their phone account
 graph.create(Relationship,
     source=[contact], target=recipient_acct,
-    kind_of_relationship="Has_Account",
+    kind_of_relationship="Related_To",
+    description=["The target phone account is attributed to the source contact entry."],
     is_directional=True,
 )
 
@@ -105,7 +106,7 @@ graph.write("sms_and_contacts.jsonld")
 ## Notes
 
 - `ContactFacet` has many optional fields: `first_name`, `last_name`, `middle_name`, `display_name`, `nickname`, `birthdate`, `contact_phone`, `contact_email`, etc. Populate only what the source provides.
-- Use `Relationship` with `kind_of_relationship="Has_Account"` to link a `Contact` to its `PhoneAccount` or `EmailAccount` entries.
+- Use registered `Related_To` to link a `Contact` to `PhoneAccount` or `EmailAccount` entries and state the attribution basis in `description`.
 - For MMS with attachments, add a `ContentDataFacet` to the message or create a separate `ObservableObject` for the attachment linked via a `Relationship`.
 
 ## Related

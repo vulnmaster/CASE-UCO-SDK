@@ -70,7 +70,8 @@ graph.add_property(person_id, "foaf:holdsAccount", {"@id": account_id})
 
 # Investigative link — not owl:sameAs
 graph.create(Relationship, source=[person], target=account,
-    kind_of_relationship="attributed-account", is_directional=True)
+    kind_of_relationship="Related_To", is_directional=True,
+    description=["Evidence supports a tentative attribution of the target account to the source person."])
 graph.write("foaf-org-identity.jsonld")
 ```
 

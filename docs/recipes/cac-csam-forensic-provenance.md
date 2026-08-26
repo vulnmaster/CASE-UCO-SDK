@@ -18,18 +18,18 @@ Model CSAM acquisition, verification, hashing, correlation analysis, and victim 
 | `MetadataCorrelation` / `TemporalPatternAnalysis` / `GeospatialCorrelation` | Analysis result types |
 | `CrossPlatformCorrelation` / `BehavioralFingerprinting` | Cross-source linkage |
 | `VictimIdentificationProcess` | Identification workflow |
-| `ContentHashingTool` / `HashMatchDetection` | Tool and detection nodes |
+| `cacontology-detection:ContentHashingTool` / `DatabaseMatchAction` | Tool and hash-database comparison action |
 | `RasterPicture` + `FileFacet` + `ContentDataFacet` | CSAM image artifacts |
 | `OnlinePurchase` | CSAM or contraband purchasing operations (press-release context) |
 
 ## CSAM purchasing operations (press releases)
 
-When the source describes an **online child sex abuse material purchasing operation** without device forensic detail, model procurement context with `cacontology-physical:OnlinePurchase` and pair with [cac-icac-search-warrant-arrest.md](cac-icac-search-warrant-arrest.md) for the law-enforcement workflow.
+When the source describes an **online child sex abuse material purchasing operation** without device forensic detail, model procurement context with `cacontology-physical-evidence:OnlinePurchase` and pair with [cac-icac-search-warrant-arrest.md](cac-icac-search-warrant-arrest.md) for the law-enforcement workflow.
 
 - Set **`uco-action:performer`** on `OnlinePurchase` to the suspect `Person`.
-- Add `cacontology-physical:hasProcurementBeginPoint` when the narrative gives a start date.
-- Link procurement to the investigation via `uco-core:Relationship` (`Concerns`) and `Evidence_Basis_For` to the investigative action.
-- `cacontology-physical:OnlinePurchase` is the correct CAC class (gUFO procurement **Event** under the physical-evidence module — not a UCO observable purchase).
+- Add `cacontology-physical-evidence:hasProcurementBeginPoint` when the narrative gives a start date.
+- Link procurement to the investigation and evidence-development action with registered `Related_To` relationships; explain the investigative basis in `uco-core:description`.
+- `cacontology-physical-evidence:OnlinePurchase` is the correct CAC class (gUFO procurement **Event** under the physical-evidence module — not a UCO observable purchase).
 
 Add full forensic provenance ([chain-of-custody](chain-of-custody.md), hashes, `ForensicAcquisitionAction`) only when device evidence is available.
 
@@ -37,10 +37,10 @@ Add full forensic provenance ([chain-of-custody](chain-of-custody.md), hashes, `
 
 ```
 ForensicAcquisitionAction
-  └── result ──▶ ChainOfCustodyAction (per transfer)
-        └── result ──▶ EvidenceVerificationAction
-              └── result ──▶ VictimIdentificationProcess
-                    └── uses ──▶ RasterPicture (with SHA-256 / PhotoDNA hashes)
+  └── uco-action:result ──▶ ChainOfCustodyAction (per transfer)
+        └── uco-action:result ──▶ EvidenceVerificationAction
+              └── uco-action:result ──▶ VictimIdentificationProcess
+                    └── Related_To ──▶ RasterPicture (description: image used for victim identification; SHA-256 / PhotoDNA hashes)
 ```
 
 ## Modeling rules

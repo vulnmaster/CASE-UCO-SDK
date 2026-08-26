@@ -46,7 +46,7 @@ posting TS//SCI documents to Discord; six § 793(e) counts, Rule
 | `uco-identity:Person` | Defendant clearance holder, declarants (agency officials, case agents) |
 | `uco-identity:Organization` | Defendant's unit/agency, the United States Government (owner of the NDI and victim), FBI, USAO, DOJ National Security Division, the platform operator |
 | `uco-observable:ObservableObject` | Each charged NDI item (one node per count), posted document images, platform servers/chat rooms |
-| `marking:MarkingDefinition` + `marking:StatementMarking` | The classification banner of each charged NDI item, verbatim as charged, attached via `uco-core:objectMarking` |
+| `uco-marking:MarkingDefinition` + `uco-marking:StatementMarking` | The classification banner of each charged NDI item, verbatim as charged, attached via `uco-core:objectMarking` |
 | `uco-observable:Computer` / `Device` / `Tablet` | Classified workstation, SCIF printer, destroyed personal devices |
 | `uco-observable:ObservableObject` + `DigitalAccountFacet` | Defendant's platform account (username changes are obstruction evidence) |
 | `uco-observable:Message` + `MessageFacet` | Defendant's quoted messages (consciousness of guilt, obstruction instructions) |
@@ -60,10 +60,10 @@ posting TS//SCI documents to Discord; six § 793(e) counts, Rule
 
 ### 1. Classification banners are markings, not descriptions
 
-Give each distinct banner one `marking:MarkingDefinition` node (typed also
-`uco-core:UcoObject`) whose `marking:definition` points to a
-`marking:StatementMarking` carrying the banner verbatim in
-`marking:statement`. Attach it to every charged NDI observable with
+Give each distinct banner one `uco-marking:MarkingDefinition` node (typed also
+`uco-core:UcoObject`) whose `uco-marking:definition` points to a
+`uco-marking:StatementMarking` carrying the banner verbatim in
+`uco-marking:statement`. Attach it to every charged NDI observable with
 `uco-core:objectMarking`. UCO 1.4 has no dedicated USG-classification
 MarkingModel (see [UCO #647](https://github.com/ucoProject/UCO/issues/647)),
 so `StatementMarking` is the current validated carrier; when a structured
@@ -72,16 +72,16 @@ USG model is adopted upstream, migration is a re-typing of the model node.
 ```json
 {
   "@id": "kb:marking-ts-sci-def",
-  "@type": ["marking:MarkingDefinition", "uco-core:UcoObject"],
+  "@type": ["uco-marking:MarkingDefinition", "uco-core:UcoObject"],
   "uco-core:name": "USG classification banner: TOP SECRET//SCI",
-  "marking:definitionType": "statement",
-  "marking:definition": [{"@id": "kb:marking-ts-sci-model"}]
+  "uco-marking:definitionType": "statement",
+  "uco-marking:definition": [{"@id": "kb:marking-ts-sci-model"}]
 }
 {
   "@id": "kb:marking-ts-sci-model",
-  "@type": "marking:StatementMarking",
-  "marking:definitionType": "statement",
-  "marking:statement": "TOP SECRET//SCI"
+  "@type": "uco-marking:StatementMarking",
+  "uco-marking:definitionType": "statement",
+  "uco-marking:statement": "TOP SECRET//SCI"
 }
 {
   "@id": "kb:ndi-count1",
@@ -108,10 +108,12 @@ them would assert a handling policy that cannot exist.
 Indictments charge NDI per count with a per-count classification level and
 description. Give each charged item its own `ObservableObject` named with
 its count and banner, described verbatim from the count chart, marked per
-pattern 1, and linked `Owned_By` the United States Government organization
-node. Each `legalproc:CriminalCharge` links to its NDI item with a
-`Concerns` relationship, and the government links to every count with
-`Victim_Of`.
+pattern 1, and linked with registered `Related_To` to the United States
+Government organization, with ownership stated in `uco-core:description`.
+Each `legalproc:CriminalCharge` links to its NDI item with registered
+`Related_To` and a description stating that the charge concerns the item;
+the government links to every count with
+registered `Related_To` with the victim assertion in `uco-core:description`.
 
 ### 4. Each transmission method is its own Action
 
@@ -121,7 +123,7 @@ photographing, and posting documents). Model each method as one
 `uco-action:Action` with `performer`, `instrument` (workstation, printer,
 platform account), `object` (the charged NDI items it moved), `result`
 (posted images, platform servers), `location`, and the charged date span.
-Link each action to the counts it grounds with `Basis_Of`.
+Link each action to the counts it grounds with registered `Related_To` and describe the evidentiary basis.
 
 ### 5. The SCIF is physical; the workstation inside it is cyber
 
@@ -130,7 +132,7 @@ cyberspace: `uco-core:UcoObject` + `gufo:FunctionalComplex` per the rule
 in [legal-process-modeling.md](legal-process-modeling.md). The classified
 workstation, the SCIF printer, the digital source documents, and the
 photographs posted online are UCO observables. Wire them with
-`Located_At` relationships so the physical/cyber boundary is explicit.
+registered `Related_To` relationships with the location basis in `uco-core:description` so the physical/cyber boundary is explicit.
 
 ### 6. Trainings, agreements, and admonitions are the knowledge timeline
 
@@ -156,7 +158,7 @@ even when uncharged.
 | Inventing a MarkingDefinition from a defendant-quoted or contradictory banner string (e.g. NOFORN + FVEY together) | Keep it as verbatim quoted message content with a note; only attested document banners become markings |
 | Treating the case as corporate insider threat | § 793/794 protects government NDI, not trade secrets; the victim/owner is the United States Government, and classification markings — not trade-secret categories — carry the sensitivity semantics |
 | Typing the SCIF or paper printouts as observables | Physical facility and paper are `uco-core:UcoObject` + `gufo:FunctionalComplex`; the devices and digital documents inside are the observables |
-| One blob node for "leaked documents" | One NDI observable per charged count, each with its own banner marking, `Concerns`-linked to its count |
+| One blob node for "leaked documents" | One NDI observable per charged count, each with its own banner marking and described `Related_To` link to its count |
 | Fabricating classification detail (compartments, declass dates) the filings don't state | Model exactly the banner text charged; put E.O. 13526 level definitions in descriptions only when the filing recites them |
 
 ## Checklist
@@ -170,7 +172,7 @@ even when uncharged.
    investigating and prosecuting agencies, and the platform operator.
 3. Create one `MarkingDefinition` + `StatementMarking` pair per distinct
    banner charged; create one NDI observable per count with
-   `uco-core:objectMarking`, `Owned_By` the government.
+   `uco-core:objectMarking`, and a registered `Related_To` ownership assertion to the government.
 4. Build the knowledge timeline: clearance grant, indoctrination and
    training signings, user agreements, admonitions — each a dated
    `Action` with signed language verbatim.
@@ -183,9 +185,10 @@ even when uncharged.
    charges, the forfeiture allegation, the plea, and
    recommended/imposed sentences (use `sentenceStatus` faithfully —
    don't assert an imposed sentence the record lacks).
-7. Link each transmission action to its counts with `Basis_Of`; link the
-   government to every count with `Victim_Of`; link each count to its
-   NDI item with `Concerns`.
+7. Link each transmission action to its counts with registered `Related_To`
+   and an evidentiary-basis description; link the government to every count
+   with a described `Related_To` victim assertion; link each count to its
+   NDI item with registered `Related_To` and a charge-concerns-item description.
 8. Validate: `validate_graph(path, extensions=['legalproc'])` plus strict
    concept coverage; `Conforms: True` before presenting.
 

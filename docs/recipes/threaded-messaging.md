@@ -21,17 +21,17 @@ This extends the basic [email-messaging recipe](email-messaging.md) and [SMS rec
 
 ```
 MessageThread + MessageThreadFacet
-    ├── participant ──▶ ApplicationAccount (user A)
-    ├── participant ──▶ ApplicationAccount (user B)
-    └── messageThread ──▶ Thread
+    ├── uco-observable:participant ──▶ ApplicationAccount (user A)
+    ├── uco-observable:participant ──▶ ApplicationAccount (user B)
+    └── uco-observable:messageThread ──▶ Thread
                             ├── ThreadItem → Message 1
                             ├── ThreadItem → Message 2
                             └── ThreadItem → Message 3
 
 Message + MessageFacet
-    ├── from ──▶ ApplicationAccount
-    ├── to ──▶ [ApplicationAccount]
-    ├── application ──▶ Application
+    ├── uco-observable:from ──▶ ApplicationAccount
+    ├── uco-observable:to ──▶ [ApplicationAccount]
+    ├── uco-observable:application ──▶ Application
     └── sentTime, messageText, messageType
 ```
 

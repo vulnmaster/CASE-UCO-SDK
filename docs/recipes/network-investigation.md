@@ -44,12 +44,12 @@ This separation ensures that observed facts remain untainted by interpretation, 
 ```
 LAYER 1: Acquisition
     InvestigativeAction (capture)
-        ├── performer ──▶ Identity
-        ├── instrument ──▶ Tool (Wireshark)
-        ├── result ──▶ File (pcapng) with FileFacet + ContentDataFacet
-        └── environment ──▶ NetworkInterface
-                                ├── mac_address ──▶ WifiAddress
-                                ├── ip ──▶ IPAddress (local)
+        ├── uco-action:performer ──▶ Identity
+        ├── uco-action:instrument ──▶ Tool (Wireshark)
+        ├── uco-action:result ──▶ File (pcapng) with FileFacet + ContentDataFacet
+        └── uco-action:environment ──▶ NetworkInterface
+                                ├── uco-observable:macAddress ──▶ WifiAddress
+                                ├── uco-observable:ip ──▶ IPAddress (local)
                                 └── ──Connected_To [configuration]──▶ MACAddress (gateway)
 
     WirelessNetworkConnection
@@ -71,16 +71,16 @@ LAYER 2: Observed network (raw facts only — no interpretation)
 
 LAYER 3: Analysis (one action per attribution group)
     InvestigativeAction (analysis)
-        ├── performer ──▶ Identity
-        ├── instrument ──▶ AnalyticTool
-        ├── object ──▶ [connections + supporting IPs + DNS evidence]
-        ├── result ──▶ ObservableObject + ArtifactClassificationResultFacet
-        └── was_informed_by ──▶ InvestigativeAction (capture)
+        ├── uco-action:performer ──▶ Identity
+        ├── uco-action:instrument ──▶ AnalyticTool
+        ├── uco-action:object ──▶ [connections + supporting IPs + DNS evidence]
+        ├── uco-action:result ──▶ ObservableObject + ArtifactClassificationResultFacet
+        └── case-investigation:wasInformedBy ──▶ InvestigativeAction (capture)
 
 Investigation (created last — root of the navigable tree)
-    ├── created_by ──▶ Identity
-    ├── relevant_authorization ──▶ Authorization
-    └── object ──▶ [capture action, analysis actions, provenance, key artifacts]
+    ├── uco-core:createdBy ──▶ Identity
+    ├── case-investigation:relevantAuthorization ──▶ Authorization
+    └── uco-core:object ──▶ [capture action, analysis actions, provenance, key artifacts]
 ```
 
 <details open><summary>Python</summary>

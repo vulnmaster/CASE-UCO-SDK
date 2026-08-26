@@ -57,7 +57,7 @@ punned DFT-* technique classes) when `CASE_UCO_EXTENSIONS=solveit`.
 
 ## Classes and properties
 
-| Class | Role |
+| Term | Role |
 |---|---|
 | `case-investigation:Investigation` | Case container; state the SOLVE-IT objective (DFO-*) in `description` |
 | `solveit-core:SolveitInvestigativeAction` | An investigative action that records its method — subclass of `case-investigation:InvestigativeAction` |

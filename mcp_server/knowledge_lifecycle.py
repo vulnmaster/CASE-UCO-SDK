@@ -571,6 +571,25 @@ def promote_recipe(
         return {"ok": False, "error": "recipe_structure_invalid",
                 "detail": "; ".join(structure_errors)}
 
+    # Ontology-term gate (#123): candidate prose, tables, snippets, diagrams,
+    # and relationship literals must be grounded before executable validation.
+    try:
+        import recipe_lint
+    except ImportError:
+        sys.path.insert(0, str(project_root / "mcp_server"))
+        import recipe_lint
+
+    lint_report = recipe_lint.lint_recipes(
+        project_root=project_root,
+        selected_paths=[candidate_path],
+    )
+    if not lint_report.ok:
+        return {
+            "ok": False,
+            "error": "recipe_ontology_lint_failed",
+            "detail": lint_report.to_dict(),
+        }
+
     # Executable gate (#69 / CQ-38): candidate plus every affected shared
     # profile/extension exemplar (and preferably the full operational set).
     try:

@@ -26,7 +26,7 @@ This recipe addresses seven areas that AI-generated CASE graphs commonly get wro
 | `ContentDataFacet` | Hash, MIME type, byte size |
 | `ArtifactClassificationResultFacet` | True classification labels on artifacts |
 | `ArtifactClassification` | A single label + confidence score |
-| `Relationship` | Explicit links: `Derived_From`, `Selected_From`, `Input_To` |
+| `Relationship` | Registered `Related_To` for selection/transformation provenance, `Contained_Within` for containment; action inputs/outputs use direct properties |
 | `ProvenanceRecord` | Groups the pipeline and its artifacts |
 | `ConfidenceFacet` | Numeric confidence on any assertion |
 
@@ -34,24 +34,24 @@ This recipe addresses seven areas that AI-generated CASE graphs commonly get wro
 
 ```
 InvestigativeAction (step 1: preprocessing)
-    ├── instrument ──▶ AnalyticTool (e.g., age-gender model)
-    ├── object ──▶ [input RasterPicture files]
-    ├── result ──▶ [intermediate output objects]
-    ├── startTime / endTime
-    └── actionStatus
+    ├── uco-action:instrument ──▶ AnalyticTool (e.g., age-gender model)
+    ├── uco-action:object ──▶ [input RasterPicture files]
+    ├── uco-action:result ──▶ [intermediate output objects]
+    ├── uco-action:startTime / uco-action:endTime
+    └── uco-action:actionStatus
 
 InvestigativeAction (step 2: search/inference)
-    ├── instrument ──▶ AnalyticTool (e.g., CLIP search)
-    ├── object ──▶ [intermediate objects + query parameters]
-    ├── result ──▶ [ranked result objects with scores]
-    ├── startTime / endTime
-    └── actionStatus
+    ├── uco-action:instrument ──▶ AnalyticTool (e.g., CLIP search)
+    ├── uco-action:object ──▶ [intermediate objects + query parameters]
+    ├── uco-action:result ──▶ [ranked result objects with scores]
+    ├── uco-action:startTime / uco-action:endTime
+    └── uco-action:actionStatus
 
 Each result RasterPicture:
-    ├── has_facet ──▶ FileFacet + ContentDataFacet + RasterPictureFacet
+    ├── uco-core:hasFacet ──▶ FileFacet + ContentDataFacet + RasterPictureFacet
     └── ConfidenceFacet (similarity score)
 
-Relationship (source=result, target=input_dir, kind="Selected_From")
+Relationship (source=result, target=input_dir, kind="Related_To", description="selected from target collection")
 
 ProvenanceRecord ──▶ groups everything
 ```
@@ -101,16 +101,16 @@ for result_image in result_images:
     graph.create(Relationship,
         source=[result_image],
         target=input_dir,
-        kind_of_relationship="Selected_From",
+        kind_of_relationship="Related_To",
+        description=["The source result was selected from the target collection."],
         is_directional=True,
     )
 ```
 
-Common `kind_of_relationship` values for AI pipelines:
-- `"Selected_From"` — a search result selected from a collection
-- `"Derived_From"` — output derived by transformation/analysis
-- `"Input_To"` — marks an object as input to a process
-- `"Contained_Within"` — a file within a directory
+Relationship guidance for AI pipelines:
+- Use registered `Related_To` plus a precise `description` for selection or transformation provenance not covered by a direct predicate.
+- Use direct `uco-action:object` for process inputs and `uco-action:result` for outputs.
+- Use registered `Contained_Within` for a file within a directory.
 
 ## Per-result ranking and scoring
 
@@ -360,7 +360,8 @@ for fname, hash_val, similarity, rank in results_data:
     # Link each result back to the source directory
     graph.create(Relationship,
         source=[img], target=input_dir,
-        kind_of_relationship="Selected_From",
+        kind_of_relationship="Related_To",
+        description=["The source result was selected from the target collection."],
         is_directional=True,
     )
 

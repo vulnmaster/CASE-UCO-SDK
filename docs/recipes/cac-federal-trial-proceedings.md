@@ -28,8 +28,8 @@ Use when the source includes:
 | `FederalProsecution` / `PreTrialPhase` / `TrialPhase` | Legal process phases |
 | `MultiDefendantIndictment` | Original and superseding charging instruments |
 | `FederalCharge` | Numbered counts (linked per federal prosecution recipe) |
-| `CompetencyEvaluation` / mental health proceedings | Competency workflow (document in `uco-core:Event` + description when no dedicated class) |
-| `DetentionHearing` / `BookingAction` | Pre-trial custody |
+| `cac-core:LegalEvent` / `uco-core:Event` | Competency workflow when no dedicated class exists; describe the § 4241 proceeding |
+| `cacontology-legal-outcomes:LegalProceeding` / `cacontology-tactical:BookingAction` | Detention proceeding and custody action |
 | `InvestigativeAction` | Motions, orders, trial brief filing as auditable actions |
 | `ProvenanceRecord` | Source PDF/docket entry → graph extraction |
 | `ObservableObject` + `FileFacet` | Trial brief PDF, docket export, exhibit devices |
@@ -39,25 +39,25 @@ Use when the source includes:
 ```
 uco-core:Bundle
   ├── CACInvestigation
-  │     └── Relates_To ──▶ FederalProsecution
+  │     └── Related_To ──▶ FederalProsecution
   │
   ├── FederalProsecution
-  │     ├── hasLegalPhase ──▶ PreTrialPhase
-  │     │     ├── supersededBy ──▶ SupersedingIndictment (Relationship)
-  │     │     ├── competencyProceeding ──▶ CompetencyEvent(s)
-  │     │     └── detentionOrder ──▶ DetentionEvent
-  │     └── hasLegalPhase ──▶ TrialPhase
-  │           └── anticipatedEvidence ──▶ TrialBrief (ObservableObject)
+  │     ├── cacontology-usa-federal-law:hasLegalPhase ──▶ PreTrialPhase
+  │     │     ├── Related_To ──▶ SupersedingIndictment (description: supersedes original)
+  │     │     ├── Related_To ──▶ LegalEvent (competency proceeding)
+  │     │     └── Related_To ──▶ LegalProceeding (detention order)
+  │     └── cacontology-usa-federal-law:hasLegalPhase ──▶ TrialPhase
+  │           └── Related_To ──▶ TrialBrief (ObservableObject)
   │
   ├── OriginalIndictment (MultiDefendantIndictment)
-  │     └── supersededBy ──▶ SupersedingIndictment
+  │     └── Related_To ──▶ SupersedingIndictment (description: supersedes original)
   │
   ├── SupersedingIndictment
-  │     └── Relates_To ──▶ each FederalCharge
+  │     └── Related_To ──▶ each FederalCharge
   │
   └── InvestigativeAction (TrialBriefFiling)
-        ├── object ──▶ TrialBrief PDF
-        └── result ──▶ anticipated exhibit list (in description or linked IRIs)
+        ├── uco-action:object ──▶ TrialBrief PDF
+        └── uco-action:result ──▶ anticipated exhibit list (in description or linked IRIs)
 ```
 
 ## Superseding indictment chain
@@ -65,7 +65,7 @@ uco-core:Bundle
 When a case moves from an original indictment to a superseding instrument:
 
 1. Model **both** instruments as separate `MultiDefendantIndictment` nodes with filing dates and ECF/document numbers in `uco-core:description`.
-2. Link original → superseding via `uco-core:Relationship` (`supersededBy` or `Relates_To` with kind `Supersedes`).
+2. Link original → superseding with a directional `uco-core:Relationship` using registered kind `Related_To`; state "supersedes original indictment" in `uco-core:description`.
 3. Wire **active charges** only to the superseding indictment; retain original counts as historical nodes only if the docket shows they were dismissed or replaced — otherwise omit duplicate charge nodes.
 4. Update `FederalProsecution` → charging instrument edge to point at the **current** superseding indictment.
 5. Record count delta in investigation focus or prosecution description (e.g., "2 counts → 12 counts superseding 2024-07-25").
@@ -88,7 +88,7 @@ Extract auditable events from PACER docket text:
 | Motion to compel / dismiss | `InvestigativeAction` with performer = filing party |
 | Detention granted | Link to defendant `Person`; document no-bond conditions |
 | Trial date set / continued | `TrialPhase` temporal bounds; link trial brief filing date |
-| Counsel change / terminated | Update `Person` role description or separate `AttorneyRole` nodes |
+| Counsel change / terminated | Update `Person` role description or use the declared `cacontology-legal-outcomes:DefenseAttorneyRole` when applicable |
 
 Do not flatten the entire docket into one Bundle description — create **queryable event nodes** for milestones agents will ask about (competency resolved, superseding filed, trial scheduled).
 
@@ -107,20 +107,20 @@ Government trial briefs (e.g., Doc 188) describe **what will be introduced at tr
 
 ```
 TrialBrief (Doc 188)
-  └── anticipates ──▶ MinorVictim-2 testimony
-        ├── supports ──▶ FederalCharge (Counts 3, 4, 5)
-        ├── corroboratedBy ──▶ Grindr messages (ObservableObject)
-        └── corroboratedBy ──▶ rideshare records (ObservableObject)
+  └── Related_To ──▶ MinorVictim-2 testimony
+        ├── Related_To ──▶ FederalCharge (Counts 3, 4, 5)
+        ├── Related_To ──▶ Grindr messages (ObservableObject)
+        └── Related_To ──▶ rideshare records (ObservableObject)
 ```
 
 ## Relationship checklist
 
 | # | Edge | When | Pattern |
 |---|---|---|---|
-| T1 | Original → superseding indictment | Superseding filed | `supersededBy` or `Relates_To` between instruments |
-| T2 | Active prosecution → current instrument | Always | `FederalProsecution` `Relates_To` latest superseding indictment |
-| T3 | Trial brief → charges | Trial brief sourced | Brief section `Relates_To` each `FederalCharge` it discusses |
-| T4 | Trial brief → victims | Per-victim sections | Brief `Relates_To` victim role nodes |
+| T1 | Original → superseding indictment | Superseding filed | Directional `Related_To` between instruments with supersession stated in description |
+| T2 | Active prosecution → current instrument | Always | `FederalProsecution` `Related_To` latest superseding indictment |
+| T3 | Trial brief → charges | Trial brief sourced | Brief section `Related_To` each `FederalCharge` it discusses |
+| T4 | Trial brief → victims | Per-victim sections | Brief `Related_To` victim role nodes |
 | T5 | Competency → defendant | § 4241 docket entries | Competency event linked to defendant `Person` |
 | T6 | Docket milestone dates | PACER export | Temporal literals on phase and action nodes |
 | T7 | Anticipated exhibits → devices | Brief lists ECF/stems | Exhibit ID → `ObservableObject` with `FileFacet` |
@@ -176,14 +176,15 @@ prosecution = graph.add_node("kb:prosecution-1", "cacontology-usa-federal-law:Fe
 graph.add_node("kb:rel-supersede", "uco-core:Relationship", {
     "uco-core:source": {"@id": "kb:indictment-original"},
     "uco-core:target": {"@id": "kb:indictment-superseding"},
-    "uco-core:kindOfRelationship": "supersededBy",
+    "uco-core:kindOfRelationship": "Related_To",
+    "uco-core:description": "The target supersedes the source indictment.",
     "uco-core:isDirectional": {"@type": "xsd:boolean", "@value": "true"},
 })
 
 graph.add_node("kb:rel-prosecution-current", "uco-core:Relationship", {
     "uco-core:source": {"@id": "kb:prosecution-1"},
     "uco-core:target": {"@id": "kb:indictment-superseding"},
-    "uco-core:kindOfRelationship": "Relates_To",
+    "uco-core:kindOfRelationship": "Related_To",
     "uco-core:isDirectional": {"@type": "xsd:boolean", "@value": "true"},
 })
 

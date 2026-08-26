@@ -18,11 +18,11 @@ Model forensic tools with specific configurations — command-line flags, rulese
 ```
 AnalyticTool (base tool)
     ▲
-    │ isConfigurationOf
+    │ uco-configuration:isConfigurationOf
     │
 ConfiguredTool
     │
-    └── usesConfiguration ──▶ Configuration
+    └── uco-configuration:usesConfiguration ──▶ Configuration
                                    └── ConfigurationEntry (flag/value pairs)
                                    └── ConfigurationEntry (itemObject → File for rulesets)
 ```

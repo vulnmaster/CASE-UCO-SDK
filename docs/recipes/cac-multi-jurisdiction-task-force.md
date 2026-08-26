@@ -24,8 +24,8 @@ Model ICAC task forces, joint investigations, jurisdictional handoffs, and mass 
 
 ```
 TaskForce
-  ├── participatesIn ──▶ JointInvestigation
-  └── includes ──▶ FederalJurisdiction + StateJurisdiction + LocalJurisdiction
+  ├── Related_To ──▶ JointInvestigation (description: task force participates in investigation)
+  └── Related_To ──▶ FederalJurisdiction + StateJurisdiction + LocalJurisdiction (description: participating jurisdictions)
 
 MassChildRescueOperation
   ├── JurisdictionalHandoff (state → federal lead)

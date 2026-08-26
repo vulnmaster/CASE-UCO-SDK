@@ -401,6 +401,28 @@ def test_promotion_respects_deployment_profile(tmp_path, monkeypatch):
 # Governed recipe promotion (issue #56)
 # ---------------------------------------------------------------------------
 
+class _RecipeLintResult:
+    def __init__(self, ok: bool, findings: list[dict] | None = None):
+        self.ok = ok
+        self._findings = findings or []
+
+    def to_dict(self) -> dict:
+        return {"ok": self.ok, "findings": self._findings}
+
+
+@pytest.fixture(autouse=True)
+def _stub_recipe_ontology_lint(monkeypatch):
+    """Minimal temp workspaces do not vendor the repository ontology closure."""
+
+    import recipe_lint
+
+    monkeypatch.setattr(
+        recipe_lint,
+        "lint_recipes",
+        lambda **_kwargs: _RecipeLintResult(True),
+    )
+
+
 CANDIDATE_RECIPE = """\
 # Synthetic Learned Pattern
 
@@ -493,6 +515,31 @@ def test_promote_recipe_moves_and_registers(tmp_path, monkeypatch):
         e["file"] == "docs/recipes/synthetic-learned-pattern.md"
         for e in namespace["RECIPE_INDEX"]
     )
+
+
+def test_promote_recipe_rejects_ontology_lint_failure(tmp_path, monkeypatch):
+    root = _recipe_workspace(tmp_path)
+    import recipe_lint
+
+    monkeypatch.setattr(
+        recipe_lint,
+        "lint_recipes",
+        lambda **_kwargs: _RecipeLintResult(
+            False,
+            [{"code": "undeclared_class", "term": "cacontology-sextortion:SextortionScheme"}],
+        ),
+    )
+    result = knowledge_lifecycle.promote_recipe(
+        "synthetic-learned-pattern",
+        description="Synthetic learned pattern for lifecycle tests.",
+        keywords="synthetic learned pattern",
+        project_root=root,
+        reviewed_by="Jane Reviewer",
+    )
+    assert result["ok"] is False
+    assert result["error"] == "recipe_ontology_lint_failed"
+    assert result["detail"]["findings"][0]["term"].endswith("SextortionScheme")
+    assert (root / "docs/recipes/candidates/synthetic-learned-pattern.md").is_file()
 
 
 def test_promote_recipe_rejects_missing_execution_metadata(tmp_path, monkeypatch):

@@ -214,7 +214,7 @@ def build() -> CASEGraph:
         Relationship,
         source=[person],
         target=account,
-        kind_of_relationship="attributed-controller",
+        kind_of_relationship="Related_To",
         description=["Investigative hypothesis: Alex controlled the shared account (medium confidence)."],
         is_directional=True,
     )
@@ -222,7 +222,7 @@ def build() -> CASEGraph:
         Relationship,
         source=[person2],
         target=account,
-        kind_of_relationship="attributed-controller",
+        kind_of_relationship="Related_To",
         description=["Investigative hypothesis: Jordan also controlled the shared account (medium confidence)."],
         is_directional=True,
     )

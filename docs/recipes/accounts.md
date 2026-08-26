@@ -14,23 +14,23 @@ Model a person's online accounts across multiple platforms (social media, email,
 | `EmailAddress` + `EmailAddressFacet` | An email address observable |
 | `ApplicationAccountFacet` | Links an account to its application |
 | `AccountAuthenticationFacet` | Credentials (password, last changed) |
-| `Relationship` | Links person to accounts (`Has_Account`), and accounts to each other (`Associated_Account`) |
+| `Relationship` | Links accounts to each other with registered `Related_To` when a cross-platform association is asserted |
 
 ## Pattern
 
 ```
-Person (Identity)
-    │
-    ├── Has_Account ──▶ DigitalAccount (Facebook)
-    │                        ├── DigitalAccountFacet (login, display name)
-    │                        ├── AccountAuthenticationFacet (password)
-    │                        └── ApplicationAccountFacet (→ Application)
-    │
-    ├── Has_Account ──▶ EmailAccount
-    │                        ├── AccountFacet (identifier)
-    │                        └── EmailAccountFacet (→ EmailAddress)
-    │
-    └── Associated_Account ──▶ links between accounts on different platforms
+DigitalAccount (Facebook)
+    ├── AccountFacet ── uco-observable:owner ──▶ Person (Identity)
+    ├── DigitalAccountFacet (login, display name)
+    ├── AccountAuthenticationFacet (password)
+    └── ApplicationAccountFacet (→ Application)
+
+EmailAccount
+    ├── AccountFacet ── uco-observable:owner ──▶ Person (Identity)
+    └── EmailAccountFacet (→ EmailAddress)
+
+DigitalAccount ── Related_To ──▶ EmailAccount
+    description: source evidence supports a cross-platform association
 ```
 
 <details open><summary>Python</summary>
@@ -72,6 +72,7 @@ account = graph.create(ObservableObject,
         AccountFacet(
             account_identifier="...",  # username/ID from source
             account_issuer=org,
+            owner=person,
             is_active=True,
         ),
         DigitalAccountFacet(
@@ -97,28 +98,16 @@ email_addr = graph.create(ObservableObject,
 # An email account
 email_acct = graph.create(ObservableObject,
     has_facet=[
-        AccountFacet(account_identifier="..."),
+        AccountFacet(account_identifier="...", owner=person),
         EmailAccountFacet(email_address=email_addr),
     ],
 )
 
-# Link person to accounts
-graph.create(Relationship,
-    source=[person], target=account,
-    kind_of_relationship="Has_Account",
-    is_directional=True,
-)
-
-graph.create(Relationship,
-    source=[person], target=email_acct,
-    kind_of_relationship="Has_Account",
-    is_directional=True,
-)
-
-# Link accounts to each other (cross-platform association)
+# Link accounts to each other only when source evidence supports attribution.
 graph.create(Relationship,
     source=[account], target=email_acct,
-    kind_of_relationship="Associated_Account",
+    kind_of_relationship="Related_To",
+    description=["Source evidence supports a cross-platform account association."],
     is_directional=False,
 )
 
@@ -131,7 +120,7 @@ graph.write("accounts.jsonld")
 
 - `Person` is a subclass of `Identity`. Use `SimpleNameFacet` for structured name parts (`given_name`, `family_name` are `list[str]`).
 - `AccountAuthenticationFacet` stores credentials. Only include if the source data contains extracted passwords.
-- For multiple accounts, repeat the account creation + `Has_Account` relationship pattern for each platform.
+- For multiple accounts, set `uco-observable:owner` through each account's `AccountFacet`; add `Related_To` only for a separately supported cross-platform association.
 
 ## Related
 

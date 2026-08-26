@@ -22,9 +22,9 @@ The `call_type` field on `CallFacet` typically holds values like `"Incoming"`, `
 ## Pattern
 
 ```
-PhoneAccount (caller)  ──from──▶  Call + CallFacet  ◀──to──  PhoneAccount (recipient)
+PhoneAccount (caller)  ──uco-observable:from──▶  Call + CallFacet  ◀──uco-observable:to──  PhoneAccount (recipient)
                                        │
-                                       └── application ──▶ Application (dialer/VoIP app)
+                                       └── uco-observable:application ──▶ Application (dialer/VoIP app)
 ```
 
 <details open><summary>Python</summary>

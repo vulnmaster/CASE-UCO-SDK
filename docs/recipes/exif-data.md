@@ -27,9 +27,9 @@ File + FileFacet + ContentDataFacet + RasterPictureFacet + EXIFFacet
 Device + DeviceFacet (camera)
 
 InvestigativeAction (photo examination)
-    ├── object ──▶ File
-    ├── instrument ──▶ AnalyticTool (ExifTool, etc.)
-    └── result ──▶ analysis outputs
+    ├── uco-action:object ──▶ File
+    ├── uco-action:instrument ──▶ AnalyticTool (ExifTool, etc.)
+    └── uco-action:result ──▶ analysis outputs
 ```
 
 <details open><summary>Python</summary>

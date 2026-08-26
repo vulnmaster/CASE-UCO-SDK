@@ -24,14 +24,14 @@ Model a spear-phishing attack narrative — the delivery chain from initial emai
 ```
 Person (attacker)
     │
-    └── sends ──▶ EmailMessage (phishing email)
-                      ├── from ──▶ EmailAddress (spoofed sender)
-                      ├── to ──▶ EmailAddress (victim)
-                      └── contains ──▶ URL (malicious link)
+    └── Sent ──▶ EmailMessage (phishing email)
+                      ├── uco-observable:from ──▶ EmailAddress (spoofed sender)
+                      ├── uco-observable:to ──▶ EmailAddress (victim)
+                      └── Contains ──▶ URL (malicious link)
                                           │
-                                          └── delivers ──▶ File (malware payload)
+                                          └── Related_To ──▶ File (description: URL delivered payload)
                                                               │
-                                                              └── executes on ──▶ Device (victim machine)
+                                                              └── Related_To ──▶ Device (description: payload executed on device)
 ```
 
 <details open><summary>Python</summary>
@@ -126,26 +126,30 @@ graph.create(Relationship,
 
 graph.create(Relationship,
     source=[malicious_url], target=payload,
-    kind_of_relationship="Delivers",
+    kind_of_relationship="Related_To",
+    description=["The source URL delivered the target payload."],
     is_directional=True,
 )
 
 graph.create(Relationship,
     source=[payload], target=victim_device,
-    kind_of_relationship="Executed_On",
+    kind_of_relationship="Related_To",
+    description=["The source payload executed on the target device."],
     is_directional=True,
 )
 
 # Link victim person to their role and device
 graph.create(Relationship,
     source=[victim_person], target=victim_role,
-    kind_of_relationship="has-role",
+    kind_of_relationship="Related_To",
+    description=["The source person bears the target victim role."],
     is_directional=True,
 )
 
 graph.create(Relationship,
     source=[victim_person], target=victim_device,
-    kind_of_relationship="Owner_Of",
+    kind_of_relationship="Related_To",
+    description=["The source person owns or controls the target device according to the evidence."],
     is_directional=True,
 )
 
@@ -171,7 +175,7 @@ graph.write("spear_phishing.jsonld")
 
 - `MaliciousTool` is a subclass of `Tool` — use it for malware, exploit kits, and offensive tools.
 - `Victim` is from `case_uco.uco.victim` — it's a `Role` subclass for the targeted party.
-- The attack chain is modeled as directional `Relationship` objects with descriptive `kind_of_relationship` values.
+- Use registered `Sent` and `Contains` where their semantics match. Use registered `Related_To` with a precise `description` for delivery, execution, role, and ownership assertions that lack a declared direct property.
 - The CASE-Examples version uses an `ep:` (Endpoint Protection) extended ontology for `ObservableAction` and `Event` types. For standard CASE/UCO, model each attack step as a `Relationship` or `Action` instead.
 - For incident response workflows, add `InvestigativeAction` nodes for detection, containment, eradication, and recovery steps.
 

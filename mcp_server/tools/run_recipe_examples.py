@@ -36,6 +36,31 @@ DEFAULT_TIMEOUT_SECONDS = 120
 _logger = logging.getLogger(__name__)
 
 
+def _repo_import_paths() -> tuple[str, str]:
+    """Return checkout paths needed by builders and validation imports."""
+    return str(ROOT / "python"), str(ROOT / "mcp_server")
+
+
+def _ensure_repo_import_paths() -> None:
+    """Make checkout packages importable when this file is run as a script."""
+    for path in reversed(_repo_import_paths()):
+        if path not in sys.path:
+            sys.path.insert(0, path)
+
+
+def _repo_subprocess_env() -> dict[str, str]:
+    """Return a child environment with checkout packages first on PYTHONPATH."""
+    env = os.environ.copy()
+    repo_paths = list(_repo_import_paths())
+    inherited = [
+        path
+        for path in env.get("PYTHONPATH", "").split(os.pathsep)
+        if path and path not in repo_paths
+    ]
+    env["PYTHONPATH"] = os.pathsep.join([*repo_paths, *inherited])
+    return env
+
+
 def _package_version(dist_name: str) -> str | None:
     try:
         from importlib.metadata import PackageNotFoundError, version
@@ -133,7 +158,7 @@ def _lint_relationship_kinds_if_present(
         return True
     lint_report = lint_relationship_kinds(
         graph_doc,
-        allow_open_vocabulary=True,
+        allow_open_vocabulary=False,
     )
     result["relationship_kind_lint"] = lint_report
     if not lint_report.get("ok", True):
@@ -324,15 +349,11 @@ def _run_entry_body(
         shutil.copy2(builder, tmp_builder)
         _copy_support_into_workspace(entry, tmp_dir)
 
-        env = os.environ.copy()
-        path_parts = [str(ROOT / "python"), str(ROOT / "mcp_server")]
-        if env.get("PYTHONPATH"):
-            path_parts.append(env["PYTHONPATH"])
-        env["PYTHONPATH"] = os.pathsep.join(path_parts)
+        inherited_pythonpath = os.environ.get("PYTHONPATH")
+        env = _repo_subprocess_env()
         result["pythonpath"] = env["PYTHONPATH"]
         result["pythonpath_components"] = ["repo:python", "repo:mcp_server"]
-        if env.get("PYTHONPATH") and env["PYTHONPATH"].count(os.pathsep) >= 2:
-            # Extra path segments beyond the two repo roots (caller-supplied).
+        if inherited_pythonpath:
             result["pythonpath_components"].append("env:PYTHONPATH")
 
         cmd = [python_exe, str(tmp_builder)]
@@ -398,7 +419,7 @@ def _run_entry_body(
             result["error"] = "validation_profiles_required"
             return
 
-        sys.path.insert(0, str(ROOT / "mcp_server"))
+        _ensure_repo_import_paths()
         from graph_validator import validate_graph_file, validator_available
 
         if not validator_available():

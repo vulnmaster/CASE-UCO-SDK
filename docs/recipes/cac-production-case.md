@@ -14,35 +14,35 @@ When the source is a **federal court filing** (indictment, complaint) alleging p
 
 | Class | Role |
 |---|---|
-| `ProductionCase` | Overarching production offense container |
-| `ProducedImage` / `ProducedVideo` | Offender-produced media (multi-typed observables) |
-| `ProductionEnvironment` | Location/setup where production occurred |
-| `MobileRecordingDevice` / `RecordingEquipment` | Cameras, phones used to produce material |
-| `ChildVictim` | Victim identity |
-| `ForensicAcquisitionAction` | Evidence collection from production site |
-| `CSAMIncident` | Conduct event when modeled at incident level |
-| `AssetForfeitureAction` | Device/proceeds forfeiture when alleged in filings |
+| `cacontology-production:ProductionOffense` | Overarching production conduct event |
+| `cacontology-production:ProducedImage` / `ProducedVideo` | Offender-produced media (multi-typed observables) |
+| `cacontology-production:ProductionLocation` / `ControlledEnvironment` | Location/setup where production occurred |
+| `cacontology-production:MobileRecordingDevice` / `ProductionEquipment` | Cameras and phones used to produce material |
+| `cacontology-production:ProductionVictim` | Victim role in the production offense |
+| `cacontology-forensics:ForensicAcquisitionAction` | Evidence collection from production site |
+| `cacontology:CSAMIncident` | Conduct event when modeled at incident level |
+| `cacontology-asset-forfeiture:AssetForfeitureAction` | Device/proceeds forfeiture when alleged in filings |
 
 ## Canonical pattern
 
 ```
-ProductionCase (or CSAMIncident)
-  ├── involves ──▶ ChildVictim / VictimRole
-  ├── occurredAt ──▶ ProductionEnvironment
-  ├── usesEquipment ──▶ MobileRecordingDevice
-  └── evidencedBy ──▶ ProducedImage / ProducedVideo
-        └── ContentDataFacet (hashes required)
+cacontology-production:ProductionOffense
+  ├── cacontology-production:involvesVictim ──▶ ProductionVictim
+  ├── cacontology-production:producedAt ──▶ ProductionLocation
+  ├── cacontology-production:usesEquipment ──▶ MobileRecordingDevice
+  └── cacontology-production:produces ──▶ ProducedImage / ProducedVideo
+        └── uco-core:hasFacet ──▶ ContentDataFacet (hashes required)
 
 AssetForfeitureAction
-  ├── targetedAsset ──▶ each enumerated MobileRecordingDevice
-  └── relatedCriminalCharges ──▶ FederalCharge nodes
+  ├── cacontology-asset-forfeiture:targetedAsset ──▶ each enumerated MobileRecordingDevice
+  └── cacontology-asset-forfeiture:relatedCriminalCharges ──▶ FederalCharge nodes
 ```
 
 ## Modeling rules
 
 - Multi-type produced media as `ObservableObject` + `ProducedImage`/`ProducedVideo`.
 - Physical equipment → `MobileRecordingDevice` with `deviceBrand` and `deviceModel` when known.
-- Link conduct to equipment: `cacontology-production:usesEquipment` on production offense classes, or `uco-core:Relationship` (`used_equipment`) on `CSAMIncident`.
+- Link conduct to equipment with `cacontology-production:usesEquipment` on `ProductionOffense`. If the source only supports a generic `CSAMIncident`, use registered `Related_To` and explain the equipment basis in `uco-core:description`.
 - When forfeiture is alleged, link **each named device** via `targetedAsset` — not only a generic aggregate asset stub.
 - Add `relatedCriminalCharges` on `AssetForfeitureAction` linking to supporting `FederalCharge` nodes (CAC SHACL requires this).
 - Always pair produced artifacts with forensic acquisition when post-seizure context exists — see [cac-csam-forensic-provenance.md](cac-csam-forensic-provenance.md).
@@ -68,15 +68,9 @@ device = graph.add_node("kb:device-1", [
     "cacontology-production:deviceModel": "Galaxy S21 Ultra",
 })
 
-csam = graph.add_node("kb:csam-1", "cacontology:CSAMIncident", {
+production = graph.add_node("kb:production-1", "cacontology-production:ProductionOffense", {
     "uco-core:name": "Alleged CSAM production",
-})
-
-graph.add_node("kb:rel-device", "uco-core:Relationship", {
-    "uco-core:source": {"@id": "kb:csam-1"},
-    "uco-core:target": {"@id": "kb:device-1"},
-    "uco-core:kindOfRelationship": "used_equipment",
-    "uco-core:isDirectional": {"@type": "xsd:boolean", "@value": "true"},
+    "cacontology-production:usesEquipment": {"@id": "kb:device-1"},
 })
 
 graph.write("production-case.jsonld")

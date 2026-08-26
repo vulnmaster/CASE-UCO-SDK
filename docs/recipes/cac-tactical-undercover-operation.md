@@ -25,7 +25,7 @@ For **routine ICAC search warrant arrests** (custody without incident, no SWAT),
 
 ```
 ThreatAssessment + SuspectProfile
-  └── inform ──▶ HighRiskArrest
+  └── Related_To ──▶ HighRiskArrest (description: pre-operational assessment informs arrest)
         ├── DynamicEntry
         ├── UndercoverOperation (when applicable)
         └── AssetForfeitureAction (seized property)

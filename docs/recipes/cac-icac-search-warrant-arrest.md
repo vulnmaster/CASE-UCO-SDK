@@ -47,21 +47,21 @@ Do **not** use `HighRiskArrest` or `DynamicEntry` when the narrative explicitly 
 
 ```
 MarylandICACtaskForce
-  └── partnersWith ──▶ MarylandStatePoliceComputerCrimesUnit + county PD
+  └── cacontology-taskforce:partnersWith ──▶ MarylandStatePoliceComputerCrimesUnit + county PD
 
 CACInvestigation
-  ├── hasStep ──▶ InvestigativeAction (CCU + ICAC co-performers)
-  ├── Concerns ──▶ OnlineGrooming (performer = suspect, targetsVictim = minor)
-  ├── Concerns ──▶ OnlinePurchase (performer = suspect)
-  └── hasPhase ──▶ InitialPhase → LegalProcessPhase → ConclusionPhase
+  ├── cacontology:hasStep ──▶ InvestigativeAction (CCU + ICAC co-performers)
+  ├── Related_To ──▶ OnlineGrooming (description: investigation concerns grooming)
+  ├── Related_To ──▶ OnlinePurchase (description: investigation concerns procurement)
+  └── cacontology:hasPhase ──▶ InitialPhase → LegalProcessPhase → ConclusionPhase
 
 InvestigativeAction (CCU investigation, April → December)
-  └── result ──▶ InvestigativeAction (search warrant execution)
-        ├── authorization ──▶ Authorization (warrant)
-        ├── performer ──▶ Child Exploitation Unit + county PD
-        └── result ──▶ ArrestOperation (warrant_arrest, resistanceExpected=false)
-              └── result ──▶ BookingAction
-                    └── location ──▶ CorrectionalFacility
+  └── uco-action:result ──▶ InvestigativeAction (search warrant execution)
+        ├── case-investigation:relevantAuthorization ──▶ Authorization (warrant)
+        ├── uco-action:performer ──▶ Child Exploitation Unit + county PD
+        └── uco-action:result ──▶ ArrestOperation (warrant_arrest, resistanceExpected=false)
+              └── uco-action:result ──▶ BookingAction
+                    └── uco-action:location ──▶ CorrectionalFacility
 ```
 
 ## Modeling rules
@@ -71,7 +71,7 @@ InvestigativeAction (CCU investigation, April → December)
 - Model **CCU performer** as one `MarylandStatePoliceComputerCrimesUnit` node with `uco-identity:Organization` + `uco-core:UcoObject` — do not duplicate a second CCU node for performer SHACL.
 - Add **ICAC task force** and warrant-executing units (MSP Child Exploitation Unit, county PD) as **co-performers** when the narrative describes joint development or execution.
 - Link **suspect → criminal acts**: `uco-action:performer` on `OnlineGrooming` and `OnlinePurchase` pointing to the suspect `Person`.
-- Link **investigation scope → activities**: `cacontology:hasStep` to the main `InvestigativeAction`; add an **evidence-development** `InvestigativeAction` whose description references grooming/procurement IRIs and chains via `wasInformedBy` / `result`. Use `uco-core:Relationship` (`Concerns`) only when both endpoints are `UcoObject` (SHACL).
+- Link **investigation scope → activities**: `cacontology:hasStep` to the main `InvestigativeAction`; add an **evidence-development** `InvestigativeAction` whose description references grooming/procurement IRIs and chains via `wasInformedBy` / `result`. Use registered `Related_To` only when both endpoints are `UcoObject` (SHACL), and state that the investigation concerns the activity in `uco-core:description`.
 - **Populate phases**: use typed `cacontology:InitialPhase`, `LegalProcessPhase`, `ConclusionPhase` with `xsd:dateTimeStamp` on `hasPhaseBeginPoint` / `hasPhaseEndPoint`, `cacontology:occursDuringPhase` on actions, and `cacontology:transitionsTo` between phases.
 - **One performer per InvestigativeAction** (CAC SHACL `maxCount 1`); document joint ICAC/county agency participation in action descriptions or `partnersWith`.
 - Link **suspect residence** on suspect description and warrant `uco-action:location`.
@@ -96,7 +96,7 @@ graph = CASEGraph(extra_context={
 
 inv = graph.add_node("kb:inv-1", [
     "case-investigation:Investigation", "cacontology:CACInvestigation",
-], {"case-investigation:name": "Maryland ICAC Annapolis Solicitation Case"})
+], {"uco-core:name": "Maryland ICAC Annapolis Solicitation Case"})
 
 arrest = graph.add_node("kb:arrest-1", [
     "case-investigation:InvestigativeAction",

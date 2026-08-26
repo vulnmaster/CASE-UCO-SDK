@@ -212,6 +212,88 @@ def test_pythonpath_uses_os_pathsep(monkeypatch, tmp_path):
     assert result["python_executable"] == sys.executable
 
 
+@pytest.mark.parametrize("conforms", [True, False])
+def test_validation_uses_checkout_import_paths_and_fails_closed(
+    conforms, tmp_path, monkeypatch
+):
+    checkout = tmp_path / "checkout"
+    sdk_package = checkout / "python" / "case_uco"
+    sdk_package.mkdir(parents=True)
+    (sdk_package / "__init__.py").write_text("MARKER = 'checkout'\n", encoding="utf-8")
+
+    validator_module = checkout / "mcp_server" / "graph_validator.py"
+    validator_module.parent.mkdir(parents=True)
+    validator_module.write_text(
+        "import case_uco\n"
+        "from types import SimpleNamespace\n"
+        "def validator_available():\n"
+        "    return True\n"
+        "def validate_graph_file(*args, **kwargs):\n"
+        "    return SimpleNamespace(\n"
+        f"        conforms={conforms!r},\n"
+        "        verification_status='complete',\n"
+        "        safe_summary='validator ran',\n"
+        "        bundle_fingerprint='test-bundle',\n"
+        "        selected_profiles=('bfo',),\n"
+        f"        exit_code={0 if conforms else 1},\n"
+        "    )\n",
+        encoding="utf-8",
+    )
+
+    recipe = checkout / "docs" / "recipes" / "INDEX.md"
+    recipe.parent.mkdir(parents=True)
+    recipe.write_text("# Test recipe\n", encoding="utf-8")
+    builder = checkout / "example" / "build.py"
+    builder.parent.mkdir(parents=True)
+    builder.write_text(
+        "from pathlib import Path\n"
+        "HERE = Path(__file__).resolve().parent\n"
+        "(HERE / 'out.ttl').write_text(\n"
+        "    '<urn:a> <urn:b> <urn:c> .\\n', encoding='utf-8'\n"
+        ")\n",
+        encoding="utf-8",
+    )
+
+    for name in tuple(sys.modules):
+        if name == "graph_validator" or name == "case_uco" or name.startswith(
+            "case_uco."
+        ):
+            monkeypatch.delitem(sys.modules, name, raising=False)
+    checkout_sdk = (PROJECT_ROOT / "python").resolve()
+    monkeypatch.setattr(
+        sys,
+        "path",
+        [
+            path
+            for path in sys.path
+            if not path or Path(path).resolve() != checkout_sdk
+        ],
+    )
+    monkeypatch.setattr(runner, "ROOT", checkout)
+
+    result = runner.run_entry(
+        {
+            "id": "checkout-validation",
+            "category": "test",
+            "recipe": "docs/recipes/INDEX.md",
+            "builder": "example/build.py",
+            "output": "example/out.ttl",
+            "profiles": ["bfo"],
+            "strict_concepts": True,
+        },
+        validate=True,
+    )
+
+    assert result["conforms"] is conforms
+    assert result["validator_exit_code"] == (0 if conforms else 1)
+    if conforms:
+        assert result["ok"] is True
+        assert "error" not in result
+    else:
+        assert result["ok"] is False
+        assert result["error"] == "validation_failed"
+
+
 def test_competency_bindings_not_count_alone(tmp_path):
     import rdflib
 
@@ -302,6 +384,32 @@ def test_negative_expectation_matcher():
     assert runner._match_negative_expectation({}, diagnostics) == (
         "expect_invalid_missing_expectation"
     )
+
+
+def test_recipe_execution_rejects_unregistered_relationship_kind(tmp_path):
+    graph = tmp_path / "relationship.jsonld"
+    graph.write_text(
+        json.dumps(
+            {
+                "@context": {
+                    "kb": "http://example.org/kb/",
+                    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+                },
+                "@graph": [
+                    {
+                        "@id": "kb:rel",
+                        "@type": "uco-core:Relationship",
+                        "uco-core:kindOfRelationship": "Relates_To",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result: dict[str, Any] = {}
+    assert runner._lint_relationship_kinds_if_present(graph, result) is False
+    assert result["error"] == "relationship_kind_lint_failed"
+    assert result["relationship_kind_lint"]["findings"][0]["severity"] == "error"
 
 
 def test_support_files_copied(tmp_path, monkeypatch):

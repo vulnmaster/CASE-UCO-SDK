@@ -14,30 +14,30 @@ Model sextortion schemes where offenders coerce minors through threats to share 
 
 | Class | Role |
 |---|---|
-| `SextortionScheme` | Overarching coercion behavior |
-| `CoercionDemand` / `FinancialExtortionDemand` | Demand events |
-| `CompliancePressure` | Escalating pressure on the victim |
-| `ThreatToDisclose` | Threat to publish explicit material |
-| `ChildVictim` / `OnlinePredator` | Role-bearing identities |
+| `cacontology-sextortion:SextortionIncident` | Overarching coercion event |
+| `cacontology-sextortion:ExtortionDemand` / `MonetaryDemand` | Content or financial demand objects |
+| `cacontology-sextortion:ProgressiveEscalation` | Escalating manipulation of the victim |
+| `cacontology-sextortion:SharingThreat` / `ImageLeakThreat` | Threats to publish explicit material |
+| `cacontology-grooming:ChildVictim` / `cacontology-grooming:OnlinePredator` | Role-bearing identities |
 | `Message` / `RasterPicture` | Digital evidence artifacts |
-| `OffenderRole` / `VictimRole` | CAC role objects via `has-role` |
+| `OffenderRole` / `VictimRole` | CAC role objects linked from identities via registered `Related_To` relationships with bearer-role descriptions |
 | `FederalCharge` | Numbered counts (CSEA, cyberstalking, fraud) |
 | `FederalProsecution` / `MultiDefendantIndictment` | Court filing structure |
 | `ChildExploitationEnterprise` | When § 2252A(g) alleged alongside sextortion |
-| `ExtraditionProcess` | Defendant abroad → U.S. prosecution |
+| `cacontology-multi-jurisdiction:ExtraditionRequest` | Formal extradition request when declared by the source |
 | `InternationalJurisdiction` / `Location` | Foreign residence and filing court |
 
 ## Canonical pattern (Layer 2 conduct)
 
 ```
 MessageThread (evidence)
-  └── interpreted as ──▶ SextortionScheme
-        ├── ThreatToDisclose
-        ├── CoercionDemand
-        ├── CompliancePressure
-        ├── Impersonation (posed as peer/influencer)
-        └── used_platform ──▶ Instagram / Snapchat / Dropbox
-              └── targets ──▶ ChildVictim (Identity + VictimRole)
+  └── Related_To ──▶ cacontology-sextortion:SextortionIncident
+        ├── cacontology-sextortion:employsThreat ──▶ SharingThreat / ImageLeakThreat
+        ├── cacontology-sextortion:makesDemand ──▶ ExtortionDemand / MonetaryDemand
+        ├── cacontology-sextortion:usesManipulation ──▶ ProgressiveEscalation
+        ├── cacontology-sextortion:involvesDeception ──▶ IdentityImpersonation
+        ├── cacontology-sextortion:conductsOnPlatform ──▶ InstantMessagingPlatform
+        └── uco-action:object ──▶ ChildVictim (Identity + VictimRole)
 ```
 
 ## Federal prosecution bridge (Layer 3)
@@ -46,61 +46,61 @@ Sextortion indictments often **stack** non-CSEA counts on top of exploitation ch
 
 ```
 uco-core:Bundle
-  ├── SextortionScheme
-  │     ├── Relates_To ◀── FederalCharge (cyberstalking § 2261A)
-  │     ├── Relates_To ◀── FederalCharge (wire fraud § 1343)
-  │     └── used_platform ──▶ platform nodes
+  ├── SextortionIncident
+  │     ├── Related_To ◀── FederalCharge (cyberstalking § 2261A)
+  │     ├── Related_To ◀── FederalCharge (wire fraud § 1343)
+  │     └── cacontology-sextortion:conductsOnPlatform ──▶ platform nodes
   │
   ├── FederalProsecution
-  │     └── Relates_To ──▶ MultiDefendantIndictment
+  │     └── Related_To ──▶ MultiDefendantIndictment
   │
   ├── FederalCharge (Count 1 — conspiracy to produce)
-  │     └── Relates_To ──▶ SextortionScheme / CSAMIncident
+  │     └── Related_To ──▶ SextortionIncident / CSAMIncident
   │
   ├── FederalCharge (Count 3 — enterprise § 2252A(g))
-  │     └── Relates_To ──▶ ChildExploitationEnterprise
+  │     └── Related_To ──▶ ChildExploitationEnterprise
   │
   ├── FederalCharge (Count 6 — cyberstalking)
-  │     └── Relates_To ──▶ SextortionScheme
+  │     └── Related_To ──▶ SextortionIncident
   │
   ├── FederalCharge (Counts 7–8 — aggravated identity theft § 1028A)
-  │     └── Relates_To ──▶ SextortionScheme (impersonation conduct)
+  │     └── Related_To ──▶ SextortionIncident (impersonation conduct)
   │
   ├── FederalCharge (Counts 9–13 — wire fraud § 1343)
-  │     └── Relates_To ──▶ SextortionScheme / FinancialExtortionDemand
+  │     └── Related_To ──▶ SextortionIncident / MonetaryDemand
   │
   ├── Person (defendant)
-  │     └── chargedWith ──▶ all applicable FederalCharge nodes
+  │     └── cacontology-legal-outcomes:chargedWith ──▶ all applicable FederalCharge nodes
   │
-  └── ExtraditionProcess (when defendant abroad)
-        ├── Relates_To ──▶ Person (defendant)
-        └── Relates_To ──▶ FederalProsecution
+  └── ExtraditionRequest (when documented)
+        ├── Related_To ──▶ Person (defendant)
+        └── Related_To ──▶ FederalProsecution
 ```
 
 ### Relationship checklist (sextortion + federal)
 
 | # | Edge | When | Pattern |
 |---|---|---|---|
-| S1 | Scheme → charges | Indictment sourced | `Relates_To` from each `FederalCharge` to `SextortionScheme`, `CSAMIncident`, or enterprise |
+| S1 | Incident → charges | Indictment sourced | `Related_To` from each `FederalCharge` to `SextortionIncident`, `CSAMIncident`, or enterprise |
 | S2 | `chargedWith` | Always | Single-defendant cases still need `chargedWith` on the defendant `Person` |
-| S3 | Cyberstalking count | § 2261A alleged | Dedicated `FederalCharge` linked to `SextortionScheme` (not only description text) |
+| S3 | Cyberstalking count | § 2261A alleged | Dedicated `FederalCharge` linked to `SextortionIncident` (not only description text) |
 | S4 | Identity theft counts | § 1028A alleged | Link to impersonation conduct node or scheme |
-| S5 | Wire fraud counts | § 1343 alleged | Link to `FinancialExtortionDemand` or scheme; grouped counts (`9_13`) acceptable when indictment groups them |
+| S5 | Wire fraud counts | § 1343 alleged | Link to `MonetaryDemand` or incident; grouped counts (`9_13`) acceptable when indictment groups them |
 | S6 | Enterprise count | § 2252A(g) in same case | Compose enterprise addendum from federal prosecution recipe |
-| S7 | Co-conspirator narrative | Paragraphs name co-conspirators | `hasMember` on enterprise + `participatesInEvent` on conspiracy |
-| S8 | Extradition chain | Defendant abroad | `ExtraditionProcess` → defendant + prosecution; foreign `Location` |
-| S9 | Platform affordance abuse | Ban evasion / account recreation | `used_platform` edges + ban-evasion detail in `uco-core:description` on platform or scheme |
-| S10 | Impersonation → scheme | Posed-as-peer alleged | `Relates_To` from impersonation node to `SextortionScheme` |
+| S7 | Co-conspirator narrative | Paragraphs name co-conspirators | Applicable declared enterprise `hasMember` property + `cacontology:participatesInEvent` on conspiracy |
+| S8 | Extradition chain | Defendant abroad | `ExtraditionRequest` `Related_To` defendant + prosecution; foreign `Location` |
+| S9 | Platform affordance abuse | Ban evasion / account recreation | `cacontology-sextortion:conductsOnPlatform` from incident to platform; ban-evasion detail in `uco-core:description` |
+| S10 | Impersonation → incident | Posed-as-peer alleged | `cacontology-sextortion:involvesDeception` from `SextortionIncident` to `IdentityImpersonation` |
 
-Grouped multi-count nodes (e.g., `charge-7_8`, `charge-9_13`) are acceptable when the indictment treats counts as a group **if** `chargedWith` and `Relates_To` to conduct are still present.
+Grouped multi-count nodes (e.g., `charge-7_8`, `charge-9_13`) are acceptable when the indictment treats counts as a group **if** `chargedWith` and `Related_To` conduct links are still present.
 
 ## Modeling rules
 
 - Keep **raw messages** in Layer 1; add CAC coercion types in Layer 2 as multi-typed interpretations.
 - Document **financial vs. image-disclosure** coercion paths with the appropriate demand subclass.
 - Link platform accounts and IP addresses when CyberTip reporting is in scope — see [cybertip-ncmec-workflow.md](cybertip-ncmec-workflow.md).
-- When platform sections in an indictment define **affordances** (DMs, stories, account recreation after ban), model platforms as nodes and link `used_platform` from scheme or enterprise — do not bury affordance detail only in indictment description on the Bundle.
-- For **ban evasion** (dozens of recreated accounts), record counts in enterprise or scheme `uco-core:description` and link each primary platform node via `used_platform`.
+- When platform sections in an indictment define **affordances** (DMs, stories, account recreation after ban), model platforms as nodes and link each `SextortionIncident` with `cacontology-sextortion:conductsOnPlatform`; use a registered `Related_To` relationship only when a broader enterprise has no applicable direct property.
+- For **ban evasion** (dozens of recreated accounts), record counts in incident or enterprise `uco-core:description`; keep the platform link grounded as above.
 - Always run the [cac-federal-prosecution-relationships.md](cac-federal-prosecution-relationships.md) checklist when building from an indictment.
 
 ## Fact-file template
@@ -134,8 +134,13 @@ graph = CASEGraph(extra_context={
     "cacontology-usa-federal-law": "https://cacontology.projectvic.org/usa-federal-law#",
 })
 
-scheme = graph.add_node("kb:sextort-1", "cacontology-sextortion:SextortionScheme", {
-    "uco-core:name": "Snapchat sextortion scheme",
+platform = graph.add_node("kb:platform-snapchat", "cacontology-sextortion:InstantMessagingPlatform", {
+    "uco-core:name": "Snapchat",
+})
+
+incident = graph.add_node("kb:sextort-1", "cacontology-sextortion:SextortionIncident", {
+    "uco-core:name": "Snapchat sextortion incident",
+    "cacontology-sextortion:conductsOnPlatform": {"@id": "kb:platform-snapchat"},
 })
 
 charge_cyber = graph.add_node("kb:charge-6", "cacontology-legal-outcomes:FederalCharge", {
@@ -151,7 +156,7 @@ defendant = graph.add_node("kb:defendant-1", "uco-identity:Person", {
 graph.add_node("kb:rel-charge-scheme", "uco-core:Relationship", {
     "uco-core:source": {"@id": "kb:charge-6"},
     "uco-core:target": {"@id": "kb:sextort-1"},
-    "uco-core:kindOfRelationship": "Relates_To",
+    "uco-core:kindOfRelationship": "Related_To",
     "uco-core:isDirectional": {"@type": "xsd:boolean", "@value": "true"},
 })
 

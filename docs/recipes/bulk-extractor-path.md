@@ -11,7 +11,7 @@ Model nested containment paths from bulk extraction tools — artifacts found wi
 | `EmailAddress` + `EmailAddressFacet` | An extracted artifact (email, URL, etc.) |
 | `ContentData` + `ContentDataFacet` | Data blocks at each nesting layer |
 | `File` / `Image` | The outermost disk image |
-| `Relationship` | Layered containment: `Contained_Within`, `Decompressed_From` |
+| `Relationship` | Registered `Contained_Within` plus described `Related_To` transformation links |
 | `DataRangeFacet` | Byte offset and size within a container |
 | `CompressedStreamFacet` | Compression method for compressed layers |
 
@@ -24,7 +24,7 @@ EmailAddress (extracted artifact)
     │
     └── Contained_Within ──▶ ContentData (decompressed block)
                                   │
-                                  └── Decompressed_From ──▶ ContentData (gzip stream)
+                                  └── Related_To ──▶ ContentData (description: decompressed from target gzip stream)
                                                                   │  CompressedStreamFacet
                                                                   │
                                                                   └── Contained_Within ──▶ File (disk image)
@@ -77,7 +77,8 @@ decompressed = graph.create(ObservableObject,
 )
 graph.create(Relationship,
     source=[decompressed], target=compressed_stream,
-    kind_of_relationship="Decompressed_From",
+    kind_of_relationship="Related_To",
+    description=["The source content was decompressed from the target stream."],
     is_directional=True,
     has_facet=[CompressedStreamFacet(
         compression_method="...",  # e.g. "gzip" from source
@@ -110,7 +111,7 @@ graph.write("bulk_extractor_path.jsonld")
 - Each layer in the forensic path is a separate `ObservableObject` linked by a `Relationship`.
 - `DataRangeFacet` goes on the `Relationship` (via `has_facet`), not on the contained object.
 - `CompressedStreamFacet` has `compression_method: Optional[str]` and `compression_ratio: Optional[float]`.
-- Common `kind_of_relationship` values: `"Contained_Within"`, `"Decompressed_From"`, `"Decoded_From"`, `"Decrypted_From"`.
+- Use registered `Contained_Within` for nesting. For decompression, decoding, or decryption derivations, use registered `Related_To` and state the exact transformation direction in `description`.
 - This pattern applies to any bulk extraction tool (bulk_extractor, binwalk, foremost) that reports forensic paths.
 - For additional nesting levels, add more intermediate `ContentData` objects in the chain.
 

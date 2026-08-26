@@ -31,8 +31,8 @@ DomainName ──Resolved_To [observed]──▶ DomainName (CNAME)
                                            ▼
 NetworkConnection                     IPAddress
     ├── NetworkConnectionFacet             ▲
-    │       ├── src ──▶ IPAddress (local)  │
-    │       └── dst ──▶ IPAddress (remote) ┘
+    │       ├── uco-observable:src ──▶ IPAddress (local)  │
+    │       └── uco-observable:dst ──▶ IPAddress (remote) ┘
     ├── NetworkFlowFacet (packet/byte counts)
     ├── ──Contained_Within [observed]──▶ File (pcap)
     └── ──Connected_To [inferred]──▶ DomainName

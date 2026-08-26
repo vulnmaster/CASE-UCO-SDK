@@ -73,7 +73,7 @@ The document processor produces **Layer 1** (source artifacts + extracted entiti
 |---|---|
 | Indictment | `MultiDefendantIndictment`, `FederalCharge`, `AssetForfeitureAction`, `MinorTraffickingVictimRole` |
 | Trial brief | `TrialPhase`, anticipated `CSAMIncident`, platform accounts, `InvestigativeAction` (brief filing) |
-| Judgment (AO 245B) | `SentencingPhase`, `Conviction`, `PrisonSentence`, `MonetaryPenalty` |
+| Judgment (AO 245B) | `SentencingPhase`, `ConvictionRecord`, `PrisonSentence`, `MonetaryPenalty` |
 
 **Merge rule:** One `CACInvestigation` per federal docket (`3:20-cr-00029-SLG-MMS`), not one graph per PDF. Link each source PDF as `uco-core:object` on the investigation and attach `ProvenanceRecord`.
 
@@ -153,15 +153,15 @@ PLATFORMS:
 | Trial brief facts in Bundle description only | Per-victim conduct nodes + charge links |
 | `derivedFrom` on ProvenanceRecord | Use `case-investigation:wasInformedBy` |
 | CSAMIncident without `hasFacet` | Add `ContentDataFacet` summary (non-graphic) for SHACL |
-| Aggregated CSAM only, no queryable series | Add per-series `ObservableObject` nodes with capture dates linked via `Part_Of` to parent incident |
+| Aggregated CSAM only, no queryable series | Add per-series `ObservableObject` nodes with capture dates linked via registered `Related_To` to the parent incident |
 | Pre-trial allegations without status | Tag with `assertion:ALLEGED`; adjudicated nodes with `assertion:ADJUDICATED` |
-| Judgment supervision as prose only | Model each special condition as structured `ObservableObject` linked via `Requires` from `SupervisedRelease` |
+| Judgment supervision as prose only | Model each special condition as a structured `ObservableObject` linked from `SupervisedRelease` with registered `Related_To` and a descriptive relationship note |
 | Duplicate facet `@id` across nodes | Give each `hasFacet` a unique `@id` (one facet per object) |
 | Fabricated timestamps | Never invent a day or clock time the filing does not state. "June 2019" or "January and February 2020" → record the period in the description or an `approximatePeriod=` facet string, not an `xsd:dateTime` |
 | `uco-action:startTime` on non-Actions | `uco-action:*` properties belong on `Action` subclasses (`InvestigativeAction`, `CSAMIncident`). Events, legal phases, and media observables use `uco-core:startTime` (media capture dates encoded as local midnight for date-only precision) |
 | Invented class/property names | Use only terms declared in the CAC TTLs: charge subtypes come from `cacontology-usa-federal` (`ChildPornographyProduction`, `SexTraffickingOfMinors`), forfeiture from `cacontology-asset-forfeiture:AssetForfeitureAction` + `relatedCriminalCharges`, verdicts as `cacontology-legal-outcomes:ConvictionRecord` with `convictionDate`, `convictionType` (`jury_verdict`), `chargeCount` |
 | Defendant as interview performer | Law enforcement performs the interview; the defendant is `uco-action:object` on the `InvestigativeAction` |
-| Possession media wired into production incident | Count 2 items received on the defendant's account link `Part_Of` → possession incident only; if an item is a copy of a production series, add `Derived_From` → that series |
+| Possession media wired into production incident | Count 2 items received on the defendant's account link `Related_To` → possession incident only; if an item is a documented copy of a production series, add registered `Copied_From` → that series |
 
 ## Granular trial-brief modeling (Moore exemplar)
 
@@ -170,12 +170,12 @@ Reference: [`examples/pacer/anchorage_pd_2022_004/build_moore_dalaska_2020_case.
 When a government trial brief lists specific video/photo series, coercion methods, and corroborating social posts:
 
 1. Keep one aggregate `CSAMIncident` / `CommercialSexualExploitation` per conduct type.
-2. Add child `ObservableObject` nodes per dated media series; link `Part_Of` → aggregate incident. Set `uco-core:startTime` only for dates the brief states (local midnight = date-only precision); production series also get `Created` edges from the defendant.
+2. Add child `ObservableObject` nodes per dated media series; link `Related_To` → aggregate incident. Set `uco-core:startTime` only for dates the brief states (local midnight = date-only precision); production series also get `Created` edges from the defendant.
 3. Model coercion as `uco-core:Event` nodes with `eventType` including `coercion method`; link to trafficking incident. Most coercion acts are undated in trial briefs — say "Undated in source" in the description instead of inventing dates; use `approximatePeriod=` facet strings when the brief anchors a rough period.
-4. Model corroborating Snapchat posts as evidence observables; link `Corroborates` → related coercion event.
+4. Model corroborating Snapchat posts as evidence observables; link them to the related coercion event with registered `Related_To` and describe the corroboration basis.
 5. Unify victim identifiers (`Minor Victim 1` + trial brief alias `V.P.`) on one `MinorTraffickingVictimRole` node.
 6. Add `InvestigativeAction` for search warrants and LE interviews with page-anchored descriptions (`Source: PACER Doc N, page X`). The defendant is the interview's `uco-action:object`, never its performer.
-7. From AO 245B judgment: model `SupervisedRelease`, each special condition, restitution, assessment, and payment schedule separately. Record the jury verdict as `ConvictionRecord` (`convictionType=jury_verdict`, `convictionDate`, `chargeCount`) with `Convicted_On` edges to each count.
+7. From AO 245B judgment: model `SupervisedRelease`, each special condition, restitution, assessment, and payment schedule separately. Record the jury verdict as `ConvictionRecord` (`convictionType=jury_verdict`, `convictionDate`, `chargeCount`) with registered `Related_To` edges to each count and a description stating that the conviction is on that count.
 
 ## Python skeleton
 

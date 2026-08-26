@@ -120,11 +120,11 @@ the box is not.
 ### 4. Scheme timeline as overt acts linked to the conspiracy count
 
 Every dated step (dispatch text, victim withdrawal, courier flight,
-handoff, spoofed call) is a `uco-action:Action` with
-`Overt_Act_In_Furtherance_Of` pointing at the conspiracy
-`legalproc:CriminalCharge`. Victims link to the acts *and* the counts with
-`Victim_Of`; co-participants link with `Participated_In`; handoffs link to
-`uco-location:Location` nodes with `Occurred_At`.
+handoff, spoofed call) is a `uco-action:Action`. Link it to the conspiracy
+`legalproc:CriminalCharge` with registered `Related_To` and describe it as an
+overt act in furtherance. Use `uco-action:participant` for co-participants and
+`uco-action:location` for handoff locations. Link victims to acts and counts
+with registered `Related_To` and describe the victim relationship explicitly.
 
 ### 5. The sting and the attribution chain are InvestigativeActions
 
@@ -186,9 +186,10 @@ than inventing one.
 4. Model physical handoff items as `uco-core:UcoObject` +
    `gufo:FunctionalComplex`; add `uco-location:Location` nodes for drop
    sites, hotels, and victim residences.
-5. Build the overt-act timeline (`uco-action:Action` →
-   `Overt_Act_In_Furtherance_Of` → conspiracy charge) with `Victim_Of`,
-   `Participated_In`, and `Occurred_At` edges.
+5. Build the overt-act timeline with `uco-action:Action`, direct
+   `uco-action:participant` / `uco-action:location` properties, and registered
+   `Related_To` links to conspiracy charges and victims with precise
+   descriptions.
 6. Model the sting/arrest/warrant chain as `InvestigativeAction`s with
    `Authorization` nodes and result links to the seized/extracted
    observables.

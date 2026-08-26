@@ -21,27 +21,27 @@ Model entries from the Windows NTFS Update Sequence Number (USN) Change Journal 
 
 ```
 Investigation
-    └── object ──▶ InvestigativeAction ("Parse USN Journal")
-                       ├── instrument ──▶ Tool (MFTECmd)
-                       ├── object ──▶ disk_image (ObservableObject + ContentDataFacet)
-                       └── result ──▶ $UsnJrnl:$J
+    └── uco-core:object ──▶ InvestigativeAction ("Parse USN Journal")
+                       ├── uco-action:instrument ──▶ Tool (MFTECmd)
+                       ├── uco-action:object ──▶ disk_image (ObservableObject + ContentDataFacet)
+                       └── uco-action:result ──▶ $UsnJrnl:$J
                                   ──▶ USN Record (per entry)
                                   ──▶ Event (per entry)
 
 Volume (ObservableObject + WindowsVolumeFacet + FileSystemFacet)
-    ├── Users ──▶ analyst ──▶ Documents ──▶ report.docx
-    │                     ──▶ Downloads ──▶ malware.exe
-    ├── ProgramData ──▶ AppConfig ──▶ config.ini
-    ├── Logs ──▶ system.log
-    └── $Extend ──▶ $UsnJrnl:$J
-                       └── USN Record (ObservableObject + EventRecordFacet)
+    ├── Contained_Within ◀── /Users/analyst/Documents/report.docx
+    ├── Contained_Within ◀── /Users/analyst/Downloads/malware.exe
+    ├── Contained_Within ◀── /ProgramData/AppConfig/config.ini
+    ├── Contained_Within ◀── /Logs/system.log
+    └── Contained_Within ◀── /$Extend/$UsnJrnl:$J
+                                  └── USN Record (ObservableObject + EventRecordFacet)
 
 Event (per USN entry)
-    ├── startTime = [timestamp]
-    ├── eventType = ["USN_REASON_FILE_CREATE", "USN_REASON_CLOSE"]
-    ├── eventContext ──▶ file (the changed file)
+    ├── uco-core:startTime = [timestamp]
+    ├── uco-core:eventType = ["USN_REASON_FILE_CREATE", "USN_REASON_CLOSE"]
+    ├── uco-core:eventContext ──▶ file (the changed file)
     │                ──▶ record (the raw USN record)
-    └── eventAttribute ──▶ Dictionary
+    └── uco-core:eventAttribute ──▶ Dictionary
                               └── DictionaryEntry(key="USN_REASON_FILE_CREATE", value="true")
                               └── DictionaryEntry(key="USN_REASON_CLOSE", value="true")
                               └── DictionaryEntry(key="USN_NUMBER", value="109248")
@@ -238,7 +238,7 @@ USN reason flags are the core forensic value of the journal. They are modeled in
 Each USN entry produces two linked objects:
 
 - An **`ObservableObject` + `EventRecordFacet`** — the raw USN record as a forensic artifact (with its USN number, timestamp, source device).
-- A **`core:Event`** — the semantic change event with structured flags, linked to both the record and the affected file via `eventContext`.
+- A **`uco-core:Event`** — the semantic change event with structured flags, linked to both the record and the affected file via `uco-core:eventContext`.
 
 This separates "what the artifact says" from "what happened," which supports both artifact-centric and event-centric queries.
 
@@ -288,9 +288,14 @@ This creates an explicit provenance chain: `Investigation` → `InvestigativeAct
 
 ## Known limitations
 
-### Relationship labels are free strings
+### Relationship labels use the vendored registry
 
-`kindOfRelationship` is typed as `xsd:string` in UCO — there is no controlled vocabulary for relationship types. Labels like `Contained_Within`, `Records_Change_To`, and `Renamed_From` are readable conventions (and `Contained_Within` appears in [CASE-Examples](https://github.com/casework/CASE-Examples)), but they are not ontology-grounded terms. If interoperability across tools matters, coordinate on a shared vocabulary or propose new relationship types via a [change proposal](change-proposal.md).
+Although `kindOfRelationship` serializes as `xsd:string`, operational recipes
+use values from the vendored UCO relationship vocabulary compiled in
+`mcp_server/relationship_kinds.json`. `Contained_Within` and `Renamed_From`
+are registered values. For a USN-specific assertion not represented there,
+use registered `Related_To` and put the exact change semantics in
+`uco-core:description`; do not invent a new canonical label in the recipe.
 
 ### Dictionary values are strings
 

@@ -3,7 +3,7 @@
        test-extension-compat test-extension-main test-extension-develop test-extension-develop2 \
        playground-test test-docs sync-solveit sync-solveit-offline \
        sync-attack sync-attack-offline \
-       rebuild-upper-registry sync-upper sync-upstream
+       rebuild-upper-registry sync-upper sync-upstream lint-recipes
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -45,7 +45,7 @@ build-java:
 build-rust:
 	cd rust && cargo build
 
-test: test-generator test-python test-csharp test-java test-rust
+test: lint-recipes test-generator test-python test-csharp test-java test-rust
 
 test-generator:
 	PYTHONPATH=generator/src $(PYTHON) -m pytest generator/tests/ -v
@@ -65,8 +65,11 @@ test-rust:
 test-docs:
 	$(PYTHON) scripts/test_doc_snippets.py
 
-test-mcp:
+test-mcp: lint-recipes
 	$(PYTHON) -m pytest mcp_server/tests/ -v
+
+lint-recipes:
+	PYTHONPATH=python:mcp_server $(PYTHON) mcp_server/recipe_lint.py
 
 # --- Knowledge artifact lifecycle (mcp_server/knowledge_lifecycle.py) ------
 # Promote a candidate extension to operational after validation gates pass:

@@ -64,7 +64,7 @@ evolution in fileless techniques," Matt Stafford and Sherman Smith,
 | `uco-observable:WindowsRegistryKey` + `WindowsRegistryKeyFacet` + `WindowsRegistryValue` | Observed registry state only (`name` / `data` / `dataType` — no `description` on the value) |
 | `uco-observable:WindowsTask` + `WindowsTaskFacet` | Scheduled-task persistence (`triggerList` / `actionList` when reported) |
 | `uco-observable:WindowsService` + `WindowsServiceFacet` | The hijacked/created service (`startType`, `serviceType`) |
-| `uco-pattern:LogicalPattern` | Machine-actionable detection expressions (`patternExpression` typed as `pattern:PatternExpression` under CASE 1.4.0) |
+| `uco-pattern:LogicalPattern` | Machine-actionable detection expressions (`patternExpression` typed as `uco-pattern:PatternExpression` under CASE 1.4.0) |
 | `uco-observable:IPv4AddressFacet` / `DomainNameFacet` | C2 servers, proxies, cloud-C2 endpoints, recon services |
 | `uco-location:Location` + `SimpleAddressFacet` | Targeted regions (victimology map) |
 | `uco-victim:VictimTargeting` | Targeted sectors (a `Victim` role subclass) |
@@ -195,11 +195,13 @@ published digest — name, size, and report provenance are enough. Tag the
 artifact `hash-status:not-published` (or `source-bytes:not-acquired`) so the
 critic emits a medium completeness note rather than a high defect.
 
+<!-- recipe-lint: ignore-start anti-pattern -- The invalid predicate is shown explicitly so authors can recognize and replace it. -->
 > **Note on the value name property.** `WindowsRegistryValue` is a
 > `UcoInherentCharacterizationThing`, and its name is `uco-core:name` — not
 > `uco-observable:name` (which does not exist and will fail strict concept
 > coverage). This is the single most common validation slip when modeling
 > registry values.
+<!-- recipe-lint: ignore-end anti-pattern -->
 
 ### 5. MITRE ATT&CK techniques → the `uco-action:Technique` metaclass
 
@@ -231,7 +233,7 @@ So model techniques with **punning**, in two layers:
   IRI to its `@type`). Because the technique class is a subclass of
   `uco-action:Action`, the action instance is still a valid Action; the extra
   type asserts which technique it exhibits. Do **not** create a separate
-  Technique instance per action or link with a `Uses_Technique` relationship —
+  Technique instance per action or link with a custom technique relationship —
   the punning `rdf:type` edge *is* the association.
 
 Sourcing matters: a report that lists no ATT&CK IDs in its prose (this Talos
@@ -282,7 +284,7 @@ property, so do not invent one.
 | Free-text registry data type (`REG_EXPAND_SZ`) | Use `RegistryDatatypeVocab` members (`reg_expand_sz`, `reg_dword`, …) |
 | Inventing a bespoke Technique/Malware/ThreatActor class | Actor abstraction per §2; malware → MaliciousTool; ATT&CK → `uco-action:Technique` metaclass via the `attack-technique` catalog |
 | Modeling a technique as a plain instance node (`x a uco-action:Technique` with `techniqueTactic`/`techniquePlatform`) | `uco-action:Technique` is a **metaclass**: a technique is an `owl:Class` (`a uco-action:Technique`, `rdfs:subClassOf uco-action:Action`) with `uco-action:techniqueID`; the merged PR has no framework/tactic/platform properties |
-| Linking an action to its technique with a `Uses_Technique` relationship | Type the action instance *with the technique class* (`rdf:type`); the punning type edge is the association — no relationship node |
+| Linking an action to its technique with a custom relationship | Type the action instance *with the technique class* (`rdf:type`); the punning type edge is the association — no relationship node |
 | Dropping ATT&CK techniques because the report's prose omits IDs | Enrich from MITRE group/software pages when available; always record mapping provenance |
 | Embedding builder/recipe files in the Investigation graph | Put implementation provenance in a sidecar manifest; keep the domain graph about the report |
 | Collapsing family, variant, and sample into one node | Family = `MaliciousTool`; variants/samples = `ObservableObject` + `FileFacet`/`ContentDataFacet`, `Related_To` the family |

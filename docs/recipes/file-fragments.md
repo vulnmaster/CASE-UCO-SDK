@@ -12,7 +12,7 @@ Model files split across multiple fragments, embedded data (thumbnails inside im
 | `File` + `FileFacet` | Individual fragment files |
 | `FragmentFacet` | Fragment index and total count |
 | `DataRangeFacet` | Byte offset/size for embedded data |
-| `Relationship` | `Has_Fragment`, `Contained_Within` links |
+| `Relationship` | Registered `Contains` and `Contained_Within` links |
 
 ## Two patterns
 
@@ -21,9 +21,9 @@ Model files split across multiple fragments, embedded data (thumbnails inside im
 ```
 ContentData (logical whole)
     │
-    ├── Has_Fragment ──▶ File (fragment 1) + FragmentFacet (index=0, total=3)
-    ├── Has_Fragment ──▶ File (fragment 2) + FragmentFacet (index=1, total=3)
-    └── Has_Fragment ──▶ File (fragment 3) + FragmentFacet (index=2, total=3)
+    ├── Contains ──▶ File (fragment 1) + FragmentFacet (index=0, total=3)
+    ├── Contains ──▶ File (fragment 2) + FragmentFacet (index=1, total=3)
+    └── Contains ──▶ File (fragment 3) + FragmentFacet (index=2, total=3)
 ```
 
 **Embedded data** (e.g., thumbnail inside a JPEG):
@@ -72,7 +72,7 @@ for i in range(3):  # adjust count from source
     )
     graph.create(Relationship,
         source=[whole], target=fragment,
-        kind_of_relationship="Has_Fragment",
+        kind_of_relationship="Contains",
         is_directional=True,
     )
 

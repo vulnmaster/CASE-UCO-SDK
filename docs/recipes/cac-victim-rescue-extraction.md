@@ -12,24 +12,24 @@ Model emergency response, victim extraction, ongoing danger assessment, safety p
 
 | Class | Role |
 |---|---|
-| `EmergencyResponse` | Initial crisis response activation |
-| `VictimExtraction` | Physical removal from danger location |
-| `OngoingDangerAssessment` | Continued threat evaluation |
-| `SafetyPlanning` | Safety plan with CPS/DCFS or partner agencies |
-| `MultiAgencyVictimResponse` | Coordinated service delivery |
-| `TraumaIndicator` / `HelpSeekingBarrier` | Victim presentation factors |
-| `RecantationAssessment` / `ReaffirmedDisclosureStatement` | Disclosure dynamics |
-| `ChildVictim` | Victim identity anchor |
+| `cacontology-victim-impact:EmergencyResponse` | Initial crisis response activation |
+| `cacontology-victim-impact:VictimExtraction` | Physical removal from danger location |
+| `cacontology-victim-impact:OngoingDangerAssessment` | Continued threat evaluation |
+| `cacontology-victim-impact:SafetyPlanning` | Safety plan with CPS/DCFS or partner agencies |
+| `cacontology-victim-impact:MultiAgencyVictimResponse` | Coordinated service delivery |
+| `cacontology-victim-impact:TraumaIndicator` / `HelpSeekingBarrier` | Victim presentation factors |
+| `cacontology-recantation:RecantationAssessment` / `ReaffirmedDisclosureStatement` | Disclosure dynamics |
+| `cacontology-grooming:ChildVictim` | Victim identity anchor |
 
 ## Canonical pattern
 
 ```
-EmergencyResponse
-  └── result ──▶ VictimExtraction
-        ├── OngoingDangerAssessment
-        ├── SafetyPlanning
-        └── MultiAgencyVictimResponse
-              └── TraumaIndicator + HelpSeekingBarrier (as documented)
+cacontology-victim-impact:EmergencyResponse
+  └── uco-action:result ──▶ cacontology-victim-impact:VictimExtraction
+        ├── Related_To ──▶ OngoingDangerAssessment
+        ├── Related_To ──▶ SafetyPlanning
+        └── Related_To ──▶ MultiAgencyVictimResponse
+              └── Related_To ──▶ TraumaIndicator + HelpSeekingBarrier (as documented)
 ```
 
 ## Modeling rules
@@ -43,8 +43,10 @@ EmergencyResponse
 ```python
 from case_uco import CASEGraph
 
-graph = CASEGraph()
-extraction = graph.add_node("kb:extract-1", "cacontology:VictimExtraction", {
+graph = CASEGraph(extra_context={
+    "cacontology-victim-impact": "https://cacontology.projectvic.org/victim-impact#",
+})
+extraction = graph.add_node("kb:extract-1", "cacontology-victim-impact:VictimExtraction", {
     "uco-core:name": "Victim extraction at motel",
 })
 graph.write("victim-rescue.jsonld")

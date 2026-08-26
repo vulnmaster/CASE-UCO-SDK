@@ -29,14 +29,14 @@ Model child sex trafficking enterprises, **solo-operator federal § 1591 prosecu
 
 ```
 CACInvestigation
-  └── TraffickingRing (or TraffickingCell)
-        ├── employs / controls ──▶ Identity (trafficker)
-        ├── targets ──▶ MinorTraffickingVictimRole ──▶ Identity (victim)
-        └── uses ──▶ PeerRecruitmentNetwork
+  └── Related_To ──▶ TraffickingRing (or TraffickingCell)
+        ├── Related_To ──▶ Identity (description: trafficker/member)
+        ├── Related_To ──▶ MinorTraffickingVictimRole (description: victim targeted by ring)
+        └── Related_To ──▶ PeerRecruitmentNetwork (description: recruitment network used)
 
 SchoolBasedRecruitment
-  └── approach ──▶ TransportationOfferApproach
-        └── DigitalToPhysicalBridge (IG DM → motel meet)
+  └── Related_To ──▶ TransportationOfferApproach (description: documented approach)
+        └── Related_To ──▶ DigitalToPhysicalBridge (description: IG DM to motel meet)
 ```
 
 ## Solo-operator federal child sex trafficking (§ 1591)
@@ -45,32 +45,32 @@ Many federal **child sex trafficking** cases involve a **single defendant** recr
 
 ```
 Person (defendant / Primary Trafficker Role)
-  ├── chargedWith ──▶ FederalCharge (Count 4 — § 1591) … per victim
-  └── participatesInEvent ──▶ CommercialSexualExploitation (per victim)
+  ├── cacontology-legal-outcomes:chargedWith ──▶ FederalCharge (Count 4 — § 1591) … per victim
+  └── cacontology:participatesInEvent ──▶ CommercialSexualExploitation (per victim)
 
-MinorTraffickingVictimRole (MV2)
-  ├── exploitedIn ──▶ CommercialSexualExploitation
-  └── linked counts ──▶ FederalCharge 3, 4, 5
+CommercialSexualExploitation (MV2)
+  ├── uco-action:object ──▶ MinorTraffickingVictimRole (MV2)
+  └── Related_To ◀── FederalCharge 3, 4, 5 (description: charge-to-conduct bridge)
 
 DigitalToPhysicalBridge (Grindr → in-person)
-  ├── used_platform ──▶ Grindr
-  └── resultsIn ──▶ CommercialSexualExploitation at Location (hotel/apartment)
+  ├── uco-action:instrument ──▶ Grindr platform
+  └── cac-core:precedes ──▶ CommercialSexualExploitation at Location (hotel/apartment)
 
 VictimTransportation
-  ├── transportationMethod: Uber / Lyft / taxi
-  └── destinationLocation ──▶ hotel or defendant residence
+  ├── cacontology-sex-trafficking:transportationMethod: Uber / Lyft / taxi
+  └── cacontology-sex-trafficking:destinationLocation ──▶ hotel or defendant residence
 ```
 
 Modeling rules:
 
 1. Create one **`MinorTraffickingVictimRole`** (or anonymized victim node) per **Minor Victim N** in the indictment or trial brief.
-2. Link each victim to **their specific counts** via `Relates_To` from `FederalCharge` — counts often stack production (§ 2251), trafficking (§ 1591), enticement (§ 2422), and distribution/receipt (§ 2252) for the **same victim**.
+2. Link each victim to **their specific counts** via `Related_To` from `FederalCharge` — counts often stack production (§ 2251), trafficking (§ 1591), enticement (§ 2422), and distribution/receipt (§ 2252) for the **same victim**.
 3. Model **commercial inducements** (money offers, phones, hotel payment) on `CommercialSexualExploitation` or `TransportationOfferApproach` — these support the commercial sex act element of § 1591.
 4. Model **Grindr → text → in-person** as `DigitalToPhysicalBridge` linked to [cac-grooming-chat-modeling.md](cac-grooming-chat-modeling.md) message evidence when available.
 5. Model **rideshare/taxi transport** as `VictimTransportation` with origin/destination `Location` nodes when the trial brief or indictment describes arranged transport.
 6. Document **substance facilitation** (drugs provided during encounters) in conduct `uco-core:description` when alleged — link to the same exploitation event.
 7. For **multiple victims across years**, use separate exploitation nodes with temporal bounds rather than one aggregate CSAM incident.
-8. Model **alleged criminal conduct as explicit events** (`CommercialSexualExploitation`, `RecordingAction`, `GroomingSolicitation`, `VictimTransportation`) with `uco-action:performer`, `uco-action:object`, `uco-action:instrument`, and `uco-action:location` — not only descriptive nodes linked by generic `Relates_To`.
+8. Model **alleged criminal conduct as explicit events** (`CommercialSexualExploitation`, `RecordingAction`, `GroomingSolicitation`, `VictimTransportation`) with `uco-action:performer`, `uco-action:object`, `uco-action:instrument`, and `uco-action:location` — not only descriptive nodes linked by generic `Related_To`.
 9. Type the solo operator as **`PrimaryTraffickerRole`** on the subject role and link **`controlsVictim`** to each `MinorTraffickingVictimRole` when indictment structure supports it.
 10. Create **parallel incident nodes for every minor victim** in the indictment, even when public documents provide less detail for some victims — this keeps per-victim SPARQL uniform.
 11. Add lightweight **`case-investigation:ProvenanceRecord`** nodes on source instruments (indictment, trial brief) when facts are **ALLEGED** from public docket documents.
@@ -81,8 +81,8 @@ CASE/UCO/CAC favor queryable **events and actions** over summary nodes. For each
 
 ```
 PrimaryTraffickerRole (subject)
-  ├── controlsVictim ──▶ MinorTraffickingVictimRole (MV2)
-  └── participatesInEvent ──▶ CommercialSexualExploitation (MV2)
+  ├── cacontology-sex-trafficking:controlsVictim ──▶ MinorTraffickingVictimRole (MV2)
+  └── cacontology:participatesInEvent ──▶ CommercialSexualExploitation (MV2)
 
 CommercialSexualExploitation (MV2)
   ├── uco-action:performer ──▶ subject role
@@ -99,7 +99,7 @@ GroomingSolicitation (enticement counts)
   └── cacontology:participatesInEvent ──▶ subject + victim (SHACL min 2)
 
 FederalCharge (Count 4)
-  └── Relates_To ──▶ CommercialSexualExploitation   # charge→conduct bridge
+  └── Related_To ──▶ CommercialSexualExploitation   # charge→conduct bridge
 ```
 
 Use **`uco-action:object`** (not `uco-action:target`) for victim roles on UCO `Action`/`Crime` events. Put **`uco-action:startTime`** directly on the event node; reserve `uco-core:hasFacet` for artifact facets such as `FileFacet`.
@@ -113,14 +113,14 @@ When public documents describe online contact → transport → in-person exploi
 ```
 DigitalToPhysicalBridge (Grindr)
   ├── uco-action:instrument ──▶ OnlineDatingPlatform
-  ├── precedes ──▶ VictimTransportation
-  └── precedes ──▶ CommercialSexualExploitation (encounter)
+  ├── cac-core:precedes ──▶ VictimTransportation
+  └── cac-core:precedes ──▶ CommercialSexualExploitation (encounter)
 
 VictimTransportation
-  └── precedes ──▶ CommercialSexualExploitation
+  └── cac-core:precedes ──▶ CommercialSexualExploitation
 
 RecordingAction / CSAMIncident
-  └── part_of ──▶ CommercialSexualExploitation (same encounter)
+  └── Related_To ──▶ CommercialSexualExploitation (description: same encounter)
 ```
 
 Link **Count 12 (possession)** to the seized device **and** to production/receipt incidents whose material the indictment alleges was found on that device.
@@ -141,9 +141,9 @@ VICTIM_COUNTS:
 ```
 
 Each row drives:
-- `Relates_To` from each `FederalCharge` → conduct event (`CSAMIncident`, `CommercialSexualExploitation`, `GroomingSolicitation`)
-- `uco-action:performer` / `uco-action:object` on each conduct event (replaces charge→victim `Relates_To` for query paths)
-- `controlsVictim` from `PrimaryTraffickerRole` → each victim role
+- `Related_To` from each `FederalCharge` → conduct event (`CSAMIncident`, `CommercialSexualExploitation`, `GroomingSolicitation`)
+- `uco-action:performer` / `uco-action:object` on each conduct event (replaces charge→victim `Related_To` for query paths)
+- `cacontology-sex-trafficking:controlsVictim` from `PrimaryTraffickerRole` → each victim role
 - Trial brief sections → same victim IRIs for anticipated testimony
 
 ### Stacked statutes per encounter
@@ -154,9 +154,9 @@ When one encounter supports multiple counts (production video + trafficking + di
 CommercialSexualExploitation (MV2 — Aug 2019, Waikiki apartment)
   ├── uco-action:performer ──▶ subject role
   ├── uco-action:object ──▶ MV2
-  ├── Relates_To ◀── FederalCharge Count 4 (§ 1591)
-  ├── Relates_To ◀── FederalCharge Count 3 (§ 2251 production via linked CSAMIncident)
-  └── Relates_To ◀── FederalCharge Count 5 (§ 2252 distribution via same CSAMIncident)
+  ├── Related_To ◀── FederalCharge Count 4 (§ 1591)
+  ├── Related_To ◀── FederalCharge Count 3 (§ 2251 production via linked CSAMIncident)
+  └── Related_To ◀── FederalCharge Count 5 (§ 2252 distribution via same CSAMIncident)
 ```
 
 ## Modeling rules (network cases)
@@ -173,16 +173,16 @@ from case_uco import CASEGraph
 
 graph = CASEGraph(extra_context={
     "cacontology": "https://cacontology.projectvic.org#",
-    "cacontology-trafficking": "https://cacontology.projectvic.org/trafficking#",
+    "cacontology-sex-trafficking": "https://cacontology.projectvic.org/trafficking#",
     "cacontology-usa-federal-law": "https://cacontology.projectvic.org/usa-federal-law#",
     "cacontology-legal-outcomes": "https://cacontology.projectvic.org/legal-outcomes#",
 })
 
-victim2 = graph.add_node("kb:mv2", "cacontology-trafficking:MinorTraffickingVictimRole", {
+victim2 = graph.add_node("kb:mv2", "cacontology-sex-trafficking:MinorTraffickingVictimRole", {
     "uco-core:name": "Minor Victim 2",
 })
 
-exploitation = graph.add_node("kb:cse-mv2", "cacontology-trafficking:CommercialSexualExploitation", {
+exploitation = graph.add_node("kb:cse-mv2", "cacontology-sex-trafficking:CommercialSexualExploitation", {
     "uco-core:name": "Alleged commercial sexual exploitation — MV2",
     "uco-action:performer": {"@id": "kb:subject-riley"},
     "uco-action:object": {"@id": "kb:mv2"},
@@ -190,10 +190,10 @@ exploitation = graph.add_node("kb:cse-mv2", "cacontology-trafficking:CommercialS
 
 subject = graph.add_node("kb:subject-riley", [
     "case-investigation:Subject",
-    "cacontology-trafficking:PrimaryTraffickerRole",
+    "cacontology-sex-trafficking:PrimaryTraffickerRole",
 ], {
     "uco-core:name": "Defendant-1 — principal subject",
-    "cacontology-trafficking:controlsVictim": [{"@id": "kb:mv2"}],
+    "cacontology-sex-trafficking:controlsVictim": [{"@id": "kb:mv2"}],
 })
 
 charge_trafficking = graph.add_node("kb:charge-4", "cacontology-legal-outcomes:FederalCharge", {
@@ -212,7 +212,8 @@ for rel_id, src, tgt in [
     graph.add_node(f"kb:{rel_id}", "uco-core:Relationship", {
         "uco-core:source": {"@id": src},
         "uco-core:target": {"@id": tgt},
-        "uco-core:kindOfRelationship": "Relates_To",
+        "uco-core:kindOfRelationship": "Related_To",
+        "uco-core:description": "Charge concerns the target alleged exploitation conduct.",
         "uco-core:isDirectional": {"@type": "xsd:boolean", "@value": "true"},
     })
 
@@ -225,7 +226,7 @@ graph.write("trafficking-solo-operator.jsonld")
 |---|---|
 | Conduct only in victim `uco-core:description` | Add per-victim `CommercialSexualExploitation` / `CSAMIncident` event nodes |
 | MV2 rich subgraph, other victims description-only | Parallel lightweight incident nodes for every minor victim |
-| Generic `Relates_To` charge→victim only | Add `uco-action:performer`/`object` on conduct; use `controlsVictim` on trafficker role |
+| Generic `Related_To` charge→victim only | Add `uco-action:performer`/`object` on conduct; use `controlsVictim` on trafficker role |
 | `uco-action:target` on UCO actions | Use canonical `uco-action:object` for victim roles |
 | `ActionReferences` inside `uco-core:hasFacet` | Put `uco-action:startTime` on the event; keep facets for artifacts |
 | Grooming enticement without participants | Add `cacontology:participatesInEvent` (subject + victim) on `GroomingSolicitation` |

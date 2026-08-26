@@ -11,7 +11,7 @@ Model artifacts extracted from SQLite or other databases on a device — individ
 | `File` + `FileFacet` | The database file (e.g., `msgstore.db`) |
 | `TableField` + `TableFieldFacet` | A single record/cell from a database table |
 | `Message` + `MessageFacet` | A message reconstructed from database records |
-| `ObservableRelationship` | Links records to their source DB (`Contained_Within`, `Derived_From`) |
+| `ObservableRelationship` | Registered `Contained_Within` for source containment and described `Related_To` for derivation |
 
 ## Pattern
 
@@ -24,7 +24,7 @@ File + FileFacet (msgstore.db)
     │
 TableField + TableFieldFacet (row/column value)
     ▲
-    │ Derived_From
+    │ Related_To (description: source message derived from target record)
     │
 Message + MessageFacet (reconstructed message)
 ```
@@ -98,7 +98,8 @@ msg = graph.create(Message,
 # Link message to the database record it was derived from
 graph.create(Relationship,
     source=[msg], target=db_record,
-    kind_of_relationship="Derived_From",
+    kind_of_relationship="Related_To",
+    description=["The source message was derived from the target database record."],
     is_directional=True,
 )
 
@@ -110,7 +111,7 @@ graph.write("database_records.jsonld")
 ## Notes
 
 - `TableFieldFacet` represents a single cell: `table_name` + `record_row_id` + `record_field_name` + `record_field_value`. Create one `TableField` per extracted record.
-- Use `Relationship` with `kind_of_relationship` values: `"Contained_Within"` (record inside DB file), `"Derived_From"` (message derived from record), `"Related_To"` (WAL/journal related to main DB).
+- Use registered `Contained_Within` for a record inside its database file. Use registered `Related_To` for WAL/journal association and record derivation, with the exact basis and direction in `description`.
 - For bulk extraction, create multiple `TableField` objects in a loop — one per row or per significant field.
 - The database file itself should be linked to its source device/partition via another `Contained_Within` relationship if that context is available.
 

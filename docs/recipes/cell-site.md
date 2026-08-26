@@ -22,10 +22,10 @@ Model cell tower connections, SIM card details, mobile carrier accounts, and cap
 Device + DeviceFacet + MobileDeviceFacet
     │
     ├── Contained_Within ◀── SIMCard + SIMCardFacet
-    ├── Has_Account ──▶ MobileAccount (MSISDN)
+    ├── Related_To ──▶ MobileAccount (description: subscriber account for device)
     └── Connected_To ──▶ CellSite + CellSiteFacet + AntennaFacet
                               │
-                              └── location ──▶ Location + LatLongCoordinatesFacet
+                              └── uco-observable:location ──▶ Location + LatLongCoordinatesFacet
 ```
 
 <details open><summary>Python</summary>

@@ -25,7 +25,7 @@ Model end-to-end financial fraud investigations that combine messaging coercion,
 | `MessageThread` + `MessageFacet` | Coercion and grooming chat evidence |
 | `InstantMessagingAddress` | Telegram/WhatsApp handles tied to speakers |
 | `ObservableObject` | Wallet addresses, exchange account IDs, platform URLs |
-| `Relationship` | `Sent`, `Transferred_To`, `Resolved_To`, `Associated_With` |
+| `Relationship` | Registered kinds such as `Sent`, `Resolved_To`, and `Related_To`; descriptions preserve transfer/association semantics |
 | `ProvenanceRecord` | Chain from raw exchange CSV/PDF to derived wallet clusters |
 | `Location` + `SimpleAddressFacet` | Registered addresses, meetup sites, geofence hits |
 
@@ -33,16 +33,16 @@ Model end-to-end financial fraud investigations that combine messaging coercion,
 
 ```
 Investigation
-    ├── object ──▶ MessageThread (coercion / grooming)
-    │                 └── participant ──▶ Person + InstantMessagingAddress
-    ├── object ──▶ InvestigativeAction (blockchain trace)
-    │                 ├── instrument ──▶ Tool (tracer, e.g. Chainalysis-class)
-    │                 ├── object ──▶ seed wallet ObservableObject
-    │                 └── result ──▶ wallet-hop subgraph (Relationship chain)
-    ├── object ──▶ InvestigativeAction (exchange subpoena return)
-    │                 ├── result ──▶ KYC Person + exchange AccountFacet
-    │                 └── was_informed_by ──▶ blockchain trace action
-    └── object ──▶ Location nodes (registered address, meetup, geofence)
+    ├── uco-core:object ──▶ MessageThread (coercion / grooming)
+    │                 └── uco-observable:participant ──▶ Person + InstantMessagingAddress
+    ├── uco-core:object ──▶ InvestigativeAction (blockchain trace)
+    │                 ├── uco-action:instrument ──▶ Tool (tracer, e.g. Chainalysis-class)
+    │                 ├── uco-action:object ──▶ seed wallet ObservableObject
+    │                 └── uco-action:result ──▶ wallet-hop subgraph (Relationship chain)
+    ├── uco-core:object ──▶ InvestigativeAction (exchange subpoena return)
+    │                 ├── uco-action:result ──▶ KYC Person + exchange AccountFacet
+    │                 └── case-investigation:wasInformedBy ──▶ blockchain trace action
+    └── uco-core:object ──▶ Location nodes (registered address, meetup, geofence)
 ```
 
 <details open><summary>Python</summary>
@@ -131,14 +131,16 @@ graph.create(
     Relationship,
     source=[groomer],
     target=[groomer_handle],
-    kind_of_relationship="Associated_With",
+    kind_of_relationship="Related_To",
+    description=["The source person is associated with the target messaging handle."],
     is_directional=True,
 )
 graph.create(
     Relationship,
     source=[account_holder],
     target=[registered_address],
-    kind_of_relationship="Located_At",
+    kind_of_relationship="Related_To",
+    description=["The target is the registered address for the source account holder."],
     is_directional=True,
 )
 
@@ -153,14 +155,15 @@ graph.validate()
 After building the graph, confirm key investigative links are present:
 
 ```sparql
-PREFIX uco-core: <https://unifiedcyberontology.org/ontology/uco/core#>
-PREFIX uco-action: <https://unifiedcyberontology.org/ontology/uco/action#>
-PREFIX case-investigation: <https://unifiedcyberontology.org/ontology/case/investigation#>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-action: <https://ontology.unifiedcyberontology.org/uco/action/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX case-investigation: <https://ontology.caseontology.org/case/investigation/>
 
 # Every InvestigativeAction in the case should be reachable from the Investigation
 SELECT ?action WHERE {
   ?inv a case-investigation:Investigation ;
-       case-investigation:object ?action .
+       uco-core:object ?action .
   ?action a case-investigation:InvestigativeAction .
 }
 
@@ -190,7 +193,7 @@ Core CASE/UCO has no cryptocurrency facets yet (pending [UCO #675](https://githu
 | Need | cryptoinv class |
 |---|---|
 | Blockchain address | `ObservableObject` + `cryptoinv:CryptocurrencyAddressFacet` (`addressValue`, `cryptocurrencyType`, `blockchainNetwork`, `addressFormat`) |
-| Transaction | `ObservableObject` + `cryptoinv:CryptocurrencyTransactionFacet`; inputs/outputs as `ObservableRelationship` (`Transaction_Input` / `Transaction_Output`) with `cryptoinv:transferAmount` |
+| Transaction | `ObservableObject` + `cryptoinv:CryptocurrencyTransactionFacet`; input/output address edges use registered `Related_To`, `cryptoinv:transferAmount`, and a description that states whether the address is an input or output |
 | Wallet / cluster | `cryptoinv:CryptocurrencyWalletFacet` (`walletType`, `walletIdentifier`, `addressCount`) |
 | Point-in-time holdings / seized value | `cryptoinv:VirtualAssetHoldingFacet` (`assetSymbol`, `assetQuantity`, `fiatValue`, `valuationDate`) — snapshots only; time-varying balances are blocked by [UCO #535](https://github.com/ucoProject/UCO/issues/535) |
 | Exchanges, darknet markets, mixers | `cryptoinv:VirtualAssetServiceProvider`, `cryptoinv:DarknetMarket`, `cryptoinv:CryptocurrencyMixingService` |

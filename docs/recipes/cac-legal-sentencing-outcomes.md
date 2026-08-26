@@ -12,12 +12,12 @@ Model indictments, charges, plea agreements, sentencing, supervised release, and
 
 | Class | Role |
 |---|---|
-| `CriminalCharge` / `ChargeSet` | Formal charges |
+| `cacontology-legal-outcomes:CriminalCharge` | One node per formal charge; group with the charging instrument or Bundle |
 | `StateCharge` / `FloridaStateCharge` / `GeorgiaStateCharge` | Jurisdiction-specific charges |
 | `PleaAgreement` | Plea disposition |
 | `SentencingOutcome` / `PrisonSentence` / `SupervisedRelease` | Sentencing results |
-| `SexOffenderRegistryEntry` | Registry integration when applicable |
-| `StatuteReference` | Statutory basis |
+| `cacontology-sex-offender-registry:RegistrationRecord` | Registry integration when applicable |
+| `uco-core:ExternalReference` | Statutory citation and defining source |
 | `CACInvestigation` | Source investigation linkage |
 | `Identity` | Defendant / subject |
 
@@ -52,15 +52,15 @@ graph.add_node("kb:suspect", "uco-identity:Person", {
 
 ```
 CACInvestigation
-  └── resultsIn ──▶ ChargeSet
-        └── PleaAgreement (optional)
-              └── SentencingOutcome
-                    └── SexOffenderRegistryEntry (when ordered)
+  └── Related_To ──▶ CriminalCharge (one node per count)
+        ├── Related_To ──▶ PleaAgreement (when entered)
+        └── Related_To ──▶ SentencingOutcome
+              └── Related_To ──▶ RegistrationRecord (when ordered)
 ```
 
 ## Modeling rules
 
-- Link charges back to the **source investigation** and relevant **exploitation events** via `uco-core:Relationship` (`Relates_To`), not only `chargedWith` on the suspect.
+- Link charges back to the **source investigation** and relevant **exploitation events** via `uco-core:Relationship` (`Related_To`), not only `chargedWith` on the suspect.
 - Use **statute references** as structured nodes when statute numbers are known.
 - Registry outcomes are separate auditable events — do not bury them in sentencing description text.
 - Use typed literals for `chargeCount` (`xsd:nonNegativeInteger`).

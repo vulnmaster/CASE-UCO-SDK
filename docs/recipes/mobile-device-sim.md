@@ -14,7 +14,7 @@ This complements the [cell-site recipe](cell-site.md) (which focuses on tower co
 | `SIMCard` + `SIMCardFacet` | SIM details (ICCID, IMSI, carrier) |
 | `MobileAccount` + `AccountFacet` | Subscriber identity (MSISDN/phone number) |
 | `OperatingSystem` + `SoftwareFacet` | The mobile OS |
-| `Relationship` | `Contained_Within`, `Has_Operating_System`, `Has_Account` |
+| `Relationship` | Registered `Contained_Within` and described `Related_To` device associations |
 
 ## Pattern
 
@@ -26,8 +26,8 @@ MobileDevice
     └── WifiAddressFacet (Wi-Fi MAC)
          │
          ├── Contained_Within ◀── SIMCard + SIMCardFacet (ICCID, IMSI, carrier)
-         ├── Has_Operating_System ──▶ OperatingSystem + SoftwareFacet
-         └── Has_Account ──▶ MobileAccount (MSISDN)
+         ├── Related_To ──▶ OperatingSystem + SoftwareFacet (description: installed OS)
+         └── Related_To ──▶ MobileAccount (description: subscriber account for device)
 ```
 
 <details open><summary>Python</summary>
@@ -80,7 +80,8 @@ os_obj = graph.create(ObservableObject, name="...",
 )
 graph.create(Relationship,
     source=[phone], target=os_obj,
-    kind_of_relationship="Has_Operating_System",
+    kind_of_relationship="Related_To",
+    description=["The target operating system is installed on the source device."],
     is_directional=True,
 )
 
@@ -108,7 +109,8 @@ mobile_acct = graph.create(ObservableObject,
 )
 graph.create(Relationship,
     source=[phone], target=mobile_acct,
-    kind_of_relationship="Has_Account",
+    kind_of_relationship="Related_To",
+    description=["The target subscriber account is associated with the source device."],
     is_directional=True,
 )
 
@@ -122,4 +124,4 @@ graph.write("mobile_device_sim.jsonld")
 - `MobileDeviceFacet.imei` is `list[str]` — dual-SIM devices have two IMEIs.
 - `BluetoothAddressFacet` and `WifiAddressFacet` both inherit `address_value: Optional[str]` from `MACAddressFacet`.
 - `SIMCardFacet.carrier` expects an `Identity` object.
-- Use `Relationship` with `kind_of_relationship` values: `"Contained_Within"` (SIM in device), `"Has_Operating_System"`, `"Has_Account"`.
+- Use registered `Contained_Within` for the SIM in the device. Use `Related_To` for OS and subscriber-account associations, with exact semantics in `description`.

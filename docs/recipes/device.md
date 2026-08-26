@@ -13,7 +13,7 @@ Model computers, forensic workstations, and other hardware with detailed specifi
 | `DomainNameFacet` | Network hostname |
 | `IPv4AddressFacet` | IP address |
 | `OperatingSystem` + `OperatingSystemFacet` + `SoftwareFacet` | The installed OS |
-| `Relationship` | Links device to OS (`Has_Operating_System`) |
+| `Relationship` | Links device to OS with registered `Related_To` plus an installation description |
 
 ## Pattern
 
@@ -24,7 +24,7 @@ Device
     ├── DomainNameFacet (network name)
     └── IPv4AddressFacet (IP address)
          │
-         └── Has_Operating_System ──▶ OperatingSystem + SoftwareFacet
+         └── Related_To ──▶ OperatingSystem + SoftwareFacet (description: operating system installed on device)
 ```
 
 <details open><summary>Python</summary>
@@ -73,7 +73,8 @@ os_obj = graph.create(ObservableObject, name="...",
 # Link device to its OS
 graph.create(Relationship,
     source=[workstation], target=os_obj,
-    kind_of_relationship="Has_Operating_System",
+    kind_of_relationship="Related_To",
+    description=["The target operating system is installed on the source device."],
     is_directional=True,
 )
 
@@ -85,7 +86,7 @@ graph.write("device.jsonld")
 ## Notes
 
 - `ComputerSpecificationFacet` has many optional fields: `hostname`, `total_ram`, `available_ram`, `cpu`, `cpu_family`, `gpu`, `bios_version`, `bios_serial_number`, `processor_architecture`, etc. Populate only what the source provides.
-- Use `Relationship` with `kind_of_relationship="Has_Operating_System"` to link devices to their OS.
+- Use registered `Related_To` to link a device to its OS and state the installation semantics in `description`.
 - For forensic lab documentation, include the workstation's specs to establish the examination environment.
 
 ## Related

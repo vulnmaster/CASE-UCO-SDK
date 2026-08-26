@@ -12,22 +12,22 @@ Model transnational child exploitation investigations, Europol/Interpol coordina
 
 | Class | Role |
 |---|---|
-| `InternationalJurisdiction` | Foreign jurisdiction node |
-| `CrossBorderOperation` | Coordinated international operation |
-| `ExtraditionProcess` | Extradition workflow |
-| `InternationalEvidenceSharing` | Cross-border evidence transfer |
-| `InterpolCoordination` / `EuropolCoordination` | Agency coordination nodes |
-| `TaskForce` / `JointInvestigation` | Shared with domestic multi-jurisdiction pattern |
+| `cacontology-multi-jurisdiction:InternationalJurisdiction` | Foreign jurisdiction node |
+| `cacontology-international:CrossBorderOperation` | Coordinated international operation |
+| `cacontology-multi-jurisdiction:ExtraditionRequest` | Formal extradition request |
+| `cacontology-international:InternationalEvidenceSharing` | Cross-border evidence transfer |
+| `cacontology-international:InternationalCoordination` / `EuropolCoordination` | General or Europol-specific coordination events |
+| `cacontology-taskforce:TaskForce` / `cacontology-multi-jurisdiction:JointInvestigation` | Domestic coordination structures |
 
 ## Canonical pattern
 
 ```
-JointInvestigation
-  ├── FederalJurisdiction (domestic lead)
-  ├── InternationalJurisdiction (foreign partner)
-  └── CrossBorderOperation
-        ├── InterpolCoordination / EuropolCoordination
-        └── InternationalEvidenceSharing
+cacontology-multi-jurisdiction:JointInvestigation
+  ├── cacontology-multi-jurisdiction:primaryJurisdiction ──▶ FederalJurisdiction
+  ├── Related_To ──▶ InternationalJurisdiction (foreign partner)
+  └── Related_To ──▶ cacontology-international:CrossBorderOperation
+        ├── Related_To ──▶ InternationalCoordination / EuropolCoordination
+        └── Related_To ──▶ InternationalEvidenceSharing
 ```
 
 ## Modeling rules

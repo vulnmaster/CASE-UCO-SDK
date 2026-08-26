@@ -23,7 +23,7 @@ RecoveredObject + RecoveredObjectFacet
     ├── metadata_recovered_status = ["Partial"]
     └── name_recovered_status = ["None"]
          │
-         └── Has_Fragment ──▶ ContentData fragments
+         └── Contains ──▶ ContentData fragments
                                 └── Contained_Within ──▶ disk Image (DataRangeFacet)
 ```
 
@@ -79,7 +79,7 @@ fragment = graph.create(ObservableObject,
 )
 graph.create(Relationship,
     source=[recovered], target=fragment,
-    kind_of_relationship="Has_Fragment",
+    kind_of_relationship="Contains",
     is_directional=True,
 )
 graph.create(Relationship,

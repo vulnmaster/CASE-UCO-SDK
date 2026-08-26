@@ -12,21 +12,21 @@ Model hotline intake, triage, referral, and escalation from first report through
 
 | Class | Role |
 |---|---|
-| `HotlineIntake` | Initial report receipt |
-| `IntakeAssessment` | Triage and urgency classification |
-| `ReferralAction` | Referral to agency or service provider |
-| `MandatoryReportingActivation` | Mandated reporter trigger when applicable |
+| `cacontology-hotlines:HotlineReport` | Initial report received by a hotline |
+| `cacontology-hotlines:ReportReviewAction` | Triage and urgency review |
+| `cacontology-hotlines:ForwardToLEAction` | Referral to a law-enforcement agency |
+| `cacontology-recruitment-networks:MandatoryReportingActivation` | Mandated-reporter trigger when that separate module applies |
 | `CACInvestigation` | Investigation opened from referral |
 | `InvestigativeAction` | Each intake workflow step |
 
 ## Canonical pattern
 
 ```
-HotlineIntake
-  └── result ──▶ IntakeAssessment
-        └── result ──▶ ReferralAction
-              ├── MandatoryReportingActivation (if triggered)
-              └── resultedInInvestigation ──▶ CACInvestigation
+cacontology-hotlines:HotlineReport
+  ◀── uco-action:object ── cacontology-hotlines:ReportReviewAction
+        └── uco-action:result ──▶ cacontology-hotlines:ForwardToLEAction
+              ├── uco-action:result ──▶ CACInvestigation
+              └── Related_To ──▶ MandatoryReportingActivation (only if sourced)
 ```
 
 ## Modeling rules
@@ -43,8 +43,12 @@ from case_uco import CASEGraph
 graph = CASEGraph(extra_context={
     "cacontology-hotlines": "https://cacontology.projectvic.org/hotlines#",
 })
-intake = graph.add_node("kb:intake-1", "cacontology-hotlines:HotlineIntake", {
-    "uco-core:name": "CyberTipline intake call",
+report = graph.add_node("kb:report-1", "cacontology-hotlines:HotlineReport", {
+    "uco-core:name": "CyberTipline report",
+})
+review = graph.add_node("kb:review-1", "cacontology-hotlines:ReportReviewAction", {
+    "uco-core:name": "Hotline triage review",
+    "uco-action:object": {"@id": "kb:report-1"},
 })
 graph.write("hotline-intake.jsonld")
 ```

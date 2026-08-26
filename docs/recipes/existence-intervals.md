@@ -12,7 +12,6 @@ The CASE-Examples illustrate four parallel approaches to the same concept (an en
 
 | Approach | When to use |
 |---|---|
-| **Custom `ex:` intervals** | Lightweight; no external ontology dependency |
 | **OWL-Time** (`time:Interval`, `time:Instant`) | W3C standard; broad tooling support |
 | **gUFO** (`gufo:Object`, `TemporaryInstantiationSituation`) | Foundational ontology; used by CAC Ontology |
 | **BFO** (`obo:BFO_*` temporal regions) | Biomedical/scientific ontology stack |
@@ -30,7 +29,6 @@ import json
 
 graph = CASEGraph(extra_context={
     "time": "http://www.w3.org/2006/time#",
-    "ex": "http://example.org/ontology/",
 })
 
 # A person who held a role during a specific interval
@@ -38,7 +36,7 @@ graph = CASEGraph(extra_context={
 
 person = {
     "@id": "kb:person-1",
-    "@type": "ex:Person",
+    "@type": "uco-identity:Person",
     "uco-core:name": "...",
     "time:hasTime": {"@id": "kb:interval-1"},
 }
@@ -68,10 +66,10 @@ interval = {
 raw_doc = json.dumps({
     "@context": {
         "time": "http://www.w3.org/2006/time#",
-        "ex": "http://example.org/ontology/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "kb": "http://example.org/kb/",
         "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
     },
     "@graph": [person, interval],
 })
@@ -90,27 +88,35 @@ import json
 
 graph = CASEGraph(extra_context={
     "gufo": "http://purl.org/nemo/gufo#",
-    "ex": "http://example.org/ontology/",
 })
 
-# A temporary role instantiation
+# A temporary instantiation of a declared role type.
+person = {
+    "@id": "kb:person-1",
+    "@type": ["uco-identity:Person", "gufo:Object"],
+    "uco-core:name": "...",
+}
+role_type = {
+    "@id": "kb:student-role-type",
+    "@type": "gufo:Role",
+    "uco-core:name": "Student role",
+}
 situation = {
     "@id": "kb:situation-1",
     "@type": "gufo:TemporaryInstantiationSituation",
-    "ex:bearer": {"@id": "kb:person-1"},
-    "ex:type": {"@id": "ex:StudentRole"},
-    "ex:startTime": {"@type": "xsd:dateTime", "@value": "..."},
-    "ex:endTime": {"@type": "xsd:dateTime", "@value": "..."},
+    "gufo:concernsTemporaryWhole": {"@id": "kb:person-1"},
+    "gufo:concernsNonRigidType": {"@id": "kb:student-role-type"},
+    "gufo:hasBeginPointInXSDDateTimeStamp": {
+        "@type": "xsd:dateTimeStamp", "@value": "..."
+    },
+    "gufo:hasEndPointInXSDDateTimeStamp": {
+        "@type": "xsd:dateTimeStamp", "@value": "..."
+    },
 }
 
 raw_doc = json.dumps({
-    "@context": {
-        "gufo": "http://purl.org/nemo/gufo#",
-        "ex": "http://example.org/ontology/",
-        "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "kb": "http://example.org/kb/",
-    },
-    "@graph": [situation],
+    "@context": dict(graph._context),
+    "@graph": [person, role_type, situation],
 })
 graph.load(raw_doc)
 ```

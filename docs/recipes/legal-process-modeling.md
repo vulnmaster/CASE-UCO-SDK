@@ -108,8 +108,9 @@ form. Two properties capture every inchoate/derivative pattern:
 the object offense was never separately charged (common for conspiracy).
 
 The conspiracy *organization* is a separate concern: model the group as
-`uco-identity:Organization` with `Member_Of` relationships, and overt acts
-as `uco-action:Action`s plus UCO observables (messages, social posts,
+`uco-identity:Organization` and link reviewed members with registered
+`Related_To` relationships whose descriptions state membership. Model overt
+acts as `uco-action:Action`s plus UCO observables (messages, social posts,
 internet searches). Keep the participation layer out of the charge nodes.
 
 ## Checklist (adapted from the Perry/O'Dell exemplar)
@@ -117,28 +118,31 @@ internet searches). Keep the participation layer out of the charge nodes.
 1. **One Investigation per docket**, with `legalproc:caseIdentifier` holding
    the docket number; magistrate/appellate dockets in the description.
 2. **Instrument chain**: each complaint → indictment → superseding
-   indictment as a `ChargingInstrument`, linked with `Supersedes`
-   relationships; charges point at the operative instrument via
-   `assertedIn`.
-3. **Defendant-charge matrix**: `Charged_With` relationships per defendant —
-   defendants rarely share all counts (Perry: 1-41; O'Dell: 1-35, 42-45).
+   indictment as a `ChargingInstrument`, linked with registered `Related_To`
+   and a supersession description; charges point at the operative instrument
+   via `legalproc:assertedIn`.
+3. **Defendant-charge matrix**: registered `Related_To` relationships per
+   defendant with "charged with" in `uco-core:description` — defendants
+   rarely share all counts (Perry: 1-41; O'Dell: 1-35, 42-45).
 4. **Dispositions per charge**: `chargeDisposition` supports multiple values
    when counts diverge (Counts 36-37: `convicted-by-verdict` + `merged`).
 5. **Victims as first-class nodes**: persons named by initials exactly as
-   charged, linked by `Victim_Of` to charges and violent actions.
+   charged, linked by registered `Related_To` to charges and violent actions
+   with the victim assertion in `uco-core:description`.
 6. **Weapons/vehicles** as `uco-core:UcoObject` + `gufo:FunctionalComplex`
    items (never observables — see the cyber vs. non-cyber rule above) with
-   serial numbers in names/descriptions, linked by `Possessed_By` /
-   `Instrument_Of` / `Subject_Of`; digital overt acts as UCO observables.
+   serial numbers in names/descriptions. Use `uco-action:instrument` for use
+   in an action; otherwise use described `Related_To` possession/subject
+   assertions. Digital overt acts remain UCO observables.
 7. **Overt-act timeline**: model the charging instrument's overt-act
-   paragraphs as `uco-action:Action` nodes with one `performer`,
-   `startTime`, `object`/`result` links to items, recruits, and
-   observables, an `Overt_Act_In_Furtherance_Of` relationship to the
-   conspiracy charge, and `Participated_In` relationships for
-   co-conspirators. This is what makes the graph timeline- and
-   TTP-queryable for Link-Look-style exploration.
-8. **Counsel**: attorneys as `uco-identity:Person` with `Counsel_For`
-   relationships; appointment/termination history in descriptions.
+   paragraphs as `uco-action:Action` nodes with one `uco-action:performer`,
+   direct `uco-action:startTime`, `object`/`result` links to items, recruits,
+   and observables, registered `Related_To` to the conspiracy charge with an
+   overt-act description, and `uco-action:participant` for co-conspirators.
+   This makes the graph timeline- and TTP-queryable for Link-Look exploration.
+8. **Counsel**: attorneys as `uco-identity:Person` with registered
+   `Related_To` links to represented people and appointment/termination
+   history in descriptions.
 9. **Verdicts per outcome**, not per trial: separate guilty and not-guilty
    `Verdict` nodes listing their charges via `concernsCharge`.
 10. **Sentences**: keep `sentenceTerm` verbatim ("Life", "165 years (25
@@ -169,7 +173,8 @@ divergent outcomes (jury conviction vs. jury acquittal, matching how
 PACER tracks counts per defendant), guilty and not-guilty `Verdict`
 nodes, statutory-maximum sentence, and the **full appellate ladder** —
 `proceedingType` `appeal` (Sixth Circuit affirmance) and `certiorari`
-(Supreme Court review) chained with `Reviews` relationships:
+(Supreme Court review) chained with registered `Related_To` relationships
+whose descriptions state which proceeding reviews which:
 
 ```bash
 .venv/bin/python examples/pacer/wdtn_2023_cr_20121/build_grayson_wdtn_2023_murder_for_hire.py

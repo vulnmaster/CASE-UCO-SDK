@@ -70,8 +70,9 @@ Model it as one `uco-action:Action` with a `startTime`/`endTime` span,
 `uco-action:instrument` pointing at the corporate device and the staging
 application, `uco-action:object` pointing at every enumerated trade secret
 category, and `uco-action:result` pointing at the exfiltrated file set.
-Then link it to each count with a `Basis_Of` relationship — every § 1832
-and § 1831 count rests on the same conduct, distinguished by category.
+Then link it to each count with registered `Related_To` and describe the
+conduct as the evidentiary basis — every § 1832 and § 1831 count rests on the
+same conduct, distinguished by category.
 
 ```json
 {
@@ -97,9 +98,10 @@ Indictments under § 1832/§ 1831 enumerate categories; verdicts return
 per-category findings. Give each category its own `ObservableObject` named
 exactly as charged ("Trade Secret Category 1"), describe it verbatim from
 the indictment, list exemplar exhibit file titles from the verdict form
-when available, and link it `Owned_By` the victim company and
-`Contained_Within` the exfiltrated file set. Each count then links to its
-category with a `Concerns` relationship — this is what lets one graph
+when available, and link it with registered `Related_To` to the victim
+company with ownership stated in `uco-core:description`, plus
+`Contained_Within` to the exfiltrated file set. Each count then links to its
+category with described `Related_To` — this is what lets one graph
 answer "which files ground Count Eleven?"
 
 ### 3. Paired § 1832 / § 1831 counts share categories, not nodes
@@ -150,8 +152,9 @@ per-message extractions are available.
 ### 7. Jury verdicts with per-category findings
 
 One `legalproc:Verdict` per count (`verdictType`: "guilty" /
-"not-guilty"), `concernsCharge` → the count, `Occurred_During` → the trial
-`CriminalProceeding`, `Derived_From` → the verdict-form source document.
+"not-guilty"), `legalproc:concernsCharge` → the count, plus registered
+`Related_To` links to the trial `CriminalProceeding` and verdict-form source
+document with occurrence/provenance semantics in `uco-core:description`.
 When the verdict form records which exhibits the jury unanimously found to
 be trade secrets (including "combination of all documents" findings),
 summarize that in the verdict description rather than inventing per-exhibit
@@ -181,18 +184,20 @@ nodes the record does not individuate.
 3. Model the exfiltration: corporate devices, staging application,
    personal cloud accounts (`DigitalAccountFacet`), the exfiltrated file
    set, and one observable per enumerated trade secret category
-   (`Owned_By` victim, `Contained_Within` file set).
+   (described `Related_To` ownership assertion, `Contained_Within` file set).
 4. Build the motive/concealment timeline: outside affiliations, pitches,
    talent-program applications, badge-scan simulation, self-deletion
    affidavit, flight booking, resignation — each a dated `Action`.
 5. Model the corporate detection chain and the FBI warrant chain as
    `InvestigativeAction`s (warrants get `Authorization` nodes).
 6. Add `legalproc` charging instruments (indictment → superseding →
-   second superseding with `Supersedes` edges), per-category §1832/§1831
-   counts (`Concerns` → category), the forfeiture allegation, the trial
+   second superseding with described `Related_To` edges), per-category
+   §1832/§1831 counts (described `Related_To` → category), the forfeiture
+   allegation, the trial
    proceeding, and per-count verdicts.
-7. Link the exfiltration action to every count with `Basis_Of`; link the
-   victim company to every count with `Victim_Of`.
+7. Link the exfiltration action to every count with registered `Related_To`
+   and an evidentiary-basis description; link the victim company to every
+   count with a described `Related_To` victim assertion.
 8. Validate: `validate_graph(path, extensions=['legalproc'])` plus strict
    concept coverage; `Conforms: True` before presenting.
 

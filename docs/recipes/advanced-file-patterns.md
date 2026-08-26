@@ -29,13 +29,13 @@ File (disk image)
     ▲ Contained_Within (DataRangeFacet: offset, size)
     │
 ContentData (encrypted partition)
-    ▲ Decrypted_From (EncryptedStreamFacet: AES-256-CBC)
+    ▲ Related_To (description: decrypted from target; EncryptedStreamFacet: AES-256-CBC)
     │
 ContentData (decrypted volume)
     ▲ Contained_Within (PathRelationFacet: path in archive)
     │
 File (TAR entry)
-    ▲ Decoded_From (EncodedStreamFacet: BASE64)
+    ▲ Related_To (description: decoded from target; EncodedStreamFacet: BASE64)
     │
 ContentData (decoded content)
 ```
@@ -88,7 +88,8 @@ decrypted_data = graph.create(ObservableObject,
 )
 graph.create(Relationship,
     source=[decrypted_data], target=inner_data,
-    kind_of_relationship="Decrypted_From",
+    kind_of_relationship="Related_To",
+    description=["The source data was decrypted from the target encrypted stream."],
     is_directional=True,
     has_facet=[EncryptedStreamFacet(
         encryption_method="...",  # e.g. "AES" from source
@@ -113,7 +114,8 @@ decoded = graph.create(ObservableObject,
 )
 graph.create(Relationship,
     source=[decoded], target=archive_entry,
-    kind_of_relationship="Decoded_From",
+    kind_of_relationship="Related_To",
+    description=["The source content was decoded from the target encoded content."],
     is_directional=True,
     has_facet=[EncodedStreamFacet(encoding_method="...")],  # e.g. "BASE64"
 )
@@ -146,7 +148,7 @@ graph.write("advanced_file_patterns.jsonld")
 - `PathRelationFacet.path` is `list[str]` — the path within the container.
 - `EncryptedStreamFacet` fields: `encryption_method`, `encryption_mode` (both `Optional[str]`), `encryption_key`, `encryption_iv` (both `list[str]`).
 - `EncodedStreamFacet` has `encoding_method: Optional[str]`.
-- Common `kind_of_relationship` values for file chains: `"Contained_Within"`, `"Decoded_From"`, `"Decrypted_From"`, `"Decompressed_From"`.
+- Use registered `Contained_Within` for containment. For decode, decrypt, or decompress derivations that lack a registered directional kind, use `Related_To` and state the exact transformation direction in `description`.
 - Facets go on the `Relationship` itself (via `has_facet`) when they describe the relationship (e.g., byte offset), not the objects.
 
 ## Related

@@ -12,22 +12,22 @@ Model missing-child cases including AMBER alerts, stranger abduction investigati
 
 | Class | Role |
 |---|---|
-| `MissingChildReport` | Initial missing-person report |
-| `StrangerAbductionInvestigation` | Stranger-abduction case type |
-| `AMBERAlertActivation` | Alert issuance |
-| `LocationTrackingAction` | Cell-site / GPS tracking steps |
-| `ChildRecovery` | Successful recovery event |
+| `uco-observable:Observation` | Initial missing-person report observation |
+| `cacontology-stranger-abduction:StrangerAbductionInvestigation` | Stranger-abduction investigation type |
+| `case-investigation:InvestigativeAction` with a descriptive name | AMBER alert issuance when no dedicated CAC class exists |
+| `case-investigation:InvestigativeAction` | Cell-site / GPS tracking steps |
+| `cacontology-stranger-abduction:VictimRecovery` | Successful victim recovery process |
 | `CACInvestigation` | Investigation container |
 | `CellSiteFacet` / `LatLongCoordinatesFacet` | Location evidence |
 
 ## Canonical pattern
 
 ```
-MissingChildReport
-  └── triggers ──▶ CACInvestigation
-        ├── AMBERAlertActivation (when criteria met)
-        ├── LocationTrackingAction (CDR / cell-site / GPS)
-        └── ChildRecovery (when located)
+uco-observable:Observation (missing-person report)
+  └── Related_To ──▶ CACInvestigation
+        ├── cacontology:hasStep ──▶ InvestigativeAction (CDR / cell-site / GPS)
+        ├── cacontology:hasStep ──▶ InvestigativeAction (AMBER alert activation)
+        └── cacontology:hasStep ──▶ cacontology-stranger-abduction:VictimRecovery
 ```
 
 ## Modeling rules
@@ -41,11 +41,9 @@ MissingChildReport
 ```python
 from case_uco import CASEGraph
 
-graph = CASEGraph(extra_context={
-    "cacontology-stranger-abduction": "https://cacontology.projectvic.org/abduction#",
-})
-report = graph.add_node("kb:missing-1", "cacontology-stranger-abduction:MissingChildReport", {
-    "uco-core:name": "Missing 14-year-old report",
+graph = CASEGraph()
+report = graph.add_node("kb:missing-1", "uco-observable:Observation", {
+    "uco-core:name": "Missing-child report observation",
 })
 graph.write("missing-child.jsonld")
 ```

@@ -19,11 +19,11 @@ Model discrete events such as authentication attempts, login/logout actions, and
 
 ```
 Event
-    ├── startTime / endTime
-    ├── eventType = ["..."]
-    ├── eventContext ──▶ Action (submit login)
+    ├── uco-core:startTime / uco-core:endTime
+    ├── uco-core:eventType = ["..."]
+    ├── uco-core:eventContext ──▶ Action (submit login)
     │                 ──▶ Action (authenticate)
-    └── eventAttribute ──▶ Dictionary
+    └── uco-core:eventAttribute ──▶ Dictionary
                               └── DictionaryEntry (key="MFA", value="true")
                               └── DictionaryEntry (key="method", value="password")
 ```

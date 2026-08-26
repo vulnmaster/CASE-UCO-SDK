@@ -172,7 +172,7 @@ draft_change_proposal(
         {
             "name": "DroneTelemetryFacet",
             "type": "Facet",
-            "parent": "uco-observable:Facet",
+            "parent": "uco-core:Facet",
             "properties": [
                 {"name": "altitude", "type": "xsd:decimal", "description": "Altitude in meters above ground level"},
                 {"name": "groundSpeed", "type": "xsd:decimal", "description": "Ground speed in m/s"},
@@ -203,7 +203,7 @@ This generates three files in `change_proposals/`:
 **Background**: Explain what you were trying to model, why current classes are insufficient, and who benefits from the addition. Answer: "What do we achieve for whom and why does that matter?"
 
 **Requirements**: One numbered requirement per proposed change. Be specific:
-- "Define a new `DroneTelemetryFacet` class as a subclass of `uco-observable:Facet`"
+- "Define a new `DroneTelemetryFacet` class as a subclass of `uco-core:Facet`"
 - "Add properties for altitude, ground speed, flight mode, battery level, gimbal orientation, and home coordinates"
 
 **Risk / Benefit analysis**: List concrete benefits (new modeling capability, interoperability with drone forensic tools). For risks, consider backward compatibility, overlap with existing classes, and maintenance burden. If no risks are known, state: "The submitter is unaware of risks associated with this change."
@@ -237,6 +237,7 @@ Two requirements are commonly missed and will cause `case_validate` to report `C
 
 1. **Facets MUST have IRIs (not blank nodes).** The `hasFacet` SHACL shape requires `sh:nodeKind sh:IRI`. Every facet object inside a `uco-core:hasFacet` array must include an `@id` property. Convention: use the parent's `@id` with a `-facet` suffix (e.g., `kb:addr-1` → `kb:addr-1-facet`).
 
+   <!-- recipe-lint: ignore-start proposed-term -- The snippet demonstrates terms that the change proposal would declare; they are intentionally unavailable beforehand. -->
    ```json
    "uco-core:hasFacet": [
      {
@@ -246,30 +247,34 @@ Two requirements are commonly missed and will cause `case_validate` to report `C
      }
    ]
    ```
+   <!-- recipe-lint: ignore-end proposed-term -->
 
 2. **The `.jsonld` and the JSON-LD block embedded in the `.md` must stay in sync.** After fixing validation issues in the `.jsonld`, update the embedded example in the proposal markdown to match. Reviewers read the `.md`; automated tests run against the `.jsonld`.
 
 ### Extension ontology (`.ttl`) — required for new Facet subclasses
 
-If the proposal introduces new classes that are subclasses of existing UCO/CASE classes (e.g., a new Facet), you **must** create a `<slug>.ttl` file declaring the `rdfs:subClassOf` relationship. Without this, `case_validate` cannot infer that your proposed type satisfies the `sh:class core:Facet` constraint, and validation will fail.
+If the proposal introduces new classes that are subclasses of existing UCO/CASE classes (e.g., a new Facet), you **must** create a `<slug>.ttl` file declaring the `rdfs:subClassOf` relationship. Without this, `case_validate` cannot infer that your proposed type satisfies the `sh:class uco-core:Facet` constraint, and validation will fail.
 
+<!-- recipe-lint: ignore-start proposed-term -- The Turtle example declares the proposed class that validation will load as a local ontology graph. -->
 ```turtle
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
 @prefix proposed: <http://example.org/ontology/proposed/> .
 
 proposed:MyNewFacet
     a owl:Class ;
-    rdfs:subClassOf uco-observable:Facet ;
+    rdfs:subClassOf uco-core:Facet ;
     rdfs:label "MyNewFacet"@en ;
     rdfs:comment "Description of the facet."@en .
 ```
+<!-- recipe-lint: ignore-end proposed-term -->
 
 This file is **not optional** — it is required for any proposal that introduces Facet or UcoObject subclasses. The Makefile `validate-proposal` target automatically includes it when present.
 
 <details open><summary>Python — building a richer example graph</summary>
 
+<!-- recipe-lint: ignore-start proposed-term -- This example instantiates terms declared by the companion proposal ontology. -->
 ```python
 from case_uco import CASEGraph
 from case_uco.case.investigation import Investigation, InvestigativeAction
@@ -298,7 +303,7 @@ drone = graph.create(ObservableObject, has_facet=[
 ])
 
 # The telemetry facet doesn't exist yet — model it as raw JSON-LD
-# and load it into the graph via graph.load()
+# and load it into the graph via graph.load().
 telemetry_data = {
     "@id": "kb:drone-1-telemetry",
     "@type": "proposed:DroneTelemetryFacet",
@@ -317,6 +322,7 @@ graph.load(json.dumps({
 
 graph.write("change_proposals/drone-telemetry-facet.jsonld")
 ```
+<!-- recipe-lint: ignore-end proposed-term -->
 
 </details>
 
@@ -343,7 +349,7 @@ Both checks must pass. If either fails, fix the issues and re-run.
 
 The `validate-proposal` Makefile target uses these flags automatically:
 
-- **`--inference rdfs`** — Required when proposed classes are `rdfs:subClassOf` existing UCO/CASE classes (e.g., Facet, UcoObject). Without this, SHACL cannot infer that `proposed:MyFacet` satisfies the `sh:class core:Facet` constraint.
+- **`--inference rdfs`** — Required when proposed classes are `rdfs:subClassOf` existing UCO/CASE classes (e.g., Facet, UcoObject). Without this, SHACL cannot infer that the proposed facet satisfies the `sh:class uco-core:Facet` constraint.
 - **`--allow-info`** — Allows informational results (UUID IRI suggestions, vocabulary hints) without causing a non-zero exit code. These are advisory, not errors.
 - **`--ontology-graph <slug>.ttl`** — Automatically included when the file exists. Declares your proposed classes so the validator knows their type hierarchy.
 
@@ -362,7 +368,7 @@ make sparql-test-proposal PROPOSAL=drone-telemetry-facet
 | Failure | Cause | Fix |
 |---------|-------|-----|
 | `NodeKindConstraintComponent: Value is not of Node Kind sh:IRI` | Facet objects are blank nodes (missing `@id`) | Add `"@id": "kb:<parent>-facet"` to each facet object |
-| `ClassConstraintComponent: Value does not have class core:Facet` | No `.ttl` declaring `rdfs:subClassOf` | Create `<slug>.ttl` with the class hierarchy (see Step 5) |
+| `ClassConstraintComponent: Value does not have class uco-core:Facet` | No `.ttl` declaring `rdfs:subClassOf` | Create `<slug>.ttl` with the class hierarchy (see Step 5) |
 | `ClassConstraintComponent` despite `.ttl` present | Missing `--inference rdfs` flag | Ensure the Makefile target passes `--inference rdfs` |
 | Exit code 1 with only informational results | Missing `--allow-info` flag | Ensure the Makefile target passes `--allow-info` |
 

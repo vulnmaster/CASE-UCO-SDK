@@ -105,10 +105,10 @@ validation) for `AppleUnifiedLogArchive`.
 
 ```
 Investigation
-  └── object ──▶ InvestigativeAction ("Collect iOS sysdiagnose")
-                     ├── instrument ──▶ Tool (UFADE / pymobiledevice3)
-                     ├── object ──▶ phone (DeviceFacet model=iPhone12,1)
-                     └── result ──▶ sysdiagnose_dir
+  └── uco-core:object ──▶ InvestigativeAction ("Collect iOS sysdiagnose")
+                     ├── uco-action:instrument ──▶ Tool (UFADE / pymobiledevice3)
+                     ├── uco-action:object ──▶ phone (DeviceFacet model=iPhone12,1)
+                     └── uco-action:result ──▶ sysdiagnose_dir
                                 ──▶ system_logs.logarchive
 
 phone ── Characterized_By ──▶ OperatingSystem (SoftwareFacet version=17.3)

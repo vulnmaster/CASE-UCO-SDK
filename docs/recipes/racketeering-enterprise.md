@@ -53,8 +53,9 @@ among associates, and longevity (*Boyle v. United States*, 556 U.S. 938
 
 - Charged purposes and the commerce nexus go in `uco-core:description`,
   verbatim from the indictment's "Purposes of the Enterprise" section.
-- Membership is a `uco-core:Relationship` of kind `Member_Of` from each
-  person to the enterprise. Assert membership only where a reviewed
+- Membership is a `uco-core:Relationship` of registered kind `Related_To`
+  from each person to the enterprise, with membership stated in
+  `uco-core:description`. Assert membership only where a reviewed
   document places the person in the enterprise — being a co-defendant is
   not membership (e.g. an obstruction-only defendant).
 - The operating span ("began no later than X, continued through at least
@@ -64,8 +65,9 @@ among associates, and longevity (*Boyle v. United States*, 556 U.S. 938
 
 RICO indictments allege a division of labor in a dedicated section
 ("Defendants' Roles in the Enterprise"). Keep it queryable — one
-`EnterpriseRole` node per function, `Has_Role` from person to role,
-`Role_Within` from role to enterprise:
+`EnterpriseRole` node per function. Use registered `Related_To` from person
+to role and role to enterprise, with bearer-role and role-within-enterprise
+semantics in `uco-core:description`:
 
 ```json
 {
@@ -78,7 +80,7 @@ RICO indictments allege a division of labor in a dedicated section
 ```
 
 Several persons share one role, and one person holds several roles
-(an organizer who also launders gets two `Has_Role` edges). Unindicted
+(an organizer who also launders gets two described `Related_To` role edges). Unindicted
 associates keep their charging-document designations
 ("COCONSPIRATOR M.F.", "MONEY EXCHANGER-1") as `uco-identity:Person`
 nodes — never speculate about the identity behind initials, even when an
@@ -147,9 +149,10 @@ superseding). Conventions that keep the docket reconstructible:
 
 Model the overall pattern as one long-running `uco-action:Action`
 performed by the enterprise node, and the significant overt acts as
-individual Actions performed by the members
-(`uco-action:performer` is max-1; co-actors get `Participated_In`
-relationships). Link acts to the counts they support with `Relates_To`.
+individual Actions performed by the members. `uco-action:performer` is
+max-1; use `uco-action:participant` for co-actors. Link acts to the counts
+they support with registered `Related_To` and state the basis in
+`uco-core:description`.
 Where the enterprise launders virtual assets, put
 `cryptoinv:launderingTechnique` values on the laundering actions
 (`peel-chain`, `chain-hopping-to-monero`, `no-kyc-exchange`,

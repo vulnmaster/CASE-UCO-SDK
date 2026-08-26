@@ -27,21 +27,21 @@ Model freight route theft, warehouse staging, manifest anomalies, and geofence-c
 | `Event` | Deviation alerts, arrival/departure timestamps |
 | `File` + `FileFacet` | Manifest PDFs, ELD exports, lease agreements |
 | `MessageThread` | Planning chats coordinating theft or staging |
-| `Relationship` | `Located_At`, `Contained_Within`, `Associated_With`, `Transferred_To` |
+| `Relationship` | Registered `Contained_Within` and `Related_To`; descriptions preserve location, lease, association, and transfer semantics |
 | `ProvenanceRecord` | Links manifest analysis back to source TMS export |
 
 ## Pattern
 
 ```
 Investigation
-    ├── object ──▶ MessageThread (route planning chat)
-    ├── object ──▶ Vehicle (tractor + trailer observables)
-    ├── object ──▶ File (manifest / BOL) with ContentDataFacet hash
-    ├── object ──▶ InvestigativeAction (geofence deviation analysis)
-    │                 ├── object ──▶ Location corridor + deviation Event nodes
-    │                 └── result ──▶ staging Location (warehouse unit)
-    └── object ──▶ InvestigativeAction (warehouse search)
-                      └── result ──▶ recovered cargo ObservableObject
+    ├── uco-core:object ──▶ MessageThread (route planning chat)
+    ├── uco-core:object ──▶ Vehicle (tractor + trailer observables)
+    ├── uco-core:object ──▶ File (manifest / BOL) with ContentDataFacet hash
+    ├── uco-core:object ──▶ InvestigativeAction (geofence deviation analysis)
+    │                 ├── uco-action:object ──▶ Location corridor + deviation Event nodes
+    │                 └── uco-action:result ──▶ staging Location (warehouse unit)
+    └── uco-core:object ──▶ InvestigativeAction (warehouse search)
+                      └── uco-action:result ──▶ recovered cargo ObservableObject
 ```
 
 <details open><summary>Python</summary>
@@ -144,14 +144,16 @@ graph.create(
     Relationship,
     source=[tractor],
     target=[deviation_event],
-    kind_of_relationship="Associated_With",
+    kind_of_relationship="Related_To",
+    description=["The tractor is associated with the route-deviation event."],
     is_directional=True,
 )
 graph.create(
     Relationship,
     source=[staging_yard],
     target=[carrier],
-    kind_of_relationship="Leased_By",
+    kind_of_relationship="Related_To",
+    description=["The staging location was leased by the target carrier."],
     is_directional=True,
 )
 
@@ -164,8 +166,9 @@ graph.validate()
 ## Validation queries
 
 ```sparql
-PREFIX case-investigation: <https://unifiedcyberontology.org/ontology/case/investigation#>
-PREFIX uco-action: <https://unifiedcyberontology.org/ontology/uco/action#>
+PREFIX case-investigation: <https://ontology.caseontology.org/case/investigation/>
+PREFIX uco-action: <https://ontology.unifiedcyberontology.org/uco/action/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
 
 # Manifest review actions should reference the manifest file as object or result
 SELECT ?action ?manifest WHERE {

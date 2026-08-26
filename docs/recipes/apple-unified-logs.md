@@ -127,17 +127,17 @@ AppleUnifiedLogArchive (system_logs.logarchive)
 EventRecord ── Contained_Within ──▶ CSV / SQLite / JSONL output file
     │
     └── Event
-          ├── eventType = ["unifiedlog", "Default"]
-          ├── eventContext ──▶ EventRecord, Application, Device
-          └── eventAttribute ──▶ Dictionary (subsystem, mach_continuous_time, boot_uuid, …)
+          ├── uco-core:eventType = ["unifiedlog", "Default"]
+          ├── uco-core:eventContext ──▶ EventRecord, Application, Device
+          └── uco-core:eventAttribute ──▶ Dictionary (subsystem, mach_continuous_time, boot_uuid, …)
                (omit absolute Event.startTime when the archive has no timesync)
 
 SolveitInvestigativeAction ("Parse logarchive with unifiedlog_iterator")
-  ├── usedTechnique ──▶ DFT-1066, DFT-1076
-  ├── appliedMitigation ──▶ DFM-1027, DFM-1175, DFM-1179
-  ├── instrument ──▶ AnalyticTool (unifiedlog_iterator)
-  ├── object ──▶ AppleUnifiedLogArchive
-  └── result ──▶ CSV file, EventRecord(s), Event(s)
+  ├── solveit-core:usedTechnique ──▶ DFT-1066, DFT-1076
+  ├── solveit-core:appliedMitigation ──▶ DFM-1027, DFM-1175, DFM-1179
+  ├── uco-action:instrument ──▶ AnalyticTool (unifiedlog_iterator)
+  ├── uco-action:object ──▶ AppleUnifiedLogArchive
+  └── uco-action:result ──▶ CSV file, EventRecord(s), Event(s)
 ```
 
 ### Analytic tool + CSV/SQLite outputs

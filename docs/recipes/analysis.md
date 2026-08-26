@@ -21,20 +21,20 @@ Model forensic analysis workflows — malware reverse engineering, automated art
 
 ```
 InvestigativeAction
-    ├── performer ──▶ Identity (analyst)
-    ├── instrument ──▶ AnalyticTool (IDA Pro, Ghidra, etc.)
-    ├── object ──▶ ObservableObject (malware sample)
-    └── result ──▶ ObservableObject (analysis report/findings)
+    ├── uco-action:performer ──▶ Identity (analyst)
+    ├── uco-action:instrument ──▶ AnalyticTool (IDA Pro, Ghidra, etc.)
+    ├── uco-action:object ──▶ ObservableObject (malware sample)
+    └── uco-action:result ──▶ ObservableObject (analysis report/findings)
 ```
 
 **Automated classification** (e.g., image categorization, malware detection):
 
 ```
 InvestigativeAction
-    ├── instrument ──▶ AnalyticTool (classifier)
-    ├── object ──▶ ObservableObject (artifact to classify)
-    └── result ──▶ ObservableObject + ArtifactClassificationResultFacet
-                        └── classification ──▶ ArtifactClassification
+    ├── uco-action:instrument ──▶ AnalyticTool (classifier)
+    ├── uco-action:object ──▶ ObservableObject (artifact to classify)
+    └── uco-action:result ──▶ ObservableObject + ArtifactClassificationResultFacet
+                        └── uco-analysis:classification ──▶ ArtifactClassification
                                                  ├── class_ = ["label"]
                                                  └── classification_confidence = 0.95
 ```

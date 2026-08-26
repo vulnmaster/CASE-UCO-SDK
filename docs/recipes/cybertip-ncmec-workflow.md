@@ -31,20 +31,20 @@ This recipe covers **Layer 3 (Institutional Workflow)** of the three-layer patte
 
 ```
 Automated         T&S Human         Report to        CyberTip
-Detection ─result─▶ Review ──result──▶ NCMEC ──result──▶ Generation
+Detection ─uco-action:result─▶ Review ──uco-action:result──▶ NCMEC ──uco-action:result──▶ Generation
                   (platform policy)                        │
                                                            ▼
                                                 NCMECCybertipReport
-                                                  ├── hasNCMECIncidentType ──▶ incident type
+                                                  ├── cacontology-us-ncmec:hasNCMECIncidentType ──▶ incident type
                                                   └── (artifact with ExternalReference)
                                                            │
                                                            ▼
                                                 InvestigationTrigger
-                                                  ├── triggeredBy ──▶ NCMECCybertipReport
-                                                  └── resultedInInvestigation ──▶ CACInvestigation
+                                                  ├── cacontology-us-ncmec:triggeredBy ──▶ NCMECCybertipReport
+                                                  └── cacontology-us-ncmec:resultedInInvestigation ──▶ CACInvestigation
 
   PlatformCooperation
-      └── involvesPlatform ──▶ SocialMediaPlatform
+      └── cacontology-us-ncmec:involvesPlatform ──▶ SocialMediaPlatform
 ```
 
 ### Action chain
@@ -56,7 +56,7 @@ The reporting workflow is modeled as a chain of `InvestigativeAction` nodes conn
 3. **Report to NCMEC** (`InvestigativeAction`) — the ESP submits the report to NCMEC per 18 U.S.C. § 2258A. The report must include the data elements NCMEC needs to build an actionable CyberTip (see below). Uses `case-investigation:wasInformedBy` to reference the T&S review.
 4. **CyberTip Generation** (`InvestigativeAction` + `ReceiveCybertipAction`) — NCMEC generates the CyberTipline report. Its `result` is the `NCMECCybertipReport` artifact.
 
-The action chain uses `uco-action:result` as the direct property linking each step. Do not add redundant `Resulted_In` Relationship nodes — the `result` property already captures this semantics.
+The action chain uses `uco-action:result` as the direct property linking each step. Do not add a redundant generic Relationship for the same result edge.
 
 ### NCMEC-required data elements
 
@@ -103,6 +103,7 @@ The `InvestigationTrigger` is the domain object connecting the report to the inv
 
 ## Direct properties vs. generic Relationships
 
+<!-- recipe-lint: ignore-start anti-pattern -- The first column deliberately shows unregistered relationship labels that authors must replace. -->
 | Instead of `Relationship` with... | Use direct property | On class |
 |---|---|---|
 | `kindOfRelationship: "Resulted_In"` | `uco-action:result` | `InvestigativeAction` → next action/artifact |
@@ -110,6 +111,7 @@ The `InvestigationTrigger` is the domain object connecting the report to the inv
 | (incident type link) | `cacontology-us-ncmec:hasNCMECIncidentType` | `NCMECCybertipReport` → incident type |
 | (trigger link) | `cacontology-us-ncmec:triggeredBy` | `InvestigationTrigger` → report |
 | (investigation link) | `cacontology-us-ncmec:resultedInInvestigation` | `InvestigationTrigger` → investigation |
+<!-- recipe-lint: ignore-end anti-pattern -->
 
 <details open><summary>Python</summary>
 
@@ -217,8 +219,8 @@ graph.write("cybertip_workflow.jsonld")
 - **Trust & Safety review** is platform-policy-dependent. NCMEC wants high-quality reports, and most platforms have T&S teams that review automated detections before filing. Always model this step explicitly to maintain workflow fidelity, even if a given platform auto-reports without human review (in that case, note the policy in the action's description).
 - **`NCMECCybertipReport`** maps to the [NCMEC CyberTip API](https://www.missingkids.org/gethelpnow/cybertipline). Use `hasNCMECIncidentType` to directly link to incident classification rather than a generic Relationship.
 - **`InvestigationTrigger`** is the proper domain class for `triggeredBy` and `resultedInInvestigation` properties. Always create an explicit trigger node to connect the CyberTip to the CACInvestigation.
-- **Action chain linking** uses `uco-action:result` exclusively. Do not duplicate with `Resulted_In` Relationship nodes — the direct property already captures the semantics.
-- **Platform cooperation** uses `cacontology-us-ncmec:involvesPlatform` as a direct property. Do not duplicate with a `Provided_By` Relationship.
+- **Action chain linking** uses `uco-action:result` exclusively. Do not duplicate the direct property with a generic Relationship.
+- **Platform cooperation** uses `cacontology-us-ncmec:involvesPlatform` as a direct property. Do not duplicate it with a generic Relationship.
 - **Controlled vocabularies:**
   - `cooperationLevel`: `full`, `partial`, `limited`, `none`
   - `urgencyLevel`: `immediate`, `urgent`, `routine`

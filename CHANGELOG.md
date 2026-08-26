@@ -7,6 +7,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.26.0] - 2026-08-26
+
+Fail-closed ontology grounding for the operational recipe catalog, repair of
+undeclared CASE/UCO/CAC terms and non-interoperable relationship labels, and a
+reviewed Rust dependency lockfile update.
+
+#### Recipe ontology grounding (#123)
+
+- Audited all 79 operational recipes against vendored CASE/UCO, every
+  operational extension manifest in full mode, the exact pinned
+  upper-ontology registry, and `relationship_kinds.json`. Corrected fake or
+  mis-namespaced claims including `SextortionScheme`, `HotlineIntake`,
+  `MissingChildReport`, `ProductionCase`, `ExtraditionProcess`,
+  `case-investigation:name`, `gufo:hasParticipant`, and
+  `uco-observable:Facet`.
+- Replaced unregistered relationship strings and diagram labels with declared
+  direct properties or registered vocabulary values. Generic fallback edges
+  now use `Related_To` with precise descriptions that preserve role,
+  ownership, derivation, venue, custody, or evidentiary-basis semantics.
+- Added `mcp_server/recipe_lint.py`, a repository-wide Markdown gate that
+  checks CURIE existence, class/property RDF roles, class/property tables,
+  embedded snippets, canonical diagram edges, and relationship literals. It
+  reports narrow, reviewable exclusions for anti-patterns, proposed terms,
+  wildcard notation, instance IDs, and controlled literals; malformed or
+  unbounded directives fail closed.
+- Integrated recipe lint into `make test`, `make test-mcp`, CI's MCP suite, and
+  candidate promotion. Promotion rejects an invalid candidate before running
+  its exemplar builder.
+- Corrected canonical namespace examples in the fraud/crypto and change-
+  proposal recipes, removed unregistered external chemical identifiers from
+  operational guidance, and made every canonical diagram property namespace-
+  explicit.
+- Added regression coverage proving the gate rejects `SextortionScheme`,
+  `used_platform`, `case-investigation:name`, `gufo:hasParticipant`,
+  `uco-observable:Facet`, `Relates_To`, and prose-only custom labels such as
+  `Basis_Of`, while classifying explicit anti-pattern and wildcard examples.
+
+#### Recipe exemplar validation
+
+- Repaired checkout import-path handling for recipe builders and graph
+  validation so `case_uco` and MCP modules resolve consistently from a clean
+  checkout and validation failures remain fail-closed.
+- Made relationship-kind lint strict for executable exemplars, corrected the
+  FOAF/ORG account-attribution exemplar to use registered `Related_To`, and
+  added regression tests for conforming/nonconforming validation and
+  unregistered relationship values.
+- `run_recipe_examples.py --all --validate` now passes all 11 registered
+  strict-concept exemplar entries.
+
+#### Dependency maintenance
+
+- Included Dependabot #122, updating the Rust `uuid` lockfile entry from
+  1.24.1 to 1.25.0 after its full CI, dependency-review, and Rust security
+  checks passed.
+
+Package versions bumped to **1.26.0**.
+
 ## [1.25.0] - 2026-08-25
 
 Remote SPARQL query and analysis for the MCP server, with CaseLinker as the

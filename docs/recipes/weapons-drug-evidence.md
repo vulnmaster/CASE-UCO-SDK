@@ -36,7 +36,7 @@ separate bridge files, per the
   ontology baseline; IEEE P3195.1). Bridges: `weapons-profile-cco.ttl`
   (subclass axioms into CCO) and `weapons-profile-gufo.ttl`
   (`weap:Weapon ⊑ gufo:FunctionalComplex`). Property names follow the NIEM
-  justice-domain firearm representation (`j:FirearmType`).
+  justice-domain firearm representation while remaining declared in `weap:`.
 - **`extensions/drugs/`** (`drug:`) — one class,
   `drug:ControlledSubstance`, representing the concrete **portion** of
   matter (the bag of meth, the charged quantity), not the chemical kind.
@@ -61,11 +61,10 @@ p365 = {
 }
 ```
 
-- Possession/use flows through the graph, not properties: a
-  `uco-core:Relationship` (`Possessed`, `Brandished`, `Seized`) links the
-  person, and `uco-action:instrument` links the weapon to the behavior
-  Action. Forfeited weapons link from `legalproc:ForfeitureOrder` with a
-  `Forfeits` relationship.
+- Possession, brandishing, seizure, and forfeiture flow through the graph,
+  not invented predicates: use `uco-action:instrument` for a weapon used in
+  an Action. Otherwise use registered `Related_To` with the exact assertion
+  (possessed, brandished, seized, or forfeited) in `uco-core:description`.
 - Ammunition (including loaded magazines) is `weap:Ammunition` with
   `weap:caliber`.
 - Record only what the document states; the shapes require nothing, so a
@@ -80,7 +79,6 @@ meth = {
     "@id": uid("item-meth-mixture"),
     "@type": "drug:ControlledSubstance",
     "uco-core:name": "Methamphetamine mixture charged in the Count 2 conspiracy",
-    "drug:substance": {"@id": "obo:CHEBI_6809"},   # methamphetamine
     "drug:substanceName": "a mixture and substance containing a detectable amount of methamphetamine",
     "drug:csaSchedule": "II",
     "drug:mass": {"@type": "xsd:decimal", "@value": "500"},
@@ -90,9 +88,10 @@ meth = {
 }
 ```
 
-- Common ChEBI IRIs (prefix `obo:` = `http://purl.obolibrary.org/obo/`):
-  methamphetamine `CHEBI_6809`, fentanyl `CHEBI_119915`, cocaine
-  `CHEBI_27958`, heroin `CHEBI_27808`, cannabis-derived THC `CHEBI_66964`.
+- Use `drug:substanceName` unless the deployment explicitly vendors and
+  validates a chemical ontology extension. Do not place unregistered ChEBI
+  IRIs in an operational CASE/UCO graph merely because the identifier is
+  externally resolvable.
   For diverted pharmaceutical products (NDC-coded tablets), reference the
   OBO Drug Ontology (DrOn) the same way.
 - For threshold charges ("X grams or more"), set `drug:mass` to the
@@ -113,7 +112,7 @@ meth = {
   vehicles keep the `uco-core:UcoObject` + `gufo:FunctionalComplex`
   dual-typing until a dedicated extension exists.
 - ❌ Multiple `uco-action:performer` values on one Action (max-1): primary
-  actor is the performer; co-actors get `Participated_In` relationships.
+  actor is the performer; co-actors use `uco-action:participant`.
 
 ## Validation
 

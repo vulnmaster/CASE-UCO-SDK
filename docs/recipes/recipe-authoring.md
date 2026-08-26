@@ -79,8 +79,9 @@ incomplete, fix it at the source so every future routing benefits.
    evidence.
 5. **Keep the graph connected.** If the improvement makes the recipe
    relevant to new neighbors, update Related sections both ways.
-6. **Run the catalog tests** (`python -m pytest mcp_server/tests`) — index
-   completeness and cross-link guards must stay green.
+6. **Run the catalog gates** (`make lint-recipes` and
+   `python -m pytest mcp_server/tests`) — ontology grounding, index
+   completeness, and cross-link guards must stay green.
 
 The upstream loop still applies: when an improvement reveals that the
 *ontology* is what's lacking, file it (`check_existing_proposals`,
@@ -131,6 +132,46 @@ kit ([starter-filesystem-report.md](starter-filesystem-report.md)):
   real filings.
 - Keep it jurisdiction- and tool-neutral where possible; put
   jurisdiction-specific detail in the exemplar, not the pattern.
+
+### Repository-wide ontology-term lint
+
+Run `make lint-recipes` before review. The gate checks every operational
+`docs/recipes/*.md` file (except `INDEX.md`) and fails closed on:
+
+- undeclared CURIEs and unknown namespace prefixes;
+- a declared class used as a predicate or a declared property used as a class;
+- class/property table entries that do not resolve to the vendored catalog;
+- unprefixed or undeclared labels on canonical diagram edges; and
+- literal `kindOfRelationship` / `kind_of_relationship` values absent from
+  `mcp_server/relationship_kinds.json`.
+
+The catalog is built from the role-aware strict-concept declaration loader,
+every operational extension manifest in full mode, and exact terms from the
+pinned upper-ontology registry. A namespace match alone does not authorize an
+upper-ontology or extension term. Vendored Turtle files that depend on sibling
+prefix declarations are retried only with the exact namespace closure in their
+registered manifest; an unresolved parse error blocks the lint.
+
+Exclusions are narrow and appear in the report. Wildcard notation such as
+`solveit-data:techniqueDFT-*`, generic `kb:` instance IDs, and content under an
+explicit **Anti-patterns** heading are classified automatically. For a bounded
+example that intentionally uses a term being proposed, surround only that
+example with a rationale:
+
+````markdown
+<!-- recipe-lint: ignore-start proposed-term -- This example is the term the companion proposal ontology declares. -->
+```turtle
+proposed:MyFacet a owl:Class ; rdfs:subClassOf uco-core:Facet .
+```
+<!-- recipe-lint: ignore-end proposed-term -->
+````
+
+Allowed directive classifications are `anti-pattern`, `controlled-literal`,
+`instance-id`, and `proposed-term`. Directives require a rationale, cannot be
+nested, and must have a matching `ignore-end`. Never use an exclusion to make
+an operational ontology claim pass; correct the term or register the extension
+instead. Candidate promotion runs this same lint before its executable
+exemplar gate.
 
 ## Lifecycle: candidate → validated → operational (required)
 

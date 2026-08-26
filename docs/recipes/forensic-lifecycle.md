@@ -21,9 +21,9 @@ Model a structured forensic investigation as an ordered lifecycle of phases — 
 ```
 Investigation
     │
-    └── object ──▶ ActionLifecycle
+    └── uco-core:object ──▶ ActionLifecycle
                        │
-                       └── phase ──▶ ArrayOfAction
+                       └── uco-action:phase ──▶ ArrayOfAction
                                         ├── action[0] ──▶ Action ("Survey")
                                         ├── action[1] ──▶ Action ("Preservation")
                                         ├── action[2] ──▶ Action ("Examination")

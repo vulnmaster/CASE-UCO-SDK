@@ -13,7 +13,7 @@ Model disk partition structures, volume recovery, and the relationships between 
 | `ObservableObject` + `DiskPartitionFacet` | Partition table / system |
 | `ObservableObject` + `VolumeFacet` | A logical volume |
 | `FileSystem` | A file system on a volume |
-| `Relationship` | Containment chain (`Contained_Within`, `Has_Partition`) |
+| `Relationship` | Registered `Copied_From`, `Contains`, and `Contained_Within` chain |
 | `ConfiguredTool` | Partition recovery tools with specific configurations |
 | `InvestigativeAction` | Imaging, examination, and recovery steps |
 | `ProvenanceRecord` | Links actions to recovered artifacts |
@@ -22,11 +22,9 @@ Model disk partition structures, volume recovery, and the relationships between 
 
 ```
 File (disk image)
-    ▲ Forensic_Image_Of
-    │
-Device (physical disk)
-    │
-    └── Has_Partition ──▶ DiskPartition (partition table)
+    └── Copied_From ──▶ Device (physical disk)
+                           │
+                           └── Contains ──▶ DiskPartition (partition table)
                               │
                               ├── Contained_Within ◀── DiskPartition (partition 1)
                               │                            └── Contained_Within ◀── Volume
@@ -79,7 +77,7 @@ disk_image = graph.create(File,
 )
 graph.create(Relationship,
     source=[disk_image], target=disk,
-    kind_of_relationship="Forensic_Image_Of",
+    kind_of_relationship="Copied_From",
     is_directional=True,
 )
 
@@ -91,7 +89,7 @@ partition_table = graph.create(DiskPartition,
 )
 graph.create(Relationship,
     source=[disk], target=partition_table,
-    kind_of_relationship="Has_Partition",
+    kind_of_relationship="Contains",
     is_directional=True,
 )
 

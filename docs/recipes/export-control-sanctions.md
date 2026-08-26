@@ -90,15 +90,15 @@ conduct.
 
 The core deception is a consignee mismatch. Wire it explicitly:
 
-- the intermediary organization (`JHI`) `Located_At` the papered
-  destination, the designated end user (`GaStone`) `Located_At` the true
-  destination;
+- link the intermediary organization (`JHI`) with registered `Related_To` to
+  the papered destination and the designated end user (`GaStone`) to the true
+  destination; state each location role in `uco-core:description`;
 - the false-filing `Action` produces (`result`) the EEI observable whose
   description quotes the false statements (no license required; JHI as
   ultimate consignee);
 - the export `Action` moves the physical item (`object`) with
   `location` set to the *true* destination;
-- the item ends `Owned_By` the true end user.
+- link the item with registered `Related_To` to the true end user and state ownership in `uco-core:description`.
 
 A reviewer should be able to answer "who was on the paperwork?" and "who
 got the machine?" from graph structure, not prose.
@@ -169,8 +169,9 @@ the gap between indictment and arrest is real case structure, not noise.
    object offense, forfeiture allegation, plea, and
    recommended + imposed sentences.
 7. Model the arrest warrant `Authorization` and the border arrest
-   `InvestigativeAction`; wire conduct to counts with `Basis_Of` and
-   counts to the controlled item with `Concerns`.
+   `InvestigativeAction`; wire conduct to counts and counts to the controlled
+   item with registered `Related_To`, stating evidentiary-basis and
+   charge-concerns-item semantics in `uco-core:description`.
 8. Validate: `validate_graph(path, extensions=['legalproc'])` plus
    strict concept coverage; `Conforms: True` before presenting.
 
