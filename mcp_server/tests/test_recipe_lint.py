@@ -265,6 +265,24 @@ def test_bounded_proposed_term_directive_requires_rationale_and_does_not_leak():
     assert leaked.excluded is False
 
 
+def test_ignore_directive_accepts_html_comment_end_bang():
+    text = """<!-- recipe-lint: ignore-start proposed-term -- Demonstrates the term being proposed, not an available term. --!>
+`proposal:ProposedClass`
+<!-- recipe-lint: ignore-end proposed-term --!>
+`proposal:StillFake`
+"""
+    findings, _checked = lint_recipe_text(
+        text,
+        path="docs/recipes/test.md",
+        catalog=_catalog(),
+        relationship_kinds=known_relationship_kinds(),
+    )
+    proposed = next(finding for finding in findings if finding.term == "proposal:ProposedClass")
+    leaked = next(finding for finding in findings if finding.term == "proposal:StillFake")
+    assert proposed.excluded is True
+    assert leaked.excluded is False
+
+
 def test_malformed_exclusion_directive_fails_closed():
     text = """<!-- recipe-lint: ignore-start everything -- Too broad. -->
 `proposal:Fake`

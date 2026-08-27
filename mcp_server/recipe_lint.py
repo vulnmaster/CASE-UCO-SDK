@@ -47,13 +47,17 @@ _REL_KIND_PATTERNS = (
     re.compile(r"\bkindOfRelationship\s*=\s*[\"'](?P<kind>[^\"']+)[\"']"),
     re.compile(r"\bkindOfRelationship\s*:\s*[\"'](?P<kind>[^\"']+)[\"']"),
 )
+# HTML comments may close with ``-->`` or the comment-end-bang form ``--!>``
+# (WHATWG "comment end bang state"). Accept both so ignore directives are not
+# an incomplete HTML-comment filter (CodeQL py/bad-tag-filter).
+_HTML_COMMENT_END = r"(?:-->|--!>)"
 _IGNORE_START_RE = re.compile(
     r"^\s*<!--\s*recipe-lint:\s*ignore-start\s+"
-    r"(?P<classification>[a-z][a-z0-9-]*)\s+--\s+(?P<reason>.+?)\s*-->\s*$"
+    rf"(?P<classification>[a-z][a-z0-9-]*)\s+--\s+(?P<reason>.+?)\s*{_HTML_COMMENT_END}\s*$"
 )
 _IGNORE_END_RE = re.compile(
     r"^\s*<!--\s*recipe-lint:\s*ignore-end\s+"
-    r"(?P<classification>[a-z][a-z0-9-]*)\s*-->\s*$"
+    rf"(?P<classification>[a-z][a-z0-9-]*)\s*{_HTML_COMMENT_END}\s*$"
 )
 
 _ALLOWED_EXCLUSION_CLASSES = frozenset(
@@ -695,11 +699,13 @@ def _diagram_edge_labels(line: str) -> list[str]:
     labels: list[str] = []
     patterns = (
         re.compile(r"[├└]\s*──\s*([A-Za-z][A-Za-z0-9_:-]*)\s*──[▶>]"),
-        re.compile(r"--\s*([A-Za-z][A-Za-z0-9_:-]*)\s*-->"),
+        # Mermaid ``A -- label --> B`` arrows. The captured label is never an
+        # HTML comment; keep ``--`` and ``>`` as separate tokens so this is not
+        # parsed as a comment-end filter.
+        re.compile(r"--\s*([A-Za-z][A-Za-z0-9_:-]*)\s*--\>"),
         re.compile(r"-\[\s*([A-Za-z][A-Za-z0-9_:-]*)\s*\]->"),
-        re.compile(r"-->|──▶"),
     )
-    for pattern in patterns[:3]:
+    for pattern in patterns:
         labels.extend(match.group(1) for match in pattern.finditer(line))
     return labels
 

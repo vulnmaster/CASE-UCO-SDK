@@ -57,6 +57,10 @@ execution coverage, and a sourced technique → evidence → outcome join.
   if a recipe is missing from the manifest. Candidate promotion continues
   to require the same gate. CI's recipe job now runs `--all --validate`
   so the coverage report is produced on every push.
+- Recipe lint no longer carries an unused mermaid `-->` regexp that CodeQL
+  `py/bad-tag-filter` treated as an incomplete HTML comment end
+  ([alert 538](https://github.com/vulnmaster/CASE-UCO-SDK/security/code-scanning/538)).
+  Ignore directives also accept the HTML comment-end-bang form `--!>`.
 
 #### CaseLinker ICAC remodel patterns (#128–#131)
 
