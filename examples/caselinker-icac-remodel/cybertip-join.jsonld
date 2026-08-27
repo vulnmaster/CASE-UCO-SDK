@@ -1,0 +1,126 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/",
+        "cac": "https://cacontology.projectvic.org#",
+        "ncmec": "https://cacontology.projectvic.org/us/ncmec#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": [
+                "case-investigation:Investigation",
+                "cac:CACInvestigation"
+            ],
+            "uco-core:name": "ICAC CyberTip investigation",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "legalproc:caseIdentifier": "CT-2025-00001",
+            "cac:hasStep": [
+                {
+                    "@id": "kb:action-receive-tip"
+                },
+                {
+                    "@id": "kb:action-warrant"
+                }
+            ]
+        },
+        {
+            "@id": "kb:incident-type",
+            "@type": [
+                "uco-core:UcoObject",
+                "ncmec:OnlineEnticementIncident"
+            ],
+            "uco-core:name": "Online enticement (sourced CyberTip category)"
+        },
+        {
+            "@id": "kb:cybertip",
+            "@type": [
+                "uco-observable:ObservableObject",
+                "ncmec:NCMECCybertipReport"
+            ],
+            "uco-core:name": "NCMEC CyberTipline Report CT-2025-00001",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "ncmec:hasNCMECIncidentType": {
+                "@id": "kb:incident-type"
+            }
+        },
+        {
+            "@id": "kb:trigger",
+            "@type": [
+                "uco-core:UcoObject",
+                "ncmec:InvestigationTrigger"
+            ],
+            "uco-core:name": "CyberTip triggered the investigation",
+            "ncmec:triggeredBy": {
+                "@id": "kb:cybertip"
+            },
+            "ncmec:resultedInInvestigation": {
+                "@id": "kb:investigation"
+            }
+        },
+        {
+            "@id": "kb:tool-cybertipline",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "NCMEC CyberTipline",
+            "uco-tool:version": "public"
+        },
+        {
+            "@id": "kb:action-receive-tip",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Receive and triage CyberTip",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:tool-cybertipline"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-04-12T15:00:00+00:00"
+            },
+            "uco-action:object": {
+                "@id": "kb:cybertip"
+            }
+        },
+        {
+            "@id": "kb:authorization",
+            "@type": "case-investigation:Authorization",
+            "uco-core:name": "Search warrant for the reported residence",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:action-warrant",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Execute search warrant",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-05-02T10:00:00+00:00"
+            },
+            "case-investigation:relevantAuthorization": {
+                "@id": "kb:authorization"
+            }
+        }
+    ]
+}

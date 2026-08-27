@@ -46,8 +46,14 @@ ForensicAcquisitionAction
 ## Modeling rules
 
 - **Never merge** acquisition, verification, and analysis into one action — each needs its own tool, operator, and timestamp.
-- **Always include hashes** on CSAM artifacts via `ContentDataFacet`.
+- **Always include hashes** on CSAM artifacts via `ContentDataFacet`. Do not
+  emit a ContentDataFacet with no hash, size, MIME type, or payload.
 - Store correlation findings in the matching CAC correlation class, not only in `uco-core:description`.
+- When a lab hash-match or PhotoDNA report names the method, join it to
+  charges and sentences with [technique-evidence-outcome.md](technique-evidence-outcome.md)
+  (`solveit-core:usedTechnique` DFT-1050 / DFT-1186). CAC acquisition
+  actions remain Layer 1 process; they do not replace SOLVE-IT technique
+  IRIs.
 
 ## Python skeleton
 
@@ -76,3 +82,4 @@ validate_graph("csam-forensics.jsonld", extensions=["cac"])
 - [ai-analysis-pipeline.md](ai-analysis-pipeline.md)
 - [chain-of-custody.md](chain-of-custody.md)
 - [exif-data.md](exif-data.md)
+- [technique-evidence-outcome.md](technique-evidence-outcome.md)

@@ -8,7 +8,7 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.26.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1260---2026-08-26)
+**v1.27.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1270---2026-08-27)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -41,7 +41,7 @@ Beyond the generated code, the repository provides:
 
 Install the SDK package for your language. No need to clone the repo or run the generator.
 
-[**v1.26.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.26.0) makes operational recipes fail closed on undeclared ontology terms and unregistered relationship labels, repairs the full catalog identified in #123, and includes Dependabot #122's Rust `uuid` 1.25.0 lockfile update. Release artifacts (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations) are built from the reviewed tag. Registry publication to PyPI, NuGet, Maven Central, and crates.io remains opt-in. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
+[**v1.27.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.27.0) makes press-release legal outcomes queryable (#125), covers every operational recipe with execution metadata (#124), joins sourced techniques to evidence and outcomes (#126), and adds CaseLinker ICAC remodel plus `legalproc` 0.3.0 discovery/disclosure classes (#128–#132). Release artifacts (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations) are built from the reviewed tag. Registry publication to PyPI, NuGet, Maven Central, and crates.io remains opt-in. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
 
 When registry packages are published in a later release:
 
@@ -57,7 +57,7 @@ For Java (once on Maven Central), add to your `pom.xml`:
 <dependency>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.26.0</version>
+    <version>1.27.0</version>
 </dependency>
 ```
 
@@ -580,6 +580,7 @@ All four language packages are released in lockstep from the same ontology sourc
 
 | SDK Version | UCO | CASE | Python `case-uco` | C# `CaseUco` | Java `case-uco` | Rust `case-uco` |
 |-------------|-----|------|-------------------|--------------|-----------------|-----------------|
+| 1.27.0 | 1.5.0 | 1.5.0 | 1.27.0 | 1.27.0 | 1.27.0 | 1.27.0 |
 | 1.26.0 | 1.5.0 | 1.5.0 | 1.26.0 | 1.26.0 | 1.26.0 | 1.26.0 |
 | 1.25.0 | 1.5.0 | 1.5.0 | 1.25.0 | 1.25.0 | 1.25.0 | 1.25.0 |
 | 1.24.0 | 1.5.0 | 1.5.0 | 1.24.0 | 1.24.0 | 1.24.0 | 1.24.0 |

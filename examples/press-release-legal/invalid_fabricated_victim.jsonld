@@ -1,0 +1,21 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "kb": "http://example.org/kb/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:investigation",
+      "@type": "case-investigation:Investigation",
+      "uco-core:name": "Release that omitted victim facts",
+      "legalproc:victimFactStatus": "omitted",
+      "legalproc:reportedVictimCount": {
+        "@type": "xsd:nonNegativeInteger",
+        "@value": "0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+PREFIX ncmec: <https://cacontology.projectvic.org/us/ncmec#>
+
+SELECT ?tip ?investigation
+WHERE {
+  ?trigger a ncmec:InvestigationTrigger ;
+           ncmec:triggeredBy ?tip ;
+           ncmec:resultedInInvestigation ?investigation .
+}
+ORDER BY ?tip

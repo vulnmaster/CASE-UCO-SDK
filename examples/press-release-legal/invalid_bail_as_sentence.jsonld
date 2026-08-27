@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "kb": "http://example.org/kb/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:bail-as-sentence",
+      "@type": "legalproc:Sentence",
+      "uco-core:name": "Held on $50,000 bond",
+      "legalproc:sentenceStatus": "imposed",
+      "legalproc:sentenceKind": "bail",
+      "legalproc:sentenceTerm": "$50000",
+      "legalproc:outcomeScope": "current-case"
+    }
+  ]
+}

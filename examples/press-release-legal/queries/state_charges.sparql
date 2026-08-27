@@ -1,0 +1,8 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?charge
+WHERE {
+  ?charge a legalproc:StateCharge .
+}
+ORDER BY ?charge

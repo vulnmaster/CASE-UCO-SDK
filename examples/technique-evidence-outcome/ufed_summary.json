@@ -1,0 +1,7 @@
+{
+  "tool_name": "Cellebrite UFED",
+  "tool_version": "7.65",
+  "device_name": "Seized Android phone",
+  "output_file": "ufed-extraction.zip",
+  "output_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+}

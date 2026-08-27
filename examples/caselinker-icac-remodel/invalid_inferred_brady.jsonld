@@ -1,0 +1,21 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/"
+  },
+  "@graph": [
+    {
+      "@id": "http://example.org/kb/notes",
+      "@type": "uco-core:UcoObject",
+      "uco-core:name": "Unlabeled exam notes"
+    },
+    {
+      "@id": "http://example.org/kb/obligation",
+      "@type": "legalproc:DisclosureObligation",
+      "uco-core:name": "Inferred Brady from exam notes",
+      "legalproc:disclosureKind": "brady",
+      "legalproc:disclosureStatus": "not-reviewed",
+      "legalproc:concernsEvidence": {"@id": "http://example.org/kb/notes"}
+    }
+  ]
+}

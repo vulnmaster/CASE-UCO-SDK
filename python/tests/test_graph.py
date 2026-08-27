@@ -13,7 +13,7 @@ from case_uco.uco.tool import Tool, AnalyticTool
 from case_uco.uco.tool import BuildInformationType
 from case_uco.uco.observable import ObservableObject, ApplicationFacet, DeviceFacet
 from case_uco.case.investigation import InvestigativeAction
-from case_uco.uco.core import ConfidenceFacet
+from case_uco.uco.core import ConfidenceFacet, ExternalReference
 
 
 def test_create_tool():
@@ -83,6 +83,25 @@ def test_typed_datetime_literal():
     obj = output["@graph"][0]
     assert obj["uco-tool:compilationDate"]["@type"] == "xsd:dateTime"
     assert obj["uco-tool:compilationDate"]["@value"].startswith("2024-01-02T03:04:05")
+
+
+def test_typed_anyuri_literal():
+    graph = CASEGraph()
+    graph.create(
+        ObservableObject,
+        external_reference=[
+            ExternalReference(reference_url="https://example.org/ncmec/series/1")
+        ],
+    )
+    output = json.loads(graph.serialize())
+    obj = output["@graph"][0]
+    ref = obj["uco-core:externalReference"]
+    if isinstance(ref, list):
+        ref = ref[0]
+    assert ref["uco-core:referenceURL"] == {
+        "@type": "xsd:anyURI",
+        "@value": "https://example.org/ncmec/series/1",
+    }
 
 
 def test_inherited_core_property_prefix():

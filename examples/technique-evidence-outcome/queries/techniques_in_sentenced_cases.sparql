@@ -1,0 +1,11 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+PREFIX solveit-core: <https://ontology.solveit-df.org/solveit/core/>
+
+SELECT DISTINCT ?technique
+WHERE {
+  ?sentence a legalproc:Sentence ;
+            legalproc:sentenceStatus "imposed" ;
+            legalproc:outcomeScope "current-case" .
+  ?action solveit-core:usedTechnique ?technique .
+}
+ORDER BY ?technique

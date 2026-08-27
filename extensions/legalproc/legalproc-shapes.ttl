@@ -3,6 +3,7 @@
 # property of each class is required.
 
 @prefix legalproc: <https://ontology.caseontology.org/case/criminal/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -83,6 +84,13 @@ legalproc:Plea-shape
 			sh:path legalproc:concernsCharge ;
 			sh:class legalproc:CriminalCharge ;
 			sh:nodeKind sh:IRI ;
+		] ,
+		[
+			sh:path legalproc:outcomeScope ;
+			sh:datatype xsd:string ;
+			sh:in ( "current-case" "prior-history" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
 		] .
 
 legalproc:CriminalProceeding-shape
@@ -130,6 +138,21 @@ legalproc:Sentence-shape
 			sh:datatype xsd:string ;
 			sh:maxCount 1 ;
 			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path legalproc:sentenceKind ;
+			sh:datatype xsd:string ;
+			sh:in ( "custodial" "supervised-release" "probation" "community-service" "fine-as-sentence" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+			sh:message "sentenceKind on Sentence must be an imposed-or-recommended sentence kind, not bail, bond, a statutory maximum, or another potential penalty." ;
+		] ,
+		[
+			sh:path legalproc:outcomeScope ;
+			sh:datatype xsd:string ;
+			sh:in ( "current-case" "prior-history" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
 		] .
 
 legalproc:ForfeitureOrder-shape
@@ -164,4 +187,186 @@ legalproc:RestitutionOrder-shape
 			sh:datatype xsd:string ;
 			sh:maxCount 1 ;
 			sh:nodeKind sh:Literal ;
+		] .
+
+legalproc:PleaAgreement-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:PleaAgreement ;
+	sh:property
+		[
+			sh:path legalproc:recordsPlea ;
+			sh:class legalproc:Plea ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ,
+		[
+			sh:path legalproc:concernsCharge ;
+			sh:class legalproc:CriminalCharge ;
+			sh:nodeKind sh:IRI ;
+		] ,
+		[
+			sh:path legalproc:outcomeScope ;
+			sh:datatype xsd:string ;
+			sh:in ( "current-case" "prior-history" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+legalproc:PotentialPenalty-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:PotentialPenalty ;
+	sh:property
+		[
+			sh:path legalproc:potentialPenaltyKind ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:in ( "statutory-maximum" "mandatory-minimum" "guideline-range" ) ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path legalproc:outcomeScope ;
+			sh:datatype xsd:string ;
+			sh:in ( "current-case" "prior-history" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path legalproc:concernsCharge ;
+			sh:class legalproc:CriminalCharge ;
+			sh:nodeKind sh:IRI ;
+		] .
+
+legalproc:PretrialReleaseCondition-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:PretrialReleaseCondition ;
+	sh:property
+		[
+			sh:path legalproc:releaseConditionKind ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:in ( "bail" "bond" "personal-recognizance" "detained-without-bond" ) ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+legalproc:StateCharge-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:StateCharge ;
+	sh:property
+		[
+			sh:path legalproc:jurisdictionKind ;
+			sh:datatype xsd:string ;
+			sh:in ( "state" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+			sh:message "StateCharge jurisdictionKind, when present, must be 'state'." ;
+		] .
+
+legalproc:FederalCharge-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:FederalCharge ;
+	sh:property
+		[
+			sh:path legalproc:jurisdictionKind ;
+			sh:datatype xsd:string ;
+			sh:in ( "federal" ) ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+			sh:message "FederalCharge jurisdictionKind, when present, must be 'federal'." ;
+		] .
+
+legalproc:DisclosureObligation-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:DisclosureObligation ;
+	sh:property
+		[
+			sh:path legalproc:disclosureKind ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:in ( "brady" "giglio" "jencks" "rule-16" "other" ) ;
+			sh:nodeKind sh:Literal ;
+			sh:message "disclosureKind must be brady, giglio, jencks, rule-16, or other." ;
+		] ,
+		[
+			sh:path legalproc:disclosureStatus ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:in ( "not-reviewed" "disclosed" "withheld-pending-review" ) ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path legalproc:disclosureSourceCitation ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+			sh:message "A DisclosureObligation requires a sourced filing or log citation; do not infer Brady from unlabeled exam notes." ;
+		] ,
+		[
+			sh:path legalproc:concernsEvidence ;
+			sh:class uco-core:UcoObject ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ,
+		[
+			sh:path legalproc:concernsCharge ;
+			sh:class legalproc:CriminalCharge ;
+			sh:nodeKind sh:IRI ;
+		] .
+
+legalproc:DiscoveryProduction-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:DiscoveryProduction ;
+	sh:property
+		[
+			sh:path legalproc:satisfiesObligation ;
+			sh:class legalproc:DisclosureObligation ;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ,
+		[
+			sh:path legalproc:disclosureSourceCitation ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+legalproc:SuppressionMotion-shape
+	a sh:NodeShape ;
+	sh:targetClass legalproc:SuppressionMotion ;
+	sh:property
+		[
+			sh:path legalproc:proceedingType ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:in ( "suppression-motion" ) ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path legalproc:disclosureSourceCitation ;
+			sh:datatype xsd:string ;
+			sh:minCount 1 ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+legalproc:OmittedVictimFacts-shape
+	a sh:NodeShape ;
+	sh:targetSubjectsOf legalproc:victimFactStatus ;
+	sh:sparql
+		[
+			sh:message "Omitted victim facts must not be modeled as a victim count; omission is not zero." ;
+			sh:select """
+				PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+				SELECT $this
+				WHERE {
+					$this legalproc:victimFactStatus "omitted" .
+					$this legalproc:reportedVictimCount ?count .
+				}
+			""" ;
 		] .

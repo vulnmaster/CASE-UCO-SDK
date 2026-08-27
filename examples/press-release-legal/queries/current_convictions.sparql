@@ -1,0 +1,9 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?charge
+WHERE {
+  ?charge legalproc:outcomeScope "current-case" ;
+          legalproc:chargeDisposition ?disposition .
+  FILTER(?disposition IN ("convicted-by-plea", "convicted-by-verdict"))
+}
+ORDER BY ?charge

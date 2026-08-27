@@ -59,6 +59,29 @@ _IGNORE_END_RE = re.compile(
 _ALLOWED_EXCLUSION_CLASSES = frozenset(
     {"anti-pattern", "controlled-literal", "instance-id", "proposed-term"}
 )
+_EMPTY_PYTHON_CONTENT_FACET_RE = re.compile(r"\bContentDataFacet\s*\(\s*\)")
+_JAVA_NEW_CONTENT_FACET_RE = re.compile(r"\bnew\s+ContentDataFacet\s*\(\s*\)")
+_CONTENT_FACET_TYPE_RE = re.compile(
+    r"[\"'](?:[A-Za-z][A-Za-z0-9_-]*:)?ContentDataFacet[\"']"
+)
+_CONTENT_FACET_SUBSTANCE_RE = re.compile(
+    r"(?:uco-observable:)?(?:hash|sizeInBytes|mimeType|dataPayload|"
+    r"hash_method|hash_value|size_in_bytes|mime_type|data_payload)\b",
+    re.IGNORECASE,
+)
+_STATE_SPECIFIC_CHARGE_CLASSES = frozenset(
+    {
+        "FloridaStateCharge",
+        "GeorgiaStateCharge",
+        "MarylandStateCharge",
+        "TravelingToMeetAfterComputerLure",
+        "DirectPromotionOfSexualPerformance",
+        "ComputerSeduceSolicitLure",
+        "ContributingToDelinquency",
+        "TraffickingOfPersonsForSexualServitudeCharge",
+        "SexualExploitationOfMinorCharge",
+    }
+)
 _INSTANCE_PREFIXES = frozenset({"kb", "ex", "example", "urn"})
 _CONTROLLED_LITERAL_PREFIXES = frozenset(
     {"confidence", "epistemic", "hash-status", "source-bytes", "REDACTED"}
@@ -441,6 +464,150 @@ def _directive_classifications(
     return classifications, malformed
 
 
+def _empty_content_data_facet_findings(
+    lines: Sequence[str],
+    *,
+    path: str,
+    section_classes: dict[int, str],
+    directive_classes: dict[int, tuple[str, str]],
+) -> list[RecipeLintFinding]:
+    """Reject empty ContentDataFacet constructors and JSON-LD objects (#126)."""
+
+    findings: list[RecipeLintFinding] = []
+    in_fence = False
+    fence_language = ""
+    fence_start = 0
+    fence_lines: list[str] = []
+
+    def exclusion_for(line_index: int) -> tuple[str, str] | None:
+        if line_index in directive_classes:
+            return directive_classes[line_index]
+        if line_index in section_classes:
+            return "anti-pattern", "explicit Anti-pattern section"
+        return None
+
+    def flush_fence() -> None:
+        if fence_language in {"python", "py"}:
+            for offset, line in enumerate(fence_lines):
+                if _JAVA_NEW_CONTENT_FACET_RE.search(line):
+                    continue
+                if not _EMPTY_PYTHON_CONTENT_FACET_RE.search(line):
+                    continue
+                line_index = fence_start + offset
+                findings.append(
+                    _finding(
+                        path=path,
+                        line=line_index + 1,
+                        code="empty_content_data_facet",
+                        term="ContentDataFacet()",
+                        message=(
+                            "ContentDataFacet() has no hash, size, MIME type, or "
+                            "payload; record a real digest or omit the facet"
+                        ),
+                        role="class",
+                        exclusion=exclusion_for(line_index),
+                    )
+                )
+            return
+        if fence_language not in {"json", "jsonld", "json-ld"}:
+            return
+        text = "\n".join(fence_lines)
+        for match in _CONTENT_FACET_TYPE_RE.finditer(text):
+            start = text.rfind("{", 0, match.start())
+            if start < 0:
+                continue
+            depth = 0
+            end = start
+            for index, char in enumerate(text[start:], start):
+                if char == "{":
+                    depth += 1
+                elif char == "}":
+                    depth -= 1
+                    if depth == 0:
+                        end = index
+                        break
+            block = text[start : end + 1]
+            if _CONTENT_FACET_SUBSTANCE_RE.search(block):
+                continue
+            line_index = fence_start + text[: match.start()].count("\n")
+            findings.append(
+                _finding(
+                    path=path,
+                    line=line_index + 1,
+                    code="empty_content_data_facet",
+                    term="ContentDataFacet",
+                    message=(
+                        "JSON-LD ContentDataFacet has no hash, size, MIME type, "
+                        "or payload; record a real digest or omit the facet"
+                    ),
+                    role="class",
+                    exclusion=exclusion_for(line_index),
+                )
+            )
+
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            if in_fence:
+                flush_fence()
+                in_fence = False
+                fence_language = ""
+                fence_lines = []
+            else:
+                in_fence = True
+                fence_language = stripped[3:].strip().lower()
+                fence_start = index + 1
+                fence_lines = []
+            continue
+        if in_fence:
+            fence_lines.append(line)
+            continue
+        if _JAVA_NEW_CONTENT_FACET_RE.search(line):
+            continue
+        if _EMPTY_PYTHON_CONTENT_FACET_RE.search(line):
+            findings.append(
+                _finding(
+                    path=path,
+                    line=index + 1,
+                    code="empty_content_data_facet",
+                    term="ContentDataFacet()",
+                    message=(
+                        "ContentDataFacet() has no hash, size, MIME type, or "
+                        "payload; record a real digest or omit the facet"
+                    ),
+                    role="class",
+                    exclusion=exclusion_for(index),
+                )
+            )
+    if in_fence:
+        flush_fence()
+    return findings
+
+
+def _state_specific_charge_finding(
+    *,
+    path: str,
+    line: int,
+    term: str,
+    role: str,
+    exclusion: tuple[str, str] | None,
+) -> RecipeLintFinding | None:
+    local = term.rsplit(":", 1)[-1]
+    if local not in _STATE_SPECIFIC_CHARGE_CLASSES:
+        return None
+    if exclusion and exclusion[0] == "anti-pattern":
+        return None
+    return _finding(
+        path=path,
+        line=line,
+        code="state_specific_charge_class",
+        term=term,
+        message="jurisdiction-specific charge subclasses are outside SDK recipe scope; use StateCharge or FederalCharge",
+        role=role,
+        exclusion=exclusion,
+    )
+
+
 def _role_for_curie(
     line: str,
     term: str,
@@ -579,6 +746,22 @@ def lint_recipe_text(
                     else catalog.property_local_names
                 )
                 if term in known_names:
+                    state_specific = _state_specific_charge_finding(
+                        path=path,
+                        line=index + 1,
+                        term=term,
+                        role=table_role,
+                        exclusion=_exclusion_for(
+                            line_index=index,
+                            role=table_role,
+                            prefix="",
+                            local=term,
+                            section_classes=section_classes,
+                            directive_classes=directive_classes,
+                        ),
+                    )
+                    if state_specific is not None:
+                        findings.append(state_specific)
                     continue
                 exclusion = _exclusion_for(
                     line_index=index,
@@ -639,6 +822,15 @@ def lint_recipe_text(
                 continue
             if role == "class":
                 if iri in catalog.classes or iri in catalog.other_terms:
+                    state_specific = _state_specific_charge_finding(
+                        path=path,
+                        line=index + 1,
+                        term=term,
+                        role=role,
+                        exclusion=exclusion,
+                    )
+                    if state_specific is not None:
+                        findings.append(state_specific)
                     continue
                 code = "role_mismatch" if iri in catalog.properties else "undeclared_class"
                 message = (
@@ -807,6 +999,15 @@ def lint_recipe_text(
                         exclusion=exclusion,
                     )
                 )
+
+    findings.extend(
+        _empty_content_data_facet_findings(
+            lines,
+            path=path,
+            section_classes=section_classes,
+            directive_classes=directive_classes,
+        )
+    )
 
     # Stable output and no duplicate diagnostics from overlapping extractors.
     unique: dict[tuple[object, ...], RecipeLintFinding] = {}

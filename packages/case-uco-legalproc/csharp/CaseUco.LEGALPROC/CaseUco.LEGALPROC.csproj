@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>CaseUco.LEGALPROC</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.3.0</Version>
     <Description>Legal Process and Procedure Extension bindings for CASE/UCO SDK</Description>
   </PropertyGroup>
   <ItemGroup>

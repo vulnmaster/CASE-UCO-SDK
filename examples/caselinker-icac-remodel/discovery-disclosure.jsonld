@@ -1,0 +1,69 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": "case-investigation:Investigation",
+            "uco-core:name": "Federal prosecution with sourced Jencks disclosure",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "legalproc:caseIdentifier": "1:25-cr-00010"
+        },
+        {
+            "@id": "kb:charge",
+            "@type": "legalproc:FederalCharge",
+            "uco-core:name": "Count 1",
+            "legalproc:statuteCitation": "18 U.S.C. \u00a7 2252A(a)(5)(B)",
+            "legalproc:countNumber": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "1"
+            },
+            "legalproc:chargeDisposition": "pending",
+            "legalproc:jurisdictionKind": "federal",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:interview-memo",
+            "@type": "uco-core:UcoObject",
+            "uco-core:name": "Interview memorandum of Agent A",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:obligation",
+            "@type": "legalproc:DisclosureObligation",
+            "uco-core:name": "Jencks obligation for Agent A",
+            "legalproc:disclosureKind": "jencks",
+            "legalproc:disclosureStatus": "disclosed",
+            "legalproc:disclosureSourceCitation": "Discovery certificate, Doc 40",
+            "legalproc:concernsEvidence": {
+                "@id": "kb:interview-memo"
+            },
+            "legalproc:concernsCharge": {
+                "@id": "kb:charge"
+            }
+        },
+        {
+            "@id": "kb:production",
+            "@type": "legalproc:DiscoveryProduction",
+            "uco-core:name": "Production of Agent A memorandum",
+            "legalproc:disclosureSourceCitation": "Discovery certificate, Doc 40",
+            "legalproc:satisfiesObligation": {
+                "@id": "kb:obligation"
+            },
+            "legalproc:concernsEvidence": {
+                "@id": "kb:interview-memo"
+            }
+        }
+    ]
+}

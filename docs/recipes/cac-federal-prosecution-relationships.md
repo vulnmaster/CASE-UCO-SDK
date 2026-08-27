@@ -20,7 +20,7 @@ Use when the source describes:
 - **Child exploitation enterprise** (18 U.S.C. § 2252A(g)) with co-conspirators
 - **Forfeiture** of devices or proceeds alleged in the charging instrument
 
-Pair with [cac-production-case.md](cac-production-case.md) for production-environment and equipment typing, and [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md) for plea/sentencing follow-on.
+Pair with [cac-production-case.md](cac-production-case.md) for production-environment and equipment typing, and [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md) for plea/sentencing follow-on. Plea facts use `legalproc:Plea` and `legalproc:PleaAgreement` (`legalproc:recordsPlea`). When the source is a press release, follow that recipe's fail-closed stage table: do not type bail, bond, or statutory maxima as imposed sentences, and keep `legalproc:outcomeScope` `current-case` versus `prior-history` distinct.
 
 ## Scope
 
@@ -40,7 +40,7 @@ Pair with [cac-production-case.md](cac-production-case.md) for production-enviro
 | `CACInvestigation` | Investigation with `case-investigation:focus` |
 | `FederalProsecution` / `PreTrialPhase` | Federal legal process (one per lead district) |
 | `MultiDefendantIndictment` / charging instrument | Formal indictment or complaint node |
-| `FederalCharge` | Individual numbered counts |
+| `legalproc:FederalCharge` or `cacontology-legal-outcomes:FederalCharge` | Individual numbered counts; type as federal whenever the source establishes federal jurisdiction |
 | `Person` / `Subject` / `OffenderRole` | Defendant and principal subject |
 | `CSAMIncident` | Alleged exploitation conduct |
 | `MobileRecordingDevice` | Production/forfeiture smartphones and cameras |

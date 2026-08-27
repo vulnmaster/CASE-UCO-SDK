@@ -1,0 +1,10 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?charge
+WHERE {
+  ?charge a ?chargeClass ;
+          legalproc:chargeDisposition "pending" ;
+          legalproc:outcomeScope "current-case" .
+  FILTER(?chargeClass IN (legalproc:StateCharge, legalproc:FederalCharge, legalproc:CriminalCharge))
+}
+ORDER BY ?charge

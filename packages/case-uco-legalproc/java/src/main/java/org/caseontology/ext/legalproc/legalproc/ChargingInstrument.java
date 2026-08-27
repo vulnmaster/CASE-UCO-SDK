@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChargingInstrument {
-    public static final String CLASS_IRI = "http://example.org/ontology/legalproc/ChargingInstrument";
+    public static final String CLASS_IRI = "https://ontology.caseontology.org/case/criminal/ChargingInstrument";
 
     private String instrumentType;
 

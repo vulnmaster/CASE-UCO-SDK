@@ -35,4 +35,4 @@ __all__ = [
     "register_extension_classes",
     "unregister_extension_source",
 ]
-__version__ = "1.26.0"
+__version__ = "1.27.0"

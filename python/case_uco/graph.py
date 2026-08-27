@@ -133,6 +133,7 @@ _RANGE_IRI_TO_TYPED_LITERAL = {
     "http://www.w3.org/2001/XMLSchema#double": "xsd:double",
     "http://www.w3.org/2001/XMLSchema#dateTime": "xsd:dateTime",
     "http://www.w3.org/2001/XMLSchema#hexBinary": "xsd:hexBinary",
+    "http://www.w3.org/2001/XMLSchema#anyURI": "xsd:anyURI",
 }
 
 

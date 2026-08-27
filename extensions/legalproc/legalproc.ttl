@@ -28,7 +28,7 @@
 <https://ontology.caseontology.org/case/criminal>
 	a owl:Ontology ;
 	rdfs:label "Legal Process and Procedure Extension"@en ;
-	rdfs:comment "Jurisdiction-neutral criminal legal process concepts (charges, charging instruments, pleas, proceedings, verdicts, sentences, forfeiture, restitution) implementing the stub namespaces proposed to CASE in issues 192-194, usable by any investigation domain until CASE adopts them upstream."@en ;
+	rdfs:comment "Jurisdiction-neutral criminal legal process concepts (charges, charging instruments, pleas, proceedings, verdicts, sentences, forfeiture, restitution, and criminal discovery/disclosure obligations) implementing the stub namespaces proposed to CASE in issues 192-194, usable by any investigation domain until CASE adopts them upstream."@en ;
 	dcterms:source "https://github.com/casework/CASE/issues/192"^^xsd:anyURI .
 
 #################################################################
@@ -74,7 +74,7 @@ legalproc:Sentence
 	a owl:Class ;
 	rdfs:subClassOf uco-core:UcoObject ;
 	rdfs:label "Sentence"@en ;
-	rdfs:comment "A sentence is a penalty recommended by a party or imposed by a tribunal upon conviction of a criminal charge, including custodial terms, supervised release, and special assessments. See 18 U.S.C. § 3553 (https://www.law.cornell.edu/uscode/text/18/3553)."@en ;
+	rdfs:comment "A sentence is a penalty recommended by a party or imposed by a tribunal upon conviction of a criminal charge. Use sentenceKind to record the kind of imposed or recommended sentence (custodial term, supervised release, probation, community service, or a fine imposed as part of the sentence). Do not use this class for bail, bond, pretrial detention conditions, restitution, forfeiture, special assessments, statutory maxima, guideline ranges, or other potential penalties; those facts use PretrialReleaseCondition, RestitutionOrder, ForfeitureOrder, or PotentialPenalty. See 18 U.S.C. § 3553 (https://www.law.cornell.edu/uscode/text/18/3553)."@en ;
 	dcterms:source "https://github.com/casework/CASE/issues/192"^^xsd:anyURI .
 
 legalproc:ForfeitureOrder
@@ -90,6 +90,76 @@ legalproc:RestitutionOrder
 	rdfs:label "RestitutionOrder"@en ;
 	rdfs:comment "A restitution order is an order or request that an offender compensate victims for losses caused by the offense, monetarily or in kind. See 18 U.S.C. § 3663A (https://www.law.cornell.edu/uscode/text/18/3663A)."@en ;
 	dcterms:source "https://github.com/casework/CASE/issues/192"^^xsd:anyURI .
+
+legalproc:PleaAgreement
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "PleaAgreement"@en ;
+	rdfs:comment "A plea agreement is a negotiated agreement between the prosecution and a defendant concerning the plea that will be entered and any agreed dispositions or sentencing recommendations, as recognized by Federal Rule of Criminal Procedure 11(c) (https://www.law.cornell.edu/rules/frcrmp/rule_11). The plea itself remains a separate Plea resource linked by recordsPlea. This class is the jurisdiction-neutral plea-agreement concept for CASE/UCO graphs; do not use domain-specific homonyms such as cryptoinv:PleaAgreement."@en ;
+	dcterms:source "https://www.law.cornell.edu/rules/frcrmp/rule_11"^^xsd:anyURI .
+
+legalproc:PotentialPenalty
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "PotentialPenalty"@en ;
+	rdfs:comment "A potential penalty is a statutory maximum, mandatory minimum, or advisory guideline range that a source reports as possible exposure, not as a sentence that a tribunal has imposed. See 18 U.S.C. § 3559 (https://www.law.cornell.edu/uscode/text/18/3559) and the U.S. Sentencing Guidelines (https://www.ussc.gov/guidelines). Never type a potential penalty as Sentence."@en ;
+	dcterms:source "https://www.law.cornell.edu/uscode/text/18/3559"^^xsd:anyURI .
+
+legalproc:PretrialReleaseCondition
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "PretrialReleaseCondition"@en ;
+	rdfs:comment "A pretrial release condition is a bail, bond, personal-recognizance, or detention-without-bond condition that governs liberty before conviction. See 18 U.S.C. § 3142 (https://www.law.cornell.edu/uscode/text/18/3142). Never type bail or bond as an imposed Sentence."@en ;
+	dcterms:source "https://www.law.cornell.edu/uscode/text/18/3142"^^xsd:anyURI .
+
+legalproc:StateCharge
+	a owl:Class ;
+	rdfs:subClassOf legalproc:CriminalCharge ;
+	rdfs:label "StateCharge"@en ;
+	rdfs:comment "A criminal charge under the law of a constituent state, province, or equivalent subnational jurisdiction, used when the source establishes that the charge is not federal. Pair with a StateJurisdiction (or equivalent) node via a registered uco-core:Relationship when a jurisdiction node is available. Keep state-specific charge subclasses outside this extension."@en ;
+	dcterms:source "https://www.law.cornell.edu/wex/jurisdiction"^^xsd:anyURI .
+
+legalproc:FederalCharge
+	a owl:Class ;
+	rdfs:subClassOf legalproc:CriminalCharge ;
+	rdfs:label "FederalCharge"@en ;
+	rdfs:comment "A criminal charge under federal or national law, used when the source establishes federal jurisdiction. Pair with a FederalJurisdiction (or equivalent) node via a registered uco-core:Relationship when a jurisdiction node is available."@en ;
+	dcterms:source "https://www.law.cornell.edu/wex/federal_jurisdiction"^^xsd:anyURI .
+
+legalproc:StateJurisdiction
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "StateJurisdiction"@en ;
+	rdfs:comment "A state, provincial, or equivalent subnational criminal jurisdiction. Link charges and proceedings to this node with a registered uco-core:Relationship until a direct ontology property is adopted. Compatible with the CAC multi-jurisdiction class of the same local name when both extensions are loaded."@en ;
+	dcterms:source "https://www.law.cornell.edu/wex/jurisdiction"^^xsd:anyURI .
+
+legalproc:FederalJurisdiction
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "FederalJurisdiction"@en ;
+	rdfs:comment "A federal or national criminal jurisdiction. Link charges and proceedings to this node with a registered uco-core:Relationship until a direct ontology property is adopted. Compatible with the CAC multi-jurisdiction class of the same local name when both extensions are loaded."@en ;
+	dcterms:source "https://www.law.cornell.edu/wex/federal_jurisdiction"^^xsd:anyURI .
+
+legalproc:DisclosureObligation
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "DisclosureObligation"@en ;
+	rdfs:comment "A prosecutor's sourced duty to disclose specified information or evidence to the defense. Use disclosureKind to record the governing doctrine (Brady, Giglio, Jencks, or Federal Rule of Criminal Procedure 16) and disclosureStatus for the current production state. Do not infer an obligation from the mere existence of exam notes or statements. See Brady v. Maryland, 373 U.S. 83 (1963) (https://supreme.justia.com/cases/federal/us/373/83/), Giglio v. United States, 405 U.S. 150 (1972) (https://supreme.justia.com/cases/federal/us/405/150/), the Jencks Act, 18 U.S.C. § 3500 (https://www.law.cornell.edu/uscode/text/18/3500), and Federal Rule of Criminal Procedure 16 (https://www.law.cornell.edu/rules/frcrmp/rule_16)."@en ;
+	dcterms:source "https://www.law.cornell.edu/rules/frcrmp/rule_16"^^xsd:anyURI .
+
+legalproc:DiscoveryProduction
+	a owl:Class ;
+	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:label "DiscoveryProduction"@en ;
+	rdfs:comment "A sourced act of producing discovery material to the defense in satisfaction of a DisclosureObligation. See Federal Rule of Criminal Procedure 16 (https://www.law.cornell.edu/rules/frcrmp/rule_16)."@en ;
+	dcterms:source "https://www.law.cornell.edu/rules/frcrmp/rule_16"^^xsd:anyURI .
+
+legalproc:SuppressionMotion
+	a owl:Class ;
+	rdfs:subClassOf legalproc:CriminalProceeding ;
+	rdfs:label "SuppressionMotion"@en ;
+	rdfs:comment "A defense motion to exclude evidence, typically under the Fourth Amendment or Federal Rule of Criminal Procedure 12. Model only when a docket or filing establishes the motion. See Federal Rule of Criminal Procedure 12 (https://www.law.cornell.edu/rules/frcrmp/rule_12)."@en ;
+	dcterms:source "https://www.law.cornell.edu/rules/frcrmp/rule_12"^^xsd:anyURI .
 
 #################################################################
 # Datatype properties
@@ -188,6 +258,63 @@ legalproc:sentenceTerm
 	rdfs:domain legalproc:Sentence ;
 	rdfs:range xsd:string .
 
+legalproc:sentenceKind
+	a owl:DatatypeProperty ;
+	rdfs:label "sentenceKind"@en ;
+	rdfs:comment "The kind of sentence when the resource is a Sentence. Closed vocabulary: 'custodial', 'supervised-release', 'probation', 'community-service', 'fine-as-sentence'. Values such as 'bail', 'bond', 'statutory-maximum', 'potential-penalty', 'restitution', 'forfeiture', and 'special-assessment' are invalid on Sentence; use PretrialReleaseCondition, PotentialPenalty, RestitutionOrder, or ForfeitureOrder instead."@en ;
+	rdfs:domain legalproc:Sentence ;
+	rdfs:range xsd:string .
+
+legalproc:outcomeScope
+	a owl:DatatypeProperty ;
+	rdfs:label "outcomeScope"@en ;
+	rdfs:comment "Whether a charge, plea, verdict, sentence, conviction, or potential penalty belongs to the current matter or to prior-conviction history mentioned by the source. Closed vocabulary: 'current-case', 'prior-history'. Required for independently queryable current versus prior outcomes. See Federal Rule of Evidence 404(b) (https://www.law.cornell.edu/rules/fre/rule_404) for the prior-act distinction this property encodes."@en ;
+	rdfs:range xsd:string .
+
+legalproc:jurisdictionKind
+	a owl:DatatypeProperty ;
+	rdfs:label "jurisdictionKind"@en ;
+	rdfs:comment "Whether a charge or proceeding is state, federal, or unknown from the source. Closed vocabulary: 'state', 'federal', 'unknown'. Use 'unknown' only when the source does not establish jurisdiction; do not infer jurisdiction from a URL host or agency label."@en ;
+	rdfs:range xsd:string .
+
+legalproc:victimFactStatus
+	a owl:DatatypeProperty ;
+	rdfs:label "victimFactStatus"@en ;
+	rdfs:comment "Whether the source reported victim identity, location, age, or count. Closed vocabulary: 'reported', 'omitted'. When the value is 'omitted', do not add victim identity nodes or a zero/negative count; omission is not a finding of zero. See the Crime Victims' Rights Act, 18 U.S.C. § 3771 (https://www.law.cornell.edu/uscode/text/18/3771)."@en ;
+	rdfs:range xsd:string .
+
+legalproc:reportedVictimCount
+	a owl:DatatypeProperty ;
+	rdfs:label "reportedVictimCount"@en ;
+	rdfs:comment "The victim count only when the source states a number. Must not be used when victimFactStatus is 'omitted'."@en ;
+	rdfs:range xsd:nonNegativeInteger .
+
+legalproc:potentialPenaltyKind
+	a owl:DatatypeProperty ;
+	rdfs:label "potentialPenaltyKind"@en ;
+	rdfs:comment "The kind of potential penalty. Closed vocabulary: 'statutory-maximum', 'mandatory-minimum', 'guideline-range'."@en ;
+	rdfs:domain legalproc:PotentialPenalty ;
+	rdfs:range xsd:string .
+
+legalproc:releaseConditionKind
+	a owl:DatatypeProperty ;
+	rdfs:label "releaseConditionKind"@en ;
+	rdfs:comment "The kind of pretrial release or detention condition. Closed vocabulary: 'bail', 'bond', 'personal-recognizance', 'detained-without-bond'."@en ;
+	rdfs:domain legalproc:PretrialReleaseCondition ;
+	rdfs:range xsd:string .
+
+legalproc:sourcePublicationTime
+	a owl:DatatypeProperty ;
+	rdfs:label "sourcePublicationTime"@en ;
+	rdfs:comment "The time the source artifact (press release, docket entry, or other public record) was published or issued, as stated by that source. Distinct from sourceRetrievalTime and from uco-core:objectCreatedTime, which records when the graph characterization was created."@en ;
+	rdfs:range xsd:dateTime .
+
+legalproc:sourceRetrievalTime
+	a owl:DatatypeProperty ;
+	rdfs:label "sourceRetrievalTime"@en ;
+	rdfs:comment "The time an investigator or tool retrieved the source artifact. Distinct from sourcePublicationTime and from uco-core:objectCreatedTime / uco-core:modifiedTime on the graph objects."@en ;
+	rdfs:range xsd:dateTime .
+
 legalproc:monetaryAmount
 	a owl:DatatypeProperty ;
 	rdfs:label "monetaryAmount"@en ;
@@ -225,3 +352,57 @@ legalproc:assertedIn
 	rdfs:comment "Links a criminal charge to the charging instrument (complaint, indictment, superseding indictment, information) in which it is asserted."@en ;
 	rdfs:domain legalproc:CriminalCharge ;
 	rdfs:range legalproc:ChargingInstrument .
+
+legalproc:recordsPlea
+	a owl:ObjectProperty ;
+	rdfs:label "recordsPlea"@en ;
+	rdfs:comment "Links a plea agreement to the Plea resource that records the plea entered under that agreement. See Federal Rule of Criminal Procedure 11(c) (https://www.law.cornell.edu/rules/frcrmp/rule_11)."@en ;
+	rdfs:domain legalproc:PleaAgreement ;
+	rdfs:range legalproc:Plea .
+
+legalproc:disclosureKind
+	a owl:DatatypeProperty ;
+	rdfs:label "disclosureKind"@en ;
+	rdfs:comment "The doctrine that creates the disclosure obligation. Closed vocabulary: 'brady', 'giglio', 'jencks', 'rule-16', 'other'. See Brady v. Maryland, 373 U.S. 83 (1963); Giglio v. United States, 405 U.S. 150 (1972); 18 U.S.C. § 3500; Federal Rule of Criminal Procedure 16."@en ;
+	rdfs:domain legalproc:DisclosureObligation ;
+	rdfs:range xsd:string .
+
+legalproc:disclosureStatus
+	a owl:DatatypeProperty ;
+	rdfs:label "disclosureStatus"@en ;
+	rdfs:comment "Whether the obligated material has been reviewed or produced. Closed vocabulary: 'not-reviewed', 'disclosed', 'withheld-pending-review'. Do not use 'disclosed' unless a source records production."@en ;
+	rdfs:domain legalproc:DisclosureObligation ;
+	rdfs:range xsd:string .
+
+legalproc:disclosureSourceCitation
+	a owl:DatatypeProperty ;
+	rdfs:label "disclosureSourceCitation"@en ;
+	rdfs:comment "Citation of the filing, log, or prosecutor source that established the disclosure obligation or production (for example a discovery certificate or docket entry). Required; omission is not an invitation to infer Brady from unlabeled exam notes."@en ;
+	rdfs:range xsd:string .
+
+legalproc:concernsEvidence
+	a owl:ObjectProperty ;
+	rdfs:label "concernsEvidence"@en ;
+	rdfs:comment "Links a disclosure obligation or discovery production to the evidence, statement, or report IRI it concerns. The target must be an IRI, not a blank node."@en ;
+	rdfs:range uco-core:UcoObject .
+
+legalproc:satisfiesObligation
+	a owl:ObjectProperty ;
+	rdfs:label "satisfiesObligation"@en ;
+	rdfs:comment "Links a DiscoveryProduction to the DisclosureObligation it fulfills."@en ;
+	rdfs:domain legalproc:DiscoveryProduction ;
+	rdfs:range legalproc:DisclosureObligation .
+
+legalproc:chargedWith
+	a owl:ObjectProperty ;
+	rdfs:label "chargedWith"@en ;
+	rdfs:comment "Links a person or organization to a criminal charge asserted against them. Compatible with the CAC legal-outcomes property of the same local name when both extensions are loaded. See Federal Rule of Criminal Procedure 7 (https://www.law.cornell.edu/rules/frcrmp/rule_7)."@en ;
+	rdfs:range legalproc:CriminalCharge ;
+	dcterms:source "https://www.law.cornell.edu/rules/frcrmp/rule_7"^^xsd:anyURI .
+
+legalproc:appliesTo
+	a owl:ObjectProperty ;
+	rdfs:label "appliesTo"@en ;
+	rdfs:comment "Links an imposed or recommended sentence to the criminal charge or charges it applies to. Compatible with the CAC legal-outcomes property of the same local name when both extensions are loaded."@en ;
+	rdfs:domain legalproc:Sentence ;
+	rdfs:range legalproc:CriminalCharge .

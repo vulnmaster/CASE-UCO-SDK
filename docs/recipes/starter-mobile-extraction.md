@@ -158,9 +158,15 @@ graph.write("mobile-extraction.jsonld")
 case_validate --built-version case-1.4.0 mobile-extraction.jsonld
 ```
 
+When the extraction log establishes a filesystem extract (DFT-1020) or
+another catalogued technique, record it with
+[technique-evidence-outcome.md](technique-evidence-outcome.md). Do not
+infer a technique from the product name "Cellebrite" or "UFED" alone.
+
 ## Related
 
 - [mobile-device.md](mobile-device.md) — deeper mobile device patterns
 - [mobile-device-sim.md](mobile-device-sim.md) — handset + SIM detail
 - [sms-and-contacts.md](sms-and-contacts.md) — messages and contacts
 - [call-log.md](call-log.md) — call records
+- [technique-evidence-outcome.md](technique-evidence-outcome.md) — sourced method plus legal-outcome join

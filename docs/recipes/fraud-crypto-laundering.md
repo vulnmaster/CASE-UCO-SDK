@@ -198,7 +198,7 @@ Core CASE/UCO has no cryptocurrency facets yet (pending [UCO #675](https://githu
 | Point-in-time holdings / seized value | `cryptoinv:VirtualAssetHoldingFacet` (`assetSymbol`, `assetQuantity`, `fiatValue`, `valuationDate`) — snapshots only; time-varying balances are blocked by [UCO #535](https://github.com/ucoProject/UCO/issues/535) |
 | Exchanges, darknet markets, mixers | `cryptoinv:VirtualAssetServiceProvider`, `cryptoinv:DarknetMarket`, `cryptoinv:CryptocurrencyMixingService` |
 | Laundering conduct | `uco-action:Action` + `cryptoinv:launderingTechnique` (peel-chain, chain-hopping, mixing, …) |
-| Charges, pleas, sentencing, forfeiture | `cryptoinv:CriminalCharge`, `PleaAgreement`, `SentencingOutcome`, `ForfeitureOrder`, `RestitutionOrder`, `AssetSeizureAction` |
+| Charges, pleas, sentencing, forfeiture | `legalproc:CriminalCharge`, `legalproc:Plea`, `legalproc:PleaAgreement`, `legalproc:Sentence`, `legalproc:ForfeitureOrder`, `legalproc:RestitutionOrder` (use `cryptoinv` only for crypto-specific seizure/asset classes) |
 
 Worked exemplar: `examples/pacer/doj_crypto_2023_239/build_lichtenstein_ddc_2023_crypto.py` (U.S. v. Lichtenstein & Morgan — Bitfinex hack laundering, validated with strict concept coverage).
 

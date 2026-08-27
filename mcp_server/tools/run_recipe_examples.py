@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Upper-ontology exemplar quality gate (#69 / CQ-01–CQ-12).
+"""Recipe exemplar quality gate (#69 / #124 / CQ-01–CQ-12).
 
-Runs the nine v1.21 entries in ``docs/recipes/recipe-execution.json``
-(builders under ``examples/upper-ontology/``). Full operational catalog
-migration is v1.22. Builders run in isolated temporary directories with a
-subprocess timeout. Outputs are RDF-parsed (JSON-LD/Turtle via RDFLib)
-before validation. When ``--validate`` is set, ``case_validate`` must be
-available (fail-closed).
+Runs entries in ``docs/recipes/recipe-execution.json``. ``--all`` requires
+every operational recipe to have execution metadata and, with
+``--validate``, SHACL plus strict concept coverage. Builders run in
+isolated temporary directories with a subprocess timeout. Outputs are
+RDF-parsed (JSON-LD/Turtle via RDFLib) before validation. When
+``--validate`` is set, ``case_validate`` must be available (fail-closed).
 
 Usage:
   python mcp_server/tools/run_recipe_examples.py --category upper-ontology
@@ -415,7 +415,7 @@ def _run_entry_body(
             result["ok"] = True
             return
 
-        if entry.get("profiles") is None and not entry.get("extensions"):
+        if entry.get("profiles") is None and entry.get("extensions") is None:
             result["error"] = "validation_profiles_required"
             return
 
@@ -497,7 +497,16 @@ def _run_entry_body(
                 result["error"] = f"expect_invalid_conforms:{invalid_path}"
                 return
             match_err = _match_negative_expectation(
-                invalid_spec, invalid_report.validator_diagnostics or ""
+                invalid_spec,
+                "\n".join(
+                    part
+                    for part in (
+                        invalid_report.validator_diagnostics,
+                        invalid_report.safe_summary,
+                        " ".join(invalid_report.undeclared_concepts),
+                    )
+                    if part
+                ),
             )
             if match_err:
                 result["error"] = f"{match_err}:{invalid_path}"
@@ -593,6 +602,31 @@ def run_manifest_entries(
         "python_version": sys.version.split()[0],
         "rdflib_version": _package_version("rdflib"),
         "validator_version": _package_version("case-utils"),
+    }
+
+
+def operational_recipe_coverage(manifest: dict | None = None) -> dict[str, Any]:
+    """Report whether every operational recipe has execution metadata (#124)."""
+    from recipe_lint import operational_recipe_paths
+
+    data = manifest or load_manifest()
+    registered = {
+        Path(entry["recipe"]).name
+        for entry in data.get("recipes") or []
+        if entry.get("recipe")
+    }
+    operational = [
+        path.name
+        for path in operational_recipe_paths(ROOT)
+        if path.name != "INDEX.md"
+    ]
+    missing = sorted(name for name in operational if name not in registered)
+    return {
+        "operational_recipes": len(operational),
+        "registered_recipes": len(registered & set(operational)),
+        "registered_entries": len(data.get("recipes") or []),
+        "missing_recipes": missing,
+        "complete": not missing,
     }
 
 
@@ -738,6 +772,11 @@ def main() -> int:
             timeout_seconds=args.timeout,
             keep_generated=args.keep_generated,
         )
+        if args.all:
+            summary["operational_coverage"] = operational_recipe_coverage(manifest)
+            if not summary["operational_coverage"]["complete"]:
+                summary["failed"] = int(summary.get("failed") or 0) + 1
+                summary["error"] = "operational_coverage_incomplete"
         print(json.dumps(summary, indent=2))
         return 1 if summary["failed"] else 0
     except Exception as exc:

@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "kb": "http://example.org/kb/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:prior-as-current",
+      "@type": "legalproc:Sentence",
+      "uco-core:name": "Prior conviction treated as the current sentence",
+      "legalproc:sentenceStatus": "imposed",
+      "legalproc:sentenceKind": "custodial",
+      "legalproc:sentenceTerm": "2 years",
+      "legalproc:outcomeScope": ["current-case", "prior-history"]
+    }
+  ]
+}

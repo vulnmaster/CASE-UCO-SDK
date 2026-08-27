@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CriminalCharge {
-    public static final String CLASS_IRI = "http://example.org/ontology/legalproc/CriminalCharge";
+    public static final String CLASS_IRI = "https://ontology.caseontology.org/case/criminal/CriminalCharge";
 
     private List<ChargingInstrument> assertedIn = new ArrayList<>();
     private String chargeClassification;

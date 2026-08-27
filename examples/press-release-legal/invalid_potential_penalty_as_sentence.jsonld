@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "kb": "http://example.org/kb/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:potential-as-sentence",
+      "@type": "legalproc:Sentence",
+      "uco-core:name": "Faces up to 10 years",
+      "legalproc:sentenceStatus": "imposed",
+      "legalproc:sentenceKind": "statutory-maximum",
+      "legalproc:sentenceTerm": "10 years",
+      "legalproc:outcomeScope": "current-case"
+    }
+  ]
+}

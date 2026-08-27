@@ -13,6 +13,7 @@
     "ontology/ontology/cacontology-specialized-units.ttl",
     "ontology/ontology/cacontology-physical-evidence.ttl",
     "ontology/ontology/cacontology-detection.ttl",
+    "ontology/ontology/cacontology-us-ncmec.ttl",
     "local/cacontology-sdk-pending.ttl"
   ],
   "full_manifest_note": "Use `make validate-extension EXT=cac DATA=...` for full manifest validation after upstream CAC SHACL SPARQL repairs."

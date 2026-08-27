@@ -73,14 +73,14 @@ The document processor produces **Layer 1** (source artifacts + extracted entiti
 |---|---|
 | Indictment | `MultiDefendantIndictment`, `FederalCharge`, `AssetForfeitureAction`, `MinorTraffickingVictimRole` |
 | Trial brief | `TrialPhase`, anticipated `CSAMIncident`, platform accounts, `InvestigativeAction` (brief filing) |
-| Judgment (AO 245B) | `SentencingPhase`, `ConvictionRecord`, `PrisonSentence`, `MonetaryPenalty` |
+| Judgment (AO 245B) | `SentencingPhase`, `ConvictionRecord`, `legalproc:Sentence` (`sentenceKind`, `outcomeScope`), `legalproc:Plea` / `legalproc:PleaAgreement` when a plea is recorded. Do not type restitution, forfeiture, or special assessments as `legalproc:Sentence`. |
 
-**Merge rule:** One `CACInvestigation` per federal docket (`3:20-cr-00029-SLG-MMS`), not one graph per PDF. Link each source PDF as `uco-core:object` on the investigation and attach `ProvenanceRecord`.
+**Merge rule:** One `CACInvestigation` per federal docket (`3:20-cr-00029-SLG-MMS`), not one graph per PDF. Link each source PDF as `uco-core:object` on the investigation and attach `ProvenanceRecord`. Keep PACER filing time, retrieval time (`legalproc:sourceRetrievalTime`), and graph `uco-core:objectCreatedTime` as separate timestamps. See [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md).
 
 ### Step 4 — Validate before returning
 
 ```bash
-validate_graph("moore-dalaska-2020-icac.jsonld", extensions=["cac"])
+validate_graph("moore-dalaska-2020-icac.jsonld", extensions=["cac", "legalproc"])
 ```
 
 Or:
@@ -160,6 +160,7 @@ PLATFORMS:
 | Fabricated timestamps | Never invent a day or clock time the filing does not state. "June 2019" or "January and February 2020" → record the period in the description or an `approximatePeriod=` facet string, not an `xsd:dateTime` |
 | `uco-action:startTime` on non-Actions | `uco-action:*` properties belong on `Action` subclasses (`InvestigativeAction`, `CSAMIncident`). Events, legal phases, and media observables use `uco-core:startTime` (media capture dates encoded as local midnight for date-only precision) |
 | Invented class/property names | Use only terms declared in the CAC TTLs: charge subtypes come from `cacontology-usa-federal` (`ChildPornographyProduction`, `SexTraffickingOfMinors`), forfeiture from `cacontology-asset-forfeiture:AssetForfeitureAction` + `relatedCriminalCharges`, verdicts as `cacontology-legal-outcomes:ConvictionRecord` with `convictionDate`, `convictionType` (`jury_verdict`), `chargeCount` |
+| Invented SOLVE-IT technique | If the filing names Cellebrite, FTK, PhotoDNA, or a hash match, record a versioned `uco-tool:Tool` and `InvestigativeAction`. Do not mint `solveit-core:usedTechnique` unless the filing identifies that method. See [technique-evidence-outcome.md](technique-evidence-outcome.md) |
 | Defendant as interview performer | Law enforcement performs the interview; the defendant is `uco-action:object` on the `InvestigativeAction` |
 | Possession media wired into production incident | Count 2 items received on the defendant's account link `Related_To` → possession incident only; if an item is a documented copy of a production series, add registered `Copied_From` → that series |
 
@@ -187,3 +188,4 @@ See [`examples/pacer/anchorage_pd_2022_004/build_moore_dalaska_2020_case.py`](..
 - [cac-federal-trial-proceedings.md](cac-federal-trial-proceedings.md)
 - [cac-trafficking-recruitment-network.md](cac-trafficking-recruitment-network.md)
 - [forensic-lifecycle.md](forensic-lifecycle.md)
+- [technique-evidence-outcome.md](technique-evidence-outcome.md)

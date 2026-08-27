@@ -1,9 +1,9 @@
 [package]
 name = "case-uco-legalproc"
-version = "0.1.0"
+version = "0.3.0"
 edition = "2021"
 description = "Legal Process and Procedure Extension bindings for CASE/UCO SDK"
 
 [dependencies]
 case-uco = "1.4.0"
-serde = {{ version = "1", features = ["derive"] }}
+serde = { version = "1", features = ["derive"] }

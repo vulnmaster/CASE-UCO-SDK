@@ -71,7 +71,10 @@ CAC_DOMAIN_FAMILIES: tuple[CACDomainFamily, ...] = (
         recipe_file="docs/recipes/cybertip-ncmec-workflow.md",
         mapping_source="cybertip grooming report",
         layer=3,
-        related_core_recipes=("docs/recipes/forensic-lifecycle.md",),
+        related_core_recipes=(
+            "docs/recipes/forensic-lifecycle.md",
+            "docs/recipes/caselinker-icac-remodel.md",
+        ),
     ),
     CACDomainFamily(
         domain_id="trafficking-recruitment",
@@ -140,6 +143,7 @@ CAC_DOMAIN_FAMILIES: tuple[CACDomainFamily, ...] = (
             "docs/recipes/cac-multi-jurisdiction-task-force.md",
             "docs/recipes/cac-legal-sentencing-outcomes.md",
             "docs/recipes/cac-grooming-chat-modeling.md",
+            "docs/recipes/caselinker-icac-remodel.md",
         ),
     ),
     CACDomainFamily(
@@ -221,7 +225,11 @@ CAC_DOMAIN_FAMILIES: tuple[CACDomainFamily, ...] = (
         recipe_file="docs/recipes/cac-legal-sentencing-outcomes.md",
         mapping_source=None,
         layer=3,
-        related_core_recipes=("docs/recipes/event.md",),
+        related_core_recipes=(
+            "docs/recipes/event.md",
+            "docs/recipes/caselinker-icac-remodel.md",
+            "docs/recipes/legal-discovery-disclosure.md",
+        ),
     ),
     CACDomainFamily(
         domain_id="federal-prosecution-relationships",

@@ -1,0 +1,11 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?charge ?sentence
+WHERE {
+  ?charge a legalproc:FederalCharge ;
+          legalproc:jurisdictionKind "federal" .
+  ?person legalproc:chargedWith ?charge .
+  ?sentence a legalproc:Sentence ;
+            legalproc:sentenceStatus "imposed" ;
+            legalproc:appliesTo ?charge .
+}

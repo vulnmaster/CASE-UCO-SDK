@@ -1,0 +1,8 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?stateCharge ?federalCharge
+WHERE {
+  ?stateCharge a legalproc:StateCharge .
+  ?federalCharge a legalproc:FederalCharge .
+}
+ORDER BY ?stateCharge ?federalCharge

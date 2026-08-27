@@ -104,6 +104,106 @@ def test_regression_terms_fail_closed(text, expected_code, expected_term):
     )
 
 
+def test_empty_content_data_facet_fails_closed_outside_anti_patterns():
+    findings, _checked = lint_recipe_text(
+        "```python\ngraph.create(ObservableObject, has_facet=[ContentDataFacet()])\n```\n",
+        path="docs/recipes/test.md",
+        catalog=_catalog(),
+        relationship_kinds=known_relationship_kinds(),
+    )
+    errors = [finding for finding in findings if not finding.excluded]
+    assert any(
+        finding.code == "empty_content_data_facet"
+        and finding.term == "ContentDataFacet()"
+        for finding in errors
+    )
+
+
+def test_empty_jsonld_content_data_facet_fails_closed():
+    text = """```json
+{
+  "@id": "kb:empty-facet",
+  "@type": "uco-observable:ContentDataFacet"
+}
+```
+"""
+    findings, _checked = lint_recipe_text(
+        text,
+        path="docs/recipes/test.md",
+        catalog=_catalog(),
+        relationship_kinds=known_relationship_kinds(),
+    )
+    errors = [finding for finding in findings if not finding.excluded]
+    assert any(
+        finding.code == "empty_content_data_facet"
+        and finding.term == "ContentDataFacet"
+        for finding in errors
+    )
+
+
+def test_java_content_data_facet_constructor_is_not_empty_facet():
+    text = """```java
+var contentFacet = new ContentDataFacet();
+contentFacet.getHash().add(hash);
+```
+"""
+    findings, _checked = lint_recipe_text(
+        text,
+        path="docs/recipes/test.md",
+        catalog=_catalog(),
+        relationship_kinds=known_relationship_kinds(),
+    )
+    assert not [
+        finding
+        for finding in findings
+        if finding.code == "empty_content_data_facet" and not finding.excluded
+    ]
+
+
+def test_empty_content_data_facet_in_anti_pattern_is_excluded():
+    text = """## Anti-patterns
+
+- Attaching `ContentDataFacet()` with no hash
+"""
+    findings, _checked = lint_recipe_text(
+        text,
+        path="docs/recipes/test.md",
+        catalog=_catalog(),
+        relationship_kinds=known_relationship_kinds(),
+    )
+    empty = [
+        finding for finding in findings if finding.code == "empty_content_data_facet"
+    ]
+    assert empty
+    assert all(finding.excluded for finding in empty)
+
+
+def test_state_specific_charge_class_fails_closed_outside_anti_patterns():
+    catalog = _catalog()
+    catalog = OntologyCatalog(
+        prefixes=catalog.prefixes,
+        classes=catalog.classes
+        | {"https://cacontology.projectvic.org/legal-outcomes#FloridaStateCharge"},
+        properties=catalog.properties,
+        other_terms=catalog.other_terms,
+        class_local_names=catalog.class_local_names | {"FloridaStateCharge"},
+        property_local_names=catalog.property_local_names,
+    )
+    text = "| Class | Role |\n|---|---|\n| `FloridaStateCharge` | Do not use in SDK recipes. |\n"
+    findings, _checked = lint_recipe_text(
+        text,
+        path="docs/recipes/test.md",
+        catalog=catalog,
+        relationship_kinds=known_relationship_kinds(),
+    )
+    errors = [finding for finding in findings if not finding.excluded]
+    assert any(
+        finding.code == "state_specific_charge_class"
+        and finding.term == "FloridaStateCharge"
+        for finding in errors
+    )
+
+
 def test_declared_terms_and_registered_relationship_kind_pass():
     text = """| Class | Property |
 |---|---|
@@ -189,5 +289,5 @@ def test_every_operational_recipe_passes_repository_lint():
         for finding in report.errors
     )
     assert not report.verification_errors, report.verification_errors
-    assert report.files_checked >= 79
+    assert report.files_checked >= 80
     assert report.ok, details

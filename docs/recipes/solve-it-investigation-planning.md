@@ -183,6 +183,10 @@ coverage passes for both modeling styles.
   individual; the KB travels with the extension.
 - **Using `solveit-core:Technique` as a facet or observable.** Techniques
   describe method, not evidence; evidence stays in UCO observables.
+- **Auto-asserting DFT-* from a product catalog.**
+  `le_tool_solveit_profiles.json` is a suggestion list. Write
+  `usedTechnique` only when the lab report or affidavit establishes the
+  method. See [technique-evidence-outcome.md](technique-evidence-outcome.md).
 
 ## Worked example
 
@@ -191,3 +195,9 @@ coverage passes for both modeling styles.
 tool, device, image container + bitstream, hash result, native-style
 acquisition action, weakness evaluation + set, metaclass-style
 verification action) and validates it with `extensions=["solveit"]`.
+
+## Related
+
+- [technique-evidence-outcome.md](technique-evidence-outcome.md) — join sourced techniques to hashed evidence and legal outcomes
+- [starter-tool-run.md](starter-tool-run.md)
+- [forensic-lifecycle.md](forensic-lifecycle.md)

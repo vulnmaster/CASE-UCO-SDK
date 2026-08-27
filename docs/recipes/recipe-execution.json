@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "description": "Recipe exemplar quality gate (#69): upper-ontology entries under examples/upper-ontology/ plus forensic evidence recipes with executable builders. Full operational catalog migration continues beyond v1.21.",
+  "description": "Recipe exemplar quality gate (#69 / #124): every operational recipe has schema-valid execution metadata. Upper-ontology and sysdiagnose entries remain dedicated builders; press-release legal outcomes (#125) use examples/press-release-legal/; remaining recipes use compact catalog fragments under examples/recipes/.",
   "recipes": [
     {
       "id": "ios-sysdiagnose",
@@ -9,7 +9,9 @@
       "builder": "examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py",
       "output": "examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld",
       "profiles": null,
-      "extensions": ["solveit"],
+      "extensions": [
+        "solveit"
+      ],
       "strict_concepts": true,
       "support_files": [
         "examples/sysdiagnose/unifiedlog_iterator_sample_rows.json",
@@ -24,7 +26,9 @@
       "builder": "examples/sysdiagnose/build_ios_sysdiagnose_unified_logs.py",
       "output": "examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld",
       "profiles": null,
-      "extensions": ["solveit"],
+      "extensions": [
+        "solveit"
+      ],
       "strict_concepts": true,
       "support_files": [
         "examples/sysdiagnose/unifiedlog_iterator_sample_rows.json",
@@ -38,7 +42,9 @@
       "recipe": "docs/recipes/foundational-typing-bfo-gufo.md",
       "builder": "examples/upper-ontology/foundational-typing/build_bfo_variant.py",
       "output": "examples/upper-ontology/foundational-typing/foundational-typing-bfo.jsonld",
-      "profiles": ["bfo"],
+      "profiles": [
+        "bfo"
+      ],
       "extensions": null,
       "strict_concepts": true,
       "expect_invalid": [
@@ -55,7 +61,9 @@
       "recipe": "docs/recipes/foundational-typing-bfo-gufo.md",
       "builder": "examples/upper-ontology/foundational-typing/build_gufo_variant.py",
       "output": "examples/upper-ontology/foundational-typing/foundational-typing-gufo.jsonld",
-      "profiles": ["gufo"],
+      "profiles": [
+        "gufo"
+      ],
       "extensions": null,
       "strict_concepts": true
     },
@@ -65,7 +73,9 @@
       "recipe": "docs/recipes/prov-o-evidence-lineage.md",
       "builder": "examples/upper-ontology/prov-o-lineage/build_exemplar.py",
       "output": "examples/upper-ontology/prov-o-lineage/prov-o-lineage.jsonld",
-      "profiles": ["prov-o"],
+      "profiles": [
+        "prov-o"
+      ],
       "extensions": null,
       "strict_concepts": true
     },
@@ -75,7 +85,9 @@
       "recipe": "docs/recipes/owl-time-temporal-evidence.md",
       "builder": "examples/upper-ontology/owl-time/build_exemplar.py",
       "output": "examples/upper-ontology/owl-time/owl-time-temporal.jsonld",
-      "profiles": ["time"],
+      "profiles": [
+        "time"
+      ],
       "extensions": null,
       "strict_concepts": true
     },
@@ -85,7 +97,10 @@
       "recipe": "docs/recipes/geosparql-geospatial-evidence.md",
       "builder": "examples/upper-ontology/geosparql/build_exemplar.py",
       "output": "examples/upper-ontology/geosparql/geosparql-geospatial.jsonld",
-      "profiles": ["geosparql", "prov-o"],
+      "profiles": [
+        "geosparql",
+        "prov-o"
+      ],
       "extensions": null,
       "strict_concepts": true
     },
@@ -95,7 +110,11 @@
       "recipe": "docs/recipes/foaf-org-identity-roles.md",
       "builder": "examples/upper-ontology/foaf-org/build_exemplar.py",
       "output": "examples/upper-ontology/foaf-org/foaf-org-identity.jsonld",
-      "profiles": ["foaf", "org", "time"],
+      "profiles": [
+        "foaf",
+        "org",
+        "time"
+      ],
       "extensions": null,
       "strict_concepts": true,
       "expect_invalid": [
@@ -112,7 +131,10 @@
       "recipe": "docs/recipes/prof-validation-profile-metadata.md",
       "builder": "examples/upper-ontology/prof-metadata/build_exemplar.py",
       "output": "examples/upper-ontology/prof-metadata/prof-metadata.jsonld",
-      "profiles": ["prof", "prov-o"],
+      "profiles": [
+        "prof",
+        "prov-o"
+      ],
       "extensions": null,
       "strict_concepts": true
     },
@@ -122,8 +144,13 @@
       "recipe": "docs/recipes/solveit-plan-execution-provenance.md",
       "builder": "examples/upper-ontology/solveit-plan-execution/build_exemplar.py",
       "output": "examples/upper-ontology/solveit-plan-execution/solveit-plan-execution.jsonld",
-      "profiles": ["prov-o", "time"],
-      "extensions": ["solveit"],
+      "profiles": [
+        "prov-o",
+        "time"
+      ],
+      "extensions": [
+        "solveit"
+      ],
       "strict_concepts": true
     },
     {
@@ -132,8 +159,1215 @@
       "recipe": "docs/recipes/cross-ontology-composition.md",
       "builder": "examples/upper-ontology/composition/build_composite.py",
       "output": "examples/upper-ontology/composition/cross-ontology-composite.jsonld",
-      "profiles": ["gufo", "prov-o", "time", "geosparql", "foaf", "org"],
+      "profiles": [
+        "gufo",
+        "prov-o",
+        "time",
+        "geosparql",
+        "foaf",
+        "org"
+      ],
       "extensions": null,
+      "strict_concepts": true
+    },
+    {
+      "id": "pr-state-arrest-charges",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_state_arrest_charges.py",
+      "output": "examples/press-release-legal/state-arrest-charges.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "expect_invalid": [
+        {
+          "path": "examples/press-release-legal/invalid_bail_as_sentence.jsonld",
+          "expected_constraint": "InConstraintComponent",
+          "expected_violation": "sentenceKind"
+        },
+        {
+          "path": "examples/press-release-legal/invalid_potential_penalty_as_sentence.jsonld",
+          "expected_constraint": "InConstraintComponent",
+          "expected_violation": "sentenceKind"
+        },
+        {
+          "path": "examples/press-release-legal/invalid_prior_as_current.jsonld",
+          "expected_constraint": "MaxCountConstraintComponent",
+          "expected_violation": "outcomeScope"
+        },
+        {
+          "path": "examples/press-release-legal/invalid_fabricated_jurisdiction.jsonld",
+          "expected_constraint": "InConstraintComponent",
+          "expected_violation": "jurisdictionKind"
+        },
+        {
+          "path": "examples/press-release-legal/invalid_fabricated_victim.jsonld",
+          "expected_failure_code": "Omitted victim facts"
+        }
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/state_charges.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge-1"
+            }
+          ]
+        },
+        {
+          "query": "examples/press-release-legal/queries/federal_charges.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/press-release-legal/queries/charged_only.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge-1"
+            }
+          ]
+        },
+        {
+          "query": "examples/press-release-legal/queries/omitted_victim_facts.sparql",
+          "expected_bindings": [
+            {
+              "investigation": "http://example.org/kb/investigation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-federal-indictment",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_federal_indictment.py",
+      "output": "examples/press-release-legal/federal-indictment.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/federal_charges.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge-1"
+            }
+          ]
+        },
+        {
+          "query": "examples/press-release-legal/queries/charged_only.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-state-plea-sentence",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_state_plea_sentence.py",
+      "output": "examples/press-release-legal/state-plea-sentence.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/current_convictions.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge-1"
+            }
+          ]
+        },
+        {
+          "query": "examples/press-release-legal/queries/imposed_sentences.sparql",
+          "expected_bindings": [
+            {
+              "sentence": "http://example.org/kb/sentence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-federal-verdict-sentence",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_federal_verdict_sentence.py",
+      "output": "examples/press-release-legal/federal-verdict-sentence.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/federal_charges.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge-1"
+            }
+          ]
+        },
+        {
+          "query": "examples/press-release-legal/queries/imposed_sentences.sparql",
+          "expected_bindings": [
+            {
+              "sentence": "http://example.org/kb/sentence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-federal-adoption",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_federal_adoption.py",
+      "output": "examples/press-release-legal/federal-adoption.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/both_jurisdictions.sparql",
+          "expected_bindings": [
+            {
+              "stateCharge": "http://example.org/kb/state-charge",
+              "federalCharge": "http://example.org/kb/federal-charge"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-parallel-prosecutions",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_parallel_prosecutions.py",
+      "output": "examples/press-release-legal/parallel-prosecutions.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/both_jurisdictions.sparql",
+          "expected_bindings": [
+            {
+              "stateCharge": "http://example.org/kb/state-charge",
+              "federalCharge": "http://example.org/kb/federal-charge"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-prior-conviction",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_prior_conviction.py",
+      "output": "examples/press-release-legal/prior-conviction.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/prior_history.sparql",
+          "expected_bindings": [
+            {
+              "resource": "http://example.org/kb/prior-charge"
+            },
+            {
+              "resource": "http://example.org/kb/prior-sentence"
+            }
+          ]
+        },
+        {
+          "query": "examples/press-release-legal/queries/charged_only.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/current-charge"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-no-victim-details",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_no_victim_details.py",
+      "output": "examples/press-release-legal/no-victim-details.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/omitted_victim_facts.sparql",
+          "expected_bindings": [
+            {
+              "investigation": "http://example.org/kb/investigation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-potential-vs-imposed",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_potential_vs_imposed.py",
+      "output": "examples/press-release-legal/potential-vs-imposed.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/imposed_sentences.sparql",
+          "expected_bindings": [
+            {
+              "sentence": "http://example.org/kb/sentence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pr-lifecycle-releases",
+      "category": "press-release-legal",
+      "recipe": "docs/recipes/cac-legal-sentencing-outcomes.md",
+      "builder": "examples/press-release-legal/build_lifecycle_releases.py",
+      "output": "examples/press-release-legal/lifecycle-releases.jsonld",
+      "profiles": null,
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/press-release-legal/queries/federal_charges.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge-1"
+            }
+          ]
+        },
+        {
+          "query": "examples/press-release-legal/queries/imposed_sentences.sparql",
+          "expected_bindings": [
+            {
+              "sentence": "http://example.org/kb/sentence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teo-lab-join",
+      "category": "technique-evidence-outcome",
+      "recipe": "docs/recipes/technique-evidence-outcome.md",
+      "builder": "examples/technique-evidence-outcome/build_lab_join.py",
+      "output": "examples/technique-evidence-outcome/lab-join.jsonld",
+      "profiles": [],
+      "extensions": [
+        "solveit",
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "expect_invalid": [
+        {
+          "path": "examples/technique-evidence-outcome/invalid_fabricated_technique.jsonld",
+          "expected_failure_code": "CompletelyImaginaryClass"
+        }
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/technique-evidence-outcome/queries/techniques_in_sentenced_cases.sparql",
+          "expected_bindings": [
+            {
+              "technique": "https://ontology.solveit-df.org/solveit/data/techniqueDFT-1020"
+            },
+            {
+              "technique": "https://ontology.solveit-df.org/solveit/data/techniqueDFT-1050"
+            }
+          ]
+        },
+        {
+          "query": "examples/technique-evidence-outcome/queries/hash_match_technique.sparql",
+          "expected_bindings": [
+            {
+              "action": "http://example.org/kb/action-hashset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teo-pacer-method-claim",
+      "category": "technique-evidence-outcome",
+      "recipe": "docs/recipes/technique-evidence-outcome.md",
+      "builder": "examples/technique-evidence-outcome/build_pacer_method_claim.py",
+      "output": "examples/technique-evidence-outcome/pacer-method-claim.jsonld",
+      "profiles": [],
+      "extensions": [
+        "solveit",
+        "legalproc"
+      ],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/technique-evidence-outcome/queries/pacer_named_tool.sparql",
+          "expected_bindings": [
+            {
+              "tool": "http://example.org/kb/tool-ufed"
+            }
+          ]
+        },
+        {
+          "query": "examples/technique-evidence-outcome/queries/no_used_technique.sparql",
+          "expected_bindings": []
+        }
+      ]
+    },
+    {
+      "id": "cl-cybertip-join",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/build_cybertip_join.py",
+      "output": "examples/caselinker-icac-remodel/cybertip-join.jsonld",
+      "profiles": [],
+      "extensions": ["cac", "legalproc"],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/cybertip_trigger.sparql",
+          "expected_bindings": [
+            {
+              "tip": "http://example.org/kb/cybertip",
+              "investigation": "http://example.org/kb/investigation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cl-share-safe-cvip",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/build_share_safe_cvip.py",
+      "output": "examples/caselinker-icac-remodel/share-safe-cvip.jsonld",
+      "profiles": [],
+      "extensions": ["legalproc"],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/hashed_series_file.sparql",
+          "expected_bindings": [
+            {
+              "file": "http://example.org/kb/file-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cl-legalproc-dual-type",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/build_legalproc_dual_type.py",
+      "output": "examples/caselinker-icac-remodel/legalproc-dual-type.jsonld",
+      "profiles": [],
+      "extensions": ["legalproc"],
+      "strict_concepts": true,
+      "expect_invalid": [
+        {
+          "path": "examples/caselinker-icac-remodel/invalid_caselinker_vocab.jsonld",
+          "expected_failure_code": "caselinker"
+        }
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/federal_charge_sentence.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/charge",
+              "sentence": "http://example.org/kb/sentence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cl-commander-clocks",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/build_commander_clocks.py",
+      "output": "examples/caselinker-icac-remodel/commander-clocks.jsonld",
+      "profiles": [],
+      "extensions": ["cac", "legalproc"],
+      "strict_concepts": true,
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/phase_clock.sparql",
+          "expected_bindings": [
+            {
+              "phase": "http://example.org/kb/phase-initial",
+              "begin": "2025-01-15T00:00:00Z^^http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+              "end": "2025-03-01T00:00:00Z^^http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+            },
+            {
+              "phase": "http://example.org/kb/phase-legal",
+              "begin": "2025-03-01T00:00:00Z^^http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+              "end": "2025-03-20T00:00:00Z^^http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cl-discovery-disclosure",
+      "category": "legal-discovery-disclosure",
+      "recipe": "docs/recipes/legal-discovery-disclosure.md",
+      "builder": "examples/caselinker-icac-remodel/build_discovery_disclosure.py",
+      "output": "examples/caselinker-icac-remodel/discovery-disclosure.jsonld",
+      "profiles": [],
+      "extensions": ["legalproc"],
+      "strict_concepts": true,
+      "expect_invalid": [
+        {
+          "path": "examples/caselinker-icac-remodel/invalid_inferred_brady.jsonld",
+          "expected_failure_code": "disclosureSourceCitation"
+        }
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/disclosure_jencks.sparql",
+          "expected_bindings": [
+            {
+              "obligation": "http://example.org/kb/obligation",
+              "evidence": "http://example.org/kb/interview-memo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accounts",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/accounts.md",
+      "builder": "examples/recipes/build_accounts.py",
+      "output": "examples/recipes/accounts.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "advanced-file-patterns",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/advanced-file-patterns.md",
+      "builder": "examples/recipes/build_advanced_file_patterns.py",
+      "output": "examples/recipes/advanced-file-patterns.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "ai-analysis-pipeline",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/ai-analysis-pipeline.md",
+      "builder": "examples/recipes/build_ai_analysis_pipeline.py",
+      "output": "examples/recipes/ai-analysis-pipeline.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "analysis",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/analysis.md",
+      "builder": "examples/recipes/build_analysis.py",
+      "output": "examples/recipes/analysis.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "bulk-extractor-path",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/bulk-extractor-path.md",
+      "builder": "examples/recipes/build_bulk_extractor_path.py",
+      "output": "examples/recipes/bulk-extractor-path.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-csam-forensic-provenance",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-csam-forensic-provenance.md",
+      "builder": "examples/recipes/build_cac_csam_forensic_provenance.py",
+      "output": "examples/recipes/cac-csam-forensic-provenance.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-federal-prosecution-relationships",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-federal-prosecution-relationships.md",
+      "builder": "examples/recipes/build_cac_federal_prosecution_relationships.py",
+      "output": "examples/recipes/cac-federal-prosecution-relationships.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-federal-trial-proceedings",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-federal-trial-proceedings.md",
+      "builder": "examples/recipes/build_cac_federal_trial_proceedings.py",
+      "output": "examples/recipes/cac-federal-trial-proceedings.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-grooming-chat-modeling",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-grooming-chat-modeling.md",
+      "builder": "examples/recipes/build_cac_grooming_chat_modeling.py",
+      "output": "examples/recipes/cac-grooming-chat-modeling.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-hotline-intake-lifecycle",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-hotline-intake-lifecycle.md",
+      "builder": "examples/recipes/build_cac_hotline_intake_lifecycle.py",
+      "output": "examples/recipes/cac-hotline-intake-lifecycle.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-icac-search-warrant-arrest",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-icac-search-warrant-arrest.md",
+      "builder": "examples/recipes/build_cac_icac_search_warrant_arrest.py",
+      "output": "examples/recipes/cac-icac-search-warrant-arrest.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-international-coordination",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-international-coordination.md",
+      "builder": "examples/recipes/build_cac_international_coordination.py",
+      "output": "examples/recipes/cac-international-coordination.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-missing-child-investigation",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-missing-child-investigation.md",
+      "builder": "examples/recipes/build_cac_missing_child_investigation.py",
+      "output": "examples/recipes/cac-missing-child-investigation.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-multi-jurisdiction-task-force",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-multi-jurisdiction-task-force.md",
+      "builder": "examples/recipes/build_cac_multi_jurisdiction_task_force.py",
+      "output": "examples/recipes/cac-multi-jurisdiction-task-force.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-pacer-document-ingestion",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-pacer-document-ingestion.md",
+      "builder": "examples/recipes/build_cac_pacer_document_ingestion.py",
+      "output": "examples/recipes/cac-pacer-document-ingestion.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-production-case",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-production-case.md",
+      "builder": "examples/recipes/build_cac_production_case.py",
+      "output": "examples/recipes/cac-production-case.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-sextortion-coercion",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-sextortion-coercion.md",
+      "builder": "examples/recipes/build_cac_sextortion_coercion.py",
+      "output": "examples/recipes/cac-sextortion-coercion.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-tactical-undercover-operation",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-tactical-undercover-operation.md",
+      "builder": "examples/recipes/build_cac_tactical_undercover_operation.py",
+      "output": "examples/recipes/cac-tactical-undercover-operation.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-trafficking-recruitment-network",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-trafficking-recruitment-network.md",
+      "builder": "examples/recipes/build_cac_trafficking_recruitment_network.py",
+      "output": "examples/recipes/cac-trafficking-recruitment-network.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cac-victim-rescue-extraction",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cac-victim-rescue-extraction.md",
+      "builder": "examples/recipes/build_cac_victim_rescue_extraction.py",
+      "output": "examples/recipes/cac-victim-rescue-extraction.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "call-log",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/call-log.md",
+      "builder": "examples/recipes/build_call_log.py",
+      "output": "examples/recipes/call-log.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cargo-theft-route-staging",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cargo-theft-route-staging.md",
+      "builder": "examples/recipes/build_cargo_theft_route_staging.py",
+      "output": "examples/recipes/cargo-theft-route-staging.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cell-site",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cell-site.md",
+      "builder": "examples/recipes/build_cell_site.py",
+      "output": "examples/recipes/cell-site.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "chain-of-custody",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/chain-of-custody.md",
+      "builder": "examples/recipes/build_chain_of_custody.py",
+      "output": "examples/recipes/chain-of-custody.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "change-proposal",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/change-proposal.md",
+      "builder": "examples/recipes/build_change_proposal.py",
+      "output": "examples/recipes/change-proposal.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "configured-tool",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/configured-tool.md",
+      "builder": "examples/recipes/build_configured_tool.py",
+      "output": "examples/recipes/configured-tool.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cross-domain-extensions",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cross-domain-extensions.md",
+      "builder": "examples/recipes/build_cross_domain_extensions.py",
+      "output": "examples/recipes/cross-domain-extensions.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cyber-threat-intelligence",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cyber-threat-intelligence.md",
+      "builder": "examples/recipes/build_cyber_threat_intelligence.py",
+      "output": "examples/recipes/cyber-threat-intelligence.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "cybertip-ncmec-workflow",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/cybertip-ncmec-workflow.md",
+      "builder": "examples/recipes/build_cybertip_ncmec_workflow.py",
+      "output": "examples/recipes/cybertip-ncmec-workflow.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "database-records",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/database-records.md",
+      "builder": "examples/recipes/build_database_records.py",
+      "output": "examples/recipes/database-records.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "device",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/device.md",
+      "builder": "examples/recipes/build_device.py",
+      "output": "examples/recipes/device.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "elder-fraud-impersonation",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/elder-fraud-impersonation.md",
+      "builder": "examples/recipes/build_elder_fraud_impersonation.py",
+      "output": "examples/recipes/elder-fraud-impersonation.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "email-messaging",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/email-messaging.md",
+      "builder": "examples/recipes/build_email_messaging.py",
+      "output": "examples/recipes/email-messaging.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "espionage-classified-disclosure",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/espionage-classified-disclosure.md",
+      "builder": "examples/recipes/build_espionage_classified_disclosure.py",
+      "output": "examples/recipes/espionage-classified-disclosure.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "event",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/event.md",
+      "builder": "examples/recipes/build_event.py",
+      "output": "examples/recipes/event.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "exif-data",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/exif-data.md",
+      "builder": "examples/recipes/build_exif_data.py",
+      "output": "examples/recipes/exif-data.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "existence-intervals",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/existence-intervals.md",
+      "builder": "examples/recipes/build_existence_intervals.py",
+      "output": "examples/recipes/existence-intervals.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "export-control-sanctions",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/export-control-sanctions.md",
+      "builder": "examples/recipes/build_export_control_sanctions.py",
+      "output": "examples/recipes/export-control-sanctions.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "extensions",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/extensions.md",
+      "builder": "examples/recipes/build_extensions.py",
+      "output": "examples/recipes/extensions.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "file-fragments",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/file-fragments.md",
+      "builder": "examples/recipes/build_file_fragments.py",
+      "output": "examples/recipes/file-fragments.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "file-recovery",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/file-recovery.md",
+      "builder": "examples/recipes/build_file_recovery.py",
+      "output": "examples/recipes/file-recovery.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "file-system",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/file-system.md",
+      "builder": "examples/recipes/build_file_system.py",
+      "output": "examples/recipes/file-system.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "forensic-lifecycle",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/forensic-lifecycle.md",
+      "builder": "examples/recipes/build_forensic_lifecycle.py",
+      "output": "examples/recipes/forensic-lifecycle.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "forensic-tool",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/forensic-tool.md",
+      "builder": "examples/recipes/build_forensic_tool.py",
+      "output": "examples/recipes/forensic-tool.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "fraud-crypto-laundering",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/fraud-crypto-laundering.md",
+      "builder": "examples/recipes/build_fraud_crypto_laundering.py",
+      "output": "examples/recipes/fraud-crypto-laundering.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "insider-threat-trade-secrets",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/insider-threat-trade-secrets.md",
+      "builder": "examples/recipes/build_insider_threat_trade_secrets.py",
+      "output": "examples/recipes/insider-threat-trade-secrets.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "large-datasets",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/large-datasets.md",
+      "builder": "examples/recipes/build_large_datasets.py",
+      "output": "examples/recipes/large-datasets.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "legal-process-modeling",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/legal-process-modeling.md",
+      "builder": "examples/recipes/build_legal_process_modeling.py",
+      "output": "examples/recipes/legal-process-modeling.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "location",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/location.md",
+      "builder": "examples/recipes/build_location.py",
+      "output": "examples/recipes/location.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "mobile-device-sim",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/mobile-device-sim.md",
+      "builder": "examples/recipes/build_mobile_device_sim.py",
+      "output": "examples/recipes/mobile-device-sim.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "mobile-device",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/mobile-device.md",
+      "builder": "examples/recipes/build_mobile_device.py",
+      "output": "examples/recipes/mobile-device.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "network-artifacts",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/network-artifacts.md",
+      "builder": "examples/recipes/build_network_artifacts.py",
+      "output": "examples/recipes/network-artifacts.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "network-investigation",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/network-investigation.md",
+      "builder": "examples/recipes/build_network_investigation.py",
+      "output": "examples/recipes/network-investigation.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "partitions",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/partitions.md",
+      "builder": "examples/recipes/build_partitions.py",
+      "output": "examples/recipes/partitions.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "racketeering-enterprise",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/racketeering-enterprise.md",
+      "builder": "examples/recipes/build_racketeering_enterprise.py",
+      "output": "examples/recipes/racketeering-enterprise.jsonld",
+      "profiles": [],
+      "extensions": [
+        "legalproc"
+      ],
+      "strict_concepts": true
+    },
+    {
+      "id": "recipe-authoring",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/recipe-authoring.md",
+      "builder": "examples/recipes/build_recipe_authoring.py",
+      "output": "examples/recipes/recipe-authoring.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "round-trip",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/round-trip.md",
+      "builder": "examples/recipes/build_round_trip.py",
+      "output": "examples/recipes/round-trip.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "runtime-discovery",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/runtime-discovery.md",
+      "builder": "examples/recipes/build_runtime_discovery.py",
+      "output": "examples/recipes/runtime-discovery.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "sms-and-contacts",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/sms-and-contacts.md",
+      "builder": "examples/recipes/build_sms_and_contacts.py",
+      "output": "examples/recipes/sms-and-contacts.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "solve-it-investigation-planning",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/solve-it-investigation-planning.md",
+      "builder": "examples/recipes/build_solve_it_investigation_planning.py",
+      "output": "examples/recipes/solve-it-investigation-planning.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "spear-phishing",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/spear-phishing.md",
+      "builder": "examples/recipes/build_spear_phishing.py",
+      "output": "examples/recipes/spear-phishing.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "starter-email-export",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/starter-email-export.md",
+      "builder": "examples/recipes/build_starter_email_export.py",
+      "output": "examples/recipes/starter-email-export.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "starter-filesystem-report",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/starter-filesystem-report.md",
+      "builder": "examples/recipes/build_starter_filesystem_report.py",
+      "output": "examples/recipes/starter-filesystem-report.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "starter-mobile-extraction",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/starter-mobile-extraction.md",
+      "builder": "examples/recipes/build_starter_mobile_extraction.py",
+      "output": "examples/recipes/starter-mobile-extraction.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "starter-tool-run",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/starter-tool-run.md",
+      "builder": "examples/recipes/build_starter_tool_run.py",
+      "output": "examples/recipes/starter-tool-run.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "threaded-messaging",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/threaded-messaging.md",
+      "builder": "examples/recipes/build_threaded_messaging.py",
+      "output": "examples/recipes/threaded-messaging.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "usn-journal",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/usn-journal.md",
+      "builder": "examples/recipes/build_usn_journal.py",
+      "output": "examples/recipes/usn-journal.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "weapons-drug-evidence",
+      "category": "catalog-coverage",
+      "recipe": "docs/recipes/weapons-drug-evidence.md",
+      "builder": "examples/recipes/build_weapons_drug_evidence.py",
+      "output": "examples/recipes/weapons-drug-evidence.jsonld",
+      "profiles": [],
+      "extensions": [],
       "strict_concepts": true
     }
   ]

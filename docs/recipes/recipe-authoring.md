@@ -254,7 +254,16 @@ hand:
 5. Cross-reference: add Related links out, and add a link *to* the new
    recipe from its nearest neighbors.
 6. Register in `INDEX.md` + `RECIPE_INDEX` (+ router family or mapping
-   guide when applicable); run the tests.
+   guide when applicable) and add schema-valid execution metadata in
+   `docs/recipes/recipe-execution.json` pointing at a builder, a tested
+   snippet, or an explicit partial fragment.
+7. Run the tests, including `run_recipe_examples.py --all --validate`.
+8. Do not teach empty ContentDataFacet constructors or JSON-LD
+   ContentDataFacet objects without `hash`, size, MIME type, or payload
+   except inside an Anti-patterns section. Recipe lint rejects those.
+9. If the recipe joins examiner method to legal outcomes, follow
+   [technique-evidence-outcome.md](technique-evidence-outcome.md) rather
+   than inventing DFT-* IRIs from a press release.
 
 ## Related
 
@@ -263,3 +272,4 @@ hand:
 - [cross-domain-extensions.md](cross-domain-extensions.md) — composing multiple domains in one graph instead of forking recipes
 - [legal-process-modeling.md](legal-process-modeling.md) — a worked example of a recipe created from a live case (Perry/O'Dell)
 - [starter-filesystem-report.md](starter-filesystem-report.md) — the starter-kit structure to imitate
+- [technique-evidence-outcome.md](technique-evidence-outcome.md) — sourced method, hashed evidence, and legal-outcome join

@@ -1,0 +1,106 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": "case-investigation:Investigation",
+            "uco-core:name": "Known-series correlation (share-safe)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "legalproc:caseIdentifier": "LAB-2025-004"
+        },
+        {
+            "@id": "kb:file-1",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:externalReference": [
+                {
+                    "@id": "kb:ExternalReference-ee52612f-a95d-4257-b2fa-d5dc12ac92e0",
+                    "@type": "uco-core:ExternalReference",
+                    "uco-core:definingContext": "NCMEC known-series identifier; PhotoDNA value withheld",
+                    "uco-core:referenceURL": {
+                        "@type": "xsd:anyURI",
+                        "@value": "https://example.org/ncmec/series/SERIES-DEMO-001"
+                    }
+                }
+            ],
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-77f8212b-b0a4-44bc-b7f2-ec4798a4db5a",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "exhibit-1.bin"
+                },
+                {
+                    "@id": "kb:ContentDataFacet-c8e1d75c-6ac9-4b39-bd96-bba51132d447",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-2a326aa9-29dd-4ca0-83db-16bcaf410760",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "exhibit-1.bin",
+            "uco-core:tag": "photodna-match-reported-value-withheld"
+        },
+        {
+            "@id": "kb:tool-hashset",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "Laboratory hash-set matcher",
+            "uco-tool:version": "1.0"
+        },
+        {
+            "@id": "kb:action-series",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Known-series correlation",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:tool-hashset"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-05-20T14:00:00+00:00"
+            },
+            "uco-action:object": {
+                "@id": "kb:file-1"
+            }
+        },
+        {
+            "@id": "kb:prov-series",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "Share-safe series exhibit",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "uco-core:object": [
+                {
+                    "@id": "kb:file-1"
+                }
+            ],
+            "case-investigation:exhibitNumber": "1"
+        }
+    ]
+}

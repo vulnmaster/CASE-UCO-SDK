@@ -624,7 +624,7 @@ def _gen_rust_extension(ext_schema, output_dir, ext_name, ext_version, display_n
         f'description = "{display_name} bindings for CASE/UCO SDK"\n\n'
         "[dependencies]\n"
         f'case-uco = "{uco_dep.lstrip(">=")}"\n'
-        'serde = {{ version = "1", features = ["derive"] }}\n'
+        'serde = { version = "1", features = ["derive"] }\n'
     )
     (output_dir / "rust" / "Cargo.toml").write_text(cargo, encoding="utf-8")
     count += 1

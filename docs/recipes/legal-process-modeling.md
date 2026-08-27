@@ -14,9 +14,10 @@ restitution, and appeals — for **any** investigation domain using the
 - Multi-defendant cases with different counts, dispositions, and sentences
 - Verdicts, mid-trial pleas, dismissals, acquittals, count mergers, appeals
 
-For CAC-domain prosecutions, prefer the CAC legal-outcomes classes
-(`docs/recipes/cac-legal-sentencing-outcomes.md`); this recipe covers the
-general case. Document ingestion mechanics (hashes, OCR, fabrication-free
+For CAC-domain prosecutions, compose this extension with
+[cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md). Plea
+and plea-agreement facts use `legalproc:Plea` and `legalproc:PleaAgreement`
+in both recipes. Document ingestion mechanics (hashes, OCR, fabrication-free
 dates) are in `docs/recipes/cac-pacer-document-ingestion.md` and apply
 unchanged.
 
@@ -31,6 +32,9 @@ proposed upstream in [CASE #192](https://github.com/casework/CASE/issues/192)
 | `legalproc:ChargingInstrument` | complaint, indictment, superseding indictment, information (`instrumentType`) |
 | `legalproc:CriminalCharge` | one count or count-range (`statuteCitation`, `countNumber`, `countLabel`, `chargeClassification`, `chargeDisposition`) |
 | `legalproc:Plea` | `pleaType`: guilty / not-guilty / nolo-contendere |
+| `legalproc:PleaAgreement` | negotiated agreement; `recordsPlea` to the `legalproc:Plea` |
+| `legalproc:StateCharge` / `legalproc:FederalCharge` | use whenever the source establishes jurisdiction |
+| `legalproc:PotentialPenalty` / `legalproc:PretrialReleaseCondition` | statutory maxima and bail/bond; never imposed `Sentence` |
 | `legalproc:CriminalProceeding` | arraignment, trial, plea-hearing, sentencing-hearing, appeal, certiorari (`proceedingType`) |
 | `legalproc:Verdict` | `verdictType`: guilty / not-guilty, per charge |
 | `legalproc:Sentence` | `sentenceStatus`: recommended / imposed / vacated; `sentenceTerm` verbatim |
@@ -147,7 +151,10 @@ internet searches). Keep the participation layer out of the charge nodes.
    `Verdict` nodes listing their charges via `concernsCharge`.
 10. **Sentences**: keep `sentenceTerm` verbatim ("Life", "165 years (25
     concurrent + 140 consecutive)") — never convert to fabricated month
-    counts; distinguish `recommended` vs `imposed`.
+    counts; distinguish `recommended` vs `imposed`. Set
+    `legalproc:sentenceKind` and `legalproc:outcomeScope`. Do not type
+    bail, bond, restitution, forfeiture, special assessments, or
+    statutory maxima as `legalproc:Sentence`.
 11. **Source fidelity**: every node description ends with a
    `Source: PACER Doc N (...)` reference; date-only facts rendered at local
    midnight with correct seasonal UTC offset.
@@ -191,3 +198,5 @@ whose descriptions state which proceeding reviews which:
 - `docs/recipes/export-control-sanctions.md` — IEEPA/EAR export and sanctions cases (worked exemplar with per-defendant dispositions on shared counts and recommended-vs-imposed sentence divergence)
 - `docs/recipes/extensions.md` — extension workflow and strict concept coverage
 - `docs/recipes/change-proposal.md` — filing gaps upstream (CASE #191-#194)
+- `docs/recipes/legal-discovery-disclosure.md` — Brady / Giglio / Jencks / Rule 16
+- `docs/recipes/caselinker-icac-remodel.md` — CaseLinker legal-outcome dual-typing

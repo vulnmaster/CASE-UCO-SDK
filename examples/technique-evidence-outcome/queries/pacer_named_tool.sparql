@@ -1,0 +1,9 @@
+PREFIX uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+
+SELECT DISTINCT ?tool
+WHERE {
+  ?tool a uco-tool:Tool ;
+        uco-core:name "Cellebrite UFED" .
+}
+ORDER BY ?tool

@@ -1,0 +1,15 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "solveit-core": "https://ontology.solveit-df.org/solveit/core/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "kb": "http://example.org/kb/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:fabricated-technique",
+      "@type": "solveit-core:CompletelyImaginaryClass",
+      "uco-core:name": "Invented examiner technique not in SOLVE-IT"
+    }
+  ]
+}

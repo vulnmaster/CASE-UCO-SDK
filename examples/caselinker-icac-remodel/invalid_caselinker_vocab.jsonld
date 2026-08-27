@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "caselinker": "https://caselinker.up.railway.app/resource/vocab/"
+  },
+  "@graph": [
+    {
+      "@id": "http://example.org/kb/charge",
+      "@type": "legalproc:FederalCharge",
+      "legalproc:statuteCitation": "18 U.S.C. § 2252A",
+      "caselinker:chargeCluster": "possession"
+    }
+  ]
+}

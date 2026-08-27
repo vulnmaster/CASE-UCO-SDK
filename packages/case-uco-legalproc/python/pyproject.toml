@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "case-uco-legalproc"
-version = "0.1.0"
+version = "0.3.0"
 description = "Legal Process and Procedure Extension bindings for CASE/UCO SDK"
 requires-python = ">=3.10"
 dependencies = [

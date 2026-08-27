@@ -1,0 +1,106 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": "case-investigation:Investigation",
+            "uco-core:name": "Federal ICAC adoption",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-06-01T12:00:00+00:00"
+            },
+            "legalproc:caseIdentifier": "1:25-cr-00010"
+        },
+        {
+            "@id": "kb:defendant",
+            "@type": "uco-identity:Person",
+            "uco-core:name": "Defendant One",
+            "legalproc:chargedWith": {
+                "@id": "kb:charge"
+            }
+        },
+        {
+            "@id": "kb:jurisdiction",
+            "@type": "legalproc:FederalJurisdiction",
+            "uco-core:name": "United States"
+        },
+        {
+            "@id": "kb:charge",
+            "@type": "legalproc:FederalCharge",
+            "uco-core:name": "Possession of child pornography",
+            "legalproc:statuteCitation": "18 U.S.C. \u00a7 2252A(a)(5)(B)",
+            "legalproc:countNumber": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "1"
+            },
+            "legalproc:countLabel": "Count 1",
+            "legalproc:chargeDisposition": "pending",
+            "legalproc:jurisdictionKind": "federal",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-charged-with",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with Count 1."
+        },
+        {
+            "@id": "kb:plea",
+            "@type": "legalproc:Plea",
+            "uco-core:name": "Guilty plea",
+            "legalproc:pleaType": "guilty",
+            "legalproc:outcomeScope": "current-case",
+            "legalproc:concernsCharge": {
+                "@id": "kb:charge"
+            }
+        },
+        {
+            "@id": "kb:plea-agreement",
+            "@type": "legalproc:PleaAgreement",
+            "uco-core:name": "Rule 11(c) plea agreement",
+            "legalproc:outcomeScope": "current-case",
+            "legalproc:recordsPlea": {
+                "@id": "kb:plea"
+            },
+            "legalproc:concernsCharge": {
+                "@id": "kb:charge"
+            }
+        },
+        {
+            "@id": "kb:sentence",
+            "@type": "legalproc:Sentence",
+            "uco-core:name": "Imposed custodial sentence",
+            "legalproc:sentenceStatus": "imposed",
+            "legalproc:sentenceKind": "custodial",
+            "legalproc:sentenceTerm": "120 months",
+            "legalproc:outcomeScope": "current-case",
+            "legalproc:concernsCharge": {
+                "@id": "kb:charge"
+            },
+            "legalproc:appliesTo": {
+                "@id": "kb:charge"
+            }
+        }
+    ]
+}

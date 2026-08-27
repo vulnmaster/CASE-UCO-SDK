@@ -1,7 +1,7 @@
 {
   "name": "legalproc",
   "display_name": "Legal Process and Procedure Extension",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "upstream_repo": "https://github.com/vulnmaster/CASE-UCO-SDK",
   "upstream_ref": "main",
   "license": "Apache-2.0",

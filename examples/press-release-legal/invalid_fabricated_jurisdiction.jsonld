@@ -1,0 +1,18 @@
+{
+  "@context": {
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "kb": "http://example.org/kb/"
+  },
+  "@graph": [
+    {
+      "@id": "kb:fabricated-federal",
+      "@type": "legalproc:StateCharge",
+      "uco-core:name": "State charge labeled federal without source support",
+      "legalproc:statuteCitation": "Example State Code § 1-100",
+      "legalproc:jurisdictionKind": "federal",
+      "legalproc:outcomeScope": "current-case"
+    }
+  ]
+}

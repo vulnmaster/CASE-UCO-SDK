@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.caseontology</groupId>
   <artifactId>case-uco-legalproc</artifactId>
-  <version>0.1.0</version>
+  <version>0.3.0</version>
   <name>Legal Process and Procedure Extension</name>
   <dependencies>
     <dependency>

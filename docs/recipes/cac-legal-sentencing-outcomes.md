@@ -2,86 +2,161 @@
 
 > See [Recipe Index](INDEX.md) for all recipes.
 
-Model indictments, charges, plea agreements, sentencing, supervised release, and sex-offender registry outcomes using CAC legal-outcomes module classes.
+Model press-release and docket facts about charges, pleas, verdicts, sentences,
+and prior history so **charged, convicted, sentenced, prior, state, federal,
+parallel, unknown, and not-reported** remain distinguishable and queryable.
+Encode only what the source establishes.
 
-## Scope
+**When to use this recipe**
 
-**Layer 3 — Institutional workflow** for post-investigation legal disposition.
+- A public release or docket reports arrest, charge, indictment, plea, verdict,
+  sentence, appeal, or prior-conviction history
+- CaseLinker or another remodeler must keep current outcomes separate from
+  prior history and state proceedings separate from federal ones
+- You need competency-tested patterns for state-only, federal-only, dual
+  jurisdiction, charged-only, or omitted victim facts
 
-## Key classes
+Use [legal-process-modeling.md](legal-process-modeling.md) for PACER-heavy
+non-CAC dockets. Use [cac-federal-prosecution-relationships.md](cac-federal-prosecution-relationships.md)
+for numbered federal-count wiring. Use [cac-icac-search-warrant-arrest.md](cac-icac-search-warrant-arrest.md)
+for warrant/booking workflow. Use [technique-evidence-outcome.md](technique-evidence-outcome.md)
+to join later lab or PACER method claims to these outcomes; press releases
+do not establish `usedTechnique` or hashed `ContentDataFacet` nodes.
 
-| Class | Role |
+## Fail-closed legal-stage table
+
+| Source establishes | Model as | Do not model as |
+|---|---|---|
+| Arrest / booking / held without bond | `legalproc:PretrialReleaseCondition` (`releaseConditionKind` `bail`, `bond`, `personal-recognizance`, or `detained-without-bond`) plus arrest/booking actions from the ICAC recipe | `legalproc:Sentence` or `cacontology-legal-outcomes:CriminalSentence` |
+| Charged / indicted | `legalproc:StateCharge` or `legalproc:FederalCharge` (or the CAC equivalents) with `chargeDisposition` `pending` | A conviction or imposed sentence |
+| Potential or mandatory penalty | `legalproc:PotentialPenalty` (`statutory-maximum`, `mandatory-minimum`, or `guideline-range`) | Imposed `legalproc:Sentence` |
+| Guilty plea | `legalproc:Plea` (`pleaType` `guilty`) and, when a deal is reported, `legalproc:PleaAgreement` with `legalproc:recordsPlea` | `cryptoinv:PleaAgreement` or an undeclared `PleaAgreement` |
+| Guilty verdict / conviction | `legalproc:Verdict` and `chargeDisposition` `convicted-by-verdict` | A prior-history node with `outcomeScope` `current-case` |
+| Imposed sentence | `legalproc:Sentence` with `sentenceStatus` `imposed` and `sentenceKind` in `custodial`, `supervised-release`, `probation`, `community-service`, `fine-as-sentence` | Bail, bond, restitution, forfeiture, special assessment, or statutory maximum |
+| Prior conviction / sentence | Same classes with `legalproc:outcomeScope` `prior-history` | Current-case conviction or sentence |
+| Appeal / post-conviction | `legalproc:CriminalProceeding` (`proceedingType` `appeal`) | A new investigation unless the source is a different matter |
+
+`legalproc:CriminalCharge` remains only when the source does not establish
+state versus federal jurisdiction. Do not infer jurisdiction from a URL host
+or agency name.
+
+## Key classes and properties
+
+| Class / property | Role |
 |---|---|
-| `cacontology-legal-outcomes:CriminalCharge` | One node per formal charge; group with the charging instrument or Bundle |
-| `StateCharge` / `FloridaStateCharge` / `GeorgiaStateCharge` | Jurisdiction-specific charges |
-| `PleaAgreement` | Plea disposition |
-| `SentencingOutcome` / `PrisonSentence` / `SupervisedRelease` | Sentencing results |
-| `cacontology-sex-offender-registry:RegistrationRecord` | Registry integration when applicable |
-| `uco-core:ExternalReference` | Statutory citation and defining source |
-| `CACInvestigation` | Source investigation linkage |
-| `Identity` | Defendant / subject |
+| `legalproc:StateCharge` / `legalproc:FederalCharge` | Jurisdiction-typed counts |
+| `cacontology-legal-outcomes:StateCharge` / `FederalCharge` | CAC equivalents; dual-type when the graph already uses CAC charges |
+| `legalproc:Plea` / `legalproc:PleaAgreement` | Plea and the Rule 11(c) agreement that records it |
+| `legalproc:Verdict` / `legalproc:Sentence` | Verdict and imposed or recommended sentence |
+| `legalproc:PotentialPenalty` | Statutory maximum or guideline exposure |
+| `legalproc:PretrialReleaseCondition` | Bail, bond, or detention without bond |
+| `legalproc:outcomeScope` | `current-case` or `prior-history` |
+| `legalproc:jurisdictionKind` | `state`, `federal`, or `unknown` |
+| `legalproc:victimFactStatus` | `reported` or `omitted` |
+| `legalproc:sourcePublicationTime` / `sourceRetrievalTime` | Source issued versus retrieved; `uco-core:objectCreatedTime` is graph ingestion |
+| `legalproc:StateJurisdiction` / `legalproc:FederalJurisdiction` | Jurisdiction nodes linked with `Related_To` |
+| `cacontology-legal-outcomes:ConvictionRecord` | CAC conviction record when date and type are sourced; still set `outcomeScope` |
 
-## Maryland press-release pattern
-
-Maryland ICAC arrest articles often report charges before sentencing. Until `MarylandStateCharge` subclasses are added to the CAC ontology (like Florida and Georgia), model Maryland counts as generic `StateCharge`:
-
-| Press language | Modeling |
-|---|---|
-| Sexual solicitation of a minor | `StateCharge` + `uco-core:name` + `skos:altLabel` "Sexual Solicitation of a Minor" |
-| Knowingly permitting sexual solicitation of a minor | separate `StateCharge` node |
-| Held without bond | document on `BookingAction` / `CorrectionalFacility` description |
-| Transported to detention center | `BookingAction` → `CorrectionalFacility` |
-
-```python
-charge = graph.add_node("kb:charge-1", "cacontology-legal-outcomes:StateCharge", {
-    "uco-core:name": "Sexual Solicitation of a Minor",
-    "uco-core:description": "Maryland state charge reported in press release.",
-    "cacontology-legal-outcomes:chargeLevel": "felony",
-    "cacontology-legal-outcomes:chargeCount": {
-        "@type": "xsd:nonNegativeInteger", "@value": "1",
-    },
-})
-graph.add_node("kb:suspect", "uco-identity:Person", {
-    "cacontology-legal-outcomes:chargedWith": [{"@id": "kb:charge-1"}],
-})
-```
-
-**Ontology gap:** Consider a change proposal for `MarylandStateCharge` subclasses mirroring `ComputerSeduceSolicitLure` patterns in Florida exemplars.
+Keep Florida, Georgia, Maryland, or other state-specific charge subclasses
+outside this SDK. Individual deployments may maintain those extensions.
 
 ## Canonical pattern
 
 ```
-CACInvestigation
-  └── Related_To ──▶ CriminalCharge (one node per count)
-        ├── Related_To ──▶ PleaAgreement (when entered)
-        └── Related_To ──▶ SentencingOutcome
-              └── Related_To ──▶ RegistrationRecord (when ordered)
+Investigation
+  ├── legalproc:victimFactStatus
+  ├── Related_To ──▶ source ObservableObject (publication / retrieval / ingestion times)
+  └── Related_To ──▶ StateCharge or FederalCharge
+        ├── legalproc:assertedIn ──▶ ChargingInstrument
+        ├── Related_To ──▶ StateJurisdiction or FederalJurisdiction
+        ├── legalproc:Plea / legalproc:PleaAgreement (when a plea is entered)
+        ├── legalproc:Verdict (when a verdict is returned)
+        └── legalproc:Sentence or legalproc:PotentialPenalty
 ```
+
+```python
+from case_uco import CASEGraph
+
+graph = CASEGraph(extra_context={
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+})
+graph.upsert_node("kb:charge-1", types="legalproc:StateCharge", properties={
+    "uco-core:name": "Sexual solicitation of a minor",
+    "legalproc:statuteCitation": "Example State Code § 1-100",
+    "legalproc:chargeDisposition": "pending",
+    "legalproc:jurisdictionKind": "state",
+    "legalproc:outcomeScope": "current-case",
+})
+graph.upsert_node("kb:bond", types="legalproc:PretrialReleaseCondition", properties={
+    "uco-core:name": "Held without bond",
+    "legalproc:releaseConditionKind": "detained-without-bond",
+})
+```
+
+Validated against `examples/press-release-legal/`.
 
 ## Modeling rules
 
-- Link charges back to the **source investigation** and relevant **exploitation events** via `uco-core:Relationship` (`Related_To`), not only `chargedWith` on the suspect.
-- Use **statute references** as structured nodes when statute numbers are known.
-- Registry outcomes are separate auditable events — do not bury them in sentencing description text.
-- Use typed literals for `chargeCount` (`xsd:nonNegativeInteger`).
+1. One public release remains one source named graph / source artifact. Reuse
+   stable investigation, docket (`legalproc:caseIdentifier`), defendant, charge,
+   and proceeding IRIs when later releases establish the same matter.
+2. Separate **publication**, **retrieval**, and **ingestion** times. Do not put
+   the press-release date on `uco-core:objectCreatedTime`.
+3. Model state and federal proceedings as separate `legalproc:CriminalProceeding`
+   nodes when both are reported (adoption or parallel prosecution).
+4. Do not invent victim identity, location, age, or count. If the source omits
+   those facts, set `legalproc:victimFactStatus` `omitted` and do not write
+   `reportedVictimCount` `0`.
+5. Restitution, forfeiture, and special assessments use
+   `legalproc:RestitutionOrder` / `legalproc:ForfeitureOrder` or CAC monetary
+   classes — never an imposed `Sentence`.
 
-## Validation
+## Anti-patterns
 
-```bash
-validate_graph("sentencing-outcome.jsonld", extensions=["cac"])
-```
+- Typing bail, bond, or "faces up to N years" as `legalproc:Sentence` or
+  `cacontology-legal-outcomes:CriminalSentence`
+- Using `cryptoinv:PleaAgreement` or an unqualified `PleaAgreement` in CAC
+  press-release graphs
+- Recommending `FloridaStateCharge`, `GeorgiaStateCharge`, or
+  `MarylandStateCharge` as SDK modeling classes
+- Collapsing a state arrest and a later federal adoption into one proceeding
+- Copying a prior conviction onto the current case without `prior-history`
+- Treating omitted victim facts as zero victims
+- Inferring SOLVE-IT `usedTechnique` or emitting empty `ContentDataFacet`
+  nodes because the release mentioned digital evidence
 
-## Federal court prosecution graphs
+## CaseLinker remodeling
 
-For indictments and criminal complaints with **numbered federal counts** — single or multi-defendant, single or **multi-district parallel prosecution**, enterprise or production/possession cases — see [cac-federal-prosecution-relationships.md](cac-federal-prosecution-relationships.md). That recipe covers relationship edges agents often omit: per-defendant `chargedWith`, indictment→charge links, prosecution→indictment bridges, multi-district charge→court assignment, forfeiture→device linkage, and enterprise-specific relator participants.
+Graphs produced by MCP versions before v1.27.0 should be remodeled in place
+when the source supports it:
 
-For **superseding indictments**, PACER docket exports, competency proceedings, and **government trial briefs**, see [cac-federal-trial-proceedings.md](cac-federal-trial-proceedings.md).
+1. Re-type generic `CriminalCharge` nodes as `StateCharge` or `FederalCharge`
+   only when the source establishes jurisdiction.
+2. Move bail/bond/statutory-maximum nodes off `CriminalSentence` /
+   `legalproc:Sentence` onto `PretrialReleaseCondition` or `PotentialPenalty`.
+3. Set `outcomeScope` on every conviction and sentence.
+4. Replace undeclared or `cryptoinv:PleaAgreement` nodes with
+   `legalproc:Plea` + `legalproc:PleaAgreement`.
+5. Keep one investigation IRI per matter; attach each release as its own
+   source artifact with publication, retrieval, and ingestion times.
+6. Leave omitted victim facts omitted.
 
-For **§ 1591 child sex trafficking** with per-victim count bundles (solo operator or ring), see [cac-trafficking-recruitment-network.md](cac-trafficking-recruitment-network.md).
+## Checklist
 
-## Related recipes
+1. Classify the legal stage from the table before creating sentence nodes.
+2. Assign jurisdiction classes without URL-host heuristics.
+3. Set `outcomeScope` on charges, pleas, verdicts, and sentences.
+4. Record source publication, retrieval, and ingestion separately.
+5. Validate with `validate_graph(..., extensions=["legalproc"])` and add
+   `cac` when the graph also uses CAC conduct classes.
 
+## Related
+
+- [legal-process-modeling.md](legal-process-modeling.md)
 - [cac-federal-prosecution-relationships.md](cac-federal-prosecution-relationships.md)
 - [cac-icac-search-warrant-arrest.md](cac-icac-search-warrant-arrest.md)
-- [cac-tactical-undercover-operation.md](cac-tactical-undercover-operation.md)
-- [event.md](event.md)
+- [cac-pacer-document-ingestion.md](cac-pacer-document-ingestion.md)
+- [cac-federal-trial-proceedings.md](cac-federal-trial-proceedings.md)
+- [technique-evidence-outcome.md](technique-evidence-outcome.md)
+- [caselinker-icac-remodel.md](caselinker-icac-remodel.md) — dual-type CaseLinker charges and drop private vocab
+- [legal-discovery-disclosure.md](legal-discovery-disclosure.md)

@@ -15,11 +15,15 @@ proposed upstream to CASE:
 | [CASE #192](https://github.com/casework/CASE/issues/192) — criminal process stubs | `CriminalCharge`, `Plea`, `CriminalProceeding`, `Sentence`, `ForfeitureOrder`, `RestitutionOrder`, `concernsCharge` |
 | [CASE #191](https://github.com/casework/CASE/issues/191) — case identification | `caseIdentifier` (subproperty of `uco-core:externalIdentifier`) |
 | This SDK (validated against U.S. v. Perry & O'Dell) | `ChargingInstrument`, `Verdict`, `offenseForm`, `objectOffense`, `assertedIn`, count/disposition/sentence detail properties |
+| This SDK (press-release legal outcomes, #125) | `PleaAgreement`, `PotentialPenalty`, `PretrialReleaseCondition`, `StateCharge`, `FederalCharge`, `outcomeScope`, `sentenceKind`, `jurisdictionKind`, `victimFactStatus` |
+| This SDK (discovery obligations, #132) | `DisclosureObligation`, `DiscoveryProduction`, `SuppressionMotion`, `disclosureKind`, `disclosureStatus`, `disclosureSourceCitation`, `concernsEvidence`, `chargedWith`, `appliesTo` |
 
 When CASE adopts the proposed namespaces, these terms re-parent to the CASE
 terms and this extension shrinks to a bridge file. Do **not** build new
 domain-specific forks of these concepts (that is the duplication CASE #192
-exists to end); subclass them instead.
+exists to end); subclass them instead. Plea and plea-agreement modeling
+uses `legalproc:Plea` and `legalproc:PleaAgreement` (`recordsPlea`); do
+not use `cryptoinv:PleaAgreement` or an undeclared CAC `PleaAgreement`.
 
 ## Namespace
 
@@ -56,7 +60,10 @@ a separate concern: model it as `uco-identity:Organization` plus
 
 In scope: the procedural skeleton of a criminal prosecution as recorded in
 court filings (PACER dockets, indictments, plea agreements, sentencing
-memoranda, judgments).
+memoranda, judgments) and public press releases that report those stages.
+`outcomeScope` distinguishes current-case outcomes from prior-conviction
+history. `sentenceKind` keeps imposed sentences distinct from bail, bond,
+and potential penalties (`PotentialPenalty`, `PretrialReleaseCondition`).
 
 Out of scope: civil process (CASE #193), corporate/internal process
 (CASE #194), evidence-law concepts, non-U.S. procedural detail. Statute

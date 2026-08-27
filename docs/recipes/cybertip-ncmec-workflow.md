@@ -241,3 +241,4 @@ case_validate --built-version case-1.4.0 \
 ## Related
 
 - [cac-hotline-intake-lifecycle.md](cac-hotline-intake-lifecycle.md) — hotline intake, triage, and referral before/alongside the CyberTip
+- [caselinker-icac-remodel.md](caselinker-icac-remodel.md) — add `InvestigationTrigger` when remodeling CaseLinker tip+investigation graphs

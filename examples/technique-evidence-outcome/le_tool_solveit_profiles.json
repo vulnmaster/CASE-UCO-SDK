@@ -1,0 +1,26 @@
+{
+  "description": "Suggested SOLVE-IT techniques for common law-enforcement digital forensics products. These are capability hints, not asserted executions. Record usedTechnique only when the source establishes that the technique was performed.",
+  "issue": 126,
+  "products": [
+    {
+      "name": "Cellebrite UFED",
+      "techniques": ["DFT-1020", "DFT-1019", "DFT-1044"]
+    },
+    {
+      "name": "Magnet AXIOM",
+      "techniques": ["DFT-1072", "DFT-1053", "DFT-1020"]
+    },
+    {
+      "name": "AccessData FTK",
+      "techniques": ["DFT-1186", "DFT-1047", "DFT-1050"]
+    },
+    {
+      "name": "Autopsy",
+      "techniques": ["DFT-1186", "DFT-1047", "DFT-1050"]
+    },
+    {
+      "name": "PhotoDNA / NCMEC hash match",
+      "techniques": ["DFT-1050", "DFT-1186", "DFT-1051"]
+    }
+  ]
+}

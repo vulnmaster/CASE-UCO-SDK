@@ -1182,6 +1182,24 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "file": "docs/recipes/solve-it-investigation-planning.md",
     },
     {
+        "title": "Technique, Evidence, and Legal-Outcome Join",
+        "description": "Join sourced SOLVE-IT examiner techniques, hashed digital evidence, and legalproc charges/sentences. Press releases omit usedTechnique; PACER records named tools only; lab exports assert DFT-* with real hashes. Keep ATT&CK offender techniques separate.",
+        "keywords": "technique evidence outcome join usedTechnique solveit hash match photodna ufed cellebrite axiom ftk autopsy legalproc sentence effectiveness competency sparql lab importer pacer method claim empty contentdatafacet",
+        "file": "docs/recipes/technique-evidence-outcome.md",
+    },
+    {
+        "title": "CaseLinker ICAC Remodel",
+        "description": "Remodel CaseLinker CAC graphs so CyberTip joins, share-safe hashes, legalproc dual-typing, and commander phase clocks validate and answer SPARQL competency questions.",
+        "keywords": "caselinker remodel icac cybertip investigationtrigger photodna known series victim count task force legalproc chargecluster dual type phase clock commander prosecutor detective",
+        "file": "docs/recipes/caselinker-icac-remodel.md",
+    },
+    {
+        "title": "Criminal Discovery and Disclosure Obligations",
+        "description": "Model sourced Brady, Giglio, Jencks, and Rule 16 disclosure duties and productions with legalproc. Do not infer Brady from unlabeled exam notes.",
+        "keywords": "brady giglio jencks rule 16 discovery disclosure obligation production suppression motion prosecutor certificate",
+        "file": "docs/recipes/legal-discovery-disclosure.md",
+    },
+    {
         "title": "Insider Threat, Trade Secret Theft, and Economic Espionage",
         "description": "Model insider exfiltration of trade secrets: corporate telemetry, personal cloud accounts, per-category 1832/1831 counts, foreign-government-benefit evidence, and jury verdicts.",
         "keywords": "insider threat trade secret economic espionage 1832 1831 exfiltration data loss prevention dlp badge access personal cloud account proprietary confidential employee resignation talent program foreign instrumentality startup competitor source code wechat jury verdict",
@@ -1347,6 +1365,45 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         ],
         "starter_kit": "docs/recipes/starter-mobile-extraction.md",
         "code_skeleton": "device = graph.create(ObservableObject, has_facet=[DeviceFacet(manufacturer=..., model=...)])",
+    },
+    {
+        "source": "lab hash-match CSV or UFED-style summary",
+        "keywords": [
+            "hash match", "hashset", "photodna", "ncmec", "ufed", "cellebrite",
+            "lab export", "usedtechnique", "dft-1050", "dft-1020",
+        ],
+        "pattern": "SolveitInvestigativeAction + usedTechnique + Tool + ContentDataFacet hash + legalproc charge/sentence",
+        "classes": [
+            "Investigation", "SolveitInvestigativeAction", "Tool",
+            "ObservableObject", "FileFacet", "ContentDataFacet", "Hash",
+            "FederalCharge", "Sentence", "ProvenanceRecord",
+        ],
+        "anti_patterns": [
+            "Don't assert usedTechnique from a press release or product name alone",
+            "Don't emit ContentDataFacet without hash, size, MIME type, or payload",
+            "Don't collapse ATT&CK offender techniques into SOLVE-IT examiner techniques",
+        ],
+        "starter_kit": "docs/recipes/technique-evidence-outcome.md",
+        "code_skeleton": "from tools.technique_evidence_outcome import build_lab_join; graph = build_lab_join()",
+    },
+    {
+        "source": "CaseLinker ICAC / CyberTip graph",
+        "keywords": [
+            "caselinker", "cybertip", "investigation trigger", "icac remodel",
+            "chargecluster", "photodna", "phase clock",
+        ],
+        "pattern": "InvestigationTrigger + legalproc dual-type + hashed ContentDataFacet or omitted facet",
+        "classes": [
+            "NCMECCybertipReport", "InvestigationTrigger", "CACInvestigation",
+            "FederalCharge", "Sentence", "DisclosureObligation", "ICACtaskForce",
+        ],
+        "anti_patterns": [
+            "Don't keep caselinker:/resource/vocab/* predicates",
+            "Don't infer Brady from unlabeled exam notes",
+            "Don't mint PhotoDNA hex or usedTechnique from a CyberTipline method IRI",
+        ],
+        "starter_kit": "docs/recipes/caselinker-icac-remodel.md",
+        "code_skeleton": "from tools.caselinker_icac_remodel import join_cybertip_investigation",
     },
     {
         "source": "iOS sysdiagnose archive",

@@ -289,6 +289,7 @@ property, so do not invent one.
 | Embedding builder/recipe files in the Investigation graph | Put implementation provenance in a sidecar manifest; keep the domain graph about the report |
 | Collapsing family, variant, and sample into one node | Family = `MaliciousTool`; variants/samples = `ObservableObject` + `FileFacet`/`ContentDataFacet`, `Related_To` the family |
 | Treating cloud C2 (Dropbox/Twitter/Zimbra) as benign | It is a C2 channel — `Connected_To` tagged `c2`, with exfil artifacts `Uploaded_To` it |
+| Putting ATT&CK IRIs on `solveit-core:usedTechnique` | ATT&CK describes offender behavior. Examiner methods stay in SOLVE-IT. See [technique-evidence-outcome.md](technique-evidence-outcome.md) |
 
 ## Checklist
 
@@ -376,3 +377,4 @@ property, so do not invent one.
 - [analysis.md](analysis.md) — the attribution/analysis layer with confidence-scored classifications
 - [network-artifacts.md](network-artifacts.md) — IPs, domains, and URLs as observables
 - [forensic-tool.md](forensic-tool.md) — modeling tools and their configured runs
+- [technique-evidence-outcome.md](technique-evidence-outcome.md) — examiner SOLVE-IT techniques stay separate from ATT&CK

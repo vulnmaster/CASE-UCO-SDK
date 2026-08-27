@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForfeitureOrder {
-    public static final String CLASS_IRI = "http://example.org/ontology/legalproc/ForfeitureOrder";
+    public static final String CLASS_IRI = "https://ontology.caseontology.org/case/criminal/ForfeitureOrder";
 
     private String currencyCode;
     private java.math.BigDecimal monetaryAmount;

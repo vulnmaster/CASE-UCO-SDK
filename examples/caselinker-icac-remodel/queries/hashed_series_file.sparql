@@ -1,0 +1,10 @@
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+
+SELECT ?file
+WHERE {
+  ?file uco-core:hasFacet ?facet .
+  ?facet a uco-observable:ContentDataFacet ;
+         uco-observable:hash ?hash .
+  ?file uco-core:tag "photodna-match-reported-value-withheld" .
+}

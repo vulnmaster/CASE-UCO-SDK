@@ -36,6 +36,15 @@ def test_manifest_validates_against_schema():
     assert len(data["recipes"]) >= 1
 
 
+def test_every_operational_recipe_has_execution_metadata():
+    coverage = runner.operational_recipe_coverage()
+    assert coverage["complete"], (
+        "Operational recipes missing recipe-execution.json entries: "
+        + ", ".join(coverage["missing_recipes"])
+    )
+    assert coverage["operational_recipes"] >= 80
+
+
 def test_schema_rejects_string_expect_invalid(tmp_path, monkeypatch):
     bad = {
         "schema_version": "1.0",

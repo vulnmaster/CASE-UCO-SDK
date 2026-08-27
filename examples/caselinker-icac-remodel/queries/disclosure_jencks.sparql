@@ -1,0 +1,9 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?obligation ?evidence
+WHERE {
+  ?obligation a legalproc:DisclosureObligation ;
+              legalproc:disclosureKind "jencks" ;
+              legalproc:disclosureSourceCitation ?cite ;
+              legalproc:concernsEvidence ?evidence .
+}

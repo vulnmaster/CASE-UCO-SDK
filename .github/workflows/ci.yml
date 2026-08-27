@@ -470,10 +470,10 @@ jobs:
           command -v case_validate
           case_validate --help >/dev/null
 
-      - name: Run upper-ontology recipe gate
+      - name: Run operational recipe coverage gate
         run: |
-          python mcp_server/tools/run_recipe_examples.py \
-            --category upper-ontology \
+          PYTHONPATH=python:mcp_server python mcp_server/tools/run_recipe_examples.py \
+            --all \
             --validate \
             --timeout 180 \
             --report recipe-validation-report.json

@@ -1,0 +1,8 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?investigation
+WHERE {
+  ?investigation legalproc:victimFactStatus "omitted" .
+  FILTER NOT EXISTS { ?investigation legalproc:reportedVictimCount ?count }
+}
+ORDER BY ?investigation

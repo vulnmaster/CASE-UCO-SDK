@@ -26,7 +26,7 @@
 	legalproc:instrumentType "superseding-indictment" .
 
 <urn:uuid:3a7d0f4b-2e5c-5d6f-1b9a-4c8e2f6d0b54>
-	a legalproc:CriminalCharge ;
+	a legalproc:FederalCharge ;
 	uco-core:name "Count 1: Conspiracy to Murder a Federal Officer and Employee" ;
 	legalproc:statuteCitation "18 U.S.C. §§ 1117 & 1114" ;
 	legalproc:countNumber "1"^^xsd:nonNegativeInteger ;
@@ -34,10 +34,12 @@
 	legalproc:offenseForm "conspiracy" ;
 	legalproc:chargeClassification "Class A Felony" ;
 	legalproc:chargeDisposition "convicted-by-verdict" ;
+	legalproc:jurisdictionKind "federal" ;
+	legalproc:outcomeScope "current-case" ;
 	legalproc:assertedIn <urn:uuid:2f6c9e3a-1d4b-5c5e-0a8f-3b7d1e5c9a43> .
 
 <urn:uuid:4b8e1a5c-3f6d-5e7a-2c0b-5d9f3a7e1c65>
-	a legalproc:CriminalCharge ;
+	a legalproc:FederalCharge ;
 	uco-core:name "Count 4: Attempted Murder of a Federal Officer and Employee (victim J.R.)" ;
 	legalproc:statuteCitation "18 U.S.C. §§ 1114(a)(3), 1113 & 2" ;
 	legalproc:countNumber "4"^^xsd:nonNegativeInteger ;
@@ -48,7 +50,7 @@
 	legalproc:assertedIn <urn:uuid:2f6c9e3a-1d4b-5c5e-0a8f-3b7d1e5c9a43> .
 
 <urn:uuid:5c9f2b6d-4a7e-5f8b-3d1c-6e0a4b8f2d76>
-	a legalproc:CriminalCharge ;
+	a legalproc:FederalCharge ;
 	uco-core:name "Count 21: Use of Firearm in Furtherance of Crime of Violence (predicate: Count 4)" ;
 	legalproc:statuteCitation "18 U.S.C. §§ 924(c)(1)(A)(iii) & 2" ;
 	legalproc:countNumber "21"^^xsd:nonNegativeInteger ;
@@ -63,6 +65,7 @@
 	a legalproc:Plea ;
 	uco-core:name "Not-guilty plea at arraignment on the Third Superseding Indictment" ;
 	legalproc:pleaType "not-guilty" ;
+	legalproc:outcomeScope "current-case" ;
 	legalproc:concernsCharge <urn:uuid:3a7d0f4b-2e5c-5d6f-1b9a-4c8e2f6d0b54> .
 
 <urn:uuid:7e1b4d8f-6c9a-5b0d-5f3e-8a2c6d0b4f98>
@@ -80,8 +83,36 @@
 	a legalproc:Sentence ;
 	uco-core:name "Sentence imposed 2025-08-27: Life on Count 1, consecutive Life on Counts 21-34" ;
 	legalproc:sentenceStatus "imposed" ;
+	legalproc:sentenceKind "custodial" ;
 	legalproc:sentenceTerm "Life" ;
+	legalproc:outcomeScope "current-case" ;
 	legalproc:concernsCharge <urn:uuid:3a7d0f4b-2e5c-5d6f-1b9a-4c8e2f6d0b54> .
+
+<urn:uuid:4f8c1e5a-3d6b-5c7e-2a9f-5b9d3e7c1a65>
+	a legalproc:FederalCharge ;
+	uco-core:name "Illustrative count used only to demonstrate legalproc:PleaAgreement" ;
+	legalproc:statuteCitation "18 U.S.C. § 371" ;
+	legalproc:countNumber "99"^^xsd:nonNegativeInteger ;
+	legalproc:countLabel "Count 99 (exemplar-only)" ;
+	legalproc:offenseForm "conspiracy" ;
+	legalproc:chargeDisposition "convicted-by-plea" ;
+	legalproc:jurisdictionKind "federal" ;
+	legalproc:outcomeScope "current-case" ;
+	legalproc:assertedIn <urn:uuid:2f6c9e3a-1d4b-5c5e-0a8f-3b7d1e5c9a43> .
+
+<urn:uuid:5a9d2f6b-4e7c-5d8f-3b0a-6c0e4f8d2b76>
+	a legalproc:Plea ;
+	uco-core:name "Illustrative guilty plea recorded by a Rule 11(c) plea agreement" ;
+	legalproc:pleaType "guilty" ;
+	legalproc:outcomeScope "current-case" ;
+	legalproc:concernsCharge <urn:uuid:4f8c1e5a-3d6b-5c7e-2a9f-5b9d3e7c1a65> .
+
+<urn:uuid:3e7b0d4f-2c5a-5b6d-1f8e-4a8c2d6b0f54>
+	a legalproc:PleaAgreement ;
+	uco-core:name "Illustrative Rule 11(c) plea agreement" ;
+	legalproc:outcomeScope "current-case" ;
+	legalproc:recordsPlea <urn:uuid:5a9d2f6b-4e7c-5d8f-3b0a-6c0e4f8d2b76> ;
+	legalproc:concernsCharge <urn:uuid:4f8c1e5a-3d6b-5c7e-2a9f-5b9d3e7c1a65> .
 
 <urn:uuid:0b4e7a1c-9f2d-5e3a-8c6b-1d5f9a3e7c21>
 	a legalproc:ForfeitureOrder ;
@@ -99,5 +130,33 @@
 	a uco-core:Relationship ;
 	uco-core:source <urn:uuid:1e5b8d2f-0c3a-5b4d-9f7e-2a6c0d4b8f32> ;
 	uco-core:target <urn:uuid:3a7d0f4b-2e5c-5d6f-1b9a-4c8e2f6d0b54> ;
-	uco-core:kindOfRelationship "Charged_With" ;
+	uco-core:kindOfRelationship "Related_To" ;
+	uco-core:description "Defendant charged with Count 1." ;
 	uco-core:isDirectional true .
+
+<urn:uuid:6b0e3a7d-5f8c-5e9a-4c1b-7d1f5a9e3c87>
+	a uco-core:UcoObject ;
+	uco-core:name "Agent interview memorandum listed on the government's discovery certificate" .
+
+<urn:uuid:7c1f4b8e-6a9d-5f0b-5d2c-8e2a6b0f4d98>
+	a legalproc:DisclosureObligation ;
+	uco-core:name "Jencks production for the interviewing agent" ;
+	legalproc:disclosureKind "jencks" ;
+	legalproc:disclosureStatus "disclosed" ;
+	legalproc:disclosureSourceCitation "Discovery certificate, Doc 102 (sourced production list)" ;
+	legalproc:concernsEvidence <urn:uuid:6b0e3a7d-5f8c-5e9a-4c1b-7d1f5a9e3c87> ;
+	legalproc:concernsCharge <urn:uuid:3a7d0f4b-2e5c-5d6f-1b9a-4c8e2f6d0b54> .
+
+<urn:uuid:8d2a5c9f-7b0e-5a1c-6e3d-9f3b7c1a5e09>
+	a legalproc:DiscoveryProduction ;
+	uco-core:name "Production of the interview memorandum" ;
+	legalproc:disclosureSourceCitation "Discovery certificate, Doc 102" ;
+	legalproc:satisfiesObligation <urn:uuid:7c1f4b8e-6a9d-5f0b-5d2c-8e2a6b0f4d98> ;
+	legalproc:concernsEvidence <urn:uuid:6b0e3a7d-5f8c-5e9a-4c1b-7d1f5a9e3c87> .
+
+<urn:uuid:9e3b6d0a-8c1f-5b2d-7f4e-0a4c8d2b6f10>
+	a legalproc:SuppressionMotion ;
+	uco-core:name "Motion to suppress statements (illustrative)" ;
+	legalproc:proceedingType "suppression-motion" ;
+	legalproc:disclosureSourceCitation "Doc 88 motion to suppress" ;
+	legalproc:concernsCharge <urn:uuid:3a7d0f4b-2e5c-5d6f-1b9a-4c8e2f6d0b54> .

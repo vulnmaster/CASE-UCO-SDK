@@ -7,6 +7,81 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.27.0] - 2026-08-27
+
+Queryable press-release legal outcomes, full operational recipe
+execution coverage, and a sourced technique → evidence → outcome join.
+
+#### Press-release legal outcomes (#125)
+
+- Extended `legalproc` with `PleaAgreement`, `PotentialPenalty`,
+  `PretrialReleaseCondition`, `StateCharge`, `FederalCharge`,
+  `StateJurisdiction`, `FederalJurisdiction`, and properties for
+  `outcomeScope`, `sentenceKind`, `jurisdictionKind`, `victimFactStatus`,
+  and source publication versus retrieval time.
+- Fail-closed SHACL rejects bail/bond and statutory maxima typed as
+  imposed sentences, mixed current/prior outcome scope, fabricated
+  jurisdiction, and omitted victim facts recorded as a zero count.
+- Rewrote `cac-legal-sentencing-outcomes.md` with a legal-stage decision
+  table, CaseLinker remodeling guidance, and `legalproc:Plea` /
+  `legalproc:PleaAgreement` as the plea source of truth. Updated related
+  legal and ICAC recipes. Recipe lint rejects state-specific charge
+  subclasses outside anti-pattern sections.
+- Added ten press-release exemplars with SPARQL competency tests for
+  state-only, federal-only, dual jurisdiction, charged-only, current
+  conviction, prior history, imposed sentence, and omitted victim facts.
+- Regenerated `legalproc` language bindings and `_registry.json` so the
+  new classes resolve through MCP search and typed packages.
+
+#### Technique, evidence, and legal-outcome join (#126)
+
+- Added `docs/recipes/technique-evidence-outcome.md` with a source-fidelity
+  table (press / PACER / lab / CTI), a bounded hash-match CSV and UFED-style
+  summary importer, and LE product → DFT-* suggestion profiles that stay
+  off the graph until the source names the method.
+- Lab-join exemplar records DFT-1050 and DFT-1020 with real SHA-256 hashes
+  and an imposed `legalproc:Sentence`. PACER method-claim exemplar records
+  a named Cellebrite tool without inventing `usedTechnique`.
+- Recipe lint rejects empty `ContentDataFacet()` / JSON-LD ContentDataFacet
+  objects without hash, size, MIME type, or payload outside Anti-patterns.
+- Updated sentencing, PACER, SOLVE-IT, starter tool/mobile, CSAM
+  provenance, CTI, and recipe-authoring guidance so ATT&CK stays offender
+  method and SOLVE-IT stays examiner method.
+
+#### Recipe execution coverage (#124)
+
+- Every operational recipe now has schema-valid execution metadata.
+  Dedicated builders remain for upper-ontology and sysdiagnose recipes;
+  remaining recipes use compact catalog fragments.
+- `run_recipe_examples.py --all` reports operational coverage and fails
+  if a recipe is missing from the manifest. Candidate promotion continues
+  to require the same gate. CI's recipe job now runs `--all --validate`
+  so the coverage report is produced on every push.
+
+#### CaseLinker ICAC remodel patterns (#128–#131)
+
+- Added `docs/recipes/caselinker-icac-remodel.md` and
+  `mcp_server/tools/caselinker_icac_remodel.py` to remodel CaseLinker CAC
+  graphs: `InvestigationTrigger` joins, share-safe known-series matches,
+  `legalproc` dual-typed charges with `chargedWith`/`appliesTo`, commander
+  phase begin/end clocks, generic `ICACtaskForce`, and a CaseLinker private
+  vocab map that fails closed. Share-safe series `referenceURL` values
+  serialize as `xsd:anyURI` (SHACL `DatatypeConstraintComponent`).
+- Loaded `cacontology-us-ncmec.ttl` into the CAC validation subset so
+  CyberTip trigger classes pass strict concept coverage.
+- Exemplars and SPARQL competency queries live under
+  `examples/caselinker-icac-remodel/`.
+
+#### Criminal discovery and disclosure (#132)
+
+- Extended `legalproc` 0.3.0 with `DisclosureObligation`,
+  `DiscoveryProduction`, `SuppressionMotion`, and fail-closed SHACL that
+  requires a source citation and evidence IRI. Brady cannot be inferred
+  from unlabeled exam notes.
+- Added `docs/recipes/legal-discovery-disclosure.md`.
+
+Package versions bumped to **1.27.0**.
+
 ## [1.26.0] - 2026-08-26
 
 Fail-closed ontology grounding for the operational recipe catalog, repair of
@@ -2395,7 +2470,10 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
-[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.24.0...HEAD
+[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.27.0...HEAD
+[1.27.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.26.0...v1.27.0
+[1.26.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.25.0...v1.26.0
+[1.25.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.24.0...v1.25.0
 [1.24.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.23.1...v1.24.0
 [1.23.1]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.23.0...v1.23.1
 [1.23.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.22.4...v1.23.0

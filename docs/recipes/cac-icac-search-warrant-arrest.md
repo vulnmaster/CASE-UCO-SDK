@@ -41,7 +41,7 @@ Do **not** use `HighRiskArrest` or `DynamicEntry` when the narrative explicitly 
 | `BookingAction` | Jail booking |
 | `CorrectionalFacility` | Detention center |
 | `OnlineGrooming` / `OnlinePurchase` | Behavioral / procurement context |
-| `StateCharge` | Maryland charges (until `MarylandStateCharge` subclasses exist) |
+| `legalproc:StateCharge` | State charges when the source establishes state jurisdiction |
 
 ## Canonical workflow
 
@@ -76,7 +76,7 @@ InvestigativeAction (CCU investigation, April → December)
 - **One performer per InvestigativeAction** (CAC SHACL `maxCount 1`); document joint ICAC/county agency participation in action descriptions or `partnersWith`.
 - Link **suspect residence** on suspect description and warrant `uco-action:location`.
 - Link **charges → offenses** via charge `uco-core:description` IRI references to grooming/procurement nodes, plus `chargedWith` on the suspect.
-- Put **charges** on the suspect via `cacontology-legal-outcomes:chargedWith` → `StateCharge` nodes.
+- Put **charges** on the suspect via `cacontology-legal-outcomes:chargedWith` or a `Related_To` edge whose description states the charging assertion → `legalproc:StateCharge` (or `cacontology-legal-outcomes:StateCharge`) nodes. Model **held without bond** as `legalproc:PretrialReleaseCondition`, not as a sentence. See [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md).
 - Attach the **press article PDF** as `ObservableObject` with `FileFacet`, `ContentDataFacet` (SHA-256), and `ExternalReference` (IRI node, not blank node).
 - Keep `uco-action:object` on investigative actions to **UcoObject** / `Person` targets as appropriate; do not put grooming events in `Investigation.uco-core:object`.
 
@@ -138,3 +138,4 @@ make validate-extension EXT=cac DATA=icac-warrant-arrest.jsonld
 - [cac-tactical-undercover-operation.md](cac-tactical-undercover-operation.md) — high-risk / undercover only
 - [cac-grooming-chat-modeling.md](cac-grooming-chat-modeling.md)
 - [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md)
+- [caselinker-icac-remodel.md](caselinker-icac-remodel.md) — generic `ICACtaskForce`, phase end points, victim-count integrity

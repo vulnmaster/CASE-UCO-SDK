@@ -1,0 +1,7 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?resource
+WHERE {
+  ?resource legalproc:outcomeScope "prior-history" .
+}
+ORDER BY ?resource
