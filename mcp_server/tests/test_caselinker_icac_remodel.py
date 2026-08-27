@@ -3,9 +3,20 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 from case_uco import CASEGraph
+
+QUERY_ROOT = Path(__file__).resolve().parents[2] / "examples" / "caselinker-icac-remodel" / "queries"
+CURRENT_STATE = QUERY_ROOT / "current-state"
+TARGET_QUERIES = (
+    "cybertip_trigger.sparql",
+    "hashed_series_file.sparql",
+    "federal_charge_sentence.sparql",
+    "phase_clock.sparql",
+    "disclosure_jencks.sparql",
+)
 
 from tools.caselinker_icac_remodel import (
     CASELINKER_VOCAB,
@@ -17,10 +28,11 @@ from tools.caselinker_icac_remodel import (
 
 
 def test_caselinker_predicates_map_or_drop():
-    assert map_caselinker_predicate(f"{CASELINKER_VOCAB}chargeCluster") == (
-        "legalproc:statuteCitation"
-    )
+    assert map_caselinker_predicate(f"{CASELINKER_VOCAB}chargeCluster") is None
     assert map_caselinker_predicate(f"{CASELINKER_VOCAB}admissionTheme") is None
+    assert map_caselinker_predicate(f"{CASELINKER_VOCAB}chargeOffenseEvent") == (
+        "legalproc:concernsCharge"
+    )
 
 
 def test_unknown_caselinker_predicate_fails_closed():
@@ -64,3 +76,16 @@ def test_share_safe_series_match_requires_hash():
             series_id="SERIES-DEMO-001",
             photodna_present=False,
         )
+
+
+def test_current_state_query_bank_exists():
+    for name in TARGET_QUERIES:
+        path = QUERY_ROOT / name
+        text = path.read_text(encoding="utf-8")
+        assert text.lstrip().startswith(("PREFIX", "SELECT", "ASK", "#"))
+        assert "SELECT" in text or "ASK" in text
+    current = sorted(CURRENT_STATE.glob("*.sparql"))
+    assert len(current) >= 6
+    for path in current:
+        text = path.read_text(encoding="utf-8")
+        assert "SELECT" in text

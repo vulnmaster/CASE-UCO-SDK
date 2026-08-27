@@ -1,0 +1,568 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/usss-2017-007/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/",
+        "cac": "https://cacontology.projectvic.org#",
+        "legal": "https://cacontology.projectvic.org/legal-outcomes#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": [
+                "case-investigation:Investigation",
+                "cac:CACInvestigation"
+            ],
+            "uco-core:name": "NDCA Ridder indictment",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:victimFactStatus": "reported",
+            "legalproc:reportedVictimCount": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "2"
+            },
+            "uco-core:object": {
+                "@id": "kb:source"
+            },
+            "cac:hasStep": {
+                "@id": "kb:action-arrest"
+            },
+            "cac:hasPhase": {
+                "@id": "kb:phase-legal"
+            }
+        },
+        {
+            "@id": "kb:source",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLFacet-d4543668-faaf-4687-9aa4-1cd5fbaeea02",
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "https://www.secretservice.gov/press/releases/2017/05/mountain-view-resident-charged-production-child-pornography-and"
+                },
+                {
+                    "@id": "kb:FileFacet-87b5f361-45aa-498b-bed8-d78e5168e252",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "usss_2017_007-usss.txt",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2624"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-b578cd0c-5770-4621-9932-75a6000d5463",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-63c269bc-d330-461a-95f3-ae5dd4bc6b9d",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "7bbb4c49ca562fe1e10d9a5cfcdb5e8d6fe1eea7050e1f3cc34b00de9ed24f41"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/plain",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2624"
+                    }
+                }
+            ],
+            "uco-core:name": "Public press release (CaseLinker source document)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:sourcePublicationTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2017-05-25T00:00:00Z"
+            },
+            "legalproc:sourceRetrievalTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:defendant",
+            "@type": "uco-identity:Person",
+            "uco-core:name": "Grant Ridder",
+            "legal:chargedWith": [
+                {
+                    "@id": "kb:charge-2251a"
+                },
+                {
+                    "@id": "kb:charge-2252a2"
+                },
+                {
+                    "@id": "kb:charge-2252a4"
+                },
+                {
+                    "@id": "kb:charge-2261a"
+                },
+                {
+                    "@id": "kb:charge-2422b"
+                }
+            ],
+            "legalproc:chargedWith": [
+                {
+                    "@id": "kb:charge-2251a"
+                },
+                {
+                    "@id": "kb:charge-2252a2"
+                },
+                {
+                    "@id": "kb:charge-2252a4"
+                },
+                {
+                    "@id": "kb:charge-2261a"
+                },
+                {
+                    "@id": "kb:charge-2422b"
+                }
+            ]
+        },
+        {
+            "@id": "kb:jurisdiction",
+            "@type": "legalproc:FederalJurisdiction",
+            "uco-core:name": "United States, Northern District of California"
+        },
+        {
+            "@id": "kb:usss",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "United States Secret Service"
+        },
+        {
+            "@id": "kb:ccda",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Contra Costa District Attorney's Office"
+        },
+        {
+            "@id": "kb:stockton-pd",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Stockton Police Department"
+        },
+        {
+            "@id": "kb:martinez-pd",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Martinez Police Department"
+        },
+        {
+            "@id": "kb:authorization",
+            "@type": "case-investigation:Authorization",
+            "uco-core:name": "Search warrant referenced in the public filing",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:action-arrest",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Arrest and remand",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-action:performer": {
+                "@id": "kb:usss"
+            },
+            "uco-core:description": "Ridder was arrested and remanded to the U.S. Marshal on May 24, 2017, after a May 18, 2017 indictment. The source does not assign a CyberTip. CAC SHACL allows one performer.",
+            "case-investigation:relevantAuthorization": {
+                "@id": "kb:authorization"
+            }
+        },
+        {
+            "@id": "kb:rel-partner-ccda",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:usss"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:ccda"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "USSS investigated with Contra Costa DA's Office."
+        },
+        {
+            "@id": "kb:charge-2251a",
+            "@type": [
+                "legalproc:FederalCharge",
+                "legal:CriminalCharge",
+                "legal:CSAM_Production",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Production of child pornography",
+            "uco-core:description": "Indictment allegation. Presumed innocent.",
+            "legalproc:statuteCitation": "18 U.S.C. \u00a7 2251(a)",
+            "legalproc:countNumber": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "2"
+            },
+            "legalproc:countLabel": "Two counts",
+            "legalproc:chargeDisposition": "pending",
+            "legalproc:jurisdictionKind": "federal",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-charge-2251a",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2251a"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with two production counts."
+        },
+        {
+            "@id": "kb:charge-2252a2",
+            "@type": [
+                "legalproc:FederalCharge",
+                "legal:CriminalCharge",
+                "legal:CSAM_Distribution",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Distribution of child pornography",
+            "uco-core:description": "Indictment allegation. Presumed innocent.",
+            "legalproc:statuteCitation": "18 U.S.C. \u00a7 2252(a)(2)",
+            "legalproc:countNumber": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "3"
+            },
+            "legalproc:countLabel": "Three counts",
+            "legalproc:chargeDisposition": "pending",
+            "legalproc:jurisdictionKind": "federal",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-charge-2252a2",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2252a2"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with three distribution counts."
+        },
+        {
+            "@id": "kb:charge-2252a4",
+            "@type": [
+                "legalproc:FederalCharge",
+                "legal:CriminalCharge",
+                "legal:CSAM_Possession",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Possession of child pornography",
+            "uco-core:description": "Indictment allegation. Presumed innocent.",
+            "legalproc:statuteCitation": "18 U.S.C. \u00a7 2252(a)(4)(B)",
+            "legalproc:countNumber": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "1"
+            },
+            "legalproc:countLabel": "Count 1",
+            "legalproc:chargeDisposition": "pending",
+            "legalproc:jurisdictionKind": "federal",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-charge-2252a4",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2252a4"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with one possession count."
+        },
+        {
+            "@id": "kb:charge-2261a",
+            "@type": [
+                "legalproc:FederalCharge",
+                "legal:CriminalCharge",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Cyberstalking",
+            "uco-core:description": "Indictment allegation. Presumed innocent.",
+            "legalproc:statuteCitation": "18 U.S.C. \u00a7 2261A",
+            "legalproc:countNumber": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "3"
+            },
+            "legalproc:countLabel": "Three counts",
+            "legalproc:chargeDisposition": "pending",
+            "legalproc:jurisdictionKind": "federal",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-charge-2261a",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2261a"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with three cyberstalking counts."
+        },
+        {
+            "@id": "kb:charge-2422b",
+            "@type": [
+                "legalproc:FederalCharge",
+                "legal:CriminalCharge",
+                "legal:OnlineEnticement",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Coercion and enticement of a minor",
+            "uco-core:description": "Indictment allegation. Presumed innocent.",
+            "legalproc:statuteCitation": "18 U.S.C. \u00a7 2422(b)",
+            "legalproc:countNumber": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "1"
+            },
+            "legalproc:countLabel": "Count 1",
+            "legalproc:chargeDisposition": "pending",
+            "legalproc:jurisdictionKind": "federal",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-charge-2422b",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2422b"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with one 2422(b) count."
+        },
+        {
+            "@id": "kb:penalty-2251a",
+            "@type": "legalproc:PotentialPenalty",
+            "uco-core:name": "Statutory range for 18 U.S.C. \u00a7 2251(a)",
+            "uco-core:description": "Mandatory minimum 15 years, maximum 30 years, $250,000 fine. Not an imposed sentence.",
+            "legalproc:potentialPenaltyKind": "mandatory-minimum",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-penalty-2251a",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:penalty-2251a"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2251a"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Potential penalty applies to this charge."
+        },
+        {
+            "@id": "kb:penalty-2252a2",
+            "@type": "legalproc:PotentialPenalty",
+            "uco-core:name": "Statutory range for 18 U.S.C. \u00a7 2252(a)(2)",
+            "uco-core:description": "Mandatory minimum 5 years, maximum 20 years, $250,000 fine. Not an imposed sentence.",
+            "legalproc:potentialPenaltyKind": "mandatory-minimum",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-penalty-2252a2",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:penalty-2252a2"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2252a2"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Potential penalty applies to this charge."
+        },
+        {
+            "@id": "kb:penalty-2252a4",
+            "@type": "legalproc:PotentialPenalty",
+            "uco-core:name": "Statutory maximum for 18 U.S.C. \u00a7 2252(a)(4)(B)",
+            "uco-core:description": "Maximum 10 years and $250,000 fine. Not an imposed sentence.",
+            "legalproc:potentialPenaltyKind": "statutory-maximum",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-penalty-2252a4",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:penalty-2252a4"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2252a4"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Potential penalty applies to this charge."
+        },
+        {
+            "@id": "kb:penalty-2261a",
+            "@type": "legalproc:PotentialPenalty",
+            "uco-core:name": "Statutory maximum for 18 U.S.C. \u00a7 2261A",
+            "uco-core:description": "Maximum 5 years and $250,000 fine. Not an imposed sentence.",
+            "legalproc:potentialPenaltyKind": "statutory-maximum",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-penalty-2261a",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:penalty-2261a"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2261a"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Potential penalty applies to this charge."
+        },
+        {
+            "@id": "kb:penalty-2422b",
+            "@type": "legalproc:PotentialPenalty",
+            "uco-core:name": "Statutory range for 18 U.S.C. \u00a7 2422(b)",
+            "uco-core:description": "Mandatory minimum 10 years, maximum life, $250,000 fine. Not an imposed sentence.",
+            "legalproc:potentialPenaltyKind": "mandatory-minimum",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-penalty-2422b",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:penalty-2422b"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2422b"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Potential penalty applies to this charge."
+        },
+        {
+            "@id": "kb:phase-legal",
+            "@type": "cac:LegalProcessPhase",
+            "uco-core:name": "Indictment and arraignment",
+            "cac:hasPhaseBeginPoint": {
+                "@type": "xsd:dateTimeStamp",
+                "@value": "2017-05-18T00:00:00Z"
+            }
+        },
+        {
+            "@id": "kb:prov-source",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "USSS / USAO NDCA press release",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-core:object": [
+                {
+                    "@id": "kb:source"
+                }
+            ],
+            "case-investigation:exhibitNumber": "source-1"
+        }
+    ]
+}

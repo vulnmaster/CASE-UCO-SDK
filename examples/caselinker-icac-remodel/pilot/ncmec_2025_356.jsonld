@@ -1,0 +1,330 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/ncmec-2025-356/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/",
+        "cac": "https://cacontology.projectvic.org#",
+        "ncmec": "https://cacontology.projectvic.org/us/ncmec#",
+        "taskforce": "https://cacontology.projectvic.org/taskforce#",
+        "legal": "https://cacontology.projectvic.org/legal-outcomes#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": [
+                "case-investigation:Investigation",
+                "cac:CACInvestigation"
+            ],
+            "uco-core:name": "NDIA 24-CR-4047 CyberTip prosecution",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:caseIdentifier": "24-CR-4047",
+            "legalproc:victimFactStatus": "omitted",
+            "uco-core:object": {
+                "@id": "kb:source"
+            },
+            "cac:hasPhase": {
+                "@id": "kb:phase-legal"
+            },
+            "cac:hasStep": [
+                {
+                    "@id": "kb:action-receive-tip"
+                },
+                {
+                    "@id": "kb:action-warrant"
+                },
+                {
+                    "@id": "kb:action-exam"
+                }
+            ]
+        },
+        {
+            "@id": "kb:source",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLFacet-e02ceac2-5e48-4a4a-beec-fe5322d07deb",
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "https://www.justice.gov/usao-ndia/pr/mapleton-iowa-man-who-possessed-child-pornography-sentenced-federal-prison"
+                },
+                {
+                    "@id": "kb:FileFacet-002cff07-e5cd-4bf0-bfa1-9152d29a5a9a",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "ncmec_2025_356-doj.txt",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2507"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-28bc7248-3dce-4f20-b8e7-347141b0bdff",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-a328994b-430f-4fa5-82c3-d695d2457bf9",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "07801ae9f7a7a1e56128decb3b3f7d45602f214680fee9556c0a46e2b2974fa0"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/plain",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2507"
+                    }
+                }
+            ],
+            "uco-core:name": "Public press release (CaseLinker source document)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:sourcePublicationTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-05-21T00:00:00Z"
+            },
+            "legalproc:sourceRetrievalTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:defendant",
+            "@type": "uco-identity:Person",
+            "uco-core:name": "Gregory William Douglas McCormick",
+            "legal:chargedWith": {
+                "@id": "kb:charge-possession"
+            }
+        },
+        {
+            "@id": "kb:jurisdiction",
+            "@type": "legalproc:FederalJurisdiction",
+            "uco-core:name": "United States, Northern District of Iowa"
+        },
+        {
+            "@id": "kb:cybertip",
+            "@type": [
+                "uco-observable:ObservableObject",
+                "ncmec:NCMECCybertipReport"
+            ],
+            "uco-core:name": "NCMEC CyberTip assigned to Iowa ICAC (Kik report)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:trigger",
+            "@type": [
+                "uco-core:UcoObject",
+                "ncmec:InvestigationTrigger"
+            ],
+            "uco-core:name": "CyberTip triggered the investigation",
+            "ncmec:triggeredBy": {
+                "@id": "kb:cybertip"
+            },
+            "ncmec:resultedInInvestigation": {
+                "@id": "kb:investigation"
+            }
+        },
+        {
+            "@id": "kb:tf",
+            "@type": [
+                "uco-identity:Organization",
+                "taskforce:ICACtaskForce"
+            ],
+            "uco-core:name": "Iowa Internet Crimes Against Children Task Force"
+        },
+        {
+            "@id": "kb:dci",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Iowa Division of Criminal Investigation Cyber Crime Bureau"
+        },
+        {
+            "@id": "kb:tool-cybertipline",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "NCMEC CyberTipline",
+            "uco-tool:version": "public"
+        },
+        {
+            "@id": "kb:action-receive-tip",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Receive Kik-originated CyberTip",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-action:object": {
+                "@id": "kb:cybertip"
+            },
+            "uco-action:instrument": {
+                "@id": "kb:tool-cybertipline"
+            },
+            "uco-action:performer": {
+                "@id": "kb:tf"
+            },
+            "uco-core:description": "Kik reported an account to NCMEC in 2022. A CyberTip was assigned to the Iowa ICAC Task Force. Iowa DCI Cyber Crime Bureau later investigated. The source does not give a tip timestamp more precise than 2022. CAC SHACL allows one performer."
+        },
+        {
+            "@id": "kb:rel-partner-dci",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:tf"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:dci"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Iowa ICAC partners with Iowa DCI Cyber Crime Bureau."
+        },
+        {
+            "@id": "kb:authorization",
+            "@type": "case-investigation:Authorization",
+            "uco-core:name": "Search warrant for the reported residence",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:action-warrant",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Execute search warrant and interview",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "case-investigation:relevantAuthorization": {
+                "@id": "kb:authorization"
+            },
+            "uco-action:performer": {
+                "@id": "kb:dci"
+            },
+            "uco-core:description": "Law enforcement executed a search warrant at the Mapleton residence. The defendant confirmed responsibility for the CyberTip-connected receipts and distribution. The source does not state warrant time, resistance, or weapons."
+        },
+        {
+            "@id": "kb:action-exam",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Forensic search of cell phones and Kik account",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-action:performer": {
+                "@id": "kb:dci"
+            },
+            "uco-core:description": "Source reports 120 images and 7 videos. No cryptographic hash, PhotoDNA value, file name, or MIME type is published. No ContentDataFacet is emitted."
+        },
+        {
+            "@id": "kb:charge-possession",
+            "@type": [
+                "legal:CriminalCharge",
+                "legal:CSAM_Possession",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Possession of child pornography",
+            "uco-core:description": "Guilty plea January 6, 2025. The press release does not cite a United States Code section, so legalproc:FederalCharge is not emitted."
+        },
+        {
+            "@id": "kb:rel-charged",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-possession"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant pleaded guilty to possession of child pornography."
+        },
+        {
+            "@id": "kb:plea",
+            "@type": "legalproc:Plea",
+            "uco-core:name": "Guilty plea",
+            "uco-core:description": "Entered January 6, 2025.",
+            "legalproc:pleaType": "guilty",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:sentence-prison",
+            "@type": "legalproc:Sentence",
+            "uco-core:name": "Imposed custodial sentence",
+            "legalproc:sentenceStatus": "imposed",
+            "legalproc:sentenceKind": "custodial",
+            "legalproc:sentenceTerm": "60 months",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:sentence-supervised",
+            "@type": "legalproc:Sentence",
+            "uco-core:name": "Imposed supervised release",
+            "legalproc:sentenceStatus": "imposed",
+            "legalproc:sentenceKind": "supervised-release",
+            "legalproc:sentenceTerm": "5 years",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:restitution",
+            "@type": "legalproc:RestitutionOrder",
+            "uco-core:name": "Restitution and assessments",
+            "legalproc:monetaryAmount": {
+                "@type": "xsd:decimal",
+                "@value": "10100"
+            },
+            "legalproc:currencyCode": "USD",
+            "uco-core:description": "Source states $10,100 in restitution and assessments. Assessments are not typed as Sentence."
+        },
+        {
+            "@id": "kb:phase-legal",
+            "@type": "cac:LegalProcessPhase",
+            "uco-core:name": "Plea and sentencing",
+            "cac:hasPhaseBeginPoint": {
+                "@type": "xsd:dateTimeStamp",
+                "@value": "2025-01-06T00:00:00Z"
+            }
+        },
+        {
+            "@id": "kb:prov-source",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "DOJ USAO NDIA press release",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-core:object": [
+                {
+                    "@id": "kb:source"
+                }
+            ],
+            "case-investigation:exhibitNumber": "source-1"
+        }
+    ]
+}

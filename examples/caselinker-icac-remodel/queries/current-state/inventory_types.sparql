@@ -1,0 +1,9 @@
+# Bounded type inventory. Re-run before remodeling so counts are not assumed.
+
+SELECT ?type (COUNT(DISTINCT ?subject) AS ?count)
+WHERE {
+  ?subject a ?type .
+}
+GROUP BY ?type
+ORDER BY DESC(?count)
+LIMIT 40

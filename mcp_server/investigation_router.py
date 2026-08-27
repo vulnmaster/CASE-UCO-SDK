@@ -118,7 +118,11 @@ INVESTIGATION_FAMILIES: tuple[InvestigationFamily, ...] = (
         notes=(
             "Call route_cac_content for per-domain CAC recipes, modeling "
             "checklists, and CAC validation guidance — it covers 17 CAC "
-            "domain families in depth."
+            "domain families in depth. ATT&CK is not CAC community "
+            "language. A CAC offender targets children and other "
+            "vulnerable people; ATT&CK models hackers and attackers. "
+            "Do not emit ATT&CK techniques or call the subject a threat "
+            "actor unless the source describes that rare overlap."
         ),
     ),
     InvestigationFamily(
@@ -620,7 +624,10 @@ INVESTIGATION_FAMILIES: tuple[InvestigationFamily, ...] = (
             "Enrich from the MITRE group/software pages (e.g. Lotus Blossom "
             "G0030, Sagerunex S1156) even when the report prose omits IDs. "
             "Contrast with network-intrusion (single incident with acquired "
-            "pcap/host evidence) and spear-phishing (delivery-chain narrative)."
+            "pcap/host evidence) and spear-phishing (delivery-chain narrative). "
+            "Do not use this family for crimes-against-children investigations. "
+            "ATT&CK is attacker/hacker tradecraft, not the language for a CAC "
+            "offender who targets children or other vulnerable people."
         ),
     ),
 )

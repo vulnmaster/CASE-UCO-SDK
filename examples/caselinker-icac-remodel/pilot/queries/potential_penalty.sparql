@@ -1,0 +1,8 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?penalty
+WHERE {
+  ?penalty a legalproc:PotentialPenalty ;
+           legalproc:potentialPenaltyKind "statutory-maximum" ;
+           legalproc:outcomeScope "current-case" .
+}

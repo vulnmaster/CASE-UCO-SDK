@@ -24,8 +24,10 @@ Use [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md) for
 press-release legal stages. Use
 [solve-it-investigation-planning.md](solve-it-investigation-planning.md) for
 technique selection and error mitigation. Use
-[cyber-threat-intelligence.md](cyber-threat-intelligence.md) for **offender**
-ATT&CK techniques — do not put ATT&CK IRIs on `solveit-core:usedTechnique`.
+[cyber-threat-intelligence.md](cyber-threat-intelligence.md) for **hacker /
+attacker** ATT&CK techniques on CTI reports — do not put ATT&CK IRIs on
+`solveit-core:usedTechnique`, and do not use ATT&CK as the vocabulary for
+a crimes-against-children offender.
 
 ## Source-fidelity table
 
@@ -34,7 +36,7 @@ ATT&CK techniques — do not put ATT&CK IRIs on `solveit-core:usedTechnique`.
 | Press release | Named evidence types (`CSAMIncident`, CyberTip, statement), `legalproc` charges/outcomes, source publication vs retrieval time | `usedTechnique`, empty `ContentDataFacet`, invented tool versions |
 | PACER affidavit / trial brief / expert report | Named `uco-tool:Tool` + `case-investigation:InvestigativeAction` when the filing names the method; `ProvenanceRecord` to the PACER page | A DFT-* IRI the filing does not support |
 | Lab / PD export (UFED summary, hash-match CSV, FTK/Autopsy log) | `solveit-core:SolveitInvestigativeAction` + `usedTechnique` + versioned `instrument` + `object`/`result` + `ContentDataFacet` with `hash` | Placeholder facets; auto-asserted DFT-* from product name alone |
-| CTI / ATT&CK report | Offender behavior as `uco-action:Action` typed with the `attack-technique` catalog | SOLVE-IT examiner techniques, LE product runs the report does not describe |
+| CTI / ATT&CK report | Hacker / attacker behavior as `uco-action:Action` typed with the `attack-technique` catalog | SOLVE-IT examiner techniques; CAC offender conduct (grooming, CSAM, sextortion); LE product runs the report does not describe |
 
 Suggested DFT-* IDs for common LE products live in
 [`examples/technique-evidence-outcome/le_tool_solveit_profiles.json`](../../examples/technique-evidence-outcome/le_tool_solveit_profiles.json).
@@ -94,7 +96,10 @@ native Cellebrite, Magnet, or FTK export formats.
 - Minting `solveit-core:usedTechnique` because a press release mentioned a
   CyberTip or “digital evidence”
 - Attaching `ContentDataFacet()` with no `hash`, size, MIME type, or payload
-- Collapsing ATT&CK offender techniques into SOLVE-IT examiner techniques
+- Collapsing ATT&CK attacker techniques into SOLVE-IT examiner techniques
+- Treating a CAC offender (someone who targets children or other
+  vulnerable people) as an ATT&CK attacker unless the source describes
+  that rare overlap
 - Auto-asserting DFT-* from `le_tool_solveit_profiles.json` without a sourced
   method claim
 - Creating a second investigation IRI for the lab report of the same docket

@@ -671,6 +671,220 @@
       ]
     },
     {
+      "id": "cl-pilot-ncmec-2025-356",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/pilot/build_pilot.py",
+      "output": "examples/caselinker-icac-remodel/pilot/ncmec_2025_356.jsonld",
+      "profiles": [],
+      "extensions": ["cac", "legalproc"],
+      "strict_concepts": true,
+      "support_dirs": [
+        "examples/caselinker-icac-remodel/pilot/sources"
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/cybertip_trigger.sparql",
+          "expected_bindings": [
+            {
+              "tip": "http://example.org/kb/ncmec-2025-356/cybertip",
+              "investigation": "http://example.org/kb/ncmec-2025-356/investigation"
+            }
+          ]
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/imposed_sentences.sparql",
+          "expected_bindings": [
+            {
+              "sentence": "http://example.org/kb/ncmec-2025-356/sentence-prison",
+              "kind": "custodial",
+              "term": "60 months"
+            },
+            {
+              "sentence": "http://example.org/kb/ncmec-2025-356/sentence-supervised",
+              "kind": "supervised-release",
+              "term": "5 years"
+            }
+          ]
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/queries/federal_charge_sentence.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/queries/hashed_series_file.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/queries/disclosure_jencks.sparql",
+          "expected_bindings": []
+        }
+      ]
+    },
+    {
+      "id": "cl-pilot-illinois-ag-2025-001",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/pilot/build_pilot.py",
+      "output": "examples/caselinker-icac-remodel/pilot/illinois_ag_2025_001.jsonld",
+      "profiles": [],
+      "extensions": ["cac", "legalproc"],
+      "strict_concepts": true,
+      "support_dirs": [
+        "examples/caselinker-icac-remodel/pilot/sources"
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/cybertip_trigger.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/potential_penalty.sparql",
+          "expected_bindings": [
+            {
+              "penalty": "http://example.org/kb/illinois-ag-2025-001/potential-penalty"
+            }
+          ]
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/imposed_sentences.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/no_legalproc_typed_charge.sparql",
+          "expected_bindings": []
+        }
+      ]
+    },
+    {
+      "id": "cl-pilot-usss-2017-007",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/pilot/build_pilot.py",
+      "output": "examples/caselinker-icac-remodel/pilot/usss_2017_007.jsonld",
+      "profiles": [],
+      "extensions": ["cac", "legalproc"],
+      "strict_concepts": true,
+      "support_dirs": [
+        "examples/caselinker-icac-remodel/pilot/sources"
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/cybertip_trigger.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/federal_charges.sparql",
+          "expected_bindings": [
+            {
+              "charge": "http://example.org/kb/usss-2017-007/charge-2251a",
+              "statute": "18 U.S.C. § 2251(a)"
+            },
+            {
+              "charge": "http://example.org/kb/usss-2017-007/charge-2252a2",
+              "statute": "18 U.S.C. § 2252(a)(2)"
+            },
+            {
+              "charge": "http://example.org/kb/usss-2017-007/charge-2252a4",
+              "statute": "18 U.S.C. § 2252(a)(4)(B)"
+            },
+            {
+              "charge": "http://example.org/kb/usss-2017-007/charge-2261a",
+              "statute": "18 U.S.C. § 2261A"
+            },
+            {
+              "charge": "http://example.org/kb/usss-2017-007/charge-2422b",
+              "statute": "18 U.S.C. § 2422(b)"
+            }
+          ]
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/imposed_sentences.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/queries/federal_charge_sentence.sparql",
+          "expected_bindings": []
+        }
+      ]
+    },
+    {
+      "id": "cl-pilot-ncmec-2023-609",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/pilot/build_pilot.py",
+      "output": "examples/caselinker-icac-remodel/pilot/ncmec_2023_609.jsonld",
+      "profiles": [],
+      "extensions": ["cac", "legalproc"],
+      "strict_concepts": true,
+      "support_dirs": [
+        "examples/caselinker-icac-remodel/pilot/sources"
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/cybertip_trigger.sparql",
+          "expected_bindings": [
+            {
+              "tip": "http://example.org/kb/ncmec-2023-609/cybertip",
+              "investigation": "http://example.org/kb/ncmec-2023-609/investigation"
+            }
+          ]
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/imposed_sentences.sparql",
+          "expected_bindings": [
+            {
+              "sentence": "http://example.org/kb/ncmec-2023-609/sentence-prison",
+              "kind": "custodial",
+              "term": "600 months"
+            },
+            {
+              "sentence": "http://example.org/kb/ncmec-2023-609/sentence-supervised",
+              "kind": "supervised-release",
+              "term": "20 years"
+            }
+          ]
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/queries/federal_charge_sentence.sparql",
+          "expected_bindings": []
+        }
+      ]
+    },
+    {
+      "id": "cl-pilot-illinois-ag-2025-023",
+      "category": "caselinker-icac-remodel",
+      "recipe": "docs/recipes/caselinker-icac-remodel.md",
+      "builder": "examples/caselinker-icac-remodel/pilot/build_pilot.py",
+      "output": "examples/caselinker-icac-remodel/pilot/illinois_ag_2025_023.jsonld",
+      "profiles": [],
+      "extensions": ["cac", "legalproc"],
+      "strict_concepts": true,
+      "support_dirs": [
+        "examples/caselinker-icac-remodel/pilot/sources"
+      ],
+      "competency_queries": [
+        {
+          "query": "examples/caselinker-icac-remodel/queries/cybertip_trigger.sparql",
+          "expected_bindings": []
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/imposed_sentences.sparql",
+          "expected_bindings": [
+            {
+              "sentence": "http://example.org/kb/illinois-ag-2025-023/sentence-prison",
+              "kind": "custodial",
+              "term": "10 years"
+            }
+          ]
+        },
+        {
+          "query": "examples/caselinker-icac-remodel/pilot/queries/no_legalproc_typed_charge.sparql",
+          "expected_bindings": []
+        }
+      ]
+    },
+    {
       "id": "accounts",
       "category": "catalog-coverage",
       "recipe": "docs/recipes/accounts.md",

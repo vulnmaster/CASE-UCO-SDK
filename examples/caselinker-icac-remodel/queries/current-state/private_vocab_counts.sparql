@@ -1,0 +1,10 @@
+# Commander / prosecutor, current CaseLinker shape: undeclared private predicates.
+# Do not copy these IRIs into remodeled SDK output.
+
+SELECT ?predicate (COUNT(*) AS ?count)
+WHERE {
+  ?s ?predicate ?o .
+  FILTER(STRSTARTS(STR(?predicate), "https://caselinker.up.railway.app/resource/vocab/"))
+}
+GROUP BY ?predicate
+ORDER BY DESC(?count)

@@ -1,0 +1,10 @@
+PREFIX cac: <https://cacontology.projectvic.org#>
+
+# Commander, current CaseLinker shape: phase begin exists; phase end does not.
+
+SELECT (COUNT(DISTINCT ?phase) AS ?phasesWithBegin)
+WHERE {
+  ?inv a cac:CACInvestigation ;
+       cac:hasPhase ?phase .
+  ?phase cac:hasPhaseBeginPoint ?begin .
+}

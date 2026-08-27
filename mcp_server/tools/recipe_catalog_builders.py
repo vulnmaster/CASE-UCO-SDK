@@ -19,7 +19,7 @@ LEGALPROC_CONTEXT = {
 def _core_graph(title: str) -> CASEGraph:
     graph = CASEGraph()
     tz = timezone.utc
-    tool = graph.create(Tool, name="CASE-UCO-SDK", version="1.27.0")
+    tool = graph.create(Tool, name="CASE-UCO-SDK", version="1.28.0")
     evidence = graph.create(
         ObservableObject,
         name=f"{title} evidence",

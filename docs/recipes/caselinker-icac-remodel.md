@@ -9,6 +9,24 @@ SDK output.
 
 Validated against `examples/caselinker-icac-remodel/`.
 
+Probe the live CaseLinker corpus before remodeling source documents. The
+2026-08-27 snapshot and current-shape questions are in
+[CURRENT_STATE_PROBE.md](../../examples/caselinker-icac-remodel/CURRENT_STATE_PROBE.md).
+v1.27.0 target joins (`InvestigationTrigger`, hashed series,
+`legalproc` charge–sentence, phase end, disclosure) were absent; tip,
+proceeding, and phase-begin questions already answer on current CAC
+shapes.
+
+A ten-graph source-document pilot remodeled from the original CaseLinker
+press-release URLs is in
+[pilot/PILOT.md](../../examples/caselinker-icac-remodel/pilot/PILOT.md)
+and [pilot/CORPUS.md](../../examples/caselinker-icac-remodel/pilot/CORPUS.md).
+It adds `InvestigationTrigger` only when that source assigns a CyberTip
+to the matter, and it refuses `legalproc` charge classes when the
+release omits a statute citation. Many CaseLinker `dcterms:source` URLs
+are operations, program stats, or dead links and cannot be remodeled as
+one investigation.
+
 ## When to use this recipe
 
 - A CaseLinker named graph has a CyberTip and a `CACInvestigation` but no
@@ -23,7 +41,24 @@ graphs. Use [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md)
 for legal stages. Use [legal-discovery-disclosure.md](legal-discovery-disclosure.md)
 for Brady / Giglio / Jencks. Use
 [technique-evidence-outcome.md](technique-evidence-outcome.md) when a later
-lab source names a method.
+lab source names an **examiner** method (SOLVE-IT). Do not follow
+`route_investigation_content` into the CTI / ATT&CK family for a CAC
+press release.
+
+## Vocabulary: CAC offender vs ATT&CK attacker
+
+MITRE ATT&CK is **not** the language of the crimes-against-children
+community. A CAC **offender** targets children and other vulnerable
+people. ATT&CK models **hackers** and **attackers** — intrusion
+tradecraft against systems and networks.
+
+Do not type CAC grooming, sextortion, CyberTips, or CSAM possession as
+ATT&CK techniques, and do not call the CAC subject an attacker or threat
+actor. An ATT&CK mapping on a `CACInvestigation` is appropriate only on
+the rare occasion the source actually describes that overlap (for
+example, a sourced intrusion used to obtain the material). Even then,
+keep ATT&CK on the attacker `Action` and keep examiner method in
+SOLVE-IT. See [cyber-threat-intelligence.md](cyber-threat-intelligence.md).
 
 ## Source-fidelity table
 
@@ -42,7 +77,7 @@ lab source names a method.
 <!-- recipe-lint: ignore-start anti-pattern -- The Drop column names undeclared CaseLinker private predicates that must not appear in remodeled output. -->
 | Drop | Replace with |
 |---|---|
-| `caselinker:chargeCluster` | `legalproc:statuteCitation` + typed charge |
+| `caselinker:chargeCluster` | Drop thematic tokens; emit `legalproc:statuteCitation` only when the source states a statute |
 | `caselinker:chargeOffenseEvent` | `legalproc:concernsCharge` or `Related_To` |
 | `caselinker:attributedToOffenderRole` | `uco-action:performer` |
 | `admissionTheme` / `admissionContext` / `quoteType` / `admissionFrame` / `evidenceTier` | Drop unless a sourced CAC statement class applies |
@@ -82,6 +117,11 @@ partner edge so CAC `maxCount 1` still validates. Phase clocks use
 - Empty `ContentDataFacet()`
 - Inferring Brady from unlabeled exam notes
 - Inventing warrant or phase-end times the source does not state
+- Mapping thematic CaseLinker cluster tokens to `legalproc:statuteCitation`
+- Replacing empty incident `ContentDataFacet` nodes with invented file hashes
+- Mapping CAC offender conduct to MITRE ATT&CK, or calling the CAC
+  subject an attacker / threat actor, unless the source describes that
+  rare overlap
 
 ## Related
 

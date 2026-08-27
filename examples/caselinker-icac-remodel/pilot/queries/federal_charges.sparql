@@ -1,0 +1,9 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?charge ?statute
+WHERE {
+  ?charge a legalproc:FederalCharge ;
+          legalproc:statuteCitation ?statute ;
+          legalproc:jurisdictionKind "federal" .
+}
+ORDER BY ?statute ?charge

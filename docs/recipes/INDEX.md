@@ -71,6 +71,8 @@ End-to-end mapping recipes that walk through source input, modeling choices, ant
 
 Requires `CASE_UCO_EXTENSIONS=cac`. Use `route_cac_content` via the MCP server to detect which recipes apply to submitted content. Validate output with `validate_graph(..., extensions=['cac'])` (uses `ontology/cac/validation-subset.json` by default) or `extensions=['cac:full']` for the complete manifest.
 
+CAC recipes talk about **offenders** who target children and other vulnerable people. MITRE ATT&CK is not CAC community language; it models **hackers** and **attackers**. Do not emit ATT&CK techniques on a CAC graph unless the source describes that rare overlap. Use [cyber-threat-intelligence.md](cyber-threat-intelligence.md) for ATT&CK, and [technique-evidence-outcome.md](technique-evidence-outcome.md) for examiner SOLVE-IT methods.
+
 | Recipe | File | Description |
 |---|---|---|
 | Child Sex Trafficking and Recruitment Networks | [cac-trafficking-recruitment-network.md](cac-trafficking-recruitment-network.md) | Solo-operator § 1591, trafficking rings, Grindr bridges, per-victim charge bundles |

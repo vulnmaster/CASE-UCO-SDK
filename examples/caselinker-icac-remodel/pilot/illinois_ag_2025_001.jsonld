@@ -1,0 +1,291 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/illinois-ag-2025-001/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/",
+        "cac": "https://cacontology.projectvic.org#",
+        "taskforce": "https://cacontology.projectvic.org/taskforce#",
+        "legal": "https://cacontology.projectvic.org/legal-outcomes#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": [
+                "case-investigation:Investigation",
+                "cac:CACInvestigation"
+            ],
+            "uco-core:name": "Macoupin County dissemination charges",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:victimFactStatus": "omitted",
+            "uco-core:object": {
+                "@id": "kb:source"
+            },
+            "cac:hasPhase": {
+                "@id": "kb:phase-legal"
+            },
+            "cac:hasStep": {
+                "@id": "kb:action-search"
+            }
+        },
+        {
+            "@id": "kb:source",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLFacet-49b620e0-8b57-432a-9cf8-b6c44b227983",
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "https://illinoisattorneygeneral.gov/news/story/attorney-general-raoul-charges-macoupin-county-man-for-disseminating-child-sexual-abuse-material"
+                },
+                {
+                    "@id": "kb:FileFacet-daaf1bfa-6cd9-4cd4-a0f0-5980b7e58221",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "illinois_ag_2025_001-il-ag.txt",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2590"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-ac23e0b6-7e1e-494b-951a-896e2b1b29b9",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-755e1955-0b71-4095-ac45-3f28ad21f256",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "c26f6c7564fd8c429f6ef67783454312f685cc6dc43ef5460cab516c528015bb"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/plain",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2590"
+                    }
+                }
+            ],
+            "uco-core:name": "Public press release (CaseLinker source document)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:sourcePublicationTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2025-12-09T00:00:00Z"
+            },
+            "legalproc:sourceRetrievalTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:defendant",
+            "@type": "uco-identity:Person",
+            "uco-core:name": "Jacob D. Monty",
+            "legal:chargedWith": [
+                {
+                    "@id": "kb:charge-1"
+                },
+                {
+                    "@id": "kb:charge-2"
+                }
+            ]
+        },
+        {
+            "@id": "kb:jurisdiction",
+            "@type": "legalproc:StateJurisdiction",
+            "uco-core:name": "Illinois, Macoupin County"
+        },
+        {
+            "@id": "kb:tf",
+            "@type": [
+                "uco-identity:Organization",
+                "taskforce:ICACtaskForce"
+            ],
+            "uco-core:name": "Illinois Internet Crimes Against Children Task Force"
+        },
+        {
+            "@id": "kb:virden-pd",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Virden Police Department"
+        },
+        {
+            "@id": "kb:macoupin-sa",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Macoupin County State's Attorney"
+        },
+        {
+            "@id": "kb:action-search",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Search residence and arrest",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-action:performer": {
+                "@id": "kb:tf"
+            },
+            "uco-core:description": "AG investigators and Virden Police searched a residence in the 300 block of East Holden Street, Virden. The defendant was arrested after evidence was found. The source does not state a warrant, a CyberTip assigned to this matter, resistance, or weapons. CAC SHACL allows one performer.",
+            "uco-action:location": {
+                "@id": "kb:location-residence"
+            }
+        },
+        {
+            "@id": "kb:rel-partner-virden",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:tf"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:virden-pd"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Illinois ICAC partners with Virden Police Department."
+        },
+        {
+            "@id": "kb:location-residence",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SimpleAddressFacet-c10bd7f6-fa50-4184-be7e-e1283077e755",
+                    "@type": "uco-location:SimpleAddressFacet",
+                    "uco-location:locality": "Virden",
+                    "uco-location:region": "Illinois",
+                    "uco-location:street": "300 block of East Holden Street"
+                }
+            ]
+        },
+        {
+            "@id": "kb:charge-1",
+            "@type": [
+                "legal:CriminalCharge",
+                "legal:CSAM_Distribution",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Dissemination of child pornography, Count 1",
+            "uco-core:description": "Class X felony. The press release does not cite an ILCS section, so legalproc:StateCharge is not emitted."
+        },
+        {
+            "@id": "kb:rel-charged-1",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-1"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with Count 1 in Macoupin County Circuit Court."
+        },
+        {
+            "@id": "kb:charge-2",
+            "@type": [
+                "legal:CriminalCharge",
+                "legal:CSAM_Distribution",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Dissemination of child pornography, Count 2",
+            "uco-core:description": "Class X felony. The press release does not cite an ILCS section, so legalproc:StateCharge is not emitted."
+        },
+        {
+            "@id": "kb:rel-charged-2",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-2"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged with Count 2 in Macoupin County Circuit Court."
+        },
+        {
+            "@id": "kb:potential-penalty",
+            "@type": "legalproc:PotentialPenalty",
+            "uco-core:name": "Class X statutory maximum",
+            "uco-core:description": "Each count is punishable by up to 30 years. Not an imposed sentence.",
+            "legalproc:potentialPenaltyKind": "statutory-maximum",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-penalty",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:potential-penalty"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-1"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Statutory maximum applies to each dissemination count."
+        },
+        {
+            "@id": "kb:phase-legal",
+            "@type": "cac:LegalProcessPhase",
+            "uco-core:name": "Charging",
+            "cac:hasPhaseBeginPoint": {
+                "@type": "xsd:dateTimeStamp",
+                "@value": "2025-12-09T00:00:00Z"
+            }
+        },
+        {
+            "@id": "kb:prov-source",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "Illinois Attorney General press release",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-core:object": [
+                {
+                    "@id": "kb:source"
+                }
+            ],
+            "case-investigation:exhibitNumber": "source-1"
+        }
+    ]
+}

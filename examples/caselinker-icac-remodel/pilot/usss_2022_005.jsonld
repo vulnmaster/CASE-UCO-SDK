@@ -1,0 +1,292 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/usss-2022-005/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/",
+        "cac": "https://cacontology.projectvic.org#",
+        "legal": "https://cacontology.projectvic.org/legal-outcomes#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": [
+                "case-investigation:Investigation",
+                "cac:CACInvestigation"
+            ],
+            "uco-core:name": "CDIL possession sentence (East Peoria)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:victimFactStatus": "omitted",
+            "uco-core:object": {
+                "@id": "kb:source"
+            },
+            "cac:hasStep": {
+                "@id": "kb:action-home-visit"
+            },
+            "cac:hasPhase": {
+                "@id": "kb:phase-legal"
+            }
+        },
+        {
+            "@id": "kb:source",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLFacet-521bf599-d1df-4d42-8325-e279b696f7c9",
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "https://www.secretservice.gov/newsroom/releases/2022/03/east-peoria-man-sentenced-151-months-prison-possession-child-sexual-abuse"
+                },
+                {
+                    "@id": "kb:FileFacet-e876184d-bb84-4e1a-aa84-4e5be22ac4da",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "usss_2022_005-usss.txt",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2535"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-cfae940a-ef34-438d-a9c4-546e8895b7b0",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-b9ddd59b-80c7-4f66-bf56-3dd0d7869a92",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "1b206c493adc42aa896967beaa9a09d4dbb3068c957d97d38bd34171462d9c57"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/plain",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2535"
+                    }
+                }
+            ],
+            "uco-core:name": "Public press release (CaseLinker source document)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:sourcePublicationTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2022-03-25T00:00:00Z"
+            },
+            "legalproc:sourceRetrievalTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:defendant",
+            "@type": "uco-identity:Person",
+            "uco-core:name": "Noah Joseph Smith",
+            "legal:chargedWith": {
+                "@id": "kb:charge-possession"
+            }
+        },
+        {
+            "@id": "kb:jurisdiction",
+            "@type": "legalproc:FederalJurisdiction",
+            "uco-core:name": "United States, Central District of Illinois"
+        },
+        {
+            "@id": "kb:usss",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "United States Secret Service"
+        },
+        {
+            "@id": "kb:probation",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "United States Probation Office"
+        },
+        {
+            "@id": "kb:peoria-so",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Peoria County Sheriff's Office"
+        },
+        {
+            "@id": "kb:location",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SimpleAddressFacet-db241931-b281-4573-a2e1-e0c7fa193c89",
+                    "@type": "uco-location:SimpleAddressFacet",
+                    "uco-location:locality": "East Peoria",
+                    "uco-location:region": "Illinois",
+                    "uco-location:street": "100 block of Regent Court"
+                }
+            ]
+        },
+        {
+            "@id": "kb:action-home-visit",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Supervised-release home visit",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-action:performer": {
+                "@id": "kb:probation"
+            },
+            "uco-core:description": "A U.S. Probation Officer found an unreported LG smart phone during a March 2021 home visit. The source does not assign a CyberTip. No ContentDataFacet is emitted for the phone.",
+            "uco-action:location": {
+                "@id": "kb:location"
+            }
+        },
+        {
+            "@id": "kb:rel-partner-usss",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:probation"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:usss"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Probation referred the matter; USSS investigated."
+        },
+        {
+            "@id": "kb:rel-partner-peoria",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:usss"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:peoria-so"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "USSS investigated with Peoria County Sheriff's Office."
+        },
+        {
+            "@id": "kb:charge-possession",
+            "@type": [
+                "legal:CriminalCharge",
+                "legal:CSAM_Possession",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Possession of child pornography",
+            "uco-core:description": "Guilty plea September 2021 after April 2021 indictment. The release cites 18 U.S.C. \u00a7 3014 and \u00a7 2259A only for special assessments, not the possession count, so legalproc:FederalCharge is not emitted."
+        },
+        {
+            "@id": "kb:rel-charge-possession",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-possession"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant pleaded guilty to possession of child pornography."
+        },
+        {
+            "@id": "kb:plea",
+            "@type": "legalproc:Plea",
+            "uco-core:name": "Guilty plea",
+            "legalproc:pleaType": "guilty",
+            "legalproc:outcomeScope": "current-case",
+            "uco-core:description": "Entered September 2021."
+        },
+        {
+            "@id": "kb:sentence-prison",
+            "@type": "legalproc:Sentence",
+            "uco-core:name": "Imposed custodial sentence",
+            "legalproc:sentenceStatus": "imposed",
+            "legalproc:sentenceKind": "custodial",
+            "legalproc:sentenceTerm": "151 months",
+            "legalproc:outcomeScope": "current-case",
+            "uco-core:description": "12 years and seven months imposed March 23, 2022."
+        },
+        {
+            "@id": "kb:sentence-supervised",
+            "@type": "legalproc:Sentence",
+            "uco-core:name": "Imposed supervised release",
+            "legalproc:sentenceStatus": "imposed",
+            "legalproc:sentenceKind": "supervised-release",
+            "legalproc:sentenceTerm": "life",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:sentence-sr-violation",
+            "@type": "legalproc:Sentence",
+            "uco-core:name": "Concurrent supervised-release violation term",
+            "legalproc:sentenceStatus": "imposed",
+            "legalproc:sentenceKind": "custodial",
+            "legalproc:sentenceTerm": "24 months",
+            "legalproc:outcomeScope": "current-case",
+            "uco-core:description": "Concurrent with the instant possession sentence."
+        },
+        {
+            "@id": "kb:restitution",
+            "@type": "legalproc:RestitutionOrder",
+            "uco-core:name": "Restitution",
+            "legalproc:monetaryAmount": {
+                "@type": "xsd:decimal",
+                "@value": "23000"
+            },
+            "legalproc:currencyCode": "USD",
+            "uco-core:description": "Source states $23,000 restitution. No fine was imposed. Assessments under 18 U.S.C. \u00a7 3014 / \u00a7 2259A are not typed as Sentence."
+        },
+        {
+            "@id": "kb:phase-legal",
+            "@type": "cac:LegalProcessPhase",
+            "uco-core:name": "Sentencing",
+            "cac:hasPhaseBeginPoint": {
+                "@type": "xsd:dateTimeStamp",
+                "@value": "2022-03-23T00:00:00Z"
+            }
+        },
+        {
+            "@id": "kb:prov-source",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "USSS / USAO CDIL press release",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-core:object": [
+                {
+                    "@id": "kb:source"
+                }
+            ],
+            "case-investigation:exhibitNumber": "source-1"
+        }
+    ]
+}

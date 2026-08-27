@@ -1,0 +1,12 @@
+PREFIX cac: <https://cacontology.projectvic.org#>
+PREFIX ncmec: <https://cacontology.projectvic.org/us/ncmec#>
+
+# Detective, current CaseLinker shape: tip attached as investigation step.
+# Target shape is ncmec:InvestigationTrigger, which is absent from the live corpus.
+
+SELECT (COUNT(DISTINCT ?inv) AS ?investigations)
+WHERE {
+  ?inv a cac:CACInvestigation ;
+       cac:hasStep ?tip .
+  ?tip a ncmec:NCMECCybertipReport .
+}

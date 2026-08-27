@@ -1,0 +1,16 @@
+PREFIX cac: <https://cacontology.projectvic.org#>
+PREFIX legal: <https://cacontology.projectvic.org/legal-outcomes#>
+
+# Prosecutor, current CaseLinker shape: proceeding joins charge to sentence.
+# There is no legalproc:chargedWith / legalproc:appliesTo path.
+
+SELECT (COUNT(DISTINCT ?proceeding) AS ?proceedings)
+WHERE {
+  ?inv a cac:CACInvestigation ;
+       cac:hasStep ?proceeding .
+  ?proceeding a legal:LegalProceeding ;
+              legal:hasCharge ?charge ;
+              legal:resultsSentence ?sentence .
+  ?charge a legal:CriminalCharge .
+  ?sentence a legal:CriminalSentence .
+}

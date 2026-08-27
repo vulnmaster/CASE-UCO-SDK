@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.28.0] - 2026-08-27
+
+CaseLinker source-document remodel at n=10, a live corpus probe of the
+current named-graph shape, and a hard split between CAC offender
+language and MITRE ATT&CK attacker tradecraft.
+
+#### CaseLinker current-state probe
+
+- Probed CaseLinker's public SPARQL corpus with v1.27.0 target-shape
+  questions and current-shape detective / commander / prosecutor rewrites.
+  Snapshot and query bank:
+  `examples/caselinker-icac-remodel/CURRENT_STATE_PROBE.md`. Target joins
+  (`InvestigationTrigger`, hashed series, `legalproc` charge–sentence,
+  phase end, disclosure) are absent; tip-as-`hasStep`,
+  `LegalProceeding`/`hasCharge`/`resultsSentence`, and phase begin already
+  answer. Thematic `caselinker:chargeCluster` tokens are no longer mapped
+  to `legalproc:statuteCitation`.
+
+#### Ten-graph source-document remodel
+
+- Remodeled ten CaseLinker cases from their original public press
+  releases under `examples/caselinker-icac-remodel/pilot/` (see
+  `PILOT.md` and `CORPUS.md`). Trigger join is added only when the
+  press release assigns a CyberTip to the matter; empty facets, invented
+  statutes, Illinois victim-role inflation, extra tip nodes, and
+  statutory maxima typed as sentences are refused. One of ten releases
+  cited offense statutes (`legalproc:FederalCharge`); none also had an
+  imposed sentence in the same source. Many live `dcterms:source` URLs
+  are operations, program stats, or dead links and were not remodeled.
+  All ten graphs validate (`cac` + `legalproc`). Named-graph **replace**
+  is required on load; merge would keep the old inflated triples.
+
+#### CAC offender vs ATT&CK attacker
+
+- Clarified that MITRE ATT&CK is not crimes-against-children vocabulary:
+  CAC **offenders** target children and other vulnerable people; ATT&CK
+  models **hackers** and **attackers**. CAC recipes, the CaseLinker
+  remodel, the technique–evidence join, and investigation routing now
+  refuse ATT&CK on CAC graphs except for a sourced rare overlap.
+
+Package versions bumped to **1.28.0**.
+
 ## [1.27.0] - 2026-08-27
 
 Queryable press-release legal outcomes, full operational recipe
@@ -2474,7 +2516,8 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
-[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.27.0...HEAD
+[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.28.0...HEAD
+[1.28.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.27.0...v1.28.0
 [1.27.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.26.0...v1.27.0
 [1.26.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.25.0...v1.26.0
 [1.25.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.24.0...v1.25.0

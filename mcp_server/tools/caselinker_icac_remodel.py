@@ -17,7 +17,8 @@ from case_uco.uco.types import Hash
 CASELINKER_VOCAB = "https://caselinker.up.railway.app/resource/vocab/"
 
 CASELINKER_PREDICATE_MAP = {
-    f"{CASELINKER_VOCAB}chargeCluster": "legalproc:statuteCitation",
+    # Thematic cluster tokens (child_exploitation, …), not statute citations.
+    f"{CASELINKER_VOCAB}chargeCluster": None,
     f"{CASELINKER_VOCAB}chargeOffenseEvent": "legalproc:concernsCharge",
     f"{CASELINKER_VOCAB}attributedToOffenderRole": "uco-action:performer",
     f"{CASELINKER_VOCAB}evidenceTier": None,

@@ -5,7 +5,12 @@
 Model an open-source cyber threat intelligence (CTI) report — a vendor
 analysis (Cisco Talos, Mandiant, Prevailion, etc.) of adversary activity,
 malware families, post-compromise tooling, and tactics, techniques, and
-procedures (TTPs). This is fundamentally different from a single-incident
+procedures (TTPs). ATT&CK here names **hacker / attacker** tradecraft,
+not a crimes-against-children **offender** who targets children or other
+vulnerable people. Use CAC recipes for those investigations; emit ATT&CK
+on a CAC graph only if the source describes that rare overlap.
+
+This is fundamentally different from a single-incident
 forensic case: the deliverable is *intelligence distilled from reporting*
 (often many intrusions), not evidence acquired from one host or capture.
 The distinctive modeling requirements are (1) **the report is the primary
@@ -289,7 +294,7 @@ property, so do not invent one.
 | Embedding builder/recipe files in the Investigation graph | Put implementation provenance in a sidecar manifest; keep the domain graph about the report |
 | Collapsing family, variant, and sample into one node | Family = `MaliciousTool`; variants/samples = `ObservableObject` + `FileFacet`/`ContentDataFacet`, `Related_To` the family |
 | Treating cloud C2 (Dropbox/Twitter/Zimbra) as benign | It is a C2 channel — `Connected_To` tagged `c2`, with exfil artifacts `Uploaded_To` it |
-| Putting ATT&CK IRIs on `solveit-core:usedTechnique` | ATT&CK describes offender behavior. Examiner methods stay in SOLVE-IT. See [technique-evidence-outcome.md](technique-evidence-outcome.md) |
+| Putting ATT&CK IRIs on `solveit-core:usedTechnique` | ATT&CK describes **hacker / attacker** tradecraft, not examiner method and not CAC offender conduct. Examiner methods stay in SOLVE-IT. See [technique-evidence-outcome.md](technique-evidence-outcome.md) |
 
 ## Checklist
 

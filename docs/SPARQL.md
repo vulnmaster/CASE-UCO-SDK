@@ -96,6 +96,12 @@ ORDER BY DESC(?cases)
 LIMIT 25
 ```
 
+CaseLinker current-state vs v1.27.0 target-shape questions live under
+`examples/caselinker-icac-remodel/queries/` (see
+[CURRENT_STATE_PROBE.md](../examples/caselinker-icac-remodel/CURRENT_STATE_PROBE.md)).
+Re-run the opt-in suite with `CASE_UCO_SPARQL_LIVE=1` before remodeling
+source documents.
+
 Inspect named-graph sizes:
 
 ```sparql

@@ -1,0 +1,271 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/ncmec-2023-324/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "legalproc": "https://ontology.caseontology.org/case/criminal/",
+        "cac": "https://cacontology.projectvic.org#",
+        "legal": "https://cacontology.projectvic.org/legal-outcomes#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:investigation",
+            "@type": [
+                "case-investigation:Investigation",
+                "cac:CACInvestigation"
+            ],
+            "uco-core:name": "SDIL Villmer solicitation complaint",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:victimFactStatus": "reported",
+            "legalproc:reportedVictimCount": {
+                "@type": "xsd:nonNegativeInteger",
+                "@value": "1"
+            },
+            "uco-core:object": {
+                "@id": "kb:source"
+            },
+            "cac:hasStep": {
+                "@id": "kb:action-warrant"
+            },
+            "cac:hasPhase": {
+                "@id": "kb:phase-legal"
+            }
+        },
+        {
+            "@id": "kb:source",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLFacet-94442e98-614a-404f-bd18-d1ee938f74c5",
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "https://www.justice.gov/usao-sdil/pr/first-grade-teacher-charged-solicitation-child-sexual-abuse-material"
+                },
+                {
+                    "@id": "kb:FileFacet-2b5e9f82-bbe8-4e85-b381-b5255acbdbd9",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "ncmec_2023_324-doj.txt",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2351"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-21e1496b-cecf-4979-bb4f-a7e92cab6208",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-1bc4c444-1d53-44b3-b2b0-ccdafceed0f1",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "4e7ad102f610323ac44c98c4312a575d1ef5ce28947ddd35096d8acfa2a0de26"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/plain",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "2351"
+                    }
+                }
+            ],
+            "uco-core:name": "Public press release (CaseLinker source document)",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "legalproc:sourcePublicationTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2023-08-21T00:00:00Z"
+            },
+            "legalproc:sourceRetrievalTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:defendant",
+            "@type": "uco-identity:Person",
+            "uco-core:name": "Jonathan C. Villmer, Jr.",
+            "legal:chargedWith": {
+                "@id": "kb:charge-solicitation"
+            }
+        },
+        {
+            "@id": "kb:jurisdiction",
+            "@type": "legalproc:FederalJurisdiction",
+            "uco-core:name": "United States, Southern District of Illinois"
+        },
+        {
+            "@id": "kb:hsi",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Homeland Security Investigations"
+        },
+        {
+            "@id": "kb:carmi-pd",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Carmi Police Department"
+        },
+        {
+            "@id": "kb:new-baden-pd",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "New Baden Police Department"
+        },
+        {
+            "@id": "kb:authorization",
+            "@type": "case-investigation:Authorization",
+            "uco-core:name": "Search warrants for Snapchat account and residence",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:action-warrant",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Execute residence search warrant and arrest",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-action:performer": {
+                "@id": "kb:hsi"
+            },
+            "uco-core:description": "The case began in an otherwise unrelated Carmi PD CSAM distribution investigation that led to a Snapchat account. On August 18, 2023, law enforcement searched the New Baden residence, seized two cell phones and other devices, and arrested the defendant. The source does not assign a CyberTip. CAC SHACL allows one performer.",
+            "case-investigation:relevantAuthorization": {
+                "@id": "kb:authorization"
+            }
+        },
+        {
+            "@id": "kb:rel-partner-carmi",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:hsi"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:carmi-pd"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "HSI investigated with Carmi Police Department."
+        },
+        {
+            "@id": "kb:rel-partner-nb",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:hsi"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:new-baden-pd"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "HSI investigated with New Baden Police Department."
+        },
+        {
+            "@id": "kb:charge-solicitation",
+            "@type": [
+                "legal:CriminalCharge",
+                "legal:OnlineEnticement",
+                "uco-core:UcoObject"
+            ],
+            "uco-core:name": "Solicitation of child sexual abuse material",
+            "uco-core:description": "Criminal complaint. The press release does not cite a United States Code section, so legalproc:FederalCharge is not emitted. Presumed innocent. Other purported minors are not counted."
+        },
+        {
+            "@id": "kb:rel-charge-solicitation",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:defendant"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-solicitation"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Defendant is charged by complaint with solicitation of CSAM."
+        },
+        {
+            "@id": "kb:potential-penalty",
+            "@type": "legalproc:PotentialPenalty",
+            "uco-core:name": "Statutory maximum if convicted",
+            "uco-core:description": "Up to 20 years. Not an imposed sentence.",
+            "legalproc:potentialPenaltyKind": "statutory-maximum",
+            "legalproc:outcomeScope": "current-case"
+        },
+        {
+            "@id": "kb:rel-potential-penalty",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:potential-penalty"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:charge-solicitation"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Related_To",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:description": "Potential penalty applies to this charge."
+        },
+        {
+            "@id": "kb:phase-legal",
+            "@type": "cac:LegalProcessPhase",
+            "uco-core:name": "Complaint and arrest",
+            "cac:hasPhaseBeginPoint": {
+                "@type": "xsd:dateTimeStamp",
+                "@value": "2023-08-18T00:00:00Z"
+            }
+        },
+        {
+            "@id": "kb:prov-source",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "DOJ USAO SDIL press release",
+            "uco-core:objectCreatedTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-08-27T19:14:00+00:00"
+            },
+            "uco-core:object": [
+                {
+                    "@id": "kb:source"
+                }
+            ],
+            "case-investigation:exhibitNumber": "source-1"
+        }
+    ]
+}

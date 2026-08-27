@@ -1,0 +1,17 @@
+PREFIX cac: <https://cacontology.projectvic.org#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+
+# Detective, current CaseLinker shape: type-only ContentDataFacet on incidents.
+# No FileFacet, Hash, or ObservableObject nodes exist in the live corpus.
+
+SELECT (COUNT(DISTINCT ?facet) AS ?emptyFacets)
+WHERE {
+  ?incident uco-core:hasFacet ?facet .
+  ?facet a uco-observable:ContentDataFacet .
+  FILTER NOT EXISTS {
+    ?facet ?p ?o .
+    FILTER(?p != rdf:type)
+  }
+}

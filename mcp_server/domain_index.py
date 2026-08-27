@@ -1183,13 +1183,13 @@ RECIPE_INDEX: list[dict[str, str]] = [
     },
     {
         "title": "Technique, Evidence, and Legal-Outcome Join",
-        "description": "Join sourced SOLVE-IT examiner techniques, hashed digital evidence, and legalproc charges/sentences. Press releases omit usedTechnique; PACER records named tools only; lab exports assert DFT-* with real hashes. Keep ATT&CK offender techniques separate.",
+        "description": "Join sourced SOLVE-IT examiner techniques, hashed digital evidence, and legalproc charges/sentences. Press releases omit usedTechnique; PACER records named tools only; lab exports assert DFT-* with real hashes. Keep ATT&CK attacker/hacker techniques on CTI graphs; do not use ATT&CK as CAC offender vocabulary.",
         "keywords": "technique evidence outcome join usedTechnique solveit hash match photodna ufed cellebrite axiom ftk autopsy legalproc sentence effectiveness competency sparql lab importer pacer method claim empty contentdatafacet",
         "file": "docs/recipes/technique-evidence-outcome.md",
     },
     {
         "title": "CaseLinker ICAC Remodel",
-        "description": "Remodel CaseLinker CAC graphs so CyberTip joins, share-safe hashes, legalproc dual-typing, and commander phase clocks validate and answer SPARQL competency questions.",
+        "description": "Remodel CaseLinker CAC graphs so CyberTip joins, share-safe hashes, legalproc dual-typing, and commander phase clocks validate and answer SPARQL competency questions. ATT&CK is not CAC offender vocabulary.",
         "keywords": "caselinker remodel icac cybertip investigationtrigger photodna known series victim count task force legalproc chargecluster dual type phase clock commander prosecutor detective",
         "file": "docs/recipes/caselinker-icac-remodel.md",
     },
@@ -1381,7 +1381,8 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         "anti_patterns": [
             "Don't assert usedTechnique from a press release or product name alone",
             "Don't emit ContentDataFacet without hash, size, MIME type, or payload",
-            "Don't collapse ATT&CK offender techniques into SOLVE-IT examiner techniques",
+            "Don't collapse ATT&CK attacker techniques into SOLVE-IT examiner techniques",
+            "Don't use ATT&CK as the vocabulary for a CAC offender",
         ],
         "starter_kit": "docs/recipes/technique-evidence-outcome.md",
         "code_skeleton": "from tools.technique_evidence_outcome import build_lab_join; graph = build_lab_join()",
@@ -1401,6 +1402,7 @@ MAPPING_GUIDE_INDEX: list[dict] = [
             "Don't keep caselinker:/resource/vocab/* predicates",
             "Don't infer Brady from unlabeled exam notes",
             "Don't mint PhotoDNA hex or usedTechnique from a CyberTipline method IRI",
+            "Don't map CAC offender conduct to ATT&CK or call the subject a threat actor",
         ],
         "starter_kit": "docs/recipes/caselinker-icac-remodel.md",
         "code_skeleton": "from tools.caselinker_icac_remodel import join_cybertip_investigation",

@@ -209,6 +209,10 @@ def test_cac_content_points_to_cac_router() -> None:
     ids = [m["family_id"] for m in payload["matched_families"]]
     assert "cac-child-exploitation" in ids
     assert payload["next_tools"]["cac_deep_routing"] is not None
+    cac = next(m for m in payload["matched_families"] if m["family_id"] == "cac-child-exploitation")
+    assert "attack-technique" not in cac["extensions"]
+    assert "ATT&CK is not CAC community language" in cac["notes"]
+    assert "hackers and attackers" in cac["notes"]
 
 
 def test_insider_threat_routes_to_corporate_internal() -> None:
@@ -257,6 +261,7 @@ def test_cti_apt_routes_to_cyber_threat_intelligence_family() -> None:
     # modeled with the attack-technique extension (uco-action:Technique, #666).
     assert "attack-technique" in top["extensions"]
     assert "uco-tool" in top["core_namespaces"]
+    assert "Do not use this family for crimes-against-children" in top["notes"]
 
 
 def test_unseen_data_returns_extension_gap_guidance() -> None:

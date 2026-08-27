@@ -1,0 +1,10 @@
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+
+SELECT ?sentence ?kind ?term
+WHERE {
+  ?sentence a legalproc:Sentence ;
+            legalproc:sentenceStatus "imposed" ;
+            legalproc:sentenceKind ?kind ;
+            legalproc:sentenceTerm ?term .
+}
+ORDER BY ?kind
