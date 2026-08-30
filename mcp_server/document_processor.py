@@ -50,7 +50,8 @@ EXTRACTION_BUNDLE_CONTRACT_VERSION = "1.0"
 EXTRACTED_CONTENT_FILENAME = "extracted-content.json"
 ANNOTATIONS_FILENAME = "annotations.jsonld"
 RFC7111_CONFORMS_TO = "http://tools.ietf.org/rfc/rfc7111"
-MAX_BYTES = 10 * 1024 * 1024
+# Scanned PACER plea agreements and translations commonly exceed 10 MiB.
+MAX_BYTES = 50 * 1024 * 1024
 MAX_CSV_RECORDS = 100
 MAX_RECORD_TEXT = 400
 # Canonical reviewable text is bounded but large enough for full reports;
@@ -276,14 +277,25 @@ def process_document_file(
         if extracted_doc is not None and annotations_doc is not None:
             extracted_content_path = output.parent / EXTRACTED_CONTENT_FILENAME
             annotations_path = output.parent / ANNOTATIONS_FILENAME
-            extracted_content_path.write_text(
-                json.dumps(extracted_doc, indent=2, ensure_ascii=False) + "\n",
-                encoding="utf-8",
-            )
-            annotations_path.write_text(
-                json.dumps(annotations_doc, indent=2, ensure_ascii=False) + "\n",
-                encoding="utf-8",
-            )
+            extracted_payload = json.dumps(extracted_doc, indent=2, ensure_ascii=False) + "\n"
+            annotations_payload = json.dumps(annotations_doc, indent=2, ensure_ascii=False) + "\n"
+            extracted_content_path.write_text(extracted_payload, encoding="utf-8")
+            annotations_path.write_text(annotations_payload, encoding="utf-8")
+            # Stem-specific sidecars so multi-PDF PACER folders do not overwrite
+            # one another when graphs share a directory.
+            stem_extracted = output.parent / f"{output.stem}.extracted-content.json"
+            stem_annotations = output.parent / f"{output.stem}.annotations.jsonld"
+            if stem_extracted != extracted_content_path:
+                stem_extracted.write_text(extracted_payload, encoding="utf-8")
+            if stem_annotations != annotations_path:
+                stem_anno = build_annotations_document(
+                    run_id, content, extracted_filename=stem_extracted.name
+                )
+                if stem_anno is not None:
+                    stem_annotations.write_text(
+                        json.dumps(stem_anno, indent=2, ensure_ascii=False) + "\n",
+                        encoding="utf-8",
+                    )
 
         progress.emit("write_graph", "Wrote graph artifact to the case run directory.", 90)
         progress.emit("completed", "case-uco document preprocessing completed.", 100)
@@ -1047,6 +1059,7 @@ def build_extracted_content_document(
 def build_annotations_document(
     run_id: uuid.UUID,
     content: ExtractedContent,
+    extracted_filename: str | None = None,
 ) -> dict[str, Any] | None:
     """W3C Web Annotation companion graph anchoring record nodes to content.
 
@@ -1056,13 +1069,14 @@ def build_annotations_document(
 
     if content.canonical is None:
         return None
+    content_name = extracted_filename or EXTRACTED_CONTENT_FILENAME
     annotations: list[dict[str, Any]] = []
     for index, record in enumerate(content.records, start=1):
         anchor = record.anchor
         if anchor is None:
             continue
         if anchor["selector_kind"] == "text_position":
-            target_source = f"{EXTRACTED_CONTENT_FILENAME}#{anchor['section_id']}"
+            target_source = f"{content_name}#{anchor['section_id']}"
             selectors: list[dict[str, Any]] = [
                 {
                     "type": "TextPositionSelector",
@@ -1072,7 +1086,7 @@ def build_annotations_document(
                 {"type": "TextQuoteSelector", "exact": anchor["exact"]},
             ]
         elif anchor["selector_kind"] == "csv_fragment":
-            target_source = f"{EXTRACTED_CONTENT_FILENAME}#default"
+            target_source = f"{content_name}#default"
             selectors = [
                 {
                     "type": "FragmentSelector",

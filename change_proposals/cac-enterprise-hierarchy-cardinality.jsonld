@@ -1,0 +1,135 @@
+{
+  "@context": {
+    "kb": "http://example.org/kb/enterprise-cardinality/",
+    "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+    "gufo": "http://purl.org/nemo/gufo#",
+    "legalproc": "https://ontology.caseontology.org/case/criminal/",
+    "cacontology-enterprises": "https://cacontology.projectvic.org/extremist-enterprises#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:investigation",
+      "@type": "case-investigation:Investigation",
+      "uco-core:name": "U.S. v. Bermudez et al. (E.D.N.Y. child exploitation enterprise)",
+      "uco-core:description": "Federal prosecution of six defendants under 18 U.S.C. § 2252A(g). Source: PACER criminal docket sheet and PACER Doc 8 (redacted indictment), No. 1:25-cr-00361-PKC (E.D.N.Y.).",
+      "legalproc:caseIdentifier": "1:25-cr-00361-PKC"
+    },
+    {
+      "@id": "kb:enterprise",
+      "@type": [
+        "cacontology-enterprises:ChildExploitationEnterprise",
+        "gufo:FunctionalComplex"
+      ],
+      "uco-core:name": "Greggy's Cult",
+      "uco-core:description": "Association-in-fact enterprise charged under 18 U.S.C. § 2252A(g). An Internet-based group that operated in or about and between 2019 and 2021 throughout the United States, including in the Eastern District of New York. The indictment pleads a series of felony violations constituting three or more separate incidents involving more than one victim, committed in concert with three or more persons. It alleges no organizational hierarchy and identifies no leader; paragraph 7 describes members working together and individually for the benefit of the enterprise. Source: PACER Doc 8 (redacted indictment), paras. 1-7 and Count One.",
+      "cacontology-enterprises:hasOperationalBeginDate": {
+        "@type": "xsd:dateTimeStamp",
+        "@value": "2019-01-01T00:00:00Z"
+      },
+      "cacontology-enterprises:hasOperationalEndDate": {
+        "@type": "xsd:dateTimeStamp",
+        "@value": "2021-12-31T00:00:00Z"
+      },
+      "cacontology-enterprises:hasMember": [
+        { "@id": "kb:defendant-1" },
+        { "@id": "kb:defendant-2" },
+        { "@id": "kb:defendant-3" },
+        { "@id": "kb:defendant-4" },
+        { "@id": "kb:defendant-5" },
+        { "@id": "kb:defendant-6" }
+      ],
+      "cacontology-enterprises:hasExploitationRelation": [
+        { "@id": "kb:exploitation-mv1" },
+        { "@id": "kb:exploitation-mv2" }
+      ]
+    },
+    {
+      "@id": "kb:defendant-1",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Defendant 1",
+      "uco-core:description": "Charged member of the enterprise, listed as Defendant (1) on the docket. Name withheld in this proposal example. Source: PACER criminal docket sheet, defendant caption."
+    },
+    {
+      "@id": "kb:defendant-2",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Defendant 2",
+      "uco-core:description": "Charged member of the enterprise, listed as Defendant (2) on the docket. Source: PACER criminal docket sheet, defendant caption."
+    },
+    {
+      "@id": "kb:defendant-3",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Defendant 3",
+      "uco-core:description": "Charged member of the enterprise, listed as Defendant (3) on the docket. Source: PACER criminal docket sheet, defendant caption."
+    },
+    {
+      "@id": "kb:defendant-4",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Defendant 4",
+      "uco-core:description": "Charged member of the enterprise, listed as Defendant (4) on the docket. Source: PACER criminal docket sheet, defendant caption."
+    },
+    {
+      "@id": "kb:defendant-5",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Defendant 5",
+      "uco-core:description": "Charged member of the enterprise, listed as Defendant (5) on the docket. Source: PACER criminal docket sheet, defendant caption."
+    },
+    {
+      "@id": "kb:defendant-6",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Defendant 6",
+      "uco-core:description": "Charged member of the enterprise, listed as Defendant (6) on the docket and redacted from the unsealed indictment. Source: PACER criminal docket sheet, defendant caption; PACER Doc 8, caption.",
+      "uco-core:tag": "redacted-from-instrument"
+    },
+    {
+      "@id": "kb:mv-1",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Minor Victim 1",
+      "uco-core:description": "Referenced in the charging document only as Minor Victim 1, an individual whose identity is known to the Grand Jury. No identifying detail is modeled."
+    },
+    {
+      "@id": "kb:mv-2",
+      "@type": "uco-identity:Person",
+      "uco-core:name": "Minor Victim 2",
+      "uco-core:description": "Referenced in the charging document only as Minor Victim 2, an individual whose identity is known to the Grand Jury. No identifying detail is modeled."
+    },
+    {
+      "@id": "kb:exploitation-mv1",
+      "@type": "gufo:Relator",
+      "uco-core:name": "Exploitation relation: enterprise members and Minor Victim 1",
+      "uco-core:description": "Mediates the perpetrator-victim relationship underlying Count One predicate Violations One through Three. Source: PACER Doc 8, paras. 10-12."
+    },
+    {
+      "@id": "kb:exploitation-mv2",
+      "@type": "gufo:Relator",
+      "uco-core:name": "Exploitation relation: enterprise members and Minor Victim 2",
+      "uco-core:description": "Mediates the perpetrator-victim relationship underlying Count One predicate Violations Four through Six. Source: PACER Doc 8, paras. 13-15."
+    },
+    {
+      "@id": "kb:charge-1",
+      "@type": "legalproc:FederalCharge",
+      "uco-core:name": "Count 1: Child Exploitation Enterprise",
+      "legalproc:statuteCitation": "18 U.S.C. §§ 2252A(g) and 3551 et seq.",
+      "legalproc:countNumber": {
+        "@type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "legalproc:offenseForm": "substantive",
+      "legalproc:chargeDisposition": "pending",
+      "legalproc:jurisdictionKind": "federal",
+      "legalproc:outcomeScope": "current-case",
+      "uco-core:description": "Charged as \"Child Exploitation Enterprise\". Source: PACER criminal docket sheet, Pending Counts table."
+    },
+    {
+      "@id": "kb:rel-charge-enterprise",
+      "@type": "uco-core:Relationship",
+      "uco-core:source": { "@id": "kb:charge-1" },
+      "uco-core:target": { "@id": "kb:enterprise" },
+      "uco-core:kindOfRelationship": "Related_To",
+      "uco-core:isDirectional": true,
+      "uco-core:description": "Count One charges participation in this enterprise."
+    }
+  ]
+}

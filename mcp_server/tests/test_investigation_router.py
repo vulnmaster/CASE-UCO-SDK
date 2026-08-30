@@ -9,6 +9,7 @@ from investigation_router import (
     detect_families,
     route_investigation_content,
     _installed_extensions,
+    keyword_in_text,
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -324,6 +325,19 @@ def test_ambiguous_logarchive_routing_defers_to_local_classifier() -> None:
     guidance = payload["apple_collect_guidance"]
     assert guidance["claimed_shape"] == "unconfirmed-apple-logarchive"
     assert "classify_apple_package_shape" in guidance["authoritative_next_tool"]
+
+
+def test_short_keywords_do_not_match_https_iris_or_statute_digits() -> None:
+    graph_blob = (
+        "https://ontology.unifiedcyberontology.org/uco/core/ "
+        "18 U.S.C. 2252A Attorney generated hex 846dea554c2"
+    )
+    assert keyword_in_text(graph_blob, "ttp") is False
+    assert keyword_in_text(graph_blob, "c2") is False
+    assert keyword_in_text(graph_blob, "rat") is False
+    assert keyword_in_text("command and control C2 channel", "c2") is True
+    ids = [m["family_id"] for m in detect_families(graph_blob)]
+    assert "cyber-threat-intelligence" not in ids
 
 
 def test_gap_guidance_is_self_contained() -> None:

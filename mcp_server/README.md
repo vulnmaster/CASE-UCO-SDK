@@ -17,11 +17,40 @@ source .venv/bin/activate
 pip install fastmcp
 ```
 
-### 2. Restart Cursor
+### 2. Shared listener (any MCP client)
 
-The `.cursor/mcp.json` configuration is already included in the repository. After installing FastMCP, restart Cursor to activate the MCP server.
+stdio is still the default for a single local harness. For Cursor, Hermes,
+Claude Desktop, VS Code, and other agents on the same machine, start one
+listener and point every client at it:
 
-### 3. Verify
+```bash
+# from the repo root (Linux / WSL)
+./scripts/run-mcp-server.sh
+# listens on http://127.0.0.1:8765/sse
+```
+
+Client config (no authentication):
+
+```json
+{
+  "mcpServers": {
+    "case-uco": { "url": "http://127.0.0.1:8765/sse" }
+  }
+}
+```
+
+Override bind address or port with `CASE_UCO_MCP_HOST`, `CASE_UCO_MCP_PORT`,
+or `CASE_UCO_MCP_TRANSPORT=http`. Keep `PATH` and `CASE_UCO_EXTENSIONS` on
+the Linux server process — never put a Linux `PATH` on a Windows `wsl.exe`
+stdio wrapper.
+
+### 3. Cursor stdio (optional single-client)
+
+The `.cursor/mcp.json` in this repo defaults to the shared SSE URL. After
+the listener is up, open Cursor's MCP panel and confirm "case-uco" is
+connected. Do not click Authenticate.
+
+### 4. Verify
 
 Open Cursor's MCP panel (Settings > Tools & MCP) and confirm the "case-uco" server shows as connected. You can also test from the command line:
 
@@ -128,11 +157,20 @@ register it as a stdio MCP server in `~/.hermes/config.yaml`:
 ```yaml
 mcp_servers:
   case-uco:
-    command: "/home/cory/CASE-UCO-Libraries/.venv/bin/python"
-    args: ["/home/cory/CASE-UCO-Libraries/mcp_server/server.py"]
+    url: "http://127.0.0.1:8765/sse"
+```
+
+Or stdio against the same checkout:
+
+```yaml
+mcp_servers:
+  case-uco:
+    command: "/home/cory/CASE-UCO-SDK/.venv/bin/python"
+    args: ["/home/cory/CASE-UCO-SDK/mcp_server/server.py"]
     env:
-      PYTHONPATH: "python:mcp_server"
-      # CASE_UCO_EXTENSIONS: "cac,aeo,cryptoinv,legalproc"   # optional extension registries
+      PYTHONPATH: "/home/cory/CASE-UCO-SDK/python:/home/cory/CASE-UCO-SDK/mcp_server"
+      PATH: "/home/cory/CASE-UCO-SDK/.venv/bin:/usr/bin:/bin"
+      CASE_UCO_EXTENSIONS: "cac,legalproc,solveit,cryptoinv,rico,weapons,drugs"
 ```
 
 Run `/reload-mcp` in Hermes after editing the config. All tools are then
@@ -171,7 +209,8 @@ metadata explicitly establishes timesync anchoring.
 
 Law-enforcement deployment notes:
 
-- The server is local-only (stdio), but `check_existing_proposals` and the
+- The shared listener binds `127.0.0.1` by default (stdio still works for a
+  single harness). `check_existing_proposals` and the
   opt-in `execute_sparql_query` tool perform outbound HTTPS requests. Secure
   deployment profiles disable SPARQL egress unless
   `CASE_UCO_SPARQL_ALLOW_NETWORK=1` is explicitly set; production deployments

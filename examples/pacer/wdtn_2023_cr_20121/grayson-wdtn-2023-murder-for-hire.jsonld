@@ -37,7 +37,7 @@
               "uco-types:hashMethod": "SHA256",
               "uco-types:hashValue": {
                 "@type": "xsd:hexBinary",
-                "@value": "30a244c6566c8162360672f4ca5de1019096f75c565e71e65408e48dee84f8fa"
+                "@value": "30A244C6566C8162360672F4CA5DE1019096F75C565E71E65408E48DEE84F8FA"
               }
             }
           ]
@@ -69,7 +69,7 @@
               "uco-types:hashMethod": "SHA256",
               "uco-types:hashValue": {
                 "@type": "xsd:hexBinary",
-                "@value": "d1f9b0d329f9a5ed379c9f6cb98ce57bf9466d4199935df1bd99518d8c1907a4"
+                "@value": "D1F9B0D329F9A5ED379C9F6CB98CE57BF9466D4199935DF1BD99518D8C1907A4"
               }
             }
           ]

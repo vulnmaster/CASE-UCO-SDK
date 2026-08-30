@@ -1,0 +1,68 @@
+# CQ 1.1 — Enterprises and their charged members where no leadership is alleged
+# Under the current CAC shapes this graph cannot exist, so this query has no
+# answer set today. Expected: six members of one enterprise.
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX cacontology-enterprises: <https://cacontology.projectvic.org/extremist-enterprises#>
+SELECT ?enterpriseName ?memberName
+WHERE {
+  ?enterprise a cacontology-enterprises:ChildExploitationEnterprise ;
+              uco-core:name ?enterpriseName ;
+              cacontology-enterprises:hasMember ?member .
+  ?member uco-core:name ?memberName .
+  FILTER NOT EXISTS {
+    ?enterprise cacontology-enterprises:hasLeadershipRelation ?anyLeadership .
+  }
+}
+ORDER BY ?memberName
+
+# ---
+
+# CQ 2.1 — The relaxation does not hollow out the class
+# Confirms the enterprise still carries its statutory elements: members
+# ("in concert with three or more other persons") and exploitation relations
+# ("involving more than one victim"). Expected: memberCount 6, exploitationCount 2.
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX cacontology-enterprises: <https://cacontology.projectvic.org/extremist-enterprises#>
+SELECT ?enterpriseName (COUNT(DISTINCT ?member) AS ?memberCount) (COUNT(DISTINCT ?relation) AS ?exploitationCount)
+WHERE {
+  ?enterprise a cacontology-enterprises:ChildExploitationEnterprise ;
+              uco-core:name ?enterpriseName ;
+              cacontology-enterprises:hasMember ?member ;
+              cacontology-enterprises:hasExploitationRelation ?relation .
+}
+GROUP BY ?enterpriseName
+
+# ---
+
+# CQ 2.2 — No structure was fabricated to satisfy validation
+# Written as ASK because the correct answer is "nothing found": the graph must
+# contain no hierarchy and no leadership relation. Expected: false.
+PREFIX cacontology-enterprises: <https://cacontology.projectvic.org/extremist-enterprises#>
+ASK {
+  ?enterprise a cacontology-enterprises:ChildExploitationEnterprise .
+  {
+    ?enterprise cacontology-enterprises:hasHierarchy ?structure .
+  } UNION {
+    ?enterprise cacontology-enterprises:hasLeadershipRelation ?structure .
+  }
+}
+
+# ---
+
+# CQ 3.1 — The section 2252A(g) framing survives without structural properties
+# Ties the enterprise to the statute actually charged and to its operating
+# window. Expected: one row citing 18 U.S.C. sections 2252A(g) and 3551 et seq.
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX legalproc: <https://ontology.caseontology.org/case/criminal/>
+PREFIX cacontology-enterprises: <https://cacontology.projectvic.org/extremist-enterprises#>
+SELECT ?enterpriseName ?statute ?begins ?ends
+WHERE {
+  ?enterprise a cacontology-enterprises:ChildExploitationEnterprise ;
+              uco-core:name ?enterpriseName ;
+              cacontology-enterprises:hasOperationalBeginDate ?begins ;
+              cacontology-enterprises:hasOperationalEndDate ?ends .
+  ?relationship uco-core:target ?enterprise ;
+                uco-core:source ?charge .
+  ?charge a legalproc:FederalCharge ;
+          legalproc:statuteCitation ?statute .
+}

@@ -16,6 +16,7 @@ strict concept coverage afterward.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
@@ -803,9 +804,24 @@ def _installed_extensions(
     return found
 
 
+def keyword_in_text(normalized: str, keyword: str) -> bool:
+    """Substring match, but short tokens need token boundaries.
+
+    Otherwise ``ttp`` hits every ``https://`` IRI when a Layer-1 graph is
+    routed, and ``c2`` / ``846`` / ``554`` collide with statute fragments
+    and hex hashes.
+    """
+
+    needle = keyword.casefold()
+    haystack = normalized.casefold()
+    if len(needle) <= 4 or needle[0].isdigit():
+        return re.search(rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z0-9])", haystack) is not None
+    return needle in haystack
+
+
 def score_family(text: str, family: InvestigationFamily) -> tuple[int, list[str]]:
     normalized = _normalize_text(text)
-    hits = [kw for kw in family.keywords if kw in normalized]
+    hits = [kw for kw in family.keywords if keyword_in_text(normalized, kw)]
     return len(hits), hits
 
 

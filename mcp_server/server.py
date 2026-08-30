@@ -2297,4 +2297,26 @@ if workspace_policy.secure_mode_active():
     enforce_secure_startup()
 
 if __name__ == "__main__":
-    mcp.run()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="CASE/UCO MCP server")
+    parser.add_argument(
+        "--transport",
+        choices=("stdio", "http", "sse", "streamable-http"),
+        default=os.environ.get("CASE_UCO_MCP_TRANSPORT", "stdio"),
+        help="stdio for a single local client; sse/http for a shared listener",
+    )
+    parser.add_argument(
+        "--host",
+        default=os.environ.get("CASE_UCO_MCP_HOST", "127.0.0.1"),
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=int(os.environ.get("CASE_UCO_MCP_PORT", "8765")),
+    )
+    args = parser.parse_args()
+    if args.transport == "stdio":
+        mcp.run()
+    else:
+        mcp.run(transport=args.transport, host=args.host, port=args.port)

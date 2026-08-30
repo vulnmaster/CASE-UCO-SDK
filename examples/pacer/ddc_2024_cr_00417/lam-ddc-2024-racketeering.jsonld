@@ -41,7 +41,7 @@
               "uco-types:hashMethod": "SHA256",
               "uco-types:hashValue": {
                 "@type": "xsd:hexBinary",
-                "@value": "b85de5b812c7e3ba9ded460ab74c5bb1f9f4f43d4c7d2de49a892e1b29ab622a"
+                "@value": "B85DE5B812C7E3BA9DED460AB74C5BB1F9F4F43D4C7D2DE49A892E1B29AB622A"
               }
             }
           ]
@@ -73,7 +73,7 @@
               "uco-types:hashMethod": "SHA256",
               "uco-types:hashValue": {
                 "@type": "xsd:hexBinary",
-                "@value": "6524fab71c8e01c7cfe0e76757b750bee5312da3e1bbad24debefce1b2158ca4"
+                "@value": "6524FAB71C8E01C7CFE0E76757B750BEE5312DA3E1BBAD24DEBEFCE1B2158CA4"
               }
             }
           ]
@@ -105,7 +105,7 @@
               "uco-types:hashMethod": "SHA256",
               "uco-types:hashValue": {
                 "@type": "xsd:hexBinary",
-                "@value": "f602adbb26a36b161df15eec1975bb3340df12e41e86487bb7a8a378672a5675"
+                "@value": "F602ADBB26A36B161DF15EEC1975BB3340DF12E41E86487BB7A8A378672A5675"
               }
             }
           ]
@@ -137,7 +137,7 @@
               "uco-types:hashMethod": "SHA256",
               "uco-types:hashValue": {
                 "@type": "xsd:hexBinary",
-                "@value": "0d7d3471aa975481c03f73bad1fe65ceac7645943d9f509c4155d9ae7c6ed733"
+                "@value": "0D7D3471AA975481C03F73BAD1FE65CEAC7645943D9F509C4155D9AE7C6ED733"
               }
             }
           ]
@@ -169,7 +169,7 @@
               "uco-types:hashMethod": "SHA256",
               "uco-types:hashValue": {
                 "@type": "xsd:hexBinary",
-                "@value": "82b88df86946da0d30446b54181bcc0e58137a9cd3116492f58118ffa4c40760"
+                "@value": "82B88DF86946DA0D30446B54181BCC0E58137A9CD3116492F58118FFA4C40760"
               }
             }
           ]

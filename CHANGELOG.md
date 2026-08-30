@@ -7,6 +7,105 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.29.0] - 2026-08-30
+
+Shared MCP listener for multi-client use, PACER document-mapping
+fidelity (docket roster, identity dedup, account-handle hygiene),
+and XSD-canonical hexBinary literals so SPARQL joins match across
+extractors and builders.
+
+#### Shared MCP listener
+
+- The CASE/UCO MCP server can run as a shared SSE/HTTP listener
+  (`scripts/run-mcp-server.sh`, default `http://127.0.0.1:8765/sse`)
+  so Cursor, Hermes, Claude Desktop, and other MCP clients use one
+  process. Do not set a Linux `PATH` on a Windows `wsl.exe` stdio
+  wrapper — that made Cursor fail with `spawn wsl.exe ENOENT`.
+  `PATH` and `CASE_UCO_EXTENSIONS` are set inside the Linux process.
+
+#### PACER document mapping
+
+- Raised `process_document_file` `MAX_BYTES` from 10 MiB to 50 MiB so
+  scanned PACER plea agreements and translations are not refused as
+  `source_oversized`.
+- `route_investigation_content` now requires token boundaries for short
+  or numeric family keywords (`ttp`, `c2`, `846`, `554`), so routing a
+  Layer-1 JSON-LD graph no longer false-hits CTI or export-control from
+  `https://` IRIs and statute fragments.
+- PACER semantic mapping now extracts multi-title USC/CFR citations,
+  `UNITED STATES v.` captions, named forensic tools, and platform
+  accounts beyond Snapchat. Shared output folders also get
+  stem-specific extraction sidecars so one PDF does not overwrite
+  another's `extracted-content.json`.
+- Added `extract_pacer_docket_roster`, which parses the PACER criminal
+  docket structurally: defendant number, name, `also known as` aliases,
+  counsel, and the docket-entry-1 per-defendant count matrix. A PACER
+  defendant block contains its own `represented by` attorney block, so a
+  string-level reading promotes defense counsel to the charged party.
+  Layer-2 synthesis should read defendants and counts from this parser
+  rather than from the general NER pass. Firm and address lines are
+  rejected as attorney names, and the roster is empty for non-docket text.
+- Added jurisdiction, court, and venue tokens to `PERSON_NAME_STOPWORDS`
+  so captions no longer yield `uco-identity:Person` nodes named
+  "New York", "New Mexico", "Eastern District", or "District Court".
+- Fixed a relationship `@id` concatenation bug in
+  `scripts/build_pacer_layer2_batch.py` that produced ids of the form
+  `kb:rel-def-kb:charge-1`. Affected docket graphs were rebuilt.
+- Semantic mapping now resolves identity for repeated mentions. Minor
+  victim labels, PACER case numbers, `Document N Filed ...` stamps, and
+  date references each yield one node anchored at their first mention.
+  Previously an indictment emitted a separate `@id` for every mention, so
+  "Minor Victim 4" became nine victims and one page header became twelve
+  events. Because extraction is capped at `MAX_SEMANTIC_ENTITIES` (96),
+  that repetition also spent the budget on page furniture and dropped real
+  entities appearing later in the document: on the ENTERPRISE indictment
+  deduplication recovered Minor Victims 8, 9, and 10, which the capped run
+  had truncated.
+- `PLATFORM_ACCOUNT_RE` no longer turns prose into accounts. The handle
+  segment was optional-prefixed and unvalidated, so narrative text yielded
+  `ApplicationAccount` nodes named "Discord was", "Discord or", and
+  "Discord calls". A token is now accepted only when the source marks it
+  as an account (`@` prefix, surrounding quotes, or a preceding
+  "account"/"username"/"handle" keyword) or it carries handle-like shape,
+  and never when it is a common English word. Handles no longer absorb
+  sentence-final punctuation.
+- Fixed `scripts/_pacer_attach_wechat_source.py`, which passed a `Path` to
+  `CASEGraph.load` (expects a JSON string) and collided on the `kb:`
+  prefix because the copied exemplar declares its own base.
+
+#### Canonical hexBinary
+
+- `xsd:hexBinary` literals are now emitted in XSD canonical (uppercase)
+  form by `CASEGraph`, exposed as `case_uco.graph.canonical_hex_binary`.
+  SPARQL joins compare literals as terms, so a digest written by
+  `hashlib.hexdigest()` (lowercase) does not join to the same digest
+  written by the document extractor (uppercase). The two layers therefore
+  failed to connect in a triplestore even though the bytes matched.
+  This is easy to miss because backends disagree: rdflib silently
+  canonicalizes the literal and the join appears to work, while Oxigraph
+  does not and returns nothing. Across the PACER corpus the mismatch hid
+  35 of the document-to-investigation links; term-equality and
+  case-insensitive joins now both return 248. Values that are not valid
+  hexBinary pass through untouched, so Bitcoin transaction identifiers on
+  `cryptoinv:CryptocurrencyTransactionFacet` keep their lowercase form.
+  The hand-rolled `lit()` helpers in `examples/pacer/*/build_*.py` build
+  JSON-LD without `CASEGraph`, so they now share the same helper, and the
+  affected exemplars were rebuilt.
+
+#### Change proposals and CI
+
+- Added `change_proposals/cac-enterprise-hierarchy-cardinality`, a CAC
+  proposal to make `hasHierarchy` and `hasLeadershipRelation` optional on
+  `ChildExploitationEnterprise`. A charged 18 U.S.C. § 2252A(g) enterprise
+  need not plead internal structure, and requiring those properties
+  pressures a modeller to fabricate hierarchy to pass validation.
+- Refreshed `examples/cti/darkwatchman_2021/build-manifest.json` so the
+  `modeling_guidance` hash matches `docs/recipes/cyber-threat-intelligence.md`.
+  The v1.28.0 recipe edit left the sidecar stale, and CI `Test Python`
+  failed on `CRIT-C-PROVENANCE-MANIFEST-MISMATCH`.
+
+Package versions bumped to **1.29.0**.
+
 ## [1.28.0] - 2026-08-27
 
 CaseLinker source-document remodel at n=10, a live corpus probe of the
@@ -2516,7 +2615,8 @@ digital forensics, cyber-investigation, and cyber-observable data.
 - GitHub Actions workflows: CI, CodeQL, dependency review, release
 - Dependabot configuration for automated dependency updates
 
-[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.28.0...HEAD
+[Unreleased]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.29.0...HEAD
+[1.29.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.28.0...v1.29.0
 [1.28.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.27.0...v1.28.0
 [1.27.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.26.0...v1.27.0
 [1.26.0]: https://github.com/vulnmaster/CASE-UCO-SDK/compare/v1.25.0...v1.26.0

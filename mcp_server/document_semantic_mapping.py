@@ -20,7 +20,7 @@ from typing import Any
 
 from document_models import ExtractedRecord
 
-MAX_SEMANTIC_ENTITIES = 48
+MAX_SEMANTIC_ENTITIES = 96
 
 EMAIL_RE = re.compile(
     r"\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b"
@@ -54,29 +54,143 @@ ORGANIZATION_RE = re.compile(
     r"Maryland State Police(?:\s+[A-Za-z\s]+(?:Unit|Force|Task Force))?|"
     r"Anne Arundel County Police Department|"
     r"Anchorage Police Department|"
-    r"FBI(?:\s+Portland(?:\s+Resident Agency)?)|"
+    r"Federal Bureau of Investigation|"
+    r"FBI(?:\s+Portland(?:\s+Resident Agency)?)?|"
     r"Internet Crimes Against Children(?:\s+Task Force)?|"
     r"ICAC(?:\s+Task Force)?|"
     r"United States Attorney(?:'s Office)?|"
     r"United States District Court|"
     r"United States Bureau of Prisons|"
-    r"Coinbase|Pacific Rim OTC"
+    r"United States Secret Service|"
+    r"U\.S\.\s+Secret Service|"
+    r"Naval Criminal Investigative Service|"
+    r"National Center for Missing(?:\s+and|&)\s+Exploited Children|"
+    r"Homeland Security Investigations|"
+    r"Immigration and Customs Enforcement|"
+    r"Drug Enforcement Administration|"
+    r"Bureau of Alcohol, Tobacco, Firearms(?:\s+and Explosives)?|"
+    r"Child Exploitation and Obscenity Section|"
+    r"Coinbase|Pacific Rim OTC|"
+    r"NCMEC|NCIS|CEOS"
     r")\b",
     re.IGNORECASE,
 )
 PACER_CASE_NUMBER_RE = re.compile(
-    r"\b(?:Case\s+)?(\d:\d{2}-cr-\d{5}-[A-Z]{3}(?:-[A-Z]{3})?)\b",
+    r"\b(?:Case\s+)?(\d:\d{2}-[a-z]{2}-\d{3,5}(?:-[A-Z0-9]{1,8}){0,3})\b",
     re.IGNORECASE,
 )
 PACER_ECF_DOCUMENT_RE = re.compile(
-    r"\bCase\s+\d:\d{2}-cr-\d{5}-[A-Z]{3}(?:-[A-Z]{3})?\s+"
+    r"\bCase\s+\d:\d{2}-[a-z]{2}-\d{3,5}(?:-[A-Z0-9]{1,8}){0,3}\s+"
     r"Document\s+(\d+)\s+Filed\s+(\d{1,2}/\d{1,2}/\d{2,4})\b",
     re.IGNORECASE,
 )
 FEDERAL_STATUTE_RE = re.compile(
-    r"\b18\s+U\.S\.C\.?\s+§§?\s*(\d+[A-Z]?(?:\([a-z0-9,\s]+\))*(?:\s*and\s*\([a-z0-9,\s]+\))*)",
+    r"\b((?:15|18|21|22|26|31|50)\s+U\.S\.C\.?\s+§§?\s*"
+    r"\d+[A-Z]?(?:\([a-z0-9,\s]+\))*(?:\s*(?:and|,)\s*\([a-z0-9,\s]+\))*)"
+    r"|"
+    r"\b(15\s+C\.F\.R\.?\s+§?\s*[\d.]+(?:\([a-z0-9]+\))*)",
     re.IGNORECASE,
 )
+USC_SECTION_PROSE_RE = re.compile(
+    r"\bTitle\s+(\d{1,2}),?\s+United States Code,?\s+Sections?\s+"
+    r"(\d+[A-Z]?(?:\([a-z0-9]+\))*)",
+    re.IGNORECASE,
+)
+US_V_CAPTION_RE = re.compile(
+    r"UNITED\s+STATES\s+OF\s+AMERICA[\s\S]{0,120}?\bv\.?\s+"
+    r"([A-Z][A-Z][A-Z .'\-]{1,80}?)(?:\s*,|\s+a/?k/?a|\s+Defendant|\s+and\b)",
+)
+FORENSIC_TOOL_RE = re.compile(
+    r"\b("
+    r"Cellebrite(?:\s+UFED)?|"
+    r"UFED|"
+    r"Magnet(?:\s+AXIOM)?|"
+    r"AXIOM|"
+    r"AccessData\s+FTK|"
+    r"FTK(?:\s+Imager)?|"
+    r"Autopsy|"
+    r"EnCase|"
+    r"GrayKey|"
+    r"X-Ways(?:\s+Forensics)?|"
+    r"Oxygen\s+Forensic|"
+    r"MSAB\s+XRY"
+    r")\b",
+    re.IGNORECASE,
+)
+PHOTO_DNA_MATCH_RE = re.compile(
+    r"PhotoDNA.{0,48}(?:match|hash)|(?:match|hash).{0,48}PhotoDNA",
+    re.IGNORECASE,
+)
+FORENSIC_IMAGE_METHOD_RE = re.compile(
+    r"\b(?:forensic(?:ally)?(?:\s+\w+){0,4}\s+imag(?:e|ed|ing)|bit[- ]stream(?:\s+copy)?)\b",
+    re.IGNORECASE,
+)
+MOBILE_EXTRACTION_METHOD_RE = re.compile(
+    r"\b(?:logical\s+extraction|physical\s+extraction|"
+    r"extracted?\s+(?:the\s+)?(?:file\s+system|device\s+data))\b",
+    re.IGNORECASE,
+)
+IMPOSED_CUSTODY_RE = re.compile(
+    r"(?:imprisonment|committed to the custody|sentenced to(?: a term of)?)"
+    r"(?:.{0,80}?(?:Bureau of Prisons|BOP))?.{0,40}?"
+    r"(\d{1,3}\s+(?:month|months|year|years)|life(?: imprisonment)?)",
+    re.IGNORECASE,
+)
+SUPERVISED_RELEASE_TERM_RE = re.compile(
+    r"supervised release.{0,48}?(\d{1,3}\s+(?:month|months|year|years))",
+    re.IGNORECASE,
+)
+GUILTY_PLEA_RE = re.compile(
+    r"\b(?:pleads? guilty|guilty plea|entered a plea of guilty|plea of guilty)\b",
+    re.IGNORECASE,
+)
+PLATFORM_ACCOUNT_RE = re.compile(
+    r"\b(?P<platform>Snapchat|Instagram|Kik|Discord|Telegram|WhatsApp|Facebook|"
+    r"Twitter|TikTok|OnlyFans|Grindr)\s+"
+    r"(?P<marker>account(?:\s+name)?|username|handle|user)?\s*"
+    r"(?P<quote>[\"'\u201c])?"
+    # A handle may contain interior periods but must not end on one, otherwise
+    # sentence-final punctuation is absorbed into the account identifier.
+    r"(?P<handle>@?[A-Za-z0-9_][A-Za-z0-9_.]{0,62}[A-Za-z0-9_])",
+    re.IGNORECASE,
+)
+
+# Prose that follows a platform name is not an account handle. Without this
+# guard, narrative sentences such as "Discord was a communications platform"
+# and "either Discord or another video conferencing platform" each yield an
+# ApplicationAccount named after the next word.
+ACCOUNT_HANDLE_STOPWORDS = frozenset(
+    {
+        "a", "an", "and", "app", "application", "are", "as", "at", "be", "been",
+        "being", "but", "by", "call", "calls", "channel", "channels", "chat",
+        "chats", "communication", "communications", "contained", "conversation",
+        "conversations", "data", "direct", "for", "from", "group", "groups",
+        "had", "has", "have", "in", "is", "it", "its", "message", "messages",
+        "messaging", "on", "or", "platform", "platforms", "profile", "record",
+        "records", "server", "servers", "so", "that", "the", "their", "then",
+        "there", "they", "this", "to", "user", "users", "video", "voice", "was",
+        "were", "when", "where", "which", "with",
+    }
+)
+
+
+def _is_plausible_account_handle(handle: str, marked: bool) -> bool:
+    """Whether a token after a platform name is really an account identifier.
+
+    ``marked`` means the source signalled an account explicitly: an ``@``
+    prefix, surrounding quotes, or a preceding word like "account" or
+    "username". Unmarked tokens must look like a handle rather than an
+    English word, otherwise ordinary prose becomes account observables.
+    """
+
+    bare = handle.lstrip("@")
+    if not bare or bare.casefold() in ACCOUNT_HANDLE_STOPWORDS:
+        return False
+    if marked:
+        return True
+    # An unmarked handle must carry handle-like shape: a digit, underscore, or
+    # internal period. "Discord calls" fails; "Discord jsmith_01" passes.
+    return any(char.isdigit() or char in "_." for char in bare)
 INDICTMENT_COUNT_RE = re.compile(
     r"\bCOUNT\s+(\d{1,2})\b",
     re.IGNORECASE,
@@ -250,7 +364,59 @@ PERSON_NAME_STOPWORDS = frozenset(
         "foreperson",
         "plaintiff",
         "defendant",
+        # Jurisdiction, court and venue tokens. PACER captions put these in the
+        # same title-case shape as personal names, so an unguarded NER pass
+        # emits "New York" and "Eastern District" as uco-identity:Person.
+        "york",
+        "mexico",
+        "jersey",
+        "hampshire",
+        "carolina",
+        "dakota",
+        "virginia",
+        "island",
+        "columbia",
+        "brooklyn",
+        "manhattan",
+        "eastern",
+        "western",
+        "northern",
+        "southern",
+        "middle",
+        "district",
+        "districts",
+        "circuit",
+        "division",
+        "court",
+        "courthouse",
+        "states",
+        "america",
+        "united",
     }
+)
+
+# PACER criminal docket roster. Each defendant block opens with
+# "Defendant (N)", followed by the name, zero or more "also known as" lines,
+# and a "represented by" attorney block. Counsel is the trap: an unstructured
+# pass over this block promotes the first attorney name to principal.
+PACER_DEFENDANT_BLOCK_RE = re.compile(
+    r"Defendant\s*\((?P<number>\d{1,2})\)\s*\n(?P<body>.*?)(?=\nDefendant\s*\(\d{1,2}\)|\nPlaintiff\b|\Z)",
+    re.DOTALL,
+)
+PACER_AKA_RE = re.compile(r"also known as\s*\n\s*(?P<alias>[^\n]{1,60})")
+PACER_REPRESENTED_BY_RE = re.compile(r"represented by\s+(?P<counsel>[^\n]{1,80})")
+PACER_COUNSEL_CONTINUATION_RE = re.compile(
+    r"^(?:LEAD ATTORNEY|ATTORNEY TO BE NOTICED|PRO HAC VICE|Designation:|Email:|Fax:|Ste\b|Suite\b)",
+    re.IGNORECASE,
+)
+# Firm and address lines share the title-case shape of an attorney name.
+PACER_LAW_FIRM_RE = re.compile(
+    r"\b(?:PLLC|PLC|LLP|LLC|P\.?C\.?|INC\.?|CO\.?|Law|Offices?|Of[fﬁ]ices?|Associates|Group|Partners|Firm|Center|Defenders?|Society|Box)\b|&",
+    re.IGNORECASE,
+)
+# Docket entry 1 count matrix: "Name (N) count(s) 1, 2, 3,".
+PACER_COUNT_MATRIX_RE = re.compile(
+    r"(?P<name>[A-Z][A-Za-z.'\-]+(?:\s+[A-Z][A-Za-z.'\-]+){0,3})\s*\((?P<number>\d{1,2})\)\s*count\(s\)\s*(?P<counts>[\d,\s]+)"
 )
 
 
@@ -518,8 +684,17 @@ def extract_semantic_entities(
             ),
         )
 
+    # One node per distinct date. A filing stamp such as "Filed 12/02/25"
+    # repeats on every page, and every count of an indictment re-states the
+    # same offence dates, so per-mention nodes measure page count rather than
+    # timeline. The first mention carries the anchor.
+    seen_dates: set[str] = set()
     for match in DATE_RE.finditer(full_text):
         value = match.group(0)
+        normalised = re.sub(r"\s+", " ", value).strip().casefold()
+        if normalised in seen_dates:
+            continue
+        seen_dates.add(normalised)
         _add_match(
             matches,
             seen_spans,
@@ -914,8 +1089,17 @@ def extract_semantic_entities(
             },
         )
 
+    # Every page of a PACER PDF repeats the case number and the
+    # "Case ... Document N Filed ..." stamp in its header. Emitting one Event
+    # per occurrence buries the real docket entries under dozens of identical
+    # header nodes, so each case number and document number is emitted once,
+    # anchored at its first occurrence.
+    seen_case_numbers: set[str] = set()
     for match in PACER_CASE_NUMBER_RE.finditer(full_text):
         value = match.group(1)
+        if value.casefold() in seen_case_numbers:
+            continue
+        seen_case_numbers.add(value.casefold())
         _add_match(
             matches,
             seen_spans,
@@ -932,8 +1116,12 @@ def extract_semantic_entities(
             },
         )
 
+    seen_documents: set[str] = set()
     for match in PACER_ECF_DOCUMENT_RE.finditer(full_text):
         doc_num, filed = match.group(1), match.group(2)
+        if doc_num in seen_documents:
+            continue
+        seen_documents.add(doc_num)
         value = match.group(0)
         _add_match(
             matches,
@@ -954,14 +1142,31 @@ def extract_semantic_entities(
         )
 
     for match in FEDERAL_STATUTE_RE.finditer(full_text):
-        value = match.group(0)
-        section = match.group(1)
+        value = re.sub(r"\s+", " ", match.group(0)).strip()
         _add_match(
             matches,
             seen_spans,
             ontology_class="uco-observable:ObservableObject",
-            label=f"Statute 18 U.S.C. § {section[:40]}",
+            label=f"Statute {value[:80]}",
             matched_text=value,
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            extra_properties={
+                "uco-core:description": f"Federal statute citation in document text: {value}",
+            },
+        )
+
+    for match in USC_SECTION_PROSE_RE.finditer(full_text):
+        title, section = match.group(1), match.group(2)
+        value = f"{title} U.S.C. § {section}"
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-observable:ObservableObject",
+            label=f"Statute {value[:80]}",
+            matched_text=match.group(0),
             start=match.start(),
             end=match.end(),
             section_id=section_id,
@@ -1015,8 +1220,16 @@ def extract_semantic_entities(
             run_seed=run_seed,
         )
 
+    # Identity resolution: one node per victim label. A charging instrument
+    # names the same Minor Victim across many counts and paragraphs, and one
+    # node per mention makes victim-linked queries count mentions, not victims.
+    # The first mention carries the anchor.
+    seen_victims: set[str] = set()
     for match in MINOR_VICTIM_RE.finditer(full_text):
         victim_num = match.group(1)
+        if victim_num in seen_victims:
+            continue
+        seen_victims.add(victim_num)
         value = match.group(0)
         _add_match(
             matches,
@@ -1066,6 +1279,87 @@ def extract_semantic_entities(
                     ),
                 },
             )
+
+    seen_platforms: set[tuple[str, str]] = set()
+    for match in PLATFORM_ACCOUNT_RE.finditer(full_text):
+        platform = match.group("platform").title()
+        raw_handle = match.group("handle")
+        marked = bool(match.group("marker")) or bool(match.group("quote")) or raw_handle.startswith("@")
+        if not _is_plausible_account_handle(raw_handle, marked):
+            continue
+        handle = raw_handle.lstrip("@")
+        key = (platform.lower(), handle.lower())
+        if key in seen_platforms or (
+            platform.lower() == "snapchat" and handle.lower() in seen_snapchat
+        ):
+            continue
+        seen_platforms.add(key)
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-observable:ApplicationAccount",
+            label=f"{platform} {handle}",
+            matched_text=match.group(0),
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            facets=(
+                {
+                    "@id": _facet_id(run_seed, f"acct-{platform}-{match.start()}"),
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:accountIdentifier": handle,
+                },
+            ),
+            extra_properties={
+                "uco-core:description": (
+                    f"{platform} account referenced in document text: {handle}."
+                ),
+            },
+        )
+
+    for match in US_V_CAPTION_RE.finditer(full_text):
+        raw_name = re.sub(r"\s+", " ", match.group(1)).strip(" ,")
+        parts = [p for p in raw_name.split() if p.isalpha() or p.replace(".", "").isalpha()]
+        if len(parts) < 2:
+            continue
+        _add_person_match(
+            matches,
+            seen_spans,
+            seen_people,
+            first=parts[0].title(),
+            last=parts[-1].title(),
+            matched_text=match.group(0)[:200],
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+        )
+
+    seen_tools: set[str] = set()
+    for match in FORENSIC_TOOL_RE.finditer(full_text):
+        name = re.sub(r"\s+", " ", match.group(1)).strip()
+        key = name.casefold()
+        if key in seen_tools:
+            continue
+        seen_tools.add(key)
+        _add_match(
+            matches,
+            seen_spans,
+            ontology_class="uco-tool:Tool",
+            label=name,
+            matched_text=match.group(0),
+            start=match.start(),
+            end=match.end(),
+            section_id=section_id,
+            run_seed=run_seed,
+            extra_properties={
+                "uco-core:name": name,
+                "uco-core:description": (
+                    f"Digital forensics tool named in the filing: {name}."
+                ),
+            },
+        )
 
     for match in FEDERAL_DISTRICT_RE.finditer(full_text):
         district = match.group(1).strip().title()
@@ -1124,6 +1418,289 @@ def extract_semantic_entities(
     # Stable ordering for deterministic graphs and tests.
     matches.sort(key=lambda item: (item.start, item.end, item.ontology_class, item.label))
     return matches[:MAX_SEMANTIC_ENTITIES]
+
+
+def normalize_statute_citation(raw: str) -> str:
+    """Collapse whitespace in a sourced federal citation."""
+
+    text = re.sub(r"\s+", " ", raw).strip()
+    text = text.replace("§§", "§")
+    text = re.sub(r"U\.S\.C\.?", "U.S.C.", text, flags=re.IGNORECASE)
+    text = re.sub(r"C\.F\.R\.?", "C.F.R.", text, flags=re.IGNORECASE)
+    return text[:160]
+
+
+def pair_counts_with_statutes(full_text: str) -> list[tuple[str, str]]:
+    """Pair COUNT N headings with the first statute in that count block."""
+
+    pairs: list[tuple[str, str]] = []
+    starts = list(INDICTMENT_COUNT_RE.finditer(full_text))
+    for index, match in enumerate(starts):
+        count_num = match.group(1)
+        block_end = starts[index + 1].start() if index + 1 < len(starts) else min(
+            len(full_text), match.end() + 800
+        )
+        block = full_text[match.end() : block_end]
+        usc = FEDERAL_STATUTE_RE.search(block)
+        prose = USC_SECTION_PROSE_RE.search(block)
+        if usc is not None:
+            citation = usc.group(0)
+        elif prose is not None:
+            citation = f"{prose.group(1)} U.S.C. § {prose.group(2)}"
+        else:
+            continue
+        pairs.append((count_num, normalize_statute_citation(citation)))
+    return pairs
+
+
+def extract_pacer_legal_facts(full_text: str) -> dict[str, Any]:
+    """Unbounded PACER legal facts for Layer-2 case graphs.
+
+    Layer-1 semantic mapping is capped. Charge, caption, tool, and
+    sentence extraction for a docket graph must not drop later counts
+    because an earlier email or date filled the cap.
+    """
+
+    case_numbers: list[str] = []
+    seen_cases: set[str] = set()
+    for match in PACER_CASE_NUMBER_RE.finditer(full_text):
+        value = match.group(1)
+        key = value.casefold()
+        if key in seen_cases:
+            continue
+        seen_cases.add(key)
+        case_numbers.append(value)
+
+    statutes: list[str] = []
+    seen_statutes: set[str] = set()
+    for match in FEDERAL_STATUTE_RE.finditer(full_text):
+        value = normalize_statute_citation(match.group(0))
+        if value.casefold() in seen_statutes:
+            continue
+        seen_statutes.add(value.casefold())
+        statutes.append(value)
+    for match in USC_SECTION_PROSE_RE.finditer(full_text):
+        value = normalize_statute_citation(f"{match.group(1)} U.S.C. § {match.group(2)}")
+        if value.casefold() in seen_statutes:
+            continue
+        seen_statutes.add(value.casefold())
+        statutes.append(value)
+
+    counts: list[str] = []
+    seen_counts: set[str] = set()
+    for match in INDICTMENT_COUNT_RE.finditer(full_text):
+        if match.group(1) in seen_counts:
+            continue
+        seen_counts.add(match.group(1))
+        counts.append(match.group(1))
+
+    defendants: list[str] = []
+    seen_defendants: set[str] = set()
+    for match in FEDERAL_DEFENDANT_AKA_RE.finditer(full_text):
+        raw_name, alias = match.group(1), match.group(2).strip().rstrip(",")
+        parts = raw_name.split()
+        if len(parts) < 2:
+            continue
+        label = f"{parts[0].title()} {parts[-1].title()} (aka {alias})"
+        if label.casefold() in seen_defendants:
+            continue
+        seen_defendants.add(label.casefold())
+        defendants.append(label)
+    for match in US_V_CAPTION_RE.finditer(full_text):
+        raw_name = re.sub(r"\s+", " ", match.group(1)).strip(" ,")
+        parts = [p for p in raw_name.split() if p.replace(".", "").isalpha()]
+        if len(parts) < 2:
+            continue
+        label = f"{parts[0].title()} {parts[-1].title()}"
+        if label.casefold() in seen_defendants:
+            continue
+        seen_defendants.add(label.casefold())
+        defendants.append(label)
+
+    tools: list[str] = []
+    seen_tools: set[str] = set()
+    for match in FORENSIC_TOOL_RE.finditer(full_text):
+        name = re.sub(r"\s+", " ", match.group(1)).strip()
+        if name.casefold() in seen_tools:
+            continue
+        seen_tools.add(name.casefold())
+        tools.append(name)
+
+    method_claims: list[dict[str, str]] = []
+    if FORENSIC_IMAGE_METHOD_RE.search(full_text):
+        method_claims.append(
+            {
+                "phrase": "forensic image or bitstream copy",
+                "technique_id": "DFT-1002",
+            }
+        )
+    if MOBILE_EXTRACTION_METHOD_RE.search(full_text):
+        method_claims.append(
+            {
+                "phrase": "mobile or file-system extraction",
+                "technique_id": "DFT-1020",
+            }
+        )
+    if PHOTO_DNA_MATCH_RE.search(full_text):
+        method_claims.append(
+            {
+                "phrase": "PhotoDNA hash match",
+                "technique_id": "DFT-1050",
+            }
+        )
+
+    platforms: list[dict[str, str]] = []
+    seen_platforms: set[tuple[str, str]] = set()
+    for match in PLATFORM_ACCOUNT_RE.finditer(full_text):
+        platform = match.group("platform").title()
+        raw_handle = match.group("handle")
+        marked = bool(match.group("marker")) or bool(match.group("quote")) or raw_handle.startswith("@")
+        if not _is_plausible_account_handle(raw_handle, marked):
+            continue
+        handle = raw_handle.lstrip("@")
+        key = (platform.lower(), handle.lower())
+        if key in seen_platforms:
+            continue
+        seen_platforms.add(key)
+        platforms.append({"platform": platform, "account_identifier": handle})
+
+    filings: list[dict[str, str]] = []
+    seen_filings: set[str] = set()
+    for match in PACER_ECF_DOCUMENT_RE.finditer(full_text):
+        doc_num, filed = match.group(1), match.group(2)
+        if doc_num in seen_filings:
+            continue
+        seen_filings.add(doc_num)
+        filings.append({"document_number": doc_num, "filed": filed})
+
+    districts: list[str] = []
+    for match in FEDERAL_DISTRICT_RE.finditer(full_text):
+        district = match.group(1).strip().title()
+        if district and district.lower() not in LOCATION_STOPWORDS:
+            label = f"District of {district}"
+            if label not in districts:
+                districts.append(label)
+
+    victims: list[str] = []
+    for match in MINOR_VICTIM_RE.finditer(full_text):
+        label = f"Minor Victim {match.group(1)}"
+        if label not in victims:
+            victims.append(label)
+
+    custody: list[str] = []
+    for match in IMPOSED_CUSTODY_RE.finditer(full_text):
+        term = re.sub(r"\s+", " ", match.group(1)).strip().lower()
+        if term not in custody:
+            custody.append(term)
+
+    supervised: list[str] = []
+    for match in SUPERVISED_RELEASE_TERM_RE.finditer(full_text):
+        term = re.sub(r"\s+", " ", match.group(1)).strip().lower()
+        if term not in supervised:
+            supervised.append(term)
+
+    return {
+        "case_numbers": case_numbers,
+        "statutes": statutes,
+        "counts": counts,
+        "count_statutes": pair_counts_with_statutes(full_text),
+        "defendants": defendants,
+        "minor_victims": victims,
+        "tools": tools,
+        "method_claims": method_claims,
+        "platforms": platforms,
+        "filings": filings,
+        "districts": districts,
+        "custody_terms": custody,
+        "supervised_release_terms": supervised,
+        "plea_guilty": bool(GUILTY_PLEA_RE.search(full_text)),
+    }
+
+
+def extract_pacer_docket_roster(full_text: str) -> dict[str, Any]:
+    """Parse the PACER criminal docket roster structurally.
+
+    Returns the defendant roster (number, name, aliases, counsel) and the
+    docket-entry-1 count matrix. Layer-2 synthesis should read defendants and
+    per-defendant counts from here rather than from the general NER pass: the
+    "represented by" attorney block sits inside each defendant block, and a
+    string-level reading promotes counsel to principal.
+
+    Aliases and counsel are reported separately so a caller can never confuse
+    them with the charged party. An empty roster means the document is not a
+    PACER docket sheet, not that there are no defendants.
+    """
+
+    roster: list[dict[str, Any]] = []
+    for block in PACER_DEFENDANT_BLOCK_RE.finditer(full_text):
+        body = block.group("body")
+        lines = [line.strip() for line in body.splitlines()]
+        name = next((line for line in lines if line), "")
+        # The charged party is the first line of the block, before any
+        # "also known as" or "represented by" marker.
+        if not name or name.lower().startswith(("also known as", "represented by")):
+            continue
+
+        aliases = [m.group("alias").strip() for m in PACER_AKA_RE.finditer(body)]
+        aliases = [alias for alias in aliases if alias and not alias.startswith("represented by")]
+
+        counsel: list[str] = []
+        represented = PACER_REPRESENTED_BY_RE.search(body)
+        if represented:
+            counsel.append(represented.group("counsel").strip())
+            # Additional attorneys appear as bare name lines after the first
+            # attorney's contact block and before "Pending Counts".
+            tail = body[represented.end() :]
+            for line in tail.splitlines():
+                line = line.strip()
+                if line.startswith("Pending Counts"):
+                    break
+                if not line or PACER_COUNSEL_CONTINUATION_RE.match(line):
+                    continue
+                if PACER_LAW_FIRM_RE.search(line):
+                    continue
+                parts = line.split()
+                if 2 <= len(parts) <= 4 and all(
+                    part[:1].isupper() for part in parts if part[:1].isalpha()
+                ):
+                    if not any(char.isdigit() for char in line) and line not in counsel:
+                        counsel.append(line)
+
+        roster.append(
+            {
+                "defendant_number": int(block.group("number")),
+                "name": name,
+                "aliases": aliases,
+                "counsel": counsel,
+            }
+        )
+
+    count_matrix: list[dict[str, Any]] = []
+    seen_numbers: set[int] = set()
+    for match in PACER_COUNT_MATRIX_RE.finditer(full_text):
+        number = int(match.group("number"))
+        if number in seen_numbers:
+            continue
+        counts = sorted(
+            {int(value) for value in re.findall(r"\d+", match.group("counts"))}
+        )
+        if not counts:
+            continue
+        seen_numbers.add(number)
+        count_matrix.append(
+            {
+                "defendant_number": number,
+                "name": re.sub(r"\s+", " ", match.group("name")).strip(),
+                "counts": counts,
+            }
+        )
+
+    counsel_names = sorted({name for entry in roster for name in entry["counsel"]})
+    return {
+        "defendants": roster,
+        "count_matrix": sorted(count_matrix, key=lambda entry: entry["defendant_number"]),
+        "counsel_names": counsel_names,
+    }
 
 
 def semantic_entities_to_records(

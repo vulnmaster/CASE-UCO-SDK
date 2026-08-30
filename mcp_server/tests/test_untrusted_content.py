@@ -78,14 +78,15 @@ def test_injection_text_produces_warnings_without_behavior_change(tmp_path):
     # The only filesystem writes are the declared output artifacts — the
     # embedded instructions cannot cause additional persistent writes.
     written = sorted(p.name for p in out_dir.iterdir())
-    assert written == sorted(
-        n for n in [
-            "graph.jsonld",
-            EXTRACTED_CONTENT_FILENAME,
-            ANNOTATIONS_FILENAME,
-        ]
-        if (out_dir / n).exists()
-    )
+    allowed = {
+        "graph.jsonld",
+        EXTRACTED_CONTENT_FILENAME,
+        ANNOTATIONS_FILENAME,
+        "graph.extracted-content.json",
+        "graph.annotations.jsonld",
+    }
+    assert set(written) <= allowed
+    assert "graph.jsonld" in written
     assert (out_dir / "graph.jsonld").is_file()
 
 

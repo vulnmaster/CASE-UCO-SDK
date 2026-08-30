@@ -8,7 +8,7 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.28.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1280---2026-08-27)
+**v1.29.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1290---2026-08-30)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -41,7 +41,7 @@ Beyond the generated code, the repository provides:
 
 Install the SDK package for your language. No need to clone the repo or run the generator.
 
-[**v1.28.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.28.0) remodeled ten CaseLinker cases from their original press releases, probed the live corpus against v1.27.0 target-shape questions, and split CAC **offender** language from MITRE ATT&CK **attacker** tradecraft. Release artifacts (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations) are built from the reviewed tag. Registry publication to PyPI, NuGet, Maven Central, and crates.io remains opt-in. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
+[**v1.29.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.29.0) ships a shared MCP SSE/HTTP listener, tighter PACER document mapping (docket roster, identity dedup, account-handle hygiene), and XSD-canonical hexBinary literals so SPARQL joins match across extractors and builders. Release artifacts (wheel, sdist, NuGet package, Maven JAR, and Rust crate, with checksums and attestations) are built from the reviewed tag. Registry publication to PyPI, NuGet, Maven Central, and crates.io remains opt-in. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
 
 When registry packages are published in a later release:
 
@@ -57,7 +57,7 @@ For Java (once on Maven Central), add to your `pom.xml`:
 <dependency>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.28.0</version>
+    <version>1.29.0</version>
 </dependency>
 ```
 
@@ -580,6 +580,7 @@ All four language packages are released in lockstep from the same ontology sourc
 
 | SDK Version | UCO | CASE | Python `case-uco` | C# `CaseUco` | Java `case-uco` | Rust `case-uco` |
 |-------------|-----|------|-------------------|--------------|-----------------|-----------------|
+| 1.29.0 | 1.5.0 | 1.5.0 | 1.29.0 | 1.29.0 | 1.29.0 | 1.29.0 |
 | 1.28.0 | 1.5.0 | 1.5.0 | 1.28.0 | 1.28.0 | 1.28.0 | 1.28.0 |
 | 1.27.0 | 1.5.0 | 1.5.0 | 1.27.0 | 1.27.0 | 1.27.0 | 1.27.0 |
 | 1.26.0 | 1.5.0 | 1.5.0 | 1.26.0 | 1.26.0 | 1.26.0 | 1.26.0 |
@@ -669,7 +670,13 @@ The Cursor rules are included automatically. To enable the MCP server:
 pip install fastmcp
 ```
 
-Then restart Cursor — the `.cursor/mcp.json` configuration will be detected and the server started. Open Cursor's MCP panel (Settings > Tools & MCP) and confirm the "case-uco" server shows as connected.
+Start one shared listener from the repo root, then point Cursor (and any other MCP client) at it:
+
+```bash
+./scripts/run-mcp-server.sh   # http://127.0.0.1:8765/sse
+```
+
+`.cursor/mcp.json` already uses that URL. Open Cursor's MCP panel (Settings > Tools & MCP) and confirm the "case-uco" server shows as connected. Do not put a Linux `PATH` on a Windows `wsl.exe` stdio wrapper — `PATH` and `CASE_UCO_EXTENSIONS` belong on the Linux process. See [mcp_server/README.md](mcp_server/README.md).
 
 To load extension registries (CAC, AEO, and the rest), set `CASE_UCO_EXTENSIONS` in the server environment to a comma-separated list of extension names, e.g. `cac,aeo,cryptoinv,legalproc,rico,weapons,drugs,attack-technique,solveit`. The `scope` parameter on discovery tools then filters by `core`, an extension name, or `all`.
 

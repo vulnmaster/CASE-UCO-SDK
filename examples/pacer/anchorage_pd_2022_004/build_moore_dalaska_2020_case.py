@@ -26,6 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "mcp_server"))
 
+from case_uco.graph import canonical_hex_binary
 from graph_validator import load_extension_ontology_paths, validate_graph_file, validator_available
 
 CASE_ID = "moore-dalaska-2020-icac"
@@ -59,7 +60,13 @@ SOURCE_DOCS = {
 
 
 def lit(dtype: str, value: str | int | bool) -> dict:
-    return {"@type": dtype, "@value": str(value).lower() if isinstance(value, bool) else str(value)}
+    if isinstance(value, bool):
+        rendered = str(value).lower()
+    else:
+        rendered = str(value)
+    if dtype == "xsd:hexBinary":
+        rendered = canonical_hex_binary(rendered)
+    return {"@type": dtype, "@value": rendered}
 
 
 def uid(label: str) -> str:

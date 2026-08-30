@@ -1,0 +1,61 @@
+# Proposed (relaxed) SHACL shapes for ChildExploitationEnterprise.
+#
+# Difference from the current cacontology-extremist-enterprises-shapes.ttl:
+#   hasLeadershipRelation  sh:minCount 1  ->  removed
+#   hasHierarchy           sh:minCount 1  ->  removed (sh:maxCount 1 retained)
+#   hasExploitationRelation and hasMember are unchanged.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gufo: <http://purl.org/nemo/gufo#> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix cacontology-enterprises: <https://cacontology.projectvic.org/extremist-enterprises#> .
+
+cacontology-enterprises:ProposedChildExploitationEnterpriseShape
+    rdf:type sh:NodeShape ;
+    rdfs:label "Proposed Child Exploitation Enterprise shape"@en ;
+    rdfs:comment "Requires only the properties that map onto 18 U.S.C. § 2252A(g) statutory elements. Hierarchy and leadership become optional because the statute has no structural element."@en ;
+    sh:targetClass cacontology-enterprises:ChildExploitationEnterprise ;
+    sh:property [
+        sh:path cacontology-enterprises:hasMember ;
+        sh:class uco-identity:Person ;
+        sh:minCount 2 ;
+        sh:message "Enterprise must have at least 2 members."@en
+    ] ;
+    sh:property [
+        sh:path cacontology-enterprises:hasExploitationRelation ;
+        sh:class gufo:Relator ;
+        sh:minCount 1 ;
+        sh:message "Exploitation enterprise must have at least one exploitation relator."@en
+    ] ;
+    sh:property [
+        sh:path cacontology-enterprises:hasLeadershipRelation ;
+        sh:class gufo:Relator ;
+        sh:message "A leadership relation, when asserted, must point to a gufo:Relator."@en
+    ] ;
+    sh:property [
+        sh:path cacontology-enterprises:hasHierarchy ;
+        sh:class cacontology-enterprises:EnterpriseHierarchy ;
+        sh:maxCount 1 ;
+        sh:message "Enterprise may have at most one hierarchy."@en
+    ] .
+
+# The proposal additionally suggests an optional sh:Warning-severity advisory
+# so that under-population of hierarchy stays visible without blocking an
+# instrument that pleads no structure. It is written out below but deliberately
+# left commented: enabling it makes this example emit a warning by design,
+# which would make `make test-proposal` exit non-zero even though the graph
+# raises no violation. Reviewers who want to see the advisory fire can
+# uncomment it.
+#
+# cacontology-enterprises:ProposedEnterpriseStructureAdvisoryShape
+#     rdf:type sh:NodeShape ;
+#     rdfs:label "Enterprise structure advisory"@en ;
+#     sh:targetClass cacontology-enterprises:ChildExploitationEnterprise ;
+#     sh:property [
+#         sh:path cacontology-enterprises:hasHierarchy ;
+#         sh:minCount 1 ;
+#         sh:severity sh:Warning ;
+#         sh:message "No hierarchy asserted. Assert hasHierarchy when the source alleges an organizational structure."@en
+#     ] .

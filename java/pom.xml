@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.28.0</version>
+    <version>1.29.0</version>
     <packaging>jar</packaging>
     <name>CASE/UCO Standard Library</name>
     <description>Standard library for constructing CASE/UCO ontology graphs</description>

@@ -123,6 +123,25 @@ DEFAULT_CONTEXT: dict[str, str] = {
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 }
 
+_HEX_BINARY_RE = re.compile(r"\A(?:[0-9a-fA-F]{2})+\Z")
+
+
+def canonical_hex_binary(rendered: str) -> str:
+    """Return the XSD canonical (uppercase) form of an xsd:hexBinary literal.
+
+    RDF literal equality in a SPARQL join is term-based, so a SHA-256 written
+    as lowercase hex will not join to the same digest written as uppercase.
+    ``hashlib.hexdigest()`` returns lowercase while the document extractor
+    emits uppercase, which silently breaks joins between a source-document
+    graph and the investigation graph built from it. XSD 1.1 makes uppercase
+    canonical for hexBinary, so normalizing here gives every producer one
+    lexical form. Values that are not valid hexBinary are passed through
+    unchanged rather than mangled.
+    """
+
+    return rendered.upper() if _HEX_BINARY_RE.match(rendered) else rendered
+
+
 _RANGE_IRI_TO_TYPED_LITERAL = {
     "http://www.w3.org/2001/XMLSchema#boolean": "xsd:boolean",
     "http://www.w3.org/2001/XMLSchema#integer": "xsd:integer",
@@ -1645,6 +1664,8 @@ class CASEGraph:
             rendered = value.isoformat()
         else:
             rendered = str(value)
+        if xsd_type == "xsd:hexBinary":
+            rendered = canonical_hex_binary(rendered)
         return {"@type": xsd_type, "@value": rendered}
 
     def _validate_instance(self, instance: Any) -> None:

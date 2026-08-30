@@ -1,0 +1,114 @@
+# Minimal term declarations for the cac-enterprise-hierarchy-cardinality
+# proposal, so the example graph can be validated before the upstream CAC
+# change lands. These mirror cacontology-extremist-enterprises.ttl; they are
+# not a new ontology.
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gufo: <http://purl.org/nemo/gufo#> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix cacontology-enterprises: <https://cacontology.projectvic.org/extremist-enterprises#> .
+@prefix legalproc: <https://ontology.caseontology.org/case/criminal/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://cacontology.projectvic.org/proposals/enterprise-hierarchy-cardinality>
+    rdf:type owl:Ontology ;
+    rdfs:label "CAC enterprise hierarchy cardinality proposal (term subset)"@en ;
+    rdfs:comment "Term declarations reproduced from cacontology-extremist-enterprises for offline validation of the proposal example graph. See https://www.law.cornell.edu/uscode/text/18/2252A for 18 U.S.C. § 2252A(g)."@en .
+
+cacontology-enterprises:ChildExploitationEnterprise rdf:type owl:Class ;
+    rdfs:label "Child Exploitation Enterprise"@en ;
+    rdfs:comment "Criminal enterprise as defined in 18 U.S.C. § 2252A(g) engaging in coordinated child exploitation activities with multiple participants and systematic operations. The statute requires a series of felony violations constituting three or more separate incidents involving more than one victim, committed in concert with three or more other persons; it does not require an organizational hierarchy or identified leadership. See https://www.law.cornell.edu/uscode/text/18/2252A"@en ;
+    rdfs:subClassOf uco-identity:Organization ,
+                    gufo:FunctionalComplex .
+
+cacontology-enterprises:hasMember rdf:type owl:ObjectProperty ;
+    rdfs:label "has member"@en ;
+    rdfs:comment "Links enterprise to its members using the gUFO collection membership pattern."@en ;
+    rdfs:domain cacontology-enterprises:ChildExploitationEnterprise ;
+    rdfs:range uco-identity:Person .
+
+cacontology-enterprises:hasExploitationRelation rdf:type owl:ObjectProperty ;
+    rdfs:label "has exploitation relation"@en ;
+    rdfs:comment "Links enterprise to exploitation relator mediating perpetrator-victim relationships."@en ;
+    rdfs:domain cacontology-enterprises:ChildExploitationEnterprise ;
+    rdfs:range gufo:Relator .
+
+cacontology-enterprises:hasLeadershipRelation rdf:type owl:ObjectProperty ;
+    rdfs:label "has leadership relation"@en ;
+    rdfs:comment "Links enterprise to leadership relator mediating leader-follower relationships. Optional under this proposal: 18 U.S.C. § 2252A(g) has no leadership element."@en ;
+    rdfs:domain cacontology-enterprises:ChildExploitationEnterprise ;
+    rdfs:range gufo:Relator .
+
+cacontology-enterprises:hasHierarchy rdf:type owl:ObjectProperty ;
+    rdfs:label "has hierarchy"@en ;
+    rdfs:comment "Links enterprise to its organizational hierarchy. Optional under this proposal: 18 U.S.C. § 2252A(g) has no organizational-structure element."@en ;
+    rdfs:domain cacontology-enterprises:ChildExploitationEnterprise ;
+    rdfs:range cacontology-enterprises:EnterpriseHierarchy .
+
+cacontology-enterprises:EnterpriseHierarchy rdf:type owl:Class ;
+    rdfs:label "Enterprise Hierarchy"@en ;
+    rdfs:comment "Organizational hierarchy within a child exploitation enterprise defining leadership and member roles."@en ;
+    rdfs:subClassOf gufo:FunctionalComplex .
+
+cacontology-enterprises:hasOperationalBeginDate rdf:type owl:DatatypeProperty ;
+    rdfs:label "has operational begin date"@en ;
+    rdfs:comment "Begin date of the enterprise operational period."@en ;
+    rdfs:domain cacontology-enterprises:ChildExploitationEnterprise .
+
+cacontology-enterprises:hasOperationalEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:label "has operational end date"@en ;
+    rdfs:comment "End date of the enterprise operational period."@en ;
+    rdfs:domain cacontology-enterprises:ChildExploitationEnterprise .
+
+# legalproc terms referenced by the example graph. Declared here only so the
+# example validates offline against the case-1.4.0 closure, which predates the
+# legal-process extension. See extensions/legalproc/legalproc.ttl for the
+# authoritative definitions.
+
+legalproc:FederalCharge rdf:type owl:Class ;
+    rdfs:label "Federal Charge"@en ;
+    rdfs:comment "A criminal charge brought under federal law. See Federal Rule of Criminal Procedure 7 (https://www.law.cornell.edu/rules/frcrmp/rule_7)."@en ;
+    rdfs:subClassOf uco-core:UcoObject .
+
+legalproc:statuteCitation rdf:type owl:DatatypeProperty ;
+    rdfs:label "statute citation"@en ;
+    rdfs:comment "The statutory citation under which a charge is brought, quoted as charged."@en ;
+    rdfs:domain legalproc:FederalCharge ;
+    rdfs:range xsd:string .
+
+legalproc:countNumber rdf:type owl:DatatypeProperty ;
+    rdfs:label "count number"@en ;
+    rdfs:comment "The ordinal number of a count within a charging instrument."@en ;
+    rdfs:domain legalproc:FederalCharge ;
+    rdfs:range xsd:nonNegativeInteger .
+
+legalproc:offenseForm rdf:type owl:DatatypeProperty ;
+    rdfs:label "offense form"@en ;
+    rdfs:comment "The form of the charged offense, as an open vocabulary: 'substantive', 'conspiracy', 'attempt', 'solicitation', 'aiding-abetting', 'derivative'."@en ;
+    rdfs:domain legalproc:FederalCharge ;
+    rdfs:range xsd:string .
+
+legalproc:chargeDisposition rdf:type owl:DatatypeProperty ;
+    rdfs:label "charge disposition"@en ;
+    rdfs:comment "The disposition of a charge, as an open vocabulary, e.g. 'pending'."@en ;
+    rdfs:domain legalproc:FederalCharge ;
+    rdfs:range xsd:string .
+
+legalproc:jurisdictionKind rdf:type owl:DatatypeProperty ;
+    rdfs:label "jurisdiction kind"@en ;
+    rdfs:comment "The jurisdiction under which a charge is brought, e.g. 'federal'."@en ;
+    rdfs:domain legalproc:FederalCharge ;
+    rdfs:range xsd:string .
+
+legalproc:outcomeScope rdf:type owl:DatatypeProperty ;
+    rdfs:label "outcome scope"@en ;
+    rdfs:comment "Whether an outcome pertains to the current case or a prior one, e.g. 'current-case'."@en ;
+    rdfs:range xsd:string .
+
+legalproc:caseIdentifier rdf:type owl:DatatypeProperty ;
+    rdfs:label "case identifier"@en ;
+    rdfs:comment "The court-assigned docket identifier for a case, e.g. '1:25-cr-00361-PKC'."@en ;
+    rdfs:range xsd:string .

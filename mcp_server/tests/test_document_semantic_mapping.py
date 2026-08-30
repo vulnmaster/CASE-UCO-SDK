@@ -41,7 +41,7 @@ def test_semantic_mapping_is_bounded_and_deterministic() -> None:
     first = extract_semantic_entities(SYNTHETIC_ARTICLE, run_seed="t0-article")
     second = extract_semantic_entities(SYNTHETIC_ARTICLE, run_seed="t0-article")
     assert first == second
-    assert len(first) <= 48
+    assert len(first) <= 96
 
 
 FRAUD_CRYPTO_WARRANT_SNIPPET = """
@@ -179,3 +179,45 @@ def test_semantic_mapping_extracts_pacer_federal_court_entities() -> None:
     assert any("PACER filing Document 2" in label for label in labels)
     assert any("District of Alaska" in label for label in labels)
     assert not any(label.startswith("Criminal Procedure") for label in labels)
+
+
+SYNTHETIC_PACER_MULTI_TITLE = """
+UNITED STATES OF AMERICA
+v.
+ALEX RIDDER
+Defendant.
+
+Case 1:23-cr-159-ADB Document 12 Filed 03/01/23
+
+COUNT 1:
+Vio. of 21 U.S.C. § 841(a)(1)
+
+COUNT 2:
+Title 18, United States Code, Section 1956(a)
+
+Examiners used Cellebrite UFED and created a forensic image of the phone.
+The Instagram account "ridder_synth" sent the messages.
+"""
+
+
+def test_semantic_mapping_extracts_multi_title_statutes_and_tools() -> None:
+    from document_semantic_mapping import extract_pacer_legal_facts
+
+    entities = extract_semantic_entities(
+        SYNTHETIC_PACER_MULTI_TITLE,
+        run_seed="pacer-multi-title-t0",
+    )
+    labels = {entity.label for entity in entities}
+    classes = {entity.ontology_class for entity in entities}
+    assert any("1:23-cr-159-ADB" in label for label in labels)
+    assert any("21 U.S.C." in label for label in labels)
+    assert "uco-tool:Tool" in classes
+    assert any("Cellebrite" in label for label in labels)
+    assert any("Alex Ridder" in label for label in labels)
+
+    facts = extract_pacer_legal_facts(SYNTHETIC_PACER_MULTI_TITLE)
+    assert any(item.startswith("21 U.S.C.") for item in facts["statutes"])
+    assert any("1956" in item for item in facts["statutes"])
+    assert any(count == "1" for count, _ in facts["count_statutes"])
+    assert any(claim["technique_id"] == "DFT-1002" for claim in facts["method_claims"])
+    assert any("Cellebrite" in tool for tool in facts["tools"])
