@@ -5,7 +5,7 @@
   ],
   "classes": {
     "State": {
-      "iri": "http://example.org/ontology/trajectories/State",
+      "iri": "https://ontology.caseontology.org/extensions/trajectories/State",
       "module": "trajectories",
       "description": "A vocabulary-agnostic state in a state machine or offense/investigation phase model. Domain phase types plug in as instances (often also skos:Concept).",
       "parents": [
@@ -16,7 +16,7 @@
       "source": "trajectories"
     },
     "Transition": {
-      "iri": "http://example.org/ontology/trajectories/Transition",
+      "iri": "https://ontology.caseontology.org/extensions/trajectories/Transition",
       "module": "trajectories",
       "description": "A directed transition from one State to another, with trigger, optional guard, and optional multi-valued enactsAction.",
       "parents": [
@@ -27,7 +27,7 @@
         {
           "name": "fromState",
           "type": "State",
-          "type_iri": "http://example.org/ontology/trajectories/State",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/State",
           "cardinality": "exactly_one",
           "required": true,
           "description": "Source state."
@@ -35,7 +35,7 @@
         {
           "name": "toState",
           "type": "State",
-          "type_iri": "http://example.org/ontology/trajectories/State",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/State",
           "cardinality": "exactly_one",
           "required": true,
           "description": "Target state."
@@ -68,7 +68,7 @@
       "source": "trajectories"
     },
     "Trajectory": {
-      "iri": "http://example.org/ontology/trajectories/Trajectory",
+      "iri": "https://ontology.caseontology.org/extensions/trajectories/Trajectory",
       "module": "trajectories",
       "description": "Ordered per-case observed phase occupancy history (PhaseAssertions ordered by sequenceIndex).",
       "parents": [
@@ -79,7 +79,7 @@
         {
           "name": "hasPhaseAssertion",
           "type": "PhaseAssertion",
-          "type_iri": "http://example.org/ontology/trajectories/PhaseAssertion",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/PhaseAssertion",
           "cardinality": "one_or_more",
           "required": true,
           "description": "Observed phase assertions."
@@ -88,18 +88,18 @@
       "source": "trajectories"
     },
     "PhaseAssertion": {
-      "iri": "http://example.org/ontology/trajectories/PhaseAssertion",
+      "iri": "https://ontology.caseontology.org/extensions/trajectories/PhaseAssertion",
       "module": "trajectories",
       "description": "Observed state occupancy with owl-time interval, prov:wasDerivedFrom evidence, and ConfidenceFacet. Disjoint with inferred model classes.",
       "parents": [
-        "UcoObject"
+        "Assertion"
       ],
       "is_facet": false,
       "properties": [
         {
           "name": "assertsState",
           "type": "State",
-          "type_iri": "http://example.org/ontology/trajectories/State",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/State",
           "cardinality": "exactly_one",
           "required": true,
           "description": "Occupied state."
@@ -140,18 +140,18 @@
       "source": "trajectories"
     },
     "StateMachineModel": {
-      "iri": "http://example.org/ontology/trajectories/StateMachineModel",
+      "iri": "https://ontology.caseontology.org/extensions/trajectories/StateMachineModel",
       "module": "trajectories",
       "description": "Inferred analytic state-machine artifact with prov:wasGeneratedBy. Disjoint with PhaseAssertion.",
       "parents": [
-        "UcoObject"
+        "AnalyticResult"
       ],
       "is_facet": false,
       "properties": [
         {
           "name": "learnedFrom",
           "type": "Trajectory",
-          "type_iri": "http://example.org/ontology/trajectories/Trajectory",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/Trajectory",
           "cardinality": "one_or_more",
           "required": true,
           "description": "Input trajectories."
@@ -159,7 +159,7 @@
         {
           "name": "hasTransitionEstimate",
           "type": "TransitionEstimate",
-          "type_iri": "http://example.org/ontology/trajectories/TransitionEstimate",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/TransitionEstimate",
           "cardinality": "one_or_more",
           "required": true,
           "description": "Estimates."
@@ -167,7 +167,7 @@
         {
           "name": "hasTransition",
           "type": "Transition",
-          "type_iri": "http://example.org/ontology/trajectories/Transition",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/Transition",
           "cardinality": "zero_or_more",
           "required": false,
           "description": "Model transitions."
@@ -175,7 +175,7 @@
         {
           "name": "initialState",
           "type": "State",
-          "type_iri": "http://example.org/ontology/trajectories/State",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/State",
           "cardinality": "zero_or_one",
           "required": false,
           "description": "s₀ start state of the model (SHACL maxCount 1)."
@@ -184,7 +184,7 @@
       "source": "trajectories"
     },
     "TransitionEstimate": {
-      "iri": "http://example.org/ontology/trajectories/TransitionEstimate",
+      "iri": "https://ontology.caseontology.org/extensions/trajectories/TransitionEstimate",
       "module": "trajectories",
       "description": "Inferred transition probability/weight with provenance. Disjoint with PhaseAssertion.",
       "parents": [
@@ -195,7 +195,7 @@
         {
           "name": "ofTransition",
           "type": "Transition",
-          "type_iri": "http://example.org/ontology/trajectories/Transition",
+          "type_iri": "https://ontology.caseontology.org/extensions/trajectories/Transition",
           "cardinality": "exactly_one",
           "required": true,
           "description": "Estimated transition."

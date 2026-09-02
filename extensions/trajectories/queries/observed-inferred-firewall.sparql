@@ -1,0 +1,14 @@
+PREFIX traj: <https://ontology.caseontology.org/extensions/trajectories/>
+PREFIX uco-analysis: <https://ontology.unifiedcyberontology.org/uco/analysis/>
+
+SELECT ?node
+WHERE {
+  {
+    ?node a traj:PhaseAssertion , uco-analysis:AnalyticResult .
+  } UNION {
+    ?node a traj:StateMachineModel .
+    FILTER NOT EXISTS { ?node a uco-analysis:AnalyticResult }
+  } UNION {
+    ?node a traj:StateMachineModel , traj:PhaseAssertion .
+  }
+}

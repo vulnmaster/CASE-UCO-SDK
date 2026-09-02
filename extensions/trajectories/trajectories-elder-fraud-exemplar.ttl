@@ -6,10 +6,11 @@
 # enactsAction, initialState). They do NOT describe any real
 # investigation, indictment, or court filing.
 
-@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
 @prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
 @prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
 @prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-analysis: <https://ontology.unifiedcyberontology.org/uco/analysis/> .
 @prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
 @prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
 @prefix time: <http://www.w3.org/2006/time#> .
@@ -227,7 +228,7 @@
 	uco-core:description "version 0.0.0-demo (fictional tool run for exemplar provenance)" .
 
 <urn:uuid:b9000002-0000-5000-8000-000000000002>
-	a uco-action:Action ;
+	a uco-analysis:Analysis ;
 	uco-core:name "SYNTHETIC — estimate elder-fraud transition probabilities" ;
 	uco-action:instrument <urn:uuid:b9000001-0000-5000-8000-000000000001> .
 
@@ -245,8 +246,15 @@
 	traj:sampleBasis "n=40 synthetic demo trajectories (illustrative only)"^^xsd:string ;
 	prov:wasGeneratedBy <urn:uuid:b9000002-0000-5000-8000-000000000002> .
 
+<urn:uuid:ba000003-0000-5000-8000-000000000003>
+	a traj:TransitionEstimate ;
+	traj:ofTransition <urn:uuid:b8000003-0000-5000-8000-000000000003> ;
+	traj:transitionProbability "0.64"^^xsd:decimal ;
+	traj:sampleBasis "n=40 synthetic demo trajectories (illustrative only)"^^xsd:string ;
+	prov:wasGeneratedBy <urn:uuid:b9000002-0000-5000-8000-000000000002> .
+
 <urn:uuid:bb000001-0000-5000-8000-000000000001>
-	a traj:StateMachineModel ;
+	a traj:StateMachineModel , uco-analysis:AnalyticResult ;
 	uco-core:name "SYNTHETIC elder-fraud stage Markov estimate (demo)" ;
 	traj:initialState <urn:uuid:b1000002-0000-5000-8000-000000000002> ;
 	traj:learnedFrom <urn:uuid:b6000001-0000-5000-8000-000000000001> ;
@@ -256,5 +264,6 @@
 		<urn:uuid:b8000003-0000-5000-8000-000000000003> ;
 	traj:hasTransitionEstimate
 		<urn:uuid:ba000001-0000-5000-8000-000000000001> ,
-		<urn:uuid:ba000002-0000-5000-8000-000000000002> ;
+		<urn:uuid:ba000002-0000-5000-8000-000000000002> ,
+		<urn:uuid:ba000003-0000-5000-8000-000000000003> ;
 	prov:wasGeneratedBy <urn:uuid:b9000002-0000-5000-8000-000000000002> .

@@ -8,7 +8,7 @@
 #
 # This fixture MUST FAIL validation — proving the SHACL firewall fires.
 
-@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
 @prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .

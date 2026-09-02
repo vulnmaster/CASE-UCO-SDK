@@ -13,9 +13,10 @@
 # phases, elder-fraud case stages) plug in as traj:State instances, often
 # also typed skos:Concept — no dependence on unmerged CAC PRs.
 
-@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
 @prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
 @prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-analysis: <https://ontology.unifiedcyberontology.org/uco/analysis/> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -23,7 +24,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://example.org/ontology/trajectories>
+<https://ontology.caseontology.org/extensions/trajectories>
 	a owl:Ontology ;
 	rdfs:label "Trajectories Extension"@en ;
 	rdfs:comment "State-machine and trajectory metamodel for CASE/UCO investigation graphs: vocabulary-agnostic states and transitions; per-case ordered phase occupancy assertions with owl-time intervals, PROV evidence lineage, and UCO confidence; and inferred state-machine models with transition estimates. Complements (does not replace) CAC PhaseTransitionEvent investigation lifecycles and AEO CyberKillChain action sequences. See https://www.w3.org/TR/owl-time/ and https://www.w3.org/TR/prov-o/."@en ;
@@ -33,7 +34,8 @@
 		"https://nemo-ufes.github.io/gufo/"^^xsd:anyURI ;
 	owl:imports
 		<https://ontology.unifiedcyberontology.org/uco/core> ,
-		<https://ontology.unifiedcyberontology.org/uco/action> .
+		<https://ontology.unifiedcyberontology.org/uco/action> ,
+		<https://ontology.unifiedcyberontology.org/uco/analysis> .
 
 #################################################################
 # Classes
@@ -59,14 +61,14 @@ traj:Trajectory
 
 traj:PhaseAssertion
 	a owl:Class ;
-	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:subClassOf uco-core:Assertion ;
 	owl:disjointWith traj:StateMachineModel , traj:TransitionEstimate ;
 	rdfs:label "PhaseAssertion"@en ;
 	rdfs:comment "An OBSERVED assertion that a subject occupied a traj:State during an owl-time interval, derived from evidence (prov:wasDerivedFrom) and carrying a uco-core:ConfidenceFacet via uco-core:hasFacet. Must never be used for inferred model outputs — those are traj:StateMachineModel / traj:TransitionEstimate."@en .
 
 traj:StateMachineModel
 	a owl:Class ;
-	rdfs:subClassOf uco-core:UcoObject ;
+	rdfs:subClassOf uco-analysis:AnalyticResult ;
 	owl:disjointWith traj:PhaseAssertion ;
 	rdfs:label "StateMachineModel"@en ;
 	rdfs:comment "An INFERRED analytic artifact representing a learned or estimated state machine over traj:State / traj:Transition. Must carry prov:wasGeneratedBy to the producing tool run (uco-tool:Tool / uco-action:Action / InvestigativeAction). Takes traj:Trajectory instances as inputs via traj:learnedFrom; never the reverse."@en .
@@ -84,12 +86,13 @@ traj:TransitionEstimate
 #
 # Range policy (do not "harmonize" without reading this):
 #
-# Four object properties deliberately OMIT rdfs:range and rely on SHACL
+# Five object properties deliberately OMIT rdfs:range and rely on SHACL
 # sh:class instead — traj:enactsAction, traj:hasPhaseAssertion,
-# traj:learnedFrom, traj:hasTransitionEstimate. Declaring rdfs:range
-# alongside sh:class is vacuous when validating with RDFS entailment on:
-# the range axiom infers the required type onto whatever the property
-# points at, so sh:class never rejects a wrong-typed value.
+# traj:learnedFrom, traj:hasTransitionEstimate, and traj:atInterval.
+# Declaring rdfs:range alongside sh:class is vacuous when validating
+# with RDFS entailment on: the range axiom infers the required type
+# onto whatever the property points at, so sh:class never rejects a
+# wrong-typed value.
 #
 # The state-endpoint properties below KEEP rdfs:range traj:State
 # (fromState, toState, assertsState, and later initialState). Their
@@ -137,9 +140,8 @@ traj:assertsState
 traj:atInterval
 	a owl:ObjectProperty ;
 	rdfs:domain traj:PhaseAssertion ;
-	rdfs:range time:ProperInterval ;
 	rdfs:label "at interval"@en ;
-	rdfs:comment "owl-time ProperInterval during which the asserted state occupancy held. See https://www.w3.org/TR/owl-time/#time:ProperInterval."@en .
+	rdfs:comment "owl-time ProperInterval during which the asserted state occupancy held. Type is SHACL-only (sh:class time:ProperInterval); no rdfs:range, so the class check is non-vacuous under RDFS entailment. See https://www.w3.org/TR/owl-time/#time:ProperInterval."@en .
 
 traj:learnedFrom
 	a owl:ObjectProperty ;
@@ -195,7 +197,7 @@ traj:sequenceIndex
 	rdfs:domain traj:PhaseAssertion ;
 	rdfs:range xsd:nonNegativeInteger ;
 	rdfs:label "sequence index"@en ;
-	rdfs:comment "Zero-based (or one-based, consistently per graph) order of this PhaseAssertion within its Trajectory. Prefer this over rdf:List for SPARQL/SHACL usability."@en .
+	rdfs:comment "Zero-based (or one-based, consistently per graph) order of this PhaseAssertion within its Trajectory. Prefer this over rdf:List for SPARQL/SHACL usability. SHACL enforces uniqueness of sequenceIndex within a Trajectory; consecutive/dense numbering and a required zero- vs one-based origin are not enforced."@en .
 
 traj:transitionProbability
 	a owl:DatatypeProperty ;

@@ -1,0 +1,83 @@
+# Expected-INVALID: estimate ofTransition is not in the model's hasTransition set.
+# Otherwise well-formed — only the membership SPARQL must fail.
+
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:uuid:a5000001-0000-5000-8000-000000000001>
+	a traj:State ;
+	uco-core:name "Stub state A" .
+
+<urn:uuid:a5000002-0000-5000-8000-000000000002>
+	a traj:State ;
+	uco-core:name "Stub state B" .
+
+<urn:uuid:a5000003-0000-5000-8000-000000000003>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:a5000004-0000-5000-8000-000000000004> ;
+	time:hasEnd <urn:uuid:a5000005-0000-5000-8000-000000000005> .
+<urn:uuid:a5000004-0000-5000-8000-000000000004>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-01-01T00:00:00Z"^^xsd:dateTimeStamp .
+<urn:uuid:a5000005-0000-5000-8000-000000000005>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-01-01T01:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:a5000006-0000-5000-8000-000000000006>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+
+<urn:uuid:a5000007-0000-5000-8000-000000000007>
+	a uco-core:UcoObject ; uco-core:name "Stub evidence" .
+
+<urn:uuid:a5000008-0000-5000-8000-000000000008>
+	a traj:PhaseAssertion ;
+	uco-core:name "Stub occupancy" ;
+	traj:assertsState <urn:uuid:a5000001-0000-5000-8000-000000000001> ;
+	traj:atInterval <urn:uuid:a5000003-0000-5000-8000-000000000003> ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <urn:uuid:a5000007-0000-5000-8000-000000000007> ;
+	uco-core:hasFacet <urn:uuid:a5000006-0000-5000-8000-000000000006> .
+
+<urn:uuid:a5000009-0000-5000-8000-000000000009>
+	a traj:Trajectory ;
+	uco-core:name "Stub trajectory" ;
+	traj:hasPhaseAssertion <urn:uuid:a5000008-0000-5000-8000-000000000008> .
+
+<urn:uuid:a500000a-0000-5000-8000-00000000000a>
+	a uco-core:UcoObject ; uco-core:name "Stub trigger 1" .
+<urn:uuid:a500000b-0000-5000-8000-00000000000b>
+	a uco-core:UcoObject ; uco-core:name "Stub trigger 2" .
+
+<urn:uuid:a500000c-0000-5000-8000-00000000000c>
+	a traj:Transition ;
+	uco-core:name "Declared transition A -> B" ;
+	traj:fromState <urn:uuid:a5000001-0000-5000-8000-000000000001> ;
+	traj:toState <urn:uuid:a5000002-0000-5000-8000-000000000002> ;
+	traj:trigger <urn:uuid:a500000a-0000-5000-8000-00000000000a> .
+
+<urn:uuid:a500000d-0000-5000-8000-00000000000d>
+	a traj:Transition ;
+	uco-core:name "Undeclared transition B -> A" ;
+	traj:fromState <urn:uuid:a5000002-0000-5000-8000-000000000002> ;
+	traj:toState <urn:uuid:a5000001-0000-5000-8000-000000000001> ;
+	traj:trigger <urn:uuid:a500000b-0000-5000-8000-00000000000b> .
+
+<urn:uuid:a500000e-0000-5000-8000-00000000000e>
+	a uco-action:Action ; uco-core:name "Stub tool run" .
+
+<urn:uuid:a500000f-0000-5000-8000-00000000000f>
+	a traj:TransitionEstimate ;
+	uco-core:name "Illegal: ofTransition not in hasTransition" ;
+	traj:ofTransition <urn:uuid:a500000d-0000-5000-8000-00000000000d> ;
+	traj:transitionProbability "0.5"^^xsd:decimal ;
+	prov:wasGeneratedBy <urn:uuid:a500000e-0000-5000-8000-00000000000e> .
+
+<urn:uuid:a5000010-0000-5000-8000-000000000010>
+	a traj:StateMachineModel ;
+	uco-core:name "Illegal: dangling estimate" ;
+	traj:learnedFrom <urn:uuid:a5000009-0000-5000-8000-000000000009> ;
+	traj:hasTransition <urn:uuid:a500000c-0000-5000-8000-00000000000c> ;
+	traj:hasTransitionEstimate <urn:uuid:a500000f-0000-5000-8000-00000000000f> ;
+	prov:wasGeneratedBy <urn:uuid:a500000e-0000-5000-8000-00000000000e> .

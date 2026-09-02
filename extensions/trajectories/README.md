@@ -1,7 +1,9 @@
 # Trajectories Extension (`trajectories`)
 
 Vocabulary-agnostic **state-machine** and **per-case trajectory** metamodel
-for CASE/UCO investigation graphs. Status: **`candidate`**.
+for CASE/UCO investigation graphs. Status: **`candidate`** (`manifest.json`
+`status` key; schema enum `candidate` / `operational` / `deprecated`).
+`uco_compat`: `["1.4.0", "1.5.0"]`.
 
 ## Phase 1 gaps this fills
 
@@ -14,16 +16,45 @@ for CASE/UCO investigation graphs. Status: **`candidate`**.
 
 It does **not** re-model CAC grooming taxonomy, RICO enterprises, kill-chains, or drugs/weapons content — only the trajectory machinery.
 
+## Relationship to CASE/UCO core
+
+This package remains a **standalone SDK extension**. It is not a proposal to
+fold the metamodel into CASE or UCO core.
+
+If a later upstream proposal is made, likely homes are:
+
+- Action-constituted transitions → UCO Action / Pattern
+- Observed occupancy (`PhaseAssertion`) → UCO Core Assertion + Time
+  (already aligned here: `PhaseAssertion ⊆ uco-core:Assertion`)
+- Learned models / estimates → UCO Analysis (already aligned here:
+  `StateMachineModel ⊆ uco-analysis:AnalyticResult`)
+- CAC-specific phase vocabularies stay in CAC, not this extension
+
+Any such proposal should rest on multiple concrete competency cases — the
+three queries in [`queries/`](queries/) are a starting point — not on
+moving the whole extension into the Action namespace.
+
 ## Contents
 
 | File | Purpose |
 |---|---|
+| `manifest.json` | Extension manifest (`status`, `uco_compat`, exemplars, competency queries) |
+| `_registry.json` | Class/property registry for MCP discovery |
 | `trajectories.ttl` | OWL T-Box |
 | `trajectories-shapes.ttl` | SHACL observed≠inferred firewall |
 | `trajectories-profile-gufo.ttl` | Optional gUFO bridge (`State rdf:type gufo:Phase` metaclass; `PhaseAssertion`⊆`gufo:Situation`) |
 | `trajectories-exemplar.ttl` | CAC grooming trajectory + model |
 | `trajectories-elder-fraud-exemplar.ttl` | Synthetic non-CAC elder-fraud trajectory (fictional Victim V) |
-| `trajectories-invalid-exemplar.ttl` | Expected-invalid firewall fixture |
+| `trajectories-invalid-exemplar.ttl` | Expected-invalid kitchen-sink firewall / missing-prop fixture |
+| `trajectories-invalid-probability.ttl` | Expected-invalid: `transitionProbability` outside `[0, 1]` |
+| `trajectories-invalid-interval.ttl` | Expected-invalid: `atInterval` not a `time:ProperInterval` |
+| `trajectories-invalid-sequence-index.ttl` | Expected-invalid: duplicate `sequenceIndex` in one Trajectory |
+| `trajectories-invalid-terminal.ttl` | Expected-invalid: two `isTerminal true` PhaseAssertions |
+| `trajectories-invalid-estimate-membership.ttl` | Expected-invalid: estimate `ofTransition` not in model's `hasTransition` |
+| `queries/observed-occupancy-chain.sparql` | Competency: observed occupancy + evidence (expect nonempty) |
+| `queries/inference-provenance.sparql` | Competency: model ← Analysis ← Tool + `learnedFrom` Trajectory (expect nonempty) |
+| `queries/observed-inferred-firewall.sparql` | Competency: SELECT of observed/inferred dual-types (expect empty) |
+| `VALIDATION.md` | Validation log (SDK, CLI, fixtures, competency queries) |
 
 ## Design choices
 
@@ -54,7 +85,10 @@ does **not** flip this) vs. `disrupted` (an intervention ended the trajectory
 **mid-chain**, before the modeled endpoint). SHACL requires
 `isTerminal true => terminalPolarity present`; `terminalPolarity` alone never
 requires a second, opposite-polarity branch to exist — single-path
-trajectories that assert only one polarity are conformant.
+trajectories that assert only one polarity are conformant. Marking a
+terminal is optional; when `isTerminal true` is present, SHACL enforces
+at most one terminal per Trajectory and that it has the maximum
+`sequenceIndex`.
 
 Deliberately a property pair, not `traj:State` subclasses
 (`SuccessTerminal`/`DisruptedTerminal`), so a third outcome type is a
@@ -201,20 +235,16 @@ narratives; `traj:Trajectory` records **observed** occupancy.
 do not treat CLI-alone SHACL green as SDK green. See `VALIDATION.md` for
 exact commands and results.
 
-**`make validate-extension` caveat:** the shared
-`scripts/validate_extension.py` currently invokes `case_validate` without
-`--allow-info` or `--inference rdfs`. On this extension that produces a
-**false failure** for `trajectories-exemplar.ttl` (Info-level UUID IRI
-suggestions flip `Conforms` to False). Until the script is updated in a
-separate PR, use the SDK primary path or the secondary CLI command in
-`VALIDATION.md` — do not treat `make validate-extension` as authoritative
-for trajectories.
-
-Invalid exemplar must fail (observed≠inferred firewall).
+**Standard gate:** `make validate-extension` / `scripts/validate_extension.py`
+passes cleanly for both exemplars as of this PR (instance IRIs are
+`urn:uuid:…`). Invalid fixtures must fail (observed≠inferred firewall
+and the per-constraint files listed under Contents).
 
 ## Status
 
-Local candidate extension (`"status": "candidate"`, version **0.3.1**).
-`example.org` namespace matches rico/drugs/weapons placeholders pending a
-community IRI. Language bindings (`packages/case-uco-trajectories`) are
-deferred.
+**`candidate`** — real `manifest.json` `status` field (`extensions/manifest-schema.json`
+enum: `candidate` / `operational` / `deprecated`). Version **0.3.1**.
+`uco_compat`: `["1.4.0", "1.5.0"]`. Namespace
+`https://ontology.caseontology.org/extensions/trajectories/` (prefix
+`traj:`; `owl:Ontology` IRI has no trailing slash). Language bindings
+(`packages/case-uco-trajectories`) are deferred.

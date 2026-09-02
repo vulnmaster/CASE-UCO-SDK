@@ -1,8 +1,11 @@
 # Trajectories extension — validation log
 
-Date: 2026-08-11
-Branch: `feat/trajectories-only` (working tree, uncommitted)
-Status: `candidate`
+Date: 2026-09-02 (re-validated this PR; SDK / CLI / critic tables below
+retain the 2026-08-11 recorded runs where not superseded).
+Branch: `feat/trajectories-only`
+Status: **`candidate`** (`manifest.json` `status` key; schema enum
+`candidate` / `operational` / `deprecated`).
+`uco_compat`: `["1.4.0", "1.5.0"]`.
 
 True green paths below. Upper shapes (`sh-time`, `sh-prov-o`, optional `sh-gufo`) load via the SDK profile bundle when `profiles` is set — not via ad-hoc TTL alone.
 
@@ -47,7 +50,7 @@ check("extensions/trajectories/trajectories-invalid-exemplar.ttl", ["trajectorie
 PY
 ```
 
-### Recorded results (re-verified 2026-08-11 on branch `feat/trajectories-only`)
+### Recorded results (SDK path; 2026-08-11 on branch `feat/trajectories-only`)
 
 | Artifact | profiles | Conforms | coverage | SHACL | `enactsAction`/`initialState` uses |
 |---|---|---|---|---|---|
@@ -121,7 +124,7 @@ PY
 
 | Artifact | Conforms |
 |---|---|
-| `trajectories-exemplar.ttl` | **True** (info-level UUID IRI suggestions only) |
+| `trajectories-exemplar.ttl` | **True** |
 | `trajectories-elder-fraud-exemplar.ttl` | **True** |
 | `trajectories-invalid-exemplar.ttl` | **False** |
 
@@ -130,30 +133,29 @@ PY
 | Layer | Loaded? |
 |---|---|
 | traj OWL + SHACL | Yes (`--ontology-graph`) |
-| UCO/CASE shapes | Yes (`--built-version case-1.4.0`) |
+| UCO/CASE shapes | Yes (`--built-version case-1.4.0` — see version note below) |
 | `ontology/upper/shapes/sh-time.ttl`, `sh-prov-o.ttl` | **No** |
 | Strict concept coverage / profile selection | **No** |
 
 Use the SDK primary path above for PR-grade "green." CLI alone can report SHACL conformant while the SDK still fails coverage.
 
-### `make validate-extension` — known false failure (do not "fix" by editing TTL)
+**`uco_compat` vs this CLI `--built-version`:** the recorded CLI command used
+`case-1.4.0`. `manifest.json` `uco_compat` is `["1.4.0", "1.5.0"]` (neither
+`Assertion` nor `AnalyticResult` is 1.5-only). This log does **not** invent
+a 1.5.0 CLI re-run.
+
+### `make validate-extension` — standard gate (2026-09-02)
 
 `make validate-extension EXT=trajectories DATA=…` wraps
-`scripts/validate_extension.py`, which currently invokes `case_validate`
-with only `--ontology-graph` flags for the manifest's OWL/SHACL/bridge
-files — **no** `--built-version`, **no** `--inference rdfs`, **no**
-`--allow-info`. Observed on this branch (2026-08-11):
+`scripts/validate_extension.py`, which invokes `case_validate` with the
+manifest's OWL/SHACL/bridge files and no extra flags. Both shipped
+exemplars use `urn:uuid:…` instance IRIs. Recorded this PR:
 
 | DATA | Script result | Notes |
 |---|---|---|
-| `trajectories-exemplar.ttl` | **False failure** (`Conforms: False`, exit ≠ 0) | Only `sh:Info` UUID-IRI suggestions on `http://example.org/kb/…` focus nodes; no Violation. Adding `--allow-info` alone flips this to `Conforms: True`. |
-| `trajectories-elder-fraud-exemplar.ttl` | `Conforms: True` | All instance IRIs are `urn:uuid:…`, so the Info constraint does not fire. |
+| `trajectories-exemplar.ttl` | `Conforms: True` | No Info-level UUID-IRI findings; no exception needed. |
+| `trajectories-elder-fraud-exemplar.ttl` | `Conforms: True` | Same. |
 | `trajectories-invalid-exemplar.ttl` | `Conforms: False` (expected) | Real Violation results from the firewall fixture. |
-
-Until `scripts/validate_extension.py` is updated in a **separate** PR
-(out of scope for this trajectories package), treat the SDK primary path
-or the secondary CLI block above as the authoritative green path. Do not
-weaken exemplars or shapes to silence the Info results.
 
 ---
 
@@ -182,7 +184,7 @@ what lets `sh:class` reject it. The same vacuity/range policy applies to
 
 ---
 
-## Focus-node non-vacuity (shipped exemplars, 2026-08-11)
+## Focus-node non-vacuity (shipped exemplars, 2026-09-02)
 
 | Shape target | CAC (base) | Elder (base, non-CAC) | Invalid |
 |---|---|---|---|
@@ -190,7 +192,7 @@ what lets `sh:class` reject it. The same vacuity/range policy applies to
 | Trajectory | 1 | 1 | 1 |
 | Transition | 3 | 3 | 1 |
 | StateMachineModel | 1 | 1 | 1 |
-| TransitionEstimate | 3 | 2 | 1 |
+| TransitionEstimate | 3 | 3 | 1 |
 
 All nonzero on the valid exemplars.
 
@@ -222,8 +224,39 @@ Result (2026-08-11): **16 passed**, 0 failed.
 
 ---
 
+## Invalid fixtures (pyshacl, `inference=rdfs`, 2026-09-02)
+
+Kitchen-sink `trajectories-invalid-exemplar.ttl` is recorded in the SDK /
+CLI sections above. The five single-rule fixtures were run with `pyshacl`
+(`inference=rdfs`, ont graph = `trajectories.ttl`, shapes =
+`trajectories-shapes.ttl`). All **Conforms: False** for the stated reason:
+
+| Fixture | Rule under test | Why it failed |
+|---|---|---|
+| `trajectories-invalid-exemplar.ttl` | Observed≠inferred firewall + missing required observed-layer props | Dual-typed model/assertion plus missing `wasDerivedFrom`, `ConfidenceFacet`, `assertsState`, `atInterval`, `sequenceIndex` (kitchen sink; 10 violations on the 2026-08-11 SDK run) |
+| `trajectories-invalid-probability.ttl` | `traj:transitionProbability` in `[0, 1]` | `sh:maxInclusive` — value `1.5` |
+| `trajectories-invalid-interval.ttl` | `traj:atInterval` must be `time:ProperInterval` | `sh:class` — value is a `uco-identity:Person` |
+| `trajectories-invalid-sequence-index.ttl` | Unique `sequenceIndex` per Trajectory | SPARQL uniqueness — two assertions share index `0` |
+| `trajectories-invalid-terminal.ttl` | At most one `isTerminal true` per Trajectory | SPARQL “at most one terminal” (also fires “terminal must have max `sequenceIndex`” because the index-0 terminal is not max) |
+| `trajectories-invalid-estimate-membership.ttl` | Estimate `ofTransition` ∈ model's `hasTransition` (when any `hasTransition` is declared) | Membership SPARQL — estimate points at an undeclared transition |
+
+---
+
+## Competency SPARQL queries
+
+Declared in `manifest.json` `competency_queries` and run against both valid
+exemplars as raw A-Box (no inference). `expect: "empty"` means zero SELECT
+rows (the promotion gate mishandles ASK; the firewall query is a SELECT).
+
+| Query | Proves | CAC | Elder |
+|---|---|---|---|
+| `queries/observed-occupancy-chain.sparql` | Trajectory → PhaseAssertion → state + interval + `prov:wasDerivedFrom` | nonempty (4 rows) | nonempty (4 rows) |
+| `queries/inference-provenance.sparql` | `StateMachineModel` + `AnalyticResult` `learnedFrom` a Trajectory, `wasGeneratedBy` an `Analysis` whose `instrument` is a `Tool` | nonempty (4 rows) | nonempty (4 rows) |
+| `queries/observed-inferred-firewall.sparql` | No PhaseAssertion also typed `AnalyticResult`; no `StateMachineModel` missing `AnalyticResult`; no dual-typed model/assertion | empty (0 rows) | empty (0 rows) |
+
+---
+
 ## Deferred
 
 - Language bindings under `packages/case-uco-trajectories/`
-- Competency SPARQL queries (optional promote gate)
 - Exemplars that exercise `traj:enactsAction` / `traj:initialState` more richly than the single wired uses in `trajectories-elder-fraud-exemplar.ttl` (CAC base exemplar still has 0 / 0)

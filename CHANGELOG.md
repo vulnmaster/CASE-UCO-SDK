@@ -10,20 +10,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Trajectories extension (`extensions/trajectories/`)
 
 - New **candidate** domain-agnostic state-machine / per-case trajectory
-  metamodel (`traj:`): `State`, `Transition`, `Trajectory`,
-  `PhaseAssertion`, `StateMachineModel`, and `TransitionEstimate`, with a
-  separate SHACL observed≠inferred firewall, optional gUFO bridge, CAC
-  grooming exemplar, synthetic non-CAC elder-fraud exemplar (fictional
-  only — exercises `enactsAction` / `initialState`), and an expected-invalid
-  fixture. Standalone package — no coupling to unshipped domain extensions.
-- **Non-vacuous `sh:class`:** `rdfs:range` removed from `enactsAction`,
-  `hasPhaseAssertion`, `learnedFrom`, and `hasTransitionEstimate` so type
-  checks bite under RDFS entailment (a Person-valued `enactsAction`
-  mutation now fails). State-endpoint properties keep their ranges; rationale
-  recorded in `trajectories.ttl`.
-- **Manifest schema compliance:** `upper_ontology` / CDO-shapes fields use
-  the schema enums (`gufo`, `compatible`) rather than prose; `uco_compat`
-  records 1.5.0 / develop / develop-2.0.0.
+  metamodel (`traj:` **0.3.1**): `State` / `Transition` / `Trajectory` ⊆
+  `UcoObject`; `PhaseAssertion` ⊆ `uco-core:Assertion`;
+  `StateMachineModel` ⊆ `uco-analysis:AnalyticResult`;
+  `TransitionEstimate` ⊆ `UcoObject`. Separate SHACL observed≠inferred
+  firewall (including at-most-one terminal and terminal = max
+  `sequenceIndex`). Optional gUFO bridge. CAC grooming exemplar plus a
+  synthetic elder-fraud exemplar (`enactsAction` / `initialState`).
+  Standalone — no coupling to unshipped domain extensions. Namespace
+  `https://ontology.caseontology.org/extensions/trajectories/` (prefix
+  `traj:`). `uco_compat`: `["1.4.0", "1.5.0"]`.
+- **Multi-valued `enactsAction`:** a transition may name co-occurring
+  techniques that produce the same `toState` (no SHACL `maxCount`;
+  arriving-state convention). `rdfs:range` omitted on `enactsAction`,
+  `hasPhaseAssertion`, `learnedFrom`, and `hasTransitionEstimate` so
+  `sh:class` is non-vacuous under RDFS entailment.
+- **Six expected-invalid fixtures** (probability bounds, interval class,
+  duplicate `sequenceIndex`, two terminals, estimate membership, plus a
+  kitchen-sink firewall file).
+- **Three competency queries** (raw A-Box): occupancy + evidence
+  (nonempty), model provenance via `Analysis`/`Tool` (nonempty),
+  observed≠inferred SELECT (empty).
+- **Manifest schema compliance:** `status` is `candidate`;
+  `upper_ontology` / CDO-shapes fields use the schema enums (`gufo`,
+  `compatible`).
 
 ## [1.29.0] - 2026-08-30
 

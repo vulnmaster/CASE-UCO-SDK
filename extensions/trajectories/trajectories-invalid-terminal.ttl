@@ -1,0 +1,69 @@
+# Expected-INVALID: two PhaseAssertions with traj:isTerminal true.
+# Otherwise well-formed — only the at-most-one terminal SPARQL must fail.
+
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:uuid:a4000001-0000-5000-8000-000000000001>
+	a traj:State ;
+	uco-core:name "Stub state" .
+
+<urn:uuid:a4000002-0000-5000-8000-000000000002>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:a4000003-0000-5000-8000-000000000003> ;
+	time:hasEnd <urn:uuid:a4000004-0000-5000-8000-000000000004> .
+<urn:uuid:a4000003-0000-5000-8000-000000000003>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-01-01T00:00:00Z"^^xsd:dateTimeStamp .
+<urn:uuid:a4000004-0000-5000-8000-000000000004>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-01-01T01:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:a4000005-0000-5000-8000-000000000005>
+	a time:ProperInterval ;
+	time:hasBeginning <urn:uuid:a4000006-0000-5000-8000-000000000006> ;
+	time:hasEnd <urn:uuid:a4000007-0000-5000-8000-000000000007> .
+<urn:uuid:a4000006-0000-5000-8000-000000000006>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-01-01T01:00:00Z"^^xsd:dateTimeStamp .
+<urn:uuid:a4000007-0000-5000-8000-000000000007>
+	a time:Instant ; time:inXSDDateTimeStamp "2024-01-01T02:00:00Z"^^xsd:dateTimeStamp .
+
+<urn:uuid:a4000008-0000-5000-8000-000000000008>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+<urn:uuid:a4000009-0000-5000-8000-000000000009>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "70"^^xsd:nonNegativeInteger .
+
+<urn:uuid:a400000a-0000-5000-8000-00000000000a>
+	a uco-core:UcoObject ; uco-core:name "Stub evidence 1" .
+<urn:uuid:a400000b-0000-5000-8000-00000000000b>
+	a uco-core:UcoObject ; uco-core:name "Stub evidence 2" .
+
+<urn:uuid:a400000c-0000-5000-8000-00000000000c>
+	a traj:PhaseAssertion ;
+	uco-core:name "Illegal: first of two terminals" ;
+	traj:assertsState <urn:uuid:a4000001-0000-5000-8000-000000000001> ;
+	traj:atInterval <urn:uuid:a4000002-0000-5000-8000-000000000002> ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "completed" ;
+	prov:wasDerivedFrom <urn:uuid:a400000a-0000-5000-8000-00000000000a> ;
+	uco-core:hasFacet <urn:uuid:a4000008-0000-5000-8000-000000000008> .
+
+<urn:uuid:a400000d-0000-5000-8000-00000000000d>
+	a traj:PhaseAssertion ;
+	uco-core:name "Illegal: second of two terminals" ;
+	traj:assertsState <urn:uuid:a4000001-0000-5000-8000-000000000001> ;
+	traj:atInterval <urn:uuid:a4000005-0000-5000-8000-000000000005> ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "disrupted" ;
+	prov:wasDerivedFrom <urn:uuid:a400000b-0000-5000-8000-00000000000b> ;
+	uco-core:hasFacet <urn:uuid:a4000009-0000-5000-8000-000000000009> .
+
+<urn:uuid:a400000e-0000-5000-8000-00000000000e>
+	a traj:Trajectory ;
+	uco-core:name "Illegal: two isTerminal true assertions" ;
+	traj:hasPhaseAssertion
+		<urn:uuid:a400000c-0000-5000-8000-00000000000c> ,
+		<urn:uuid:a400000d-0000-5000-8000-00000000000d> .

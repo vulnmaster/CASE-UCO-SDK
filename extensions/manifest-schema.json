@@ -62,6 +62,40 @@
       "items": { "type": "string" },
       "description": "Relative paths to example instance data files (A-Box). Used for validation testing only."
     },
+    "invalid_exemplar_files": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Relative paths to expected-invalid fixtures that MUST fail SHACL/validation, proving the extension's shapes constrain."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["candidate", "operational", "deprecated"],
+      "description": "Lifecycle status read by mcp_server/knowledge_lifecycle.py. Absent means operational (bundled extensions predate the field). Unrecognized values are treated as invalid and are not routable."
+    },
+    "competency_queries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "against"],
+        "additionalProperties": false,
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Relative path to a SPARQL query file."
+          },
+          "against": {
+            "type": "string",
+            "description": "Relative path to the graph the query is run against."
+          },
+          "expect": {
+            "type": "string",
+            "enum": ["nonempty", "empty"],
+            "description": "Whether the query must return rows. Defaults to nonempty in the promotion gate."
+          }
+        }
+      },
+      "description": "Competency SPARQL queries verified by knowledge_lifecycle._gate_competency_queries."
+    },
     "uco_compat": {
       "type": "array",
       "items": { "type": "string" },

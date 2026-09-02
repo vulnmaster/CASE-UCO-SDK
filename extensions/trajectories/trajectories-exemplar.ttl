@@ -3,10 +3,11 @@
 # Domain phase vocab = SKOS scheme wrapping existing CAC grooming phase IRIs
 # (no dependency on unmerged CAC PRs #33/#39).
 
-@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
 @prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
 @prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
 @prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-analysis: <https://ontology.unifiedcyberontology.org/uco/analysis/> .
 @prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -59,12 +60,12 @@
 # (UCO Message + MessageFacet retained; CAC class tags omitted here so the
 # exemplar validates with extensions=['trajectories'] alone — States still
 # skos:exactMatch the CAC grooming phase IRIs.)
-<http://example.org/kb/message-01-01010101-0101-0101-0101-010101010101>
+<urn:uuid:01010101-0101-0101-0101-010101010101>
 	a uco-observable:Message ;
 	uco-core:name "Session 1 - Initial Contact" ;
-	uco-core:hasFacet <http://example.org/kb/facet-msg01-f1f1f1f1-f1f1-f1f1-f1f1-f1f1f1f1f1f1> .
+	uco-core:hasFacet <urn:uuid:f1f1f1f1-f1f1-51f1-f1f1-f1f1f1f1f1f1> .
 
-<http://example.org/kb/facet-msg01-f1f1f1f1-f1f1-f1f1-f1f1-f1f1f1f1f1f1>
+<urn:uuid:f1f1f1f1-f1f1-51f1-f1f1-f1f1f1f1f1f1>
 	a uco-observable:MessageFacet ;
 	uco-observable:messageText "Hey! Saw your story, you seem really cool. How old are you?" ;
 	uco-observable:messageType "Chat" .
@@ -73,12 +74,12 @@
 # (UCO Message + MessageFacet retained; CAC class tags omitted here so the
 # exemplar validates with extensions=['trajectories'] alone — States still
 # skos:exactMatch the CAC grooming phase IRIs.)
-<http://example.org/kb/message-04-04040404-0404-0404-0404-040404040404>
+<urn:uuid:04040404-0404-0404-0404-040404040404>
 	a uco-observable:Message ;
 	uco-core:name "Session 2 - Trust Building" ;
-	uco-core:hasFacet <http://example.org/kb/facet-msg04-f4f4f4f4-f4f4-f4f4-f4f4-f4f4f4f4f4f4> .
+	uco-core:hasFacet <urn:uuid:f4f4f4f4-f4f4-54f4-f4f4-f4f4f4f4f4f4> .
 
-<http://example.org/kb/facet-msg04-f4f4f4f4-f4f4-f4f4-f4f4-f4f4f4f4f4f4>
+<urn:uuid:f4f4f4f4-f4f4-54f4-f4f4-f4f4f4f4f4f4>
 	a uco-observable:MessageFacet ;
 	uco-observable:messageText "I've been thinking about you all day. You're so special. No one understands you like I do." ;
 	uco-observable:messageType "Chat" .
@@ -87,12 +88,12 @@
 # (UCO Message + MessageFacet retained; CAC class tags omitted here so the
 # exemplar validates with extensions=['trajectories'] alone — States still
 # skos:exactMatch the CAC grooming phase IRIs.)
-<http://example.org/kb/message-05-05050505-0505-0505-0505-050505050505>
+<urn:uuid:05050505-0505-0505-0505-050505050505>
 	a uco-observable:Message ;
 	uco-core:name "Session 2 - Isolation Attempt" ;
-	uco-core:hasFacet <http://example.org/kb/facet-msg05-f5f5f5f5-f5f5-f5f5-f5f5-f5f5f5f5f5f5> .
+	uco-core:hasFacet <urn:uuid:f5f5f5f5-f5f5-55f5-f5f5-f5f5f5f5f5f5> .
 
-<http://example.org/kb/facet-msg05-f5f5f5f5-f5f5-f5f5-f5f5-f5f5f5f5f5f5>
+<urn:uuid:f5f5f5f5-f5f5-55f5-f5f5-f5f5f5f5f5f5>
 	a uco-observable:MessageFacet ;
 	uco-observable:messageText "Don't tell your parents about us. They wouldn't understand our friendship. This is just between us." ;
 	uco-observable:messageType "Chat" .
@@ -101,12 +102,12 @@
 # (UCO Message + MessageFacet retained; CAC class tags omitted here so the
 # exemplar validates with extensions=['trajectories'] alone — States still
 # skos:exactMatch the CAC grooming phase IRIs.)
-<http://example.org/kb/message-07-07070707-0707-0707-0707-070707070707>
+<urn:uuid:07070707-0707-0707-0707-070707070707>
 	a uco-observable:Message ;
 	uco-core:name "Session 3 - Photo Elicitation" ;
-	uco-core:hasFacet <http://example.org/kb/facet-msg07-f7f7f7f7-f7f7-f7f7-f7f7-f7f7f7f7f7f7> .
+	uco-core:hasFacet <urn:uuid:f7f7f7f7-f7f7-57f7-f7f7-f7f7f7f7f7f7> .
 
-<http://example.org/kb/facet-msg07-f7f7f7f7-f7f7-f7f7-f7f7-f7f7f7f7f7f7>
+<urn:uuid:f7f7f7f7-f7f7-57f7-f7f7-f7f7f7f7f7f7>
 	a uco-observable:MessageFacet ;
 	uco-observable:messageText "I want to see the real you. Send me a special pic, just for me. No one else will ever see it, I promise." ;
 	uco-observable:messageType "Chat" .
@@ -183,7 +184,7 @@
 	traj:assertsState <urn:uuid:a1000002-0000-5000-8000-000000000002> ;
 	traj:atInterval <urn:uuid:c3000001-0000-5000-8000-000000000001> ;
 	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
-	prov:wasDerivedFrom <http://example.org/kb/message-01-01010101-0101-0101-0101-010101010101> ;
+	prov:wasDerivedFrom <urn:uuid:01010101-0101-0101-0101-010101010101> ;
 	uco-core:hasFacet <urn:uuid:d4000001-0000-5000-8000-000000000001> .
 
 <urn:uuid:d4000002-0000-5000-8000-000000000002>
@@ -198,7 +199,7 @@
 	traj:assertsState <urn:uuid:a1000003-0000-5000-8000-000000000003> ;
 	traj:atInterval <urn:uuid:c3000002-0000-5000-8000-000000000002> ;
 	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
-	prov:wasDerivedFrom <http://example.org/kb/message-04-04040404-0404-0404-0404-040404040404> ;
+	prov:wasDerivedFrom <urn:uuid:04040404-0404-0404-0404-040404040404> ;
 	uco-core:hasFacet <urn:uuid:d4000002-0000-5000-8000-000000000002> .
 
 <urn:uuid:d4000003-0000-5000-8000-000000000003>
@@ -213,7 +214,7 @@
 	traj:assertsState <urn:uuid:a1000004-0000-5000-8000-000000000004> ;
 	traj:atInterval <urn:uuid:c3000003-0000-5000-8000-000000000003> ;
 	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
-	prov:wasDerivedFrom <http://example.org/kb/message-05-05050505-0505-0505-0505-050505050505> ;
+	prov:wasDerivedFrom <urn:uuid:05050505-0505-0505-0505-050505050505> ;
 	uco-core:hasFacet <urn:uuid:d4000003-0000-5000-8000-000000000003> .
 
 <urn:uuid:d4000004-0000-5000-8000-000000000004>
@@ -228,7 +229,7 @@
 	traj:assertsState <urn:uuid:a1000005-0000-5000-8000-000000000005> ;
 	traj:atInterval <urn:uuid:c3000004-0000-5000-8000-000000000004> ;
 	traj:sequenceIndex "3"^^xsd:nonNegativeInteger ;
-	prov:wasDerivedFrom <http://example.org/kb/message-07-07070707-0707-0707-0707-070707070707> ;
+	prov:wasDerivedFrom <urn:uuid:07070707-0707-0707-0707-070707070707> ;
 	uco-core:hasFacet <urn:uuid:d4000004-0000-5000-8000-000000000004> .
 
 <urn:uuid:f6000001-0000-5000-8000-000000000001>
@@ -285,7 +286,7 @@
 	uco-core:description "version 0.1.0-dev" .
 
 <urn:uuid:cc000002-0000-5000-8000-000000000002>
-	a uco-action:Action ;
+	a uco-analysis:Analysis ;
 	uco-core:name "Estimate grooming transition probabilities" ;
 	uco-action:instrument <urn:uuid:cc000001-0000-5000-8000-000000000001> ;
 	prov:wasAssociatedWith <urn:uuid:cc000001-0000-5000-8000-000000000001> .
@@ -315,7 +316,7 @@
 	prov:wasGeneratedBy <urn:uuid:cc000002-0000-5000-8000-000000000002> .
 
 <urn:uuid:ee000001-0000-5000-8000-000000000001>
-	a traj:StateMachineModel ;
+	a traj:StateMachineModel , uco-analysis:AnalyticResult ;
 	uco-core:name "Grooming phase Markov estimate (v0)" ;
 	traj:learnedFrom <urn:uuid:f6000001-0000-5000-8000-000000000001> ;
 	traj:hasTransition

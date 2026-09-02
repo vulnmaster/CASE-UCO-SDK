@@ -1,0 +1,12 @@
+PREFIX traj: <https://ontology.caseontology.org/extensions/trajectories/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT ?traj ?assertion ?state ?evidence
+WHERE {
+  ?traj a traj:Trajectory ;
+        traj:hasPhaseAssertion ?assertion .
+  ?assertion a traj:PhaseAssertion ;
+             traj:assertsState ?state ;
+             traj:atInterval ?interval ;
+             prov:wasDerivedFrom ?evidence .
+}

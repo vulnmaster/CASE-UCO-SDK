@@ -6,7 +6,7 @@
   "upstream_ref": "main",
   "license": "Apache-2.0",
   "namespaces": {
-    "traj": "http://example.org/ontology/trajectories/"
+    "traj": "https://ontology.caseontology.org/extensions/trajectories/"
   },
   "owl_files": [
     "trajectories.ttl"
@@ -21,8 +21,49 @@
     "trajectories-exemplar.ttl",
     "trajectories-elder-fraud-exemplar.ttl"
   ],
-  "uco_compat": ["1.5.0", "develop", "develop-2.0.0"],
-  "upper_ontology": "gufo",
+  "invalid_exemplar_files": [
+    "trajectories-invalid-exemplar.ttl",
+    "trajectories-invalid-probability.ttl",
+    "trajectories-invalid-interval.ttl",
+    "trajectories-invalid-sequence-index.ttl",
+    "trajectories-invalid-terminal.ttl",
+    "trajectories-invalid-estimate-membership.ttl"
+  ],
+  "status": "candidate",
+  "competency_queries": [
+    {
+      "file": "queries/observed-occupancy-chain.sparql",
+      "against": "trajectories-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/observed-occupancy-chain.sparql",
+      "against": "trajectories-elder-fraud-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/inference-provenance.sparql",
+      "against": "trajectories-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/inference-provenance.sparql",
+      "against": "trajectories-elder-fraud-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/observed-inferred-firewall.sparql",
+      "against": "trajectories-exemplar.ttl",
+      "expect": "empty"
+    },
+    {
+      "file": "queries/observed-inferred-firewall.sparql",
+      "against": "trajectories-elder-fraud-exemplar.ttl",
+      "expect": "empty"
+    }
+  ],
+  "uco_compat": ["1.4.0", "1.5.0"],
+  "upper_ontology": "none",
   "cdo_shapes_compatibility": {
     "CDO-Shapes-gufo": "compatible",
     "CDO-Shapes-BFO": "compatible",

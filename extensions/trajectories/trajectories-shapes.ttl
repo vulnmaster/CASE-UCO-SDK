@@ -1,6 +1,6 @@
 # Trajectories Extension — SHACL shapes (observed vs inferred firewall)
 
-@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
 @prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
 @prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
 @prefix time: <http://www.w3.org/2006/time#> .
@@ -28,9 +28,11 @@ traj:PhaseAssertion-shape
 	sh:property
 		[
 			sh:path traj:atInterval ;
+			sh:class time:ProperInterval ;
 			sh:minCount 1 ;
 			sh:maxCount 1 ;
 			sh:nodeKind sh:IRI ;
+			sh:message "traj:atInterval must be a time:ProperInterval."@en ;
 		] ;
 	sh:property
 		[
@@ -111,6 +113,50 @@ traj:Trajectory-shape
 			sh:minCount 1 ;
 			sh:nodeKind sh:IRI ;
 			sh:message "Trajectories reference PhaseAssertions only (observed layer)."@en ;
+		] ;
+	sh:sparql
+		[
+			sh:message "traj:sequenceIndex values must be unique among a Trajectory's traj:hasPhaseAssertion members."@en ;
+			sh:select """
+				PREFIX traj: <https://ontology.caseontology.org/extensions/trajectories/>
+				SELECT $this ?idx
+				WHERE {
+					$this traj:hasPhaseAssertion ?a1, ?a2 .
+					FILTER(?a1 != ?a2)
+					?a1 traj:sequenceIndex ?idx .
+					?a2 traj:sequenceIndex ?idx .
+				}
+			""" ;
+		] ;
+	sh:sparql
+		[
+			sh:message "A Trajectory may have at most one PhaseAssertion with traj:isTerminal true."@en ;
+			sh:select """
+				PREFIX traj: <https://ontology.caseontology.org/extensions/trajectories/>
+				SELECT $this
+				WHERE {
+					$this traj:hasPhaseAssertion ?a1, ?a2 .
+					FILTER(?a1 != ?a2)
+					?a1 traj:isTerminal true .
+					?a2 traj:isTerminal true .
+				}
+			""" ;
+		] ;
+	sh:sparql
+		[
+			sh:message "A PhaseAssertion with traj:isTerminal true must have the maximum traj:sequenceIndex in its Trajectory."@en ;
+			sh:select """
+				PREFIX traj: <https://ontology.caseontology.org/extensions/trajectories/>
+				SELECT $this ?term ?termIdx ?later
+				WHERE {
+					$this traj:hasPhaseAssertion ?term, ?later .
+					FILTER(?term != ?later)
+					?term traj:isTerminal true ;
+					      traj:sequenceIndex ?termIdx .
+					?later traj:sequenceIndex ?laterIdx .
+					FILTER(?laterIdx > ?termIdx)
+				}
+			""" ;
 		] .
 
 traj:Transition-shape
@@ -190,6 +236,20 @@ traj:StateMachineModel-shape
 			sh:maxCount 1 ;
 			sh:nodeKind sh:IRI ;
 		] ;
+	sh:sparql
+		[
+			sh:message "Each traj:hasTransitionEstimate traj:ofTransition must be a traj:hasTransition of the same StateMachineModel (when the model declares any hasTransition)."@en ;
+			sh:select """
+				PREFIX traj: <https://ontology.caseontology.org/extensions/trajectories/>
+				SELECT $this ?est ?t
+				WHERE {
+					$this traj:hasTransition ?any .
+					$this traj:hasTransitionEstimate ?est .
+					?est traj:ofTransition ?t .
+					FILTER NOT EXISTS { $this traj:hasTransition ?t }
+				}
+			""" ;
+		] ;
 	sh:not
 		[
 			sh:class traj:PhaseAssertion ;
@@ -218,9 +278,12 @@ traj:TransitionEstimate-shape
 		[
 			sh:path traj:transitionProbability ;
 			sh:datatype xsd:decimal ;
+			sh:minInclusive 0 ;
+			sh:maxInclusive 1 ;
 			sh:minCount 1 ;
 			sh:maxCount 1 ;
 			sh:nodeKind sh:Literal ;
+			sh:message "traj:transitionProbability must be an xsd:decimal in [0, 1]."@en ;
 		] ;
 	sh:not
 		[
