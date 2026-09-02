@@ -1,0 +1,87 @@
+PREFIX proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-location: <https://ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+
+# Competency Question 1.1
+# Where was the subject at a given moment, and how well was that known?
+# Impossible today: a GeoLocationEntry carries no time of its own.
+SELECT ?when ?lat ?long ?alt ?datum ?hAcc
+WHERE {
+  ?entry a uco-observable:GeoLocationEntry ;
+         uco-core:hasFacet ?entryFacet .
+  ?entryFacet proposed-obs:observationTime ?when ;
+              uco-observable:location ?loc .
+  ?loc uco-core:hasFacet ?coords .
+  ?coords a uco-location:LatLongCoordinatesFacet ;
+          uco-location:latitude ?lat ;
+          uco-location:longitude ?long ;
+          uco-location:altitude ?alt ;
+          proposed-loc:altitudeReference ?datum .
+  OPTIONAL { ?coords proposed-loc:horizontalAccuracy ?hAcc }
+}
+ORDER BY ?when
+
+# ---
+
+PREFIX proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-location: <https://ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+
+# Competency Question 2.1
+# Which fixes fall inside a time window of interest? The core question behind
+# every geofence, alibi, and airspace-incursion analysis, and one that cannot
+# be asked of a UCO track today without reading the entries in document order
+# and hoping they are sorted.
+SELECT ?entry ?when
+WHERE {
+  ?entry a uco-observable:GeoLocationEntry ;
+         uco-core:hasFacet [ proposed-obs:observationTime ?when ] .
+  FILTER (?when >= "2026-07-04T11:51:00Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>
+       && ?when <= "2026-07-04T11:52:00Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
+}
+ORDER BY ?when
+
+# ---
+
+PREFIX proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-location: <https://ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+
+# Competency Question 3.1
+# Which altitude claims are comparable with each other? Two altitudes are only
+# comparable if they share a datum; without altitudeReference the graph cannot
+# say whether "20.09" and a barometric figure describe the same height.
+SELECT ?datum (COUNT(?coords) AS ?fixes) (MAX(?alt) AS ?highest)
+WHERE {
+  ?coords a uco-location:LatLongCoordinatesFacet ;
+          uco-location:altitude ?alt ;
+          proposed-loc:altitudeReference ?datum .
+}
+GROUP BY ?datum
+
+# ---
+
+PREFIX proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX uco-location: <https://ontology.unifiedcyberontology.org/uco/location/>
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+
+# Competency Question 4.1
+# Which fixes are trustworthy enough to rely on, and which are not evidence of
+# a physical position at all? fixQuality 'simulated' must be visible in the
+# graph, not buried in a description string.
+SELECT ?quality ?sats ?hdop (COUNT(?gps) AS ?fixes)
+WHERE {
+  ?gps a uco-location:GPSCoordinatesFacet ;
+       proposed-loc:fixQuality ?quality .
+  OPTIONAL { ?gps proposed-loc:satelliteCount ?sats }
+  OPTIONAL { ?gps uco-location:hdop ?hdop }
+}
+GROUP BY ?quality ?sats ?hdop

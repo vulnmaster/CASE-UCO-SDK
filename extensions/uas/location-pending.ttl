@@ -1,0 +1,90 @@
+# Local pending declaration of geolocation terms proposed to UCO.
+#
+# Source of truth:
+#   change_proposals/geolocation-entry-observation-time.md
+#   change_proposals/latlong-altitude-reference-and-accuracy.md
+#
+# These are NOT UAS concepts. They are gaps in core UCO that every
+# trajectory-bearing domain hits — drone flight logs, vehicle telematics,
+# phone location history, AIS and ADS-B feeds, fitness trackers, GPX imports:
+#
+#   1. uco-observable:GeoLocationEntry and its facet carry a location but no
+#      time. Only the enclosing GeoLocationTrackFacet has startTime/endTime,
+#      so an ordered set of fixes cannot say when each fix was taken. The
+#      inherited uco-core:objectCreatedTime is the time the *record* was
+#      created, which is a different fact and is often absent or much later.
+#
+#   2. uco-location:LatLongCoordinatesFacet carries an altitude with no datum.
+#      Twenty metres above mean sea level, above the WGS-84 ellipsoid, above
+#      ground level, and above the takeoff point are four different claims,
+#      and aviation evidence turns on which one was meant.
+#
+#   3. uco-location:GPSCoordinatesFacet carries dilution-of-precision values
+#      but no satellite count, fix quality, or metric accuracy, so the
+#      trustworthiness of a fix cannot be expressed in the units receivers
+#      actually report.
+#
+# Bundled here so the uas extension declares every term its exemplar uses
+# until UCO adopts them upstream. Keep in sync with the proposal files. If
+# UCO adopts these under the core namespaces, graphs migrate by rewriting the
+# prefix only — the property names and ranges are chosen to match what the
+# proposals request.
+
+@prefix proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-location: <https://ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://proposed.ontology.unifiedcyberontology.org/uco/location>
+	a owl:Ontology ;
+	rdfs:label "Proposed UCO Geolocation Refinements"@en ;
+	rdfs:comment "Extension ontology declaring properties proposed for inclusion in UCO: a per-fix observation time on GeoLocationEntryFacet, an altitude reference datum and metric accuracy on LatLongCoordinatesFacet, and satellite count and fix quality on GPSCoordinatesFacet."@en ;
+	dcterms:source
+		"https://www.gps.gov/technical/ps/2020-SPS-performance-standard.pdf"^^xsd:anyURI ,
+		"https://www.nga.mil/resources/World_Geodetic_System__WGS.html"^^xsd:anyURI .
+
+proposed-obs:observationTime
+	a owl:DatatypeProperty ;
+	rdfs:label "observationTime"@en ;
+	rdfs:comment "The time at which this position fix was observed, as distinct from the time the record describing it was created. Without it, the entries of a uco-observable:GeoLocationTrack are an ordered set with no clock: a track can say it spans two minutes but not when the aircraft was over any particular point. Where the source supplies a GNSS time of fix, use that; where it supplies only a receiver or filesystem timestamp, say so in uco-core:description rather than passing it off as the fix time."@en ;
+	rdfs:domain uco-observable:GeoLocationEntryFacet ;
+	rdfs:range xsd:dateTime .
+
+proposed-loc:altitudeReference
+	a owl:DatatypeProperty ;
+	rdfs:label "altitudeReference"@en ;
+	rdfs:comment "The datum the altitude value is measured from, as an open vocabulary, because an altitude without a datum is not a measurement. Recommended values: 'WGS84 ellipsoid' (what a bare GNSS receiver reports), 'mean sea level' (geoid-corrected, what barometric and most aviation figures use), 'above ground level' (what a rangefinder or terrain database gives), 'above takeoff point' (what a multirotor autopilot reports to its operator)."@en ;
+	rdfs:domain uco-location:LatLongCoordinatesFacet ;
+	rdfs:range xsd:string .
+
+proposed-loc:horizontalAccuracy
+	a owl:DatatypeProperty ;
+	rdfs:label "horizontalAccuracy"@en ;
+	rdfs:comment "The estimated horizontal uncertainty of the position, in metres, as the source reports it. Dilution-of-precision values on uco-location:GPSCoordinatesFacet describe satellite geometry, not error, and cannot be converted to metres without the receiver's assumed user-equivalent range error; most modern sources (Android, iOS, ASTM F3411 Remote ID, NMEA GST) report metres directly and that value should not have to be discarded."@en ;
+	rdfs:domain uco-location:LatLongCoordinatesFacet ;
+	rdfs:range xsd:decimal .
+
+proposed-loc:verticalAccuracy
+	a owl:DatatypeProperty ;
+	rdfs:label "verticalAccuracy"@en ;
+	rdfs:comment "The estimated vertical uncertainty of the altitude, in metres, as the source reports it. Recorded separately from horizontal accuracy because GNSS vertical error is characteristically two to three times the horizontal error, and conflating them misstates how much an altitude claim can bear."@en ;
+	rdfs:domain uco-location:LatLongCoordinatesFacet ;
+	rdfs:range xsd:decimal .
+
+proposed-loc:satelliteCount
+	a owl:DatatypeProperty ;
+	rdfs:label "satelliteCount"@en ;
+	rdfs:comment "The number of satellites used in the position solution. With the dilution-of-precision values UCO already carries, it is the standard first-order check on whether a fix is trustworthy; a low count alongside good reported precision is a classic signature of a spoofed or replayed signal."@en ;
+	rdfs:domain uco-location:GPSCoordinatesFacet ;
+	rdfs:range xsd:nonNegativeInteger .
+
+proposed-loc:fixQuality
+	a owl:DatatypeProperty ;
+	rdfs:label "fixQuality"@en ;
+	rdfs:comment "The kind of position solution achieved, as an open vocabulary following the NMEA GGA quality indicator and the fix-type fields of common receivers. Recommended values: 'no fix', '2D fix', '3D fix', 'DGPS', 'RTK float', 'RTK fixed', 'dead reckoning', 'manual input', 'simulated'. The distinction matters both for accuracy and for authenticity: a 'simulated' fix is not evidence of where anything was."@en ;
+	rdfs:domain uco-location:GPSCoordinatesFacet ;
+	rdfs:range xsd:string .
