@@ -1,0 +1,75 @@
+{
+  "name": "trajectories",
+  "display_name": "State-Machine and Trajectory Extension",
+  "version": "0.3.1",
+  "upstream_repo": "https://github.com/vulnmaster/CASE-UCO-SDK",
+  "upstream_ref": "main",
+  "license": "Apache-2.0",
+  "namespaces": {
+    "traj": "https://ontology.caseontology.org/extensions/trajectories/"
+  },
+  "owl_files": [
+    "trajectories.ttl"
+  ],
+  "shacl_files": [
+    "trajectories-shapes.ttl"
+  ],
+  "bridge_files": [
+    "trajectories-profile-gufo.ttl"
+  ],
+  "exemplar_files": [
+    "trajectories-exemplar.ttl",
+    "trajectories-elder-fraud-exemplar.ttl"
+  ],
+  "invalid_exemplar_files": [
+    "trajectories-invalid-exemplar.ttl",
+    "trajectories-invalid-probability.ttl",
+    "trajectories-invalid-interval.ttl",
+    "trajectories-invalid-sequence-index.ttl",
+    "trajectories-invalid-terminal.ttl",
+    "trajectories-invalid-estimate-membership.ttl"
+  ],
+  "status": "candidate",
+  "competency_queries": [
+    {
+      "file": "queries/observed-occupancy-chain.sparql",
+      "against": "trajectories-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/observed-occupancy-chain.sparql",
+      "against": "trajectories-elder-fraud-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/inference-provenance.sparql",
+      "against": "trajectories-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/inference-provenance.sparql",
+      "against": "trajectories-elder-fraud-exemplar.ttl",
+      "expect": "nonempty"
+    },
+    {
+      "file": "queries/observed-inferred-firewall.sparql",
+      "against": "trajectories-exemplar.ttl",
+      "expect": "empty"
+    },
+    {
+      "file": "queries/observed-inferred-firewall.sparql",
+      "against": "trajectories-elder-fraud-exemplar.ttl",
+      "expect": "empty"
+    }
+  ],
+  "uco_compat": ["1.4.0", "1.5.0"],
+  "upper_ontology": "none",
+  "cdo_shapes_compatibility": {
+    "CDO-Shapes-gufo": "compatible",
+    "CDO-Shapes-BFO": "compatible",
+    "CDO-Shapes-PROV-O": "compatible",
+    "CDO-Shapes-Time": "compatible",
+    "CDO-Shapes-GeoSPARQL": "compatible",
+    "CDO-Shapes-FOAF": "compatible"
+  }
+}

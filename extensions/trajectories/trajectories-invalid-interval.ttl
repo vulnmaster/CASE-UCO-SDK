@@ -1,0 +1,36 @@
+# Expected-INVALID: traj:atInterval pointing at a Person, not time:ProperInterval.
+# Otherwise well-formed — only the interval class check must fail.
+
+@prefix traj: <https://ontology.caseontology.org/extensions/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:uuid:a2000001-0000-5000-8000-000000000001>
+	a traj:State ;
+	uco-core:name "Stub state" .
+
+<urn:uuid:a2000002-0000-5000-8000-000000000002>
+	a uco-identity:Person ;
+	uco-core:name "Illegal interval: a Person" .
+
+<urn:uuid:a2000003-0000-5000-8000-000000000003>
+	a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+
+<urn:uuid:a2000004-0000-5000-8000-000000000004>
+	a uco-core:UcoObject ; uco-core:name "Stub evidence" .
+
+<urn:uuid:a2000005-0000-5000-8000-000000000005>
+	a traj:PhaseAssertion ;
+	uco-core:name "Illegal: atInterval is a Person" ;
+	traj:assertsState <urn:uuid:a2000001-0000-5000-8000-000000000001> ;
+	traj:atInterval <urn:uuid:a2000002-0000-5000-8000-000000000002> ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom <urn:uuid:a2000004-0000-5000-8000-000000000004> ;
+	uco-core:hasFacet <urn:uuid:a2000003-0000-5000-8000-000000000003> .
+
+<urn:uuid:a2000006-0000-5000-8000-000000000006>
+	a traj:Trajectory ;
+	uco-core:name "Stub trajectory" ;
+	traj:hasPhaseAssertion <urn:uuid:a2000005-0000-5000-8000-000000000005> .

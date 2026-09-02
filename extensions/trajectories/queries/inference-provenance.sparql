@@ -1,0 +1,18 @@
+PREFIX traj: <https://ontology.caseontology.org/extensions/trajectories/>
+PREFIX uco-analysis: <https://ontology.unifiedcyberontology.org/uco/analysis/>
+PREFIX uco-action: <https://ontology.unifiedcyberontology.org/uco/action/>
+PREFIX uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT ?model ?analysis ?tool ?traj
+WHERE {
+  ?model a traj:StateMachineModel , uco-analysis:AnalyticResult ;
+         traj:learnedFrom ?traj ;
+         prov:wasGeneratedBy ?analysis .
+  ?analysis a uco-analysis:Analysis ;
+            uco-action:instrument ?tool .
+  ?tool a uco-tool:Tool .
+  ?traj a traj:Trajectory ;
+        traj:hasPhaseAssertion ?assertion .
+  ?assertion a traj:PhaseAssertion .
+}

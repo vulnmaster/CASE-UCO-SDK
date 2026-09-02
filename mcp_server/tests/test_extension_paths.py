@@ -21,7 +21,7 @@ class TestExtensionPaths:
             assert (found / "manifest.json").is_file()
 
     def test_sdk_native_extensions_live_under_extensions(self):
-        for name in ("attack-technique", "legalproc", "toolcap"):
+        for name in ("attack-technique", "legalproc", "toolcap", "trajectories"):
             found = extension_paths.find_extension_dir(name, PROJECT_ROOT)
             assert found is not None, name
             assert found.parent.name == "extensions", name
@@ -43,7 +43,7 @@ class TestExtensionPaths:
 
     def test_iter_extension_dirs_includes_both_roots(self):
         names = {p.name for p in extension_paths.iter_extension_dirs(PROJECT_ROOT)}
-        assert {"cac", "aeo", "solveit", "legalproc", "attack-technique"} <= names
+        assert {"cac", "aeo", "solveit", "legalproc", "attack-technique", "trajectories"} <= names
 
     def test_extension_dir_falls_back_to_native_root(self, tmp_path):
         path = extension_paths.extension_dir("brand-new", tmp_path)
