@@ -378,6 +378,7 @@ property, so do not invent one.
 ## Related
 
 - [network-investigation.md](network-investigation.md) — single-incident network forensics with acquired pcap (contrast: one capture, not adversary intelligence)
+- [otics-scada-intrusion.md](otics-scada-intrusion.md) — ICS/SCADA OT intrusion modeling (PLC/HMI/Modbus; contrast: process-control evidence, not enterprise CTI)
 - [spear-phishing.md](spear-phishing.md) — delivery-chain attack narrative from a phishing email
 - [analysis.md](analysis.md) — the attribution/analysis layer with confidence-scored classifications
 - [network-artifacts.md](network-artifacts.md) — IPs, domains, and URLs as observables

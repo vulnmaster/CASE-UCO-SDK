@@ -451,3 +451,9 @@ change_proposals/
 ```
 
 The Makefile `test-proposal` target looks for all of these by convention. Only the `.md` is required; the others enable automated testing.
+
+## Related
+
+- [extensions.md](extensions.md) — local extension playground while a proposal is pending
+- [recipe-authoring.md](recipe-authoring.md) — turn a validated modeling pattern into a catalog recipe
+- [otics-scada-intrusion.md](otics-scada-intrusion.md) — ICS/SCADA recipe whose ontology gaps motivate `IndustrialControlDeviceFacet`

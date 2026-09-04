@@ -1,0 +1,29 @@
+PREFIX uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/>
+PREFIX uco-core: <https://ontology.unifiedcyberontology.org/uco/core/>
+PREFIX proposed: <http://example.org/ontology/proposed/>
+
+# CQ 1.1 — PLC firmware / rack / slot
+SELECT ?plc ?fw ?rack ?slot
+WHERE {
+    ?plc a uco-observable:EmbeddedDevice ;
+         uco-core:hasFacet ?ics .
+    ?ics a proposed:IndustrialControlDeviceFacet ;
+         proposed:controllerRole "plc" ;
+         proposed:firmwareRevision ?fw ;
+         proposed:rackNumber ?rack ;
+         proposed:slotNumber ?slot .
+}
+
+# CQ 1.2 — HIHI events for a process tag
+SELECT ?event ?tag ?setpoint ?value
+WHERE {
+    ?event a uco-observable:EventRecord ;
+           uco-core:hasFacet ?ef , ?pef .
+    ?ef a uco-observable:EventRecordFacet ;
+        uco-observable:eventType "HIHI" .
+    ?pef a proposed:IndustrialProcessEventFacet ;
+         proposed:processTagName ?tag ;
+         proposed:setpointValue ?setpoint ;
+         proposed:processValue ?value .
+    FILTER (?tag = "PUMP3_DISCHARGE_PSI")
+}

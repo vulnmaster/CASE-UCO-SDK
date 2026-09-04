@@ -65,6 +65,7 @@ End-to-end mapping recipes that walk through source input, modeling choices, ant
 | Racketeering (RICO) and Criminal Enterprise | [racketeering-enterprise.md](racketeering-enterprise.md) | Association-in-fact enterprises, enterprise-role division of labor, predicate statute categories on RICO counts, multi-instrument count suffixes (`rico` extension + `legalproc`/`cryptoinv`) | `rico` |
 | Weapons and Drug Evidence | [weapons-drug-evidence.md](weapons-drug-evidence.md) | Firearms/ammunition with make, model, caliber, serial (`weapons` extension, CCO Artifact Ontology + gUFO bridges) and controlled-substance portions with ChEBI identity, CSA schedule, mass, purity basis (`drugs` extension, `gufo:Quantity` bridge) | `weapons`, `drugs` |
 | Cargo Theft and Route Staging | [cargo-theft-route-staging.md](cargo-theft-route-staging.md) | Freight theft, geofence deviation, warehouse staging, manifest anomalies | — |
+| ICS/SCADA and OT Network Intrusion | [otics-scada-intrusion.md](otics-scada-intrusion.md) | PLC/HMI assets, Modbus/TCP process writes, historian alarms, engineering workstation project files | — |
 | NCMEC CyberTip Reporting Workflow | [cybertip-ncmec-workflow.md](cybertip-ncmec-workflow.md) | Platform detection, ESP reporting, CyberTip lifecycle, and CAC investigation | — |
 
 ### Crimes Against Children (CAC Ontology)
