@@ -1,0 +1,769 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:Organization-6ca45e16-61b8-4177-8bbe-f94b589e025a",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Cellebrite DI Ltd."
+        },
+        {
+            "@id": "kb:Organization-81a9fe34-3728-43cd-9764-effab27bfcd7",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Google LLC"
+        },
+        {
+            "@id": "kb:Organization-f46ccf3a-dfd5-4973-90d8-b651a5bd74b4",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Example Wireless"
+        },
+        {
+            "@id": "kb:Identity-d233b397-9d44-4d86-91d3-88d8e5c8909c",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "J. Examiner"
+        },
+        {
+            "@id": "kb:Tool-755f2b88-3ce4-4fa7-ab89-c1f2888677a8",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "UFED 4PC",
+            "uco-tool:creator": {
+                "@id": "kb:Organization-6ca45e16-61b8-4177-8bbe-f94b589e025a"
+            },
+            "uco-tool:toolType": "Acquisition",
+            "uco-tool:version": "7.60.0.114"
+        },
+        {
+            "@id": "kb:Tool-8d9860e0-3084-4277-b0e0-ace94bb035c9",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "UFED Physical Analyzer",
+            "uco-tool:creator": {
+                "@id": "kb:Organization-6ca45e16-61b8-4177-8bbe-f94b589e025a"
+            },
+            "uco-tool:toolType": "Extraction",
+            "uco-tool:version": "7.60.0.114"
+        },
+        {
+            "@id": "kb:File-db1cd71c-b5b0-4b96-9f10-1df801df49eb",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-5f8b5dff-ccfc-4ef3-a9fd-f4a7c7ec6bdc",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "zip",
+                    "uco-observable:fileName": "Google_G013A Pixel 3.zip",
+                    "uco-observable:filePath": "Google_G013A Pixel 3.zip",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "16965760332"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-7980361f-c280-4945-934b-b05d3936103d",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-aaba565e-fa49-40c5-8f38-254370493740",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "DB99875E08C15C923FC4FABD64750F57EEB4B601E9957563D70BDDC530C91636"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "application/zip",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "16965760332"
+                    }
+                }
+            ],
+            "uco-core:name": "Google_G013A Pixel 3.zip"
+        },
+        {
+            "@id": "kb:File-d3260372-2f04-4087-989e-7c6867f2d306",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-8070db94-8afe-45e6-8e83-f8214af764f7",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "xml",
+                    "uco-observable:fileName": "report.xml",
+                    "uco-observable:filePath": "/report.xml",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "68"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-37405cdb-58a2-4478-8d1e-8fdd887dd7fa",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-3d89caef-9bd4-478a-9b00-3c91516946e8",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "A846ABDA293C04D99B73E0F0D5275CF7"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-368f6d7a-0542-46e0-b55e-2cafc1548720",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "5D4F900560E6C2C149EDBB339A2496541F10A2F9E934BDCF24534DA94F099D08"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/xml",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "68"
+                    }
+                }
+            ],
+            "uco-core:name": "report.xml"
+        },
+        {
+            "@id": "kb:InvestigativeAction-7be5b817-7934-49d1-88c8-925b374434c5",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "UFED physical acquisition of mobile device",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-04T11:48:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-755f2b88-3ce4-4fa7-ab89-c1f2888677a8"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-d233b397-9d44-4d86-91d3-88d8e5c8909c"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-db1cd71c-b5b0-4b96-9f10-1df801df49eb"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-04T09:12:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-1864f917-b7a1-4a88-b9bd-bad12e6c2ffa",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "Physical Analyzer parsed the acquisition into decodedData model instances and serialized report.xml into the UFDR."
+            ],
+            "uco-core:name": "UFED Physical Analyzer decode and XML report generation",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-04T13:41:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-8d9860e0-3084-4277-b0e0-ace94bb035c9"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:File-db1cd71c-b5b0-4b96-9f10-1df801df49eb"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-d233b397-9d44-4d86-91d3-88d8e5c8909c"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-d3260372-2f04-4087-989e-7c6867f2d306"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-04T13:05:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:ProvenanceRecord-aea5f49b-3d39-41da-8130-af535f244172",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:description": [
+                "report.xml extracted from the UFDR container."
+            ],
+            "uco-core:name": "UFED XML report",
+            "uco-core:object": [
+                {
+                    "@id": "kb:File-d3260372-2f04-4087-989e-7c6867f2d306"
+                }
+            ],
+            "case-investigation:exhibitNumber": "EX-2026-0304-01"
+        },
+        {
+            "@id": "kb:MobilePhone-938cbdad-dc1a-44e8-8967-08e79a61928e",
+            "@type": "uco-observable:MobilePhone",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-b1c5b262-a698-4992-a3a6-7f9607c56309",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "Mobile Phone",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Organization-81a9fe34-3728-43cd-9764-effab27bfcd7"
+                    },
+                    "uco-observable:model": "Pixel 3",
+                    "uco-observable:serialNumber": "8AEX0EXAMPLE01"
+                },
+                {
+                    "@id": "kb:MobileDeviceFacet-8ee7f2f2-eb7f-4ece-a44e-472c3c3adabe",
+                    "@type": "uco-observable:MobileDeviceFacet",
+                    "uco-observable:IMEI": "356938035643809",
+                    "uco-observable:bluetoothDeviceName": "Pixel 3",
+                    "uco-observable:network": "LTE",
+                    "uco-observable:storageCapacityInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "64000000000"
+                    }
+                },
+                {
+                    "@id": "kb:BluetoothAddressFacet-10aa97d9-2341-423c-b99d-83ec64d8ed4a",
+                    "@type": "uco-observable:BluetoothAddressFacet",
+                    "uco-observable:addressValue": "00:1A:7D:DA:71:13"
+                },
+                {
+                    "@id": "kb:WifiAddressFacet-0a846b6c-52bf-45d3-b148-5810a805e141",
+                    "@type": "uco-observable:WifiAddressFacet",
+                    "uco-observable:addressValue": "3C:5A:B4:00:11:22"
+                }
+            ],
+            "uco-core:name": "Pixel 3 (DeviceInfoDetectedPhoneModel)"
+        },
+        {
+            "@id": "kb:OperatingSystem-090c0cc9-06d5-443a-9579-b641a5299ca8",
+            "@type": [
+                "uco-observable:OperatingSystem",
+                "uco-observable:Software"
+            ],
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SoftwareFacet-b73f5cbb-db44-4f4c-a4b0-84264e615b4f",
+                    "@type": "uco-observable:SoftwareFacet",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Organization-81a9fe34-3728-43cd-9764-effab27bfcd7"
+                    },
+                    "uco-observable:version": "12"
+                }
+            ],
+            "uco-core:name": "Android 12"
+        },
+        {
+            "@id": "kb:SIMCard-b715a4e2-c70b-4a8f-a875-702d67a764cc",
+            "@type": "uco-observable:SIMCard",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SIMCardFacet-19b3db7b-d2a5-4c08-9563-8a21d2615b75",
+                    "@type": "uco-observable:SIMCardFacet",
+                    "uco-observable:ICCID": "8901260852280054321",
+                    "uco-observable:IMSI": "310260000000001",
+                    "uco-observable:SIMForm": "Nano SIM",
+                    "uco-observable:carrier": {
+                        "@id": "kb:Organization-f46ccf3a-dfd5-4973-90d8-b651a5bd74b4"
+                    }
+                }
+            ],
+            "uco-core:name": "SIM (ICCID 8901260852280054321)"
+        },
+        {
+            "@id": "kb:ObservableRelationship-cf79ceb7-9531-4693-b16f-72c6c0124d48",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "SIM card seated in the acquired handset."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:SIMCard-b715a4e2-c70b-4a8f-a875-702d67a764cc"
+            },
+            "uco-core:target": {
+                "@id": "kb:MobilePhone-938cbdad-dc1a-44e8-8967-08e79a61928e"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-721ba7a4-4dde-4676-8b6d-9db600f622d8",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Operating system reported by DeviceInfoOSType / DeviceInfoOSVersion."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:OperatingSystem-090c0cc9-06d5-443a-9579-b641a5299ca8"
+            },
+            "uco-core:target": {
+                "@id": "kb:MobilePhone-938cbdad-dc1a-44e8-8967-08e79a61928e"
+            }
+        },
+        {
+            "@id": "kb:File-34a47b1d-e33d-47a3-9651-74f7869c0966",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-79322958-93d7-4d9f-a9bc-447b1dff81cf",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "db",
+                    "uco-observable:fileName": "msgstore.db",
+                    "uco-observable:filePath": "/data/data/com.whatsapp/databases/msgstore.db",
+                    "uco-observable:modifiedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-02T21:14:03+00:00"
+                    },
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "45"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-b616bb8f-603f-4283-92fc-a715b1bca780",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-48119a68-796d-49dc-84c9-b4c26b1b9e4a",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "074EA1D319D1CC0D674BE94EC41F3829"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-ce10001a-be0f-4305-98a0-f7be134d0b1a",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "674455724990FD3F5F47B56A87343CC166416A4629EEBE8AFE16A62399522D66"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "application/vnd.sqlite3",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "45"
+                    }
+                }
+            ],
+            "uco-core:name": "msgstore.db"
+        },
+        {
+            "@id": "kb:ObservableRelationship-1e301162-3d06-4840-9a9e-2b5d897ae54a",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "taggedFiles entry carved from the acquired image."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:File-34a47b1d-e33d-47a3-9651-74f7869c0966"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-db1cd71c-b5b0-4b96-9f10-1df801df49eb"
+            }
+        },
+        {
+            "@id": "kb:Application-d2d93e8a-3a1f-47c6-ade8-22aeb18db10c",
+            "@type": "uco-observable:Application",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ApplicationFacet-6d30862c-9095-4455-8f78-acabd3b5c359",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-observable:applicationIdentifier": "com.whatsapp",
+                    "uco-observable:operatingSystem": {
+                        "@id": "kb:OperatingSystem-090c0cc9-06d5-443a-9579-b641a5299ca8"
+                    },
+                    "uco-observable:version": "2.26.3.14"
+                }
+            ],
+            "uco-core:name": "WhatsApp"
+        },
+        {
+            "@id": "kb:PhoneAccount-a0159a40-ca69-46ad-b61d-4bda837e8761",
+            "@type": "uco-observable:PhoneAccount",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:PhoneAccountFacet-357edd4c-e7b7-4769-a771-cddf619b63db",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15555550100"
+                }
+            ],
+            "uco-core:name": "+15550100 (IsPhoneOwner=True)"
+        },
+        {
+            "@id": "kb:PhoneAccount-ebd621eb-5e9c-4d89-9939-b45670ec36c5",
+            "@type": "uco-observable:PhoneAccount",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:PhoneAccountFacet-1423dd9f-ad0a-4a42-82e6-f26c8897bea0",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15555550142"
+                }
+            ],
+            "uco-core:name": "+15555550142"
+        },
+        {
+            "@id": "kb:Message-bd75dc3b-c520-4470-9ffc-b2b302cd5500",
+            "@type": "uco-observable:Message",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MessageFacet-ece8c6e6-5985-4023-8d49-5bb44b581834",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:Application-d2d93e8a-3a1f-47c6-ade8-22aeb18db10c"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:PhoneAccount-ebd621eb-5e9c-4d89-9939-b45670ec36c5"
+                    },
+                    "uco-observable:messageText": "Pickup moved to the north lot at 4.",
+                    "uco-observable:messageType": "Chat",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-02T20:58:11+00:00"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:PhoneAccount-a0159a40-ca69-46ad-b61d-4bda837e8761"
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "InstantMessage (incoming)"
+        },
+        {
+            "@id": "kb:Message-d7b85f91-08a4-47a0-a7a2-08bc50d2c396",
+            "@type": "uco-observable:Message",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MessageFacet-0b2d7c5e-ec4c-4b39-b9ab-31ecc69d53f1",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:Application-d2d93e8a-3a1f-47c6-ade8-22aeb18db10c"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:PhoneAccount-a0159a40-ca69-46ad-b61d-4bda837e8761"
+                    },
+                    "uco-observable:messageText": "Understood.",
+                    "uco-observable:messageType": "Chat",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-02T21:02:40+00:00"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:PhoneAccount-ebd621eb-5e9c-4d89-9939-b45670ec36c5"
+                        }
+                    ]
+                },
+                {
+                    "@id": "kb:RecoveredObjectFacet-12d5b8bf-cfab-482c-96ab-9851b16c75bd",
+                    "@type": "uco-observable:RecoveredObjectFacet",
+                    "uco-observable:contentRecoveredStatus": "recovered"
+                }
+            ],
+            "uco-core:name": "InstantMessage (deleted_state=Deleted)"
+        },
+        {
+            "@id": "kb:ObservableRelationship-643afadc-65a8-442d-90d8-1503c42906e3",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "extraInfo/nodeInfo joins this decoded model to its source file."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:Message-bd75dc3b-c520-4470-9ffc-b2b302cd5500"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-34a47b1d-e33d-47a3-9651-74f7869c0966"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-f170231e-7c79-4e72-b9fc-e062230f817b",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "extraInfo/nodeInfo joins this decoded model to its source file."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:Message-d7b85f91-08a4-47a0-a7a2-08bc50d2c396"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-34a47b1d-e33d-47a3-9651-74f7869c0966"
+            }
+        },
+        {
+            "@id": "kb:Call-9161609e-615f-4a66-bb35-dba16bbfc40f",
+            "@type": "uco-observable:Call",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:CallFacet-5d4c1ad1-098d-4e55-a341-75742d3e73fd",
+                    "@type": "uco-observable:CallFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:Application-d2d93e8a-3a1f-47c6-ade8-22aeb18db10c"
+                    },
+                    "uco-observable:callType": "Incoming",
+                    "uco-observable:duration": {
+                        "@type": "xsd:integer",
+                        "@value": "252"
+                    },
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-02T19:34:12+00:00"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:PhoneAccount-ebd621eb-5e9c-4d89-9939-b45670ec36c5"
+                    },
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-02T19:30:00+00:00"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:PhoneAccount-a0159a40-ca69-46ad-b61d-4bda837e8761"
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "Call (Direction=Incoming)"
+        },
+        {
+            "@id": "kb:ContactPhone-c4ba1da5-0da3-4d8e-a735-3d2e8f42685a",
+            "@type": "uco-observable:ContactPhone",
+            "uco-observable:contactPhoneNumber": {
+                "@id": "kb:PhoneAccount-ebd621eb-5e9c-4d89-9939-b45670ec36c5"
+            },
+            "uco-observable:contactPhoneScope": "mobile"
+        },
+        {
+            "@id": "kb:Contact-d41b1481-2516-4857-8e41-c444a70bb08c",
+            "@type": "uco-observable:Contact",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContactFacet-5779504d-64fa-4c8f-85d4-4e3f7d09915a",
+                    "@type": "uco-observable:ContactFacet",
+                    "uco-observable:contactPhone": [
+                        {
+                            "@id": "kb:ContactPhone-c4ba1da5-0da3-4d8e-a735-3d2e8f42685a"
+                        }
+                    ],
+                    "uco-observable:displayName": "R. Delgado",
+                    "uco-observable:firstName": "Rosa",
+                    "uco-observable:lastName": "Delgado"
+                }
+            ],
+            "uco-core:name": "Contact (Name field)"
+        },
+        {
+            "@id": "kb:Location-eb08e7a8-d2fb-4b81-ad26-910fadefea5a",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-d9651f11-846b-45cb-80ee-b1fef5fa33eb",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "38.9784"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-76.4922"
+                    }
+                }
+            ],
+            "uco-core:name": "Location (Category=Significant)"
+        },
+        {
+            "@id": "kb:WirelessNetworkConnection-88f3afbf-ef2c-47ed-8d5a-9f0cd79e6127",
+            "@type": "uco-observable:WirelessNetworkConnection",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:WirelessNetworkConnectionFacet-dc9a903c-7bc0-42af-b185-3cb3317baf6f",
+                    "@type": "uco-observable:WirelessNetworkConnectionFacet",
+                    "uco-observable:ssid": "MarinaGuest"
+                }
+            ],
+            "uco-core:name": "WirelessNetwork (SSId/BSSId)"
+        },
+        {
+            "@id": "kb:ObservableRelationship-6157cf49-2641-4d3b-8e92-e09382427c6f",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Handset associated with this SSID/BSSID."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Connected_To",
+            "uco-core:source": {
+                "@id": "kb:MobilePhone-938cbdad-dc1a-44e8-8967-08e79a61928e"
+            },
+            "uco-core:target": {
+                "@id": "kb:WirelessNetworkConnection-88f3afbf-ef2c-47ed-8d5a-9f0cd79e6127"
+            }
+        },
+        {
+            "@id": "kb:URLHistory-124cd3e1-5d81-47f9-8897-6d6d7e81607a",
+            "@type": "uco-observable:URLHistory",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLHistoryFacet-633984c6-4851-4cc0-87a2-b2554fee6893",
+                    "@type": "uco-observable:URLHistoryFacet",
+                    "uco-observable:browserInformation": {
+                        "@id": "kb:Application-d2d93e8a-3a1f-47c6-ade8-22aeb18db10c"
+                    },
+                    "uco-observable:urlHistoryEntry": [
+                        {
+                            "@id": "kb:URLHistoryEntry-b0a4f6b4-1bae-4583-af44-2856e1461382",
+                            "@type": "uco-observable:URLHistoryEntry",
+                            "uco-observable:lastVisit": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2026-03-01T14:22:00+00:00"
+                            },
+                            "uco-observable:pageTitle": "Marina tide chart",
+                            "uco-observable:visitCount": {
+                                "@type": "xsd:integer",
+                                "@value": "3"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "VisitedPage entries"
+        },
+        {
+            "@id": "kb:Investigation-dad9243d-262b-4990-8bb0-749ad8613a52",
+            "@type": "case-investigation:Investigation",
+            "uco-core:description": [
+                "Structural exemplar for docs/recipes/cellebrite-ufed-xml.md; field values are synthetic, element names are from a real report.xml."
+            ],
+            "uco-core:name": "Cellebrite UFED XML report ingest",
+            "uco-core:object": [
+                {
+                    "@id": "kb:Identity-d233b397-9d44-4d86-91d3-88d8e5c8909c"
+                },
+                {
+                    "@id": "kb:Tool-755f2b88-3ce4-4fa7-ab89-c1f2888677a8"
+                },
+                {
+                    "@id": "kb:Tool-8d9860e0-3084-4277-b0e0-ace94bb035c9"
+                },
+                {
+                    "@id": "kb:File-db1cd71c-b5b0-4b96-9f10-1df801df49eb"
+                },
+                {
+                    "@id": "kb:File-d3260372-2f04-4087-989e-7c6867f2d306"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-7be5b817-7934-49d1-88c8-925b374434c5"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-1864f917-b7a1-4a88-b9bd-bad12e6c2ffa"
+                },
+                {
+                    "@id": "kb:ProvenanceRecord-aea5f49b-3d39-41da-8130-af535f244172"
+                },
+                {
+                    "@id": "kb:MobilePhone-938cbdad-dc1a-44e8-8967-08e79a61928e"
+                },
+                {
+                    "@id": "kb:OperatingSystem-090c0cc9-06d5-443a-9579-b641a5299ca8"
+                },
+                {
+                    "@id": "kb:SIMCard-b715a4e2-c70b-4a8f-a875-702d67a764cc"
+                },
+                {
+                    "@id": "kb:File-34a47b1d-e33d-47a3-9651-74f7869c0966"
+                },
+                {
+                    "@id": "kb:Application-d2d93e8a-3a1f-47c6-ade8-22aeb18db10c"
+                },
+                {
+                    "@id": "kb:PhoneAccount-a0159a40-ca69-46ad-b61d-4bda837e8761"
+                },
+                {
+                    "@id": "kb:PhoneAccount-ebd621eb-5e9c-4d89-9939-b45670ec36c5"
+                },
+                {
+                    "@id": "kb:Message-bd75dc3b-c520-4470-9ffc-b2b302cd5500"
+                },
+                {
+                    "@id": "kb:Message-d7b85f91-08a4-47a0-a7a2-08bc50d2c396"
+                },
+                {
+                    "@id": "kb:Call-9161609e-615f-4a66-bb35-dba16bbfc40f"
+                },
+                {
+                    "@id": "kb:Contact-d41b1481-2516-4857-8e41-c444a70bb08c"
+                },
+                {
+                    "@id": "kb:Location-eb08e7a8-d2fb-4b81-ad26-910fadefea5a"
+                },
+                {
+                    "@id": "kb:WirelessNetworkConnection-88f3afbf-ef2c-47ed-8d5a-9f0cd79e6127"
+                },
+                {
+                    "@id": "kb:URLHistory-124cd3e1-5d81-47f9-8897-6d6d7e81607a"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-cf79ceb7-9531-4693-b16f-72c6c0124d48"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-721ba7a4-4dde-4676-8b6d-9db600f622d8"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-1e301162-3d06-4840-9a9e-2b5d897ae54a"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-643afadc-65a8-442d-90d8-1503c42906e3"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-f170231e-7c79-4e72-b9fc-e062230f817b"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-6157cf49-2641-4d3b-8e92-e09382427c6f"
+                }
+            ],
+            "case-investigation:investigationForm": "case",
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-04T09:00:00+00:00"
+            }
+        }
+    ]
+}

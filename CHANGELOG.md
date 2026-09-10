@@ -7,6 +7,125 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.30.0] - 2026-09-10
+
+Modeling recipes for the three commercial mobile forensic suites —
+Cellebrite UFED, Magnet AXIOM, and MSAB XRY — each with a validated
+exemplar graph and full MCP routing. Native outputs from these tools are
+not yet in hand; this release establishes the element-to-class mapping
+surface and the investigative spine so a follow-up minor release can fill
+in field-level detail against real exports.
+
+#### Commercial mobile forensic tool recipes
+
+- Added `docs/recipes/cellebrite-ufed-xml.md` for the UFED Physical
+  Analyzer `report.xml` at the root of an unzipped `.ufdr`. Maps every
+  `<modelType>` the format emits to a typed observable, walks
+  `<taggedFiles>` into hashed `File` nodes, and reconstructs the
+  `<extraInfo>`/`<nodeInfo>` join as a `Contained_Within` chain from a
+  decoded artifact back to the on-device file it came from. The community
+  parser handles eighteen model types; Physical Analyzer emits roughly
+  forty, so the recipe also maps `CreditCard`, `TransferOfFunds`,
+  `Password`, `Journey`, `Recording`, `Voicemail`, `Notification`, and
+  `SIMData`, which are unhandled upstream and frequently probative.
+- Added `docs/recipes/magnet-axiom-export.md` for the AXIOM Examine XML
+  export (`Artifact` / `Hit` / `Fragment`). Separates AXIOM Process
+  (acquisition) from AXIOM Examine (analysis and export) as two tools and
+  two actions, maps artifact families to typed observables by category
+  rather than by app-specific artifact name, promotes EXIF GPS fragments
+  to a real `uco-location:Location`, and turns
+  `Fragment name="Recovery method"` into `RecoveredObjectFacet` for
+  carved objects. `Case.mfdb` is recorded as an evidence file rather than
+  parsed, because Magnet publishes no schema for it.
+- Added `docs/recipes/msab-xry-export.md` for the sealed `.xry` container
+  and the XRY / XAMN / XEC Export tool chain. MSAB does not publish the
+  XAMN Extended XML schema and the community repository contains no
+  parser, so the recipe maps XAMN's documented content categories, marks
+  the element-name column unconfirmed rather than guessing at it, and
+  carries a "When the Extended XML schema arrives" section listing what
+  to change once a real export is held.
+
+#### Corrections to community parser patterns
+
+The three recipes follow
+[CASE-Implementation-UFED-XML](https://github.com/casework/CASE-Implementation-UFED-XML),
+[CASE-Implementation-AXIOM](https://github.com/casework/CASE-Implementation-AXIOM),
+and [CASE-Implementation-XRY](https://github.com/casework/CASE-Implementation-XRY)
+where those are right and depart from them where they are not. Each
+departure is recorded in the recipe's Anti-patterns section.
+
+- `Attached_To` is not a member of `ObservableObjectRelationshipVocab`.
+  A graph using it fails this repository's relationship-kind lint; use
+  `Attachment_Of` or `Had_Attachment`.
+- The AXIOM parser builds a complete chain-of-custody block in
+  `writeContextAxiom()` — Tool, Role, Identity, ProvenanceRecord, and
+  both InvestigativeActions — but never calls it, so real output is
+  observables with nothing attributing them. Both device recipes lead
+  with the spine.
+- Placeholder facts validate while asserting falsehoods. Upstream
+  substitutes `1900-01-01T08:00:00` for missing timestamps and repeated
+  digits for missing hashes; the recipes omit the property instead and
+  tag genuine unavailability `hash-status:not-published`.
+- UFED's `Tags` item is a category label, not a media type, and does not
+  belong in `FileFacet.mimeType`.
+- `deleted_state` has no counterpart in `ObservableObjectStateVocab`;
+  recovered records take `RecoveredObjectFacet` with a
+  `RecoveredObjectStatusVocab` member, and intact records take no
+  recovery facet at all.
+- The upstream `drafting:` namespace resolves to `example.org`, and its
+  shipped Turtle declares one class while the code emits fifteen terms.
+  Recipes route genuine gaps through `change-proposal.md` instead.
+- AXIOM localizes artifact and fragment names, so a mapping keyed on
+  English strings silently drops every artifact from a non-`en-US`
+  export. The recipe records the export locale on the export action.
+
+#### Validated exemplars
+
+- Added `examples/vendor-exports/` with a builder and a committed graph
+  per recipe: `cellebrite-ufed-xml.jsonld` (33 nodes),
+  `magnet-axiom-export.jsonld` (36 nodes), and `msab-xry-export.jsonld`
+  (32 nodes). All three conform against CASE 1.4.0 with zero violations
+  and zero undeclared concepts under `--validate` in the recipe
+  execution gate.
+- Field values are synthetic, because no licensed vendor output is
+  redistributable, but the structure is faithful: every element,
+  attribute, artifact, and fragment name reproduced in the recipes comes
+  from the real formats, and every digest in the exemplars is computed
+  over byte payloads the builders define rather than invented.
+- The exemplars also encode SHACL constraints that are easy to get wrong
+  from the vendor side: `observable:contactPhone` requires a
+  `ContactPhone` wrapper whose `contactPhoneNumber` references an account
+  observable rather than repeating the digits, `observable:host`
+  references a `DomainName` observable rather than a string,
+  `observable:exifData` requires a `ControlledDictionary` rather than a
+  plain `Dictionary`, and `SIMForm` draws on `SIMFormVocab`
+  (`Nano SIM`, not `nano-SIM`). `OperatingSystem` nodes carry
+  `SoftwareFacet` and a second `uco-observable:Software` type, ahead of
+  the UCO 2.0.0 move of `manufacturer` and `version` off
+  `OperatingSystemFacet`.
+
+#### Catalog and MCP routing
+
+- Registered all three recipes in `docs/recipes/INDEX.md`, `RECIPE_INDEX`
+  and `MAPPING_GUIDE_INDEX` (`mcp_server/domain_index.py`), the
+  `device-mobile-forensics` family in
+  `mcp_server/investigation_router.py`, and
+  `docs/recipes/recipe-execution.json`. `get_recipe`, `get_recipes`,
+  `guide_mapping`, and `route_investigation_content` all resolve the new
+  recipes; a mixed-vendor submission matches twelve router keywords and
+  returns all three.
+- Extended the mobile-forensics router family with vendor export
+  vocabulary (`ufdr`, `physical analyzer`, `report.xml`, `decodeddata`,
+  `modeltype`, `taggedfiles`, `extrainfo`, `magnet`, `axiom process`,
+  `axiom examine`, `case.mfdb`, `portable case`, `artifact profile`,
+  `recovery method`, `xry`, `msab`, `xamn`, `xec export`,
+  `extended xml`).
+- Added incoming cross-links from `starter-mobile-extraction.md` and
+  `mobile-device.md` so the catalog stays navigable as a graph.
+- The operational recipe catalog is now **85 recipes**, up from 82.
+
+Package versions bumped to **1.30.0**.
+
 ## [1.29.0] - 2026-08-30
 
 Shared MCP listener for multi-client use, PACER document-mapping

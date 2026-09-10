@@ -864,6 +864,41 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "file": "docs/recipes/mobile-device.md",
     },
     {
+        "title": "Cellebrite UFED XML Report",
+        "description": "Map a UFED Physical Analyzer report.xml (from a UFDR) into typed observables, taggedFiles, and the extraInfo chain of evidence.",
+        "keywords": (
+            "cellebrite ufed ufdr physical analyzer report.xml pa report xml decodeddata "
+            "modeltype model field multimodelfield taggedfiles extrainfo nodeinfo party "
+            "instantmessage deleted_state ufed 4pc touch premium reader mobile extraction "
+            "chat sms call contact cookie visitedpage webbookmark celltower wirelessnetwork "
+            "installedapplication socialmediaactivity searcheditem deviceinfo iccid imsi imei"
+        ),
+        "file": "docs/recipes/cellebrite-ufed-xml.md",
+    },
+    {
+        "title": "Magnet AXIOM Export",
+        "description": "Map a Magnet AXIOM Examine XML export (Artifact/Hit/Fragment) into typed observables with source containment, carving status, and EXIF GPS.",
+        "keywords": (
+            "magnet axiom axiom process axiom examine artifact hit fragment xml export "
+            "case.mfdb mfdb portable case xmlexternalfiles xmlbase64 recovery method carving "
+            "parsing significant locations knowledgec windows timeline artifact profile "
+            "magnet forensics mobile extraction disk triage exif gps pictures web history "
+            "chrome cookies safari history whatsapp telegram signal"
+        ),
+        "file": "docs/recipes/magnet-axiom-export.md",
+    },
+    {
+        "title": "MSAB XRY and XAMN Export",
+        "description": "Model a sealed .xry container and the XRY/XAMN/XEC tool chain, mapping XAMN content categories while the Extended XML schema is unpublished.",
+        "keywords": (
+            "msab xry xamn xamn horizon xamn elements xec export extended xml sealed container "
+            "encrypted container forensic seal audit trail content category mobile extraction "
+            "xry extract xry logical xry physical berla ive import nuix export unpublished schema "
+            "epistemic reported unattributed exhibit number root exhibit"
+        ),
+        "file": "docs/recipes/msab-xry-export.md",
+    },
+    {
         "title": "Email and Messaging",
         "description": "Model email messages, attachments, and messaging platform data.",
         "keywords": "email message attachment chat messaging calendar",
@@ -1365,6 +1400,76 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         ],
         "starter_kit": "docs/recipes/starter-mobile-extraction.md",
         "code_skeleton": "device = graph.create(ObservableObject, has_facet=[DeviceFacet(manufacturer=..., model=...)])",
+    },
+    {
+        "source": "Cellebrite UFED XML report",
+        "keywords": [
+            "ufed", "cellebrite", "ufdr", "physical analyzer", "report.xml",
+            "decodeddata", "modeltype", "taggedfiles", "extrainfo", "nodeinfo",
+        ],
+        "pattern": "Tool + InvestigativeAction + ProvenanceRecord spine, then one typed observable per modelType, joined to source files with Contained_Within",
+        "classes": [
+            "Tool", "Organization", "InvestigativeAction", "ProvenanceRecord",
+            "MobilePhone", "DeviceFacet", "MobileDeviceFacet", "SIMCard", "SIMCardFacet",
+            "File", "FileFacet", "ContentDataFacet", "Message", "MessageFacet",
+            "Call", "CallFacet", "Contact", "ContactFacet", "ContactPhone",
+            "ObservableRelationship", "RecoveredObjectFacet",
+        ],
+        "anti_patterns": [
+            "Don't use Attached_To — it is absent from ObservableObjectRelationshipVocab; use Attachment_Of",
+            "Don't write the UFED Tags item into FileFacet.mimeType",
+            "Don't synthesize 1900-01-01 timestamps or repeated-digit hashes for missing values",
+            "Don't put deleted_state into observable:state — use RecoveredObjectFacet",
+            "Don't adopt the upstream drafting: namespace at example.org",
+        ],
+        "starter_kit": "docs/recipes/cellebrite-ufed-xml.md",
+        "code_skeleton": "msg = graph.create(Message, has_facet=[MessageFacet(from_=party, to=[peer], message_text=..., sent_time=...)])",
+    },
+    {
+        "source": "Magnet AXIOM XML export",
+        "keywords": [
+            "axiom", "magnet", "axiom examine", "axiom process", "artifact", "fragment",
+            "case.mfdb", "mfdb", "portable case", "recovery method", "carving",
+        ],
+        "pattern": "Tool + AnalyticTool + two InvestigativeActions, then one typed observable per Artifact family with Source containment and Recovery method carving status",
+        "classes": [
+            "Tool", "AnalyticTool", "Organization", "InvestigativeAction", "ProvenanceRecord",
+            "MobilePhone", "DeviceFacet", "FileSystem", "FileSystemFacet",
+            "RasterPicture", "FileFacet", "ContentDataFacet", "EXIFFacet",
+            "ControlledDictionary", "RecoveredObjectFacet", "Location",
+            "LatLongCoordinatesFacet", "URLHistory", "BrowserCookie", "CellSite",
+        ],
+        "anti_patterns": [
+            "Don't emit observables without the Tool/InvestigativeAction/ProvenanceRecord spine",
+            "Don't treat an AXIOM artifact name such as 'Significant Locations' as an ontology type",
+            "Don't assume the export locale is en-US — artifact and fragment names are localized",
+            "Don't claim Case.mfdb was parsed; Magnet publishes no schema for it",
+            "Don't put a plain Dictionary in exifData — it requires a ControlledDictionary",
+        ],
+        "starter_kit": "docs/recipes/magnet-axiom-export.md",
+        "code_skeleton": "pic = graph.create(RasterPicture, has_facet=[FileFacet(...), ContentDataFacet(hash=[Hash(...)]), EXIFFacet(exif_data=ControlledDictionary(entry=[...]))])",
+    },
+    {
+        "source": "MSAB XRY / XAMN Extended XML export",
+        "keywords": [
+            "xry", "msab", "xamn", "xec export", "extended xml", "sealed container",
+            "xamn horizon", "xry extract",
+        ],
+        "pattern": "Sealed container as a hashed File with isEncrypted, XRY/XAMN/XEC tool chain, nested exhibit numbers, artifacts joined with Extracted_From until a source path is confirmed",
+        "classes": [
+            "Tool", "AnalyticTool", "Organization", "InvestigativeAction", "ProvenanceRecord",
+            "File", "FileFacet", "ContentDataFacet", "MobilePhone", "SIMCard",
+            "SMSMessage", "Call", "Contact", "RasterPicture", "ObservableRelationship",
+        ],
+        "anti_patterns": [
+            "Don't invent Extended XML element names — MSAB does not publish the schema",
+            "Don't model the interior of the sealed .xry container",
+            "Don't use Contained_Within for an artifact whose source file you cannot name",
+            "Don't treat XAMN AI image classifications as observations — they are analysis results",
+            "Don't attribute an imported UFED artifact to XRY just because XAMN displayed it",
+        ],
+        "starter_kit": "docs/recipes/msab-xry-export.md",
+        "code_skeleton": "container = graph.create(File, has_facet=[FileFacet(extension='xry'), ContentDataFacet(is_encrypted=True, hash=[Hash(...)])])",
     },
     {
         "source": "lab hash-match CSV or UFED-style summary",

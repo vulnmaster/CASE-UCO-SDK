@@ -1,0 +1,745 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:Organization-47cd39db-9513-4192-a008-95224cce0e4d",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "MSAB"
+        },
+        {
+            "@id": "kb:Organization-a4915162-afc9-42f0-8c90-890e239f236d",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Samsung Electronics"
+        },
+        {
+            "@id": "kb:Organization-60d207c4-b85a-4844-8ae1-753db173a11f",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Example Wireless"
+        },
+        {
+            "@id": "kb:Identity-029b10a6-15d1-4b85-9aea-d5c213580be3",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "J. Examiner"
+        },
+        {
+            "@id": "kb:Tool-364a970e-8ada-4a0a-b132-ea2d1c89dfb2",
+            "@type": "uco-tool:Tool",
+            "uco-core:description": [
+                "Acquisition front end; writes the sealed .xry container."
+            ],
+            "uco-core:name": "XRY",
+            "uco-tool:creator": {
+                "@id": "kb:Organization-47cd39db-9513-4192-a008-95224cce0e4d"
+            },
+            "uco-tool:toolType": "Extraction",
+            "uco-tool:version": "10.11.0"
+        },
+        {
+            "@id": "kb:AnalyticTool-d3fb8a1b-2a84-47e9-b36f-7de4be9d5ef8",
+            "@type": "uco-tool:AnalyticTool",
+            "uco-core:description": [
+                "Analysis front end. Opens .xry containers and exports Extended XML, the only MSAB output shaped for downstream interoperability."
+            ],
+            "uco-core:name": "XAMN Horizon",
+            "uco-tool:creator": {
+                "@id": "kb:Organization-47cd39db-9513-4192-a008-95224cce0e4d"
+            },
+            "uco-tool:toolType": "Analysis",
+            "uco-tool:version": "7.7.0"
+        },
+        {
+            "@id": "kb:Tool-ea8acea2-9422-42c0-86c4-cb19034fce3d",
+            "@type": "uco-tool:Tool",
+            "uco-core:description": [
+                "Batch/service converter for the same Extended XML, used when many .xry files are processed from a watched folder."
+            ],
+            "uco-core:name": "XEC Export",
+            "uco-tool:creator": {
+                "@id": "kb:Organization-47cd39db-9513-4192-a008-95224cce0e4d"
+            },
+            "uco-tool:toolType": "Export",
+            "uco-tool:version": "7.7.0"
+        },
+        {
+            "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf",
+            "@type": "uco-observable:File",
+            "uco-core:description": [
+                "Proprietary forensically sealed container with an internal audit trail. XRY 10.4 and later support configurable 256-bit encryption. It is recorded as an evidence file; its interior is not modelled because no public reader exists."
+            ],
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-38e14814-3e12-4a51-9546-eb171ff1da16",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "xry",
+                    "uco-observable:fileName": "Samsung_SM-G991B_2026-05-12.xry",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "38"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-c06a3747-9b7a-4e33-93a9-66d2ac74993c",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-e9a7a920-3556-4832-9b23-56826f2e0000",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "A297573AA73AE96F093F10514129259F"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-ae7899b6-0720-490d-84c3-e7d165a2d7d2",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "B034102901D84F4A00EDE933F7E6E84CE52F2C89A83DA52C32D7F2C3F7EBE29E"
+                            }
+                        }
+                    ],
+                    "uco-observable:isEncrypted": {
+                        "@type": "xsd:boolean",
+                        "@value": "true"
+                    },
+                    "uco-observable:mimeType": "application/octet-stream",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "38"
+                    }
+                }
+            ],
+            "uco-core:name": "Samsung_SM-G991B_2026-05-12.xry"
+        },
+        {
+            "@id": "kb:File-bf10e9b8-db81-46ac-9be1-31ff823ad6af",
+            "@type": "uco-observable:File",
+            "uco-core:description": [
+                "XAMN Extended XML. MSAB distributes the schema through the customer portal rather than publishing it, so element names are not asserted here; fill the mapping table in the recipe once the schema is held."
+            ],
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-314440df-d899-47cb-99fd-61e1c63938a9",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "xml",
+                    "uco-observable:fileName": "Samsung_SM-G991B_2026-05-12_extended.xml",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "65"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-f617a1f4-569c-4649-88ac-2ec808106a5c",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-07633884-6363-4bf6-adca-1a667e7e7076",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "93F264A9428B125381C7DCFE27250D11"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-5f0c42f9-d29b-470e-8ff0-f06c92accc78",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "30ABD2993156924FE151779579BD48A1D914AEBBD2F0A29B2E0F6DB4DDA24B6D"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/xml",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "65"
+                    }
+                }
+            ],
+            "uco-core:name": "Samsung_SM-G991B_2026-05-12_extended.xml",
+            "uco-core:tag": [
+                "epistemic:reported",
+                "epistemic:unattributed"
+            ]
+        },
+        {
+            "@id": "kb:InvestigativeAction-c6df3095-38bc-4b2e-a197-63db858834db",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "XRY logical and file system extraction",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-05-12T11:22:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-364a970e-8ada-4a0a-b132-ea2d1c89dfb2"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-029b10a6-15d1-4b85-9aea-d5c213580be3"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-05-12T10:05:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-221876d5-605b-495d-9bce-3d555496db44",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "XAMN opened the sealed container and wrote Extended XML. XEC Export performs the same conversion unattended for bulk caseloads."
+            ],
+            "uco-core:name": "XAMN Extended XML export",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-05-12T13:46:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:AnalyticTool-d3fb8a1b-2a84-47e9-b36f-7de4be9d5ef8"
+                },
+                {
+                    "@id": "kb:Tool-ea8acea2-9422-42c0-86c4-cb19034fce3d"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-029b10a6-15d1-4b85-9aea-d5c213580be3"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-bf10e9b8-db81-46ac-9be1-31ff823ad6af"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-05-12T13:40:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:ProvenanceRecord-08dc6306-6300-4c47-89ae-1f2887c0d802",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "Sealed XRY container",
+            "uco-core:object": [
+                {
+                    "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+                }
+            ],
+            "case-investigation:exhibitNumber": "EX-2026-0512-01"
+        },
+        {
+            "@id": "kb:ProvenanceRecord-9e08a826-7820-4612-8db4-f434e8369b31",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "XAMN Extended XML export",
+            "uco-core:object": [
+                {
+                    "@id": "kb:File-bf10e9b8-db81-46ac-9be1-31ff823ad6af"
+                }
+            ],
+            "case-investigation:exhibitNumber": "EX-2026-0512-01-A",
+            "case-investigation:rootExhibitNumber": "EX-2026-0512-01"
+        },
+        {
+            "@id": "kb:MobilePhone-86953319-3fcd-454b-a662-ad4496ef884b",
+            "@type": "uco-observable:MobilePhone",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-af7debf9-4f92-4966-ac41-f9e3c42400b4",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "Mobile Phone",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Organization-a4915162-afc9-42f0-8c90-890e239f236d"
+                    },
+                    "uco-observable:model": "SM-G991B",
+                    "uco-observable:serialNumber": "R5CTEXAMPLE1"
+                },
+                {
+                    "@id": "kb:MobileDeviceFacet-87ba58f2-e69e-4f27-9846-febf53d111dd",
+                    "@type": "uco-observable:MobileDeviceFacet",
+                    "uco-observable:IMEI": "356938035643809",
+                    "uco-observable:network": "LTE"
+                }
+            ],
+            "uco-core:name": "Samsung Galaxy S21 (SM-G991B)"
+        },
+        {
+            "@id": "kb:OperatingSystem-e00d16ed-6be9-4e67-91af-ed2aea80a9e9",
+            "@type": [
+                "uco-observable:OperatingSystem",
+                "uco-observable:Software"
+            ],
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SoftwareFacet-915aed59-4eef-4744-9a68-d8a0f7eb9f96",
+                    "@type": "uco-observable:SoftwareFacet",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Organization-a4915162-afc9-42f0-8c90-890e239f236d"
+                    },
+                    "uco-observable:version": "14"
+                }
+            ],
+            "uco-core:name": "Android 14"
+        },
+        {
+            "@id": "kb:SIMCard-e2f85848-2158-47c0-a5de-d370318c0484",
+            "@type": "uco-observable:SIMCard",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SIMCardFacet-4ca2091b-280b-4e72-920b-8a65f33618b2",
+                    "@type": "uco-observable:SIMCardFacet",
+                    "uco-observable:ICCID": "8901260852280054321",
+                    "uco-observable:IMSI": "310260000000001",
+                    "uco-observable:SIMForm": "Nano SIM",
+                    "uco-observable:carrier": {
+                        "@id": "kb:Organization-60d207c4-b85a-4844-8ae1-753db173a11f"
+                    }
+                }
+            ],
+            "uco-core:name": "SIM (ICCID 8901260852280054321)"
+        },
+        {
+            "@id": "kb:ObservableRelationship-8a494422-d8d1-41e2-a6bc-f4d54bc3b8fd",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "SIM seated in the extracted handset."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:SIMCard-e2f85848-2158-47c0-a5de-d370318c0484"
+            },
+            "uco-core:target": {
+                "@id": "kb:MobilePhone-86953319-3fcd-454b-a662-ad4496ef884b"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-24d6d07a-c95f-407b-93bd-47d3bbbf18ff",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Operating system reported by XRY."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:OperatingSystem-e00d16ed-6be9-4e67-91af-ed2aea80a9e9"
+            },
+            "uco-core:target": {
+                "@id": "kb:MobilePhone-86953319-3fcd-454b-a662-ad4496ef884b"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-9396bae7-048b-44d6-8a5b-d376832ccd58",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Sealed container produced by extracting this handset."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Extracted_From",
+            "uco-core:source": {
+                "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+            },
+            "uco-core:target": {
+                "@id": "kb:MobilePhone-86953319-3fcd-454b-a662-ad4496ef884b"
+            }
+        },
+        {
+            "@id": "kb:PhoneAccount-f0409fce-e564-4bd0-935f-2a7fea41bc87",
+            "@type": "uco-observable:PhoneAccount",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:PhoneAccountFacet-adc729c5-a315-4222-b416-2fb7c292cb9f",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15555550100"
+                }
+            ],
+            "uco-core:name": "+15555550100"
+        },
+        {
+            "@id": "kb:PhoneAccount-12888355-8a83-467d-8e3e-8738b9676a11",
+            "@type": "uco-observable:PhoneAccount",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:PhoneAccountFacet-654271c9-3b8d-4817-babb-222fb295ebb7",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15555550142"
+                }
+            ],
+            "uco-core:name": "+15555550142"
+        },
+        {
+            "@id": "kb:SMSMessage-b69ddcd7-df00-4c57-aa70-fc5a8a9e071a",
+            "@type": "uco-observable:SMSMessage",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MessageFacet-8b713843-96dc-4acb-add4-bffae8d257bd",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:from": {
+                        "@id": "kb:PhoneAccount-12888355-8a83-467d-8e3e-8738b9676a11"
+                    },
+                    "uco-observable:messageText": "Boat is fuelled, leaving at six.",
+                    "uco-observable:messageType": "SMS",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-05-10T18:03:27+00:00"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:PhoneAccount-f0409fce-e564-4bd0-935f-2a7fea41bc87"
+                        }
+                    ]
+                },
+                {
+                    "@id": "kb:SMSMessageFacet-85b68572-25a7-419c-a843-a1fe37a66561",
+                    "@type": "uco-observable:SMSMessageFacet",
+                    "uco-observable:isRead": {
+                        "@type": "xsd:boolean",
+                        "@value": "true"
+                    }
+                }
+            ],
+            "uco-core:name": "SMS (inbox)"
+        },
+        {
+            "@id": "kb:Call-7c96d996-1576-4fa1-a35f-de4a815072be",
+            "@type": "uco-observable:Call",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:CallFacet-ac5e2f45-6b88-4c4b-8c5c-9915e62555ce",
+                    "@type": "uco-observable:CallFacet",
+                    "uco-observable:callType": "Outgoing",
+                    "uco-observable:duration": {
+                        "@type": "xsd:integer",
+                        "@value": "221"
+                    },
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-05-10T18:23:41+00:00"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:PhoneAccount-f0409fce-e564-4bd0-935f-2a7fea41bc87"
+                    },
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-05-10T18:20:00+00:00"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:PhoneAccount-12888355-8a83-467d-8e3e-8738b9676a11"
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "Call (outgoing)"
+        },
+        {
+            "@id": "kb:ContactPhone-4ab59a39-9361-4bf1-9bb6-155ccd02fb25",
+            "@type": "uco-observable:ContactPhone",
+            "uco-observable:contactPhoneNumber": {
+                "@id": "kb:PhoneAccount-12888355-8a83-467d-8e3e-8738b9676a11"
+            },
+            "uco-observable:contactPhoneScope": "mobile"
+        },
+        {
+            "@id": "kb:Contact-db6636b7-aa9b-410c-895b-8e7747975f90",
+            "@type": "uco-observable:Contact",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContactFacet-af7ac695-5a0c-444b-bcb0-1149f5967de4",
+                    "@type": "uco-observable:ContactFacet",
+                    "uco-observable:contactPhone": [
+                        {
+                            "@id": "kb:ContactPhone-4ab59a39-9361-4bf1-9bb6-155ccd02fb25"
+                        }
+                    ],
+                    "uco-observable:displayName": "R. Delgado",
+                    "uco-observable:firstName": "Rosa",
+                    "uco-observable:lastName": "Delgado"
+                }
+            ],
+            "uco-core:name": "Contact"
+        },
+        {
+            "@id": "kb:Location-5cdb972b-cbe9-4e3b-8d54-0d3a7e213d1f",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-99a65275-27d7-42b2-8ca8-4458163bab62",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "38.9784"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-76.4922"
+                    }
+                }
+            ],
+            "uco-core:name": "Device location fix"
+        },
+        {
+            "@id": "kb:RasterPicture-deadac49-f8d7-4cc7-83cd-b0740b6f46bd",
+            "@type": "uco-observable:RasterPicture",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-e98c0cb8-ddd6-4261-a36f-6cebfd279e27",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "jpg",
+                    "uco-observable:fileName": "20260510_181144.jpg",
+                    "uco-observable:filePath": "/storage/emulated/0/DCIM/Camera/20260510_181144.jpg",
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-05-10T18:11:44+00:00"
+                    },
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "42"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-a592ee51-436e-414b-b858-e72adab96f87",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-19fa8e26-510c-456c-9fc9-1f562f79bbc6",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "5F899817A35006337441ACEC2E397BCD"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-ba25600f-6063-46d3-be72-d665cf85da06",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "01A6356676D72D0DCA203E8C2603423F8E04985A6DC28D2FB66BEFB0D5385A03"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "image/jpeg",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "42"
+                    }
+                },
+                {
+                    "@id": "kb:RasterPictureFacet-5e76bcf8-0f8e-414d-9e40-18b5bf0fde9a",
+                    "@type": "uco-observable:RasterPictureFacet",
+                    "uco-observable:pictureHeight": {
+                        "@type": "xsd:integer",
+                        "@value": "3000"
+                    },
+                    "uco-observable:pictureWidth": {
+                        "@type": "xsd:integer",
+                        "@value": "4000"
+                    }
+                }
+            ],
+            "uco-core:name": "20260510_181144.jpg"
+        },
+        {
+            "@id": "kb:ObservableRelationship-dffd3f44-0713-4faa-86e1-83072f9d3e71",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Decoded from the sealed container; Extended XML does not yet give a per-artifact source path to build a Contained_Within chain."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Extracted_From",
+            "uco-core:source": {
+                "@id": "kb:SMSMessage-b69ddcd7-df00-4c57-aa70-fc5a8a9e071a"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-2af070d0-ea3f-4aa9-bc4b-9fde671daee3",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Decoded from the sealed container; Extended XML does not yet give a per-artifact source path to build a Contained_Within chain."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Extracted_From",
+            "uco-core:source": {
+                "@id": "kb:Call-7c96d996-1576-4fa1-a35f-de4a815072be"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-d64be623-e520-4cc4-8d4a-487a82d05e32",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Decoded from the sealed container; Extended XML does not yet give a per-artifact source path to build a Contained_Within chain."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Extracted_From",
+            "uco-core:source": {
+                "@id": "kb:Contact-db6636b7-aa9b-410c-895b-8e7747975f90"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-725ef5db-ffc4-49e7-a591-c3404eda7055",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Decoded from the sealed container; Extended XML does not yet give a per-artifact source path to build a Contained_Within chain."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Extracted_From",
+            "uco-core:source": {
+                "@id": "kb:RasterPicture-deadac49-f8d7-4cc7-83cd-b0740b6f46bd"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+            }
+        },
+        {
+            "@id": "kb:Investigation-17fb3a91-e732-44f1-818a-619423ddf168",
+            "@type": "case-investigation:Investigation",
+            "uco-core:description": [
+                "Structural exemplar for docs/recipes/msab-xry-export.md; field values are synthetic and no Extended XML element names are asserted."
+            ],
+            "uco-core:name": "MSAB XRY / XAMN export ingest",
+            "uco-core:object": [
+                {
+                    "@id": "kb:Identity-029b10a6-15d1-4b85-9aea-d5c213580be3"
+                },
+                {
+                    "@id": "kb:Tool-364a970e-8ada-4a0a-b132-ea2d1c89dfb2"
+                },
+                {
+                    "@id": "kb:AnalyticTool-d3fb8a1b-2a84-47e9-b36f-7de4be9d5ef8"
+                },
+                {
+                    "@id": "kb:Tool-ea8acea2-9422-42c0-86c4-cb19034fce3d"
+                },
+                {
+                    "@id": "kb:File-3941536c-96a8-49ca-8590-1da2cf3cd6bf"
+                },
+                {
+                    "@id": "kb:File-bf10e9b8-db81-46ac-9be1-31ff823ad6af"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-c6df3095-38bc-4b2e-a197-63db858834db"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-221876d5-605b-495d-9bce-3d555496db44"
+                },
+                {
+                    "@id": "kb:ProvenanceRecord-08dc6306-6300-4c47-89ae-1f2887c0d802"
+                },
+                {
+                    "@id": "kb:ProvenanceRecord-9e08a826-7820-4612-8db4-f434e8369b31"
+                },
+                {
+                    "@id": "kb:MobilePhone-86953319-3fcd-454b-a662-ad4496ef884b"
+                },
+                {
+                    "@id": "kb:OperatingSystem-e00d16ed-6be9-4e67-91af-ed2aea80a9e9"
+                },
+                {
+                    "@id": "kb:SIMCard-e2f85848-2158-47c0-a5de-d370318c0484"
+                },
+                {
+                    "@id": "kb:PhoneAccount-f0409fce-e564-4bd0-935f-2a7fea41bc87"
+                },
+                {
+                    "@id": "kb:PhoneAccount-12888355-8a83-467d-8e3e-8738b9676a11"
+                },
+                {
+                    "@id": "kb:SMSMessage-b69ddcd7-df00-4c57-aa70-fc5a8a9e071a"
+                },
+                {
+                    "@id": "kb:Call-7c96d996-1576-4fa1-a35f-de4a815072be"
+                },
+                {
+                    "@id": "kb:Contact-db6636b7-aa9b-410c-895b-8e7747975f90"
+                },
+                {
+                    "@id": "kb:Location-5cdb972b-cbe9-4e3b-8d54-0d3a7e213d1f"
+                },
+                {
+                    "@id": "kb:RasterPicture-deadac49-f8d7-4cc7-83cd-b0740b6f46bd"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-8a494422-d8d1-41e2-a6bc-f4d54bc3b8fd"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-24d6d07a-c95f-407b-93bd-47d3bbbf18ff"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-9396bae7-048b-44d6-8a5b-d376832ccd58"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-dffd3f44-0713-4faa-86e1-83072f9d3e71"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-2af070d0-ea3f-4aa9-bc4b-9fde671daee3"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-d64be623-e520-4cc4-8d4a-487a82d05e32"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-725ef5db-ffc4-49e7-a591-c3404eda7055"
+                }
+            ],
+            "case-investigation:investigationForm": "case",
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-05-12T10:00:00+00:00"
+            }
+        }
+    ]
+}

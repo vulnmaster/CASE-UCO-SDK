@@ -119,3 +119,6 @@ System.out.println(graph.serialize());
 - [sms-and-contacts.md](sms-and-contacts.md) — messages and contacts from the extraction
 - [call-log.md](call-log.md) — call records
 - [cell-site.md](cell-site.md) — tower/location data
+- [cellebrite-ufed-xml.md](cellebrite-ufed-xml.md) — mapping a Cellebrite UFED `report.xml`
+- [magnet-axiom-export.md](magnet-axiom-export.md) — mapping a Magnet AXIOM XML export
+- [msab-xry-export.md](msab-xry-export.md) — mapping an MSAB XRY / XAMN export

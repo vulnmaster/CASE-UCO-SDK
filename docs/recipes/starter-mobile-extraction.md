@@ -167,6 +167,9 @@ infer a technique from the product name "Cellebrite" or "UFED" alone.
 
 - [mobile-device.md](mobile-device.md) — deeper mobile device patterns
 - [mobile-device-sim.md](mobile-device-sim.md) — handset + SIM detail
+- [cellebrite-ufed-xml.md](cellebrite-ufed-xml.md) — a real UFED `report.xml` instead of a generic JSON summary
+- [magnet-axiom-export.md](magnet-axiom-export.md) — a real Magnet AXIOM Examine XML export
+- [msab-xry-export.md](msab-xry-export.md) — MSAB XRY containers and XAMN exports
 - [sms-and-contacts.md](sms-and-contacts.md) — messages and contacts
 - [call-log.md](call-log.md) — call records
 - [technique-evidence-outcome.md](technique-evidence-outcome.md) — sourced method plus legal-outcome join

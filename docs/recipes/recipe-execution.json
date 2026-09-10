@@ -1413,6 +1413,36 @@
       "strict_concepts": true
     },
     {
+      "id": "cellebrite-ufed-xml",
+      "category": "mobile-forensics",
+      "recipe": "docs/recipes/cellebrite-ufed-xml.md",
+      "builder": "examples/vendor-exports/build_cellebrite_ufed_xml.py",
+      "output": "examples/vendor-exports/cellebrite-ufed-xml.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "magnet-axiom-export",
+      "category": "mobile-forensics",
+      "recipe": "docs/recipes/magnet-axiom-export.md",
+      "builder": "examples/vendor-exports/build_magnet_axiom_export.py",
+      "output": "examples/vendor-exports/magnet-axiom-export.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
+      "id": "msab-xry-export",
+      "category": "mobile-forensics",
+      "recipe": "docs/recipes/msab-xry-export.md",
+      "builder": "examples/vendor-exports/build_msab_xry_export.py",
+      "output": "examples/vendor-exports/msab-xry-export.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
       "id": "network-artifacts",
       "category": "catalog-coverage",
       "recipe": "docs/recipes/network-artifacts.md",

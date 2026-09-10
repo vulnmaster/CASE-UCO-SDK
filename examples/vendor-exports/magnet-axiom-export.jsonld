@@ -1,0 +1,935 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:Organization-2ce6dae9-a1f1-48ec-807a-22b63b853bb6",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Magnet Forensics"
+        },
+        {
+            "@id": "kb:Organization-f69279ad-377a-42d9-bd30-2f509e5df660",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Apple Inc."
+        },
+        {
+            "@id": "kb:Identity-9f1475d1-d211-4477-a556-664041d1dc5a",
+            "@type": "uco-identity:Identity",
+            "uco-core:name": "J. Examiner"
+        },
+        {
+            "@id": "kb:Tool-ccaf5cba-b142-4047-8f07-95724dc83c70",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "Magnet AXIOM Process",
+            "uco-tool:creator": {
+                "@id": "kb:Organization-2ce6dae9-a1f1-48ec-807a-22b63b853bb6"
+            },
+            "uco-tool:toolType": "Acquisition",
+            "uco-tool:version": "8.4.0.41310"
+        },
+        {
+            "@id": "kb:AnalyticTool-2c0d754f-899d-4fd3-a025-70ce43d2ddf5",
+            "@type": "uco-tool:AnalyticTool",
+            "uco-core:description": [
+                "Artifact review and export. The XML export is produced here (--type Xml | XmlExternalFiles | XmlBase64), not by AXIOM Process."
+            ],
+            "uco-core:name": "Magnet AXIOM Examine",
+            "uco-tool:creator": {
+                "@id": "kb:Organization-2ce6dae9-a1f1-48ec-807a-22b63b853bb6"
+            },
+            "uco-tool:toolType": "Analysis",
+            "uco-tool:version": "8.4.0.41310"
+        },
+        {
+            "@id": "kb:File-51b10856-cd3c-4c8b-bfd0-8ee4463ed22c",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-05b9e696-232a-4013-a7c8-2862a311fb47",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "e01",
+                    "uco-observable:fileName": "iphone-11.e01",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "53687091200"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-09859c9b-ea8c-45e8-a6e1-8662a9f38335",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-901fa3cc-41bc-424e-b04f-28299c6eabb4",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "420D3F6EFF27C25737B39F4B4D5221EF330DB89525F8A0C37F43FB0B8C20C61F"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "application/octet-stream",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "53687091200"
+                    }
+                }
+            ],
+            "uco-core:name": "iphone-11.e01"
+        },
+        {
+            "@id": "kb:File-d7e14d09-6e95-4740-872b-916c9034ba61",
+            "@type": "uco-observable:File",
+            "uco-core:description": [
+                "AXIOM Process case database. Magnet does not publish its schema; it is recorded as an evidence file, not parsed."
+            ],
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-26aecf05-3eb2-4a1a-8095-d062cc921dfd",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "mfdb",
+                    "uco-observable:fileName": "Case.mfdb",
+                    "uco-observable:filePath": "AXIOM_Process/Case.mfdb"
+                }
+            ],
+            "uco-core:name": "Case.mfdb"
+        },
+        {
+            "@id": "kb:File-cc1afbee-a510-448a-944d-e3fa638b7b4f",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-5a0cae2c-a452-4a0f-b869-edf4d4e7600e",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "xml",
+                    "uco-observable:fileName": "axiom-export.xml",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "51"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-1bed48a1-c7bf-4c2e-bd50-9734e4dcc3d7",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-618a5d19-3dcf-4094-a6b6-2a0433ec8748",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "475688DF0BE4CEAC43043AAB82E558AC"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-1daf48d5-8e68-451f-bdc1-0023bfd0b694",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "89B15199D330C0B9D93D9145D98975F9060030CD262C03A08516D210DF589F91"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "text/xml",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "51"
+                    }
+                }
+            ],
+            "uco-core:name": "axiom-export.xml"
+        },
+        {
+            "@id": "kb:InvestigativeAction-b659608d-ce65-4186-b923-5d5e9968ad53",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "AXIOM Process image acquisition and artifact search",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-04-06T12:05:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-ccaf5cba-b142-4047-8f07-95724dc83c70"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-9f1475d1-d211-4477-a556-664041d1dc5a"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-51b10856-cd3c-4c8b-bfd0-8ee4463ed22c"
+                },
+                {
+                    "@id": "kb:File-d7e14d09-6e95-4740-872b-916c9034ba61"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-04-06T08:30:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-68a4d0af-d274-4d7c-8606-3ba3fe2cd035",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:description": [
+                "Export locale is en-US. Artifact and Fragment names are localized, so a mapping keyed on English names silently drops artifacts from an export generated in another locale."
+            ],
+            "uco-core:name": "AXIOM Examine XML export (en-US)",
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-04-06T14:09:00+00:00"
+            },
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:AnalyticTool-2c0d754f-899d-4fd3-a025-70ce43d2ddf5"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:File-d7e14d09-6e95-4740-872b-916c9034ba61"
+                }
+            ],
+            "uco-action:performer": {
+                "@id": "kb:Identity-9f1475d1-d211-4477-a556-664041d1dc5a"
+            },
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-cc1afbee-a510-448a-944d-e3fa638b7b4f"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-04-06T14:00:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:ProvenanceRecord-83b0df18-f343-4531-aa4f-d5671328f096",
+            "@type": "case-investigation:ProvenanceRecord",
+            "uco-core:name": "AXIOM XML export",
+            "uco-core:object": [
+                {
+                    "@id": "kb:File-cc1afbee-a510-448a-944d-e3fa638b7b4f"
+                }
+            ],
+            "case-investigation:exhibitNumber": "EX-2026-0406-02"
+        },
+        {
+            "@id": "kb:MobilePhone-7e306947-a966-4ac1-adc6-99dcb85390a2",
+            "@type": "uco-observable:MobilePhone",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DeviceFacet-77a94c5a-15f6-48e7-9854-834e15c2d8c7",
+                    "@type": "uco-observable:DeviceFacet",
+                    "uco-observable:deviceType": "Mobile Phone",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Organization-f69279ad-377a-42d9-bd30-2f509e5df660"
+                    },
+                    "uco-observable:model": "iPhone12,1",
+                    "uco-observable:serialNumber": "F17EXAMPLE01"
+                },
+                {
+                    "@id": "kb:MobileDeviceFacet-5571e8dc-bd77-42db-bb0a-599485989cd9",
+                    "@type": "uco-observable:MobileDeviceFacet",
+                    "uco-observable:IMEI": "356938035643809",
+                    "uco-observable:network": "LTE"
+                }
+            ],
+            "uco-core:name": "iPhone 11"
+        },
+        {
+            "@id": "kb:OperatingSystem-7db0cdef-55b9-4cf6-a578-9d55ba575bd7",
+            "@type": [
+                "uco-observable:OperatingSystem",
+                "uco-observable:Software"
+            ],
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:SoftwareFacet-6e09ba06-5aab-444a-b21a-b371a38992ac",
+                    "@type": "uco-observable:SoftwareFacet",
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:Organization-f69279ad-377a-42d9-bd30-2f509e5df660"
+                    },
+                    "uco-observable:version": "17.4"
+                }
+            ],
+            "uco-core:name": "iOS 17.4"
+        },
+        {
+            "@id": "kb:ObservableRelationship-9f2fc0af-acb8-4bf2-92bb-4470500b3115",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Fragment name=\"OS Version\"."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:OperatingSystem-7db0cdef-55b9-4cf6-a578-9d55ba575bd7"
+            },
+            "uco-core:target": {
+                "@id": "kb:MobilePhone-7e306947-a966-4ac1-adc6-99dcb85390a2"
+            }
+        },
+        {
+            "@id": "kb:FileSystem-5c83fd43-c587-4791-a270-c6af67ec2fc9",
+            "@type": "uco-observable:FileSystem",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileSystemFacet-3eaebf51-c2cd-40a9-ac20-9e64414fcc65",
+                    "@type": "uco-observable:FileSystemFacet",
+                    "uco-observable:clusterSize": {
+                        "@type": "xsd:integer",
+                        "@value": "4096"
+                    },
+                    "uco-observable:fileSystemType": "APFS"
+                }
+            ],
+            "uco-core:name": "APFS volume"
+        },
+        {
+            "@id": "kb:ObservableRelationship-b76bcea9-5a92-4d60-998f-74d15f25ed1b",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Fragment name=\"Volume Offset (Bytes)\"."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:FileSystem-5c83fd43-c587-4791-a270-c6af67ec2fc9"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-51b10856-cd3c-4c8b-bfd0-8ee4463ed22c"
+            }
+        },
+        {
+            "@id": "kb:RasterPicture-22cd5f1b-906b-4f53-b62e-3b2938897cce",
+            "@type": "uco-observable:RasterPicture",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-902ec6a8-974b-4c29-8123-60f21fbaf7b7",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "HEIC",
+                    "uco-observable:fileName": "IMG_0442.HEIC",
+                    "uco-observable:filePath": "/private/var/mobile/Media/DCIM/101APPLE/IMG_0442.HEIC",
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-29T17:41:02+00:00"
+                    },
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "44"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-0cc89ab0-1544-49cf-981d-7e64347a7bd0",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-a8aebf57-10e7-493d-bb9f-20a104f9bfce",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "6DFA643E87B8E2F2582136096A821BDD"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-8183a726-d60d-4084-ba43-987ff2833c32",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "5680E4DA5447C709CDBB5392B17958D56DF8360FC8809DB2998DD29062FB595A"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "image/heic",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "44"
+                    }
+                },
+                {
+                    "@id": "kb:RasterPictureFacet-388d0325-0c5e-4991-a9ff-353b7a6752d7",
+                    "@type": "uco-observable:RasterPictureFacet",
+                    "uco-observable:pictureHeight": {
+                        "@type": "xsd:integer",
+                        "@value": "3024"
+                    },
+                    "uco-observable:pictureWidth": {
+                        "@type": "xsd:integer",
+                        "@value": "4032"
+                    }
+                },
+                {
+                    "@id": "kb:EXIFFacet-c372373a-2cee-42b1-8e5b-ee74327dcb21",
+                    "@type": "uco-observable:EXIFFacet",
+                    "uco-observable:exifData": {
+                        "@id": "kb:ControlledDictionary-d94856a3-d7f5-4318-a32d-e15b8242614a",
+                        "@type": "uco-types:ControlledDictionary",
+                        "uco-types:entry": [
+                            {
+                                "@id": "kb:ControlledDictionaryEntry-609befe2-9df9-4214-a386-455df6aac486",
+                                "@type": "uco-types:ControlledDictionaryEntry",
+                                "uco-types:key": "Make",
+                                "uco-types:value": "Apple"
+                            },
+                            {
+                                "@id": "kb:ControlledDictionaryEntry-b6a3a25e-bce4-4095-93d8-f148beacab94",
+                                "@type": "uco-types:ControlledDictionaryEntry",
+                                "uco-types:key": "Model",
+                                "uco-types:value": "iPhone 11"
+                            },
+                            {
+                                "@id": "kb:ControlledDictionaryEntry-b69fa86d-dec0-455e-9216-5ec0ea2c458e",
+                                "@type": "uco-types:ControlledDictionaryEntry",
+                                "uco-types:key": "GPSLatitude",
+                                "uco-types:value": "38.9784"
+                            },
+                            {
+                                "@id": "kb:ControlledDictionaryEntry-23479552-0461-4fbc-8f58-12c74befa164",
+                                "@type": "uco-types:ControlledDictionaryEntry",
+                                "uco-types:key": "GPSLatitudeRef",
+                                "uco-types:value": "N"
+                            },
+                            {
+                                "@id": "kb:ControlledDictionaryEntry-60b6942f-42e0-46bc-91e4-f2d09551e748",
+                                "@type": "uco-types:ControlledDictionaryEntry",
+                                "uco-types:key": "GPSLongitude",
+                                "uco-types:value": "-76.4922"
+                            },
+                            {
+                                "@id": "kb:ControlledDictionaryEntry-b2350ffd-60ea-4854-9dee-0411817345e5",
+                                "@type": "uco-types:ControlledDictionaryEntry",
+                                "uco-types:key": "GPSLongitudeRef",
+                                "uco-types:value": "W"
+                            },
+                            {
+                                "@id": "kb:ControlledDictionaryEntry-7f05914d-a7dd-491d-918b-9c0e5ea00d00",
+                                "@type": "uco-types:ControlledDictionaryEntry",
+                                "uco-types:key": "GPSAltitude",
+                                "uco-types:value": "11"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "uco-core:name": "IMG_0442.HEIC"
+        },
+        {
+            "@id": "kb:ObservableRelationship-fba3fb70-7061-4bae-83b6-18879897bc6d",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Fragment name=\"Source\"."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:RasterPicture-22cd5f1b-906b-4f53-b62e-3b2938897cce"
+            },
+            "uco-core:target": {
+                "@id": "kb:FileSystem-5c83fd43-c587-4791-a270-c6af67ec2fc9"
+            }
+        },
+        {
+            "@id": "kb:Location-5f86ea4d-2aec-4190-bb9e-12266f72191b",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-8f44e6aa-9cca-4412-aa78-dcfbcdd7440d",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:altitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "11.0"
+                    },
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "38.9784"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-76.4922"
+                    }
+                }
+            ],
+            "uco-core:name": "EXIF GPS fix for IMG_0442.HEIC"
+        },
+        {
+            "@id": "kb:RasterPicture-8d270af3-a2b1-42e0-a086-a4eb71e31393",
+            "@type": "uco-observable:RasterPicture",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-ceec6c8c-778b-4644-bc86-7b7a0b716cca",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "jpg",
+                    "uco-observable:fileName": "carved_00417216.jpg",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "88214"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-918a67fd-860b-4717-b1a8-a7a3b53dbc39",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-f5ea6fde-a85b-4bcb-a016-d278bd825c55",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "8BE03C2BA0121CD9EFFC9997CB14F8AE2FCD3383FAD3C92F78334DF0EEFC6D11"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "image/jpeg",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "88214"
+                    }
+                },
+                {
+                    "@id": "kb:RecoveredObjectFacet-a610853b-a265-4431-b4ac-467ca3340d7c",
+                    "@type": "uco-observable:RecoveredObjectFacet",
+                    "uco-observable:contentRecoveredStatus": "recovered",
+                    "uco-observable:nameRecoveredStatus": "unknown"
+                }
+            ],
+            "uco-core:name": "carved_00417216.jpg"
+        },
+        {
+            "@id": "kb:ObservableRelationship-218d2cb9-12db-4b10-9461-f1828a7296c8",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Fragment name=\"Recovery method\" == \"Carving\"; Location gives the byte offset."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:RasterPicture-8d270af3-a2b1-42e0-a086-a4eb71e31393"
+            },
+            "uco-core:target": {
+                "@id": "kb:FileSystem-5c83fd43-c587-4791-a270-c6af67ec2fc9"
+            }
+        },
+        {
+            "@id": "kb:Application-38683b53-be63-45e6-87fc-631c5dd881d1",
+            "@type": "uco-observable:Application",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ApplicationFacet-4937113a-1599-4d35-b55a-19b3661272df",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-observable:applicationIdentifier": "net.whatsapp.WhatsApp"
+                }
+            ],
+            "uco-core:name": "WhatsApp"
+        },
+        {
+            "@id": "kb:File-cf2d0f05-5055-4ae2-a47b-158d2f29859d",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-3f9a5eee-d8e8-4a0d-b613-73abc6a4db32",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:extension": "sqlite",
+                    "uco-observable:fileName": "ChatStorage.sqlite",
+                    "uco-observable:filePath": "/private/var/mobile/Containers/Shared/AppGroup/ChatStorage.sqlite",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "52"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-7845b2be-06de-458b-9f3a-a8ef56d519a3",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-576fbeed-9662-4f85-b315-f32cc0dc37ca",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "8B80C2E4E2E317C89FF63B30CB797695"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-3dcf4908-0079-4079-9cc1-469c062433f3",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "1EDDA6AD7BFA087211FDEC468656D1BE864066B21BD1CAE0CCE7407ECF79EB6A"
+                            }
+                        }
+                    ],
+                    "uco-observable:mimeType": "application/vnd.sqlite3",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "52"
+                    }
+                }
+            ],
+            "uco-core:name": "ChatStorage.sqlite"
+        },
+        {
+            "@id": "kb:PhoneAccount-12411868-a2ed-417c-bb72-1c88ba03718a",
+            "@type": "uco-observable:PhoneAccount",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:PhoneAccountFacet-6b7190ba-86d8-429c-a3a0-d5b8cf6748ab",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15555550142"
+                }
+            ],
+            "uco-core:name": "+15555550142"
+        },
+        {
+            "@id": "kb:PhoneAccount-63e6bdb1-8afd-4540-a0f2-aa62acfdc5f7",
+            "@type": "uco-observable:PhoneAccount",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:PhoneAccountFacet-c96c5312-538a-43ba-bb7e-9f3ceb658339",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+15555550100"
+                }
+            ],
+            "uco-core:name": "+15555550100"
+        },
+        {
+            "@id": "kb:Message-080c8aeb-f2dc-4e61-84a3-54b8dd902150",
+            "@type": "uco-observable:Message",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:MessageFacet-7e4246c0-57fa-4957-9389-51b05c7baeec",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:Application-38683b53-be63-45e6-87fc-631c5dd881d1"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:PhoneAccount-12411868-a2ed-417c-bb72-1c88ba03718a"
+                    },
+                    "uco-observable:messageText": "Pickup moved to the north lot at 4.",
+                    "uco-observable:messageType": "Chat",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-29T20:58:11+00:00"
+                    },
+                    "uco-observable:to": [
+                        {
+                            "@id": "kb:PhoneAccount-63e6bdb1-8afd-4540-a0f2-aa62acfdc5f7"
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "iOS WhatsApp message"
+        },
+        {
+            "@id": "kb:ObservableRelationship-3dba37bc-c133-4ba1-811b-328783c8f874",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Fragment name=\"Source\"."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:Message-080c8aeb-f2dc-4e61-84a3-54b8dd902150"
+            },
+            "uco-core:target": {
+                "@id": "kb:File-cf2d0f05-5055-4ae2-a47b-158d2f29859d"
+            }
+        },
+        {
+            "@id": "kb:ObservableRelationship-ec820561-b456-45fd-9ac2-12c36d23984c",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:description": [
+                "Artifact source file on the parsed volume."
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:File-cf2d0f05-5055-4ae2-a47b-158d2f29859d"
+            },
+            "uco-core:target": {
+                "@id": "kb:FileSystem-5c83fd43-c587-4791-a270-c6af67ec2fc9"
+            }
+        },
+        {
+            "@id": "kb:DomainName-9c58d82b-67cf-4534-a1d0-a2df14d9c61f",
+            "@type": "uco-observable:DomainName",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:DomainNameFacet-6f50a07e-4e98-4eb0-96d1-2852a5dc6ebc",
+                    "@type": "uco-observable:DomainNameFacet",
+                    "uco-observable:value": "example.org"
+                }
+            ],
+            "uco-core:name": "example.org"
+        },
+        {
+            "@id": "kb:URL-2c893f12-5b94-4c26-aad4-5cd1ce33265a",
+            "@type": "uco-observable:URL",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLFacet-16fd3ea3-66b7-484b-8624-52bafcfc0e81",
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "https://example.org/tides",
+                    "uco-observable:host": {
+                        "@id": "kb:DomainName-9c58d82b-67cf-4534-a1d0-a2df14d9c61f"
+                    },
+                    "uco-observable:path": "/tides",
+                    "uco-observable:scheme": "https"
+                }
+            ],
+            "uco-core:name": "https://example.org/tides"
+        },
+        {
+            "@id": "kb:Application-8efb56e9-4f59-4e1a-b875-78487bb55b19",
+            "@type": "uco-observable:Application",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ApplicationFacet-381859a8-3045-425d-bebc-d0e3c093d84c",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-observable:applicationIdentifier": "com.apple.mobilesafari"
+                }
+            ],
+            "uco-core:name": "Safari"
+        },
+        {
+            "@id": "kb:URLHistory-d5e2ce5d-08cb-460a-b0ab-81e5ca6dd5c3",
+            "@type": "uco-observable:URLHistory",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:URLHistoryFacet-283360cc-faf6-432e-985b-9ffa1dd2c243",
+                    "@type": "uco-observable:URLHistoryFacet",
+                    "uco-observable:browserInformation": {
+                        "@id": "kb:Application-8efb56e9-4f59-4e1a-b875-78487bb55b19"
+                    },
+                    "uco-observable:urlHistoryEntry": [
+                        {
+                            "@id": "kb:URLHistoryEntry-33ffc120-4a5f-454e-aa7b-c589b9f7a624",
+                            "@type": "uco-observable:URLHistoryEntry",
+                            "uco-observable:lastVisit": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2026-03-28T14:22:00+00:00"
+                            },
+                            "uco-observable:pageTitle": "Marina tide chart",
+                            "uco-observable:url": {
+                                "@id": "kb:URL-2c893f12-5b94-4c26-aad4-5cd1ce33265a"
+                            },
+                            "uco-observable:visitCount": {
+                                "@type": "xsd:integer",
+                                "@value": "3"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "uco-core:name": "Safari History hits"
+        },
+        {
+            "@id": "kb:BrowserCookie-bf0a95f4-8ec8-438d-9694-97e616dc758e",
+            "@type": "uco-observable:BrowserCookie",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:BrowserCookieFacet-f4812af7-d6ef-4d72-9e63-c053aa01e2a1",
+                    "@type": "uco-observable:BrowserCookieFacet",
+                    "uco-observable:accessedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2026-03-28T14:22:05+00:00"
+                    },
+                    "uco-observable:cookieDomain": {
+                        "@id": "kb:URL-2c893f12-5b94-4c26-aad4-5cd1ce33265a"
+                    },
+                    "uco-observable:cookieName": "__Secure-1PSID",
+                    "uco-observable:cookiePath": "/",
+                    "uco-observable:expirationTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2027-03-28T14:22:05+00:00"
+                    },
+                    "uco-observable:isSecure": {
+                        "@type": "xsd:boolean",
+                        "@value": "true"
+                    }
+                }
+            ],
+            "uco-core:name": "__Secure-1PSID"
+        },
+        {
+            "@id": "kb:CellSite-72c1f875-342a-41e9-9a9f-87e57d9b2b32",
+            "@type": "uco-observable:CellSite",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:CellSiteFacet-d97a4306-5e13-4627-874f-b15b6fa71be0",
+                    "@type": "uco-observable:CellSiteFacet",
+                    "uco-observable:cellSiteCountryCode": "310",
+                    "uco-observable:cellSiteIdentifier": "21451",
+                    "uco-observable:cellSiteLocationAreaCode": "4102",
+                    "uco-observable:cellSiteNetworkCode": "260",
+                    "uco-observable:cellSiteType": "LTE"
+                }
+            ],
+            "uco-core:name": "LTE cell 21451"
+        },
+        {
+            "@id": "kb:Location-f40f0f1f-7b2d-45a5-b9e2-666ba3ce364d",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:LatLongCoordinatesFacet-c6bc8aed-0f7a-40b6-aed9-2a884e991452",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "38.9721"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-76.5015"
+                    }
+                }
+            ],
+            "uco-core:name": "Cell tower location"
+        },
+        {
+            "@id": "kb:Investigation-c98edea8-d447-4027-a3b7-ddd7af792777",
+            "@type": "case-investigation:Investigation",
+            "uco-core:description": [
+                "Structural exemplar for docs/recipes/magnet-axiom-export.md; field values are synthetic, Artifact/Fragment names are from a real export."
+            ],
+            "uco-core:name": "Magnet AXIOM XML export ingest",
+            "uco-core:object": [
+                {
+                    "@id": "kb:Identity-9f1475d1-d211-4477-a556-664041d1dc5a"
+                },
+                {
+                    "@id": "kb:Tool-ccaf5cba-b142-4047-8f07-95724dc83c70"
+                },
+                {
+                    "@id": "kb:AnalyticTool-2c0d754f-899d-4fd3-a025-70ce43d2ddf5"
+                },
+                {
+                    "@id": "kb:File-51b10856-cd3c-4c8b-bfd0-8ee4463ed22c"
+                },
+                {
+                    "@id": "kb:File-d7e14d09-6e95-4740-872b-916c9034ba61"
+                },
+                {
+                    "@id": "kb:File-cc1afbee-a510-448a-944d-e3fa638b7b4f"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-b659608d-ce65-4186-b923-5d5e9968ad53"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-68a4d0af-d274-4d7c-8606-3ba3fe2cd035"
+                },
+                {
+                    "@id": "kb:ProvenanceRecord-83b0df18-f343-4531-aa4f-d5671328f096"
+                },
+                {
+                    "@id": "kb:MobilePhone-7e306947-a966-4ac1-adc6-99dcb85390a2"
+                },
+                {
+                    "@id": "kb:OperatingSystem-7db0cdef-55b9-4cf6-a578-9d55ba575bd7"
+                },
+                {
+                    "@id": "kb:FileSystem-5c83fd43-c587-4791-a270-c6af67ec2fc9"
+                },
+                {
+                    "@id": "kb:RasterPicture-22cd5f1b-906b-4f53-b62e-3b2938897cce"
+                },
+                {
+                    "@id": "kb:Location-5f86ea4d-2aec-4190-bb9e-12266f72191b"
+                },
+                {
+                    "@id": "kb:RasterPicture-8d270af3-a2b1-42e0-a086-a4eb71e31393"
+                },
+                {
+                    "@id": "kb:Application-38683b53-be63-45e6-87fc-631c5dd881d1"
+                },
+                {
+                    "@id": "kb:File-cf2d0f05-5055-4ae2-a47b-158d2f29859d"
+                },
+                {
+                    "@id": "kb:PhoneAccount-12411868-a2ed-417c-bb72-1c88ba03718a"
+                },
+                {
+                    "@id": "kb:PhoneAccount-63e6bdb1-8afd-4540-a0f2-aa62acfdc5f7"
+                },
+                {
+                    "@id": "kb:Message-080c8aeb-f2dc-4e61-84a3-54b8dd902150"
+                },
+                {
+                    "@id": "kb:Application-8efb56e9-4f59-4e1a-b875-78487bb55b19"
+                },
+                {
+                    "@id": "kb:DomainName-9c58d82b-67cf-4534-a1d0-a2df14d9c61f"
+                },
+                {
+                    "@id": "kb:URL-2c893f12-5b94-4c26-aad4-5cd1ce33265a"
+                },
+                {
+                    "@id": "kb:URLHistory-d5e2ce5d-08cb-460a-b0ab-81e5ca6dd5c3"
+                },
+                {
+                    "@id": "kb:BrowserCookie-bf0a95f4-8ec8-438d-9694-97e616dc758e"
+                },
+                {
+                    "@id": "kb:CellSite-72c1f875-342a-41e9-9a9f-87e57d9b2b32"
+                },
+                {
+                    "@id": "kb:Location-f40f0f1f-7b2d-45a5-b9e2-666ba3ce364d"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-9f2fc0af-acb8-4bf2-92bb-4470500b3115"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-b76bcea9-5a92-4d60-998f-74d15f25ed1b"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-fba3fb70-7061-4bae-83b6-18879897bc6d"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-218d2cb9-12db-4b10-9461-f1828a7296c8"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-3dba37bc-c133-4ba1-811b-328783c8f874"
+                },
+                {
+                    "@id": "kb:ObservableRelationship-ec820561-b456-45fd-9ac2-12c36d23984c"
+                }
+            ],
+            "case-investigation:investigationForm": "case",
+            "uco-core:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-04-06T08:00:00+00:00"
+            }
+        }
+    ]
+}
