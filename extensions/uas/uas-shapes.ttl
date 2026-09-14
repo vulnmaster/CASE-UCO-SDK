@@ -1,0 +1,234 @@
+# Unmanned Aircraft System Extension — SHACL shapes
+#
+# Permissive: a recovered flight log is almost always partial. A crashed
+# aircraft may yield a log with no Remote ID, an unregistered airframe, or a
+# mode change whose commanding node the firmware never recorded. No property
+# is required; the shapes constrain datatypes, node kinds, cardinality, and
+# the ranges that are genuinely bounded by the underlying wire protocols.
+
+@prefix uas: <http://example.org/ontology/uas/> .
+@prefix proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-location: <https://ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+uas:UASFacet-shape
+	a sh:NodeShape ;
+	sh:targetClass uas:UASFacet ;
+	sh:property
+		[
+			sh:path uas:remoteIdSerialNumber ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:remoteIdType ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:registrationNumber ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:operatorId ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:unmannedAircraftType ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:airframeConfiguration ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:autopilotIdentifier ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+uas:MavlinkEndpointFacet-shape
+	a sh:NodeShape ;
+	sh:targetClass uas:MavlinkEndpointFacet ;
+	sh:property
+		[
+			sh:path uas:mavlinkSystemId ;
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:maxCount 1 ;
+			sh:minInclusive 0 ;
+			sh:maxInclusive 255 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:mavlinkComponentId ;
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:maxCount 1 ;
+			sh:minInclusive 0 ;
+			sh:maxInclusive 255 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:mavlinkComponentName ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:authorizedGroundControlStationId ;
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:maxCount 1 ;
+			sh:minInclusive 0 ;
+			sh:maxInclusive 255 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:senderAuthenticationEnforced ;
+			sh:datatype xsd:boolean ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:mavlinkDialect ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+uas:Flight-shape
+	a sh:NodeShape ;
+	sh:targetClass uas:Flight ;
+	sh:property
+		[
+			sh:path uas:takeoffLocation ;
+			sh:class uco-location:Location ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ,
+		[
+			sh:path uas:flightTrack ;
+			sh:class uco-observable:GeoLocationTrack ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] ,
+		[
+			sh:path uas:maximumAltitudeAboveTakeoff ;
+			sh:datatype xsd:decimal ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+uas:FlightModeChange-shape
+	a sh:NodeShape ;
+	sh:targetClass uas:FlightModeChange ;
+	sh:property
+		[
+			sh:path uas:flightMode ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:previousFlightMode ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:flightModeChangeReason ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:autopilotFamily ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path uas:commandedBy ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:IRI ;
+		] .
+
+uas:FlightLog-shape
+	a sh:NodeShape ;
+	sh:targetClass uas:FlightLog ;
+	sh:property
+		[
+			sh:path uas:logFormat ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+# --- Shapes for the pending UCO geolocation refinements -------------------
+# Constrained here so the proposed terms are exercised under SHACL in this
+# extension exactly as they would be if UCO adopted them.
+
+uas:GeoLocationEntryFacet-pending-shape
+	a sh:NodeShape ;
+	sh:targetClass uco-observable:GeoLocationEntryFacet ;
+	sh:property
+		[
+			sh:path proposed-obs:observationTime ;
+			sh:datatype xsd:dateTime ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+uas:LatLongCoordinatesFacet-pending-shape
+	a sh:NodeShape ;
+	sh:targetClass uco-location:LatLongCoordinatesFacet ;
+	sh:property
+		[
+			sh:path proposed-loc:altitudeReference ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path proposed-loc:horizontalAccuracy ;
+			sh:datatype xsd:decimal ;
+			sh:maxCount 1 ;
+			sh:minInclusive 0 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path proposed-loc:verticalAccuracy ;
+			sh:datatype xsd:decimal ;
+			sh:maxCount 1 ;
+			sh:minInclusive 0 ;
+			sh:nodeKind sh:Literal ;
+		] .
+
+uas:GPSCoordinatesFacet-pending-shape
+	a sh:NodeShape ;
+	sh:targetClass uco-location:GPSCoordinatesFacet ;
+	sh:property
+		[
+			sh:path proposed-loc:satelliteCount ;
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] ,
+		[
+			sh:path proposed-loc:fixQuality ;
+			sh:datatype xsd:string ;
+			sh:maxCount 1 ;
+			sh:nodeKind sh:Literal ;
+		] .

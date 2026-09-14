@@ -1,0 +1,37 @@
+{
+  "name": "uas",
+  "display_name": "Unmanned Aircraft System Extension",
+  "version": "0.1.0",
+  "status": "candidate",
+  "upstream_repo": "https://github.com/vulnmaster/CASE-UCO-SDK",
+  "upstream_ref": "main",
+  "license": "Apache-2.0",
+  "namespaces": {
+    "uas": "http://example.org/ontology/uas/",
+    "proposed-obs": "https://proposed.ontology.unifiedcyberontology.org/uco/observable/",
+    "proposed-loc": "https://proposed.ontology.unifiedcyberontology.org/uco/location/"
+  },
+  "owl_files": [
+    "uas.ttl"
+  ],
+  "shacl_files": [
+    "uas-shapes.ttl"
+  ],
+  "bridge_files": [
+    "uas-profile-gufo.ttl",
+    "location-pending.ttl"
+  ],
+  "exemplar_files": [
+    "uas-exemplar.ttl"
+  ],
+  "uco_compat": ["1.4.0"],
+  "upper_ontology": "gUFO (uas:UnmannedAircraft subClassOf gufo:FunctionalComplex; uas:Flight and uas:FlightModeChange subClassOf gufo:Event) via uas-profile-gufo.ttl. Regulated identity delegated by reference to ASTM F3411 and ANSI/CTA-2063-A rather than re-modelled.",
+  "cdo_shapes_compatibility": {
+    "CDO-Shapes-gufo": "compatible (aircraft as FunctionalComplex, flight and mode change as Event, via bridge)",
+    "CDO-Shapes-BFO": "compatible",
+    "CDO-Shapes-PROV-O": "compatible",
+    "CDO-Shapes-Time": "compatible",
+    "CDO-Shapes-GeoSPARQL": "compatible (positions carried on uco-location facets; no competing geometry vocabulary introduced)",
+    "CDO-Shapes-FOAF": "compatible"
+  }
+}

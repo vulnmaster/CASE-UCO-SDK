@@ -1,0 +1,468 @@
+{
+  "_note": "Machine-extracted from the DFRWS USA 2026 Rodeo UAS log with pymavlink. Enum names resolved against ArduPilot master: AP_Logger.h (LogEvent), ModeReason.h (ModeReason), ArduCopter/mode.h (Mode::Number). No value is hand-entered.",
+  "source_file": {
+    "file_name": "uavrodeo.BIN",
+    "size_bytes": 9404416,
+    "sha256": "a2fa5f1f2b63836045f4b74e07d043780ded1126d04db8d5f286896da363693f",
+    "format": "ArduPilot DataFlash binary log (.BIN)"
+  },
+  "autopilot": {
+    "firmware_string": "ArduCopter V4.6.0-dev (1e8e2504)",
+    "version": "4.6.0",
+    "git_hash": "1e8e2504",
+    "board_type": 3,
+    "frame": "Frame: QUAD/PLUS",
+    "vehicle_uid": "640cfd26c0bb4289b5c536600bdd3050",
+    "simulated": true
+  },
+  "time_anchor": {
+    "method": "GPS week/ms-of-week to UTC, minus 18 leap seconds",
+    "gps_week": 2425,
+    "gps_ms_of_week": 561067200,
+    "anchor_time_us": 43419292,
+    "anchor_utc": "2026-07-04T11:50:49.200+00:00"
+  },
+  "flight": {
+    "arm_utc": "2026-07-04T11:50:49.196+00:00",
+    "disarm_utc": "2026-07-04T11:52:54.287+00:00",
+    "duration_s": 125.091,
+    "origin": {
+      "latitude": 51.7607129,
+      "longitude": -1.2563709,
+      "altitude_amsl_m": 0.1
+    },
+    "home": {
+      "latitude": 51.7607129,
+      "longitude": -1.2563709,
+      "altitude_amsl_m": 0.08
+    },
+    "max_altitude_above_home_m": 19.99,
+    "max_altitude_amsl_m": 20.07,
+    "max_altitude_utc": "2026-07-04T11:51:30.240+00:00",
+    "max_altitude_source": "POS record (EKF-fused position); RelHomeAlt is relative to the home position captured at arming",
+    "gnss_satellites": 10,
+    "gnss_hdop": 1.21,
+    "gnss_fix_status": 6,
+    "track_first_utc": "2026-07-04T11:50:49.200+00:00",
+    "track_last_utc": "2026-07-04T11:53:00.180+00:00"
+  },
+  "mavlink": {
+    "SYSID_THISMAV": 1.0,
+    "SYSID_MYGCS": 255.0,
+    "SYSID_ENFORCE": 0.0
+  },
+  "timeline": [
+    {
+      "time_us": 43415960,
+      "utc": "2026-07-04T11:50:49.196+00:00",
+      "record_type": "MODE",
+      "mode_number": 4,
+      "mode_name": "GUIDED",
+      "reason_code": 2,
+      "reason_name": "GCS_COMMAND",
+      "text": "Flight mode -> GUIDED (reason GCS_COMMAND)"
+    },
+    {
+      "time_us": 43415960,
+      "utc": "2026-07-04T11:50:49.196+00:00",
+      "record_type": "MSG",
+      "text": "Arming motors"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MODE",
+      "mode_number": 4,
+      "mode_name": "GUIDED",
+      "reason_code": 2,
+      "reason_name": "GCS_COMMAND",
+      "text": "Flight mode -> GUIDED (reason GCS_COMMAND)"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "ArduCopter V4.6.0-dev (1e8e2504)"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "640cfd26c0bb4289b5c536600bdd3050"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "Param space used: 240/4096"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "RC Protocol: SITL"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "New mission"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "New rally"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "New fence"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "Frame: QUAD/PLUS"
+    },
+    {
+      "time_us": 43416793,
+      "utc": "2026-07-04T11:50:49.197+00:00",
+      "record_type": "MSG",
+      "text": "GPS 1: probing for u-blox at 230400 baud"
+    },
+    {
+      "time_us": 44669625,
+      "utc": "2026-07-04T11:50:50.450+00:00",
+      "record_type": "EV",
+      "event_id": 15,
+      "event_name": "AUTO_ARMED",
+      "text": "AUTO_ARMED"
+    },
+    {
+      "time_us": 45416826,
+      "utc": "2026-07-04T11:50:51.197+00:00",
+      "record_type": "EV",
+      "event_id": 57,
+      "event_name": "MOTORS_INTERLOCK_ENABLED",
+      "text": "MOTORS_INTERLOCK_ENABLED"
+    },
+    {
+      "time_us": 46694648,
+      "utc": "2026-07-04T11:50:52.475+00:00",
+      "record_type": "EV",
+      "event_id": 28,
+      "event_name": "NOT_LANDED",
+      "text": "NOT_LANDED"
+    },
+    {
+      "time_us": 49094521,
+      "utc": "2026-07-04T11:50:54.875+00:00",
+      "record_type": "MSG",
+      "text": "EKF3 IMU1 MAG0 in-flight yaw alignment complete"
+    },
+    {
+      "time_us": 49107016,
+      "utc": "2026-07-04T11:50:54.887+00:00",
+      "record_type": "EV",
+      "event_id": 62,
+      "event_name": "EKF_YAW_RESET",
+      "text": "EKF_YAW_RESET"
+    },
+    {
+      "time_us": 49107016,
+      "utc": "2026-07-04T11:50:54.887+00:00",
+      "record_type": "MSG",
+      "text": "EKF3 IMU0 MAG0 in-flight yaw alignment complete"
+    },
+    {
+      "time_us": 95394327,
+      "utc": "2026-07-04T11:51:41.175+00:00",
+      "record_type": "MSG",
+      "text": "SRC=141/190:DFRWS26"
+    },
+    {
+      "time_us": 97846679,
+      "utc": "2026-07-04T11:51:43.627+00:00",
+      "record_type": "MODE",
+      "mode_number": 6,
+      "mode_name": "RTL",
+      "reason_code": 2,
+      "reason_name": "GCS_COMMAND",
+      "text": "Flight mode -> RTL (reason GCS_COMMAND)"
+    },
+    {
+      "time_us": 166410909,
+      "utc": "2026-07-04T11:52:52.191+00:00",
+      "record_type": "MSG",
+      "text": "SIM Hit ground at 0.501083 m/s"
+    },
+    {
+      "time_us": 167197261,
+      "utc": "2026-07-04T11:52:52.977+00:00",
+      "record_type": "EV",
+      "event_id": 17,
+      "event_name": "LAND_COMPLETE_MAYBE",
+      "text": "LAND_COMPLETE_MAYBE"
+    },
+    {
+      "time_us": 167999440,
+      "utc": "2026-07-04T11:52:53.780+00:00",
+      "record_type": "EV",
+      "event_id": 18,
+      "event_name": "LAND_COMPLETE",
+      "text": "LAND_COMPLETE"
+    },
+    {
+      "time_us": 168506737,
+      "utc": "2026-07-04T11:52:54.287+00:00",
+      "record_type": "EV",
+      "event_id": 11,
+      "event_name": "DISARMED",
+      "text": "DISARMED"
+    },
+    {
+      "time_us": 168506737,
+      "utc": "2026-07-04T11:52:54.287+00:00",
+      "record_type": "MSG",
+      "text": "Disarming motors"
+    },
+    {
+      "time_us": 168509236,
+      "utc": "2026-07-04T11:52:54.289+00:00",
+      "record_type": "EV",
+      "event_id": 56,
+      "event_name": "MOTORS_INTERLOCK_DISABLED",
+      "text": "MOTORS_INTERLOCK_DISABLED"
+    }
+  ],
+  "track_samples": [
+    {
+      "utc": "2026-07-04T11:50:49.200+00:00",
+      "time_us": 43419292,
+      "latitude": 51.7607129,
+      "longitude": -1.2563709,
+      "altitude_amsl_m": 0.1,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.0,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:50:59.380+00:00",
+      "time_us": 53599385,
+      "latitude": 51.7607129,
+      "longitude": -1.2563712,
+      "altitude_amsl_m": 12.95,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.007000000216066837,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:51:09.380+00:00",
+      "time_us": 63599550,
+      "latitude": 51.7610614,
+      "longitude": -1.2572516,
+      "altitude_amsl_m": 18.06,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 10.085000038146973,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:51:19.380+00:00",
+      "time_us": 73599715,
+      "latitude": 51.7614447,
+      "longitude": -1.2576123,
+      "altitude_amsl_m": 19.91,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 8.884000778198242,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:51:29.580+00:00",
+      "time_us": 83799800,
+      "latitude": 51.7620159,
+      "longitude": -1.2565932,
+      "altitude_amsl_m": 20.09,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 6.158000469207764,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:51:30.180+00:00",
+      "time_us": 84399560,
+      "latitude": 51.7620366,
+      "longitude": -1.2565564,
+      "altitude_amsl_m": 20.09,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 5.249000072479248,
+      "nearest_to_apogee": true
+    },
+    {
+      "utc": "2026-07-04T11:51:39.779+00:00",
+      "time_us": 93999052,
+      "latitude": 51.7620839,
+      "longitude": -1.256475,
+      "altitude_amsl_m": 20.07,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.020000001415610313,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:51:49.779+00:00",
+      "time_us": 103999217,
+      "latitude": 51.7619314,
+      "longitude": -1.2564633,
+      "altitude_amsl_m": 20.04,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 8.217000007629395,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:51:59.780+00:00",
+      "time_us": 113999382,
+      "latitude": 51.7610552,
+      "longitude": -1.2563971,
+      "altitude_amsl_m": 20.05,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 9.999000549316406,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:52:09.780+00:00",
+      "time_us": 123999547,
+      "latitude": 51.7607121,
+      "longitude": -1.2563704,
+      "altitude_amsl_m": 20.05,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.052000001072883606,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:52:19.780+00:00",
+      "time_us": 133999712,
+      "latitude": 51.7607133,
+      "longitude": -1.2563709,
+      "altitude_amsl_m": 16.34,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.003000000026077032,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:52:29.980+00:00",
+      "time_us": 144199797,
+      "latitude": 51.7607133,
+      "longitude": -1.2563711,
+      "altitude_amsl_m": 11.26,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.0,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:52:40.179+00:00",
+      "time_us": 154399049,
+      "latitude": 51.7607132,
+      "longitude": -1.2563711,
+      "altitude_amsl_m": 6.16,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.005000000353902578,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:52:50.179+00:00",
+      "time_us": 164399214,
+      "latitude": 51.7607132,
+      "longitude": -1.2563711,
+      "altitude_amsl_m": 1.16,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.003000000026077032,
+      "nearest_to_apogee": false
+    },
+    {
+      "utc": "2026-07-04T11:53:00.180+00:00",
+      "time_us": 174399379,
+      "latitude": 51.7607132,
+      "longitude": -1.2563711,
+      "altitude_amsl_m": 0.09,
+      "satellites": 10,
+      "hdop": 1.21,
+      "vdop": 2.0,
+      "horizontal_accuracy_m": 0.3,
+      "vertical_accuracy_m": 0.3,
+      "fix_status": 6,
+      "ground_speed_ms": 0.0,
+      "nearest_to_apogee": false
+    }
+  ],
+  "parameter_count": 1393
+}

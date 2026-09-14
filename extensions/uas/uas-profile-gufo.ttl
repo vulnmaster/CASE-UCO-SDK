@@ -1,0 +1,33 @@
+# Unmanned Aircraft System Extension — gUFO alignment profile (bridge)
+#
+# Grounds the uas classes in the (gentle) Unified Foundational Ontology
+# (gUFO, https://nemo-ufes.github.io/gufo/) for graphs using the CDO gUFO
+# profile (CDO-Shapes-gufo).
+#
+#   - uas:UnmannedAircraft is a gufo:FunctionalComplex: an artifact whose
+#     parts (airframe, flight controller, motors, radios) play distinct
+#     functional roles, exactly as for vehicles and weapons. It is not a
+#     gufo:Quantity — swapping a motor leaves the same aircraft, which is
+#     what makes airframe identity worth tracking separately from the
+#     autopilot board identity.
+#   - uas:Flight and uas:FlightModeChange are gufo:Events: perdurants that
+#     unfold in time and are not wholly present at any instant. A flight is
+#     an extended event; a mode change is effectively instantaneous, but both
+#     are the same ontological kind and both inherit uco-core:Event's
+#     temporal properties.
+
+@prefix uas: <http://example.org/ontology/uas/> .
+@prefix gufo: <http://purl.org/nemo/gufo#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology/uas/profile/gufo>
+	a owl:Ontology ;
+	rdfs:label "Unmanned Aircraft System Extension: gUFO alignment profile"@en ;
+	dcterms:source "https://nemo-ufes.github.io/gufo/"^^xsd:anyURI .
+
+uas:UnmannedAircraft rdfs:subClassOf gufo:FunctionalComplex .
+uas:Flight rdfs:subClassOf gufo:Event .
+uas:FlightModeChange rdfs:subClassOf gufo:Event .

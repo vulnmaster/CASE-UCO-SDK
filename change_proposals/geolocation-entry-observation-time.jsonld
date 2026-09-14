@@ -1,0 +1,254 @@
+{
+  "@context": {
+    "kb": "https://example.org/uas/dfrws-rodeo-2026-uas-flight-log/",
+    "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+    "uas": "http://example.org/ontology/uas/",
+    "proposed-obs": "https://proposed.ontology.unifiedcyberontology.org/uco/observable/",
+    "proposed-loc": "https://proposed.ontology.unifiedcyberontology.org/uco/location/",
+    "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+    "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+    "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "urn:uuid:27850123-f992-5278-b15d-275fbbb9bfa0",
+      "@type": "uco-observable:GeoLocationTrack",
+      "uco-core:name": "Flight track from GNSS receiver fixes",
+      "uco-core:description": "Three of the fifteen fixes in the validated exemplar: first, nearest the climb peak, and last.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:503609b1-07e0-501e-a1d8-90e504bc5d86",
+          "@type": "uco-observable:GeoLocationTrackFacet",
+          "uco-observable:startTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.200Z"
+          },
+          "uco-observable:endTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:53:00.180Z"
+          },
+          "uco-observable:geoLocationEntry": [
+            {
+              "@id": "urn:uuid:d5f53d11-7b0e-5d7e-a38a-9d07b451b907"
+            },
+            {
+              "@id": "urn:uuid:e1d07d66-7da2-55f6-b3a4-93236028cee8"
+            },
+            {
+              "@id": "urn:uuid:1142f1af-f1dd-561a-8b87-323066f352cb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:d5f53d11-7b0e-5d7e-a38a-9d07b451b907",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 1 of 15 at 2026-07-04T11:50:49.200Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.0 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:6655f46a-3b0d-5896-9151-df3438fa514b",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:7b2c1a18-40d7-5d97-b36f-fce87cf004bd"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:50:49.200Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:7b2c1a18-40d7-5d97-b36f-fce87cf004bd",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:50:49.200Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:355d5163-92cd-5352-8fea-5f7408f086e6",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607129"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563709"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "0.1"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:51cad1f7-ebed-5066-9140-91fc5c35b7e2",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:e1d07d66-7da2-55f6-b3a4-93236028cee8",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 6 of 15 at 2026-07-04T11:51:30.180Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 5.249000072479248 m/s. This is the GNSS fix nearest the EKF-reported climb peak; the peak altitude itself is carried on the flight.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:4e77e092-aebc-5e66-9a13-6667a0434c0c",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:b65d7d1e-340f-5430-ac50-8406d9d67304"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:51:30.180Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:b65d7d1e-340f-5430-ac50-8406d9d67304",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:51:30.180Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:60f7fe66-99c3-5c72-bb05-ec8f43b61076",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7620366"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2565564"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "20.09"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:d6a1beb9-9e14-5861-92b8-9dbf3504271d",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:1142f1af-f1dd-561a-8b87-323066f352cb",
+      "@type": "uco-observable:GeoLocationEntry",
+      "uco-core:name": "GNSS fix 15 of 15 at 2026-07-04T11:53:00.180Z",
+      "uco-core:description": "GPS record joined to its paired GPA accuracy record; ground speed 0.0 m/s.",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:04f06ea2-dd87-5617-bb2d-138edb9c0484",
+          "@type": "uco-observable:GeoLocationEntryFacet",
+          "uco-observable:location": {
+            "@id": "urn:uuid:17a654a2-b806-5e59-8925-aea8f5c84ce3"
+          },
+          "proposed-obs:observationTime": {
+            "@type": "xsd:dateTime",
+            "@value": "2026-07-04T11:53:00.180Z"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:17a654a2-b806-5e59-8925-aea8f5c84ce3",
+      "@type": "uco-location:Location",
+      "uco-core:name": "GNSS fix at 2026-07-04T11:53:00.180Z",
+      "uco-core:hasFacet": [
+        {
+          "@id": "urn:uuid:ee48b954-5030-5588-9a25-7e22432c046b",
+          "@type": "uco-location:LatLongCoordinatesFacet",
+          "uco-location:latitude": {
+            "@type": "xsd:decimal",
+            "@value": "51.7607132"
+          },
+          "uco-location:longitude": {
+            "@type": "xsd:decimal",
+            "@value": "-1.2563711"
+          },
+          "uco-location:altitude": {
+            "@type": "xsd:decimal",
+            "@value": "0.09"
+          },
+          "proposed-loc:altitudeReference": "mean sea level",
+          "proposed-loc:horizontalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          },
+          "proposed-loc:verticalAccuracy": {
+            "@type": "xsd:decimal",
+            "@value": "0.3"
+          }
+        },
+        {
+          "@id": "urn:uuid:d9c6ca9c-8134-5b00-bb20-95c96e7e967d",
+          "@type": "uco-location:GPSCoordinatesFacet",
+          "uco-location:hdop": {
+            "@type": "xsd:decimal",
+            "@value": "1.21"
+          },
+          "proposed-loc:satelliteCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "10"
+          },
+          "proposed-loc:fixQuality": "simulated",
+          "uco-location:vdop": {
+            "@type": "xsd:decimal",
+            "@value": "2.0"
+          }
+        }
+      ]
+    }
+  ]
+}

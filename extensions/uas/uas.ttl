@@ -1,0 +1,285 @@
+# Unmanned Aircraft System (UAS) Extension (T-Box)
+#
+# Investigation-domain concepts for unmanned aircraft (drone) forensics:
+# the aircraft as an identifiable networked device, the autopilot flight log
+# it writes, the sortie that log records, autopilot mode transitions with
+# their commanding authority, and the MAVLink control-link endpoints that
+# issue commands.
+#
+# Why an extension: core CASE/UCO models the *evidence carriers* of a drone
+# case well (uco-observable:EventLog, EventRecord, GeoLocationTrack,
+# uco-location:LatLongCoordinatesFacet, uco-core:Event). What it has no term
+# for is the regulated identity of the aircraft (ASTM F3411 Remote ID) and
+# the control-plane semantics that decide attribution: which MAVLink node
+# commanded a mode change, and whether the autopilot was configured to
+# authenticate that node at all. Those questions are the whole substance of
+# a drone incident, and today they can only be buried in
+# uco-core:description prose.
+#
+# Design:
+#   - uas:UnmannedAircraft subclasses uco-observable:Device. An unmanned
+#     aircraft is squarely in the cyber domain: it runs firmware, holds a
+#     parameter store, and is a node on a command-and-control network. It is
+#     the airframe-plus-avionics, not the whole system-of-systems; the
+#     ground control station is a separate device and the radio link is
+#     modelled through uas:MavlinkEndpointFacet on each participant.
+#   - Regulated identity is delegated to the published standards rather than
+#     re-invented: ASTM F3411 (Standard Specification for Remote ID and
+#     Tracking, https://www.astm.org/f3411-22a.html) defines the UAS ID
+#     types, and ANSI/CTA-2063-A defines the serial-number format that
+#     14 CFR Part 89 (https://www.ecfr.gov/current/title-14/part-89) and
+#     EU Delegated Regulation 2019/945 both build on.
+#   - uas:Flight and uas:FlightModeChange subclass uco-core:Event so that
+#     they inherit startTime/endTime/eventContext/eventAttribute and compose
+#     with existing timeline recipes instead of forking a parallel event
+#     model.
+#   - Autopilot mode names and mode-change reasons are carried as open
+#     vocabularies, not enumerations: ArduPilot, PX4, DJI and Autel each name
+#     modes differently, and forcing a mapping at ingest would destroy source
+#     fidelity. Record the vendor's own string plus the firmware that defines
+#     it (uas:autopilotFamily).
+#   - Per-fix observation time and altitude datum are NOT defined here. They
+#     are gaps in core UCO that affect every trajectory domain, not just UAS,
+#     so they are carried in location-pending.ttl under a proposed UCO
+#     namespace pending upstream adoption. See the change proposal in
+#     change_proposals/geolocation-entry-observation-time.md.
+#
+# Validated against: DFRWS USA 2026 Rodeo UAS challenge log uavrodeo.BIN
+# (ArduPilot DataFlash, ArduCopter V4.6.0-dev, SHA-256
+# a2fa5f1f2b63836045f4b74e07d043780ded1126d04db8d5f286896da363693f).
+
+@prefix uas: <http://example.org/ontology/uas/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-location: <https://ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology/uas>
+	a owl:Ontology ;
+	rdfs:label "Unmanned Aircraft System Extension"@en ;
+	rdfs:comment "Vendor-neutral unmanned aircraft (drone) forensic concepts for cyber-investigation graphs: regulated aircraft identity per ASTM F3411 and ANSI/CTA-2063-A, autopilot flight logs, flight sorties, autopilot mode transitions with their commanding authority, and MAVLink control-link endpoints."@en ;
+	dcterms:source
+		"https://www.astm.org/f3411-22a.html"^^xsd:anyURI ,
+		"https://www.ecfr.gov/current/title-14/part-89"^^xsd:anyURI ,
+		"https://mavlink.io/en/guide/serialization.html"^^xsd:anyURI ,
+		"https://ardupilot.org/copter/docs/logmessages.html"^^xsd:anyURI .
+
+#################################################################
+# Classes
+#################################################################
+
+uas:UnmannedAircraft
+	a owl:Class ;
+	rdfs:subClassOf uco-observable:Device ;
+	rdfs:label "UnmannedAircraft"@en ;
+	rdfs:comment "An unmanned aircraft is an aircraft operated without a pilot on board, together with the avionics that fly it (flight controller, sensors, radio links, parameter store). It is a Device because it is a programmable networked node: it runs identifiable firmware, holds persistent configuration, writes logs, and accepts commands over a control link. Attach uas:UASFacet for regulated identity, uas:MavlinkEndpointFacet for its address on the control link, and uco-observable:DeviceFacet for manufacturer, model and serial number. Terminology follows ICAO Doc 10019 and 14 CFR Part 89, which regulate the aircraft rather than the wider system."@en ;
+	dcterms:source "https://www.ecfr.gov/current/title-14/part-89"^^xsd:anyURI .
+
+uas:FlightLog
+	a owl:Class ;
+	rdfs:subClassOf uco-observable:EventLog ;
+	rdfs:label "FlightLog"@en ;
+	rdfs:comment "A flight log is a log written by an unmanned aircraft's autopilot or by a ground control station, recording telemetry, state transitions, operator commands and text messages for one or more sorties. Examples: ArduPilot DataFlash logs (.BIN) written onboard, MAVLink telemetry logs (.tlog) written by the ground station, PX4 ULog (.ulg), and DJI TXT/DAT flight records. Use uas:logFormat to record which, and attach uco-observable:FileFacet plus uco-observable:ContentDataFacet for the container and its hash. Individual rows are uco-observable:EventRecord instances related to this log."@en ;
+	dcterms:source "https://ardupilot.org/copter/docs/logmessages.html"^^xsd:anyURI .
+
+uas:Flight
+	a owl:Class ;
+	rdfs:subClassOf uco-core:Event ;
+	rdfs:label "Flight"@en ;
+	rdfs:comment "A flight is a single sortie of an unmanned aircraft, bounded by the transitions that make it airworthy and inert again — typically motor arming and disarming. Use the inherited uco-core:startTime and uco-core:endTime for those bounds, uas:takeoffLocation for the launch point the autopilot recorded, and uas:flightTrack to reach the ordered position fixes. A log file may contain several flights; model each as its own instance so that per-sortie findings do not bleed across them."@en .
+
+uas:FlightModeChange
+	a owl:Class ;
+	rdfs:subClassOf uco-core:Event ;
+	rdfs:label "FlightModeChange"@en ;
+	rdfs:comment "A flight mode change is a transition of the autopilot from one flight mode to another — for example from a pilot-commanded mode to a return-to-launch or landing mode. The forensically decisive part is not the destination mode but the authority behind it: uas:flightModeChangeReason distinguishes a stick input from a ground-station command from an autonomous failsafe, and uas:commandedBy names the control-link endpoint that issued it when the log identifies one. Attributing an unexpected mode change is the central question in most drone incident investigations."@en .
+
+#################################################################
+# Facets
+#################################################################
+
+uas:UASFacet
+	a owl:Class ;
+	rdfs:subClassOf uco-core:Facet ;
+	rdfs:label "UASFacet"@en ;
+	rdfs:comment "A UAS facet is a grouping of characteristics unique to the regulated identity and airframe configuration of an unmanned aircraft: the Remote ID broadcast under ASTM F3411, the civil aviation authority registration, the operator identifier, and the physical configuration that constrains how the aircraft can fly. Attach to a uas:UnmannedAircraft via uco-core:hasFacet."@en ;
+	dcterms:source "https://www.astm.org/f3411-22a.html"^^xsd:anyURI .
+
+uas:MavlinkEndpointFacet
+	a owl:Class ;
+	rdfs:subClassOf uco-core:Facet ;
+	rdfs:label "MavlinkEndpointFacet"@en ;
+	rdfs:comment "A MAVLink endpoint facet is a grouping of characteristics unique to a node addressable on a MAVLink control link, identified by the (system id, component id) pair that every MAVLink frame carries. Attach it to whichever observable plays the role — the aircraft itself, a ground control station, a companion computer, or an unattributed node observed only as a source address in the log. Because MAVLink v1 and v2 carry no authentication by default, the system id is an assertion by the sender and not proof of identity; record uas:senderAuthenticationEnforced so a reader can tell how much weight the address bears."@en ;
+	dcterms:source "https://mavlink.io/en/guide/serialization.html"^^xsd:anyURI .
+
+#################################################################
+# Object properties
+#################################################################
+
+uas:takeoffLocation
+	a owl:ObjectProperty ;
+	rdfs:label "takeoffLocation"@en ;
+	rdfs:comment "The launch point of the flight as the autopilot recorded it — for ArduPilot, the EKF origin and home position captured at arming. This is the aircraft's own belief about where it started, which is evidence in its own right and may differ from where it actually started if the position solution was spoofed or degraded."@en ;
+	rdfs:domain uas:Flight ;
+	rdfs:range uco-location:Location .
+
+uas:flightTrack
+	a owl:ObjectProperty ;
+	rdfs:label "flightTrack"@en ;
+	rdfs:comment "The ordered sequence of position fixes flown during this flight, as a uco-observable:GeoLocationTrack whose entries are uco-observable:GeoLocationEntry instances."@en ;
+	rdfs:domain uas:Flight ;
+	rdfs:range uco-observable:GeoLocationTrack .
+
+uas:commandedBy
+	a owl:ObjectProperty ;
+	rdfs:label "commandedBy"@en ;
+	rdfs:comment "The control-link endpoint that commanded this mode change, as an observable bearing a uas:MavlinkEndpointFacet (or an equivalent facet for a non-MAVLink protocol). Assert this only when the log identifies the commanding node; where the log records that a mode change came from a ground station but not which one, leave this unset and record the reason in uas:flightModeChangeReason instead of guessing."@en ;
+	rdfs:domain uas:FlightModeChange .
+
+#################################################################
+# Datatype properties — regulated identity (uas:UASFacet)
+#################################################################
+
+uas:remoteIdSerialNumber
+	a owl:DatatypeProperty ;
+	rdfs:label "remoteIdSerialNumber"@en ;
+	rdfs:comment "The aircraft serial number broadcast as the ASTM F3411 Basic ID, formatted per ANSI/CTA-2063-A (manufacturer code, length code, then the manufacturer's serial). This is the identifier a Remote ID receiver observes over the air and the one that ties a broadcast to a registered airframe."@en ;
+	rdfs:domain uas:UASFacet ;
+	rdfs:range xsd:string .
+
+uas:remoteIdType
+	a owl:DatatypeProperty ;
+	rdfs:label "remoteIdType"@en ;
+	rdfs:comment "Which ASTM F3411 UAS ID type the recorded identifier is, as an open vocabulary. Recommended values: 'Serial Number' (ANSI/CTA-2063-A), 'CAA Registration ID', 'UTM Assigned UUID', 'Specific Session ID'. The type matters because only the serial number is durably bound to the airframe; session identifiers are deliberately ephemeral."@en ;
+	rdfs:domain uas:UASFacet ;
+	rdfs:range xsd:string .
+
+uas:registrationNumber
+	a owl:DatatypeProperty ;
+	rdfs:label "registrationNumber"@en ;
+	rdfs:comment "The registration number issued by a civil aviation authority for this aircraft, kept verbatim including any prefix — for example an FAA registration under 14 CFR Part 48 or an EASA operator-linked registration."@en ;
+	rdfs:domain uas:UASFacet ;
+	rdfs:range xsd:string .
+
+uas:operatorId
+	a owl:DatatypeProperty ;
+	rdfs:label "operatorId"@en ;
+	rdfs:comment "The operator identifier broadcast in the ASTM F3411 Operator ID message, which identifies the responsible operator rather than the airframe. Model the operator as a uco-identity:Identity and relate it to the aircraft with a uco-core:Relationship; this property records the raw broadcast value."@en ;
+	rdfs:domain uas:UASFacet ;
+	rdfs:range xsd:string .
+
+uas:unmannedAircraftType
+	a owl:DatatypeProperty ;
+	rdfs:label "unmannedAircraftType"@en ;
+	rdfs:comment "The aircraft category as an open vocabulary aligned with the ASTM F3411 UA Type field. Recommended values: 'Aeroplane', 'Helicopter or Multirotor', 'Gyroplane', 'Hybrid Lift', 'Ornithopter', 'Glider', 'Kite', 'Free Balloon', 'Captive Balloon', 'Airship', 'Free Fall or Parachute', 'Rocket', 'Tethered Powered Aircraft', 'Ground Obstacle'."@en ;
+	rdfs:domain uas:UASFacet ;
+	rdfs:range xsd:string .
+
+uas:airframeConfiguration
+	a owl:DatatypeProperty ;
+	rdfs:label "airframeConfiguration"@en ;
+	rdfs:comment "The physical motor and arm layout as the autopilot reports it, kept verbatim — for example 'QUAD/PLUS', 'QUAD/X', 'HEXA/X', 'OCTA/V'. Retain the vendor string rather than normalising it: the layout constrains achievable dynamics and is used when testing whether a claimed flight profile is physically possible."@en ;
+	rdfs:domain uas:UASFacet ;
+	rdfs:range xsd:string .
+
+uas:autopilotIdentifier
+	a owl:DatatypeProperty ;
+	rdfs:label "autopilotIdentifier"@en ;
+	rdfs:comment "The autopilot's own hardware or board identifier as recorded in the log or in the MAVLink AUTOPILOT_VERSION uid/uid2 field — for ArduPilot, the board UID written to the log at startup. It survives reflashing and parameter resets, so it links logs to a physical flight controller even when the airframe or registration changes."@en ;
+	rdfs:domain uas:UASFacet ;
+	rdfs:range xsd:string .
+
+#################################################################
+# Datatype properties — flight and mode transitions
+#################################################################
+
+uas:flightMode
+	a owl:DatatypeProperty ;
+	rdfs:label "flightMode"@en ;
+	rdfs:comment "The autopilot flight mode entered, as the vendor names it and kept verbatim — for example 'GUIDED', 'RTL', 'LOITER', 'AUTO' (ArduPilot); 'Position', 'Return' (PX4). Do not normalise across vendors: the same label can mean different behaviour on different firmware, and the mapping belongs in analysis, not ingest."@en ;
+	rdfs:domain uas:FlightModeChange ;
+	rdfs:range xsd:string .
+
+uas:previousFlightMode
+	a owl:DatatypeProperty ;
+	rdfs:label "previousFlightMode"@en ;
+	rdfs:comment "The flight mode the autopilot was in immediately before this change, using the same vendor vocabulary as uas:flightMode. Assert it only when the log or a prior record establishes it."@en ;
+	rdfs:domain uas:FlightModeChange ;
+	rdfs:range xsd:string .
+
+uas:flightModeChangeReason
+	a owl:DatatypeProperty ;
+	rdfs:label "flightModeChangeReason"@en ;
+	rdfs:comment "Why the autopilot changed mode, kept as the vendor's own reason string where one exists (ArduPilot logs a ModeReason with every MODE record; PX4 records a navigation state change source). This is the property that separates an operator decision from an autonomous failsafe from a remote command: 'RC_COMMAND' means a stick input, 'GCS_COMMAND' means a ground-station command arrived over the control link, and the various failsafe reasons mean the aircraft decided for itself. Where the firmware supplies no reason, leave unset rather than inferring one."@en ;
+	rdfs:domain uas:FlightModeChange ;
+	rdfs:range xsd:string .
+
+uas:autopilotFamily
+	a owl:DatatypeProperty ;
+	rdfs:label "autopilotFamily"@en ;
+	rdfs:comment "The autopilot firmware family whose vocabulary the recorded mode and reason strings belong to, as an open vocabulary. Recommended values: 'ArduPilot', 'PX4', 'DJI', 'Autel', 'Betaflight', 'INAV'. Without it, a bare mode string such as 'AUTO' is not interpretable."@en ;
+	rdfs:domain uas:FlightModeChange ;
+	rdfs:range xsd:string .
+
+uas:maximumAltitudeAboveTakeoff
+	a owl:DatatypeProperty ;
+	rdfs:label "maximumAltitudeAboveTakeoff"@en ;
+	rdfs:comment "The greatest altitude reached during the flight relative to the takeoff point, in metres. Stated relative to takeoff because that is the datum most aviation rules use (for example the 400 ft above-ground limit in 14 CFR 107.51) and the one autopilots compute directly; an above-mean-sea-level figure for the same instant belongs on the position fix, qualified with an altitude reference."@en ;
+	rdfs:domain uas:Flight ;
+	rdfs:range xsd:decimal .
+
+uas:logFormat
+	a owl:DatatypeProperty ;
+	rdfs:label "logFormat"@en ;
+	rdfs:comment "The concrete log format of the flight log, as an open vocabulary, so a reader knows what parser produced the records and what the timestamps mean. Recommended values: 'ArduPilot DataFlash', 'MAVLink telemetry log', 'PX4 ULog', 'DJI TXT', 'DJI DAT'."@en ;
+	rdfs:domain uas:FlightLog ;
+	rdfs:range xsd:string .
+
+#################################################################
+# Datatype properties — MAVLink control link (uas:MavlinkEndpointFacet)
+#################################################################
+
+uas:mavlinkSystemId
+	a owl:DatatypeProperty ;
+	rdfs:label "mavlinkSystemId"@en ;
+	rdfs:comment "The MAVLink system id carried in every frame this endpoint sends (1-255). It addresses a vehicle or a ground station on the link. It is self-asserted by the sender and, unless message signing is in use, trivially forgeable; treat an unexpected system id as an observation about the link, not as an identification of an operator."@en ;
+	rdfs:domain uas:MavlinkEndpointFacet ;
+	rdfs:range xsd:nonNegativeInteger .
+
+uas:mavlinkComponentId
+	a owl:DatatypeProperty ;
+	rdfs:label "mavlinkComponentId"@en ;
+	rdfs:comment "The MAVLink component id carried in every frame this endpoint sends, distinguishing components within one system per the MAV_COMPONENT enumeration — for example 1 (autopilot), 190 (Mission Planner ground station), 191 (QGroundControl), 240 (peripheral)."@en ;
+	rdfs:domain uas:MavlinkEndpointFacet ;
+	rdfs:range xsd:nonNegativeInteger .
+
+uas:mavlinkComponentName
+	a owl:DatatypeProperty ;
+	rdfs:label "mavlinkComponentName"@en ;
+	rdfs:comment "The MAV_COMPONENT enumeration name for the component id, recorded alongside the number so the graph is readable without a lookup table — for example 'MAV_COMP_ID_AUTOPILOT1', 'MAV_COMP_ID_MISSIONPLANNER'."@en ;
+	rdfs:domain uas:MavlinkEndpointFacet ;
+	rdfs:range xsd:string .
+
+uas:authorizedGroundControlStationId
+	a owl:DatatypeProperty ;
+	rdfs:label "authorizedGroundControlStationId"@en ;
+	rdfs:comment "The MAVLink system id that the autopilot was configured to accept as its ground control station — ArduPilot's SYSID_MYGCS parameter, or the equivalent on other firmware. Comparing it with the system ids actually observed on the link is the basic test for whether commands came from the expected station."@en ;
+	rdfs:domain uas:MavlinkEndpointFacet ;
+	rdfs:range xsd:nonNegativeInteger .
+
+uas:senderAuthenticationEnforced
+	a owl:DatatypeProperty ;
+	rdfs:label "senderAuthenticationEnforced"@en ;
+	rdfs:comment "Whether the autopilot was configured to reject commands whose source did not match its authorised ground control station — ArduPilot's SYSID_ENFORCE parameter, or an equivalent such as MAVLink 2 message signing. When false, any node that can reach the radio link can command the aircraft, and the system id in the log is an unverified claim. Recording this is what lets a later reader judge how much an observed sender address proves."@en ;
+	rdfs:domain uas:MavlinkEndpointFacet ;
+	rdfs:range xsd:boolean .
+
+uas:mavlinkDialect
+	a owl:DatatypeProperty ;
+	rdfs:label "mavlinkDialect"@en ;
+	rdfs:comment "The MAVLink dialect and wire version the endpoint speaks, kept verbatim — for example 'ardupilotmega v2.0', 'common v1.0'. The dialect determines which message identifiers decode to which semantics, so a parse is only reproducible if it is recorded."@en ;
+	rdfs:domain uas:MavlinkEndpointFacet ;
+	rdfs:range xsd:string .

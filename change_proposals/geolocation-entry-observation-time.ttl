@@ -1,0 +1,63 @@
+# Draft T-Box for the proposed UCO geolocation refinements.
+# Submitted with the change proposal geolocation-entry-observation-time.md.
+# Namespaces are the "proposed" mirrors of the UCO namespaces the terms are
+# requested in; if UCO adopts them, only the prefix changes.
+
+@prefix proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-location: <https://ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://proposed.ontology.unifiedcyberontology.org/uco/location>
+	a owl:Ontology ;
+	rdfs:label "Proposed UCO Geolocation Refinements"@en ;
+	rdfs:comment "Six properties proposed for UCO: a per-fix observation time on GeoLocationEntryFacet; an altitude reference datum and metric horizontal/vertical accuracy on LatLongCoordinatesFacet; satellite count and fix quality on GPSCoordinatesFacet."@en ;
+	dcterms:source
+		"https://www.gps.gov/technical/ps/2020-SPS-performance-standard.pdf"^^xsd:anyURI ,
+		"https://www.nga.mil/resources/World_Geodetic_System__WGS.html"^^xsd:anyURI .
+
+proposed-obs:observationTime
+	a owl:DatatypeProperty ;
+	rdfs:label "observationTime"@en ;
+	rdfs:comment "The time at which this position fix was observed, as distinct from the time the record describing it was created."@en ;
+	rdfs:domain uco-observable:GeoLocationEntryFacet ;
+	rdfs:range xsd:dateTime .
+
+proposed-loc:altitudeReference
+	a owl:DatatypeProperty ;
+	rdfs:label "altitudeReference"@en ;
+	rdfs:comment "The datum the altitude value is measured from. Recommended values: 'WGS84 ellipsoid', 'mean sea level', 'above ground level', 'above takeoff point'."@en ;
+	rdfs:domain uco-location:LatLongCoordinatesFacet ;
+	rdfs:range xsd:string .
+
+proposed-loc:horizontalAccuracy
+	a owl:DatatypeProperty ;
+	rdfs:label "horizontalAccuracy"@en ;
+	rdfs:comment "The estimated horizontal uncertainty of the position, in metres, as the source reports it."@en ;
+	rdfs:domain uco-location:LatLongCoordinatesFacet ;
+	rdfs:range xsd:decimal .
+
+proposed-loc:verticalAccuracy
+	a owl:DatatypeProperty ;
+	rdfs:label "verticalAccuracy"@en ;
+	rdfs:comment "The estimated vertical uncertainty of the altitude, in metres, as the source reports it."@en ;
+	rdfs:domain uco-location:LatLongCoordinatesFacet ;
+	rdfs:range xsd:decimal .
+
+proposed-loc:satelliteCount
+	a owl:DatatypeProperty ;
+	rdfs:label "satelliteCount"@en ;
+	rdfs:comment "The number of satellites used in the position solution."@en ;
+	rdfs:domain uco-location:GPSCoordinatesFacet ;
+	rdfs:range xsd:nonNegativeInteger .
+
+proposed-loc:fixQuality
+	a owl:DatatypeProperty ;
+	rdfs:label "fixQuality"@en ;
+	rdfs:comment "The kind of position solution achieved. Recommended values: 'no fix', '2D fix', '3D fix', 'DGPS', 'RTK float', 'RTK fixed', 'dead reckoning', 'manual input', 'simulated'."@en ;
+	rdfs:domain uco-location:GPSCoordinatesFacet ;
+	rdfs:range xsd:string .

@@ -62,6 +62,24 @@
       "items": { "type": "string" },
       "description": "Relative paths to example instance data files (A-Box). Used for validation testing only."
     },
+    "status": {
+      "type": "string",
+      "enum": ["candidate", "operational", "deprecated"],
+      "description": "Lifecycle status, per mcp_server/knowledge_lifecycle.py. Absent means operational (the bundled extensions predate the lifecycle). Candidate extensions are invisible to routing but can be loaded explicitly by name for validation."
+    },
+    "promotion": {
+      "type": "object",
+      "description": "Provenance recorded by `make promote-extension`: reviewer, timestamp, git commit, and deployment profile at the time of promotion."
+    },
+    "deprecation": {
+      "type": "object",
+      "description": "Provenance recorded by `make deprecate-extension`: reason and timestamp."
+    },
+    "depends_on": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Names of other extensions whose terms this extension's exemplars or shapes reuse; expanded by resolve_extension_dependencies()."
+    },
     "uco_compat": {
       "type": "array",
       "items": { "type": "string" },

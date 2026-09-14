@@ -1,0 +1,163 @@
+# Unmanned Aircraft System Extension — exemplar A-Box
+#
+# Condensed rendering of the DFRWS USA 2026 Rodeo UAS challenge log
+# uavrodeo.BIN (ArduPilot DataFlash, SHA-256
+# a2fa5f1f2b63836045f4b74e07d043780ded1126d04db8d5f286896da363693f),
+# demonstrating every uas: property once. The full graph, built directly
+# from the log by examples/uas/build_ardupilot_flight_log.py, is
+# examples/uas/ardupilot-uas-flight-log.jsonld.
+#
+# Provenance of each value:
+#   - Airframe, autopilot identifier, flight times, mode changes, mode-change
+#     reasons, altitudes, MAVLink ids and parameter values are machine-read
+#     from the log (see examples/uas/uavrodeo_flight_facts.json).
+#   - Remote ID and registration values are ILLUSTRATIVE: this log is an
+#     ArduPilot SITL capture and broadcasts no Remote ID. They are included
+#     so the exemplar exercises uas:UASFacet fully; they are not evidence.
+#     Values follow the ANSI/CTA-2063-A format (4-character manufacturer
+#     code, length code, remainder) but describe no real aircraft.
+
+@prefix uas: <http://example.org/ontology/uas/> .
+@prefix proposed-obs: <https://proposed.ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix proposed-loc: <https://proposed.ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-location: <https://ontology.unifiedcyberontology.org/uco/location/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# --- The aircraft ---------------------------------------------------------
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c40>
+	a uas:UnmannedAircraft ;
+	uco-core:name "Quadrotor logged in uavrodeo.BIN" ;
+	uco-core:description "ArduCopter V4.6.0-dev (1e8e2504), frame QUAD/PLUS, autopilot board UID 640cfd26c0bb4289b5c536600bdd3050. Source: MSG and VER records at the head of the DataFlash log." ;
+	uco-core:hasFacet
+		<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c41> ,
+		<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c42> .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c41>
+	a uas:UASFacet ;
+	uas:airframeConfiguration "QUAD/PLUS" ;
+	uas:autopilotIdentifier "640cfd26c0bb4289b5c536600bdd3050" ;
+	uas:unmannedAircraftType "Helicopter or Multirotor" ;
+	uas:remoteIdSerialNumber "1596F3AB2C4D5E6F7G" ;
+	uas:remoteIdType "Serial Number" ;
+	uas:registrationNumber "FA3XKTM9WQ" ;
+	uas:operatorId "FIN87astrdge12k8" .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c42>
+	a uas:MavlinkEndpointFacet ;
+	uco-core:description "The aircraft's own address on the control link, and the sender-authentication policy it was flying under. Source: SYSID_THISMAV, SYSID_MYGCS and SYSID_ENFORCE parameter records." ;
+	uas:mavlinkSystemId "1"^^xsd:nonNegativeInteger ;
+	uas:mavlinkComponentId "1"^^xsd:nonNegativeInteger ;
+	uas:mavlinkComponentName "MAV_COMP_ID_AUTOPILOT1" ;
+	uas:mavlinkDialect "ardupilotmega v2.0" ;
+	uas:authorizedGroundControlStationId "255"^^xsd:nonNegativeInteger ;
+	uas:senderAuthenticationEnforced false .
+
+# --- The unattributed node observed on the control link -------------------
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c50>
+	a uco-observable:ObservableObject ;
+	uco-core:name "Unattributed MAVLink node, system 141 / component 190" ;
+	uco-core:description "Observed only as the source address of a STATUSTEXT logged at 2026-07-04T11:51:41.175Z as 'SRC=141/190:DFRWS26'. Component 190 is the Mission Planner ground-station component id. The system id is self-asserted and, with sender authentication disabled on the aircraft, is not evidence of identity." ;
+	uco-core:hasFacet <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c51> .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c51>
+	a uas:MavlinkEndpointFacet ;
+	uas:mavlinkSystemId "141"^^xsd:nonNegativeInteger ;
+	uas:mavlinkComponentId "190"^^xsd:nonNegativeInteger ;
+	uas:mavlinkComponentName "MAV_COMP_ID_MISSIONPLANNER" ;
+	uas:mavlinkDialect "ardupilotmega v2.0" .
+
+# --- The log --------------------------------------------------------------
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c60>
+	a uas:FlightLog ;
+	uco-core:name "uavrodeo.BIN" ;
+	uas:logFormat "ArduPilot DataFlash" .
+
+# --- The sortie -----------------------------------------------------------
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c70>
+	a uas:Flight ;
+	uco-core:name "Flight of 2026-07-04, arm 11:50:49Z to disarm 11:52:54Z" ;
+	uco-core:description "Bounds are the 'Arming motors' and 'Disarming motors' MSG records. The maximum altitude is the EKF-fused POS series peak (RelHomeAlt 19.99 m above the home position captured at arming, 20.07 m AMSL at 11:51:30.240Z); the nearest GNSS receiver fix is carried separately on the track so the two sources are not conflated." ;
+	uco-core:startTime "2026-07-04T11:50:49.196Z"^^xsd:dateTime ;
+	uco-core:endTime "2026-07-04T11:52:54.287Z"^^xsd:dateTime ;
+	uas:takeoffLocation <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c80> ;
+	uas:flightTrack <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c90> ;
+	uas:maximumAltitudeAboveTakeoff "19.99"^^xsd:decimal .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c80>
+	a uco-location:Location ;
+	uco-core:name "EKF origin and home position recorded at arming" ;
+	uco-core:hasFacet <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c81> .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c81>
+	a uco-location:LatLongCoordinatesFacet ;
+	uco-location:latitude "51.7607129"^^xsd:decimal ;
+	uco-location:longitude "-1.2563709"^^xsd:decimal ;
+	uco-location:altitude "0.1"^^xsd:decimal ;
+	proposed-loc:altitudeReference "mean sea level" .
+
+# --- The trajectory, with the pending per-fix terms exercised -------------
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c90>
+	a uco-observable:GeoLocationTrack ;
+	uco-core:name "Flight track from POS records" ;
+	uco-core:hasFacet <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c91> .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c91>
+	a uco-observable:GeoLocationTrackFacet ;
+	uco-core:description "Entries are raw GNSS receiver fixes (GPS records joined to their paired GPA accuracy records), not the EKF-fused POS series, so that each entry can state the satellite count and accuracy it was actually derived from." ;
+	uco-observable:startTime "2026-07-04T11:50:49.200Z"^^xsd:dateTime ;
+	uco-observable:endTime "2026-07-04T11:53:00.180Z"^^xsd:dateTime ;
+	uco-observable:geoLocationEntry <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1ca0> .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1ca0>
+	a uco-observable:GeoLocationEntry ;
+	uco-core:name "GNSS fix nearest the climb peak, 2026-07-04T11:51:30.180Z" ;
+	uco-core:hasFacet <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1ca1> .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1ca1>
+	a uco-observable:GeoLocationEntryFacet ;
+	uco-observable:location <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1cb0> ;
+	proposed-obs:observationTime "2026-07-04T11:51:30.180Z"^^xsd:dateTime .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1cb0>
+	a uco-location:Location ;
+	uco-core:name "Position at the GNSS fix nearest the climb peak" ;
+	uco-core:hasFacet
+		<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1cb1> ,
+		<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1cb2> .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1cb1>
+	a uco-location:LatLongCoordinatesFacet ;
+	uco-location:latitude "51.7620366"^^xsd:decimal ;
+	uco-location:longitude "-1.2565564"^^xsd:decimal ;
+	uco-location:altitude "20.09"^^xsd:decimal ;
+	proposed-loc:altitudeReference "mean sea level" ;
+	proposed-loc:horizontalAccuracy "0.3"^^xsd:decimal ;
+	proposed-loc:verticalAccuracy "0.3"^^xsd:decimal .
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1cb2>
+	a uco-location:GPSCoordinatesFacet ;
+	uco-core:description "Precision and accuracy as the receiver reported them: HDop from the GPS record, VDop/HAcc/VAcc from the paired GPA record. The metric accuracies have no home in UCO today, which is why they are carried on the proposed terms." ;
+	uco-location:hdop "1.21"^^xsd:decimal ;
+	uco-location:vdop "2.0"^^xsd:decimal ;
+	proposed-loc:satelliteCount "10"^^xsd:nonNegativeInteger ;
+	proposed-loc:fixQuality "simulated" .
+
+# --- The mode change under investigation ----------------------------------
+
+<urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1cc0>
+	a uas:FlightModeChange ;
+	uco-core:name "Mode change to RTL at 2026-07-04T11:51:43.627Z" ;
+	uco-core:description "MODE record: ModeNum 6 (RTL), Rsn 2 (GCS_COMMAND), 2.452 s after a STATUSTEXT from system 141 / component 190. ArduPilot logs the reason but not the commanding system id, so uas:commandedBy records the only candidate the log identifies and the description states the limit of that inference." ;
+	uco-core:startTime "2026-07-04T11:51:43.627Z"^^xsd:dateTime ;
+	uas:flightMode "RTL" ;
+	uas:previousFlightMode "GUIDED" ;
+	uas:flightModeChangeReason "GCS_COMMAND" ;
+	uas:autopilotFamily "ArduPilot" ;
+	uas:commandedBy <urn:uuid:6f1b4c02-6a1e-5c48-9f3a-0d2b7e5a1c50> .
