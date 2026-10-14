@@ -1085,10 +1085,12 @@ def _structured_cell_records(
 
     token = _header_token(header)
     if _is_header_kind(header, _PHONE_HEADER_PARTS):
-        from document_semantic_mapping import PHONE_RE
+        from document_semantic_mapping import PHONE_RE, _is_plausible_nanp_phone
 
         for match in PHONE_RE.finditer(value):
             candidate = match.group(0).strip()
+            if not _is_plausible_nanp_phone(candidate):
+                continue
             found.append(
                 ExtractedRecord(
                     label=f"Phone {candidate}",

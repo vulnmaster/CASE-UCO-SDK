@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Document semantic mapping rejects NANP-implausible `PHONE_RE` matches
+  (area code or exchange starting with 0 or 1), so CIKs, Bates numbers,
+  PageIDs, and `555-01x` example numbers are not typed as
+  `uco-observable:PhoneAccount` ([#158](https://github.com/vulnmaster/CASE-UCO-SDK/issues/158)).
+
 ## [1.31.2] - 2026-10-13
 
 Routing recognizes resource catalogs, and `case-uco-cac` ships typed Python

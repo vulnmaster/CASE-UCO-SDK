@@ -175,8 +175,28 @@ EMAIL_RE = re.compile(
     r"\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b"
 )
 PHONE_RE = re.compile(
-    r"(?<!\d)(?:\+?1[-.\s]?)?(?:\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}(?!\d)"
+    # Separators are space, dot, or hyphen only — not \\s — so newlines cannot
+    # glue digit runs across lines into a false PhoneAccount.
+    r"(?<!\d)(?:\+?1[-. ]?)?(?:\(\d{3}\)|\d{3})[-. ]?\d{3}[-. ]?\d{4}(?!\d)"
 )
+
+
+def _is_plausible_nanp_phone(value: str) -> bool:
+    """Whether a ``PHONE_RE`` match is a plausible NANP number.
+
+    ``PHONE_RE`` is US/Canada-shaped (optional ``+1`` / ``1`` plus 10 digits).
+    Under NANP, the area code (NPA) and exchange (NXX) cannot start with 0 or 1.
+    Rejecting those spans stops CIKs, Bates stamps, PageIDs, and reserved
+    ``555-01x`` example numbers from becoming ``PhoneAccount`` nodes.
+    """
+
+    digits = re.sub(r"\D", "", value or "")
+    if len(digits) == 11 and digits.startswith("1"):
+        digits = digits[1:]
+    if len(digits) != 10:
+        return False
+    npa, nxx = digits[0], digits[3]
+    return npa not in "01" and nxx not in "01"
 URL_RE = re.compile(r"https?://[^\s<>\"']+|www\.[A-Za-z0-9.\-/]+")
 MONEY_RE = re.compile(r"\$\s?\d{1,6}(?:,\d{3})*(?:\.\d{2})?")
 DATE_RE = re.compile(
@@ -820,6 +840,8 @@ def extract_semantic_entities(
 
     for match in PHONE_RE.finditer(full_text):
         value = match.group(0).strip()
+        if not _is_plausible_nanp_phone(value):
+            continue
         _add_match(
             matches,
             seen_spans,
