@@ -262,3 +262,50 @@ def test_private_extension_is_neither_registered_nor_listed(tmp_path: Path) -> N
         ontology_root, extensions_dir=[extensions], include_private=frozenset({"inhouse"})
     )
     assert "ThingInhouse" in {cls.name for cls in own.classes.values()}
+
+
+def test_shape_in_nested_namespace_is_the_classs_own(tmp_path: Path) -> None:
+    """A shape kept in a sub-namespace of its class (SOLVE-IT's ``.../observable/shapes/``)
+    defines the class's properties; a profile from an unrelated namespace still does not."""
+    ontology_root = tmp_path / "ontology"
+
+    ttl = """@prefix ex: <https://example.org/uco/test/> .
+@prefix exshapes: <https://example.org/uco/test/shapes/> .
+@prefix profile: <https://example.org/profile/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+<https://example.org/uco/test> a owl:Ontology .
+
+ex:Set a owl:Class ;
+    rdfs:label "Set"@en .
+
+ex:Member a owl:Class .
+
+ex:hasMember a owl:ObjectProperty .
+ex:profileOnly a owl:ObjectProperty .
+
+exshapes:SetShape a sh:NodeShape ;
+    sh:targetClass ex:Set ;
+    sh:property [
+        sh:path ex:hasMember ;
+        sh:class ex:Member
+    ] .
+
+profile:SetProfileShape a sh:NodeShape ;
+    sh:targetClass ex:Set ;
+    sh:property [
+        sh:path ex:profileOnly ;
+        sh:class ex:Member
+    ] .
+"""
+
+    _write_file(ontology_root / "UCO" / "ontology" / "uco" / "core" / "core.ttl", ttl)
+    (ontology_root / "CASE" / "ontology").mkdir(parents=True, exist_ok=True)
+
+    schema = parse_ontology(ontology_root)
+
+    set_class = next(cls for cls in schema.classes.values() if cls.name == "Set")
+    assert [prop.name for prop in set_class.properties] == ["hasMember"]
+    assert set_class.properties[0].range_iri == "https://example.org/uco/test/Member"

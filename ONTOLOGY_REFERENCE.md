@@ -5,7 +5,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | Metric | Count |
 |--------|-------|
 | Classes | 2961 |
-| Direct properties | 2545 |
+| Direct properties | 2562 |
 | Modules | 84 |
 | Vocabulary types | 54 |
 
@@ -43208,6 +43208,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
 | tag | string | zero_or_more | No | A generic tag/label. |
 | statement | string | zero_or_more | No | A textual statement of an assertion. |
+| hasHypothesis | Hypothesis | one_or_more | Yes | Links a HypothesisSet to a member Hypothesis it groups as a competing alternative. Members must be a Hypothesis or a ... |
 
 ### HypothesisedCommunication
 
@@ -43367,9 +43368,9 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | endTime | dateTime | zero_or_more | No | The ending time of a time range. |
 | isDirectional | boolean | exactly_one | Yes | A specification whether or not a relationship assertion is limited to the context FROM a source object(s) TO a target... |
 | kindOfRelationship | string | zero_or_one | No | A characterization of the nature of a relationship between objects. |
-| source | UcoObject | one_or_more | Yes | The originating node of a specified relationship. |
+| source | HypothesisedRecord | exactly_one | Yes | The originating node of a specified relationship. |
 | startTime | dateTime | zero_or_more | No | The initial time of a time range. |
-| target | UcoObject | exactly_one | Yes | The terminating node of a specified relationship. |
+| target | SQLiteTable | exactly_one | Yes | The terminating node of a specified relationship. |
 
 ### HypothesisedUserAccount
 
@@ -43537,7 +43538,10 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 **Parents:** Technique | **IRI:** `https://ontology.solveit-df.org/solveit/core/Technique`
 
-*No direct or inherited properties.*
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| hasCASEInputClass | Class | zero_or_more | No | A CASE/UCO term that represents an expected input to this technique. Usually a class (e.g., solveit-observable:WriteP... |
+| hasCASEOutputClass | Class | zero_or_more | No | A CASE/UCO term that represents an output of this technique. Usually a class (e.g., uco-observable:Image), but a prop... |
 
 ### Weakness
 
@@ -50495,6 +50499,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### AndroidDeviceGeneratedBackup
 
@@ -50562,6 +50568,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### ArtifactSet
 
@@ -50674,6 +50682,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### BrowserCacheData
 
@@ -50697,6 +50707,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### CalendarAppFiles
 
@@ -50720,6 +50732,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### ChatAppFiles
 
@@ -50743,6 +50757,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### ClockOffsetCapture
 
@@ -50765,6 +50781,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| contains | ClockOffsetMeasurement | one_or_more | Yes | The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata. |
 
 ### ClockOffsetMeasurement
 
@@ -50941,6 +50958,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| providesAccessTo | StorageMedium | zero_or_more | No | The storage medium that this device interface gives access to.  The interface is a way of reaching the medium, not th... |
 
 ### DeviceScreenshotCapture
 
@@ -50963,6 +50981,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| contains | RasterPicture | one_or_more | Yes | The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata. |
 
 ### DeviceSet
 
@@ -51007,6 +51026,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### FileSet
 
@@ -51097,6 +51118,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| contains | Bitstream | one_or_more | Yes | The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata. |
 
 ### GamingAppFiles
 
@@ -51120,6 +51142,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### HashSet
 
@@ -51210,6 +51234,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### ImplicitTimingInformation
 
@@ -51365,6 +51391,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| providesAccessTo | StorageMedium | zero_or_more | No | The storage medium that this device interface gives access to.  The interface is a way of reaching the medium, not th... |
 
 ### LogicalImageContainer
 
@@ -51387,6 +51414,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| contains | FileSet | one_or_more | Yes | The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata. |
 
 ### MapsAppFiles
 
@@ -51410,6 +51438,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### NavigationAppFiles
 
@@ -51433,6 +51463,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### NetworkPacketCapture
 
@@ -51478,6 +51510,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### PhotosAppFiles
 
@@ -51501,6 +51535,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### PhysicalImageContainer
 
@@ -51523,6 +51559,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| contains | Bitstream | one_or_more | Yes | The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata. |
 
 ### PrioritizedDeviceEntry
 
@@ -51574,6 +51611,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| contains | Bitstream | one_or_more | Yes | The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata. |
 
 ### RawImageInfoFile
 
@@ -51618,6 +51656,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| providesAccessTo | StorageMedium | zero_or_more | No | The storage medium that this device interface gives access to.  The interface is a way of reaching the medium, not th... |
 
 ### RedactedArtifactSet
 
@@ -51687,6 +51726,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### SQLiteDatabase
 
@@ -51974,6 +52015,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### SocialMediaAppFiles
 
@@ -51997,6 +52040,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
+| sourceApplication | Application | zero_or_one | No | The application associated with these files. |
 
 ### SortedTimeline
 
@@ -52041,6 +52086,8 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| referencesTimelineEntry | TimelineEntry | exactly_one | Yes | Links a sorted timeline entry to the original timeline entry it references. |
+| sortPosition | nonNegativeInteger | exactly_one | Yes | The ordinal position of this entry within its sorted timeline. Multiple entries may share the same position to indica... |
 
 ### Timeline
 
@@ -52085,6 +52132,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| timelineEntryValue | DateTimeStamp | exactly_one | Yes | The temporal value of this timeline entry - an absolute timestamp (DateTimeStamp), a time interval (DateTimeRange), o... |
 
 ### TimestampOffset
 
@@ -52261,6 +52309,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | tag | string | zero_or_more | No | A generic tag/label. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| providesAccessTo | StorageMedium | zero_or_more | No | The storage medium that this device interface gives access to.  The interface is a way of reaching the medium, not th... |
 
 ### httpResponseHeader
 

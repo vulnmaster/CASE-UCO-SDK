@@ -300,6 +300,20 @@ def _merge_property(existing: OntologyProperty, new: OntologyProperty) -> Ontolo
     )
 
 
+def _shape_in_class_namespace(shape_iri: str, class_ns: str | None) -> bool:
+    """Whether a shape is the class's own: in the class's namespace or one nested under it.
+
+    UCO names its shapes after the classes they constrain, in the same
+    namespace. Other ontologies keep their shapes in a sub-namespace of the
+    classes' - SOLVE-IT's ``solveit-observable:FileSet`` is constrained by
+    ``https://ontology.solveit-df.org/solveit/observable/shapes/FileSetShape`` -
+    and those are as much the class's own. A profile from another ontology
+    (CAC's ``cacontology-synthesis-shapes`` on ``uco-action:Action``) shares
+    neither, and stays out.
+    """
+    return class_ns is None or iri_namespace(shape_iri).startswith(class_ns)
+
+
 def _extract_properties(
     g: Graph,
     shape_iris: list[str],
@@ -307,8 +321,9 @@ def _extract_properties(
 ) -> list[OntologyProperty]:
     """Extract SHACL properties for a class from all shapes targeting it.
 
-    When ``class_iri`` is provided, shapes whose namespace differs from the
-    class's namespace are skipped.  This prevents extension validation
+    When ``class_iri`` is provided, shapes outside the class's namespace (and
+    the namespaces nested under it, see :func:`_shape_in_class_namespace`) are
+    skipped.  This prevents extension validation
     profiles (for example, CAC's cacontology-synthesis-shapes:ActionSemanticsShape
     targeting uco-action:Action with sh:minCount 1 on startTime) from
     bleeding into the generated typed binding for the upstream class.  Such
@@ -324,7 +339,7 @@ def _extract_properties(
     # counts here is what keeps such a bound from being lost.
     path_cardinalities: dict[str, Cardinality] = {}
     for shape_iri in shape_iris:
-        if class_ns is not None and iri_namespace(shape_iri) != class_ns:
+        if not _shape_in_class_namespace(shape_iri, class_ns):
             continue
         shape_ref = URIRef(shape_iri)
         for prop_shape in g.objects(shape_ref, SH.property):
@@ -372,7 +387,7 @@ def _forbidden_paths(
     class_ns = iri_namespace(class_iri) if class_iri else None
     paths: set[str] = set()
     for shape_iri in shape_iris:
-        if class_ns is not None and iri_namespace(shape_iri) != class_ns:
+        if not _shape_in_class_namespace(shape_iri, class_ns):
             continue
         for prop_shape in g.objects(URIRef(shape_iri), SH.property):
             path = g.value(prop_shape, SH.path)

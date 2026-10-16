@@ -3780,7 +3780,7 @@ Classes for email messages, SMS/MMS, chat messages, and communication metadata. 
 | name | string | No |
 | objectCreatedTime | dateTime | No |
 | objectMarking | MarkingDefinitionAbstraction | No |
-| *... 6 more* | | |
+| *... 8 more* | | |
 
 **AlternateDataStream** key properties:
 

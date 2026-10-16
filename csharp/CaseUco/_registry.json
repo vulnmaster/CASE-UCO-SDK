@@ -8502,6 +8502,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -13498,6 +13514,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -22682,6 +22714,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -22990,6 +23038,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -25796,6 +25860,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -31790,6 +31870,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -35659,6 +35755,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "contains",
+          "type": "ClockOffsetMeasurement",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/ClockOffsetMeasurement",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata."
         }
       ]
     },
@@ -65288,6 +65392,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "providesAccessTo",
+          "type": "StorageMedium",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/StorageMedium",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "The storage medium that this device interface gives access to.\n\nThe interface is a way of reaching the medium, not the medium itself, so the\nmedium's characteristics (model, serial number, capacity) are stated on the\nStorageMedium through its DeviceFacet and StorageMediumFacet, not on the\ninterface. The same medium can be reached through a write-protected interface\non one occasion and a read-write one on another. A hardware write blocker used\nto create the interface is a separate uco-observable:WriteBlocker, which is\nitself a Device, and is never the value of this property.\n\nA uco-observable:Disk is not a Device in UCO 1.5.0. UCO asks for a Disk node to\ncarry the additional type uco-observable:StorageMedium in preparation for UCO\n2.0.0, and a Disk typed that way is a valid value here."
         }
       ]
     },
@@ -65404,6 +65516,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "contains",
+          "type": "RasterPicture",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/RasterPicture",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata."
         }
       ]
     },
@@ -74322,6 +74442,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -92960,6 +93096,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "contains",
+          "type": "Bitstream",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/Bitstream",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata."
         }
       ]
     },
@@ -95463,6 +95607,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -101199,6 +101359,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -105686,6 +105862,14 @@
           "cardinality": "zero_or_more",
           "required": false,
           "description": "A textual statement of an assertion."
+        },
+        {
+          "name": "hasHypothesis",
+          "type": "Hypothesis",
+          "type_iri": "https://ontology.solveit-df.org/solveit/analysis/Hypothesis",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Links a HypothesisSet to a member Hypothesis it groups as a competing alternative. Members must be a Hypothesis or a subclass of one, which is enforced by HypothesisSetShape rather than by an rdfs:range. A range would state the requirement without enforcing it: rdfs:range is an entailment rule, so under inference anything placed in a set would thereby be typed a Hypothesis, and putting an observable object in a set would silently make it one instead of being rejected."
         }
       ]
     },
@@ -106543,9 +106727,9 @@
         },
         {
           "name": "source",
-          "type": "UcoObject",
-          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
-          "cardinality": "one_or_more",
+          "type": "HypothesisedRecord",
+          "type_iri": "https://ontology.solveit-df.org/solveit/analysis/HypothesisedRecord",
+          "cardinality": "exactly_one",
           "required": true,
           "description": "The originating node of a specified relationship."
         },
@@ -106559,8 +106743,8 @@
         },
         {
           "name": "target",
-          "type": "UcoObject",
-          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "type": "SQLiteTable",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/SQLiteTable",
           "cardinality": "exactly_one",
           "required": true,
           "description": "The terminating node of a specified relationship."
@@ -133452,6 +133636,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "providesAccessTo",
+          "type": "StorageMedium",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/StorageMedium",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "The storage medium that this device interface gives access to.\n\nThe interface is a way of reaching the medium, not the medium itself, so the\nmedium's characteristics (model, serial number, capacity) are stated on the\nStorageMedium through its DeviceFacet and StorageMediumFacet, not on the\ninterface. The same medium can be reached through a write-protected interface\non one occasion and a read-write one on another. A hardware write blocker used\nto create the interface is a separate uco-observable:WriteBlocker, which is\nitself a Device, and is never the value of this property.\n\nA uco-observable:Disk is not a Device in UCO 1.5.0. UCO asks for a Disk node to\ncarry the additional type uco-observable:StorageMedium in preparation for UCO\n2.0.0, and a Disk typed that way is a valid value here."
         }
       ]
     },
@@ -135219,6 +135411,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "contains",
+          "type": "FileSet",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/FileSet",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata."
         }
       ]
     },
@@ -138022,6 +138222,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -152921,6 +153137,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -166416,6 +166648,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -169990,6 +170238,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -170577,6 +170841,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "contains",
+          "type": "Bitstream",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/Bitstream",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata."
         }
       ]
     },
@@ -187611,6 +187883,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "contains",
+          "type": "Bitstream",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/Bitstream",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "The logical content encapsulated within the acquired data, such as bitstream data, files, or metadata."
         }
       ]
     },
@@ -188103,6 +188383,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "providesAccessTo",
+          "type": "StorageMedium",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/StorageMedium",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "The storage medium that this device interface gives access to.\n\nThe interface is a way of reaching the medium, not the medium itself, so the\nmedium's characteristics (model, serial number, capacity) are stated on the\nStorageMedium through its DeviceFacet and StorageMediumFacet, not on the\ninterface. The same medium can be reached through a write-protected interface\non one occasion and a read-write one on another. A hardware write blocker used\nto create the interface is a separate uco-observable:WriteBlocker, which is\nitself a Device, and is never the value of this property.\n\nA uco-observable:Disk is not a Device in UCO 1.5.0. UCO asks for a Disk node to\ncarry the additional type uco-observable:StorageMedium in preparation for UCO\n2.0.0, and a Disk typed that way is a valid value here."
         }
       ]
     },
@@ -194568,6 +194856,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -212762,6 +213066,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -213823,6 +214143,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "hasFile",
+          "type": "File",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/File",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A file belonging to this file set."
+        },
+        {
+          "name": "sourceApplication",
+          "type": "Application",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/Application",
+          "cardinality": "zero_or_one",
+          "required": false,
+          "description": "The application associated with these files."
         }
       ]
     },
@@ -215771,6 +216107,22 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "referencesTimelineEntry",
+          "type": "TimelineEntry",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/TimelineEntry",
+          "cardinality": "exactly_one",
+          "required": true,
+          "description": "Links a sorted timeline entry to the original timeline entry it references."
+        },
+        {
+          "name": "sortPosition",
+          "type": "nonNegativeInteger",
+          "type_iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+          "cardinality": "exactly_one",
+          "required": true,
+          "description": "The ordinal position of this entry within its sorted timeline. Multiple entries may share the same position to indicate they are tied (indistinguishable in order)."
         }
       ]
     },
@@ -232215,7 +232567,24 @@
         "Technique"
       ],
       "is_facet": false,
-      "properties": []
+      "properties": [
+        {
+          "name": "hasCASEInputClass",
+          "type": "Class",
+          "type_iri": "http://www.w3.org/2002/07/owl#Class",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A CASE/UCO term that represents an expected input to this technique. Usually a class (e.g., solveit-observable:WriteProtectedDeviceInterface), but a property where the technique consumes a single value rather than an object (e.g., uco-observable:filePath). No rdfs:range is asserted, because no single one is true of both; :TechniqueIOTermShape carries the constraint instead."
+        },
+        {
+          "name": "hasCASEOutputClass",
+          "type": "Class",
+          "type_iri": "http://www.w3.org/2002/07/owl#Class",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "A CASE/UCO term that represents an output of this technique. Usually a class (e.g., uco-observable:Image), but a property where the technique produces a single value rather than an object (e.g., case-investigation:exhibitNumber). No rdfs:range is asserted, because no single one is true of both; :TechniqueIOTermShape carries the constraint instead."
+        }
+      ]
     },
     "TechnologyCooperation": {
       "name": "TechnologyCooperation",
@@ -235496,6 +235865,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "timelineEntryValue",
+          "type": "DateTimeStamp",
+          "type_iri": "https://ontology.solveit-df.org/solveit/observable/DateTimeStamp",
+          "cardinality": "exactly_one",
+          "required": true,
+          "description": "The temporal value of this timeline entry - an absolute timestamp (DateTimeStamp), a time interval (DateTimeRange), or relative ordering (ImplicitTimingInformation)."
         }
       ]
     },
@@ -263863,6 +264240,14 @@
           "cardinality": "zero_or_one",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "providesAccessTo",
+          "type": "StorageMedium",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/observable/StorageMedium",
+          "cardinality": "zero_or_more",
+          "required": false,
+          "description": "The storage medium that this device interface gives access to.\n\nThe interface is a way of reaching the medium, not the medium itself, so the\nmedium's characteristics (model, serial number, capacity) are stated on the\nStorageMedium through its DeviceFacet and StorageMediumFacet, not on the\ninterface. The same medium can be reached through a write-protected interface\non one occasion and a read-write one on another. A hardware write blocker used\nto create the interface is a separate uco-observable:WriteBlocker, which is\nitself a Device, and is never the value of this property.\n\nA uco-observable:Disk is not a Device in UCO 1.5.0. UCO asks for a Disk node to\ncarry the additional type uco-observable:StorageMedium in preparation for UCO\n2.0.0, and a Disk typed that way is a valid value here."
         }
       ]
     },
