@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Preserve Turtle namespace bindings in the critic canonical graph view, including the default namespace and document overrides of fallback prefixes. Declared `kb` scopes now receive the same local-reference checks as equivalent JSON-LD inputs. Graph-integrity execution records advance to rule version 1.1.1.
+- Add eight focused namespace, format-equivalence and dangling-reference regressions in `mcp_server/tests/test_critic_turtle_prefixes.py`.
+
 ## [1.32.2] - 2026-10-19
 
 Sensor, telemetry, and measurement evidence now routes to the QUDT and SOSA/SSN recipes, candidate recipes can be found but always come back labeled, and `make deprecate-recipe` no longer deletes unrelated index entries.

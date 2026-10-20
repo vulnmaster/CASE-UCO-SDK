@@ -399,6 +399,12 @@ def _load_turtle(path: Path) -> CanonicalGraphView:
             errors=[type(exc).__name__],
         )
 
+    # Keep the document's bindings as JSON-LD loading does for @context.
+    # In particular, graph-integrity rules use the declared kb namespace to
+    # recognize local references; fallback prefixes alone lose that scope.
+    prefixes.update({prefix or "": str(namespace)
+                     for prefix, namespace in rdf_graph.namespaces()})
+
     nodes: dict[str, CanonicalNode] = {}
     order: list[str] = []
     subjects = sorted({str(s) for s in rdf_graph.subjects() if isinstance(s, URIRef)})
@@ -751,3 +757,4 @@ def collect_object_iris_from_rdf(view: CanonicalGraphView) -> set[str]:
         if isinstance(obj, URIRef):
             out.add(str(obj))
     return out
+
