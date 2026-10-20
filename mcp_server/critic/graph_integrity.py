@@ -14,7 +14,7 @@ from critic.canonical import (
 from critic.finding_diff import make_stable_finding_id
 from critic.models import CriticFinding, CriticTarget
 
-RULE_VERSION = "1.1.0"
+RULE_VERSION = "1.1.1"
 
 
 def sha256_file(path: Path) -> str:
@@ -232,3 +232,4 @@ def _f(
         rule_id=rule_id,
         identity_key=finding_id,
     )
+
