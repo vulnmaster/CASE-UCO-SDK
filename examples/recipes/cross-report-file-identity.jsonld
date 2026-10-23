@@ -1,0 +1,617 @@
+{
+    "@context": {
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "kb": "http://example.org/kb/",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:MobilePhone-a61dc00d-5853-5c41-a4e6-85eb29f902d9",
+            "@type": "uco-observable:MobilePhone",
+            "uco-core:name": "Exhibit EXHIBIT-001"
+        },
+        {
+            "@id": "kb:Tool-552fb6c6-af14-59c3-917f-25dbdc6a8910",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "Report tool A"
+        },
+        {
+            "@id": "kb:File-e7fdd28a-7ada-580c-9d4b-fab27dcd154c",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-1df51143-aeba-5fb2-a8a2-fccb4a60663d",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "IMG_0001.jpg",
+                    "uco-observable:filePath": "/storage/1A2B-3C4D/DCIM/Camera/IMG_0001.jpg",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-41cb3336-4abf-55ea-8df9-5e2c6e152a24",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-8a44aa8f-376c-5ff1-a6f8-354bae6afc72",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "3232597C3C94BE4067FB3D9EE08B3FBB"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-1dacf08e-7467-5e43-981f-0959a19f2e71",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "CA180452989882FBF20F677EA20934137D4188F339EEB28D59B6146F93369726"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-6d8e3ee2-f74e-528e-91ba-f44f479a7000",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA1",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "E75085C47B98ACC4800AF0EA9EB2E6DF5D841FB8"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:ContentData-fd5a8e56-f3c8-57db-b92a-52f79813478a",
+            "@type": "uco-observable:ContentData",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-ffa377b5-422f-58d4-a396-c00247471dd6",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-3dd21cae-6ec9-57ef-a646-c0be3e468280",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "3232597C3C94BE4067FB3D9EE08B3FBB"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-11ffd060-69f1-5f2e-95e7-de735eaa0a36",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:ContentData-fd5a8e56-f3c8-57db-b92a-52f79813478a"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-e7fdd28a-7ada-580c-9d4b-fab27dcd154c"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:ContentData-a22d8b2e-3a26-5897-bbc0-21f9c2b72506",
+            "@type": "uco-observable:ContentData",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-e1918f00-793a-58ad-b566-c677b292d144",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-81fd8e62-f6e9-530a-a1b8-d9eaa22257bb",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "CA180452989882FBF20F677EA20934137D4188F339EEB28D59B6146F93369726"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-dc276557-4e73-501e-b24e-274c75ce40ca",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:ContentData-a22d8b2e-3a26-5897-bbc0-21f9c2b72506"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-e7fdd28a-7ada-580c-9d4b-fab27dcd154c"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:File-ce8ecd15-ed3e-5fab-bd59-563c2ecbb10e",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-9c013df0-4280-53cd-8d73-c8a30b0e6d4c",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "IMG_0001.jpg",
+                    "uco-observable:filePath": "/storage/1A2B-3C4D/DCIM/Camera/IMG_0001.jpg",
+                    "uco-observable:modifiedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2023-01-02T10:15:13+00:00"
+                    },
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-eb553e1c-03fd-5466-a670-ac7d1415ff92",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-5ee7aa72-7cb0-5ce8-994b-aa4bb9bfe2ea",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "3232597C3C94BE4067FB3D9EE08B3FBB"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-62a6926f-cf57-57d3-b56c-20c29eebce97",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "CA180452989882FBF20F677EA20934137D4188F339EEB28D59B6146F93369726"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                }
+            ],
+            "uco-core:name": "REPORT-A row 1842"
+        },
+        {
+            "@id": "kb:Relationship-8d6d9116-6d46-5791-a586-9837e841eb4d",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:File-ce8ecd15-ed3e-5fab-bd59-563c2ecbb10e"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-e7fdd28a-7ada-580c-9d4b-fab27dcd154c"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Characterizes",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:File-6f3514df-e708-5bbd-b6b7-04d27a5c5d17",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-9ce24b17-9e9a-557f-9691-c0d9302508f4",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "notes.txt",
+                    "uco-observable:filePath": "/storage/1A2B-3C4D/Documents/notes.txt",
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "20"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-f205eab5-648a-542e-a5f6-f99aa8731780",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-8b44d257-a410-52f2-9a28-81f7398dae23",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "48144D45D182F2302C5291726E9D51E7"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-4b71a570-b171-5894-8741-096d56c62365",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "B540D3570929E1C6E4BEF06CF69F5AA81D353B55CC603567538D01A9C550D9F1"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "20"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:ContentData-2a7b82a8-a80f-5e02-aece-7420e3f63f3b",
+            "@type": "uco-observable:ContentData",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-f4b9cf66-273c-5166-bb99-bdd9ce1fd725",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-b79b3ae4-7c9a-5e3f-9ce8-d5e10db3c02c",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "48144D45D182F2302C5291726E9D51E7"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "20"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-809bb855-a1f9-5e97-a225-4dc8f213db5c",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:ContentData-2a7b82a8-a80f-5e02-aece-7420e3f63f3b"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-6f3514df-e708-5bbd-b6b7-04d27a5c5d17"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:ContentData-70e39a75-641b-5af4-88fd-3b830089259b",
+            "@type": "uco-observable:ContentData",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-b47e3cee-6d27-53ab-b119-05faf8957457",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-4a49e75c-990b-547c-8f06-673d0f68f564",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "B540D3570929E1C6E4BEF06CF69F5AA81D353B55CC603567538D01A9C550D9F1"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "20"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-defbe1a2-a0b1-5c86-af77-d587ad55700b",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:ContentData-70e39a75-641b-5af4-88fd-3b830089259b"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-6f3514df-e708-5bbd-b6b7-04d27a5c5d17"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:File-37c2e3b2-21a2-5195-a697-90615262b68d",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-5fe6b1fd-bdb2-5176-8b65-fd1cfb4eb0fe",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "notes.txt",
+                    "uco-observable:filePath": "/storage/1A2B-3C4D/Documents/notes.txt",
+                    "uco-observable:modifiedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2023-01-03T08:00:00+00:00"
+                    },
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "20"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-848530e3-202e-52a6-a4ef-9eab3ed46e28",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-7597d50d-d85f-5cc3-984f-7bb140310b27",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "48144D45D182F2302C5291726E9D51E7"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-bd13dd21-e70c-5979-b606-715556016917",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA256",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "B540D3570929E1C6E4BEF06CF69F5AA81D353B55CC603567538D01A9C550D9F1"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "20"
+                    }
+                }
+            ],
+            "uco-core:name": "REPORT-A row 1843"
+        },
+        {
+            "@id": "kb:Relationship-d4e40615-2ebd-56b2-9275-a01152d1808f",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:File-37c2e3b2-21a2-5195-a697-90615262b68d"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-6f3514df-e708-5bbd-b6b7-04d27a5c5d17"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Characterizes",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-ae6fa9cc-c64b-52a4-ac64-65c9de6675db",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Produce REPORT-A",
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-552fb6c6-af14-59c3-917f-25dbdc6a8910"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:MobilePhone-a61dc00d-5853-5c41-a4e6-85eb29f902d9"
+                }
+            ],
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-ce8ecd15-ed3e-5fab-bd59-563c2ecbb10e"
+                },
+                {
+                    "@id": "kb:File-37c2e3b2-21a2-5195-a697-90615262b68d"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-02T09:00:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:Investigation-c1f8429c-bc57-5474-8da3-0afccd9c6f20",
+            "@type": "case-investigation:Investigation",
+            "uco-core:name": "File identity across reports for EXHIBIT-001",
+            "uco-core:object": [
+                {
+                    "@id": "kb:MobilePhone-a61dc00d-5853-5c41-a4e6-85eb29f902d9"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-ae6fa9cc-c64b-52a4-ac64-65c9de6675db"
+                },
+                {
+                    "@id": "kb:InvestigativeAction-4a2e4fef-ad7f-552e-a955-fee125b645c2"
+                }
+            ]
+        },
+        {
+            "@id": "kb:Tool-f772f3af-456c-5e4e-8395-7a4a9e4161cf",
+            "@type": "uco-tool:Tool",
+            "uco-core:name": "Report tool B"
+        },
+        {
+            "@id": "kb:ContentData-76bc6a46-9fe6-553c-88da-efdd42ac9ef1",
+            "@type": "uco-observable:ContentData",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ContentDataFacet-d65b3e33-fe19-5f8d-ad48-1c9f2d2cce44",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-5a35d471-bc8e-5003-a455-f80d6ecc49fa",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA1",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "E75085C47B98ACC4800AF0EA9EB2E6DF5D841FB8"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:Relationship-10b52ad8-fc5b-5f5c-9678-35f3ae37fc05",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:ContentData-76bc6a46-9fe6-553c-88da-efdd42ac9ef1"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-e7fdd28a-7ada-580c-9d4b-fab27dcd154c"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:File-2044e96d-8331-59c9-90cd-544cd5e08dff",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:FileFacet-18fd2e56-8de5-53d5-8ea7-3c76a4e183d7",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "IMG_0001.jpg",
+                    "uco-observable:filePath": "\\storage\\1A2B-3C4D\\DCIM\\Camera\\IMG_0001.jpg",
+                    "uco-observable:modifiedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2023-01-02T10:15:12+00:00"
+                    },
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                },
+                {
+                    "@id": "kb:ContentDataFacet-ed313093-3a8f-54b5-8eed-628c60d7c09e",
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:hash": [
+                        {
+                            "@id": "kb:Hash-236fb0d7-7ee1-5b9a-8eec-2562d7cfa9da",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "MD5",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "3232597C3C94BE4067FB3D9EE08B3FBB"
+                            }
+                        },
+                        {
+                            "@id": "kb:Hash-e08588e7-ffa6-5c77-92a2-d57fca4f410d",
+                            "@type": "uco-types:Hash",
+                            "uco-types:hashMethod": "SHA1",
+                            "uco-types:hashValue": {
+                                "@type": "xsd:hexBinary",
+                                "@value": "E75085C47B98ACC4800AF0EA9EB2E6DF5D841FB8"
+                            }
+                        }
+                    ],
+                    "uco-observable:sizeInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "28"
+                    }
+                }
+            ],
+            "uco-core:name": "REPORT-B row files/77"
+        },
+        {
+            "@id": "kb:Relationship-4d1a4c36-be89-508b-b414-cae70b953cfb",
+            "@type": "uco-core:Relationship",
+            "uco-core:source": [
+                {
+                    "@id": "kb:File-2044e96d-8331-59c9-90cd-544cd5e08dff"
+                }
+            ],
+            "uco-core:target": [
+                {
+                    "@id": "kb:File-e7fdd28a-7ada-580c-9d4b-fab27dcd154c"
+                }
+            ],
+            "uco-core:kindOfRelationship": "Characterizes",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+            }
+        },
+        {
+            "@id": "kb:InvestigativeAction-4a2e4fef-ad7f-552e-a955-fee125b645c2",
+            "@type": "case-investigation:InvestigativeAction",
+            "uco-core:name": "Produce REPORT-B",
+            "uco-action:instrument": [
+                {
+                    "@id": "kb:Tool-f772f3af-456c-5e4e-8395-7a4a9e4161cf"
+                }
+            ],
+            "uco-action:object": [
+                {
+                    "@id": "kb:MobilePhone-a61dc00d-5853-5c41-a4e6-85eb29f902d9"
+                }
+            ],
+            "uco-action:result": [
+                {
+                    "@id": "kb:File-2044e96d-8331-59c9-90cd-544cd5e08dff"
+                }
+            ],
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2026-03-04T14:30:00+00:00"
+            }
+        }
+    ]
+}

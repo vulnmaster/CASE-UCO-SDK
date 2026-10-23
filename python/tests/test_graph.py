@@ -217,15 +217,20 @@ def test_custom_kb_prefix():
 
 
 def test_device_facet():
+    from case_uco.uco.identity import Organization
+
     graph = CASEGraph()
+    apple = graph.create(Organization, name="Apple")
     graph.create(
         ObservableObject,
-        has_facet=[DeviceFacet(manufacturer="Apple", model="iPhone 15")]
+        has_facet=[DeviceFacet(manufacturer=apple, model="iPhone 15")]
     )
 
     output = json.loads(graph.serialize())
-    obj = output["@graph"][0]
+    obj = output["@graph"][1]
     assert obj["@type"] == "uco-observable:ObservableObject"
+    facet = obj["uco-core:hasFacet"][0]
+    assert facet["uco-observable:manufacturer"] == {"@id": graph.get_id(apple)}
 
 
 def test_analytic_tool_subclass():

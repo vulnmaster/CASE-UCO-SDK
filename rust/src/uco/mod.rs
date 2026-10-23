@@ -13,3 +13,4 @@ pub mod role;
 pub mod tool;
 pub mod types;
 pub mod victim;
+pub mod vocabulary;

@@ -1,0 +1,16 @@
+// Auto-generated CASE/UCO vocabulary — do not edit manually.
+// Every UCO vocabulary (owl:oneOf datatype) in one namespace. Members are plain strings: UCO 1.4.0 and later expect vocabulary-valued properties as xsd:string literals checked against the vocabulary with sh:in, so pass the constants directly rather than typing them with the vocabulary IRI.
+package org.caseontology.uco.vocabulary;
+
+import java.util.Set;
+
+/** Vocabulary: ObjectStatusVocab */
+public final class ObjectStatusVocab {
+    public static final String IRI = "https://ontology.unifiedcyberontology.org/uco/core/ObjectStatusVocab";
+    public static final Set<String> MEMBERS = Set.of("Deprecated", "Draft", "Final");
+    public static final String DEPRECATED = "Deprecated";
+    public static final String DRAFT = "Draft";
+    public static final String FINAL = "Final";
+
+    private ObjectStatusVocab() {}
+}

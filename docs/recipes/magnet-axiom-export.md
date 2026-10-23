@@ -17,7 +17,10 @@ supplying the investigative spine that parser builds but never emits.
   or `XmlBase64`), or CSV/XLSX artifact exports from the same case.
 - You received an AXIOM Portable Case folder and need to model what it contains.
 - You are reconciling AXIOM output against another tool's extraction of the same
-  device.
+  device — key shared files as in
+  [cross-report-file-identity.md](cross-report-file-identity.md).
+- You have a Magnet ACQUIRE image with its `image_info.txt` and
+  `activity_log.txt`.
 
 Use a different recipe when:
 
@@ -85,6 +88,66 @@ names. A mapping keyed on English strings silently drops every artifact from a
 non-`en-US` export — no error, just a smaller graph. Put the locale in the export
 action's `uco-core:description` so a reviewer can see which vocabulary the
 mapping assumed.
+
+## Magnet ACQUIRE imaging summaries
+
+Magnet ACQUIRE images a device before any AXIOM processing, and writes two
+text files beside the image: `image_info.txt` and `activity_log.txt`. The
+Digital Corpora [iOS 13.3.1](https://digitalcorpora.s3.amazonaws.com/s3_browser.html#corpora/mobile/ios_13_3_1/)
+and [iOS 13.4.1](https://digitalcorpora.s3.amazonaws.com/s3_browser.html#corpora/mobile/ios_13_4_1/)
+datasets publish both for two acquisitions of one iPhone SE, before and
+after an OS update, by ACQUIRE 2.25.0.20236. Those are the only Magnet
+outputs in the Digital Corpora mobile datasets; none of them includes an
+AXIOM case or export.
+
+`image_info.txt` is `Key: Value` lines with untitled section headers
+("Device Information", "Additional Device Information", "Imaging
+Activities"). Four things in it matter for modeling:
+
+- **The activity log is hashed.** `Activity Log MD5 Hash` matches the
+  published `activity_log.txt` byte for byte, CRLF line endings included.
+  Verify it before relying on the log, and keep line endings intact when
+  copying.
+- **Times have two forms.** `Imaging Start UTC` is to the second;
+  `Imaging Start UTC Ticks` is .NET ticks (100 ns since 0001-01-01 UTC) and
+  carries the sub-second part. The output directory name
+  (`iOS Image - 2020-04-12 15-08-42`) is local time, four hours behind the
+  UTC fields, so never parse it as a timestamp.
+- **Segments carry MD5 and SHA-1.** One `Segment N ... Hash` line per
+  method per segment, with `Total Segments` to check the count against.
+- **The device is identified several ways.** `Unique Device ID`, `Serial
+  Number`, and `IMEI` are stable across the two acquisitions. The OS version
+  is not. Key the device on its unique ID and the OS on device plus version,
+  so both acquisitions share one phone node and keep two OS nodes.
+
+`case_uco.vendors.magnet` reads the file, verifies the log when it sits
+beside it, and builds the acquisition with deterministic IDs:
+
+```python
+from case_uco import CASEGraph
+from case_uco.vendors.magnet import acquire_to_graph, read_acquire_image_info
+
+graph = CASEGraph()
+for path in ("ios_13_3_1/image_info.txt", "ios_13_4_1/image_info.txt"):
+    record = read_acquire_image_info(path)
+    for warning in record.warnings:
+        print(path, warning)
+    acquire_to_graph(graph, record)
+```
+
+| `image_info.txt` | CASE/UCO |
+|---|---|
+| `Imager Product`, `Imager Version` | `uco-tool:Tool` with `uco-tool:version`, `uco-tool:toolType` "Acquisition", created by the Magnet Forensics `uco-identity:Organization` |
+| `Manufacturer`, `Pretty Name`, `Serial Number`, `IMEI` | `uco-observable:MobilePhone` + `uco-observable:DeviceFacet` + `uco-observable:MobileDeviceFacet` |
+| `Operating System Version` | `uco-observable:OperatingSystem` + `uco-observable:SoftwareFacet` |
+| `Segment N` path and hashes | `uco-observable:File` + `uco-observable:ContentDataFacet` |
+| `Activity Log MD5 Hash` | `uco-observable:File` for the log, with the verification result in `uco-core:description` |
+| Imaging start and end | `case-investigation:InvestigativeAction` `uco-action:startTime` / `uco-action:endTime` |
+| `Imaging Activities` | `uco-core:description` on the action, one line per activity and status |
+| `Examiner Name`, `Evidence Number` (when filled in) | `uco-action:performer` -> `uco-identity:Identity`; `case-investigation:ProvenanceRecord` with `case-investigation:exhibitNumber` |
+
+The user-assigned device name (`Device Name`) stays in the record and out of
+the graph by default; add it deliberately if it matters to the case.
 
 ## Artifact family to CASE class
 
@@ -231,9 +294,12 @@ tools, the acquisition and export actions, device and OS, a file system, a parse
 picture with EXIF and a carved picture with a recovery facet, a chat message,
 Safari history with a domain and URL, a cookie, and a cell site. It conforms
 against CASE 1.4.0 with zero violations and zero undeclared concepts. Field
-values are synthetic — no licensed Magnet output is redistributable — but every
+values are synthetic — no public AXIOM export exists to test against — but every
 artifact name and fragment name in this recipe is from a real AXIOM export, and
-every hash in the exemplar is computed over bytes the builder defines.
+every hash in the exemplar is computed over bytes the builder defines. The
+ACQUIRE reader is tested against the two real Digital Corpora summaries
+(`python/tests/test_vendor_magnet.py`), and their combined graph conforms
+under `case_validate --built-version case-1.5.0`.
 
 ```bash
 python3 examples/vendor-exports/build_magnet_axiom_export.py
@@ -244,6 +310,7 @@ case_validate --built-version case-1.5.0 examples/vendor-exports/magnet-axiom-ex
 
 - [cellebrite-ufed-xml.md](cellebrite-ufed-xml.md) — the same spine for UFED's `modelType` report
 - [msab-xry-export.md](msab-xry-export.md) — MSAB XRY, where the export schema is not public
+- [cross-report-file-identity.md](cross-report-file-identity.md) — one file across AXIOM, UFED, XRY, and re-run reports
 - [starter-mobile-extraction.md](starter-mobile-extraction.md) — the vendor-neutral starting point
 - [exif-data.md](exif-data.md) — EXIF tags and camera identification in depth
 - [file-recovery.md](file-recovery.md) — carved files and `RecoveredObjectFacet`

@@ -1,0 +1,57 @@
+[DeviceInfo]
+Chipset=GS201
+DeviceModel=Pixel 7a
+IMEI1=354977438494370
+IMEI2=354977438494362
+Model=Pixel 7a
+OS=Android 14
+SecurityPatchLevel=2024-01-05
+Vendor=Google
+
+[Dumps]
+FileDump=EXTRACTION_FFS.zip
+KeyStore=EXTRACTION_FFS.zip
+
+[ExtractionStatus]
+ExtractionStatus=Success
+
+[FileDump]
+Type=ZIPfolder
+ZIPLogicalPath=Dump
+
+[General]
+AcquisitionTool=Inseyets UFED_Pro_Advanced
+ConnectionType=Cable No. Original cable
+Date=28/07/2024 07:27:27 (-4)
+Device=ANDROID_GENERIC
+EVS_ResourcesVersion=7.69.503
+EndTime=28/07/2024 08:38:16 (-4)
+ExtractionNameFromXML=EXTRACTION_FFS
+ExtractionType=FileSystem
+FullName=Pixel 7a
+GUID=38F28E02-21EE-4CA9-A3E8-91C8E3968C98
+InternalBuild=10.2.0.359
+MachineName=JOSH-LAPTOP
+Model=Pixel 7a
+UfdVer=1.2
+UnitId=2145895554
+UserName=
+Vendor=Google
+Version=10.2.0.359
+
+[Image]
+ExtractionMethod=ANDROID_FS
+
+[InstalledApps]
+File=InstalledAppsList.txt
+
+[KeyStore]
+Type=ZIPfolder
+ZIPLogicalPath=extra
+
+[SHA256]
+EXTRACTION_FFS.zip=A9A2D881A81AB0CBB6AC8CAA76457C2EB3EF00EEDDEC6892956CF21FA0A8464A
+SummaryReport.pdf=69EB3B7957222852D64626D7BDEE714D97BE48E2607B42385606AF50EA82960C
+
+[Hash]
+HMAC=VAlY9hB4f+5Y6GJuJifsQdVsjyWgvOxTPcUZqDNSQ/0=

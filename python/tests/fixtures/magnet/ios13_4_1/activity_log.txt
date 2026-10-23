@@ -1,0 +1,30 @@
+2020-04-16 17:13:00 Info: Magnet ACQUIRE v2.25.0.20236
+2020-04-16 17:13:00 Info: Operating System Version: 6.2.9200.0
+2020-04-16 17:13:00 Info: Operating System Platform: Win32NT
+2020-04-16 17:13:00 Info: Service Pack: 
+2020-04-16 17:13:00 Info: 64-Bit Operating System: True
+2020-04-16 17:13:00 Info: 64-Bit Process: True
+2020-04-16 17:13:00 Info: CLR Version: 4.0.30319.42000
+2020-04-16 17:13:00 Info: Working Set: 139231232
+2020-04-16 17:13:06 Warn: An exception was caught querying devices with plugin 'Magnet.Imager.Devices.Plugins.Drive.Plugin'.
+System.ArgumentException: path cannot be a UNC path
+   at Magnet.Utilities.Future.Contract.Require[T](Boolean condition, String message)
+   at DiscUtils.DriveUtilities.DriveUtilities.GetDriveLetter(String path)
+   at Magnet.Imager.Devices.Plugins.Drive.DriveDeviceFinder.<GetDevices>d__4.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   at Magnet.Imager.Application.Devices.ParallelDeviceQuerier.<>c__DisplayClass4_1.<GetDevices>b__4()
+
+2020-04-16 17:13:09 Warn: An exception was caught querying devices with plugin 'Magnet.Imager.Devices.Plugins.Drive.Plugin'.
+System.ArgumentException: path cannot be a UNC path
+   at Magnet.Utilities.Future.Contract.Require[T](Boolean condition, String message)
+   at DiscUtils.DriveUtilities.DriveUtilities.GetDriveLetter(String path)
+   at Magnet.Imager.Devices.Plugins.Drive.DriveDeviceFinder.<GetDevices>d__4.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   at Magnet.Imager.Application.Devices.ParallelDeviceQuerier.<>c__DisplayClass4_1.<GetDevices>b__4()
+
+2020-04-16 17:33:31 Info: Adding segment paths of image located at 'F:\iOS\iOS Image - 2020-04-16 13-13-32'.
+2020-04-16 17:33:31 Debug: Calculating MD5 hash of file at 'F:\iOS\iOS Image - 2020-04-16 13-13-32\Apple iPhone SE (GSM) Full Image - 13-4-1.tar'.
+2020-04-16 17:36:11 Debug: Calculating SHA1 hash of file at 'F:\iOS\iOS Image - 2020-04-16 13-13-32\Apple iPhone SE (GSM) Full Image - 13-4-1.tar'.
+2020-04-16 17:38:50 Info: Hashing image segments completed.

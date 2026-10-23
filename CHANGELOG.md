@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.33.0] - 2026-10-23
+
+When several forensic tools report the same file, the graphs built from each report now converge on shared nodes, and re-running an ingest adds nothing. New readers handle Cellebrite and Magnet acquisition summaries and stream multi-gigabyte UFED `report.xml` files, and the UFED, XRY/XAMN, and AXIOM recipes are checked against real tool output from the Digital Corpora mobile datasets. This release responds to feedback from a forensic examiner working with these tools.
+
+### Added
+
+- `case_uco.uco.vocabulary` and `case_uco.case.vocabulary` hold every UCO and CASE vocabulary in one namespace, with the same layout in C# (`CaseUco.Uco.Vocabulary`), Java (`org.caseontology.uco.vocabulary`), and Rust (`case_uco::uco::vocabulary`). Members are plain strings, as UCO 1.4.0 and later expect; each class also exposes its `IRI` and its full member set. Python domain modules re-export the same classes; the other languages keep their existing per-module vocabulary classes alongside the new namespace.
+- `case_uco.deterministic_id(cls, *key)` returns `kb:<Class>-<uuid5>` from a key, so separate runs and separate ingest jobs agree on IRIs without coordinating. `deterministic_uuid` returns the bare UUID.
+- `case_uco.Ref("kb:...")` references an existing node by IRI. `rdflib.URIRef` and `BNode` values are accepted too.
+- Inline facets get IDs derived from their owner and class, and other inline nodes such as hashes get IDs derived from their owner and content. A deterministic object therefore has deterministic facets, and facet order doesn't change the IDs.
+- `SharedFacetError` is raised when one facet is attached to two objects, whether by reusing an instance, by `Ref`, through `add_property`, or by loading a graph. `uco-core:hasFacet` is inverse-functional, so such a graph fails validation.
+- `case_uco.vendors.cellebrite` reads UFED `.ufd` summaries and `EvidenceCollection.ufdx` files from UFED 7.28, Premium SaaS 7.64, and Inseyets UFED Pro 10.2 without version-specific code. Layout drift and ambiguous dates become warnings, not exceptions. Passcodes are withheld unless `include_secrets=True`. `ufd_to_graph` builds the acquisition with IDs keyed on the extraction GUID.
+- `case_uco.vendors.cellebrite.iter_report` streams a UFED Physical Analyzer `report.xml` and yields tagged files, decoded models, and `extraInfo` source links. Memory use stays flat: the 969 MB Digital Corpora Android 13 report reads in about 15 seconds with about 100 MB peak. Files nested in `<RelatedNodes>`, more than half of that report's files and of the files its `nodeInfo` links name, are yielded as full entries. A `NodeCount` mismatch is reported as truncation. `tagged_files_to_graph` writes them with the cross-report identity tiers. `embedded` files, whose synthetic paths repeat, get no exhibit file of their own: they are `Extracted_From` their container instead. Paths that carry different content within one report (two versions of a file, or emoji names that UFED writes lossily as `ð___`) get no shared exhibit file and are returned as warnings. Tested against trims of both Digital Corpora reports: Android 13 on Physical Analyzer 7.58 and iOS 15 on 7.62.
+- `case_uco.vendors.file_identity.add_reported_file` writes one report row as a content core, an exhibit file, and a verbatim report entry, normalizing paths and hash names. Use it for any tool's file listing so that separately ingested reports converge.
+- `case_uco.vendors.magnet` reads Magnet ACQUIRE `image_info.txt`, verifies the activity log's recorded MD5 when the log sits beside it, and takes sub-second times from the .NET tick fields. `acquire_to_graph` keys the device on its unique ID, so two acquisitions of one phone share it.
+- Test fixtures are real summaries from the [Digital Corpora mobile datasets](https://digitalcorpora.s3.amazonaws.com/s3_browser.html#corpora/mobile/), with attribution in `python/tests/fixtures/README.md`.
+- Recipe `cross-report-file-identity.md`: content cores, exhibit files, and verbatim report entries, with a validated exemplar built from two independently ingested reports and four SPARQL competency queries that the tests run as written.
+- `guide_mapping` entries for UFED `.ufd`/`.ufdx` summaries and Magnet ACQUIRE `image_info.txt`.
+
+### Changed
+
+- **Behavior change (Python):** a plain string assigned to a property that takes a node now raises `TypeError` that names the property and the fix. Previously the string was written as a literal and the graph failed validation later. Pass the object returned by `graph.create()`, a `Ref`, or a `URIRef`. Properties that take literals are unaffected.
+- `load(..., on_duplicate="merge_compatible")` merges inline nodes that share an `@id` (two reports' views of one facet) instead of keeping the first copy and dropping the second one's hashes. `merge_identical` raises when such nodes differ.
+- The UFED recipe documents the `.ufd`/`.ufdx` layout across three releases and the clear-text passcode. Its `report.xml` structure is now checked against the real Android 13 report: `reportVersion` is the schema version, not the product version; `nodeInfo` usually carries a file `id` rather than a path; and `RelatedNodes` and embedded files need the handling above. The XRY recipe records the `.xry` header, the Digital Corpora test extraction, and the export behaviours documented in the XAMN 7.4 help (untranslated Extended XML tags, File export path options, HashOnly, VICS, Nuix, `.bin`). The AXIOM recipe documents Magnet ACQUIRE summaries and notes that no public AXIOM export exists.
+
+### Fixed
+
+- `_registry.json` cut vocabulary members containing a slash down to the part after it (`Complete/Finish` became `Finish`, `z/Architecture` became `Architecture`).
+- The generated C# CASE vocabulary used the reserved word `case` as a constant name.
+
+Package versions bumped to **1.33.0**.
+
 ## [1.32.2] - 2026-10-19
 
 Sensor, telemetry, and measurement evidence now routes to the QUDT and SOSA/SSN recipes, candidate recipes can be found but always come back labeled, and `make deprecate-recipe` no longer deletes unrelated index entries.

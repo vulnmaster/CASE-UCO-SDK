@@ -1,0 +1,530 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://pa.cellebrite.com/report/2.0" id="29fa925f-7b0b-4ae8-a61d-edc8e97f52d7" name="iPhone 8" reportVersion="7.48" licenseID="1197907875" containsGarbage="False" extractionType="PasswordExtraction" NodeCount="9" ModelCount="2">
+  <sourceExtractions>
+    <extractionInfo id="0" name="Extract User Lock" isCustomName="False" type="PasswordExtraction" deviceName="IPHONE" fullName="" index="0" IsPartialData="False" IsStoppedByUser="False" IsSelectiveExtraction="False" />
+    <extractionInfo id="1" name="File System" isCustomName="False" type="FileSystem" deviceName="IPHONE" fullName="Apple iPhone" index="1" IsPartialData="False" IsStoppedByUser="False" IsSelectiveExtraction="False" />
+  </sourceExtractions>
+  <caseInformation>
+    <field name="Examiner name" isSystem="False" isRequired="True" fieldType="None" multipleLines="False">Hickman</field>
+  </caseInformation>
+  <metadata section="Additional Fields">
+    <item name="DeviceInfoCreationTime" systemtype="System.String">20-05-2023 20:43:13</item>
+    <item name="UFED_PA_Version" systemtype="System.String">7.62.0.40</item>
+    <item name="UfdrLanguage" systemtype="System.String">en</item>
+  </metadata>
+  <metadata section="Extraction Data">
+    <item name="DeviceInfoExtractionStartDateTime" sourceExtraction="0" systemtype="System.String">2023-05-20 17:19:08(UTC-4)</item>
+    <item name="DeviceInfoExtractionEndDateTime" sourceExtraction="0" systemtype="System.String">2023-05-20 17:19:36(UTC-4)</item>
+    <item name="DeviceInfoUnitIdentifier" sourceExtraction="0" systemtype="System.String">1197907875</item>
+    <item name="DeviceInfoUnitVersion" sourceExtraction="0" systemtype="System.String">7.64.0.271</item>
+    <item name="DeviceInfoInternalVersion" sourceExtraction="0" systemtype="System.String">7.64.0.271</item>
+    <item name="DeviceInfoSelectedManufacturer" sourceExtraction="0" systemtype="System.String">Apple</item>
+    <item name="DeviceInfoSelectedDeviceName" sourceExtraction="0" systemtype="System.String">D201AP</item>
+    <item name="GlobalMachineName" sourceExtraction="0" systemtype="System.String">DESKTOP-AHCP3QO</item>
+    <item name="DeviceInfoConnectionType" sourceExtraction="0" systemtype="System.String">Cable No. Original cable</item>
+    <item name="ExtractionType" sourceExtraction="0" systemtype="System.String">Extract User Lock</item>
+    <item name="GlobalIOSVersion" sourceExtraction="0" systemtype="System.String">15.3.1 (19D52)</item>
+    <item name="ProjectStateExtractionId" sourceExtraction="0" systemtype="System.String">1FF6FFED-91DC-4070-B55C-354DAA77AD91</item>
+    <item name="UFDIntegrity" sourceExtraction="0" systemtype="System.String">Intact</item>
+    <item name="DeviceInfoExtractionStartDateTime" sourceExtraction="1" systemtype="System.String">2023-05-20 17:20:00(UTC-4)</item>
+    <item name="DeviceInfoExtractionEndDateTime" sourceExtraction="1" systemtype="System.String">2023-05-20 17:41:25(UTC-4)</item>
+    <item name="DeviceInfoUnitIdentifier" sourceExtraction="1" systemtype="System.String">1197907875</item>
+    <item name="DeviceInfoUnitVersion" sourceExtraction="1" systemtype="System.String">7.64.0.271</item>
+    <item name="DeviceInfoInternalVersion" sourceExtraction="1" systemtype="System.String">7.64.0.271</item>
+    <item name="DeviceInfoSelectedManufacturer" sourceExtraction="1" systemtype="System.String">Apple</item>
+    <item name="DeviceInfoSelectedDeviceName" sourceExtraction="1" systemtype="System.String">D201AP</item>
+    <item name="GlobalMachineName" sourceExtraction="1" systemtype="System.String">DESKTOP-AHCP3QO</item>
+    <item name="DeviceInfoConnectionType" sourceExtraction="1" systemtype="System.String">Cable No. Original cable</item>
+    <item name="ExtractionType" sourceExtraction="1" systemtype="System.String">File System</item>
+    <item name="GlobalIOSVersion" sourceExtraction="1" systemtype="System.String">15.3.1 (19D52)</item>
+    <item name="ProjectStateExtractionId" sourceExtraction="1" systemtype="System.String">1765A76E-FC32-4868-A2B6-D92A4E9AC787</item>
+    <item name="UFDIntegrity" sourceExtraction="1" systemtype="System.String">Intact</item>
+  </metadata>
+  <metadata section="Device Info">
+    <item id="15ea9050-d7a3-4a06-82c2-8593969ebf72" name="DeviceModel" sourceExtraction="1" systemtype="System.String">D201AP</item>
+    <item id="8e0cae5c-e65c-4d06-8318-1f9f23533382" name="IMEI" sourceExtraction="1" systemtype="System.String">356763089830742</item>
+    <item id="cccc333c-eb37-4892-9735-e7fe65c45de3" name="Model" sourceExtraction="1" systemtype="System.String">iPhone 8</item>
+    <item id="11fb89c0-60c9-48aa-a9c4-b194761c8646" name="OS" sourceExtraction="1" systemtype="System.String">15.3.1 (19D52)</item>
+    <item id="839e8ab2-1f93-4cd7-9d84-2e7b81eddef7" name="Vendor" sourceExtraction="1" systemtype="System.String">Apple</item>
+    <item id="6f311cb0-31a9-4920-8361-df7615a67e75" name="DeviceInfoBluetoothDeviceAddress" sourceExtraction="1" systemtype="System.String">F0:98:9D:35:40:01</item>
+    <item id="2cd3f9d5-4bea-4451-8a4e-966f6f498931" name="DeviceInfoBluetoothDeviceAddress" sourceExtraction="1" systemtype="System.String">None</item>
+    <item id="df55b7cc-3025-4078-86ed-78df14d859c2" name="Message Retention Duration" group="Phone Settings" sourceExtraction="1" systemtype="System.String">Forever</item>
+    <item id="bb8de56a-12a2-4524-bc4e-80f3084df8e8" name="DeviceInfoLastHotspotActivity" group="Tethering" sourceExtraction="1" systemtype="System.String">2023-05-17 12:26:25Z</item>
+    <item id="8414cbc6-9fdf-4322-83e9-e79090866be3" name="DeviceInfoModelNumber" sourceExtraction="1" systemtype="System.String">D201AP</item>
+    <item id="0191b593-173a-47ae-93a9-889b3867da65" name="LastUsedICCID" sourceExtraction="1" systemtype="System.String">8901260971148676693</item>
+    <item id="c3a88692-8a43-44b8-bbb3-1bfb39506c87" name="LastUsedMSISDN" sourceExtraction="1" systemtype="System.String">+19195794674</item>
+    <item id="87158ccc-ad41-4e60-94ab-7143af85ebea" name="DeviceInfoSerial" sourceExtraction="1" systemtype="System.String">FFMW4BH5JC67</item>
+    <item id="99fd6522-798f-4596-97a1-c87355d921e8" name="DeviceInfoUniqueID" sourceExtraction="1" systemtype="System.String">c50d35ac85f428883e3b6fa3893599da85f708ea</item>
+    <item id="7b88b99c-12a1-4381-883c-6ce02b24d000" name="DeviceInfoAirDropID" sourceExtraction="1" systemtype="System.String">be241deee67a</item>
+    <item id="82d8f39d-39ea-46af-b6cd-6cd4b7815982" name="DeviceInfoLastCloudBackupDate" sourceExtraction="1" systemtype="PA.Data.Utils.TimeStamp">2023-05-20T01:40:54.000+00:00</item>
+    <item id="a9080a46-03a8-4645-91fa-30435c632b32" name="DeviceInfoAppleID" sourceExtraction="1" systemtype="System.String">thisisdfir@gmail.com</item>
+    <item id="a32dbade-8b1b-4e99-8c3e-f537be5691fd" name="DeviceInfoiCloudAccountPresent" sourceExtraction="1" systemtype="System.String">True</item>
+    <item id="87e421dd-ad48-4623-aa04-dcee29995b47" name="Advertising Id (IDFA) #1" sourceExtraction="1" systemtype="System.String">723454DE-4105-4A87-A51F-561FD4F2AF3D</item>
+    <item id="8d2f737e-bd7b-4766-85e6-d99b5c03dc88" name="DeviceInfoDeviceName" sourceExtraction="1" systemtype="System.String">This Is’s iPhone</item>
+    <item id="fd6b6a21-0b0a-4cd3-bdcc-ffb148810a07" name="DeviceInfoDetectedModel" sourceExtraction="1" systemtype="System.String">iPhone 8</item>
+    <item id="293ac1bd-0a64-4461-830a-809b12ab30d0" name="DeviceInfoTimeZone" sourceExtraction="1" systemtype="System.String">(UTC-05:00)  New_York  (America)</item>
+    <item id="417cc21e-efd0-4ab6-ad3f-371bb2a8aa02" name="Factory Reset" sourceExtraction="1" systemtype="PA.Data.Utils.TimeStamp">2023-04-11T14:44:31.999+00:00</item>
+    <item id="9d06c241-9544-4057-9842-2c6e6b1f7872" name="DeviceInfoDetectedPhoneModelIdentifier" sourceExtraction="1" systemtype="System.String">iPhone10,4</item>
+    <item id="624f30a1-796b-4c1a-88b1-b4a9529e88ff" name="DeviceInfoDetectedPhoneModel" sourceExtraction="1" systemtype="System.String">iPhone 8</item>
+    <item id="2c1a6f60-d9b5-4dfb-aae0-53f90aa6632c" name="DeviceInfoOSType" group="Metadata" sourceExtraction="1" systemtype="System.String">iOS</item>
+    <item id="61f2abc5-7e10-4e8d-8942-1eaf8bc6eb1e" name="DeviceInfoLocationServicesEnabled" group="Phone Settings" sourceExtraction="1" systemtype="System.String">True</item>
+    <item id="d17b3b20-0f3b-4157-acaa-08a279f4bdcb" name="DeviceInfoWiFiMACAddress" group="Network Interfaces" sourceExtraction="1" systemtype="System.String">F0:98:9D:35:40:00</item>
+    <item id="d8aca6b9-12cc-48a0-a6da-8a4cde653b25" name="DeviceInfoMACAddress" group="Network Interfaces" sourceExtraction="1" systemtype="System.String">F2:98:9D:35:40:02</item>
+    <item id="bb5641eb-22e3-416c-ac51-4ffcca908cb9" name="DeviceInfoMACAddress" group="Network Interfaces" sourceExtraction="1" systemtype="System.String">F2:98:9D:35:40:FD</item>
+    <item id="e9a28d59-56fd-4194-a43c-980ded31b1fd" name="DeviceInfoOSVersion" sourceExtraction="1" systemtype="System.String">15.3.1</item>
+    <item id="f296dfe2-372e-400e-83c6-dca4272d2708" name="MSISDN" sourceExtraction="1" systemtype="System.String">19195794674</item>
+    <item id="07cc4bae-e490-4b34-8b10-dfa83f84d750" name="IMSI" sourceExtraction="1" systemtype="System.String">310260974867669</item>
+    <item id="d3f98dfe-1e9d-4fe0-b6b1-f5dff3f41f58" name="DeviceInfoFindMyiPhoneEnabled" group="Phone Settings" sourceExtraction="1" systemtype="System.String">True</item>
+    <item id="6f5c8415-c740-43fc-aa99-3b2203f19784" name="DeviceModel" sourceExtraction="0" systemtype="System.String">D201AP</item>
+    <item id="c237c634-e198-48e7-990e-114a5af2e5d6" name="IMEI" sourceExtraction="0" systemtype="System.String">356763089830742</item>
+    <item id="76873cf4-52f3-4e9e-a606-b921d658d563" name="Model" sourceExtraction="0" systemtype="System.String">iPhone 8</item>
+    <item id="037078f1-4226-44ee-8ce5-48aefd2973b2" name="OS" sourceExtraction="0" systemtype="System.String">15.3.1 (19D52)</item>
+    <item id="6c05f13a-a109-4792-a2e8-b1c2c8a991e0" name="Vendor" sourceExtraction="0" systemtype="System.String">Apple</item>
+  </metadata>
+  <images>
+    <image key="FileDump" path="EXTRACTION_FFS.zip" size="31340925026" type="File" verify="Verified" extractionId="1">
+      <metadata section="Hashes">
+        <item name="SHA256" systemtype="System.String">1cab9b91636d5c48fa18b5accfcf204de5a4d39221da29281a2995e8ecf00f12</item>
+        <item name="SHA256" systemtype="System.String">1CAB9B91636D5C48FA18B5ACCFCF204DE5A4D39221DA29281A2995E8ECF00F12</item>
+      </metadata>
+    </image>
+    <image key="Keychain" path="EXTRACTION_FFS.zip" size="5389015" type="File" verify="CalculatedNoSourceValues" extractionId="1">
+      <metadata section="Hashes">
+        <item name="SHA256" systemtype="System.String">1cab9b91636d5c48fa18b5accfcf204de5a4d39221da29281a2995e8ecf00f12</item>
+      </metadata>
+    </image>
+  </images>
+  <taggedFiles>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/mobile/Library/Preferences/.GlobalPreferences.plist" size="89" id="3fd56c35-ee05-4a75-b1b1-2f00cf2a4fe7" extractionId="1" deleted="Intact" embedded="false" isrelated="False" source_index="340936">
+      <accessInfo>
+        <timestamp name="CreationTime" format="TimeStampKnown" formattedTimestamp="2022-02-04T02:50:31+00:00">2022-02-04T02:50:31.000+00:00</timestamp>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2022-02-04T02:50:31+00:00">2022-02-04T02:50:31.000+00:00</timestamp>
+        <timestamp name="AccessTime" format="TimeStampKnown" formattedTimestamp="2022-02-04T02:50:31+00:00">2022-02-04T02:50:31.000+00:00</timestamp>
+        <timestamp name="ChangeTime" format="TimeStampKnown" formattedTimestamp="2022-02-04T02:50:31+00:00">2022-02-04T02:50:31.000+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Configuration\.GlobalPreferences_1.plist</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">97abae84582d86555bd28f5fd76c342f</item>
+        <item name="Tags" systemtype="System.String">Configuration</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="Uid" systemtype="System.String">501</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x2AC7666F3</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2022-02-04 02:50:31(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2022-02-04 02:50:31(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2022-02-04 02:50:31(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2022-02-04 02:50:31(UTC+0)</item>
+        <item name="ReportTemplateFileSize" systemtype="System.String">89 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/mobile/Library/Preferences/.GlobalPreferences.plist" size="872" id="1b7be19f-daa5-415d-bc7b-b10a136df635" extractionId="1" deleted="Intact" embedded="false" isrelated="False" source_index="438917">
+      <accessInfo>
+        <timestamp name="CreationTime" format="TimeStampKnown" formattedTimestamp="2023-05-20T19:25:36+00:00">2023-05-20T19:25:36.434+00:00</timestamp>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2023-05-20T19:25:36+00:00">2023-05-20T19:25:36.434+00:00</timestamp>
+        <timestamp name="AccessTime" format="TimeStampKnown" formattedTimestamp="2023-05-20T19:25:36+00:00">2023-05-20T19:25:36.434+00:00</timestamp>
+        <timestamp name="ChangeTime" format="TimeStampKnown" formattedTimestamp="2023-05-20T19:25:36+00:00">2023-05-20T19:25:36.434+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Configuration\.GlobalPreferences_2.plist</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">753a4b64fc0411e5db1f1a6726a68a76</item>
+        <item name="Tags" systemtype="System.String">Configuration</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="Uid" systemtype="System.String">501</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x2AC76674C</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-05-20 19:25:36(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-05-20 19:25:36(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-05-20 19:25:36(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-05-20 19:25:36(UTC+0)</item>
+        <item name="ReportTemplateFileSize" systemtype="System.String">872 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/mobile/Containers/Shared/AppGroup/B99D094B-85DD-40F6-ACE1-E5AA53C03C75/ThreemaData.sqlite" size="528384" id="15849a62-dd51-419b-b64b-c7c47491a949" extractionId="1" deleted="Intact" embedded="false" isrelated="False" decodedBy="System" source_index="440119">
+      <accessInfo>
+        <timestamp name="CreationTime" format="TimeStampKnown" formattedTimestamp="2023-04-30T19:39:51+00:00">2023-04-30T19:39:51.730+00:00</timestamp>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2023-04-30T20:59:35+00:00">2023-04-30T20:59:35.548+00:00</timestamp>
+        <timestamp name="AccessTime" format="TimeStampKnown" formattedTimestamp="2023-04-30T19:39:51+00:00">2023-04-30T19:39:51.730+00:00</timestamp>
+        <timestamp name="ChangeTime" format="TimeStampKnown" formattedTimestamp="2023-04-30T20:59:35+00:00">2023-04-30T20:59:35.548+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Database\ThreemaData.sqlite</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">fa83318554f7a535fa043766d51150ed</item>
+        <item name="Tags" systemtype="System.String">Database</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="Uid" systemtype="System.String">501</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x433BEA4F2</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-30 19:39:51(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-30 20:59:35(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-30 19:39:51(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-30 20:59:35(UTC+0)</item>
+        <item name="ReportTemplateFileSize" systemtype="System.String">528384 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+        <item name="Row count" systemtype="System.String">716</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/mobile/Containers/Shared/AppGroup/B99D094B-85DD-40F6-ACE1-E5AA53C03C75/ThreemaData.sqlite/" size="35272" id="f0a2b2ca-214f-4469-80ea-e26eac408863" extractionId="1" deleted="Intact" embedded="true" isrelated="False" decodedBy="System" source_index="656496">
+      <accessInfo />
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Image\(unnamed)</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">9085fb5b9b4c24f3b093ac062e09a58f</item>
+        <item name="Tags" systemtype="System.String">Image</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x433BF7B06</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">35272 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+        <item name="ExifEnumOrientation" group="EXIF" systemtype="System.UInt16">1</item>
+        <item name="ExifEnumXResolution" group="EXIF" systemtype="System.Double">1</item>
+        <item name="ExifEnumYResolution" group="EXIF" systemtype="System.Double">1</item>
+        <item name="ExifEnumResolutionUnit" group="EXIF" systemtype="System.UInt16">2</item>
+        <item name="ExifEnumColorSpace" group="EXIF" systemtype="System.UInt16">1</item>
+        <item name="ExifEnumPixelXDimension" group="EXIF" systemtype="System.UInt32">320</item>
+        <item name="ExifEnumPixelYDimension" group="EXIF" systemtype="System.UInt32">311</item>
+        <item name="MetaDataPixelResolution" group="File Metadata" systemtype="System.String">320x311</item>
+        <item name="MetaDataResolution" group="File Metadata" systemtype="System.String">1x1 (Unit: Inch)</item>
+        <item name="EXIFOrientation" group="File Metadata" systemtype="System.String">Horizontal (normal)</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/mobile/Containers/Shared/AppGroup/B99D094B-85DD-40F6-ACE1-E5AA53C03C75/ThreemaData.sqlite/" size="50283" id="d31a64ed-520b-4c00-ad0c-1fad5c448a28" extractionId="1" deleted="Intact" embedded="true" isrelated="False" decodedBy="System" source_index="656497">
+      <accessInfo />
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Image\(unnamed)_1</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">2bd9eeff11e093f22aa2bb8c057f30da</item>
+        <item name="Tags" systemtype="System.String">Image</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x433BF7658</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">50283 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+        <item name="ExifEnumOrientation" group="EXIF" systemtype="System.UInt16">1</item>
+        <item name="ExifEnumXResolution" group="EXIF" systemtype="System.Double">1</item>
+        <item name="ExifEnumYResolution" group="EXIF" systemtype="System.Double">1</item>
+        <item name="ExifEnumResolutionUnit" group="EXIF" systemtype="System.UInt16">2</item>
+        <item name="ExifEnumPixelXDimension" group="EXIF" systemtype="System.UInt32">720</item>
+        <item name="ExifEnumPixelYDimension" group="EXIF" systemtype="System.UInt32">707</item>
+        <item name="MetaDataPixelResolution" group="File Metadata" systemtype="System.String">720x707</item>
+        <item name="MetaDataResolution" group="File Metadata" systemtype="System.String">1x1 (Unit: Inch)</item>
+        <item name="EXIFOrientation" group="File Metadata" systemtype="System.String">Horizontal (normal)</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/containers/Bundle/Application/926D377D-D8F3-4C0D-95C4-07C7CD838D1F/Zoom.app/ð___.json" size="17638" id="12fe9b9b-bbc5-46d0-a9df-fb42533f3929" extractionId="1" deleted="Intact" embedded="false" isrelated="False" source_index="640671">
+      <accessInfo>
+        <timestamp name="CreationTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:05:57+00:00">2023-04-24T16:05:57.000+00:00</timestamp>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:05:57+00:00">2023-04-24T16:05:57.000+00:00</timestamp>
+        <timestamp name="AccessTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:05:57+00:00">2023-04-24T16:05:57.000+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Uncategorized\ð___.json</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">2e94b3973a2da18283ff24cd370e5893</item>
+        <item name="Tags" systemtype="System.String">Uncategorized</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="Uid" systemtype="System.String">33</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x73924CE41</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:05:57(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:05:57(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:05:57(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">17638 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/containers/Bundle/Application/926D377D-D8F3-4C0D-95C4-07C7CD838D1F/Zoom.app/ð___.json" size="53439" id="01fb6699-b393-4753-bfe1-6356db18b238" extractionId="1" deleted="Intact" embedded="false" isrelated="False" source_index="641609">
+      <accessInfo>
+        <timestamp name="CreationTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:02+00:00">2023-04-24T16:06:02.000+00:00</timestamp>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:02+00:00">2023-04-24T16:06:02.000+00:00</timestamp>
+        <timestamp name="AccessTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:02+00:00">2023-04-24T16:06:02.000+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Uncategorized\ð____1.json</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">f67d4e717a5c78dc8cc24a9f8fda0c8e</item>
+        <item name="Tags" systemtype="System.String">Uncategorized</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="Uid" systemtype="System.String">33</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x73ED44122</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:02(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:02(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:02(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">53439 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/containers/Bundle/Application/926D377D-D8F3-4C0D-95C4-07C7CD838D1F/Zoom.app/ð___.json" size="37719" id="9a97a4f0-48f4-4759-951a-e4c3e2b62bf8" extractionId="1" deleted="Intact" embedded="false" isrelated="False" source_index="641614">
+      <accessInfo>
+        <timestamp name="CreationTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:01+00:00">2023-04-24T16:06:01.000+00:00</timestamp>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:01+00:00">2023-04-24T16:06:01.000+00:00</timestamp>
+        <timestamp name="AccessTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:01+00:00">2023-04-24T16:06:01.000+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Uncategorized\ð____2.json</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">1d37cead9e0951770d9b44a700a1d199</item>
+        <item name="Tags" systemtype="System.String">Uncategorized</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="Uid" systemtype="System.String">33</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x73ED6AFEC</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:01(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:01(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:01(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">37719 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+    <file fs="EXTRACTION_FFS.zip" fsid="66f5b152-be52-4fa7-8260-098bed98329d" path="/root/private/var/containers/Bundle/Application/926D377D-D8F3-4C0D-95C4-07C7CD838D1F/Zoom.app/ð___.json" size="36414" id="df22602e-4080-4d96-88c4-2ace871d7998" extractionId="1" deleted="Intact" embedded="false" isrelated="False" source_index="642529">
+      <accessInfo>
+        <timestamp name="CreationTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:22+00:00">2023-04-24T16:06:22.000+00:00</timestamp>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:22+00:00">2023-04-24T16:06:22.000+00:00</timestamp>
+        <timestamp name="AccessTime" format="TimeStampKnown" formattedTimestamp="2023-04-24T16:06:22+00:00">2023-04-24T16:06:22.000+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Uncategorized\ð____3.json</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">80b427679e74a5a18e18c1add9d7b03e</item>
+        <item name="Tags" systemtype="System.String">Uncategorized</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="Uid" systemtype="System.String">33</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x73F43E33C</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:22(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:22(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">2023-04-24 16:06:22(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">36414 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes />
+    </file>
+  </taggedFiles>
+  <decodedData>
+    <modelType type="InstalledApplication">
+      <model type="InstalledApplication" id="c3d59f2e-4f68-4e15-a8b8-b0d05b0f6d4e" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="55" extractionId="1">
+        <field name="UserMapping" type="DecodingSourceOptions">
+          <empty />
+        </field>
+        <field name="Name" type="String">
+          <value type="String">Kik</value>
+        </field>
+        <field name="Version" type="String">
+          <value type="String">16.9.3</value>
+        </field>
+        <field name="Identifier" type="String">
+          <value type="String">com.kik.chat</value>
+        </field>
+        <field name="AppGUID" type="String">
+          <value type="String">05414C3C-1347-4046-81E3-8AF29E340BDB</value>
+        </field>
+        <field name="PurchaseDate" type="TimeStamp">
+          <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2020-03-22T01:29:18+00:00">2020-03-22T01:29:18.000+00:00</value>
+        </field>
+        <multiField name="Permissions" type="PermissionCategory" />
+        <field name="Copyright" type="String">
+          <empty />
+        </field>
+        <field name="DecodingStatus" type="DecodingStatus">
+          <value type="DecodingStatus">Decoded</value>
+        </field>
+        <field name="LastLaunched" type="TimeStamp">
+          <empty />
+        </field>
+        <field name="OperationMode" type="ApplicationOperationMode">
+          <value type="ApplicationOperationMode">Foreground</value>
+        </field>
+        <multiField name="Categories" type="String">
+          <value type="String">SocialNetworking</value>
+          <value type="String">ChatApplications</value>
+        </multiField>
+        <multiField name="AssociatedDirectoryPaths" type="String">
+          <value type="String">EXTRACTION_FFS.zip/root/private/var/mobile/Containers/Data/Application/05414C3C-1347-4046-81E3-8AF29E340BDB</value>
+          <value type="String">EXTRACTION_FFS.zip/root/private/var/mobile/Containers/Shared/AppGroup/C7B84E07-B0F2-455B-958F-0FFB1FEB8B67</value>
+        </multiField>
+        <RelatedModels>
+          <model type="InstalledApplication" id="383378df-b1e1-49dd-8278-4758bbac7f13" deleted_state="Intact" decoding_confidence="High" isrelated="True" source_index="116923" extractionId="1">
+            <field name="UserMapping" type="DecodingSourceOptions">
+              <value type="DecodingSourceOptions">Decoding</value>
+            </field>
+            <field name="Source" type="String">
+              <value type="String">KnowledgeC</value>
+            </field>
+            <field name="ServiceIdentifier" type="String">
+              <empty />
+            </field>
+            <field name="Name" type="String">
+              <empty />
+            </field>
+            <field name="Version" type="String">
+              <empty />
+            </field>
+            <field name="Identifier" type="String">
+              <value type="String">com.kik.chat</value>
+            </field>
+            <field name="DecodingStatus" type="DecodingStatus">
+              <value type="DecodingStatus">Decoded</value>
+            </field>
+            <field name="InstallDate" type="TimeStamp">
+              <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2023-04-27T18:00:12+00:00">2023-04-27T18:00:12.276+00:00</value>
+            </field>
+            <field name="OperationMode" type="ApplicationOperationMode">
+              <value type="ApplicationOperationMode">Unknown</value>
+            </field>
+            <multiField name="Categories" type="String">
+              <value type="String">SocialNetworking</value>
+              <value type="String">ChatApplications</value>
+            </multiField>
+            <field name="ArtifactFamily" type="String">
+              <empty />
+            </field>
+            <multiField name="AssociatedDirectoryPaths" type="String" />
+          </model>
+        </RelatedModels>
+      </model>
+    </modelType>
+    <modelType type="WirelessNetwork">
+      <model type="WirelessNetwork" id="58abc84b-1a9d-4d4b-b903-efafe8cb863b" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="62261" extractionId="1">
+        <field name="UserMapping" type="DecodingSourceOptions">
+          <empty />
+        </field>
+        <field name="BSSId" type="String">
+          <value type="String">42:2F:86:F0:80:6B</value>
+        </field>
+        <modelField name="Position" type="Coordinate">
+          <model type="Coordinate" id="d169a447-eca9-4d7d-b2e3-3dfd6d509940" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="62260" extractionId="1">
+            <field name="Longitude" type="Double">
+              <value type="Double">-78.87485504</value>
+            </field>
+            <field name="Latitude" type="Double">
+              <value type="Double">35.66561889</value>
+            </field>
+          </model>
+        </modelField>
+        <field name="LastConnection" type="TimeStamp">
+          <empty />
+        </field>
+        <field name="TimeStamp" type="TimeStamp">
+          <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2023-05-20T19:49:41+00:00">2023-05-20T19:49:41.240+00:00</value>
+        </field>
+        <jumptargets name="">
+          <targetid ismodel="true">0006264a-cacf-4927-a5f0-7f77f1f1c57a</targetid>
+        </jumptargets>
+      </model>
+    </modelType>
+  </decodedData>
+  <extraInfos>
+    <extraInfo type="node" id="3fd56c35-ee05-4a75-b1b1-2f00cf2a4fe7">
+      <sourceInfo>
+        <nodeInfo id="3fd56c35-ee05-4a75-b1b1-2f00cf2a4fe7" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="1b7be19f-daa5-415d-bc7b-b10a136df635">
+      <sourceInfo>
+        <nodeInfo id="1b7be19f-daa5-415d-bc7b-b10a136df635" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="15849a62-dd51-419b-b64b-c7c47491a949">
+      <sourceInfo>
+        <nodeInfo id="15849a62-dd51-419b-b64b-c7c47491a949" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="f0a2b2ca-214f-4469-80ea-e26eac408863">
+      <sourceInfo>
+        <nodeInfo id="15849a62-dd51-419b-b64b-c7c47491a949" tableName="" offset="1" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="d31a64ed-520b-4c00-ad0c-1fad5c448a28">
+      <sourceInfo>
+        <nodeInfo id="15849a62-dd51-419b-b64b-c7c47491a949" tableName="" offset="1" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="12fe9b9b-bbc5-46d0-a9df-fb42533f3929">
+      <sourceInfo>
+        <nodeInfo id="12fe9b9b-bbc5-46d0-a9df-fb42533f3929" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="01fb6699-b393-4753-bfe1-6356db18b238">
+      <sourceInfo>
+        <nodeInfo id="01fb6699-b393-4753-bfe1-6356db18b238" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="9a97a4f0-48f4-4759-951a-e4c3e2b62bf8">
+      <sourceInfo>
+        <nodeInfo id="9a97a4f0-48f4-4759-951a-e4c3e2b62bf8" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="df22602e-4080-4d96-88c4-2ace871d7998">
+      <sourceInfo>
+        <nodeInfo id="df22602e-4080-4d96-88c4-2ace871d7998" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="c3d59f2e-4f68-4e15-a8b8-b0d05b0f6d4e">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="e33d3187-f3cd-4c8b-baa8-809c24b9c239" tableName="" offset="887" />
+          <nodeInfo id="719cc264-85cf-4eb8-b940-ad56a33caabd" tableName="" offset="213" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="c3d59f2e-4f68-4e15-a8b8-b0d05b0f6d4e">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="e33d3187-f3cd-4c8b-baa8-809c24b9c239" tableName="" offset="887" />
+          <nodeInfo id="719cc264-85cf-4eb8-b940-ad56a33caabd" tableName="" offset="213" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="58abc84b-1a9d-4d4b-b903-efafe8cb863b">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="2768bf61-4609-464c-9674-5b7616c16eb6" tableName="WifiLocation" offset="288377" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="58abc84b-1a9d-4d4b-b903-efafe8cb863b">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="2768bf61-4609-464c-9674-5b7616c16eb6" tableName="WifiLocation" offset="288377" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+  </extraInfos>
+  <projectConfigurations>
+    <timeZoneConfigurations enableDaylightSavings="True" enableAutomaticallyConvertToUTC="True" selectedTimeZone="_Africa/Abidjan" />
+  </projectConfigurations>
+</project>

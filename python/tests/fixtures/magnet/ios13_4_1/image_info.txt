@@ -1,0 +1,57 @@
+Imager Product: Magnet ACQUIRE
+Imager Version: 2.25.0.20236
+
+Examiner Name: 
+Evidence Number: 
+Description: 
+
+Relative Activity Log Path: activity_log.txt
+Original Activity Log Path: F:\iOS\iOS Image - 2020-04-16 13-13-32\activity_log.txt
+Activity Log MD5 Hash: 492D27A77B5BF7310161C67109967039
+
+Output Directory: iOS Image - 2020-04-16 13-13-32
+Full Output Directory: F:\iOS\iOS Image - 2020-04-16 13-13-32
+
+Total Segments: 1
+
+Relative Segment 1 Path: Apple iPhone SE (GSM) Full Image - 13-4-1.tar
+Full Segment 1 Path: F:\iOS\iOS Image - 2020-04-16 13-13-32\Apple iPhone SE (GSM) Full Image - 13-4-1.tar
+Segment 1 MD5 Hash: EA71B869E0F2C6DE9B553587899F8FDE
+Segment 1 SHA1 Hash: CBD0F0E4B4C3AF8453ADFB4B536FB09F120F0CB0
+
+Imaging Start UTC: 2020-04-16 17:14:28
+Imaging Start UTC Ticks: 637226540686858881
+Imaging End UTC: 2020-04-16 17:38:51
+Imaging End UTC Ticks: 637226555310205399
+
+Device Information
+Manufacturer: Apple
+Product Model: iPhone8,4
+Operating System Version: 13.4.1
+Unique Identifier: c623fbd7e91b041e07a68f8523f53a35973e475d
+Serial Number: DX3T126VH2XV
+
+Additional Device Information
+Device Class: iPhone
+Device Color: #c8caca
+Device Name: This Is’s iPhone
+Firmware Version: pongoOS-1.2.0-63f6449e
+Hardware Model: N69AP
+Hardware Platform: s8003
+IMEI: 355800076093966
+MLB Serial Number: FJ665040595GP3VD
+Password Protected: false
+Time Interval Since 1970: 1587057180.910440
+Time Zone: America/New_York
+Time Zone Offset From UTC: -14400.000000
+Trusted Host Attached: true
+Unique Chip ID: 7886149313958842
+Unique Device ID: c623fbd7e91b041e07a68f8523f53a35973e475d
+Device Enclosure Color: #e5bdb5
+Pretty Name: iPhone SE (GSM)
+Backup Encrypted: True
+
+Imaging Activities
+BuildImage: Success
+ImageHashing: Success
+

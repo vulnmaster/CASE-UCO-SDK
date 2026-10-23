@@ -119,6 +119,7 @@ CAC recipes talk about **offenders** who target children and other vulnerable pe
 | Recipe | File | Description | CASE-Example |
 |---|---|---|---|
 | File System Forensics | [file-system.md](file-system.md) | Model files, directories, and file system metadata | — |
+| Cross-Report File Identity | [cross-report-file-identity.md](cross-report-file-identity.md) | One file across UFED, XRY/XAMN, AXIOM, and re-run reports: deterministic content cores and exhibit files, verbatim report entries, merge and re-run without duplicates | — |
 | Advanced File Patterns | [advanced-file-patterns.md](advanced-file-patterns.md) | Archives, encryption, SQLite blobs, nested containment chains | [file](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/file) |
 | File Fragments and Multipart Files | [file-fragments.md](file-fragments.md) | Split files, fragment reassembly, embedded data (thumbnails) | [multipart_file](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/multipart_file), [raw_data](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/raw_data) |
 | File Recovery and Carving | [file-recovery.md](file-recovery.md) | Carved files, RecoveredObjectFacet, reconstruction workflows | [reconstructed_file](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/reconstructed_file), [recoverability](https://github.com/casework/CASE-Examples/tree/master/examples/illustrations/recoverability) |

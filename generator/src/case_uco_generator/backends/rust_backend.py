@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
-from case_uco_generator.backends.base import CodegenBackend
+from case_uco_generator.backends.base import VOCABULARY_MODULE_DOC, CodegenBackend
 from case_uco_generator.schema_model import (
     OntologyClass,
     OntologyProperty,
@@ -40,6 +41,13 @@ class RustBackend(CodegenBackend):
             file_path.write_text(content, encoding="utf-8")
             created.append(file_path)
 
+        for top, vocabs in self.vocabularies_by_top().items():
+            mod_dir = self.output_dir / top
+            mod_dir.mkdir(parents=True, exist_ok=True)
+            vocab_path = mod_dir / "vocabulary.rs"
+            vocab_path.write_text(self._render_vocabulary_module(top, vocabs), encoding="utf-8")
+            created.append(vocab_path)
+
         # Generate mod.rs for each top-level
         for top in ("uco", "case"):
             mod_dir = self.output_dir / top
@@ -48,7 +56,7 @@ class RustBackend(CodegenBackend):
                 k.split(".", 1)[1]
                 for k in self.schema.modules
                 if k.startswith(f"{top}.")
-            ))
+            ) | {"vocabulary"})
             mod_rs = mod_dir / "mod.rs"
             mod_rs.write_text(
                 "// Auto-generated module declarations\n\n"
@@ -230,6 +238,29 @@ class RustBackend(CodegenBackend):
             lines.append(f'    pub const {attr}: &\'static str = "{member}";')
         lines.append("}")
         return lines
+
+    def _render_vocabulary_module(self, top: str, vocabs: list[OntologyVocab]) -> str:
+        lines: list[str] = [
+            f"//! Auto-generated {top.upper()} vocabularies for the CASE/UCO ontology.",
+            "//!",
+            f"//! {VOCABULARY_MODULE_DOC.format(top=top.upper())}",
+            "",
+        ]
+        for vocab in vocabs:
+            members = ", ".join(json.dumps(m, ensure_ascii=False) for m in vocab.members)
+            lines.append(f"/// Vocabulary: {vocab.name}")
+            lines.append("#[derive(Debug, Clone, Copy)]")
+            lines.append(f"pub struct {vocab.name};")
+            lines.append("")
+            lines.append(f"impl {vocab.name} {{")
+            lines.append(f'    pub const IRI: &\'static str = "{vocab.iri}";')
+            lines.append(f"    pub const MEMBERS: &'static [&'static str] = &[{members}];")
+            for member in vocab.members:
+                attr = self._vocab_attr_name(member)
+                lines.append(f"    pub const {attr}: &'static str = {json.dumps(member, ensure_ascii=False)};")
+            lines.append("}")
+            lines.append("")
+        return "\n".join(lines)
 
     def _vocab_attr_name(self, member: str) -> str:
         name = member.replace(" ", "_").replace("-", "_").replace("(", "").replace(")", "")

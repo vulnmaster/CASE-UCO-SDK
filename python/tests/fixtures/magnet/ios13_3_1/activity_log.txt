@@ -1,0 +1,57 @@
+2020-04-12 19:08:08 Info: Magnet ACQUIRE v2.25.0.20236
+2020-04-12 19:08:08 Info: Operating System Version: 6.2.9200.0
+2020-04-12 19:08:08 Info: Operating System Platform: Win32NT
+2020-04-12 19:08:08 Info: Service Pack: 
+2020-04-12 19:08:08 Info: 64-Bit Operating System: True
+2020-04-12 19:08:08 Info: 64-Bit Process: True
+2020-04-12 19:08:08 Info: CLR Version: 4.0.30319.42000
+2020-04-12 19:08:08 Info: Working Set: 128876544
+2020-04-12 19:08:09 Warn: An exception was caught querying devices with plugin 'Magnet.Imager.Devices.Plugins.Drive.Plugin'.
+System.ArgumentException: path cannot be a UNC path
+   at Magnet.Utilities.Future.Contract.Require[T](Boolean condition, String message)
+   at DiscUtils.DriveUtilities.DriveUtilities.GetDriveLetter(String path)
+   at Magnet.Imager.Devices.Plugins.Drive.DriveDeviceFinder.<GetDevices>d__4.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   at Magnet.Imager.Application.Devices.ParallelDeviceQuerier.<>c__DisplayClass4_1.<GetDevices>b__4()
+
+2020-04-12 19:08:16 Warn: An exception was caught querying devices with plugin 'Magnet.Imager.Devices.Plugins.Drive.Plugin'.
+System.ArgumentException: path cannot be a UNC path
+   at Magnet.Utilities.Future.Contract.Require[T](Boolean condition, String message)
+   at DiscUtils.DriveUtilities.DriveUtilities.GetDriveLetter(String path)
+   at Magnet.Imager.Devices.Plugins.Drive.DriveDeviceFinder.<GetDevices>d__4.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   at Magnet.Imager.Application.Devices.ParallelDeviceQuerier.<>c__DisplayClass4_1.<GetDevices>b__4()
+
+2020-04-12 19:08:22 Warn: An exception was caught querying devices with plugin 'Magnet.Imager.Devices.Plugins.Drive.Plugin'.
+System.ArgumentException: path cannot be a UNC path
+   at Magnet.Utilities.Future.Contract.Require[T](Boolean condition, String message)
+   at DiscUtils.DriveUtilities.DriveUtilities.GetDriveLetter(String path)
+   at Magnet.Imager.Devices.Plugins.Drive.DriveDeviceFinder.<GetDevices>d__4.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   at Magnet.Imager.Application.Devices.ParallelDeviceQuerier.<>c__DisplayClass4_1.<GetDevices>b__4()
+
+2020-04-12 19:08:29 Warn: An exception was caught querying devices with plugin 'Magnet.Imager.Devices.Plugins.Drive.Plugin'.
+System.ArgumentException: path cannot be a UNC path
+   at Magnet.Utilities.Future.Contract.Require[T](Boolean condition, String message)
+   at DiscUtils.DriveUtilities.DriveUtilities.GetDriveLetter(String path)
+   at Magnet.Imager.Devices.Plugins.Drive.DriveDeviceFinder.<GetDevices>d__4.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   at Magnet.Imager.Application.Devices.ParallelDeviceQuerier.<>c__DisplayClass4_1.<GetDevices>b__4()
+
+2020-04-12 19:08:35 Warn: An exception was caught querying devices with plugin 'Magnet.Imager.Devices.Plugins.Drive.Plugin'.
+System.ArgumentException: path cannot be a UNC path
+   at Magnet.Utilities.Future.Contract.Require[T](Boolean condition, String message)
+   at DiscUtils.DriveUtilities.DriveUtilities.GetDriveLetter(String path)
+   at Magnet.Imager.Devices.Plugins.Drive.DriveDeviceFinder.<GetDevices>d__4.MoveNext()
+   at System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   at System.Collections.Generic.List`1.InsertRange(Int32 index, IEnumerable`1 collection)
+   at Magnet.Imager.Application.Devices.ParallelDeviceQuerier.<>c__DisplayClass4_1.<GetDevices>b__4()
+
+2020-04-12 19:27:17 Info: Adding segment paths of image located at 'F:\iOS\iOS Image - 2020-04-12 15-08-42'.
+2020-04-12 19:27:17 Debug: Calculating MD5 hash of file at 'F:\iOS\iOS Image - 2020-04-12 15-08-42\Apple iPhone SE (GSM) Full Image.tar'.
+2020-04-12 19:29:45 Debug: Calculating SHA1 hash of file at 'F:\iOS\iOS Image - 2020-04-12 15-08-42\Apple iPhone SE (GSM) Full Image.tar'.
+2020-04-12 19:32:13 Info: Hashing image segments completed.

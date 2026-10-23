@@ -1,0 +1,43 @@
+[Dump/data/data/com.android.vending/cache/dna_data/com.google.android.instantapps.dna.archive:39]
+Part1=Dump/data/data/com.android.vending/cache/dna_data/com.google.android.instantapps.dna.archive&#58;39
+PartsCount=1
+
+[Dump/data/data/com.android.vending/cache/images/-JiNzS21SakWqKjRFn4WWxiBbkc?rw&h=333&v=1&e=15]
+Part1=Dump/data/data/com.android.vending/cache/images/-JiNzS21SakWqKjRFn4WWxiBbkc&#63;rw&#38;h=333&#38;v=1&#38;e=15
+PartsCount=1
+
+[Dumps]
+FileDump=Google_G013A Pixel 3.zip
+
+[ExtractionStatus]
+ExtractionStatus=Success
+
+[FileDump]
+Type=ZIPfolder
+ZIPLogicalPath=Dump
+
+[General]
+ConnectionType=Cable No. 170
+Date=14/02/2020 18:43:02 (-5)
+Device=Full_Chains
+EndTime=14/02/2020 19:12:02 (-5)
+ExtractionNameFromXML=ADB
+ExtractionType=FileSystem
+FullName=G013A Pixel 3
+GUID=A175B844-5EF9-4238-A1B3-88AB4E93DA3E
+InternalBuild=7.28.2.8
+MachineName=DESKTOP-PS48GE2
+Model=G013A Pixel 3
+OriginalDevice=G_PIXEL3
+Suggested=Method
+UfdVer=1.2
+UnitId=7ZBKKD65LBYRFKGQTICHC
+UserName=
+Vendor=Google
+Version=7.28.2.8
+
+[Image]
+ExtractionMethod=ANDROID_FS
+
+[SHA256]
+Google_G013A Pixel 3.zip=560345282323CA4F77261A4A12137DE717D2547D137761EE552D7BC276E3E855

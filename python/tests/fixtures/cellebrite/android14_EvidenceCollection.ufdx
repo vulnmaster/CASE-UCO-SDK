@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<EvidenceCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" EvidenceID="45f159bd-2b12-4722-a8ae-d1a6dfe99302">
+  <DeviceInfo Vendor="Google" FGuid="98ec76e1-a885-4733-91dd-5dbb61156335" Model="Pixel 7a" Guid="98ec76e1-a885-4733-91dd-5dbb61156335" />
+  <Extractions>
+    <Extraction TransferType="FileSystemDump" Path="EXTRACTION_FFS 01\EXTRACTION_FFS.ufd" />
+  </Extractions>
+</EvidenceCollection>

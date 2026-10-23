@@ -6,7 +6,14 @@ import re
 from abc import ABC, abstractmethod
 from pathlib import Path
 
-from case_uco_generator.schema_model import OntologySchema
+from case_uco_generator.schema_model import OntologySchema, OntologyVocab
+
+VOCABULARY_MODULE_DOC = (
+    "Every {top} vocabulary (owl:oneOf datatype) in one namespace. Members are "
+    "plain strings: UCO 1.4.0 and later expect vocabulary-valued properties as "
+    "xsd:string literals checked against the vocabulary with sh:in, so pass the "
+    "constants directly rather than typing them with the vocabulary IRI."
+)
 
 
 class CodegenBackend(ABC):
@@ -20,6 +27,21 @@ class CodegenBackend(ABC):
     def generate(self) -> list[Path]:
         """Generate all source files. Returns list of created file paths."""
         raise NotImplementedError
+
+    def vocabularies_by_top(self) -> dict[str, list[OntologyVocab]]:
+        """Group core vocabularies under ``uco`` or ``case`` by their IRI.
+
+        UCO declares a few enumerations outside its vocabulary namespace
+        (``observable:WindowsPEBinaryType``); they keep their own IRI but are
+        listed with the other UCO vocabularies.
+        """
+        grouped: dict[str, list[OntologyVocab]] = {"uco": [], "case": []}
+        for vocab in sorted(self.schema.vocabs.values(), key=lambda v: v.name):
+            if "ontology.caseontology.org/case/" in vocab.iri:
+                grouped["case"].append(vocab)
+            elif "ontology.unifiedcyberontology.org/uco/" in vocab.iri:
+                grouped["uco"].append(vocab)
+        return grouped
 
     @staticmethod
     def to_snake_case(name: str) -> str:

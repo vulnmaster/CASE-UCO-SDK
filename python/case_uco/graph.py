@@ -15,9 +15,17 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Callable, TypeVar, Type
 
+from case_uco.ids import Ref, deterministic_uuid
 from case_uco.typed_literal import TypedLiteral
 
 T = TypeVar("T")
+
+_HAS_FACET_KEYS = frozenset(
+    {
+        "uco-core:hasFacet",
+        "https://ontology.unifiedcyberontology.org/uco/core/hasFacet",
+    }
+)
 
 # Non-XSD RDF datatypes used as ``sh:datatype`` (lexical form + datatype IRI).
 _CUSTOM_RDF_DATATYPE_IRIS = frozenset(
@@ -59,6 +67,26 @@ class DuplicateNodeError(ValueError):
         if detail:
             msg = f"{msg}: {detail}"
         super().__init__(msg)
+
+
+class SharedFacetError(ValueError):
+    """Raised when a second object claims a Facet another object already has.
+
+    ``uco-core:hasFacet`` is an ``owl:InverseFunctionalProperty``, and the UCO
+    core shapes reject a Facet linked from two objects. Give each object its
+    own Facet; inline facets get IDs derived from their owner.
+    """
+
+    def __init__(self, facet_id: str, owner_id: str, claimant_id: str):
+        self.facet_id = facet_id
+        self.owner_id = owner_id
+        self.claimant_id = claimant_id
+        super().__init__(
+            f"Facet {facet_id!r} already belongs to {owner_id!r}; {claimant_id!r} "
+            "cannot also hold it. uco-core:hasFacet is inverse-functional, so each "
+            "object needs its own Facet (pass the Facet inline, or mint its ID from "
+            "the owning object's ID)."
+        )
 
 
 class InvalidSplitSizeError(ValueError):
@@ -185,6 +213,8 @@ class CASEGraph:
         # Compact form and expanded form both index to the same slot.
         self._iri_aliases: dict[str, str] = {}
         self._used_prefix_set: set[str] = set()
+        # Expanded Facet IRI → expanded IRI of the one object that holds it.
+        self._facet_owner: dict[str, str] = {}
         # Default ``reject`` is required cross-language parity (C#/Java/Rust match).
         # Policies: reject|error, merge_identical, merge_compatible, replace.
         self.on_duplicate: str = "reject"
@@ -1335,6 +1365,15 @@ class CASEGraph:
         prefix = self._get_prefix(instance)
         return f"{prefix}:{cls_name}-{uuid.uuid4()}"
 
+    def _derived_inline_id(
+        self, instance: Any, owner_id: str, prop_key: str, index: int | str
+    ) -> str:
+        cls_name = type(instance).__name__
+        key = deterministic_uuid(
+            self.expand_iri(owner_id), prop_key, index, cls_name
+        )
+        return f"{self._get_prefix(instance)}:{cls_name}-{key}"
+
     def _mint_relationship_id(self, source_id: str, predicate: str) -> str:
         local = predicate.split(":", 1)[-1] if ":" in predicate else predicate
         return f"{source_id}/{local}-{uuid.uuid4()}"
@@ -1355,6 +1394,7 @@ class CASEGraph:
             "iri_index": dict(self._iri_index),
             "iri_aliases": dict(self._iri_aliases),
             "used_prefix_set": set(self._used_prefix_set),
+            "facet_owner": dict(self._facet_owner),
         }
 
     def _restore_state(self, snapshot: dict[str, Any]) -> None:
@@ -1363,6 +1403,34 @@ class CASEGraph:
         self._iri_index = snapshot["iri_index"]
         self._iri_aliases = snapshot["iri_aliases"]
         self._used_prefix_set = snapshot["used_prefix_set"]
+        self._facet_owner = snapshot["facet_owner"]
+
+    def _claim_facets(self, owner_id: str, value: Any) -> None:
+        """Record ``owner_id`` as the holder of each Facet in ``value``.
+
+        All claims are checked before any is recorded, so a rejected node
+        leaves the index unchanged.
+        """
+        owner = self.expand_iri(owner_id)
+        claims: list[tuple[str, str]] = []
+        for item in value if isinstance(value, list) else [value]:
+            facet_id = item.get("@id") if isinstance(item, dict) else None
+            if not isinstance(facet_id, str):
+                continue
+            facet = self.expand_iri(facet_id)
+            prior = self._facet_owner.get(facet)
+            if prior is not None and prior != owner:
+                raise SharedFacetError(facet_id, self._compact_iri(prior), owner_id)
+            claims.append((facet, owner))
+        self._facet_owner.update(claims)
+
+    def _claim_node_facets(self, obj: dict[str, Any]) -> None:
+        node_id = obj.get("@id")
+        if not isinstance(node_id, str):
+            return
+        for key in _HAS_FACET_KEYS:
+            if key in obj:
+                self._claim_facets(node_id, obj[key])
 
     def _append_object(self, obj: dict[str, Any]) -> None:
         node_id = obj.get("@id")
@@ -1371,6 +1439,7 @@ class CASEGraph:
                 node_id,
                 "use add_type/upsert_node/merge_compatible instead of appending a second node",
             )
+        self._claim_node_facets(obj)
         self._objects.append(obj)
         if node_id:
             self._index_node(node_id, len(self._objects) - 1)
@@ -1436,6 +1505,7 @@ class CASEGraph:
         if policy == "reject":
             raise DuplicateNodeError(node_id, "conflicting duplicate during load")
         if policy == "replace":
+            self._claim_node_facets(raw)
             preserved_id = existing.get("@id", node_id)
             existing.clear()
             existing.update(raw)
@@ -1470,7 +1540,10 @@ class CASEGraph:
             if key not in existing:
                 existing[key] = copy.deepcopy(value)
                 continue
-            if not _jsonld_values_equal(existing[key], value):
+            if not _jsonld_values_equal(existing[key], value) or (
+                (_contains_embedded_node(existing[key]) or _contains_embedded_node(value))
+                and _canonical_value(existing[key]) != _canonical_value(value)
+            ):
                 raise DuplicateNodeError(
                     node_id,
                     f"merge_identical conflict on {key!r}: "
@@ -1487,6 +1560,8 @@ class CASEGraph:
         mode: str,
     ) -> None:
         """Shared conflict engine for load / upsert / add_property / set_property."""
+        if key in _HAS_FACET_KEYS:
+            self._claim_facets(node_id, value)
         if mode == "replace":
             obj[key] = copy.deepcopy(value)
             return
@@ -1496,6 +1571,11 @@ class CASEGraph:
             obj[key] = copy.deepcopy(value)
             return
         existing = obj[key]
+        if _contains_embedded_node(existing) or _contains_embedded_node(value):
+            # Embedded nodes (inline facets, hashes) with one @id are one RDF
+            # node: union their properties rather than keeping the first copy.
+            self._merge_embedded_values(obj, key, value)
+            return
         if _jsonld_values_equal(existing, value):
             return
         # List-like accumulation when at least one side is already multi-valued.
@@ -1526,6 +1606,42 @@ class CASEGraph:
             f"merge_compatible scalar conflict on {key!r}: "
             f"existing={existing!r} incoming={value!r}",
         )
+
+    def _merge_embedded_values(self, obj: dict[str, Any], key: str, value: Any) -> None:
+        current = obj[key]
+        was_scalar = not isinstance(current, list)
+        items: list[Any] = [current] if was_scalar else current
+        for incoming in value if isinstance(value, list) else [value]:
+            incoming_id = incoming.get("@id") if isinstance(incoming, dict) else None
+            match_index = None
+            if isinstance(incoming_id, str):
+                expanded = self.expand_iri(incoming_id)
+                for i, item in enumerate(items):
+                    item_id = item.get("@id") if isinstance(item, dict) else None
+                    if isinstance(item_id, str) and self.expand_iri(item_id) == expanded:
+                        match_index = i
+                        break
+            if match_index is None:
+                if not any(_jsonld_values_equal(x, incoming) for x in items):
+                    items.append(copy.deepcopy(incoming))
+                continue
+            target = items[match_index]
+            if not _is_embedded_node(incoming):
+                continue
+            if not _is_embedded_node(target):
+                items[match_index] = copy.deepcopy(incoming)
+                continue
+            if "@type" in incoming:
+                target["@type"] = self._normalize_type_value(
+                    self._merge_types(target.get("@type"), incoming["@type"])
+                )
+            for sub_key, sub_value in incoming.items():
+                if sub_key in ("@id", "@type"):
+                    continue
+                self._apply_property(
+                    target, sub_key, sub_value, node_id=str(incoming_id), mode="merge_compatible"
+                )
+        obj[key] = items[0] if was_scalar and len(items) == 1 else items
 
     @staticmethod
     def _accumulate_list_value(existing: list[Any], value: Any) -> None:
@@ -1594,13 +1710,35 @@ class CASEGraph:
 
             prop_key = self._property_key(instance, f)
             range_iri = f.metadata.get("range_iri")
+            alternates = f.metadata.get("alternate_range_iris") or ()
 
             if isinstance(value, list):
-                result[prop_key] = [
-                    self._convert_value(v, range_iri=range_iri) for v in value
-                ]
+                # Inline IDs count position among same-class siblings, so a
+                # FileFacet keeps its ID whatever order the facets are listed in.
+                seen: dict[type, int] = {}
+                converted = []
+                for v in value:
+                    index = seen.get(type(v), 0)
+                    seen[type(v)] = index + 1
+                    converted.append(
+                        self._convert_value(
+                            v,
+                            range_iri=range_iri,
+                            alternate_range_iris=alternates,
+                            owner_id=obj_id,
+                            prop_key=prop_key,
+                            index=index,
+                        )
+                    )
+                result[prop_key] = converted
             else:
-                result[prop_key] = self._convert_value(value, range_iri=range_iri)
+                result[prop_key] = self._convert_value(
+                    value,
+                    range_iri=range_iri,
+                    alternate_range_iris=alternates,
+                    owner_id=obj_id,
+                    prop_key=prop_key,
+                )
 
         return result
 
@@ -1622,21 +1760,53 @@ class CASEGraph:
         ns_prefix = getattr(type(instance), "NAMESPACE_PREFIX", "uco-core")
         return f"{ns_prefix}:{camel}"
 
-    def _convert_value(self, value: Any, range_iri: str | None = None) -> Any:
+    def _convert_value(
+        self,
+        value: Any,
+        range_iri: str | None = None,
+        *,
+        alternate_range_iris: Any = (),
+        owner_id: str | None = None,
+        prop_key: str | None = None,
+        index: int = 0,
+    ) -> Any:
         """Convert a Python value to JSON-LD representation."""
         if isinstance(value, TypedLiteral):
             datatype = value.datatype_iri
             compact = self._compact_iri(datatype)
             return {"@type": compact, "@value": str(value.value)}
 
+        node_ref = _node_reference(value)
+        if node_ref is not None:
+            return {"@id": self._compact_iri(node_ref)}
+
         if is_dataclass(value) and not isinstance(value, type):
             # Nested object — create inline or reference
             self._validate_instance(value)
             if _builtin_id(value) in self._id_map:
                 return {"@id": self._id_map[_builtin_id(value)]}
-            # Inline as a facet-like sub-object
-            inline_id = self._mint_id(value)
+            # Inline as a facet-like sub-object. The ID is derived from the
+            # owner, so a deterministic owner yields deterministic facets and
+            # two owners never share one.
+            if owner_id is not None and prop_key is not None:
+                if prop_key in _HAS_FACET_KEYS:
+                    inline_id = self._derived_inline_id(value, owner_id, prop_key, index)
+                else:
+                    # Value-like nodes (hashes, ...) are identified by content,
+                    # so equal values merge and different ones never collide.
+                    draft = self._to_jsonld(value, "urn:case-uco:pending")
+                    content = repr(_canonical_value(_strip_node_ids(draft)))
+                    inline_id = self._derived_inline_id(value, owner_id, prop_key, content)
+            else:
+                inline_id = self._mint_id(value)
             return self._to_jsonld(value, inline_id)
+
+        if isinstance(value, str) and _is_object_range(range_iri, alternate_range_iris):
+            raise TypeError(
+                f"{prop_key or 'property'} takes a node, not the string {value!r}. "
+                "Pass the instance returned by graph.create(), or reference a node "
+                "by IRI with case_uco.Ref('kb:...') or rdflib.URIRef(...)."
+            )
 
         if range_iri in _RANGE_IRI_TO_TYPED_LITERAL:
             return self._typed_literal(_RANGE_IRI_TO_TYPED_LITERAL[range_iri], value)
@@ -2150,6 +2320,46 @@ def class_registry_cache_info() -> dict[str, int]:
         }
 
 
+_CLASS_IRI_SET: tuple[int, frozenset[str]] | None = None
+
+
+def _known_class_iris() -> frozenset[str]:
+    global _CLASS_IRI_SET
+    with _CLASS_REGISTRY_LOCK:
+        if _CLASS_IRI_SET is None or _CLASS_IRI_SET[0] != _CLASS_REGISTRY_GENERATION:
+            _CLASS_IRI_SET = (
+                _CLASS_REGISTRY_GENERATION,
+                frozenset(_build_class_registry().keys()),
+            )
+        return _CLASS_IRI_SET[1]
+
+
+def _is_object_range(range_iri: str | None, alternates: Any = ()) -> bool:
+    """True when every declared range of a property is a known class."""
+    if not range_iri or range_iri in _CUSTOM_RDF_DATATYPE_IRIS:
+        return False
+    known = _known_class_iris()
+    return range_iri in known and all(alt in known for alt in alternates or ())
+
+
+def _node_reference(value: Any) -> str | None:
+    """Return the IRI when ``value`` is a node reference rather than a literal.
+
+    ``rdflib`` terms are recognized by class name so this module does not
+    import rdflib on the hot path.
+    """
+    if isinstance(value, Ref):
+        return str(value)
+    if isinstance(value, str):
+        kind = type(value)
+        if kind.__module__.startswith("rdflib"):
+            if kind.__name__ == "URIRef":
+                return str(value)
+            if kind.__name__ == "BNode":
+                return f"_:{value}"
+    return None
+
+
 def _expand_iri(compact: str, context: dict[str, str]) -> str:
     """Expand a prefixed IRI (e.g. 'uco-tool:Tool') to a full IRI."""
     if "://" in compact:
@@ -2170,6 +2380,47 @@ def _safe_kind_slug(kind: str, max_len: int = _KIND_SLUG_MAX_LEN) -> str:
     if len(slug) > max_len:
         slug = slug[:max_len].rstrip("._-") or "rel"
     return slug
+
+
+def _is_embedded_node(value: Any) -> bool:
+    """A node written inline: an ``@id`` plus at least one other key."""
+    return isinstance(value, dict) and "@id" in value and len(value) > 1 and "@value" not in value
+
+
+def _contains_embedded_node(value: Any) -> bool:
+    if isinstance(value, list):
+        return any(_is_embedded_node(v) for v in value)
+    return _is_embedded_node(value)
+
+
+def _strip_node_ids(value: Any) -> Any:
+    if isinstance(value, list):
+        return [_strip_node_ids(v) for v in value]
+    if isinstance(value, dict):
+        if _is_embedded_node(value):
+            return {k: _strip_node_ids(v) for k, v in value.items() if k != "@id"}
+        return {k: _strip_node_ids(v) for k, v in value.items()}
+    return value
+
+
+def _canonical_value(value: Any) -> Any:
+    """Order-insensitive form of a JSON-LD value for whole-node comparison."""
+    if isinstance(value, list):
+        return ("set", tuple(sorted((_canonical_value(v) for v in value), key=repr)))
+    if isinstance(value, dict):
+        if "@value" in value:
+            return (
+                "literal",
+                _normalize_literal_type(value.get("@type")),
+                _normalize_literal_value(value.get("@value"), value.get("@type")),
+            )
+        if "@id" in value and len(value) == 1:
+            return ("ref", str(value["@id"]))
+        return (
+            "node",
+            tuple(sorted(((k, _canonical_value(v)) for k, v in value.items()), key=repr)),
+        )
+    return ("scalar", repr(value))
 
 
 def _jsonld_values_equal(a: Any, b: Any) -> bool:

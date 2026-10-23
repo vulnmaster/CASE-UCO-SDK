@@ -1,3 +1,3 @@
 """Auto-generated CASE namespace modules."""
 
-__all__ = ["investigation"]
+__all__ = ["investigation", "vocabulary"]

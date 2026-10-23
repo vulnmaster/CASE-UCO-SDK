@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
-from case_uco_generator.backends.base import CodegenBackend
+from case_uco_generator.backends.base import VOCABULARY_MODULE_DOC, CodegenBackend
 from case_uco_generator.schema_model import (
     OntologyClass,
     OntologyProperty,
@@ -34,6 +35,13 @@ class CSharpBackend(CodegenBackend):
             content = self._render_module(top, mod, classes, module_vocabs)
             file_path.write_text(content, encoding="utf-8")
             created.append(file_path)
+
+        for top, vocabs in self.vocabularies_by_top().items():
+            ns_dir = self.output_dir / self.to_pascal_case(top)
+            ns_dir.mkdir(parents=True, exist_ok=True)
+            vocab_path = ns_dir / "Vocabulary.cs"
+            vocab_path.write_text(self._render_vocabulary_file(top, vocabs), encoding="utf-8")
+            created.append(vocab_path)
 
         exhaust_path = self._emit_exhaustive_test()
         created.append(exhaust_path)
@@ -121,12 +129,43 @@ class CSharpBackend(CodegenBackend):
         lines.append(f"{pad}}}")
         return lines
 
+    def _render_vocabulary_file(self, top: str, vocabs: list[OntologyVocab]) -> str:
+        ns = f"CaseUco.{self.to_pascal_case(top)}.Vocabulary"
+        lines: list[str] = [
+            "// Auto-generated CASE/UCO vocabularies — do not edit manually.",
+            f"// {VOCABULARY_MODULE_DOC.format(top=top.upper())}",
+            "",
+            "using System.Collections.Generic;",
+            "",
+            f"namespace {ns}",
+            "{",
+        ]
+        for i, vocab in enumerate(vocabs):
+            if i:
+                lines.append("")
+            lines.append(f"    /// <summary>Vocabulary: {vocab.name}</summary>")
+            lines.append(f"    public static class {vocab.name}")
+            lines.append("    {")
+            lines.append(f'        public const string IRI = "{vocab.iri}";')
+            members = ", ".join(json.dumps(m, ensure_ascii=False) for m in vocab.members)
+            lines.append(
+                "        public static readonly IReadOnlyCollection<string> Members = "
+                f"new HashSet<string> {{ {members} }};"
+            )
+            for member in vocab.members:
+                attr = self._vocab_attr_name(member)
+                lines.append(f"        public const string {attr} = {json.dumps(member, ensure_ascii=False)};")
+            lines.append("    }")
+        lines.append("}")
+        lines.append("")
+        return "\n".join(lines)
+
     def _vocab_attr_name(self, member: str) -> str:
         name = member.replace(" ", "_").replace("-", "_").replace("(", "").replace(")", "")
         name = "".join(c if c.isalnum() or c == "_" else "_" for c in name)
         if name and name[0].isdigit():
             name = f"_{name}"
-        return name
+        return self.safe_identifier(name, "csharp")
 
     def _render_class(self, cls: OntologyClass, indent: int) -> list[str]:
         pad = "    " * indent

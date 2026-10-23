@@ -1,0 +1,51 @@
+[DeviceInfo]
+DeviceModel=D201AP
+IMEI=356763089830742
+Model=iPhone 8
+OS=15.3.1 (19D52)
+PasscodeLength_0=4
+PasscodeType_0=User Code
+Passcode_0=0731
+Vendor=Apple
+
+[Dumps]
+FileDump=EXTRACTION_FFS.zip
+Keychain=EXTRACTION_FFS.zip
+
+[ExtractionStatus]
+ExtractionStatus=Success
+
+[FileDump]
+ExtractionMethod=iOS_Full_Filesystem
+Type=ZIP
+
+[General]
+AcquisitionTool=Cellebrite Premium SaaS
+ConnectionType=Cable No. Original cable
+Date=20/05/2023 17:20:00 (-4)
+Device=IPHONE
+EVS_ResourcesVersion=7.64.26
+EndTime=20/05/2023 17:41:25 (-4)
+ExtractionNameFromXML=iOS NG Extraction Module
+ExtractionType=FileSystem
+FullName=iPhone 8
+GUID=1765A76E-FC32-4868-A2B6-D92A4E9AC787
+InternalBuild=7.64.0.271
+MachineName=DESKTOP-AHCP3QO
+Model=D201AP
+OS=15.3.1 (19D52)
+UfdVer=1.2
+UnitId=1197907875
+UserName=
+Vendor=Apple
+Version=7.64.0.271
+
+[Keychain]
+Type=ZIPfolder
+ZIPLogicalPath=extra/KeychainDump
+
+[SHA256]
+EXTRACTION_FFS.zip=1CAB9B91636D5C48FA18B5ACCFCF204DE5A4D39221DA29281A2995E8ECF00F12
+
+[Hash]
+HMAC=PZ+tPQxH64Kb+QucaF90eIvgw8WR2Xs86tPynwRyZHg=

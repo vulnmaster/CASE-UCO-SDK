@@ -989,6 +989,19 @@ RECIPE_INDEX: list[dict[str, str]] = [
         "file": "docs/recipes/msab-xry-export.md",
     },
     {
+        "title": "Cross-Report File Identity",
+        "description": "Join the same file across UFED, XRY/XAMN, AXIOM, and re-run reports with deterministic content cores, exhibit files, and verbatim report entries that merge without coordination.",
+        "keywords": (
+            "cross report file identity deterministic id deterministic uuid uuid5 dnode "
+            "content core contentdata hash md5 sha1 sha256 dedupe deduplicate merge rerun "
+            "re-ingest idempotent multiple reports multiple tools ufed xry xamn axiom "
+            "report entry exhibit file shared facet hasfacet inverse functional child_of "
+            "fat timestamp rounding normalized time orphan link count same content "
+            "different path timestamp disagreement"
+        ),
+        "file": "docs/recipes/cross-report-file-identity.md",
+    },
+    {
         "title": "Email and Messaging",
         "description": "Model email messages, attachments, and messaging platform data.",
         "keywords": "email message attachment chat messaging calendar",
@@ -1563,8 +1576,9 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         "keywords": [
             "ufed", "cellebrite", "ufdr", "physical analyzer", "report.xml",
             "decodeddata", "modeltype", "taggedfiles", "extrainfo", "nodeinfo",
+            "relatednodes", "embedded file", "iter_report", "tagged_files_to_graph",
         ],
-        "pattern": "Tool + InvestigativeAction + ProvenanceRecord spine, then one typed observable per modelType, joined to source files with Contained_Within",
+        "pattern": "Stream with case_uco.vendors.cellebrite.iter_report (RelatedNodes files included, NodeCount truncation check); Tool + InvestigativeAction + ProvenanceRecord spine; tagged_files_to_graph for cross-report file tiers; one typed observable per modelType, joined to source files on nodeInfo/@id with Contained_Within",
         "classes": [
             "Tool", "Organization", "InvestigativeAction", "ProvenanceRecord",
             "MobilePhone", "DeviceFacet", "MobileDeviceFacet", "SIMCard", "SIMCardFacet",
@@ -1578,9 +1592,53 @@ MAPPING_GUIDE_INDEX: list[dict] = [
             "Don't synthesize 1900-01-01 timestamps or repeated-digit hashes for missing values",
             "Don't put deleted_state into observable:state — use RecoveredObjectFacet",
             "Don't adopt the upstream drafting: namespace at example.org",
+            "Don't read only top-level taggedFiles/file — RelatedNodes files are full entries and over half the files nodeInfo names are among them",
+            "Don't key an embedded=\"true\" file on its path — UFED reuses synthetic paths for different payloads",
+            "Don't share an exhibit file for a path the report gives two contents (file versions, emoji names written as ð___) — pass warnings= to tagged_files_to_graph",
+            "Don't read reportVersion as the Physical Analyzer version — use the UFED_PA_Version item",
         ],
         "starter_kit": "docs/recipes/cellebrite-ufed-xml.md",
-        "code_skeleton": "msg = graph.create(Message, has_facet=[MessageFacet(from_=party, to=[peer], message_text=..., sent_time=...)])",
+        "code_skeleton": "report = UfedReport(); files = [i for i in iter_report(path, report=report) if isinstance(i, UfedTaggedFile)]; tagged_files_to_graph(graph, files, exhibit=..., report=...)",
+    },
+    {
+        "source": "Cellebrite UFED extraction summary (.ufd / .ufdx)",
+        "keywords": [
+            "ufd file", ".ufd summary", "ufdx", "evidencecollection", "extraction summary",
+            "acquisitiontool", "ufdver", "inseyets", "premium saas", "ufed", "cellebrite",
+        ],
+        "pattern": "Version-tolerant read with case_uco.vendors.cellebrite.read_ufd (warnings, passcode withheld), then ufd_to_graph for the Tool + MobilePhone + OperatingSystem + dump File + InvestigativeAction spine keyed on the extraction GUID",
+        "classes": [
+            "Tool", "Organization", "InvestigativeAction", "MobilePhone", "DeviceFacet",
+            "MobileDeviceFacet", "OperatingSystem", "SoftwareFacet", "File", "FileFacet",
+            "ContentDataFacet",
+        ],
+        "anti_patterns": [
+            "Don't copy Passcode_0 / PasscodeLength_0 / PasscodeType_0 into the graph; record only that a passcode was supplied",
+            "Don't parse dates month-first: .ufd dates are dd/mm/yyyy with the UTC offset in hours in parentheses",
+            "Don't rely on UfdVer to predict the layout; it stays 1.2 across 7.28, 7.64, and 10.2",
+        ],
+        "starter_kit": "docs/recipes/cellebrite-ufed-xml.md",
+        "code_skeleton": "record = read_ufd(path); nodes = ufd_to_graph(graph, record)  # from case_uco.vendors.cellebrite",
+    },
+    {
+        "source": "Magnet ACQUIRE imaging summary (image_info.txt)",
+        "keywords": [
+            "magnet acquire", "acquire", "image_info", "image_info.txt", "activity_log",
+            "activity log md5", "imager product", "imaging start utc",
+        ],
+        "pattern": "case_uco.vendors.magnet.read_acquire_image_info (verifies the activity log MD5, uses .NET ticks for sub-second times), then acquire_to_graph: Tool + device keyed on Unique Device ID + per-version OperatingSystem + segment Files + InvestigativeAction",
+        "classes": [
+            "Tool", "Organization", "InvestigativeAction", "MobilePhone", "DeviceFacet",
+            "MobileDeviceFacet", "OperatingSystem", "SoftwareFacet", "File", "FileFacet",
+            "ContentDataFacet", "ProvenanceRecord",
+        ],
+        "anti_patterns": [
+            "Don't parse the output directory name as a timestamp; it is local time, the imaging fields are UTC",
+            "Don't key the device on OS version; two acquisitions of one phone must share the device node",
+            "Don't normalize the activity log's CRLF line endings; its recorded MD5 covers them",
+        ],
+        "starter_kit": "docs/recipes/magnet-axiom-export.md",
+        "code_skeleton": "record = read_acquire_image_info(path); nodes = acquire_to_graph(graph, record)  # from case_uco.vendors.magnet",
     },
     {
         "source": "Magnet AXIOM XML export",

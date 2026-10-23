@@ -1572,6 +1572,16 @@
       "strict_concepts": true
     },
     {
+      "id": "cross-report-file-identity",
+      "category": "mobile-forensics",
+      "recipe": "docs/recipes/cross-report-file-identity.md",
+      "builder": "examples/recipes/build_cross_report_file_identity.py",
+      "output": "examples/recipes/cross-report-file-identity.jsonld",
+      "profiles": [],
+      "extensions": [],
+      "strict_concepts": true
+    },
+    {
       "id": "magnet-axiom-export",
       "category": "mobile-forensics",
       "recipe": "docs/recipes/magnet-axiom-export.md",

@@ -313801,7 +313801,7 @@
     "ActionStatusTypeVocab": {
       "iri": "https://ontology.unifiedcyberontology.org/uco/vocabulary/ActionStatusTypeVocab",
       "members": [
-        "Finish",
+        "Complete/Finish",
         "Error",
         "Fail",
         "Ongoing",
@@ -313835,7 +313835,7 @@
         "Configure",
         "Connect",
         "Control",
-        "Duplicate",
+        "Copy/Duplicate",
         "Create",
         "Decode",
         "Decompress",
@@ -313870,8 +313870,8 @@
         "Listen",
         "Load",
         "Lock",
-        "Logon",
-        "Logoff",
+        "Login/Logon",
+        "Logout/Logoff",
         "Map",
         "Merge",
         "Modify",
@@ -313889,7 +313889,7 @@
         "Read",
         "Receive",
         "Release",
-        "Delete",
+        "Remove/Delete",
         "Rename",
         "Replicate",
         "Restore",
@@ -313922,7 +313922,7 @@
         "Update",
         "Upgrade",
         "Upload",
-        "Purge",
+        "Wipe/Destroy/Purge",
         "Write"
       ]
     },
@@ -314319,7 +314319,7 @@
         "eSi-RISC",
         "x86-32",
         "x86-64",
-        "Architecture"
+        "z/Architecture"
       ]
     },
     "RecoveredObjectStatusVocab": {

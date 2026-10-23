@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<EvidenceCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" EvidenceID="7d3b45fa-10b7-47e6-bad1-331db00e649a">
+  <DeviceInfo Vendor="Apple" FGuid="98ec76e1-a885-4733-91dd-5dbb61156335" Model="iPhone 8 (GSM) (D201AP)" Guid="98ec76e1-a885-4733-91dd-5dbb61156335" />
+  <Extractions>
+    <Extraction TransferType="FileSystemDump" Path="Password 01\Password.ufd" />
+    <Extraction TransferType="FileSystemDump" Path="EXTRACTION_FFS 01\EXTRACTION_FFS.ufd" />
+  </Extractions>
+</EvidenceCollection>

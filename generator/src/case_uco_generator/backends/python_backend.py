@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import json
+import textwrap
 from pathlib import Path
 
-from case_uco_generator.backends.base import CodegenBackend
+from case_uco_generator.backends.base import VOCABULARY_MODULE_DOC, CodegenBackend
 from case_uco_generator.schema_model import (
     OntologyClass,
     OntologyProperty,
@@ -41,6 +42,12 @@ class PythonBackend(CodegenBackend):
             file_path.write_text(content, encoding="utf-8")
             created.append(file_path)
 
+        for top, vocabs in self.vocabularies_by_top().items():
+            vocab_path = self.output_dir / top / "vocabulary.py"
+            vocab_path.parent.mkdir(parents=True, exist_ok=True)
+            vocab_path.write_text(self._render_vocabulary_module(top, vocabs), encoding="utf-8")
+            created.append(vocab_path)
+
         # Write __init__.py files — list available modules without eagerly importing
         for top in ("uco", "case"):
             init_path = self.output_dir / top / "__init__.py"
@@ -49,7 +56,7 @@ class PythonBackend(CodegenBackend):
                 k.split(".", 1)[1]
                 for k in self.schema.modules
                 if k.startswith(f"{top}.")
-            ))
+            ) | {"vocabulary"})
             module_list = ", ".join(f'"{m}"' for m in modules)
             init_path.write_text(
                 f'"""Auto-generated {top.upper()} namespace modules."""\n\n'
@@ -71,12 +78,14 @@ class PythonBackend(CodegenBackend):
             "    DuplicateNodeError,\n"
             "    InvalidSplitSizeError,\n"
             "    PartitionBoundaryError,\n"
+            "    SharedFacetError,\n"
             "    class_registry_cache_info,\n"
             "    clear_class_registry_cache,\n"
             "    discover_extension_class_providers,\n"
             "    register_extension_classes,\n"
             "    unregister_extension_source,\n"
             ")\n"
+            "from case_uco.ids import Ref, deterministic_id, deterministic_uuid\n"
             "from case_uco.streaming import (\n"
             "    BoundedStreamingWriteMetrics,\n"
             "    JsonLdStreamWriter,\n"
@@ -91,9 +100,13 @@ class PythonBackend(CodegenBackend):
             '    "InvalidSplitSizeError",\n'
             '    "JsonLdStreamWriter",\n'
             '    "PartitionBoundaryError",\n'
+            '    "Ref",\n'
+            '    "SharedFacetError",\n'
             '    "TypedLiteral",\n'
             '    "class_registry_cache_info",\n'
             '    "clear_class_registry_cache",\n'
+            '    "deterministic_id",\n'
+            '    "deterministic_uuid",\n'
             '    "discover_extension_class_providers",\n'
             '    "register_extension_classes",\n'
             '    "unregister_extension_source",\n'
@@ -171,8 +184,9 @@ class PythonBackend(CodegenBackend):
         registry["classes"] = dict(sorted(registry["classes"].items()))
 
         for vocab in sorted(self.schema.vocabs.values(), key=lambda v: v.name):
+            # Members such as "Complete/Finish" are literals, not IRIs.
             members = [
-                iri_local_name(m) if "/" in m or "#" in m else m
+                iri_local_name(m) if m.startswith(("http://", "https://", "urn:")) else m
                 for m in vocab.members
             ]
             registry["vocabs"][vocab.name] = {
@@ -254,6 +268,14 @@ class PythonBackend(CodegenBackend):
         if runtime_imports:
             lines.append("")
 
+        vocab_imports: dict[str, list[str]] = {}
+        for vocab in vocabs:
+            vocab_imports.setdefault(self._vocab_top(vocab), []).append(vocab.name)
+        for vtop, names in sorted(vocab_imports.items()):
+            lines.append(f"from case_uco.{vtop}.vocabulary import {', '.join(sorted(names))}")
+        if vocab_imports:
+            lines.append("")
+
         tc_imports = self._collect_type_checking_imports(current_module, classes)
         if tc_imports:
             lines.append("from typing import TYPE_CHECKING")
@@ -264,11 +286,6 @@ class PythonBackend(CodegenBackend):
             lines.append("")
 
         lines.append("")
-
-        # Generate vocab enums
-        for vocab in vocabs:
-            lines.extend(self._render_vocab(vocab))
-            lines.append("")
 
         # Generate class definitions (topologically sorted so parents come first)
         sorted_classes = self._topo_sort(classes, current_module)
@@ -401,15 +418,50 @@ class PythonBackend(CodegenBackend):
 
         return sorted_list
 
+    def _vocab_top(self, vocab: OntologyVocab) -> str:
+        for top, vocabs in self.vocabularies_by_top().items():
+            if any(v.iri == vocab.iri for v in vocabs):
+                return top
+        return "uco"
+
+    def _render_vocabulary_module(self, top: str, vocabs: list[OntologyVocab]) -> str:
+        lines: list[str] = [
+            f'"""Auto-generated {top.upper()} vocabularies for the CASE/UCO ontology.',
+            "",
+            *textwrap.wrap(VOCABULARY_MODULE_DOC.format(top=top.upper()), width=79),
+            '"""',
+            "",
+            "from __future__ import annotations",
+            "",
+            "__all__ = [",
+        ]
+        for vocab in vocabs:
+            lines.append(f'    "{vocab.name}",')
+        lines.append('    "VOCABULARIES",')
+        lines.append("]")
+        lines.append("")
+        lines.append("")
+        for vocab in vocabs:
+            lines.extend(self._render_vocab(vocab))
+            lines.append("")
+        lines.append(f"VOCABULARIES: dict[str, type] = {{")
+        for vocab in vocabs:
+            lines.append(f'    "{vocab.name}": {vocab.name},')
+        lines.append("}")
+        lines.append("")
+        return "\n".join(lines)
+
     def _render_vocab(self, vocab: OntologyVocab) -> list[str]:
         lines: list[str] = []
         lines.append(f"class {vocab.name}:")
         lines.append(f'    """Vocabulary: {vocab.name}"""')
         lines.append(f'    IRI = "{vocab.iri}"')
+        members = ", ".join(json.dumps(m, ensure_ascii=False) for m in vocab.members)
+        lines.append(f"    MEMBERS: frozenset[str] = frozenset({{{members}}})")
         lines.append("")
         for member in vocab.members:
             attr_name = self._vocab_attr_name(member)
-            lines.append(f'    {attr_name} = "{member}"')
+            lines.append(f"    {attr_name} = {json.dumps(member, ensure_ascii=False)}")
         lines.append("")
         return lines
 

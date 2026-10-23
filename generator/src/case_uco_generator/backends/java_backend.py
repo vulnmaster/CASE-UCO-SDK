@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
-from case_uco_generator.backends.base import CodegenBackend
+from case_uco_generator.backends.base import VOCABULARY_MODULE_DOC, CodegenBackend
 from case_uco_generator.schema_model import (
     OntologyClass,
     OntologyProperty,
@@ -43,6 +44,14 @@ class JavaBackend(CodegenBackend):
                 file_path = pkg_dir / f"{vocab.name}.java"
                 content = self._render_vocab_file(top, mod, vocab)
                 file_path.write_text(content, encoding="utf-8")
+                created.append(file_path)
+
+        for top, vocabs in self.vocabularies_by_top().items():
+            pkg_dir = self.output_dir / self.safe_identifier(top, "java") / "vocabulary"
+            pkg_dir.mkdir(parents=True, exist_ok=True)
+            for vocab in vocabs:
+                file_path = pkg_dir / f"{vocab.name}.java"
+                file_path.write_text(self._render_vocabulary_class(top, vocab), encoding="utf-8")
                 created.append(file_path)
 
         exhaust_path = self._emit_exhaustive_test()
@@ -254,6 +263,30 @@ class JavaBackend(CodegenBackend):
         lines.append("")
         lines.append(f"    private {vocab.name}() {{}}")
         lines.append("}")
+        return "\n".join(lines)
+
+    def _render_vocabulary_class(self, top: str, vocab: OntologyVocab) -> str:
+        pkg = f"org.caseontology.{self.safe_identifier(top, 'java')}.vocabulary"
+        members = ", ".join(json.dumps(m, ensure_ascii=False) for m in vocab.members)
+        lines: list[str] = [
+            "// Auto-generated CASE/UCO vocabulary — do not edit manually.",
+            f"// {VOCABULARY_MODULE_DOC.format(top=top.upper())}",
+            f"package {pkg};",
+            "",
+            "import java.util.Set;",
+            "",
+            f"/** Vocabulary: {vocab.name} */",
+            f"public final class {vocab.name} {{",
+            f'    public static final String IRI = "{vocab.iri}";',
+            f"    public static final Set<String> MEMBERS = Set.of({members});",
+        ]
+        for member in vocab.members:
+            attr = self._vocab_attr_name(member)
+            lines.append(f"    public static final String {attr} = {json.dumps(member, ensure_ascii=False)};")
+        lines.append("")
+        lines.append(f"    private {vocab.name}() {{}}")
+        lines.append("}")
+        lines.append("")
         return "\n".join(lines)
 
     def _vocab_attr_name(self, member: str) -> str:

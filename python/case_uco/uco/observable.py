@@ -13,6 +13,8 @@ from case_uco.uco.core import Relationship
 from case_uco.uco.core import UcoInherentCharacterizationThing
 from case_uco.uco.core import UcoObject
 
+from case_uco.uco.vocabulary import WhoisDNSSECTypeVocab, WindowsVolumeAttributeVocab
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -24,24 +26,6 @@ if TYPE_CHECKING:
     from case_uco.uco.types import Dictionary
     from case_uco.uco.types import Hash
     from case_uco.uco.types import Thread
-
-
-class WhoisDNSSECTypeVocab:
-    """Vocabulary: WhoisDNSSECTypeVocab"""
-    IRI = "https://ontology.unifiedcyberontology.org/uco/vocabulary/WhoisDNSSECTypeVocab"
-
-    SIGNED = "Signed"
-    UNSIGNED = "Unsigned"
-
-
-class WindowsVolumeAttributeVocab:
-    """Vocabulary: WindowsVolumeAttributeVocab"""
-    IRI = "https://ontology.unifiedcyberontology.org/uco/vocabulary/WindowsVolumeAttributeVocab"
-
-    HIDDEN = "Hidden"
-    NODEFAULTDRIVELETTER = "NoDefaultDriveLetter"
-    READONLY = "ReadOnly"
-    SHADOWCOPY = "ShadowCopy"
 
 
 @dataclass

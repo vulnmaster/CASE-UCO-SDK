@@ -8,11 +8,11 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.32.2** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1322---2026-10-19)
+**v1.33.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1330---2026-10-23)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
-The SDK is more than the four language bindings. It ships with a growing family of [extension ontologies](#bundled-extension-ontologies) (crimes against children, adversary engagement, cryptocurrency and financial crime, legal process, racketeering, weapons, controlled substances, MITRE ATT&CK techniques, the SOLVE-IT digital forensics knowledge base, forensic tool capabilities), a [recipe cookbook](docs/recipes/INDEX.md) of 99 modeling patterns, and an [MCP server](#ai-assisted-development) that gives AI agents a working knowledge of the Linux Foundation [Cyber Domain Ontology](https://cyberdomainontology.org/) ecosystem — the ontologies themselves, the upper-ontology profiles (BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, PROF), the [CDO Community Playground](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing), and the change-proposal process. Together these let an agent model **any concept adjacent to the cyber domain — or work done on, in, or through it** — and route any investigation submission to validated modeling patterns, drafting upstream ontology proposals when a concept doesn't exist yet.
+The SDK is more than the four language bindings. It ships with a growing family of [extension ontologies](#bundled-extension-ontologies) (crimes against children, adversary engagement, cryptocurrency and financial crime, legal process, racketeering, weapons, controlled substances, MITRE ATT&CK techniques, the SOLVE-IT digital forensics knowledge base, forensic tool capabilities), a [recipe cookbook](docs/recipes/INDEX.md) of 100 modeling patterns, and an [MCP server](#ai-assisted-development) that gives AI agents a working knowledge of the Linux Foundation [Cyber Domain Ontology](https://cyberdomainontology.org/) ecosystem — the ontologies themselves, the upper-ontology profiles (BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, PROF), the [CDO Community Playground](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing), and the change-proposal process. Together these let an agent model **any concept adjacent to the cyber domain — or work done on, in, or through it** — and route any investigation submission to validated modeling patterns, drafting upstream ontology proposals when a concept doesn't exist yet.
 
 The SDK works with AI coding assistants (Cursor, Claude Code, and others) — see [AI-Assisted Development](#ai-assisted-development) below.
 
@@ -31,7 +31,7 @@ The SDK is auto-generated from the official CASE 1.5.0 and UCO 1.5.0 ontology so
 Beyond the generated code, the repository provides:
 
 - **Bundled extension ontologies** — queryable through the same registry and MCP tools as core CASE/UCO (see [Bundled Extension Ontologies](#bundled-extension-ontologies))
-- **99 modeling recipes** — end-to-end modeling patterns for forensic workflows and whole investigation types, each grounded in example graphs ([docs/recipes/](docs/recipes/INDEX.md))
+- **100 modeling recipes** — end-to-end modeling patterns for forensic workflows and whole investigation types, each grounded in example graphs ([docs/recipes/](docs/recipes/INDEX.md))
 - **An MCP server for AI agents** — ontology discovery, investigation routing, document processing, SHACL + concept-coverage validation, remote SPARQL query/analysis, change-proposal drafting, and a resumable critic acceptance loop ([AI-Assisted Development](#ai-assisted-development))
 - **A change-proposal pipeline** — when a concept is missing, the tooling searches the UCO, CASE, and CAC issue trackers, drafts a filled-in proposal with tested example data, and supports local extension declarations so work is never blocked on upstream adoption ([change_proposals/](change_proposals/README.md))
 
@@ -41,7 +41,7 @@ Beyond the generated code, the repository provides:
 
 Install the SDK package for your language. No need to clone the repo or run the generator.
 
-[**v1.32.2**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.32.2) routes sensor, telemetry, and measurement evidence to the QUDT and SOSA/SSN recipes and returns matching candidate recipes, labeled as candidates. It builds on v1.32.1, which ships the candidate `layered`, `means`, and `expense` extensions for composing exploitation state machines, and v1.32.0, which stopped document mapping from asserting implausible phone numbers and institutional phrases as people, returns ranked recipes when routing abstains, and does not accept an empty critic review. Validation stays pinned to [case-utils 0.18.0](https://pypi.org/project/case-utils/) (`--built-version case-1.5.0`) for CASE/UCO 1.5.0 and CAC 3.1.0. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
+[**v1.33.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.33.0) makes the same file reported by several forensic tools converge on shared nodes. It adds deterministic IDs, owner-derived facet IDs, a guard against sharing one facet between objects, and node references from `rdflib.URIRef` or `case_uco.Ref`. Every UCO and CASE vocabulary now sits in one namespace per language, and new readers handle Cellebrite `.ufd`/`.ufdx` summaries, multi-gigabyte UFED `report.xml` files, and Magnet ACQUIRE `image_info.txt`, tested against real Digital Corpora output. A new cross-report file identity recipe covers the modeling. Python callers that passed a plain string where a node is expected now get a `TypeError` (see the [Changelog](CHANGELOG.md#1330---2026-10-23)). It builds on v1.32.2, which routes sensor, telemetry, and measurement evidence to the QUDT and SOSA/SSN recipes. Validation stays pinned to [case-utils 0.18.0](https://pypi.org/project/case-utils/) (`--built-version case-1.5.0`) for CASE/UCO 1.5.0 and CAC 3.1.0. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
 
 
 When registry packages are published in a later release:
@@ -58,7 +58,7 @@ For Java (once on Maven Central), add to your `pom.xml`:
 <dependency>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.32.2</version>
+    <version>1.33.0</version>
 </dependency>
 ```
 
@@ -224,6 +224,24 @@ graph.addWithId(tool, "kb:Tool-my-stable-id");
 // Rust — use create_with_id()
 let id = graph.create_with_id("kb:Tool-my-stable-id", &tool);
 ```
+
+In Python, `deterministic_id` derives the IRI from a key, so separate runs and separate ingest jobs agree without coordinating. Inline facets get IDs derived from their owner, so a deterministic object has deterministic facets. Reference an existing node by IRI with `Ref` or `rdflib.URIRef`:
+
+```python
+from case_uco import CASEGraph, Ref, deterministic_id
+from case_uco.case.investigation import InvestigativeAction
+from case_uco.uco.observable import ContentData, ContentDataFacet
+from case_uco.uco.types import Hash
+
+graph = CASEGraph()
+core_id = deterministic_id(ContentData, "MD5", "3232597C3C94BE4067FB3D9EE08B3FBB", 28)
+graph.create(ContentData, id=core_id, has_facet=[
+    ContentDataFacet(size_in_bytes=28, hash=[Hash(hash_method="MD5", hash_value="3232597C3C94BE4067FB3D9EE08B3FBB")]),
+])
+graph.create(InvestigativeAction, name="Review", object=[Ref(core_id)])
+```
+
+UCO allows each facet to belong to one object only, so attaching one facet to two objects raises `SharedFacetError`. For joining the same file across several tools' reports, see the [cross-report file identity recipe](docs/recipes/cross-report-file-identity.md).
 
 ## Loading Existing Graphs
 
@@ -582,6 +600,7 @@ All four language packages are released in lockstep from the same ontology sourc
 
 | SDK Version | UCO | CASE | Python `case-uco` | C# `CaseUco` | Java `case-uco` | Rust `case-uco` |
 |-------------|-----|------|-------------------|--------------|-----------------|-----------------|
+| 1.33.0 | 1.5.0 | 1.5.0 | 1.33.0 | 1.33.0 | 1.33.0 | 1.33.0 |
 | 1.32.2 | 1.5.0 | 1.5.0 | 1.32.2 | 1.32.2 | 1.32.2 | 1.32.2 |
 | 1.32.1 | 1.5.0 | 1.5.0 | 1.32.1 | 1.32.1 | 1.32.1 | 1.32.1 |
 | 1.32.0 | 1.5.0 | 1.5.0 | 1.32.0 | 1.32.0 | 1.32.0 | 1.32.0 |

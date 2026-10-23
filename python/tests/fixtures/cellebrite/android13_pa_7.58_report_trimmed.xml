@@ -1,0 +1,743 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://pa.cellebrite.com/report/2.0" id="b5122ba1-baa8-4a0d-9818-60c1e33b7d3c" name="Google G1F8F Pixel 5a" reportVersion="7.48" licenseID="1749418072" containsGarbage="False" extractionType="Legacy" NodeCount="8" ModelCount="4">
+  <sourceExtractions>
+    <extractionInfo id="0" name="Legacy" isCustomName="False" type="Legacy" deviceName="G1F8F Pixel 5a" fullName="Google G1F8F Pixel 5a" index="0" IsPartialData="False" IsStoppedByUser="False" IsSelectiveExtraction="False" />
+  </sourceExtractions>
+  <caseInformation>
+    <field name="Examiner name" isSystem="True" isRequired="True" fieldType="ExaminerName" multipleLines="False">J. Hickman</field>
+  </caseInformation>
+  <metadata section="Additional Fields">
+    <item name="DeviceInfoCreationTime" systemtype="System.String">05/12/2022 17:06:41</item>
+    <item name="UFED_PA_Version" systemtype="System.String">7.58.0.66</item>
+    <item name="UfdrLanguage" systemtype="System.String">en</item>
+  </metadata>
+  <metadata section="Extraction Data">
+    <item name="DeviceInfoSelectedManufacturer" sourceExtraction="0" systemtype="System.String">Google</item>
+    <item name="DeviceInfoSelectedDeviceName" sourceExtraction="0" systemtype="System.String">G1F8F Pixel 5a</item>
+  </metadata>
+  <metadata section="Device Info">
+    <item id="c2aaa1e9-4f56-4693-8af4-c61ca255e3bf" name="Phone Activation Time" sourceExtraction="0" systemtype="System.String">8/16/2022 10:22:34 PM(UTC+0)</item>
+    <item id="3f3ba15d-85d5-41b7-85ea-65cbd7569cdb" name="DeviceInfoLocationServicesEnabled" sourceExtraction="0" systemtype="System.String">True</item>
+    <item id="56ec3c3a-916c-41c0-86e6-0ada62090e13" name="ICCID" sourceExtraction="0" systemtype="System.String">8901260971148676693</item>
+    <item id="4ac933f4-9feb-4587-88b2-3431d38a928e" name="IMSI" sourceExtraction="0" systemtype="System.String">310260974867669][89148000008549252603:311480975272354</item>
+    <item id="cc0a630f-3d3b-48e7-8762-d18c8a984f38" name="DeviceInfoCarrierName" sourceExtraction="0" systemtype="System.String">Google Fi</item>
+    <item id="27eb16d7-da24-4a53-911b-d0853b272355" name="ICCID" sourceExtraction="0" systemtype="System.String">89148000008549252603</item>
+    <item id="d8b349b1-9b99-4cc1-8fc5-9f2b081b3f9c" name="ICCID" sourceExtraction="0" systemtype="System.String">89105300099002862043</item>
+    <item id="de2ebc7b-ebd1-42c2-9320-16d6eb852e20" name="DeviceInfoCarrierName" sourceExtraction="0" systemtype="System.String">Visible</item>
+    <item id="22cab35c-6bf3-4254-9407-ed2217547f4e" name="ICCID" sourceExtraction="0" systemtype="System.String">8900000000000000003</item>
+    <item id="4e1e8a51-5718-47e0-ba28-5ed5b79806a6" name="Advertising ID #1" sourceExtraction="0" systemtype="System.String">449a9eb1-aa81-475c-b5ef-402a32771148</item>
+    <item id="248159bd-c1b2-46bb-874e-b7666648bff3" name="MSISDN" group="Last known use: 12/5/2022 1:15:30 AM +00:00" sourceExtraction="0" systemtype="System.String">+19195794674</item>
+    <item id="1fcc7565-455f-4533-a411-6ea6a5f54209" name="MSISDN" group="Last known use: 12/2/2022 7:22:27 PM +00:00" sourceExtraction="0" systemtype="System.String">+19103030166</item>
+    <item id="997e2325-889b-41e6-b0dd-66f9b18ec8b9" name="MSISDN" group="Last known use: 12/2/2022 7:19:46 PM +00:00" sourceExtraction="0" systemtype="System.String">9103030166</item>
+    <item id="e72d93aa-5dd5-4e5a-b73b-64a60ab0bcf2" name="DeviceInfoOSType" group="Metadata" sourceExtraction="0" systemtype="System.String">Android</item>
+  </metadata>
+  <images>
+    <image key="Archive File (Zip, Tar)" path="Android_13_Image - Data.tar" size="35086353529" type="File" verify="NoSourceValues" extractionId="0" />
+  </images>
+  <taggedFiles>
+    <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/data/com.android.vending/files/experiment-flags-regular-thisisdfir%40gmail.com" size="88726" id="faeabe84-765a-4496-ae34-8a532ed00999" extractionId="0" deleted="Intact" embedded="false" isrelated="False" source_index="7117">
+      <accessInfo>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2022-12-03T10:09:59+00:00">2022-12-03T10:09:59.000+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Application\experiment-flags-regular-thisisdfir%40gmail.com</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">237afc18f3d22eb1f69120e34b50e063</item>
+        <item name="Tags" systemtype="System.String">Application</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x45E8464A</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">12/3/2022 10:09:59 AM(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">88726 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes>
+        <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/user/0/com.android.vending/files/experiment-flags-regular-thisisdfir%40gmail.com" size="88726" id="928f0ed3-9527-4221-b610-a43503ebaad0" extractionId="0" deleted="Intact" embedded="false" isrelated="True" source_index="104016">
+          <accessInfo>
+            <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2022-12-03T10:09:59+00:00">2022-12-03T10:09:59.000+00:00</timestamp>
+          </accessInfo>
+          <metadata section="File">
+            <item name="Local Path" systemtype="System.String">files\Application\experiment-flags-regular-thisisdfir%40gmail.com</item>
+            <item name="SHA256" systemtype="System.String" />
+            <item name="MD5" systemtype="System.String">237afc18f3d22eb1f69120e34b50e063</item>
+            <item name="Tags" systemtype="System.String">Application</item>
+          </metadata>
+          <metadata section="MetaData">
+            <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x55D9791B8</item>
+            <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">12/3/2022 10:09:59 AM(UTC+0)</item>
+            <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="ReportTemplateFileSize" systemtype="System.String">88726 Bytes</item>
+            <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+          </metadata>
+        </file>
+      </RelatedNodes>
+    </file>
+    <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/data/com.android.chrome/cache/Cache/Cache_Data/69948f86d014bea6_0/www.wral.com" size="4212" id="fa16e255-6372-45cc-9a7e-91e0acef6246" extractionId="0" deleted="Intact" embedded="true" isrelated="False" source_index="201102">
+      <accessInfo />
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Application\www.wral.com</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">1653ab152f56601e78f450ed2301d405</item>
+        <item name="Tags" systemtype="System.String">Application</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="URL" systemtype="System.String">1/0/_dk_https://wral.com https://wral.com https://signal-segments.s-onetag.com/mobile/www.wral.com</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x7E50C85A</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">4212 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes>
+        <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/user/0/com.android.chrome/cache/Cache/Cache_Data/69948f86d014bea6_0/www.wral.com" size="4212" id="cead4525-e955-4b84-9bbf-6c2d903ec960" extractionId="0" deleted="Intact" embedded="true" isrelated="True" source_index="211594">
+          <accessInfo />
+          <metadata section="File">
+            <item name="Local Path" systemtype="System.String">files\Application\www.wral.com</item>
+            <item name="SHA256" systemtype="System.String" />
+            <item name="MD5" systemtype="System.String">1653ab152f56601e78f450ed2301d405</item>
+            <item name="Tags" systemtype="System.String">Application</item>
+          </metadata>
+          <metadata section="MetaData">
+            <item name="URL" systemtype="System.String">1/0/_dk_https://wral.com https://wral.com https://signal-segments.s-onetag.com/mobile/www.wral.com</item>
+            <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x5960012FA</item>
+            <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="ReportTemplateFileSize" systemtype="System.String">4212 Bytes</item>
+            <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+          </metadata>
+        </file>
+      </RelatedNodes>
+    </file>
+    <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/data/com.android.chrome/cache/Cache/Cache_Data/69948f86d014bea6_0/www.wral.com" size="4235" id="3f5cc8c1-fbe4-431e-bdf0-709af41009d3" extractionId="0" deleted="Intact" embedded="true" isrelated="False" source_index="201103">
+      <accessInfo />
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Application\www.wral_1.com</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">c59e78e27edce75339126c5fd2e9c3a6</item>
+        <item name="Tags" systemtype="System.String">Application</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="URL" systemtype="System.String">1/0/_dk_https://wral.com https://wral.com https://signal-segments.s-onetag.com/mobile/www.wral.com</item>
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x0</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">4235 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes>
+        <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/user/0/com.android.chrome/cache/Cache/Cache_Data/69948f86d014bea6_0/www.wral.com" size="4235" id="1bb73793-4e08-48a8-bb89-72178d91a8b7" extractionId="0" deleted="Intact" embedded="true" isrelated="True" source_index="211595">
+          <accessInfo />
+          <metadata section="File">
+            <item name="Local Path" systemtype="System.String">files\Application\www.wral_1.com</item>
+            <item name="SHA256" systemtype="System.String" />
+            <item name="MD5" systemtype="System.String">c59e78e27edce75339126c5fd2e9c3a6</item>
+            <item name="Tags" systemtype="System.String">Application</item>
+          </metadata>
+          <metadata section="MetaData">
+            <item name="URL" systemtype="System.String">1/0/_dk_https://wral.com https://wral.com https://signal-segments.s-onetag.com/mobile/www.wral.com</item>
+            <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x0</item>
+            <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="ReportTemplateFileSize" systemtype="System.String">4235 Bytes</item>
+            <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+          </metadata>
+        </file>
+      </RelatedNodes>
+    </file>
+    <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/data/com.android.chrome/cache/Cache/Cache_Data/69948f86d014bea6_0" size="4841" id="e890cedb-f1e3-420e-ae3a-f95a027ae236" extractionId="0" deleted="Intact" embedded="false" isrelated="False" source_index="15580">
+      <accessInfo>
+        <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2022-08-17T20:59:17+00:00">2022-08-17T20:59:17.000+00:00</timestamp>
+      </accessInfo>
+      <metadata section="File">
+        <item name="Local Path" systemtype="System.String">files\Uncategorized\69948f86d014bea6_0</item>
+        <item name="SHA256" systemtype="System.String" />
+        <item name="MD5" systemtype="System.String">2e41a9d37aef0d53aefdacce6aaba8eb</item>
+        <item name="Tags" systemtype="System.String">Uncategorized</item>
+      </metadata>
+      <metadata section="MetaData">
+        <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x7E50C61D</item>
+        <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">8/17/2022 8:59:17 PM(UTC+0)</item>
+        <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+        <item name="ReportTemplateFileSize" systemtype="System.String">4841 Bytes</item>
+        <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+      </metadata>
+      <RelatedNodes>
+        <file fs="TarArchive" fsid="4fa8bc29-9d35-471a-8954-151d10ef1260" path="/data/user/0/com.android.chrome/cache/Cache/Cache_Data/69948f86d014bea6_0" size="4841" id="4d23bb29-7436-4651-acd1-4b31f0d9787c" extractionId="0" deleted="Intact" embedded="false" isrelated="True" source_index="112478">
+          <accessInfo>
+            <timestamp name="ModifyTime" format="TimeStampKnown" formattedTimestamp="2022-08-17T20:59:17+00:00">2022-08-17T20:59:17.000+00:00</timestamp>
+          </accessInfo>
+          <metadata section="File">
+            <item name="Local Path" systemtype="System.String">files\Uncategorized\69948f86d014bea6_0</item>
+            <item name="SHA256" systemtype="System.String" />
+            <item name="MD5" systemtype="System.String">2e41a9d37aef0d53aefdacce6aaba8eb</item>
+            <item name="Tags" systemtype="System.String">Uncategorized</item>
+          </metadata>
+          <metadata section="MetaData">
+            <item name="CoreFileSystemFileSystemNodeFileDataOffsetName" group="CoreFileSystemFileSystemNodeFileOffsetsCategory" systemtype="System.String">0x5960010BD</item>
+            <item name="CoreFileSystemFileSystemNodeCreationTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeModifyTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String">8/17/2022 8:59:17 PM(UTC+0)</item>
+            <item name="CoreFileSystemFileSystemNodeLastAccessTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeDeletedTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="CoreFileSystemFileSystemNodeChangeTime" group="CoreFileSystemFileSystemNodeDateTime" systemtype="System.String" />
+            <item name="ReportTemplateFileSize" systemtype="System.String">4841 Bytes</item>
+            <item name="CoreFileSystemFileSystemNodeFileChunks" systemtype="System.String">1</item>
+          </metadata>
+        </file>
+      </RelatedNodes>
+    </file>
+  </taggedFiles>
+  <decodedData>
+    <modelType type="Call">
+      <model type="Call" id="9eaea75c-45f3-4870-a5e6-976272ddbbe8" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4841" extractionId="0">
+        <field name="UserMapping" type="DecodingSourceOptions">
+          <empty />
+        </field>
+        <field name="Source" type="String">
+          <value type="String">Facebook Messenger</value>
+        </field>
+        <field name="Direction" type="ModelDirections">
+          <value type="ModelDirections">Outgoing</value>
+        </field>
+        <field name="Type" type="CallType">
+          <value type="CallType">Outgoing</value>
+        </field>
+        <field name="Status" type="TelephonyCallStatus">
+          <value type="TelephonyCallStatus">Established</value>
+        </field>
+        <field name="TimeStamp" type="TimeStamp">
+          <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2022-11-06T13:32:09+00:00">2022-11-06T13:32:09.236+00:00</value>
+        </field>
+        <field name="Duration" type="TimeSpan">
+          <value type="TimeSpan">00:01:38</value>
+        </field>
+        <field name="CountryCode" type="String">
+          <empty />
+        </field>
+        <field name="NetworkCode" type="String">
+          <empty />
+        </field>
+        <multiModelField name="Parties" type="Party">
+          <model type="Party" id="8989511d-9a15-4b75-a869-4ce9e8482f69" deleted_state="Unknown" decoding_confidence="High" isrelated="False" source_index="4881" extractionId="0">
+            <field name="Identifier" type="String">
+              <value type="String">100055361207591</value>
+            </field>
+            <field name="Role" type="PartyRole">
+              <value type="PartyRole">To</value>
+            </field>
+            <field name="Name" type="String">
+              <value type="String">ThisIs DfirTwo</value>
+            </field>
+            <field name="IsPhoneOwner" type="Boolean">
+              <value type="Boolean">False</value>
+            </field>
+          </model>
+          <model type="Party" id="53f0b4c7-9978-4d99-ad80-ab9ea445657c" deleted_state="Unknown" decoding_confidence="High" isrelated="False" source_index="4882" extractionId="0">
+            <field name="Identifier" type="String">
+              <value type="String">100049597093148</value>
+            </field>
+            <field name="Role" type="PartyRole">
+              <value type="PartyRole">From</value>
+            </field>
+            <field name="Name" type="String">
+              <value type="String">ThisIs Dfir</value>
+            </field>
+            <field name="IsPhoneOwner" type="Boolean">
+              <value type="Boolean">True</value>
+            </field>
+          </model>
+        </multiModelField>
+        <field name="VideoCall" type="Boolean">
+          <value type="Boolean">False</value>
+        </field>
+        <field name="NetworkName" type="String">
+          <empty />
+        </field>
+        <field name="Account" type="String">
+          <empty />
+        </field>
+        <jumptargets name="">
+          <targetid ismodel="true">b8164a64-d235-4640-8781-e4902ee4fb36</targetid>
+        </jumptargets>
+        <RelatedModels>
+          <model type="Call" id="795fc1ac-0a76-45f8-b31b-e483133a5b9b" deleted_state="Intact" decoding_confidence="High" isrelated="True" source_index="4997" extractionId="0">
+            <field name="UserMapping" type="DecodingSourceOptions">
+              <empty />
+            </field>
+            <field name="Source" type="String">
+              <value type="String">Facebook Messenger</value>
+            </field>
+            <field name="Direction" type="ModelDirections">
+              <value type="ModelDirections">Outgoing</value>
+            </field>
+            <field name="Type" type="CallType">
+              <value type="CallType">Outgoing</value>
+            </field>
+            <field name="Status" type="TelephonyCallStatus">
+              <value type="TelephonyCallStatus">Established</value>
+            </field>
+            <field name="TimeStamp" type="TimeStamp">
+              <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2022-11-06T13:32:09+00:00">2022-11-06T13:32:09.236+00:00</value>
+            </field>
+            <field name="Duration" type="TimeSpan">
+              <value type="TimeSpan">00:01:38</value>
+            </field>
+            <field name="CountryCode" type="String">
+              <empty />
+            </field>
+            <field name="NetworkCode" type="String">
+              <empty />
+            </field>
+            <multiModelField name="Parties" type="Party">
+              <model type="Party" id="3e2741f1-33b0-4fd5-9eaa-c6b73da1c2f6" deleted_state="Unknown" decoding_confidence="High" isrelated="False" source_index="5037" extractionId="0">
+                <field name="Identifier" type="String">
+                  <value type="String">100055361207591</value>
+                </field>
+                <field name="Role" type="PartyRole">
+                  <value type="PartyRole">To</value>
+                </field>
+                <field name="Name" type="String">
+                  <value type="String">ThisIs DfirTwo</value>
+                </field>
+                <field name="IsPhoneOwner" type="Boolean">
+                  <value type="Boolean">False</value>
+                </field>
+              </model>
+              <model type="Party" id="d86dbc2d-c0c2-4271-a0e6-2fd06185e51b" deleted_state="Unknown" decoding_confidence="High" isrelated="False" source_index="5038" extractionId="0">
+                <field name="Identifier" type="String">
+                  <value type="String">100049597093148</value>
+                </field>
+                <field name="Role" type="PartyRole">
+                  <value type="PartyRole">From</value>
+                </field>
+                <field name="Name" type="String">
+                  <value type="String">ThisIs Dfir</value>
+                </field>
+                <field name="IsPhoneOwner" type="Boolean">
+                  <value type="Boolean">True</value>
+                </field>
+              </model>
+            </multiModelField>
+            <field name="VideoCall" type="Boolean">
+              <value type="Boolean">False</value>
+            </field>
+            <field name="NetworkName" type="String">
+              <empty />
+            </field>
+            <field name="Account" type="String">
+              <empty />
+            </field>
+            <jumptargets name="">
+              <targetid ismodel="true">0e641122-3d4a-43eb-b38f-727df34bfb16</targetid>
+            </jumptargets>
+          </model>
+        </RelatedModels>
+      </model>
+    </modelType>
+    <modelType type="Chat">
+      <model type="Chat" id="d1ca3f5f-b941-4c66-896f-fb0531ad1030" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4762" extractionId="0">
+        <field name="UserMapping" type="DecodingSourceOptions">
+          <empty />
+        </field>
+        <field name="Source" type="String">
+          <value type="String">Facebook Messenger</value>
+        </field>
+        <field name="Id" type="String">
+          <value type="String">593228722340359</value>
+        </field>
+        <field name="Name" type="String">
+          <empty />
+        </field>
+        <field name="StartTime" type="TimeStamp">
+          <empty />
+        </field>
+        <field name="LastActivity" type="TimeStamp">
+          <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2022-08-15T22:33:58+00:00">2022-08-15T22:33:58.000+00:00</value>
+        </field>
+        <multiModelField name="Participants" type="Party">
+          <model type="Party" id="789128b6-84b4-41ba-844f-e35fe48c6de1" deleted_state="Unknown" decoding_confidence="High" isrelated="False" source_index="4766" extractionId="0">
+            <field name="Identifier" type="String">
+              <value type="String">100049597093148</value>
+            </field>
+            <field name="Role" type="PartyRole">
+              <empty />
+            </field>
+            <field name="Status" type="PartyStatus">
+              <empty />
+            </field>
+            <field name="Name" type="String">
+              <value type="String">ThisIs Dfir</value>
+            </field>
+            <field name="IsPhoneOwner" type="Boolean">
+              <value type="Boolean">True</value>
+            </field>
+          </model>
+        </multiModelField>
+        <multiModelField name="Photos" type="ContactPhoto" />
+        <multiModelField name="Messages" type="InstantMessage" />
+        <field name="Account" type="String">
+          <empty />
+        </field>
+        <RelatedModels>
+          <model type="Chat" id="54dd0f68-7789-430a-890d-99c877bf65ea" deleted_state="Intact" decoding_confidence="High" isrelated="True" source_index="4918" extractionId="0">
+            <field name="UserMapping" type="DecodingSourceOptions">
+              <empty />
+            </field>
+            <field name="Source" type="String">
+              <value type="String">Facebook Messenger</value>
+            </field>
+            <field name="Id" type="String">
+              <value type="String">593228722340359</value>
+            </field>
+            <field name="Name" type="String">
+              <empty />
+            </field>
+            <field name="StartTime" type="TimeStamp">
+              <empty />
+            </field>
+            <field name="LastActivity" type="TimeStamp">
+              <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2022-08-15T22:33:58+00:00">2022-08-15T22:33:58.000+00:00</value>
+            </field>
+            <multiModelField name="Participants" type="Party">
+              <model type="Party" id="3a61bb3f-deb1-4058-ba0c-3a325654ca02" deleted_state="Unknown" decoding_confidence="High" isrelated="False" source_index="4922" extractionId="0">
+                <field name="Identifier" type="String">
+                  <value type="String">100049597093148</value>
+                </field>
+                <field name="Name" type="String">
+                  <value type="String">ThisIs Dfir</value>
+                </field>
+                <field name="IsPhoneOwner" type="Boolean">
+                  <value type="Boolean">True</value>
+                </field>
+              </model>
+            </multiModelField>
+            <multiModelField name="Messages" type="InstantMessage" />
+            <field name="Account" type="String">
+              <empty />
+            </field>
+          </model>
+        </RelatedModels>
+      </model>
+    </modelType>
+    <modelType type="Contact">
+      <model type="Contact" id="3c735fe1-776f-4bc5-9d57-5ba4506a3ff4" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4890" extractionId="0">
+        <field name="UserMapping" type="DecodingSourceOptions">
+          <empty />
+        </field>
+        <field name="Source" type="String">
+          <value type="String">Facebook Messenger</value>
+        </field>
+        <field name="Name" type="String">
+          <value type="String">ThisIs DfirTwo</value>
+        </field>
+        <multiModelField name="Photos" type="ContactPhoto" />
+        <multiModelField name="Entries" type="ContactEntry">
+          <model type="UserID" id="91573157-46f4-4538-8e24-97e0450ad9ce" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4755" extractionId="0">
+            <field name="Category" type="String">
+              <value type="String">Facebook Id</value>
+            </field>
+            <field name="Value" type="String">
+              <value type="String">100055361207591</value>
+            </field>
+            <field name="Domain" type="String">
+              <value type="String">User ID</value>
+            </field>
+          </model>
+          <model type="ProfilePicture" id="0a4b904f-5a0d-4596-ad7e-4ef7420bc561" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4756" extractionId="0">
+            <field name="Category" type="String">
+              <value type="String">Profile Picture size: 160</value>
+            </field>
+            <field name="Value" type="String">
+              <value type="String">https://scontent.xx.fbcdn.net/v/t39.30808-1/314707085_644261384095896_7778209445004296718_n.jpg?stp=c4.0.160.160a_dst-jpg_p160x160&amp;_nc_cat=101&amp;ccb=1-7&amp;_nc_sid=7206a8&amp;_nc_ohc=dYzM8rl6tlgAX80elW3&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_ht=scontent.xx&amp;oh=00_AfBkD-PTpSFr1gzIUxdYkn2JLlgBUjzyJtpzB7kXJGStSA&amp;oe=636BBB71</value>
+            </field>
+            <field name="Domain" type="String">
+              <value type="String">Profile Picture</value>
+            </field>
+          </model>
+          <model type="ProfilePicture" id="9e262ce7-af7e-479f-b8e4-10ae0810dd9f" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4757" extractionId="0">
+            <field name="Category" type="String">
+              <value type="String">Profile Picture size: 240</value>
+            </field>
+            <field name="Value" type="String">
+              <value type="String">https://scontent.xx.fbcdn.net/v/t39.30808-1/314707085_644261384095896_7778209445004296718_n.jpg?stp=c6.0.240.240a_dst-jpg_p240x240&amp;_nc_cat=101&amp;ccb=1-7&amp;_nc_sid=7206a8&amp;_nc_ohc=dYzM8rl6tlgAX80elW3&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_ht=scontent.xx&amp;oh=00_AfAyUHnzdXgaKA2ZwlYWb_DYGazafJBG-1z0OscfejeSSw&amp;oe=636BBB71</value>
+            </field>
+            <field name="Domain" type="String">
+              <value type="String">Profile Picture</value>
+            </field>
+          </model>
+          <model type="UserID" id="e188dec1-9005-4bed-a36e-94be5ba7d736" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4891" extractionId="0">
+            <field name="Category" type="String">
+              <value type="String">Username</value>
+            </field>
+            <field name="Value" type="String">
+              <value type="String">thisis.dfirtwo</value>
+            </field>
+            <field name="Domain" type="String">
+              <value type="String">User ID</value>
+            </field>
+          </model>
+        </multiModelField>
+        <multiField name="Notes" type="String" />
+        <multiModelField name="Addresses" type="StreetAddress" />
+        <multiModelField name="Organizations" type="Organization" />
+        <field name="Group" type="String">
+          <empty />
+        </field>
+        <field name="Account" type="String">
+          <value type="String">100049597093148</value>
+        </field>
+        <multiField name="InteractionStatuses" type="ContactType">
+          <value type="ContactType">ChatParticipant</value>
+        </multiField>
+        <RelatedModels>
+          <model type="Contact" id="f7e67609-deb7-432d-a842-35a606a85f0a" deleted_state="Intact" decoding_confidence="High" isrelated="True" source_index="5046" extractionId="0">
+            <field name="UserMapping" type="DecodingSourceOptions">
+              <empty />
+            </field>
+            <field name="Source" type="String">
+              <value type="String">Facebook Messenger</value>
+            </field>
+            <field name="Name" type="String">
+              <value type="String">ThisIs DfirTwo</value>
+            </field>
+            <multiModelField name="Photos" type="ContactPhoto" />
+            <multiModelField name="Entries" type="ContactEntry">
+              <model type="UserID" id="fd15de32-193a-4f48-93e7-5cd733f86ecd" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4911" extractionId="0">
+                <field name="Category" type="String">
+                  <value type="String">Facebook Id</value>
+                </field>
+                <field name="Value" type="String">
+                  <value type="String">100055361207591</value>
+                </field>
+                <field name="Domain" type="String">
+                  <value type="String">User ID</value>
+                </field>
+              </model>
+              <model type="ProfilePicture" id="194f2ba3-ee77-4f6b-a8b9-1b646ec4ed46" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4912" extractionId="0">
+                <field name="Category" type="String">
+                  <value type="String">Profile Picture size: 160</value>
+                </field>
+                <field name="Value" type="String">
+                  <value type="String">https://scontent.xx.fbcdn.net/v/t39.30808-1/314707085_644261384095896_7778209445004296718_n.jpg?stp=c4.0.160.160a_dst-jpg_p160x160&amp;_nc_cat=101&amp;ccb=1-7&amp;_nc_sid=7206a8&amp;_nc_ohc=dYzM8rl6tlgAX80elW3&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_ht=scontent.xx&amp;oh=00_AfBkD-PTpSFr1gzIUxdYkn2JLlgBUjzyJtpzB7kXJGStSA&amp;oe=636BBB71</value>
+                </field>
+                <field name="Domain" type="String">
+                  <value type="String">Profile Picture</value>
+                </field>
+              </model>
+              <model type="ProfilePicture" id="8d23c286-d501-440f-a4f3-d256bfec7cff" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="4913" extractionId="0">
+                <field name="Category" type="String">
+                  <value type="String">Profile Picture size: 240</value>
+                </field>
+                <field name="Value" type="String">
+                  <value type="String">https://scontent.xx.fbcdn.net/v/t39.30808-1/314707085_644261384095896_7778209445004296718_n.jpg?stp=c6.0.240.240a_dst-jpg_p240x240&amp;_nc_cat=101&amp;ccb=1-7&amp;_nc_sid=7206a8&amp;_nc_ohc=dYzM8rl6tlgAX80elW3&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_ht=scontent.xx&amp;oh=00_AfAyUHnzdXgaKA2ZwlYWb_DYGazafJBG-1z0OscfejeSSw&amp;oe=636BBB71</value>
+                </field>
+                <field name="Domain" type="String">
+                  <value type="String">Profile Picture</value>
+                </field>
+              </model>
+              <model type="UserID" id="943f447e-1c70-472f-bd55-8096251b95b7" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="5047" extractionId="0">
+                <field name="Category" type="String">
+                  <value type="String">Username</value>
+                </field>
+                <field name="Value" type="String">
+                  <value type="String">thisis.dfirtwo</value>
+                </field>
+                <field name="Domain" type="String">
+                  <value type="String">User ID</value>
+                </field>
+              </model>
+            </multiModelField>
+            <multiField name="Notes" type="String" />
+            <multiModelField name="Addresses" type="StreetAddress" />
+            <multiModelField name="Organizations" type="Organization" />
+            <field name="Group" type="String">
+              <empty />
+            </field>
+            <field name="Account" type="String">
+              <value type="String">100049597093148</value>
+            </field>
+            <multiField name="InteractionStatuses" type="ContactType">
+              <value type="ContactType">ChatParticipant</value>
+            </multiField>
+          </model>
+        </RelatedModels>
+      </model>
+    </modelType>
+    <modelType type="InstalledApplication">
+      <model type="InstalledApplication" id="4d4f77c8-8825-4962-a3bf-0abced3e8937" deleted_state="Intact" decoding_confidence="High" isrelated="False" source_index="563" extractionId="0">
+        <field name="UserMapping" type="DecodingSourceOptions">
+          <empty />
+        </field>
+        <field name="Name" type="String">
+          <value type="String">Google Play system update</value>
+        </field>
+        <field name="Description" type="String">
+          <empty />
+        </field>
+        <field name="Identifier" type="String">
+          <value type="String">com.google.mainline.primary.libs</value>
+        </field>
+        <field name="AppGUID" type="String">
+          <empty />
+        </field>
+        <field name="PurchaseDate" type="TimeStamp">
+          <value type="TimeStamp" format="TimeStampKnown" formattedTimestamp="2022-11-30T13:47:48+00:00">2022-11-30T13:47:48.000+00:00</value>
+        </field>
+        <field name="Copyright" type="String">
+          <empty />
+        </field>
+        <field name="DecodingStatus" type="DecodingStatus">
+          <value type="DecodingStatus">NotDecoded</value>
+        </field>
+        <field name="IsEmulatable" type="Boolean">
+          <empty />
+        </field>
+        <field name="LastLaunched" type="TimeStamp">
+          <empty />
+        </field>
+        <field name="OperationMode" type="ApplicationOperationMode">
+          <value type="ApplicationOperationMode">Background</value>
+        </field>
+        <multiField name="Categories" type="String">
+          <value type="String">BackgroundApp</value>
+          <value type="String">BackgroundApp</value>
+        </multiField>
+        <multiField name="AssociatedDirectoryPaths" type="String">
+          <value type="String">TarArchive/data/rollback/1902314012/com.google.mainline.primary.libs</value>
+        </multiField>
+      </model>
+    </modelType>
+  </decodedData>
+  <extraInfos>
+    <extraInfo type="node" id="faeabe84-765a-4496-ae34-8a532ed00999">
+      <sourceInfo>
+        <nodeInfo id="faeabe84-765a-4496-ae34-8a532ed00999" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="928f0ed3-9527-4221-b610-a43503ebaad0">
+      <sourceInfo>
+        <nodeInfo id="928f0ed3-9527-4221-b610-a43503ebaad0" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="fa16e255-6372-45cc-9a7e-91e0acef6246">
+      <sourceInfo>
+        <nodeInfo id="e890cedb-f1e3-420e-ae3a-f95a027ae236" tableName="" offset="573" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="cead4525-e955-4b84-9bbf-6c2d903ec960">
+      <sourceInfo>
+        <nodeInfo id="4d23bb29-7436-4651-acd1-4b31f0d9787c" tableName="" offset="573" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="3f5cc8c1-fbe4-431e-bdf0-709af41009d3">
+      <sourceInfo>
+        <nodeInfo id="e890cedb-f1e3-420e-ae3a-f95a027ae236" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="1bb73793-4e08-48a8-bb89-72178d91a8b7">
+      <sourceInfo>
+        <nodeInfo id="4d23bb29-7436-4651-acd1-4b31f0d9787c" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="e890cedb-f1e3-420e-ae3a-f95a027ae236">
+      <sourceInfo>
+        <nodeInfo id="e890cedb-f1e3-420e-ae3a-f95a027ae236" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="node" id="4d23bb29-7436-4651-acd1-4b31f0d9787c">
+      <sourceInfo>
+        <nodeInfo id="4d23bb29-7436-4651-acd1-4b31f0d9787c" tableName="" offset="0" />
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="9eaea75c-45f3-4870-a5e6-976272ddbbe8">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="d096a558-4e49-43ba-a745-51707b8801aa" tableName="user_table" offset="24569" />
+          <nodeInfo id="e7df450d-ffa9-4f9f-953e-51c917f929d0" tableName="thread_users" offset="117975" />
+          <nodeInfo id="8a2df7cd-2ae5-4a86-86bb-52a124fab2b2" tableName="" offset="229" />
+          <nodeInfo id="976ab8b7-b38b-493c-89a4-616051a58e59" tableName="" offset="1995" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="9eaea75c-45f3-4870-a5e6-976272ddbbe8">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="d096a558-4e49-43ba-a745-51707b8801aa" tableName="user_table" offset="24569" />
+          <nodeInfo id="e7df450d-ffa9-4f9f-953e-51c917f929d0" tableName="thread_users" offset="117975" />
+          <nodeInfo id="8a2df7cd-2ae5-4a86-86bb-52a124fab2b2" tableName="" offset="229" />
+          <nodeInfo id="976ab8b7-b38b-493c-89a4-616051a58e59" tableName="" offset="1995" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="d1ca3f5f-b941-4c66-896f-fb0531ad1030">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="e7df450d-ffa9-4f9f-953e-51c917f929d0" tableName="threads" offset="73118" />
+          <nodeInfo id="8a2df7cd-2ae5-4a86-86bb-52a124fab2b2" tableName="" offset="229" />
+          <nodeInfo id="976ab8b7-b38b-493c-89a4-616051a58e59" tableName="" offset="1995" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="d1ca3f5f-b941-4c66-896f-fb0531ad1030">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="e7df450d-ffa9-4f9f-953e-51c917f929d0" tableName="threads" offset="73118" />
+          <nodeInfo id="8a2df7cd-2ae5-4a86-86bb-52a124fab2b2" tableName="" offset="229" />
+          <nodeInfo id="976ab8b7-b38b-493c-89a4-616051a58e59" tableName="" offset="1995" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="3c735fe1-776f-4bc5-9d57-5ba4506a3ff4">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="e7df450d-ffa9-4f9f-953e-51c917f929d0" tableName="thread_users" offset="118026" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="3c735fe1-776f-4bc5-9d57-5ba4506a3ff4">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="e7df450d-ffa9-4f9f-953e-51c917f929d0" tableName="thread_users" offset="118026" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="4d4f77c8-8825-4962-a3bf-0abced3e8937">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="8ffdf2e4-9a9a-46fd-92df-ee77e58a19af" tableName="appstate" offset="256257" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+    <extraInfo type="model" id="4d4f77c8-8825-4962-a3bf-0abced3e8937">
+      <sourceInfo>
+        <nodeInfos>
+          <nodeInfo id="8ffdf2e4-9a9a-46fd-92df-ee77e58a19af" tableName="appstate" offset="256257" />
+        </nodeInfos>
+      </sourceInfo>
+    </extraInfo>
+  </extraInfos>
+  <projectConfigurations>
+    <timeZoneConfigurations enableDaylightSavings="True" enableAutomaticallyConvertToUTC="True" selectedTimeZone="_Africa/Abidjan" />
+  </projectConfigurations>
+</project>
