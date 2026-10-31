@@ -1,5 +1,5 @@
 # Pinned to FastMCP 3.4.4 (Context.sample string/SamplingMessage API)
-fastmcp==3.4.4
+fastmcp==3.4.10
 # PDF text extraction fallback for the document processor (used when the
 # poppler `pdftotext` CLI is not installed). Pure-Python; offline-safe.
 pypdf
