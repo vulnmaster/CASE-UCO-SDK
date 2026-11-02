@@ -102,6 +102,53 @@ class TurtlePrefixTests(unittest.TestCase):
         _, findings, _ = analyze_graph_integrity(path, artifact_hash=sha256_file(path))
         self.assertFalse([f for f in findings if f.rule_id == "CRIT-G-DANGLING-REF"])
 
+    def test_rebound_prefix_keeps_final_binding_and_original_subject_iris(self):
+        for prefix in ("kb", ""):
+            with self.subTest(prefix=prefix):
+                path = self.write_turtle(
+                    f'@prefix {prefix}: <https://example.invalid/first/> .\n'
+                    f'{prefix}:one <urn:example:label> "one" .\n'
+                    f'@prefix {prefix}: <https://example.invalid/final/> .\n'
+                    f'{prefix}:two <urn:example:label> "two" .\n'
+                )
+                view = load_canonical_graph(path)
+                self.assertEqual(view.rdf_status, "ok")
+                self.assertEqual(view.expand(f"{prefix}:one"),
+                                 "https://example.invalid/final/one")
+                self.assertEqual(set(view.nodes), {
+                    "https://example.invalid/first/one",
+                    "https://example.invalid/final/two",
+                })
+
+    def test_relative_sparql_style_prefix_uses_the_parsed_base(self):
+        path = self.write_turtle(
+            'BASE <https://example.invalid/root/>\n'
+            'PREFIX kb: <../kb/>\n'
+            'kb:one <urn:example:label> "one" .\n'
+        )
+        view = load_canonical_graph(path)
+        self.assertEqual(view.rdf_status, "ok")
+        self.assertEqual(view.expand("kb:one"), "https://example.invalid/kb/one")
+        self.assertIn(view.expand("kb:one"), view.nodes)
+
+    def test_rdflib_automatic_namespaces_are_not_document_bindings(self):
+        path = self.write_turtle('<urn:example:one> <urn:example:label> "one" .')
+        view = load_canonical_graph(path)
+        self.assertEqual(view.rdf_status, "ok")
+        self.assertEqual(view.prefixes, DEFAULT_PREFIXES)
+
+    def test_parse_error_after_a_triple_does_not_publish_partial_bindings(self):
+        path = self.write_turtle(
+            '@prefix kb: <https://example.invalid/kb/> .\n'
+            'kb:one <urn:example:label> "one" .\n'
+            'kb:broken\n'
+        )
+        view = load_canonical_graph(path)
+        self.assertEqual(view.rdf_status, "rdf_parse_error")
+        self.assertEqual(view.prefixes, DEFAULT_PREFIXES)
+        self.assertFalse(view.nodes)
+        self.assertIsNone(view.rdf_graph)
+
     def test_equivalent_turtle_and_jsonld_expand_kb_the_same_way(self):
         turtle = self.write_turtle(
             '@prefix kb: <https://example.invalid/kb/> .\n'

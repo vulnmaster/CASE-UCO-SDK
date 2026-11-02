@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Preserve Turtle namespace bindings in the critic canonical graph view, including the default namespace and document overrides of fallback prefixes. Declared `kb` scopes now receive the same local-reference checks as equivalent JSON-LD inputs. Graph-integrity execution records advance to rule version 1.1.1.
 - Preserve document overrides of RDFLib's built-in prefixes and retain namespace aliases, including `kb`, for local-reference checks.
-- Add eleven focused namespace, format-equivalence and dangling-reference regressions in `mcp_server/tests/test_critic_turtle_prefixes.py`.
+- Add fifteen focused namespace, format-equivalence and dangling-reference regressions in `mcp_server/tests/test_critic_turtle_prefixes.py`.
 
 ## [1.33.0] - 2026-10-23
 
