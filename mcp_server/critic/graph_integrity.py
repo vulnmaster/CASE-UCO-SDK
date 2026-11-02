@@ -232,4 +232,3 @@ def _f(
         rule_id=rule_id,
         identity_key=finding_id,
     )
-

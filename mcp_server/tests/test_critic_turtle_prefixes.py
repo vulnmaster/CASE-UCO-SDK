@@ -58,7 +58,49 @@ class TurtlePrefixTests(unittest.TestCase):
     def test_undeclared_well_known_prefix_keeps_its_fallback(self):
         path = self.write_turtle('<urn:example:one> <urn:example:label> "one" .')
         view = load_canonical_graph(path)
-        self.assertEqual(view.prefixes["uco-core"], DEFAULT_PREFIXES["uco-core"])
+        for prefix, namespace in DEFAULT_PREFIXES.items():
+            with self.subTest(prefix=prefix):
+                self.assertEqual(view.prefixes[prefix], namespace)
+
+    def test_document_binding_overrides_rdflib_builtin_prefixes(self):
+        for prefix in ("rdf", "rdfs", "xsd"):
+            with self.subTest(prefix=prefix):
+                path = self.write_turtle(
+                    f'@prefix {prefix}: <https://example.invalid/custom/> .\n'
+                    f'{prefix}:one {prefix}:label "one" .\n'
+                )
+                view = load_canonical_graph(path)
+                self.assertEqual(view.rdf_status, "ok")
+                self.assertEqual(view.expand(f"{prefix}:one"),
+                                 "https://example.invalid/custom/one")
+                self.assertIn(view.expand(f"{prefix}:one"), view.nodes)
+
+    def test_kb_namespace_alias_does_not_hide_a_missing_reference(self):
+        for first, second in (("kb", "alias"), ("alias", "kb")):
+            with self.subTest(first=first):
+                path = self.write_turtle(
+                    f'@prefix {first}: <https://example.invalid/kb/> .\n'
+                    f'@prefix {second}: <https://example.invalid/kb/> .\n'
+                    'kb:one <urn:example:related> alias:missing .\n'
+                )
+                view, findings, _ = analyze_graph_integrity(
+                    path, artifact_hash=sha256_file(path))
+                self.assertEqual(view.prefixes.get("kb"),
+                                 "https://example.invalid/kb/")
+                self.assertEqual(view.expand("alias:missing"),
+                                 "https://example.invalid/kb/missing")
+                dangling = [f for f in findings
+                            if f.rule_id == "CRIT-G-DANGLING-REF"]
+                self.assertEqual([f.target.node_id for f in dangling],
+                                 ["https://example.invalid/kb/missing"])
+
+    def test_external_reference_is_not_reported_as_local(self):
+        path = self.write_turtle(
+            '@prefix kb: <https://example.invalid/kb/> .\n'
+            'kb:one <urn:example:related> <https://example.invalid/external/two> .\n'
+        )
+        _, findings, _ = analyze_graph_integrity(path, artifact_hash=sha256_file(path))
+        self.assertFalse([f for f in findings if f.rule_id == "CRIT-G-DANGLING-REF"])
 
     def test_equivalent_turtle_and_jsonld_expand_kb_the_same_way(self):
         turtle = self.write_turtle(
@@ -81,10 +123,14 @@ class TurtlePrefixTests(unittest.TestCase):
             '@prefix kb: <https://example.invalid/kb/> .\n'
             'kb:one <urn:example:related> kb:missing .\n'
         )
-        _, findings, _ = analyze_graph_integrity(path, artifact_hash=sha256_file(path))
+        _, findings, executions = analyze_graph_integrity(
+            path, artifact_hash=sha256_file(path))
         dangling = [f for f in findings if f.rule_id == "CRIT-G-DANGLING-REF"]
         self.assertEqual([f.target.node_id for f in dangling],
                          ["https://example.invalid/kb/missing"])
+        self.assertTrue(executions)
+        self.assertEqual({execution.rule_version for execution in executions},
+                         {"1.1.1"})
 
     def test_kb_reference_with_a_subject_is_not_reported(self):
         path = self.write_turtle(
