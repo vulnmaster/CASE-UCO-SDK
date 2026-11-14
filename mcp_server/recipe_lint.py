@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Fail-closed ontology-term lint for operational modeling recipes.
+"""Fail-closed ontology-term and graph-API lint for modeling recipes.
 
 The graph validator can only inspect graph artifacts.  Recipes also teach terms
 in prose tables, snippets, and diagrams, so this module checks the operational
-Markdown catalog against the same role-aware declaration inventory used by
-strict concept coverage.  Exact pinned upper-ontology terms and every
-operational extension manifest are included; arbitrary namespace membership is
-never accepted.
+Markdown catalog against a role-aware ontology declaration inventory. SHACL
+references alone do not declare classes or properties. Exact pinned upper-ontology
+terms and every operational extension manifest are included; arbitrary namespace
+membership is never accepted.
 
 Narrow exclusions are reported, not discarded:
 
@@ -24,9 +24,12 @@ terms outside their bounded region.
 from __future__ import annotations
 
 import argparse
+import inspect
+import io
 import json
 import re
 import sys
+import tokenize
 from dataclasses import asdict, dataclass, field
 from collections.abc import Iterable, Sequence
 from pathlib import Path
@@ -236,60 +239,54 @@ def build_catalog(project_root: Path = PROJECT_ROOT) -> OntologyCatalog:
                 if isinstance(prefix, str) and isinstance(iri, str):
                     prefixes[prefix] = iri
 
-    extension_modes = [f"{name}:full" for name in extension_names]
+    # SHACL references constrain terms; they do not declare them. In particular,
+    # a shape-only target must not make a recipe table or diagram term valid.
     declared = coverage.load_declared_terms(
-        project_root=project_root,
-        extensions=extension_modes,
-        fail_on_parse_error=False,
+        project_root=project_root, extensions=[], fail_on_parse_error=False,
     )
-
     classes = set(declared.classes)
     properties = set(declared.properties)
     other_terms = set(declared.shapes) | set(declared.unknown_role)
-
-    # Some vendored modules rely on an owl:imports namespace closure and omit
-    # sibling prefix declarations in the individual Turtle file.  Strict graph
-    # coverage reports those files as parse errors.  Retry only those exact
-    # files with prefixes from their registered manifest; an unrepairable file
-    # remains a hard verification error.
-    unresolved_parse_errors: list[str] = []
+    unresolved_parse_errors = [
+        f"{error.path}: {error.error}" for error in declared.parse_errors
+    ]
     prefix_block = "\n".join(
         f"@prefix {prefix}: <{iri}> ."
         for prefix, iri in sorted(prefixes.items())
         if re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]*", prefix)
     )
-    for error in declared.parse_errors:
-        error_path = Path(error.path)
-        owner_name = ""
-        for manifest_path, data in manifests:
+    for manifest_path, data in manifests:
+        for relative in (*data.get("owl_files", []), *data.get("bridge_files", [])):
+            ontology_path = manifest_path.parent / relative
             try:
-                error_path.resolve().relative_to(manifest_path.parent.resolve())
-            except ValueError:
-                continue
-            owner_name = str(data.get("name") or "")
-            break
-        try:
-            import rdflib
+                import rdflib
+                from rdflib.namespace import SH
 
-            repaired_graph = rdflib.Graph()
-            repaired_graph.parse(
-                data=f"{prefix_block}\n{error_path.read_text(encoding='utf-8')}",
-                format="turtle",
-                publicID=error_path.resolve().as_uri(),
-            )
-            repaired = coverage._collect_declared_from_graphs(
-                [(error_path, repaired_graph, "ontology", None, owner_name or None)]
-            )
-        except Exception as repair_exc:  # noqa: BLE001 - surfaced fail-closed below
-            unresolved_parse_errors.append(
-                f"{error.path}: {error.error}; "
-                f"manifest_prefix_retry_failed:{type(repair_exc).__name__}:{repair_exc}"
-            )
-            continue
-        classes.update(repaired.classes)
-        properties.update(repaired.properties)
-        other_terms.update(repaired.shapes)
-        other_terms.update(repaired.unknown_role)
+                graph = rdflib.Graph()
+                try:
+                    graph.parse(ontology_path)
+                except Exception:
+                    # A few modules rely on sibling namespace declarations.
+                    graph = rdflib.Graph()
+                    graph.parse(
+                        data=f"{prefix_block}\n{ontology_path.read_text(encoding='utf-8')}",
+                        format="turtle",
+                        publicID=ontology_path.resolve().as_uri(),
+                    )
+                for predicate in (SH.targetClass, SH.path, SH["class"]):
+                    graph.remove((None, predicate, None))
+                terms = coverage._collect_declared_from_graphs(
+                    [(ontology_path, graph, "ontology", None, str(data["name"]))]
+                )
+            except Exception as exc:  # noqa: BLE001 - fail closed
+                unresolved_parse_errors.append(
+                    f"{ontology_path}: {type(exc).__name__}:{exc}"
+                )
+                continue
+            classes.update(terms.classes)
+            properties.update(terms.properties)
+            other_terms.update(terms.shapes)
+            other_terms.update(terms.unknown_role)
     profiles: list[str] = []
     upper_registry_path = project_root / "mcp_server" / "upper_ontology_registry.json"
     upper = json.loads(upper_registry_path.read_text(encoding="utf-8"))
@@ -728,6 +725,48 @@ def _diagram_edge_labels(line: str) -> list[str]:
     return labels
 
 
+def lint_python_graph_methods(text: str, *, path: str) -> list[RecipeLintFinding]:
+    """Check CASEGraph calls in Python fences, including partial skeletons.
+
+    ``graph`` and ``g`` are conventional recipe receivers; also recognize names
+    assigned a CASEGraph constructor. Tokenization ignores comments and strings
+    without requiring skeletons containing placeholders to be executable.
+    """
+    from case_uco import CASEGraph
+
+    methods = {name for name, member in inspect.getmembers(CASEGraph) if callable(member)}
+    findings = []
+    for block in re.finditer(r"^ *```(?:python|py) *\n(.*?)^ *``` *$", text, re.M | re.S):
+        tokens = []
+        try:
+            for token in tokenize.generate_tokens(io.StringIO(block[1]).readline):
+                if token.type in {tokenize.NAME, tokenize.OP, tokenize.STRING, tokenize.NUMBER}:
+                    tokens.append(token)
+        except (tokenize.TokenError, IndentationError):
+            # Keep checking calls preceding a trailing placeholder/incomplete line.
+            pass
+        receivers = {"graph", "g"}
+        for index in range(len(tokens) - 3):
+            name, equals, constructor, opening = tokens[index:index + 4]
+            if (name.type == tokenize.NAME and equals.string == "="
+                    and constructor.string == "CASEGraph" and opening.string == "("):
+                receivers.add(name.string)
+        for index in range(len(tokens) - 3):
+            receiver, dot, method, opening = tokens[index:index + 4]
+            if (receiver.string in receivers and dot.string == "."
+                    and method.type == tokenize.NAME and opening.string == "("
+                    and method.string not in methods):
+                findings.append(RecipeLintFinding(
+                    path=path,
+                    line=text[:block.start(1)].count("\n") + receiver.start[0],
+                    code="unknown_graph_method",
+                    term=f"{receiver.string}.{method.string}",
+                    message=f"CASEGraph has no callable method {method.string!r}",
+                    role="python-method",
+                ))
+    return findings
+
+
 def lint_recipe_text(
     text: str,
     *,
@@ -742,6 +781,7 @@ def lint_recipe_text(
     table_roles = _table_roles(lines)
     section_classes = _section_classifications(lines)
     directive_classes, findings = _directive_classifications(lines, path)
+    findings.extend(lint_python_graph_methods(text, path=path))
     terms_checked = 0
     in_fence = False
     fence_language = ""

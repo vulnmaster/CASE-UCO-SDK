@@ -1,8 +1,9 @@
 """Cellebrite .ufd/.ufdx readers against public Digital Corpora extractions."""
 
 import json
-import shutil
 import subprocess
+
+from case_uco.validation.runtime import prepare_validator, validator_available
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -125,12 +126,12 @@ def test_ufd_to_graph_never_writes_the_passcode():
     assert "withheld" in serialized
 
 
-@pytest.mark.skipif(shutil.which("case_validate") is None, reason="case_validate not installed")
+@pytest.mark.skipif(not validator_available(), reason="case_validate not installed")
 def test_ufd_graph_conforms(tmp_path):
     out = tmp_path / "ufd.jsonld"
     _graph_of_all().write(str(out))
     result = subprocess.run(
-        ["case_validate", "--built-version", "case-1.5.0", str(out)],
+        [*prepare_validator("case-1.5.0").command, "--built-version", "case-1.5.0", str(out)],
         capture_output=True, text=True, timeout=600,
     )
     assert "Conforms: True" in result.stdout, result.stdout[-3000:]

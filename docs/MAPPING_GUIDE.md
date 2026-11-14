@@ -589,7 +589,9 @@ Classes for representing files, directories, file systems, and their metadata. U
 | **techniqueDFT-1197** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1197: Determine mount point mappings within an operating system. Objective... |
 | **techniqueDFT-1203** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1203: Use an AI-based prompt for interrogating case data. Objective(s): Lo... |
 | **techniqueDFT-1205** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1205: Decode raw data into data value(s). Objective(s): Extract data from ... |
-| **techniqueDFT-1206** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1206: Decode a number from raw data. Objective(s): Extract data from speci... |
+| **techniqueDFT-1209** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1209: Extract artifacts from data provided by a service provider. Objectiv... |
+| **techniqueDFT-1212** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1212: Create a case-specific keyword list. Objective(s): Locate potentiall... |
+| **techniqueDFT-1215** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1215: Store content in logical forensic container file(s). Objective(s): S... |
 
 **AFCExtractionData** key properties:
 
@@ -1856,8 +1858,15 @@ Classes for network connections, IP addresses, DNS records, URLs, and related ar
 | **techniqueDFT-1203** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1203: Use an AI-based prompt for interrogating case data. Objective(s): Lo... |
 | **techniqueDFT-1204** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1204: Verify hash of stored bitstream data matches a stored hash. Objectiv... |
 | **techniqueDFT-1205** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1205: Decode raw data into data value(s). Objective(s): Extract data from ... |
-| **techniqueDFT-1206** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1206: Decode a number from raw data. Objective(s): Extract data from speci... |
+| **techniqueDFT-1206** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1206: Decode a number from raw data. See https://solveit-df.org for weakne... |
+| **techniqueDFT-1207** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1207: Decode a string from raw data. See https://solveit-df.org for weakne... |
 | **techniqueDFT-1208** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1208: Store acquisition metadata along with a forensic image format. Objec... |
+| **techniqueDFT-1209** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1209: Extract artifacts from data provided by a service provider. Objectiv... |
+| **techniqueDFT-1210** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1210: Obtain approval for a digital forensic activity. Objective(s): Docum... |
+| **techniqueDFT-1211** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1211: Create a case-type keyword list. Objective(s): Prepare for a digital... |
+| **techniqueDFT-1212** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1212: Create a case-specific keyword list. Objective(s): Locate potentiall... |
+| **techniqueDFT-1213** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1213: Generate reference data by performing and recording actions. Objecti... |
+| **techniqueDFT-1215** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1215: Store content in logical forensic container file(s). Objective(s): S... |
 
 **AIContentDetection** key properties:
 
@@ -4736,7 +4745,7 @@ Classes for modeling actions taken during an investigation or actions performed 
 | **SmartHomeAppFiles** | ext.solveit.solveit-observable | Class | Files associated with a smart home or IoT control application, including device registries, autom... |
 | **SocialIsolationAtSchool** | ext.cac.cacontology-recruitment-networks | Class | Student isolation within school environment making them vulnerable to recruitment. |
 | **SolveitAwareInstrument** | ext.solveit.solveit-tool-profile | Class | A specialised tool that has been evaluated against SOLVE-IT tool capability profiles. Adds the co... |
-| **SolveitInvestigativeAction** | ext.solveit.solveit-core | Class | An investigative action performed as an instance of one or more SOLVE-IT techniques, recording an... |
+| **SolveitInvestigativeAction** | ext.solveit.solveit-core | Class | An investigative action, which may be done or performed, as an instance of one or more SOLVE-IT t... |
 | **SportsContextPhysicalAbuse** | ext.cac.cacontology-athletic-exploitation | Class | Physical abuse within sports training context disguised as coaching. Enhanced as gUFO Event. |
 | **State** | ext.trajectories.traj | Class | A vocabulary-agnostic state in a state machine or offense/investigation phase model. Domain phase... |
 | **StateChangeEffectFacet** | uco.observable | Facet | A state change effect facet is a grouping of characteristics unique to the effects of actions upo... |
@@ -4826,6 +4835,7 @@ Classes for modeling actions taken during an investigation or actions performed 
 | **WorkplaceSearch** | ext.cac.cacontology-physical-evidence | Class | Search of workplace or commercial premises (gUFO Event). |
 | **WriteProtectedDeviceInterface** | ext.solveit.solveit-observable | Class | A logical interface to a storage device that has been interfaced with in a write-protected manner... |
 | **WrittenHarassment** | ext.cac.cacontology-educational-exploitation | Class | Harassment through written comments on student work, assignments, or academic materials. Enhanced... |
+| **a_appropriate_wages** | ext.forced-labor.fl | Class | Withholding or underpaying wages for the labour performed and retaining the value. Affordance abu... |
 | **a_collect_earnings** | ext.trafficking.traf | Class | Taking the proceeds from commercial sex acts performed by a victim. Source: press release paras. ... |
 | **a_deposit** | ext.elder-fraud.ef | Class | Deposit structuring <$10k to evade BSA reporting: depositing scam-proceeds cash in amounts kept b... |
 | **a_direct** | ext.elder-fraud.ef | Class | The Closer (posing as the grandchild's attorney) specifies the cash form and hand-off method — co... |
@@ -4845,6 +4855,7 @@ Classes for modeling actions taken during an investigation or actions performed 
 | **techniqueDFT-1156** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1156: Reconstruct if an event could have functionally occurred on a system... |
 | **techniqueDFT-1158** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1158: Configure device to enable a service needed for data extraction. Obj... |
 | **techniqueDFT-1202** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1202: Verify automated results manually. Objective(s): Evaluate evidence. ... |
+| **techniqueDFT-1213** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1213: Generate reference data by performing and recording actions. Objecti... |
 
 **AFCExtractionData** key properties:
 
@@ -5269,6 +5280,11 @@ CASE-specific classes for structuring an investigation: cases, investigative act
 | **techniqueDFT-1193** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1193: Read metadata from within a forensic image container. Objective(s): ... |
 | **techniqueDFT-1203** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1203: Use an AI-based prompt for interrogating case data. Objective(s): Lo... |
 | **techniqueDFT-1208** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1208: Store acquisition metadata along with a forensic image format. Objec... |
+| **techniqueDFT-1210** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1210: Obtain approval for a digital forensic activity. Objective(s): Docum... |
+| **techniqueDFT-1211** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1211: Create a case-type keyword list. Objective(s): Prepare for a digital... |
+| **techniqueDFT-1212** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1212: Create a case-specific keyword list. Objective(s): Locate potentiall... |
+| **techniqueDFT-1213** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1213: Generate reference data by performing and recording actions. Objecti... |
+| **techniqueDFT-1215** | ext.solveit.solveit-data | Class | SOLVE-IT technique DFT-1215: Store content in logical forensic container file(s). Objective(s): S... |
 
 **AICSAMInvestigation** key properties:
 
@@ -8487,6 +8503,15 @@ These extensions ship complete technique catalogs as Turtle for validation. Thei
 | **a_exfiltrate** | Class | Abuse of the gained protected-network access to transfer victim data to attacker-leased infrastru... |
 | **a_leak_threat** | Class | Threatening to publicly disseminate exfiltrated data unless a ransom is paid, using the stolen da... |
 
+### forced-labor.fl
+
+| Class | Type | Description |
+|-------|------|-------------|
+| **a_appropriate_wages** | Class | Withholding or underpaying wages for the labour performed and retaining the value. Affordance abu... |
+| **a_coerce_labor** | Class | Compelling a worker's continued labour by document retention, threats, dependency or immigration ... |
+| **a_compel_labor** | Class | Imposing working hours and conditions the worker cannot refuse. Affordance abused: the job placem... |
+| **a_deceive_recruit** | Class | Engaging a worker with a false promise about pay or conditions. Affordance abused: the job offer.... |
+
 ### layered.lay
 
 | Class | Type | Description |
@@ -8579,7 +8604,7 @@ These extensions ship complete technique catalogs as Turtle for validation. Thei
 | **Citation** | Class | An academic or professional reference cited by a Technique, Weakness or Mitigation. Each citation... |
 | **Mitigation** | Class | An action that can be performed to prevent a weakness from occurring or to minimize its impact. |
 | **Objective** | Class | A goal or objective in a digital forensic investigation that can be achieved through one or more ... |
-| **SolveitInvestigativeAction** | Class | An investigative action performed as an instance of one or more SOLVE-IT techniques, recording an... |
+| **SolveitInvestigativeAction** | Class | An investigative action, which may be done or performed, as an instance of one or more SOLVE-IT t... |
 | **Technique** | Class | A digital forensic technique representing how one might achieve an objective by performing an act... |
 | **Weakness** | Class | A potential problem resulting from using a technique, classified according to ASTM E3016-18 error... |
 
@@ -8785,8 +8810,15 @@ These extensions ship complete technique catalogs as Turtle for validation. Thei
 | **techniqueDFT-1203** | Class | SOLVE-IT technique DFT-1203: Use an AI-based prompt for interrogating case data. Objective(s): Lo... |
 | **techniqueDFT-1204** | Class | SOLVE-IT technique DFT-1204: Verify hash of stored bitstream data matches a stored hash. Objectiv... |
 | **techniqueDFT-1205** | Class | SOLVE-IT technique DFT-1205: Decode raw data into data value(s). Objective(s): Extract data from ... |
-| **techniqueDFT-1206** | Class | SOLVE-IT technique DFT-1206: Decode a number from raw data. Objective(s): Extract data from speci... |
+| **techniqueDFT-1206** | Class | SOLVE-IT technique DFT-1206: Decode a number from raw data. See https://solveit-df.org for weakne... |
+| **techniqueDFT-1207** | Class | SOLVE-IT technique DFT-1207: Decode a string from raw data. See https://solveit-df.org for weakne... |
 | **techniqueDFT-1208** | Class | SOLVE-IT technique DFT-1208: Store acquisition metadata along with a forensic image format. Objec... |
+| **techniqueDFT-1209** | Class | SOLVE-IT technique DFT-1209: Extract artifacts from data provided by a service provider. Objectiv... |
+| **techniqueDFT-1210** | Class | SOLVE-IT technique DFT-1210: Obtain approval for a digital forensic activity. Objective(s): Docum... |
+| **techniqueDFT-1211** | Class | SOLVE-IT technique DFT-1211: Create a case-type keyword list. Objective(s): Prepare for a digital... |
+| **techniqueDFT-1212** | Class | SOLVE-IT technique DFT-1212: Create a case-specific keyword list. Objective(s): Locate potentiall... |
+| **techniqueDFT-1213** | Class | SOLVE-IT technique DFT-1213: Generate reference data by performing and recording actions. Objecti... |
+| **techniqueDFT-1215** | Class | SOLVE-IT technique DFT-1215: Store content in logical forensic container file(s). Objective(s): S... |
 
 ### solveit.solveit-observable
 

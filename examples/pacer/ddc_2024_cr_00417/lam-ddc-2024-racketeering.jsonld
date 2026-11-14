@@ -3461,6 +3461,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:ae9abe7f-0470-5c6d-a8ba-2dc9bd4109d7"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:8924702a-2e7b-5a74-8c9f-14dc0ef6aa9b"
@@ -3484,25 +3489,6 @@
       "uco-action:endTime": {
         "@type": "xsd:dateTime",
         "@value": "2024-08-19T00:00:00-04:00"
-      }
-    },
-    {
-      "@id": "urn:uuid:bf414ef2-7424-52b6-ac9e-ad47abdb2f1b",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:ae9abe7f-0470-5c6d-a8ba-2dc9bd4109d7"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:5eaeced9-3251-538a-be34-9b8a98a4a873"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
       }
     },
     {
@@ -3532,6 +3518,14 @@
       "uco-action:performer": {
         "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:690a9198-02c3-57cd-b479-63af6b7dc9ff"
+        },
+        {
+          "@id": "urn:uuid:ae9abe7f-0470-5c6d-a8ba-2dc9bd4109d7"
+        }
+      ],
       "uco-action:instrument": [
         {
           "@id": "urn:uuid:08e1c533-bc89-56d0-b286-4b2db674f382"
@@ -3551,44 +3545,6 @@
         "no-kyc-exchange",
         "crypto-to-cash"
       ]
-    },
-    {
-      "@id": "urn:uuid:a02e4964-39a3-5092-ae0a-be2579379562",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:690a9198-02c3-57cd-b479-63af6b7dc9ff"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:6b7c05a9-a554-5e1f-b34a-95dbdbeaaf2c"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:fa8b6b2b-deab-595f-b14c-d6888bef7e9a",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:ae9abe7f-0470-5c6d-a8ba-2dc9bd4109d7"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:6b7c05a9-a554-5e1f-b34a-95dbdbeaaf2c"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
     },
     {
       "@id": "urn:uuid:d5d3845a-c32d-5576-a0a7-45aa3012c09e",
@@ -3658,6 +3614,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:04fd1056-9078-5f59-9969-fc066c494e55"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:f9319dac-9c51-54aa-8f36-fc323e207f4c"
@@ -3673,25 +3634,6 @@
       "uco-action:endTime": {
         "@type": "xsd:dateTime",
         "@value": "2024-07-08T00:00:00-04:00"
-      }
-    },
-    {
-      "@id": "urn:uuid:eb24d403-3330-57eb-b4ed-6e5a6df1d024",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:fc7a4b68-6e3c-592c-84fa-05f63a0a402a"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
       }
     },
     {
@@ -3721,6 +3663,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:ee9929a5-4779-5303-9c4f-7c0d7802af40"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:5785af89-575a-56f2-a1fe-3695f9733d2f"
+        }
+      ],
       "uco-action:instrument": [
         {
           "@id": "urn:uuid:43774e6f-2805-5301-aff6-785c8dc1a429"
@@ -3733,25 +3680,6 @@
         "crypto-to-cash",
         "straw-identity-rental"
       ]
-    },
-    {
-      "@id": "urn:uuid:90e93726-6a87-5d4e-8153-81f544fbcd44",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:5785af89-575a-56f2-a1fe-3695f9733d2f"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:a12a1b21-047e-53a9-b308-206bdfe6483a"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
     },
     {
       "@id": "urn:uuid:903a22e2-0094-5d59-8354-64693ac16699",
@@ -3780,6 +3708,14 @@
       "uco-action:performer": {
         "@id": "urn:uuid:ee9929a5-4779-5303-9c4f-7c0d7802af40"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
+        },
+        {
+          "@id": "urn:uuid:b112d3db-75ad-505c-a2ca-397b14dfbc42"
+        }
+      ],
       "uco-action:instrument": [
         {
           "@id": "urn:uuid:b6ff02c9-74ca-5446-8e90-d325be641d87"
@@ -3800,44 +3736,6 @@
         "crypto-to-cash",
         "unlicensed-money-transmission"
       ]
-    },
-    {
-      "@id": "urn:uuid:cce9133e-9d19-50ec-8e85-8565e351e789",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:66aec24a-2fca-57e4-a259-f4b31b128eaf"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:59c4ac6d-9afe-5f14-b3c1-5634c76f065a",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:b112d3db-75ad-505c-a2ca-397b14dfbc42"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:66aec24a-2fca-57e4-a259-f4b31b128eaf"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
     },
     {
       "@id": "urn:uuid:7df10599-e845-52cd-a82b-877c29ecd2fd",
@@ -3866,6 +3764,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:ee9929a5-4779-5303-9c4f-7c0d7802af40"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
+        }
+      ],
       "uco-action:startTime": {
         "@type": "xsd:dateTime",
         "@value": "2024-07-01T00:00:00-04:00"
@@ -3878,25 +3781,6 @@
         "crypto-to-cash",
         "privacy-coin-conversion"
       ]
-    },
-    {
-      "@id": "urn:uuid:3477b5f5-fe17-5bce-852e-f61e98036e45",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:e54ecd62-9da3-59fb-8d04-f9029e7e8898"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:4cd8e7a9-affc-5e06-918b-43629ddd3c6e"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
     },
     {
       "@id": "urn:uuid:fe0aec4c-f5ee-5eeb-8d8d-674abbcee8cd",
@@ -4046,6 +3930,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:8956d4ca-4f85-5f33-9a74-c8feb8a643e9"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:ee9929a5-4779-5303-9c4f-7c0d7802af40"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:15ae59bb-ceb2-5245-b332-2e7707c878fd"
@@ -4054,25 +3943,6 @@
       "uco-action:startTime": {
         "@type": "xsd:dateTime",
         "@value": "2024-09-18T00:00:00-04:00"
-      }
-    },
-    {
-      "@id": "urn:uuid:d569b955-136d-5207-b2a7-e30aeef8db4a",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:ee9929a5-4779-5303-9c4f-7c0d7802af40"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:bc6303f8-4506-57d9-a3e6-fb1c405c1d2d"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
       }
     },
     {

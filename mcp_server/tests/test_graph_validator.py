@@ -94,14 +94,14 @@ def test_extension_ontology_args_cac_full_uses_manifest() -> None:
 
 def test_missing_validator_fails_honestly(tmp_path, monkeypatch):
     graph = write_graph(tmp_path, T0_CONFORMANT_GRAPH)
-    monkeypatch.setattr(graph_validator.shutil, "which", lambda _name: None)
+    monkeypatch.setattr(graph_validator._impl, "validator_available", lambda: False)
     with pytest.raises(ValueError, match="validator_unavailable"):
         graph_validator.validate_graph_file(graph)
 
 
 def test_missing_graph_file_fails_honestly(tmp_path, monkeypatch):
     monkeypatch.setattr(
-        graph_validator.shutil, "which", lambda _name: "/usr/bin/case_validate"
+        graph_validator._impl, "validator_available", lambda: True
     )
     with pytest.raises(ValueError, match="graph_missing"):
         graph_validator.validate_graph_file(tmp_path / "does-not-exist.jsonld")
@@ -109,7 +109,7 @@ def test_missing_graph_file_fails_honestly(tmp_path, monkeypatch):
 
 def test_unsupported_extension_fails_honestly(tmp_path, monkeypatch):
     monkeypatch.setattr(
-        graph_validator.shutil, "which", lambda _name: "/usr/bin/case_validate"
+        graph_validator._impl, "validator_available", lambda: True
     )
     target = tmp_path / "graph.csv"
     target.write_text("not,a,graph\n", encoding="utf-8")
@@ -119,7 +119,7 @@ def test_unsupported_extension_fails_honestly(tmp_path, monkeypatch):
 
 def test_oversized_graph_fails_honestly(tmp_path, monkeypatch):
     monkeypatch.setattr(
-        graph_validator.shutil, "which", lambda _name: "/usr/bin/case_validate"
+        graph_validator._impl, "validator_available", lambda: True
     )
     monkeypatch.setattr(graph_validator, "MAX_GRAPH_BYTES", 16)
     graph = write_graph(tmp_path, T0_CONFORMANT_GRAPH)

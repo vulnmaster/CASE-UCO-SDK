@@ -1081,7 +1081,12 @@
       "uco-core:description": "Beginning at least as early as November 2021 the defendants communicated about grievances against the United States Government and obtained, and attempted to obtain, supplies to act on them. Source: PACER Doc 48 (indictment3), para. 4",
       "uco-action:performer": {
         "@id": "urn:uuid:e81a2de0-99b4-56d8-b107-5e8cf0ed3373"
-      }
+      },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
+        }
+      ]
     },
     {
       "@id": "urn:uuid:ac65ab46-9ec1-5d14-99e4-fa53ea885d72",
@@ -1097,25 +1102,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:73d26e9d-0bcd-5c64-b841-41780111ddc7",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:14c2ce9e-8c64-535c-baf9-f6fb68c19b50"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1215,7 +1201,12 @@
       "uco-action:startTime": {
         "@type": "xsd:dateTime",
         "@value": "2022-08-20T00:00:00-05:00"
-      }
+      },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
+        }
+      ]
     },
     {
       "@id": "urn:uuid:6a11752b-cf32-51ce-8d19-bc72a6ab2d89",
@@ -1231,25 +1222,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:5e67b717-479c-5edf-a4ee-f1699b6b78b0",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:e7aac1fa-6466-5d44-b189-ded8f4132db4"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1624,6 +1596,11 @@
         {
           "@id": "urn:uuid:0c9f95d9-ce76-5642-908f-d5bc22d5f35e"
         }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
+        }
       ]
     },
     {
@@ -1640,25 +1617,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:cf00ee0f-c0f0-5570-9094-f23bb3976c0b",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:98ffcecd-c6bf-5045-81a7-5cbe8c88ef03"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1689,6 +1647,11 @@
         {
           "@id": "urn:uuid:c66d8ed3-76f8-531b-9c33-4ca69d77b143"
         }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
+        }
       ]
     },
     {
@@ -1705,25 +1668,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:300696af-66c2-5029-8945-e17622f4c84c",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:3fafa2d3-25db-54bf-bb52-40d4470a9fbc"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:a99709e2-d1cb-5aa2-b28f-a4f3a0e18390"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"

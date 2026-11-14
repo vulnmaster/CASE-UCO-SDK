@@ -15,8 +15,8 @@ assessed — the systematic Error Mitigation Analysis that examination
 reports and quality-assurance reviews increasingly expect.
 
 The SDK vendors a pinned SOLVE-IT snapshot in `ontology/solveit/`
-(SOLVE-IT ontology 0.2.11 + compiled knowledge base: 24 objectives, 200
-techniques, 441 weaknesses, 336 mitigations, 164 citations; see the
+(SOLVE-IT ontology 0.2.17 + compiled knowledge base: 24 objectives, 207
+techniques, 454 weaknesses, 348 mitigations, 165 citations; see the
 manifest `provenance` block for the exact commit and SHA-256 digests;
 refresh with `make sync-solveit`).
 

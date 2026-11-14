@@ -6,11 +6,11 @@
   "cac_ontology": "3.1.0",
   "cac_commit": "93de063951b758dd68a27611638c177fcf910eab",
   "ontology_files": [
+    "../upper/gufo.ttl",
     "ontology/ontology/cacontology-core-spine.ttl",
     "ontology/ontology/cacontology-core.ttl",
     "ontology/ontology/cacontology-core-shapes.ttl",
     "ontology/ontology/cacontology-stranger-abduction.ttl",
-    "ontology/ontology/cacontology-stranger-abduction-shapes.ttl",
     "ontology/ontology/cacontology-case-management.ttl",
     "ontology/ontology/cacontology-case-management-shapes.ttl",
     "ontology/ontology/cacontology-temporal.ttl",
@@ -23,13 +23,14 @@
     "ontology/ontology/cacontology-core.ttl": "63b9e7ea4e941ef2c227c1657813c132737292e7d2726390b0a4ee3914b20d50",
     "ontology/ontology/cacontology-core-shapes.ttl": "9b87301bac68824f3c4976b0691da29cd03c790ef4442e31e8cea624839de2fb",
     "ontology/ontology/cacontology-stranger-abduction.ttl": "2347d239be549fbdc328d00d881a718e2792b776e5a746e8c94b62dc2d30c044",
-    "ontology/ontology/cacontology-stranger-abduction-shapes.ttl": "4f8f036f5b4de9acb4e2938e07a1beab211fe61910b7f764f51a8a15a45506db",
     "ontology/ontology/cacontology-case-management.ttl": "97471bff0e71fc467512ea19775ef459814270813db9ca451d70945776c9e752",
     "ontology/ontology/cacontology-case-management-shapes.ttl": "31cc6508704aea434c1f6aae83f2c11f3f89d83463af25d4745ae453d9739ec4",
     "ontology/ontology/cacontology-temporal.ttl": "7caab0cac5efe4c7232fb4c1be950f715a45308cfcba0f1984a0acff1c1d98e0",
     "ontology/ontology/cacontology-temporal-shapes.ttl": "f57368dc24f0c1ba457d7c7709048efc99150cf730255a86872418286c3500dc",
     "ontology/ontology/cacontology-investigation-coordination.ttl": "b7fd9cca9123d3ba602f70b7d5d96ea76828c8f51ebda2f4d3f12253ad11379c",
-    "ontology/ontology/cacontology-investigation-coordination-shapes.ttl": "893708afebcb7540c901947381aa589b275345c7923a525a04f0497cf995bca7"
+    "ontology/ontology/cacontology-investigation-coordination-shapes.ttl": "893708afebcb7540c901947381aa589b275345c7923a525a04f0497cf995bca7",
+    "../upper/gufo.ttl": "bd85657d3fb1ef5893c6d7a29dd6387fca130ee5ab60921f5f8ebdc84cacfc49"
   },
-  "full_manifest_note": "Use extensions=['cac:full'] only after upstream CAC SHACL SPARQL constraints are safe for the installed pySHACL / case-utils build. Do not mint duplicate terms when a concept exists in ontology/cac/_registry.json but is outside this subset."
+  "full_manifest_note": "Use extensions=['cac:full'] only after upstream CAC SHACL SPARQL constraints are safe for the installed pySHACL / case-utils build. Do not mint duplicate terms when a concept exists in ontology/cac/_registry.json but is outside this subset.",
+  "modeling_note": "Default to cacontology:CACInvestigation for a general missing-child investigation. Add cacontology-stranger-abduction:StrangerAbductionInvestigation only when the source states stranger abduction; do not type the event as StrangerAbduction while upstream required shape properties remain undeclared. This subset omits cacontology-stranger-abduction-shapes.ttl; the remaining modules retain their shapes. Forensics and physical-evidence modules are outside this subset. Includes the pinned gUFO ontology to declare the temporal, participation, and part-whole properties required by the remaining shapes."
 }

@@ -102,7 +102,7 @@ FederalCharge (Count 4)
   └── Related_To ──▶ CommercialSexualExploitation   # charge→conduct bridge
 ```
 
-Use **`uco-action:object`** (not `uco-action:target`) for victim roles on UCO `Action`/`Crime` events. Put **`uco-action:startTime`** directly on the event node; reserve `uco-core:hasFacet` for artifact facets such as `FileFacet`.
+Use **`uco-action:object`** for victim roles on UCO `Action`/`Crime` events. Put **`uco-action:startTime`** directly on the event node; reserve `uco-core:hasFacet` for artifact facets such as `FileFacet`.
 
 On **`GroomingSolicitation`**, also populate **`cacontology:participatesInEvent`** with subject + victim — CAC SHACL requires at least two participants on that class. Keep **`uco-action:performer`** / **`object`** as the primary action semantics; `participatesInEvent` satisfies shape validation.
 
@@ -178,30 +178,30 @@ graph = CASEGraph(extra_context={
     "cacontology-legal-outcomes": "https://cacontology.projectvic.org/legal-outcomes#",
 })
 
-victim2 = graph.add_node("kb:mv2", "cacontology-sex-trafficking:MinorTraffickingVictimRole", {
+victim2 = graph.upsert_node("kb:mv2", types=["cacontology-sex-trafficking:MinorTraffickingVictimRole"], properties={
     "uco-core:name": "Minor Victim 2",
 })
 
-exploitation = graph.add_node("kb:cse-mv2", "cacontology-sex-trafficking:CommercialSexualExploitation", {
+exploitation = graph.upsert_node("kb:cse-mv2", types=["cacontology-sex-trafficking:CommercialSexualExploitation"], properties={
     "uco-core:name": "Alleged commercial sexual exploitation — MV2",
     "uco-action:performer": {"@id": "kb:subject-riley"},
     "uco-action:object": {"@id": "kb:mv2"},
 })
 
-subject = graph.add_node("kb:subject-riley", [
+subject = graph.upsert_node("kb:subject-riley", types=[
     "case-investigation:Subject",
     "cacontology-sex-trafficking:PrimaryTraffickerRole",
-], {
+], properties={
     "uco-core:name": "Defendant-1 — principal subject",
     "cacontology-sex-trafficking:controlsVictim": [{"@id": "kb:mv2"}],
 })
 
-charge_trafficking = graph.add_node("kb:charge-4", "cacontology-legal-outcomes:FederalCharge", {
+charge_trafficking = graph.upsert_node("kb:charge-4", types=["cacontology-legal-outcomes:FederalCharge"], properties={
     "uco-core:name": "Count 4 — Sex trafficking a minor (18 U.S.C. 1591)",
     "cacontology-legal-outcomes:chargeCount": {"@type": "xsd:nonNegativeInteger", "@value": "4"},
 })
 
-defendant = graph.add_node("kb:defendant-1", "uco-identity:Person", {
+defendant = graph.upsert_node("kb:defendant-1", types=["uco-identity:Person"], properties={
     "uco-core:name": "Defendant-1",
     "cacontology-legal-outcomes:chargedWith": [{"@id": "kb:charge-4"}],
 })
@@ -209,7 +209,7 @@ defendant = graph.add_node("kb:defendant-1", "uco-identity:Person", {
 for rel_id, src, tgt in [
     ("rel-charge-conduct", "kb:charge-4", "kb:cse-mv2"),
 ]:
-    graph.add_node(f"kb:{rel_id}", "uco-core:Relationship", {
+    graph.upsert_node(f"kb:{rel_id}", types=["uco-core:Relationship"], properties={
         "uco-core:source": {"@id": src},
         "uco-core:target": {"@id": tgt},
         "uco-core:kindOfRelationship": "Related_To",

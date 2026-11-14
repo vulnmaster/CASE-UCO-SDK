@@ -1,0 +1,40 @@
+# Expected-INVALID forced-labour fixture.
+# Must FAIL: a Technique-typed action with no uco-action:instrument (the
+# one constraint forced-labor-shapes.ttl adds), and a PhaseAssertion with
+# no evidence, no confidence facet and a terminal flag with no polarity
+# (base trajectories shapes).
+
+@prefix fl: <http://example.org/ontology/forced-labor/> .
+@prefix ex: <http://example.org/forced-labor/invalid/> .
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:person-employer
+	a uco-identity:Person ;
+	uco-core:name "Employer (fixture)" .
+
+ex:action-no-instrument
+	a uco-action:Action , fl:a_coerce_labor ;
+	uco-core:name "Coerce with no affordance named" ;
+	uco-action:performer ex:person-employer .
+
+ex:interval
+	a time:ProperInterval ;
+	uco-core:name "Fixture interval" .
+
+ex:phase-bare
+	a traj:PhaseAssertion ;
+	uco-core:name "Occupancy with no evidence, no confidence, terminal without polarity" ;
+	traj:assertsState fl:ForcedLabor ;
+	traj:atInterval ex:interval ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true .
+
+ex:trajectory
+	a traj:Trajectory ;
+	uco-core:name "Fixture trajectory" ;
+	traj:hasPhaseAssertion ex:phase-bare .

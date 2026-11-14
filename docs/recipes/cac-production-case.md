@@ -59,16 +59,16 @@ graph = CASEGraph(extra_context={
     "cacontology-asset-forfeiture": "https://cacontology.projectvic.org/asset-forfeiture#",
 })
 
-device = graph.add_node("kb:device-1", [
+device = graph.upsert_node("kb:device-1", types=[
     "uco-observable:ObservableObject",
     "cacontology-production:MobileRecordingDevice",
-], {
+], properties={
     "uco-core:name": "Samsung Galaxy S21 Ultra",
     "cacontology-production:deviceBrand": "Samsung",
     "cacontology-production:deviceModel": "Galaxy S21 Ultra",
 })
 
-production = graph.add_node("kb:production-1", "cacontology-production:ProductionOffense", {
+production = graph.upsert_node("kb:production-1", types=["cacontology-production:ProductionOffense"], properties={
     "uco-core:name": "Alleged CSAM production",
     "cacontology-production:usesEquipment": {"@id": "kb:device-1"},
 })

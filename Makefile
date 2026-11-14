@@ -240,7 +240,7 @@ validate-proposal:
 		if [ -f "$(PROPOSAL_SHAPES)" ]; then \
 			VALIDATE_ARGS="$$VALIDATE_ARGS --ontology-graph $(PROPOSAL_SHAPES)"; \
 		fi; \
-		$(VENV)/bin/case_validate $$VALIDATE_ARGS $(PROPOSAL_JSONLD); \
+		$(PYTHON) python/case_uco/validation/runtime.py $$VALIDATE_ARGS $(PROPOSAL_JSONLD); \
 	else \
 		echo "No .jsonld file found at $(PROPOSAL_JSONLD) — skipping validation"; \
 	fi
@@ -303,7 +303,7 @@ define test_extension_branch
 	if [ -f "$(EXT_TTL)" ]; then VALIDATE_ARGS="$$VALIDATE_ARGS --ontology-graph $(EXT_TTL)"; fi; \
 	if [ -f "$(EXT_SHAPES)" ]; then VALIDATE_ARGS="$$VALIDATE_ARGS --ontology-graph $(EXT_SHAPES)"; fi; \
 	if [ -f "$(EXT_DATA)" ]; then \
-		$(VENV)/bin/case_validate $$VALIDATE_ARGS --inference rdfs --allow-info $(EXT_DATA) && \
+		$(PYTHON) python/case_uco/validation/runtime.py $$VALIDATE_ARGS --inference rdfs --allow-info $(EXT_DATA) && \
 		echo "  Result: PASS" || echo "  Result: FAIL"; \
 	else \
 		echo "  No exemplar data file found at $(EXT_DATA) — skipping"; \

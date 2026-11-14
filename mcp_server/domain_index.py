@@ -1327,7 +1327,7 @@ RECIPE_INDEX: list[dict[str, str]] = [
     },
     {
         "title": "SOLVE-IT Investigation Planning and Error Mitigation",
-        "description": "Plan and document forensic method with the pinned SOLVE-IT knowledge base (24 objectives, 200 techniques, 441 weaknesses, 336 mitigations): state objectives, record each SolveitInvestigativeAction typed with the DFT-* technique class it performed (uco-action:Technique metaclass pattern; usedTechnique is deprecated) plus appliedMitigation, type acquisition outputs with SOLVE-IT observables, and rate weaknesses (ASTM E3016-18) with solveit-wa:WeaknessEvaluation. Discover techniques with plan_solveit_workflow / search_solveit / get_solveit_details.",
+        "description": "Plan and document forensic method with the pinned SOLVE-IT knowledge base (24 objectives, 207 techniques, 454 weaknesses, 348 mitigations): state objectives, record each SolveitInvestigativeAction typed with the DFT-* technique class it performed (uco-action:Technique metaclass pattern; usedTechnique is deprecated) plus appliedMitigation, type acquisition outputs with SOLVE-IT observables, and rate weaknesses (ASTM E3016-18) with solveit-wa:WeaknessEvaluation. Discover techniques with plan_solveit_workflow / search_solveit / get_solveit_details.",
         "keywords": "solve-it solveit technique selection objective forensic method methodology error mitigation analysis weakness mitigation astm e3016 disk imaging acquisition plan hash verification write blocker dual-tool verification tool testing quality assurance qa lab accreditation error rate daubert examination report investigative action dft dfw dfm dfo weakness evaluation rpn likelihood impact",
         "file": "docs/recipes/solve-it-investigation-planning.md",
     },
@@ -2129,11 +2129,11 @@ MAPPING_GUIDE_INDEX: list[dict] = [
         "starter_kit": "docs/recipes/cac-icac-search-warrant-arrest.md",
         "code_skeleton": (
             "# Requires CASE_UCO_EXTENSIONS=cac\n"
-            "grooming = graph.add_node('kb:grooming-1', 'cacontology-grooming:OnlineGrooming', {\n"
+            "grooming = graph.upsert_node('kb:grooming-1', types=['cacontology-grooming:OnlineGrooming'], properties={\n"
             "    'uco-action:performer': {'@id': 'kb:suspect'},\n"
             "    'cacontology-grooming:targetsVictim': {'@id': 'kb:minor-victim'},\n"
             "})\n"
-            "graph.add_node('kb:rel-1', 'uco-core:Relationship', {\n"
+            "graph.upsert_node('kb:rel-1', types=['uco-core:Relationship'], properties={\n"
             "    'uco-core:source': [{'@id': 'kb:investigation'}],\n"
             "    'uco-core:target': [{'@id': 'kb:grooming-1'}],\n"
             "    'uco-core:kindOfRelationship': 'Concerns',\n"

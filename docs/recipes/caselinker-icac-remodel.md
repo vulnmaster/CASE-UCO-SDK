@@ -33,7 +33,7 @@ one investigation.
   `InvestigationTrigger`
 - Type-only `ContentDataFacet` nodes or private CaseLinker vocab must be
   replaced before `validate_graph`
-- You need generic `ICACtaskForce` clocks and victim-count integrity
+- You need `cacontology-taskforce:ICACtaskForce` clocks and victim-count integrity for a source-identified OJJDP-funded Internet Crimes Against Children task force
 - You are dual-typing CAC charges with `legalproc`
 
 Use [cybertip-ncmec-workflow.md](cybertip-ncmec-workflow.md) for new CyberTip
@@ -70,7 +70,7 @@ SOLVE-IT. See [cyber-threat-intelligence.md](cyber-threat-intelligence.md).
 | `CriminalCharge` + `CSAM_Possession` | `legalproc:StateCharge` or `FederalCharge` when jurisdiction is sourced | `legalproc:FederalCharge` inferred from an agency name |
 | Sentence type + label | `legalproc:Sentence` with `sentenceStatus`, `sentenceKind`, `appliesTo` | Label-only sentences; undeclared `chargeCluster` |
 | One `VictimRole` + prose “victims” | N victim-role nodes, or `victimFactStatus` `omitted` | A zero count for omitted victims |
-| Maryland-only TF class on a non-Maryland case | `ICACtaskForce` + lead unit | `MarylandICACtaskForce` unless the source is Maryland |
+| Maryland-only TF class on a non-Maryland case involving a source-identified OJJDP-funded ICAC task force | `cacontology-taskforce:ICACtaskForce` + lead unit | `MarylandICACtaskForce` unless the source is Maryland |
 
 ## CaseLinker vocab map
 

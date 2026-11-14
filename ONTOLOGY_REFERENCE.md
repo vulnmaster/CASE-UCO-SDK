@@ -4,9 +4,9 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 | Metric | Count |
 |--------|-------|
-| Classes | 2980 |
-| Direct properties | 2610 |
-| Modules | 87 |
+| Classes | 2991 |
+| Direct properties | 2613 |
+| Modules | 88 |
 | Vocabulary types | 54 |
 
 ## Table of Contents
@@ -68,6 +68,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 - [ext.elder-fraud.ef](#extelder-fraudef) (8 classes)
 - [ext.expense.expense](#extexpenseexpense) (2 classes)
 - [ext.extortion.ex](#extextortionex) (3 classes)
+- [ext.forced-labor.fl](#extforced-laborfl) (4 classes)
 - [ext.layered.lay](#extlayeredlay) (11 classes)
 - [ext.legalproc.legalproc](#extlegalproclegalproc) (18 classes)
 - [ext.means.means](#extmeansmeans) (6 classes)
@@ -75,7 +76,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 - [ext.smishviz.smish](#extsmishvizsmish) (5 classes)
 - [ext.solveit.solveit-analysis](#extsolveitsolveit-analysis) (12 classes)
 - [ext.solveit.solveit-core](#extsolveitsolveit-core) (7 classes)
-- [ext.solveit.solveit-data](#extsolveitsolveit-data) (200 classes)
+- [ext.solveit.solveit-data](#extsolveitsolveit-data) (207 classes)
 - [ext.solveit.solveit-observable](#extsolveitsolveit-observable) (88 classes)
 - [ext.solveit.solveit-tool-profile](#extsolveitsolveit-tool-profile) (4 classes)
 - [ext.solveit.solveit-wa](#extsolveitsolveit-wa) (2 classes)
@@ -42639,6 +42640,140 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 
+## ext.forced-labor.fl
+
+### a_appropriate_wages
+
+*Withholding or underpaying wages for the labour performed and retaining the value. Affordance abused: control of the payroll. Source: Europol 2026-10-23, Cyprus, Romania and Netherlands.*
+
+**Parents:** Action | **IRI:** `http://example.org/ontology/forced-labor/a_appropriate_wages`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### a_coerce_labor
+
+*Compelling a worker's continued labour by document retention, threats, dependency or immigration status. Affordance abused: the withheld document, the threat, or the dependency. Source: Europol 2026-10-23, Cyprus and Netherlands.*
+
+**Parents:** Action | **IRI:** `http://example.org/ontology/forced-labor/a_coerce_labor`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### a_compel_labor
+
+*Imposing working hours and conditions the worker cannot refuse. Affordance abused: the job placement. Source: Europol 2026-10-23, Cyprus and Romania.*
+
+**Parents:** Action | **IRI:** `http://example.org/ontology/forced-labor/a_compel_labor`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
+### a_deceive_recruit
+
+*Engaging a worker with a false promise about pay or conditions. Affordance abused: the job offer. Source: Europol 2026-10-23, Romania ('deceived ... with promises of fair pay').*
+
+**Parents:** Action | **IRI:** `http://example.org/ontology/forced-labor/a_deceive_recruit`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+
 ## ext.layered.lay
 
 ### Coupling
@@ -44041,7 +44176,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 
 ### SolveitInvestigativeAction
 
-*An investigative action performed as an instance of one or more SOLVE-IT techniques, recording any mitigations applied on that occasion (0..n via appliedMitigation). The technique(s) used are expressed by rdf:type against the technique class(es), not by a separate property.*
+*An investigative action, which may be done or performed, as an instance of one or more SOLVE-IT techniques, recording any mitigations applied on that occasion (0..n via appliedMitigation). The technique(s) used are expressed by rdf:type against the technique class(es), not by a separate property.*
 
 **Parents:** InvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/core/SolveitInvestigativeAction`
 
@@ -44072,10 +44207,11 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### Technique
 
-*A digital forensic technique representing how one might achieve an objective by performing an action. Based on the SOLVE-IT knowledge base. This class is a metaclass: its instances are owl:Class entities whose own instances are performed investigative actions.*
+*A digital forensic technique representing how one might achieve an objective by performing an action. Based on the SOLVE-IT knowledge base. This class is a metaclass: its instances are owl:Class entities whose own instances are investigative actions, planned or performed.*
 
 **Parents:** Technique | **IRI:** `https://ontology.solveit-df.org/solveit/core/Technique`
 
@@ -44139,6 +44275,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1002
 
@@ -44173,6 +44310,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1003
 
@@ -44207,6 +44345,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1004
 
@@ -44241,6 +44380,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1005
 
@@ -44275,6 +44415,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1006
 
@@ -44309,6 +44450,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1007
 
@@ -44343,6 +44485,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1008
 
@@ -44377,6 +44520,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1009
 
@@ -44411,6 +44555,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1010
 
@@ -44445,6 +44590,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1011
 
@@ -44479,6 +44625,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1012
 
@@ -44513,6 +44660,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1013
 
@@ -44547,6 +44695,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1014
 
@@ -44581,6 +44730,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1015
 
@@ -44615,6 +44765,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1016
 
@@ -44649,6 +44800,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1017
 
@@ -44683,6 +44835,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1018
 
@@ -44717,6 +44870,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1019
 
@@ -44751,6 +44905,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1020
 
@@ -44785,6 +44940,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1021
 
@@ -44819,6 +44975,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1022
 
@@ -44853,6 +45010,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1023
 
@@ -44887,6 +45045,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1024
 
@@ -44921,6 +45080,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1025
 
@@ -44955,6 +45115,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1026
 
@@ -44989,6 +45150,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1027
 
@@ -45023,6 +45185,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1028
 
@@ -45057,6 +45220,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1029
 
@@ -45091,6 +45255,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1030
 
@@ -45125,6 +45290,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1031
 
@@ -45159,6 +45325,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1032
 
@@ -45193,6 +45360,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1033
 
@@ -45227,6 +45395,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1034
 
@@ -45261,6 +45430,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1035
 
@@ -45295,6 +45465,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1036
 
@@ -45329,6 +45500,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1037
 
@@ -45363,6 +45535,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1038
 
@@ -45397,6 +45570,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1039
 
@@ -45431,6 +45605,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1040
 
@@ -45465,6 +45640,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1041
 
@@ -45499,6 +45675,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1042
 
@@ -45533,6 +45710,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1043
 
@@ -45567,6 +45745,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1044
 
@@ -45601,6 +45780,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1045
 
@@ -45635,6 +45815,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1046
 
@@ -45669,6 +45850,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1047
 
@@ -45703,6 +45885,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1048
 
@@ -45737,6 +45920,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1049
 
@@ -45771,6 +45955,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1050
 
@@ -45805,6 +45990,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1051
 
@@ -45839,6 +46025,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1052
 
@@ -45873,6 +46060,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1053
 
@@ -45907,6 +46095,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1054
 
@@ -45941,6 +46130,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1055
 
@@ -45975,6 +46165,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1056
 
@@ -46009,6 +46200,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1057
 
@@ -46043,6 +46235,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1058
 
@@ -46077,6 +46270,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1059
 
@@ -46111,6 +46305,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1060
 
@@ -46145,6 +46340,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1061
 
@@ -46179,6 +46375,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1062
 
@@ -46213,6 +46410,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1063
 
@@ -46247,6 +46445,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1064
 
@@ -46281,6 +46480,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1065
 
@@ -46315,6 +46515,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1066
 
@@ -46349,6 +46550,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1067
 
@@ -46383,6 +46585,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1068
 
@@ -46417,6 +46620,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1069
 
@@ -46451,6 +46655,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1070
 
@@ -46485,6 +46690,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1071
 
@@ -46519,6 +46725,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1072
 
@@ -46553,6 +46760,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1073
 
@@ -46587,6 +46795,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1074
 
@@ -46621,6 +46830,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1075
 
@@ -46655,6 +46865,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1076
 
@@ -46689,6 +46900,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1077
 
@@ -46723,6 +46935,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1078
 
@@ -46757,6 +46970,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1079
 
@@ -46791,6 +47005,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1080
 
@@ -46825,6 +47040,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1081
 
@@ -46859,6 +47075,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1082
 
@@ -46893,6 +47110,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1083
 
@@ -46927,6 +47145,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1084
 
@@ -46961,6 +47180,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1085
 
@@ -46995,6 +47215,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1086
 
@@ -47029,6 +47250,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1087
 
@@ -47063,6 +47285,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1088
 
@@ -47097,6 +47320,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1089
 
@@ -47131,6 +47355,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1090
 
@@ -47165,6 +47390,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1091
 
@@ -47199,6 +47425,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1092
 
@@ -47233,6 +47460,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1093
 
@@ -47267,6 +47495,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1094
 
@@ -47301,6 +47530,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1095
 
@@ -47335,6 +47565,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1096
 
@@ -47369,6 +47600,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1097
 
@@ -47403,6 +47635,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1098
 
@@ -47437,6 +47670,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1099
 
@@ -47471,6 +47705,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1100
 
@@ -47505,6 +47740,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1101
 
@@ -47539,6 +47775,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1102
 
@@ -47573,6 +47810,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1103
 
@@ -47607,6 +47845,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1104
 
@@ -47641,6 +47880,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1105
 
@@ -47675,6 +47915,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1106
 
@@ -47709,6 +47950,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1107
 
@@ -47743,6 +47985,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1108
 
@@ -47777,6 +48020,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1109
 
@@ -47811,6 +48055,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1110
 
@@ -47845,6 +48090,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1111
 
@@ -47879,6 +48125,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1112
 
@@ -47913,6 +48160,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1113
 
@@ -47947,6 +48195,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1114
 
@@ -47981,6 +48230,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1115
 
@@ -48015,6 +48265,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1116
 
@@ -48049,6 +48300,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1117
 
@@ -48083,6 +48335,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1118
 
@@ -48117,6 +48370,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1119
 
@@ -48151,6 +48405,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1120
 
@@ -48185,6 +48440,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1121
 
@@ -48219,6 +48475,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1122
 
@@ -48253,6 +48510,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1123
 
@@ -48287,6 +48545,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1124
 
@@ -48321,6 +48580,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1125
 
@@ -48355,6 +48615,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1126
 
@@ -48389,6 +48650,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1127
 
@@ -48423,6 +48685,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1128
 
@@ -48457,6 +48720,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1129
 
@@ -48491,6 +48755,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1130
 
@@ -48525,6 +48790,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1131
 
@@ -48559,6 +48825,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1132
 
@@ -48593,6 +48860,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1133
 
@@ -48627,6 +48895,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1134
 
@@ -48661,6 +48930,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1137
 
@@ -48695,6 +48965,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1138
 
@@ -48729,6 +49000,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1139
 
@@ -48763,6 +49035,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1140
 
@@ -48797,6 +49070,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1141
 
@@ -48831,6 +49105,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1142
 
@@ -48865,6 +49140,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1143
 
@@ -48899,6 +49175,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1144
 
@@ -48933,6 +49210,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1145
 
@@ -48967,6 +49245,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1146
 
@@ -49001,6 +49280,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1147
 
@@ -49035,6 +49315,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1148
 
@@ -49069,6 +49350,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1149
 
@@ -49103,6 +49385,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1150
 
@@ -49137,6 +49420,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1151
 
@@ -49171,6 +49455,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1153
 
@@ -49205,6 +49490,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1154
 
@@ -49239,6 +49525,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1155
 
@@ -49273,6 +49560,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1156
 
@@ -49307,6 +49595,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1157
 
@@ -49341,6 +49630,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1158
 
@@ -49375,6 +49665,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1159
 
@@ -49409,6 +49700,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1160
 
@@ -49443,6 +49735,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1161
 
@@ -49477,6 +49770,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1162
 
@@ -49511,6 +49805,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1163
 
@@ -49545,6 +49840,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1164
 
@@ -49579,6 +49875,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1165
 
@@ -49613,6 +49910,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1166
 
@@ -49647,6 +49945,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1167
 
@@ -49681,6 +49980,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1168
 
@@ -49715,6 +50015,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1169
 
@@ -49749,6 +50050,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1170
 
@@ -49783,6 +50085,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1171
 
@@ -49817,6 +50120,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1172
 
@@ -49851,6 +50155,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1173
 
@@ -49885,6 +50190,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1174
 
@@ -49919,6 +50225,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1175
 
@@ -49953,6 +50260,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1176
 
@@ -49987,6 +50295,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1177
 
@@ -50021,6 +50330,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1178
 
@@ -50055,6 +50365,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1179
 
@@ -50089,6 +50400,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1180
 
@@ -50123,6 +50435,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1181
 
@@ -50157,6 +50470,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1182
 
@@ -50191,6 +50505,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1184
 
@@ -50225,6 +50540,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1185
 
@@ -50259,6 +50575,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1186
 
@@ -50293,6 +50610,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1187
 
@@ -50327,6 +50645,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1190
 
@@ -50361,6 +50680,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1191
 
@@ -50395,6 +50715,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1192
 
@@ -50429,6 +50750,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1193
 
@@ -50463,6 +50785,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1194
 
@@ -50497,6 +50820,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1195
 
@@ -50531,6 +50855,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1196
 
@@ -50565,6 +50890,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1197
 
@@ -50599,6 +50925,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1198
 
@@ -50633,6 +50960,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1199
 
@@ -50667,6 +50995,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1200
 
@@ -50701,6 +51030,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1202
 
@@ -50735,6 +51065,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1203
 
@@ -50769,6 +51100,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1204
 
@@ -50803,6 +51135,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1205
 
@@ -50837,12 +51170,13 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1206
 
-*SOLVE-IT technique DFT-1206: Decode a number from raw data. Objective(s): Extract data from specific formats. See https://solveit-df.org for weaknesses and mitigations.*
+*SOLVE-IT technique DFT-1206: Decode a number from raw data. See https://solveit-df.org for weaknesses and mitigations.*
 
-**Parents:** SolveitInvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1206`
+**Parents:** techniqueDFT-1205 | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1206`
 
 | Property | Type | Cardinality | Required | Description |
 |----------|------|-------------|----------|-------------|
@@ -50871,6 +51205,42 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
+
+### techniqueDFT-1207
+
+*SOLVE-IT technique DFT-1207: Decode a string from raw data. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** techniqueDFT-1205 | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1207`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+| wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ### techniqueDFT-1208
 
@@ -50905,6 +51275,217 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
 | subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
 | wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
+
+### techniqueDFT-1209
+
+*SOLVE-IT technique DFT-1209: Extract artifacts from data provided by a service provider. Objective(s): Extract specific artifact types. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** SolveitInvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1209`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+| wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
+
+### techniqueDFT-1210
+
+*SOLVE-IT technique DFT-1210: Obtain approval for a digital forensic activity. Objective(s): Document digital forensic activities. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** SolveitInvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1210`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+| wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
+
+### techniqueDFT-1211
+
+*SOLVE-IT technique DFT-1211: Create a case-type keyword list. Objective(s): Prepare for a digital investigation. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** SolveitInvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1211`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+| wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
+
+### techniqueDFT-1212
+
+*SOLVE-IT technique DFT-1212: Create a case-specific keyword list. Objective(s): Locate potentially relevant content. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** SolveitInvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1212`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+| wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
+
+### techniqueDFT-1213
+
+*SOLVE-IT technique DFT-1213: Generate reference data by performing and recording actions. Objective(s): Prepare for a digital investigation. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** SolveitInvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1213`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+| wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
+
+### techniqueDFT-1215
+
+*SOLVE-IT technique DFT-1215: Store content in logical forensic container file(s). Objective(s): Store acquired data. See https://solveit-df.org for weaknesses and mitigations.*
+
+**Parents:** SolveitInvestigativeAction | **IRI:** `https://ontology.solveit-df.org/solveit/data/techniqueDFT-1215`
+
+| Property | Type | Cardinality | Required | Description |
+|----------|------|-------------|----------|-------------|
+| createdBy | IdentityAbstraction | zero_or_one | No | The identity that created a characterization of a concept. |
+| description | string | zero_or_more | No | A description of a particular concept characterization. |
+| externalReference | ExternalReference | zero_or_more | No | Specifies a reference to a resource outside of the UCO. |
+| hasFacet | Facet | zero_or_more | No | Further sets of properties characterizing a concept based on the particular context of the class and of the particula... |
+| modifiedTime | dateTime | zero_or_more | No | Specifies the time that this particular version of the object was modified. The object creator can use the time it de... |
+| name | string | zero_or_one | No | The name of a particular concept characterization. |
+| objectCreatedTime | dateTime | zero_or_one | No | The time at which a characterization of a concept is created. This time pertains to the time of creating the record o... |
+| objectMarking | MarkingDefinitionAbstraction | zero_or_more | No | Marking definitions to be applied to a particular concept characterization in its entirety. |
+| objectStatus | string | zero_or_one | No | The current state of formality and acceptance for a UCO object. |
+| specVersion | string | zero_or_one | No | The version of UCO ontology or subontology specification used to characterize a concept. |
+| tag | string | zero_or_more | No | A generic tag/label. |
+| actionCount | nonNegativeInteger | zero_or_one | No | The number of times that the action was performed. |
+| actionStatus | string | zero_or_one | No | The current state of the action. |
+| endTime | dateTime | zero_or_one | No | The time at which performance of the action ended. |
+| environment | UcoObject | zero_or_one | No | The environment wherein an action occurs. |
+| error | UcoObject | zero_or_more | No | A characterization of the differences between the expected and the actual performance of the action. |
+| instrument | UcoObject | zero_or_more | No | The things used to perform an action. |
+| location | Location | zero_or_more | No | The locations where an action occurs. |
+| object | UcoObject | zero_or_more | No | The things that the action is performed on/against. |
+| participant | UcoObject | zero_or_more | No | The supporting (non-primary) performers of an action. |
+| performer | UcoObject | zero_or_one | No | The primary performer of an action. |
+| result | UcoObject | zero_or_more | No | The things resulting from performing an action. |
+| startTime | dateTime | zero_or_one | No | The time at which performance of the action began. |
+| subaction | Action | zero_or_more | No | References to other actions that make up part of a larger more complex action. |
+| wasInformedBy | InvestigativeAction | zero_or_more | No | A re-implementation of the wasInformedBy property in W3C PROV-O, where an entity is exchanged by two activities, 'one... |
+| appliedMitigation | Mitigation | zero_or_more | No | Links a SolveitInvestigativeAction to Mitigation(s) that were actively applied during the execution to prevent or min... |
 
 ## ext.solveit.solveit-observable
 
@@ -51134,6 +51715,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasArtifact | ObservableObject | zero_or_more | No | An artifact belonging to this artifact set. |
 
 ### AudioFile
 
@@ -51592,6 +52174,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
 
 ### FileSystemExtraction
 
@@ -51637,6 +52220,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
 
 ### ForensicImageContainer
 
@@ -51888,6 +52472,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasArtifact | ObservableObject | zero_or_more | No | An artifact belonging to this artifact set. |
 
 ### LiveDataCapture
 
@@ -52221,6 +52806,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasArtifact | ObservableObject | zero_or_more | No | An artifact belonging to this artifact set. |
 
 ### RedactedFileSet
 
@@ -52244,6 +52830,7 @@ Auto-generated reference for all classes, properties, and vocabulary types in th
 | object | UcoObject | zero_or_more | No | Specifies one or more UcoObjects. |
 | hasChanged | boolean | zero_or_one | No |  |
 | state | string | zero_or_one | No |  |
+| hasFile | File | zero_or_more | No | A file belonging to this file set. |
 
 ### RemindersAppFiles
 

@@ -54,13 +54,13 @@ import zipfile
 import zlib
 from contextlib import contextmanager
 from dataclasses import dataclass, field, replace
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from email import policy
 from email.parser import BytesParser
 from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterator
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 TOOL_NAME = "case-uco-document-normalize"
 # 0.11.0: tool-neutral identifiers (urn:case-uco-sdk:anchor:, source-file-kind:,
@@ -374,6 +374,56 @@ def ocr_available() -> bool:
     return shutil.which(OCR_COMMAND) is not None
 
 
+MAX_SOURCE_URL_LENGTH = 2048
+
+
+def capture_provenance_metadata(
+    source_url: str | None = None,
+    retrieved_at: str | None = None,
+    http_status: int | None = None,
+) -> dict[str, Any]:
+    """Check capture provenance and return it as ``safe_metadata`` keys.
+
+    ``source_url`` must be an absolute http(s) URL without credentials.
+    ``retrieved_at`` is an ISO 8601 date or date-time; only a date-time
+    becomes ``uco-action:endTime``. ``retrieved_at`` and ``http_status``
+    need a ``source_url``.
+    """
+
+    if source_url is None:
+        if retrieved_at is not None or http_status is not None:
+            raise ValueError("capture_requires_source_url")
+        return {}
+    url = str(source_url).strip()
+    parsed = urlparse(url)
+    if (
+        len(url) > MAX_SOURCE_URL_LENGTH
+        or parsed.scheme.lower() not in {"http", "https"}
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or any(ch.isspace() or ord(ch) < 32 or ord(ch) == 127 for ch in url)
+    ):
+        raise ValueError("source_url_invalid")
+    metadata: dict[str, Any] = {"source_url": url}
+    if retrieved_at is not None:
+        text = str(retrieved_at).strip()
+        try:
+            if "T" in text or " " in text:
+                metadata["retrieved_at"] = datetime.fromisoformat(
+                    text.replace("Z", "+00:00")
+                ).isoformat()
+            else:
+                metadata["retrieved_on"] = date.fromisoformat(text).isoformat()
+        except ValueError as exc:
+            raise ValueError("retrieved_at_invalid") from exc
+    if http_status is not None:
+        if isinstance(http_status, bool) or not isinstance(http_status, int) or not 100 <= http_status <= 599:
+            raise ValueError("http_status_invalid")
+        metadata["http_status"] = http_status
+    return metadata
+
+
 def process_document_file(
     source_path: str | Path,
     output_path: str | Path,
@@ -386,8 +436,21 @@ def process_document_file(
     source_row_max: int | None = None,
     partition_worksheets: bool = False,
     max_rows_per_graph: int | None = None,
+    source_url: str | None = None,
+    retrieved_at: str | None = None,
+    http_status: int | None = None,
 ) -> ProcessedDocument:
-    """Process a supported local document file and write CASE/UCO JSON-LD."""
+    """Process a supported local document file and write CASE/UCO JSON-LD.
+
+    ``source_url``, ``retrieved_at`` and ``http_status`` record where a
+    captured file came from (see docs/recipes/public-record-capture.md):
+    the graph gains a ``uco-observable:URL`` and an
+    ``InvestigativeAction`` retrieving it, with the source file as result.
+    """
+
+    capture = capture_provenance_metadata(source_url, retrieved_at, http_status)
+    if capture:
+        safe_metadata = {**(safe_metadata or {}), **capture}
 
     # Enforce the deployment filesystem policy (workspace_policy) before any
     # I/O: reads must stay inside configured read roots, writes inside the
@@ -463,37 +526,36 @@ def process_document_file(
         annotations_path: Path | None = None
         run_id = derive_run_id(source, sha256, kind)
         extracted_doc = build_extracted_content_document(sha256, kind, content)
-        annotations_doc = build_annotations_document(run_id, content)
+        # Stem-specific sidecars are the bundle this call returns: graphs that
+        # share a directory keep one bundle each, and the annotations target
+        # the stem-specific content file, so the pair stays self-consistent.
+        stem_extracted = output.parent / f"{output.stem}.extracted-content.json"
+        stem_annotations = output.parent / f"{output.stem}.annotations.jsonld"
+        annotations_doc = build_annotations_document(
+            run_id, content, extracted_filename=stem_extracted.name
+        )
         if extracted_doc is not None and annotations_doc is not None:
             extracted_payload = json.dumps(extracted_doc, indent=2, ensure_ascii=False) + "\n"
-            annotations_payload = json.dumps(annotations_doc, indent=2, ensure_ascii=False) + "\n"
-            # Shared sidecar names collide when many worksheet graphs share a
-            # directory. Worksheet partitions write stem-specific sidecars only.
+            stem_extracted.write_text(extracted_payload, encoding="utf-8")
+            stem_annotations.write_text(
+                json.dumps(annotations_doc, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+            extracted_content_path = stem_extracted
+            annotations_path = stem_annotations
+            # The shared names are kept for single-document directories. Each
+            # document processed into the directory overwrites them, so they
+            # describe the latest document only and are never returned.
+            # Worksheet partitions share a directory by design and skip them.
             if worksheet is None:
-                extracted_content_path = output.parent / EXTRACTED_CONTENT_FILENAME
-                annotations_path = output.parent / ANNOTATIONS_FILENAME
-                extracted_content_path.write_text(extracted_payload, encoding="utf-8")
-                annotations_path.write_text(annotations_payload, encoding="utf-8")
-            else:
-                extracted_content_path = output.parent / f"{output.stem}.extracted-content.json"
-                annotations_path = output.parent / f"{output.stem}.annotations.jsonld"
-                extracted_content_path.write_text(extracted_payload, encoding="utf-8")
-                annotations_path.write_text(annotations_payload, encoding="utf-8")
-            # Stem-specific sidecars so multi-PDF PACER folders do not overwrite
-            # one another when graphs share a directory.
-            stem_extracted = output.parent / f"{output.stem}.extracted-content.json"
-            stem_annotations = output.parent / f"{output.stem}.annotations.jsonld"
-            if stem_extracted != extracted_content_path:
-                stem_extracted.write_text(extracted_payload, encoding="utf-8")
-            if stem_annotations != annotations_path:
-                stem_anno = build_annotations_document(
-                    run_id, content, extracted_filename=stem_extracted.name
+                shared_annotations_doc = build_annotations_document(run_id, content)
+                (output.parent / EXTRACTED_CONTENT_FILENAME).write_text(
+                    extracted_payload, encoding="utf-8"
                 )
-                if stem_anno is not None:
-                    stem_annotations.write_text(
-                        json.dumps(stem_anno, indent=2, ensure_ascii=False) + "\n",
-                        encoding="utf-8",
-                    )
+                (output.parent / ANNOTATIONS_FILENAME).write_text(
+                    json.dumps(shared_annotations_doc, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
 
         progress.emit("write_graph", "Wrote graph artifact to the case run directory.", 90)
         progress.emit("completed", "case-uco document preprocessing completed.", 100)
@@ -561,6 +623,39 @@ def normalize_file_kind(file_kind: str | None, source: Path) -> str:
     if ext in SUPPORTED_ARCHIVE_EXTENSIONS:
         return "archive"
     raise ValueError("unsupported_file_kind")
+
+
+REVIEW_TEXT_SKIPPED_KINDS = frozenset({"receipt_image", "archive"})
+
+
+def review_text(source: Path) -> tuple[str, str]:
+    """Plain document text for a reviewer excerpt, and how it was obtained.
+
+    Uses the same extractors as :func:`process_document_file`. Returns
+    ``("", "no_extractor")`` for formats without a text extractor (and for
+    images and archives, which would need OCR or unpacking), and
+    ``("", "no_text_extracted")`` when extraction finds no text.
+    """
+
+    try:
+        kind = normalize_file_kind(None, source)
+        oversized = source.stat().st_size > MAX_BYTES
+    except (ValueError, OSError):
+        return "", "no_extractor"
+    if kind in REVIEW_TEXT_SKIPPED_KINDS or oversized:
+        return "", "no_extractor"
+    try:
+        content = extract_content(source, kind)
+    except (ValueError, OSError):
+        return "", "no_text_extracted"
+    canonical = content.canonical or {}
+    if canonical.get("kind") == "text":
+        text = "\n".join(str(s.get("text") or "") for s in canonical.get("sections") or [])
+    else:
+        text = str(content.summary_fields.get("extracted_text") or "") or "\n".join(
+            record.text for record in content.records if record.text
+        )
+    return (text, f"{kind}_text") if text.strip() else ("", "no_text_extracted")
 
 
 def extract_content(
@@ -3925,6 +4020,9 @@ def build_case_uco_graph(
         ],
     }
 
+    capture_nodes = _capture_nodes(run_id, source_id, file_name, safe_metadata)
+    compilation_node["uco-core:object"].extend({"@id": n["@id"]} for n in capture_nodes)
+
     action_node = {
         "@id": action_id,
         "@type": "case-investigation:InvestigativeAction",
@@ -3947,10 +4045,63 @@ def build_case_uco_graph(
             tool_node,
             action_node,
             compilation_node,
+            *capture_nodes,
             *record_nodes,
             *relationship_nodes,
         ],
     }
+
+
+def _capture_nodes(
+    run_id: uuid.UUID,
+    source_id: str,
+    file_name: str,
+    safe_metadata: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """URL and retrieval action for a captured source file, if known."""
+
+    source_url = safe_metadata.get("source_url")
+    if not source_url:
+        return []
+    url_id = f"urn:uuid:{uuid.uuid5(run_id, 'capture-url')}"
+    url_node = {
+        "@id": url_id,
+        "@type": "uco-observable:URL",
+        "uco-core:hasFacet": [
+            {
+                "@id": f"urn:uuid:{uuid.uuid5(run_id, 'capture-url-facet')}",
+                "@type": "uco-observable:URLFacet",
+                "uco-observable:fullValue": str(source_url),
+            }
+        ],
+    }
+    retrieval: dict[str, Any] = {
+        "@id": f"urn:uuid:{uuid.uuid5(run_id, 'capture-retrieval')}",
+        "@type": "case-investigation:InvestigativeAction",
+        "uco-core:name": f"Retrieval of {file_name}",
+        "uco-action:object": {"@id": url_id},
+        "uco-action:result": {"@id": source_id},
+    }
+    if safe_metadata.get("retrieved_at"):
+        retrieval["uco-action:endTime"] = {
+            "@type": "xsd:dateTime",
+            "@value": str(safe_metadata["retrieved_at"]),
+        }
+    elif safe_metadata.get("retrieved_on"):
+        retrieval["uco-core:description"] = (
+            f"Retrieved on {safe_metadata['retrieved_on']} (date only; no "
+            "endTime is written because the capture record has no time)."
+        )
+    if safe_metadata.get("http_status") is not None:
+        retrieval["uco-core:hasFacet"] = [
+            {
+                "@id": f"urn:uuid:{uuid.uuid5(run_id, 'capture-http-status')}",
+                "@type": "uco-action:ActionArgumentFacet",
+                "uco-action:argumentName": "http_status",
+                "uco-action:value": str(safe_metadata["http_status"]),
+            }
+        ]
+    return [url_node, retrieval]
 
 
 def sanitize_document_text(value: str) -> str:
@@ -4009,6 +4160,9 @@ def cli_main(argv: list[str] | None = None) -> int:
     parser.add_argument("--worksheet")
     parser.add_argument("--partition-worksheets", action="store_true")
     parser.add_argument("--max-rows-per-graph", type=int)
+    parser.add_argument("--source-url")
+    parser.add_argument("--retrieved-at")
+    parser.add_argument("--http-status", type=int)
     args = parser.parse_args(argv)
     try:
         result = process_document_file(
@@ -4020,6 +4174,9 @@ def cli_main(argv: list[str] | None = None) -> int:
             worksheet=args.worksheet,
             partition_worksheets=args.partition_worksheets,
             max_rows_per_graph=args.max_rows_per_graph,
+            source_url=args.source_url,
+            retrieved_at=args.retrieved_at,
+            http_status=args.http_status,
         )
     except ValueError as exc:
         print(str(exc), file=sys.stderr)

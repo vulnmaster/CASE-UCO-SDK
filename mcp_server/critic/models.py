@@ -311,6 +311,8 @@ class ValidationSummary:
     relationship_lint_findings: list[dict[str, Any]] = field(default_factory=list)
     error_code: str | None = None
     safe_summary: str = ""
+    violation_details: list[dict[str, str | None]] = field(default_factory=list)
+    violation_details_truncated: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

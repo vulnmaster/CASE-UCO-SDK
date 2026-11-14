@@ -882,8 +882,8 @@ def build_graph() -> dict:
     # Overt acts (Third Superseding Indictment paras. 4-42) as actions,
     # giving the graph a queryable timeline of the conspiracy. Counts 1-3
     # incorporate these paragraphs as their overt acts (paras. 48, 55, 59).
-    # Each action has a single uco-action:performer; the co-defendant's
-    # involvement is a Participated_In relationship.
+    # Each action has a single uco-action:performer; the co-defendant is a
+    # uco-action:participant.
     # ------------------------------------------------------------------
     overt_acts = [
         {
@@ -1088,10 +1088,10 @@ def build_graph() -> dict:
             node["uco-action:object"] = [{"@id": o} for o in act["objects"]]
         if act.get("results"):
             node["uco-action:result"] = [{"@id": r} for r in act["results"]]
+        if act.get("also"):
+            node["uco-action:participant"] = [{"@id": o} for o in act["also"]]
         graph.append(node)
         graph.append(rel(uid(act["label"]), conspiracy_charge, "Overt_Act_In_Furtherance_Of"))
-        for other in act.get("also", []):
-            graph.append(rel(other, uid(act["label"]), "Participated_In"))
     graph.append(rel(uid("act-odell-false-statement"), uid("charge-count44"), "Basis_Of"))
 
     # ------------------------------------------------------------------

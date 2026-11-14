@@ -467,6 +467,10 @@ def test_xlsx_worksheet_filter_emits_one_sheet(tmp_path: Path) -> None:
     assert not any("Synthetic spreadsheet cell Bravo" in text for text in texts)
     assert not (tmp_path / "extracted-content.json").exists()
     assert (tmp_path / "transactions.extracted-content.json").is_file()
+    # The worksheet's annotations target the content file that was written.
+    annotations = json.loads(result.annotations_path.read_text(encoding="utf-8"))
+    sources = {item["target"]["source"].split("#")[0] for item in annotations["@graph"]}
+    assert sources == {"transactions.extracted-content.json"}
 
 
 def test_xlsx_partition_worksheets_writes_index_and_parts(tmp_path: Path) -> None:
@@ -1132,6 +1136,46 @@ def test_case_graph_vocabulary_unchanged_by_bundle(tmp_path: Path) -> None:
     assert "anno.jsonld" not in raw
 
 
+def test_two_documents_in_one_directory_keep_their_own_bundles(tmp_path: Path) -> None:
+    """Issue #92: the returned sidecar paths must still describe their own
+    document after a second document is processed into the same directory."""
+    out_dir = tmp_path / "out"
+    first_source = tmp_path / "a.txt"
+    second_source = tmp_path / "b.txt"
+    first_source.write_text(
+        "Memo one. The laptop was seized on 2024-01-15 by Agent Smith.\n", encoding="utf-8"
+    )
+    second_source.write_text(
+        "Memo two. The phone was imaged on 2024-02-20 by Agent Jones.\n", encoding="utf-8"
+    )
+    first = document_processor.process_document_file(
+        first_source, out_dir / "a.jsonld", file_kind="plain_text"
+    )
+    second = document_processor.process_document_file(
+        second_source, out_dir / "b.jsonld", file_kind="plain_text"
+    )
+
+    assert first.extracted_content_path == out_dir / "a.extracted-content.json"
+    assert first.annotations_path == out_dir / "a.annotations.jsonld"
+    assert second.extracted_content_path == out_dir / "b.extracted-content.json"
+    assert second.annotations_path == out_dir / "b.annotations.jsonld"
+
+    for result in (first, second):
+        assert result.extracted_content_path is not None
+        assert result.annotations_path is not None
+        extracted = json.loads(result.extracted_content_path.read_text(encoding="utf-8"))
+        assert extracted["source_sha256"] == result.sha256
+        annotations = json.loads(result.annotations_path.read_text(encoding="utf-8"))
+        sources = {item["target"]["source"].split("#")[0] for item in annotations["@graph"]}
+        assert sources == {result.extracted_content_path.name}
+    assert first.sha256 != second.sha256
+
+    # The shared names remain for single-document directories and describe
+    # the document processed last.
+    shared = json.loads((out_dir / "extracted-content.json").read_text(encoding="utf-8"))
+    assert shared["source_sha256"] == second.sha256
+
+
 def test_cli_reports_bundle_paths(tmp_path: Path, capsys) -> None:
     source = tmp_path / "table.csv"
     source.write_text("item,total\nalpha,12.34\n", encoding="utf-8")
@@ -1140,8 +1184,8 @@ def test_cli_reports_bundle_paths(tmp_path: Path, capsys) -> None:
     )
     assert exit_code == 0
     payload = json.loads(capsys.readouterr().out)
-    assert payload["extracted_content_path"].endswith("extracted-content.json")
-    assert payload["annotations_path"].endswith("annotations.jsonld")
+    assert payload["extracted_content_path"] == str(tmp_path / "out.extracted-content.json")
+    assert payload["annotations_path"] == str(tmp_path / "out.annotations.jsonld")
 
 
 # ---------------------------------------------------------------------------
@@ -1251,3 +1295,73 @@ def test_plain_text_warrant_emits_investigation_and_typed_address(
     ]
     assert any(address in value for value in string_values)
     assert not any(broken in value for value in string_values)
+
+
+def _capture(tmp_path: Path, **capture) -> list[dict]:
+    source = tmp_path / "order.csv"
+    source.write_text("item,total\nalpha,12.34\n", encoding="utf-8")
+    output = tmp_path / "order.jsonld"
+    document_processor.process_document_file(source, output, **capture)
+    return graph_nodes(output)
+
+
+def test_capture_provenance_records_url_and_retrieval(tmp_path: Path) -> None:
+    nodes = _capture(
+        tmp_path,
+        source_url="https://records.example.org/orders/1.csv",
+        retrieved_at="2026-10-07T22:32:51Z",
+        http_status=200,
+    )
+    [url] = nodes_of_type(nodes, "uco-observable:URL")
+    assert url["uco-core:hasFacet"][0]["uco-observable:fullValue"] == (
+        "https://records.example.org/orders/1.csv"
+    )
+    [retrieval] = [
+        n for n in nodes_of_type(nodes, "case-investigation:InvestigativeAction")
+        if n.get("uco-action:object") == {"@id": url["@id"]}
+    ]
+    [source] = [n for n in nodes if "source-file-kind:" in str(n.get("uco-core:tag"))]
+    assert retrieval["uco-action:result"] == {"@id": source["@id"]}
+    assert retrieval["uco-action:endTime"] == {
+        "@type": "xsd:dateTime", "@value": "2026-10-07T22:32:51+00:00",
+    }
+    [status] = retrieval["uco-core:hasFacet"]
+    assert (status["uco-action:argumentName"], status["uco-action:value"]) == ("http_status", "200")
+
+    from case_uco.validation.graph import validate_graph_file, validator_available
+
+    if validator_available():
+        report = validate_graph_file(tmp_path / "order.jsonld")
+        assert report.conforms is True, report.safe_summary
+
+
+def test_capture_date_only_writes_no_end_time(tmp_path: Path) -> None:
+    nodes = _capture(
+        tmp_path, source_url="https://records.example.org/orders/1.csv", retrieved_at="2026-10-07"
+    )
+    [retrieval] = [n for n in nodes if str(n.get("uco-core:name", "")).startswith("Retrieval of")]
+    assert "uco-action:endTime" not in retrieval
+    assert "2026-10-07" in retrieval["uco-core:description"]
+
+
+def test_no_capture_provenance_leaves_graph_unchanged(tmp_path: Path) -> None:
+    nodes = _capture(tmp_path)
+    assert not nodes_of_type(nodes, "uco-observable:URL")
+    assert not [n for n in nodes if str(n.get("uco-core:name", "")).startswith("Retrieval of")]
+
+
+@pytest.mark.parametrize(
+    ("capture", "error"),
+    [
+        ({"source_url": "file:///etc/passwd"}, "source_url_invalid"),
+        ({"source_url": "https://user:secret@records.example.org/x"}, "source_url_invalid"),
+        ({"source_url": "https://records.example.org/a b"}, "source_url_invalid"),
+        ({"source_url": "records.example.org/x"}, "source_url_invalid"),
+        ({"source_url": "https://records.example.org/x", "retrieved_at": "yesterday"}, "retrieved_at_invalid"),
+        ({"source_url": "https://records.example.org/x", "http_status": 99}, "http_status_invalid"),
+        ({"retrieved_at": "2026-10-07"}, "capture_requires_source_url"),
+    ],
+)
+def test_capture_provenance_rejects_bad_values(tmp_path: Path, capture: dict, error: str) -> None:
+    with pytest.raises(ValueError, match=error):
+        _capture(tmp_path, **capture)

@@ -199,3 +199,34 @@
         sh:message "hasFile must reference uco-observable:File instances"@en ;
     ] .
 
+
+#################################################################
+#    FileSet and ArtifactSet Shapes
+#    The members of a set are named with hasFile / hasArtifact.
+#    Both properties were declared only with rdfs:domain, so a
+#    tool that builds classes from shapes offered no way to state
+#    the members except uco-core:object, inherited from
+#    uco-core:ContextualCompilation.
+#################################################################
+
+:FileSetShape a sh:NodeShape ;
+    sh:targetClass solveit-observable:FileSet ;
+    rdfs:label "File Set Shape"@en ;
+    rdfs:comment "Validates that the members of a FileSet, named with hasFile, are files."@en ;
+    sh:property [
+        sh:path solveit-observable:hasFile ;
+        sh:class uco-observable:File ;
+        sh:nodeKind sh:IRI ;
+        sh:message "hasFile must reference uco-observable:File instances"@en ;
+    ] .
+
+:ArtifactSetShape a sh:NodeShape ;
+    sh:targetClass solveit-observable:ArtifactSet ;
+    rdfs:label "Artifact Set Shape"@en ;
+    rdfs:comment "Validates that the members of an ArtifactSet, named with hasArtifact, are observable objects."@en ;
+    sh:property [
+        sh:path solveit-observable:hasArtifact ;
+        sh:class uco-observable:ObservableObject ;
+        sh:nodeKind sh:IRI ;
+        sh:message "hasArtifact must reference uco-observable:ObservableObject instances"@en ;
+    ] .

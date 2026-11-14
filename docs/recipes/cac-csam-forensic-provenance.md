@@ -63,7 +63,7 @@ from case_uco import CASEGraph
 graph = CASEGraph(extra_context={
     "cacontology-forensics": "https://cacontology.projectvic.org/forensics#",
 })
-acq = graph.add_node("kb:acq-1", "cacontology-forensics:ForensicAcquisitionAction", {
+acq = graph.upsert_node("kb:acq-1", types=["cacontology-forensics:ForensicAcquisitionAction"], properties={
     "uco-core:name": "Acquisition of seized device",
 })
 graph.write("csam-forensics.jsonld")

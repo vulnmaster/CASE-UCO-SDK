@@ -15,13 +15,13 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/observable/sqlite> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/sqlite/0.2.11> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/sqlite/0.2.17> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/core/1.5.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/observable/1.5.0> ;
     dcterms:title "SOLVE-IT SQLite Module"@en ;
     dcterms:description "SQLite database structural representation for digital forensic analysis, including logical structure (tables, schemas, records), physical structure (pages), and WAL/journal representations."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.2.11" ;
+    owl:versionInfo "0.2.17" ;
     rdfs:label "SOLVE-IT SQLite Module"@en .
 
 #################################################################
@@ -149,7 +149,7 @@ solveit-observable:hasField rdf:type owl:ObjectProperty ;
 solveit-observable:recoveredFromPage rdf:type owl:ObjectProperty ;
     rdfs:range solveit-observable:SQLitePage ;
     rdfs:label "recovered from page"@en ;
-    rdfs:comment "The page from which this record was physically recovered. Deliberately has no rdfs:domain. Where bytes were found is a fact about them, true whether or not the reconstruction they support turns out to be correct, so it must be assertable of a solveit-analysis:HypothesisedRecord as readily as of an observed record. A domain of SQLiteRecord would not restrict that usage - rdfs:domain is an entailment rule, not a constraint - it would silently infer any hypothesis carrying this property to be an observed record, while still validating. A live record is in a page rather than recovered from one, so restricting the property to observed records would in any case have excluded the only case it was written for."@en .
+    rdfs:comment "The page from which this record was physically recovered. Where bytes were found is a fact about them, true whether or not the reconstruction they support turns out to be correct, so the property is used of a solveit-analysis:HypothesisedRecord. A live record is in a page rather than recovered from one. The property deliberately has no rdfs:domain: rdfs:domain is an entailment rule, not a constraint, so a domain of SQLiteRecord would not stop a hypothesis using the property but would infer it to be an observed record. Its use is checked instead by the SHACL constraint on solveit-analysis:HypothesisedRecord in solve_it_analysis_shapes.ttl. The page is optional, because a record carved from unallocated disk space may not be traceable to any page."@en .
 
 solveit-observable:definedBy rdf:type owl:ObjectProperty ;
     rdfs:domain solveit-observable:SQLiteField ;

@@ -377,7 +377,7 @@ atk:transition-tr1
 #################################################################
 
 atk:action-fl-coerce
-	a uco-action:Action , fl:a_coerce ;
+	a uco-action:Action , fl:a_coerce_labor ;
 	uco-core:name "Maintain control over minors for labor (dependency + threats)" ;
 	uco-core:description "Total dependency on Atkinson and wife; father/son framing; digital access demands. Labor-control coercion overlapping sex-trafficking control — same actors/housing." ;
 	uco-action:performer atk:person-atkinson ;
@@ -825,29 +825,3 @@ atk:esm-atkinson
 		atk:evidence-child-sex-trafficking ,
 		atk:evidence-charges ;
 	lay:hasAggregateModel atk:model-composition .
-
-#################################################################
-# Forced-labor phase individuals this layer occupies.
-# This tree has no forced-labor package. These are alphabet
-# individuals (traj:State), not a second extension.
-#################################################################
-
-fl:PhaseScheme
-	a skos:ConceptScheme ;
-	skos:prefLabel "Forced-labor offense phases"@en .
-
-fl:Recruitment
-	a traj:State , skos:Concept ;
-	uco-core:name "Recruitment" ;
-	skos:inScheme fl:PhaseScheme .
-
-fl:Control
-	a traj:State , skos:Concept ;
-	uco-core:name "Control" ;
-	skos:inScheme fl:PhaseScheme .
-
-fl:ForcedLabor
-	a traj:State , skos:Concept ;
-	uco-core:name "Forced labor" ;
-	skos:inScheme fl:PhaseScheme .
-

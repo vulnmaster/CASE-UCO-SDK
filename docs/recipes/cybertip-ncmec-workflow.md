@@ -171,13 +171,13 @@ cybertip_action = graph.create(InvestigativeAction,
 report_action.result = [cybertip_action]
 
 # CyberTip artifact with direct incident-type link
-incident_type = graph.add_node("kb:incident-type-1", [
+incident_type = graph.upsert_node("kb:incident-type-1", types=[
     "uco-core:UcoObject", "cacontology-us-ncmec:OnlineEnticementIncident",
-], {"uco-core:name": "Online Enticement of Children for Sexual Acts"})
+], properties={"uco-core:name": "Online Enticement of Children for Sexual Acts"})
 
-cybertip = graph.add_node("kb:cybertip-1", [
+cybertip = graph.upsert_node("kb:cybertip-1", types=[
     "uco-observable:ObservableObject", "cacontology-us-ncmec:NCMECCybertipReport",
-], {
+], properties={
     "uco-core:name": "CyberTipline Report #CT-2025-04-12-00001",
     "cacontology-us-ncmec:hasNCMECIncidentType": {"@id": "kb:incident-type-1"},
 })
@@ -189,9 +189,9 @@ investigation = graph.create(Investigation,
     extra_types=["cacontology:CACInvestigation"])
 
 # Investigation trigger
-trigger = graph.add_node("kb:trigger-1", [
+trigger = graph.upsert_node("kb:trigger-1", types=[
     "uco-core:UcoObject", "cacontology-us-ncmec:InvestigationTrigger",
-], {
+], properties={
     "cacontology-us-ncmec:triggeredBy": {"@id": "kb:cybertip-1"},
     "cacontology-us-ncmec:resultedInInvestigation": {"@id": investigation.id},
     "cacontology-us-ncmec:triggerCriteria": "victim_age",
@@ -199,9 +199,9 @@ trigger = graph.add_node("kb:trigger-1", [
 })
 
 # Platform cooperation with direct property
-cooperation = graph.add_node("kb:coop-1", [
+cooperation = graph.upsert_node("kb:coop-1", types=[
     "uco-observable:ObservableObject", "cacontology-us-ncmec:PlatformCooperation",
-], {
+], properties={
     "uco-core:name": "Snap Inc. Platform Cooperation",
     "cacontology-us-ncmec:cooperationLevel": "full",
     "cacontology-us-ncmec:dataProvided": "account_info, content, metadata",

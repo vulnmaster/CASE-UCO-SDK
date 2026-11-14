@@ -29,14 +29,42 @@
 #    Restating it would require a sh:sparql constraint counting rdf:type
 #    values that are SOLVE-IT technique classes, which buys nothing.
 #
-#    The target class itself remains available for future occurrence-level
-#    constraints (for example on appliedMitigation).
+#    The shape below replaces it with an occurrence-level constraint on
+#    appliedMitigation.
 #
 #    Note on targeting: sh:targetClass selects SHACL instances, which follow
 #    rdf:type then rdfs:subClassOf* . An action typed only with its technique
 #    class is therefore still selected by a shape targeting
 #    solveit-core:SolveitInvestigativeAction, with no reasoner required.
+#
+#    appliedMitigation was declared only with rdfs:domain, so tools that
+#    build classes from shapes (the CASE-UCO SDK among them) offered no way
+#    to state it. The values are constrained to IRIs and not to
+#    sh:class solveit-core:Mitigation: an action names a mitigation by its
+#    knowledge base IRI (solveit-data:mitigationDFM-NNNN), and the data graph
+#    being validated does not usually contain the knowledge base, so a class
+#    constraint would reject every such action.
+#
+#    The sh:or names Mitigation as the expected class without requiring it:
+#    its second branch accepts any IRI, so it validates exactly as the
+#    sh:nodeKind alone does. It is there because shape-driven generators take
+#    a property's type from sh:class, sh:datatype or sh:or, and drop a
+#    property shape that has none of them.
 #################################################################
+
+:SolveitInvestigativeActionShape a sh:NodeShape ;
+    sh:targetClass solveit-core:SolveitInvestigativeAction ;
+    rdfs:label "SOLVE-IT Investigative Action Shape"@en ;
+    rdfs:comment "Validates that the mitigations an action applied, named with appliedMitigation, are IRIs."@en ;
+    sh:property [
+        sh:path solveit-core:appliedMitigation ;
+        sh:nodeKind sh:IRI ;
+        sh:or (
+            [ sh:class solveit-core:Mitigation ]
+            [ sh:nodeKind sh:IRI ]
+        ) ;
+        sh:message "appliedMitigation must reference a mitigation by IRI, such as a knowledge base mitigation solveit-data:mitigationDFM-NNNN"@en ;
+    ] .
 
 #################################################################
 #    Technique Shape

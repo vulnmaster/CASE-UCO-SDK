@@ -995,3 +995,71 @@ def test_grouping_membership_is_a_container(tmp_path):
     rules = {finding.rule_id for finding in findings}
     assert "CRIT-H-CONTEXTUAL-COMPILATION-OMISSION" not in rules
     assert "CRIT-H-DERIVED-NO-PROVENANCE" not in rules
+
+
+def _hash_execution(rule_id: str = "CRIT-C-SOURCE-HASH") -> dict:
+    return {"rule_id": rule_id, "status": "evaluated", "verifies_rule_ids": [rule_id]}
+
+
+def test_matching_source_hash_scores_provenance_not_source_fidelity():
+    """#112: a hash match says which file it is, not that the graph agrees with it."""
+    validation = ValidationSummary(conforms=True, verification_status="complete")
+    score = build_deterministic_scorecard(
+        validation, [], has_sources=True, has_serializer=False,
+        has_coverage_contract=False, rule_executions=[_hash_execution()],
+    )
+    assert score.source_fidelity.assessed is False
+    assert score.coverage_completeness.assessed is False
+    assert (score.provenance_custody.assessed, score.provenance_custody.score) == (True, 4)
+
+
+def test_source_hash_mismatch_caps_provenance():
+    validation = ValidationSummary(conforms=True, verification_status="complete")
+    mismatch = CriticFinding(
+        finding_id="CRIT-hash", severity="high", category="source_fidelity", confidence=0.9,
+        status="new", target=CriticTarget(node_id="kb:File-1"), evidence_kind="source",
+        evidence=[], rationale="", recommended_change="", verification_method="",
+        rule_id="CRIT-C-SOURCE-HASH-MISMATCH", verifier_rule_id="CRIT-C-SOURCE-HASH",
+    )
+    score = build_deterministic_scorecard(
+        validation, [mismatch], has_sources=True, has_serializer=False,
+        has_coverage_contract=False,
+        rule_executions=[_hash_execution("CRIT-C-SOURCE-HASH-MISMATCH")],
+    )
+    assert score.source_fidelity.assessed is False
+    assert score.provenance_custody.score == 2
+    assert score.provenance_custody.evidence == ["CRIT-hash"]
+
+
+def test_source_excerpts_carry_document_text(tmp_path: Path):
+    import zlib
+
+    from critic.deterministic import _bounded_source_excerpts
+
+    body = zlib.compress(
+        b"BT /F1 12 Tf 72 720 Td (Account 1484775689 belongs to Yara Banerjee.) Tj ET"
+    )
+    pdf = tmp_path / "memo.pdf"
+    pdf.write_bytes(
+        b"%PDF-1.4\n1 0 obj << /Length " + str(len(body)).encode()
+        + b" /Filter /FlateDecode >>\nstream\n" + body + b"\nendstream\nendobj\n%%EOF\n"
+    )
+    note = tmp_path / "note.txt"
+    note.write_text("Plain note text.", encoding="utf-8")
+    unknown = tmp_path / "blob.unknownext"
+    unknown.write_bytes(b"opaque bytes")
+
+    excerpts = _bounded_source_excerpts(
+        {"source-1:memo.pdf": pdf, "source-2:note.txt": note, "source-3:blob": unknown}
+    )
+    by_path = {e["path"]: e for e in excerpts}
+    assert by_path["source-1:memo.pdf"]["text"] == "Account 1484775689 belongs to Yara Banerjee."
+    assert by_path["source-1:memo.pdf"]["extraction"] == "pdf_text"
+    assert "%PDF" not in by_path["source-1:memo.pdf"]["text"]
+    assert by_path["source-2:note.txt"]["text"] == "Plain note text."
+    assert by_path["source-3:blob"] == {
+        "path": "source-3:blob",
+        "sha256": hashlib.sha256(b"opaque bytes").hexdigest(),
+        "text": "opaque bytes",
+        "extraction": "raw_bytes",
+    }

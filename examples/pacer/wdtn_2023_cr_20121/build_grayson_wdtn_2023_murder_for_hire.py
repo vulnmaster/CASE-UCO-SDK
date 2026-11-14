@@ -624,13 +624,13 @@ def build_graph() -> dict:
     # Behavior actions
     # ------------------------------------------------------------------
     def action(label: str, name: str, description: str, performers: list[str],
+               participants: list[str] | None = None,
                objects: list[str] | None = None,
                instruments: list[str] | None = None,
                loc: str | None = None,
                start: str | None = None, end: str | None = None) -> str:
         # uco-action:performer has max cardinality 1; the first performer is
-        # the primary actor and co-actors are linked with Participated_In
-        # relationships.
+        # the primary actor and co-actors are uco-action:participant values.
         node: dict = {
             "@id": uid(label),
             "@type": "uco-action:Action",
@@ -638,8 +638,9 @@ def build_graph() -> dict:
             "uco-core:description": description,
             "uco-action:performer": {"@id": performers[0]},
         }
-        for co_actor in performers[1:]:
-            graph.append(rel(co_actor, uid(label), "Participated_In"))
+        co_actors = performers[1:] + (participants or [])
+        if co_actors:
+            node["uco-action:participant"] = [{"@id": p} for p in co_actors]
         if objects:
             node["uco-action:object"] = [{"@id": o} for o in objects]
         if instruments:
@@ -730,6 +731,7 @@ def build_graph() -> dict:
         + src_ref("press", "paras. 7-8") + "; "
         + src_ref("docket", "minute entries 114-126"),
         performers=[fbi, atf],
+        participants=[agent_hosafros],
         objects=[ashley, joshua],
     )
     for act in (act_recruit, act_solicit, act_confirm, act_stage,
@@ -738,7 +740,6 @@ def build_graph() -> dict:
     graph.append(rel(act_solicit, charge_ashley, "Relates_To"))
     graph.append(rel(act_confirm, charge_ashley, "Relates_To"))
     graph.append(rel(act_pay, charge_ashley, "Relates_To"))
-    graph.append(rel(agent_hosafros, act_investigate, "Participated_In"))
     graph.append(rel(agent_hosafros, fbi, "Member_Of"))
 
     # ------------------------------------------------------------------

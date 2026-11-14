@@ -17,7 +17,7 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/observable> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/0.2.11> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/0.2.17> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/core/1.5.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/observable/1.5.0> ,
                 <https://ontology.solveit-df.org/solveit/observable/acquisition> ,
@@ -26,7 +26,7 @@
     dcterms:title "SOLVE-IT Observable Module"@en ;
     dcterms:description "Observable objects for SOLVE-IT digital forensics, including video frames and other forensic artifacts. This module imports sub-modules for acquisition, timeline, and search observables."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.2.11" ;
+    owl:versionInfo "0.2.17" ;
     rdfs:label "SOLVE-IT Observable Module"@en .
 
 #################################################################
@@ -346,6 +346,14 @@ solveit-observable:sourceApplication rdf:type owl:ObjectProperty ;
     rdfs:range uco-observable:Application ;
     rdfs:label "source application"@en ;
     rdfs:comment "The application associated with these files."@en .
+
+solveit-observable:writeProtectedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain solveit-observable:WriteProtectedDeviceInterface ;
+    rdfs:range [ a owl:Class ;
+                 owl:unionOf ( uco-observable:Device
+                               uco-core:UcoObject ) ] ;
+    rdfs:label "write protected by"@en ;
+    rdfs:comment "The hardware device or configured software that applies write protection to this interface."@en .
 
 solveit-observable:hasFile rdf:type owl:ObjectProperty ;
     rdfs:domain solveit-observable:FileSet ;

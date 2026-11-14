@@ -223,6 +223,49 @@ namespace CaseUco.Tests
                 graph.Load(@"{ ""@context"": { ""kb"": ""http://example.org/kb/"", ""uco-core"": ""https://evil.example.org/uco/core/"" }, ""@graph"": [] }"));
         }
 
+        private const string CustomKb = "http://example.org/kb/case-42/";
+
+        private static string CustomKbJson()
+        {
+            var graph = new CaseGraph(CustomKb);
+            graph.Add(new Tool { Name = "Custom KB Tool" });
+            return graph.Serialize();
+        }
+
+        private static string ContextKb(string json)
+        {
+            using var doc = JsonDocument.Parse(json);
+            return doc.RootElement.GetProperty("@context").GetProperty("kb").GetString();
+        }
+
+        [Fact]
+        public void FromJsonLd_CustomKbPrefixRoundTrip()
+        {
+            // The SDK's own output with a custom kb reads back.
+            var result = CaseGraph.FromJsonLd(CustomKbJson());
+            Assert.Single(result.Objects);
+            Assert.Equal(CustomKb, ContextKb(result.Graph.Serialize()));
+        }
+
+        [Fact]
+        public void Load_CustomKbPrefixIntoEmptyGraph()
+        {
+            var graph = new CaseGraph();
+            graph.Load(CustomKbJson());
+            Assert.Equal(1, graph.Count);
+            Assert.Equal(CustomKb, ContextKb(graph.Serialize()));
+        }
+
+        [Fact]
+        public void Load_CustomKbPrefixIntoPopulatedGraphStillCollides()
+        {
+            var graph = new CaseGraph();
+            graph.Add(new Tool { Name = "Existing Tool" });
+            var ex = Assert.Throws<ArgumentException>(() => graph.Load(CustomKbJson()));
+            Assert.Contains("Context prefix collision for 'kb'", ex.Message);
+            Assert.Equal(1, graph.Count);
+        }
+
         [Fact]
         public void Load_MergeCompatible_ScalarConflictRaises()
         {
@@ -794,6 +837,58 @@ namespace CaseUco.Tests
         {
             Assert.Throws<FormatException>(() =>
                 CaseGraph.FromJsonLd("{\"@graph\":[{\"@id\":\"kb:t\",\"uco-core:name\":\"bad\\q\"}]}"));
+        }
+
+        private static bool CaseValidateOnPath()
+        {
+            try
+            {
+                var psi = new System.Diagnostics.ProcessStartInfo("case_validate", "--help")
+                {
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                };
+                using var process = System.Diagnostics.Process.Start(psi);
+                process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                return process.ExitCode == 0;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                return false;
+            }
+        }
+
+        [Fact]
+        public void Serialize_KeepsXsdPrefixForTypedLiterals()
+        {
+            var graph = new CaseGraph();
+            graph.UpsertNode("kb:a", "uco-identity:Person");
+            graph.UpsertNode("kb:b", "uco-identity:Organization");
+            graph.CreateRelationship("kb:a", "kb:b", "Employed_By");
+
+            using var doc = JsonDocument.Parse(graph.Serialize());
+            Assert.Equal(
+                "http://www.w3.org/2001/XMLSchema#",
+                doc.RootElement.GetProperty("@context").GetProperty("xsd").GetString());
+        }
+
+        // #111: CreateRelationship mints a non-UUID IRI that UCO reports at sh:Info.
+        [Fact]
+        public void ValidateGraph_AcceptsInfoFromRelationshipIds()
+        {
+            if (!CaseValidateOnPath())
+                return;
+            var graph = new CaseGraph();
+            var a = "kb:person-7f9c2a3e-1b4d-4c6e-9a8f-0d1e2f3a4b5c";
+            var b = "kb:org-2c4e6a8b-3d5f-4a7c-8e9f-1a2b3c4d5e6f";
+            graph.UpsertNode(a, "uco-identity:Person", new Dictionary<string, object> { ["uco-core:name"] = "A" });
+            graph.UpsertNode(b, "uco-identity:Organization", new Dictionary<string, object> { ["uco-core:name"] = "B" });
+            graph.CreateRelationship(a, b, "Employed_By");
+
+            Assert.Contains("sh:Info", graph.ValidateGraph());
+            Assert.Throws<InvalidOperationException>(() => graph.ValidateGraph(allowInfo: false));
         }
     }
 }

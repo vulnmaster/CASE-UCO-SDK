@@ -2,8 +2,9 @@
 
 import io
 import json
-import shutil
 import subprocess
+
+from case_uco.validation.runtime import prepare_validator, validator_available
 from pathlib import Path
 
 import pytest
@@ -264,23 +265,23 @@ def test_embedded_file_at_its_containers_own_path():
     assert len(images) == 2
 
 
-@pytest.mark.skipif(shutil.which("case_validate") is None, reason="case_validate not installed")
+@pytest.mark.skipif(not validator_available(), reason="case_validate not installed")
 def test_ios_report_graph_conforms(tmp_path):
     out = tmp_path / "ios-report.jsonld"
     _ios_graph().write(str(out))
     result = subprocess.run(
-        ["case_validate", "--built-version", "case-1.5.0", str(out)],
+        [*prepare_validator("case-1.5.0").command, "--built-version", "case-1.5.0", str(out)],
         capture_output=True, text=True, timeout=600,
     )
     assert "Conforms: True" in result.stdout, result.stdout[-3000:]
 
 
-@pytest.mark.skipif(shutil.which("case_validate") is None, reason="case_validate not installed")
+@pytest.mark.skipif(not validator_available(), reason="case_validate not installed")
 def test_report_graph_conforms(tmp_path):
     out = tmp_path / "report.jsonld"
     _graph().write(str(out))
     result = subprocess.run(
-        ["case_validate", "--built-version", "case-1.5.0", str(out)],
+        [*prepare_validator("case-1.5.0").command, "--built-version", "case-1.5.0", str(out)],
         capture_output=True, text=True, timeout=600,
     )
     assert "Conforms: True" in result.stdout, result.stdout[-3000:]

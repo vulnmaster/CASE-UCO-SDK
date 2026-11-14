@@ -599,11 +599,81 @@ def test_from_jsonld_roundtrip_context():
     assert "uco-tool" in output["@context"]
 
 
+CUSTOM_KB = "http://example.org/kb/case-42/"
+
+
+def test_from_jsonld_custom_kb_prefix_roundtrip():
+    """The SDK's own output with a custom kb reads back without repeating it."""
+    graph = CASEGraph(kb_prefix=CUSTOM_KB)
+    graph.create(Tool, name="Custom KB Tool")
+
+    graph2, objects = CASEGraph.from_jsonld(graph.serialize())
+    assert len(objects) == 1
+    assert objects[0].name == "Custom KB Tool"
+    assert graph2.kb_prefix == CUSTOM_KB
+    assert json.loads(graph2.serialize())["@context"]["kb"] == CUSTOM_KB
+
+
+def test_load_custom_kb_prefix_into_empty_graph():
+    graph = CASEGraph(kb_prefix=CUSTOM_KB)
+    graph.create(Tool, name="Custom KB Tool")
+
+    target = CASEGraph()
+    target.load(graph.serialize())
+    assert len(target) == 1
+    assert target.kb_prefix == CUSTOM_KB
+
+
+def test_load_custom_kb_prefix_into_populated_graph_still_collides():
+    source = CASEGraph(kb_prefix=CUSTOM_KB)
+    source.create(Tool, name="Custom KB Tool")
+
+    target = CASEGraph()
+    target.create(Tool, name="Existing Tool")
+    try:
+        target.load(source.serialize())
+        assert False, "Expected ValueError"
+    except ValueError as exc:
+        assert "Context prefix collision for 'kb'" in str(exc)
+    assert target.kb_prefix == "http://example.org/kb/"
+    assert len(target) == 1
+
+
+def test_from_jsonld_explicit_kb_prefix_mismatch_still_collides():
+    source = CASEGraph(kb_prefix=CUSTOM_KB)
+    source.create(Tool, name="Custom KB Tool")
+    try:
+        CASEGraph.from_jsonld(source.serialize(), kb_prefix="http://example.org/kb/other/")
+        assert False, "Expected ValueError"
+    except ValueError as exc:
+        assert "Context prefix collision for 'kb'" in str(exc)
+
+
+def test_load_failure_restores_default_kb_prefix():
+    """A load that adopts the document's kb and then fails rolls the kb back."""
+    doc = {
+        "@context": {"kb": CUSTOM_KB, "uco-core": "http://example.org/not-uco/"},
+        "@graph": [],
+    }
+    target = CASEGraph()
+    try:
+        target.load(json.dumps(doc))
+        assert False, "Expected ValueError"
+    except ValueError:
+        pass
+    assert target.kb_prefix == "http://example.org/kb/"
+    assert target._context["kb"] == "http://example.org/kb/"
+
+
 # --- validate tests ---
 
 def test_validate_raises_when_case_validate_missing(monkeypatch):
-    import shutil
-    monkeypatch.setattr(shutil, "which", lambda _name: None)
+    from case_uco.validation import runtime
+
+    def unavailable(*args):
+        raise runtime.ValidatorError("validator_unavailable", "CASE validator is missing")
+
+    monkeypatch.setattr(runtime, "prepare_validator", unavailable)
 
     graph = CASEGraph()
     graph.create(Tool, name="Tool A")
@@ -611,4 +681,4 @@ def test_validate_raises_when_case_validate_missing(monkeypatch):
         graph.validate()
         assert False, "Expected RuntimeError"
     except RuntimeError as exc:
-        assert "case_validate not found" in str(exc)
+        assert "validator_unavailable" in str(exc)

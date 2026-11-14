@@ -50,6 +50,7 @@ renamed during the same server process is picked up on the next check).
 
 from __future__ import annotations
 
+import os
 import hashlib
 import json
 import threading
@@ -472,7 +473,7 @@ def _collect_declared_from_graphs(
 
 
 def load_declared_terms(
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
     extensions: list[str] | None = None,
     *,
     bundle: ResolvedValidationBundle | None = None,
@@ -487,6 +488,7 @@ def load_declared_terms(
 
     Results are cached under a content-addressed fingerprint (CQ-32).
     """
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     path_meta: list[tuple[Path, str, str | None, str | None]] = []
     for path in _core_ontology_paths(project_root):
@@ -682,7 +684,7 @@ def _profile_for_upper_iri(iri: str) -> str | None:
 
 def check_graph_concepts(
     graph_path: str | Path,
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
     extensions: list[str] | None = None,
     selected_profiles: list[str] | None = None,
     *,
@@ -703,6 +705,7 @@ def check_graph_concepts(
     ontology terms fail closed as ``profile_not_selected`` (CQ-29) — they are
     never silently accepted from the global registry.
     """
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     import rdflib
     from rdflib import RDF, URIRef

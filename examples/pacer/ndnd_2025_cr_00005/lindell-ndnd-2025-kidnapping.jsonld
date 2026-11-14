@@ -1118,25 +1118,6 @@
       }
     },
     {
-      "@id": "urn:uuid:18c1c201-3bcd-50ce-bd64-0f6d49bacf6f",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:92e71de5-24e2-5f4b-bb92-c6d89014cd23"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:ab77e0de-8297-5dbf-9392-4659b4495ec6"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:ab77e0de-8297-5dbf-9392-4659b4495ec6",
       "@type": "uco-action:Action",
       "uco-core:name": "Order the kidnapping of Victim A to collect the drug debt",
@@ -1144,6 +1125,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:ed83f702-130e-5803-83f9-aac0f27827ed"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:92e71de5-24e2-5f4b-bb92-c6d89014cd23"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:57f315e6-8aae-5d13-b370-46aecc23eeb0"
@@ -1167,25 +1153,6 @@
       }
     },
     {
-      "@id": "urn:uuid:e5556895-3c41-5b00-84f8-904ec95555a2",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:0d021b12-f5f2-55d6-9ccc-bdb987e28d3d"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:0d021b12-f5f2-55d6-9ccc-bdb987e28d3d",
       "@type": "uco-action:Action",
       "uco-core:name": "Kidnap Victim A at gunpoint and transport him to Moorhead",
@@ -1193,6 +1160,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:6820f49e-6abe-5bc2-a10c-31b9e922374b"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:57f315e6-8aae-5d13-b370-46aecc23eeb0"
@@ -1216,25 +1188,6 @@
       }
     },
     {
-      "@id": "urn:uuid:e782fd7b-eadd-5c71-9d3b-e780553ba1b6",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:f58eff2d-ae25-5817-b4c4-79872f96102a"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:f58eff2d-ae25-5817-b4c4-79872f96102a",
       "@type": "uco-action:Action",
       "uco-core:name": "Hold Victim A for ransom and force calls to family and friends",
@@ -1242,6 +1195,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:6820f49e-6abe-5bc2-a10c-31b9e922374b"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:57f315e6-8aae-5d13-b370-46aecc23eeb0"
@@ -1285,25 +1243,6 @@
       }
     },
     {
-      "@id": "urn:uuid:e7830993-9b62-5bb0-8dcb-c2fef78c8c8b",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:ce504e5a-0b8a-5531-b6b7-5fd0b66da962"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:ce504e5a-0b8a-5531-b6b7-5fd0b66da962",
       "@type": "uco-action:Action",
       "uco-core:name": "Keep Victim A's Ford F-250 after the kidnapping",
@@ -1311,49 +1250,16 @@
       "uco-action:performer": {
         "@id": "urn:uuid:6820f49e-6abe-5bc2-a10c-31b9e922374b"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:b19e4f7a-511e-57f9-bdf6-5380072d053f"
         }
       ]
-    },
-    {
-      "@id": "urn:uuid:c66e2ec8-9258-5ab7-a143-f3fa823f5d31",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:6820f49e-6abe-5bc2-a10c-31b9e922374b"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:3fef9c97-e618-5b20-b11a-4493ac784bea"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:19126e33-d234-583f-a76a-6760d3ee721f",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:3fef9c97-e618-5b20-b11a-4493ac784bea"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
     },
     {
       "@id": "urn:uuid:3fef9c97-e618-5b20-b11a-4493ac784bea",
@@ -1363,6 +1269,14 @@
       "uco-action:performer": {
         "@id": "urn:uuid:ed83f702-130e-5803-83f9-aac0f27827ed"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:6820f49e-6abe-5bc2-a10c-31b9e922374b"
+        },
+        {
+          "@id": "urn:uuid:cdd26ed6-6c77-5e1d-b30c-d33188e74470"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:163029d3-60bf-54ae-9e35-f51283104ff4"

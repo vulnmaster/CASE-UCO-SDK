@@ -17,7 +17,7 @@
     "layered-shapes.ttl"
   ],
   "bridge_files": [],
-  "depends_on": ["trajectories"],
+  "depends_on": ["trajectories", "forced-labor"],
   "exemplar_files": [
     "layered-exemplar.ttl",
     "layered-legal-process.ttl"

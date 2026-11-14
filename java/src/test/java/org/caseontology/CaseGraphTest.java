@@ -246,6 +246,52 @@ public class CaseGraphTest {
         }
     }
 
+    private static final String CUSTOM_KB = "http://example.org/kb/case-42/";
+
+    private static String customKbJson() {
+        CaseGraph graph = new CaseGraph(CUSTOM_KB);
+        Tool tool = new Tool();
+        tool.setName("Custom KB Tool");
+        graph.add(tool);
+        return graph.serialize();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Object contextKb(CaseGraph graph) {
+        return ((Map<String, Object>) graph.toMap().get("@context")).get("kb");
+    }
+
+    @Test
+    public void testFromJsonLdCustomKbPrefixRoundTrip() {
+        // The SDK's own output with a custom kb reads back.
+        CaseGraph.FromJsonLdResult result = CaseGraph.fromJsonLd(customKbJson());
+        assertEquals(1, result.getObjects().size());
+        assertEquals(CUSTOM_KB, contextKb(result.getGraph()));
+    }
+
+    @Test
+    public void testLoadCustomKbPrefixIntoEmptyGraph() {
+        CaseGraph graph = new CaseGraph();
+        graph.load(customKbJson());
+        assertEquals(1, graph.size());
+        assertEquals(CUSTOM_KB, contextKb(graph));
+    }
+
+    @Test
+    public void testLoadCustomKbPrefixIntoPopulatedGraphStillCollides() {
+        CaseGraph graph = new CaseGraph();
+        Tool tool = new Tool();
+        tool.setName("Existing Tool");
+        graph.add(tool);
+        try {
+            graph.load(customKbJson());
+            fail("expected IllegalArgumentException");
+        } catch (IllegalArgumentException expected) {
+            assertTrue(expected.getMessage().contains("Context prefix collision for 'kb'"));
+        }
+        assertEquals(1, graph.size());
+    }
+
     @Test
     public void testClearClassRegistryCacheAndFromJsonLd() {
         CaseGraph.clearClassRegistryCache();
@@ -652,5 +698,41 @@ public class CaseGraphTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidStringEscapeIsRejected() {
         CaseGraph.fromJsonLd("{\"@graph\":[{\"@id\":\"kb:t\",\"uco-core:name\":\"bad\\q\"}]}");
+    }
+
+    private static boolean caseValidateOnPath() {
+        try {
+            Process proc = new ProcessBuilder("case_validate", "--help").redirectErrorStream(true).start();
+            proc.getInputStream().readAllBytes();
+            return proc.waitFor() == 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /** #111: createRelationship mints a non-UUID IRI that UCO reports at sh:Info. */
+    @Test
+    public void testValidateAcceptsInfoFromRelationshipIds() throws Exception {
+        if (!caseValidateOnPath()) {
+            return;
+        }
+        CaseGraph graph = new CaseGraph();
+        String a = "kb:person-7f9c2a3e-1b4d-4c6e-9a8f-0d1e2f3a4b5c";
+        String b = "kb:org-2c4e6a8b-3d5f-4a7c-8e9f-1a2b3c4d5e6f";
+        Map<String, Object> nameA = new LinkedHashMap<>();
+        nameA.put("uco-core:name", "A");
+        Map<String, Object> nameB = new LinkedHashMap<>();
+        nameB.put("uco-core:name", "B");
+        graph.upsertNode(a, "uco-identity:Person", nameA);
+        graph.upsertNode(b, "uco-identity:Organization", nameB);
+        graph.createRelationship(a, b, "Employed_By");
+
+        assertTrue(graph.validate().contains("sh:Info"));
+        try {
+            graph.validate("case-1.5.0", false, false);
+            fail("sh:Info must fail validation when allowInfo is false");
+        } catch (RuntimeException expected) {
+            assertTrue(expected.getMessage().contains("Conforms: False"));
+        }
     }
 }

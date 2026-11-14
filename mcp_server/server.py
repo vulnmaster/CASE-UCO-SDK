@@ -91,6 +91,8 @@ from document_processor import (
     process_document_file as _process_document_file,
 )
 from graph_validator import (
+    MAX_GRAPH_BYTES as _MAX_GRAPH_BYTES,
+    SUPPORTED_GRAPH_EXTENSIONS as _SUPPORTED_GRAPH_EXTENSIONS,
     VALIDATOR_NAME as GRAPH_VALIDATOR_NAME,
     report_to_dict as _validation_report_to_dict,
     validate_graph_file as _validate_graph_file,
@@ -343,6 +345,9 @@ def process_document_file(
     progress_output: str | None = None,
     worksheet: str | None = None,
     partition_worksheets: bool = False,
+    source_url: str | None = None,
+    retrieved_at: str | None = None,
+    http_status: int | None = None,
 ) -> dict:
     """Process a supported local document file into CASE/UCO JSON-LD.
 
@@ -366,6 +371,14 @@ def process_document_file(
     thin workbook index at ``output_path`` plus one graph per worksheet
     (row-windowed when a sheet is large) under ``<output_stem>.parts/``.
     Set ``worksheet`` to emit a single worksheet graph.
+
+    For a web or public-record capture, pass ``source_url`` (absolute
+    http/https, no credentials), optionally ``retrieved_at`` (ISO 8601; a
+    date alone is kept in the description, not written as a time) and
+    ``http_status``. The graph then records the URL and an
+    InvestigativeAction retrieving it with the source file as its result
+    (docs/recipes/public-record-capture.md). Invalid values return
+    "source_url_invalid", "retrieved_at_invalid" or "http_status_invalid".
     """
     try:
         result = _process_document_file(
@@ -376,6 +389,9 @@ def process_document_file(
             progress_output=progress_output,
             worksheet=worksheet,
             partition_worksheets=partition_worksheets,
+            source_url=source_url,
+            retrieved_at=retrieved_at,
+            http_status=http_status,
         )
     except ValueError as exc:
         return {
@@ -524,6 +540,34 @@ def build_acquisition_package_graph(
     return result.safe_metadata()
 
 
+def _resolve_extra_ontology_graphs(paths: list[str] | None) -> list[str]:
+    """Apply the graph's read policy and file limits to each ontology path.
+
+    Uses the same policy as the graph itself and as the critic tools: read
+    roots plus write roots when read roots are configured. Each file must
+    also carry a supported RDF suffix and stay within the graph size limit,
+    so the tool cannot be pointed at an arbitrary local file. Every refusal
+    here is a typed code with no path in it.
+    """
+
+    resolved: list[str] = []
+    for raw in paths or []:
+        try:
+            path = workspace_policy.check_read_path(raw, include_write_roots=True)
+        except ValueError as exc:
+            if str(exc) == "source_outside_read_roots":
+                raise ValueError("extra_ontology_graph_outside_read_roots") from exc
+            raise
+        if not path.is_file():
+            raise ValueError("extra_ontology_graph_missing")
+        if path.suffix.lower() not in _SUPPORTED_GRAPH_EXTENSIONS:
+            raise ValueError("extra_ontology_graph_unsupported_extension")
+        if path.stat().st_size > _MAX_GRAPH_BYTES:
+            raise ValueError("extra_ontology_graph_oversized")
+        resolved.append(str(path))
+    return resolved
+
+
 @mcp.tool
 def validate_graph(
     graph_path: str,
@@ -531,12 +575,18 @@ def validate_graph(
     extensions: list[str] | None = None,
     strict_concepts: bool = True,
     profiles: list[str] | None = None,
+    extra_ontology_graphs: list[str] | None = None,
+    force_rdfs_inference: bool = False,
 ) -> dict:
     """Validate a CASE/UCO graph file with the local case_validate SHACL tool.
 
     Runs the CASE Utilities case_validate CLI against a local JSON-LD or
     Turtle graph file and returns a bounded conformance report (conforms,
-    warning_count, violation_count, safe_summary). Pass extensions=['cac']
+    warning_count, violation_count, safe_summary). A non-conforming result
+    lists up to 20 SHACL results in violation_details as focus_node,
+    result_path, constraint_component and severity IRIs (never values or
+    messages), with violation_details_truncated set when there are more.
+    Pass extensions=['cac']
     to validate against the CAC press-release subset
     (ontology/cac/validation-subset.json). Pass
     extensions=['cac:missing-child'] for abduction / case-management /
@@ -558,6 +608,21 @@ def validate_graph(
     sources and CDO-Shapes via the profile-aware validation planner
     (see get_uco_profiles / resolve_validation_bundle). BFO and gUFO are
     mutually exclusive foundational profiles unless explicitly overridden.
+
+    Pass extra_ontology_graphs=['/path/to/local.ttl'] to validate a graph
+    that uses a local ontology or shapes file not yet registered as an
+    extension (a candidate T-Box, for example). Each file joins the same
+    ontology set for SHACL and for concept coverage, as it does in
+    start_critic_review, so both tools agree on the graph. Each path must
+    follows the same read policy as graph_path (read roots plus write
+    roots, when read roots are configured) and the same suffix and size
+    limits. Typed errors: "extra_ontology_graph_outside_read_roots",
+    "extra_ontology_graph_missing" (not a file),
+    "extra_ontology_graph_unsupported_extension" and
+    "extra_ontology_graph_oversized". Pass
+    force_rdfs_inference=True to run case_validate with RDFS inference when
+    the selected extensions and profiles do not already set an inference
+    mode.
 
     After the SHACL pass, a closed-world concept coverage check runs by
     default (strict_concepts=True): every class and property IRI in the
@@ -588,6 +653,7 @@ def validate_graph(
     unsupported format — it never fabricates a passing result.
     """
     try:
+        extra_paths = _resolve_extra_ontology_graphs(extra_ontology_graphs)
         report = _validate_graph_file(
             graph_path,
             allow_warning=allow_warning,
@@ -595,6 +661,8 @@ def validate_graph(
             project_root=PROJECT_ROOT,
             strict_concepts=strict_concepts,
             profiles=profiles,
+            extra_ontology_graphs=extra_paths or None,
+            force_rdfs_inference=force_rdfs_inference,
         )
     except ValueError as exc:
         return {
@@ -607,6 +675,10 @@ def validate_graph(
         result["extensions"] = extensions
     if profiles:
         result["profiles"] = profiles
+    if extra_ontology_graphs:
+        result["extra_ontology_graphs"] = extra_ontology_graphs
+    if force_rdfs_inference:
+        result["force_rdfs_inference"] = True
     result.update(_validation_report_to_dict(report))
     return result
 
@@ -1291,7 +1363,9 @@ def route_investigation_content(
     primary_composition_recipe set to
     docs/recipes/cross-ontology-composition.md, supporting domain recipes,
     required extensions, recommended/optional/not_recommended profiles, a
-    validation_bundle_preview, and compatibility_warnings. Build ONE graph
+    validation_bundle_preview, and compatibility_warnings. Extensions the
+    text does not support (a family matched only semantically, or cryptoinv
+    without a cryptocurrency term) are in optional_extensions. Build ONE graph
     composing every matched family's recipes, never one graph per family.
     Family recipes are anchors, not the whole catalog: follow up with
     get_recipes(scenario) for ranked matches across all 60+ recipes and

@@ -1,6 +1,9 @@
 # Core SDK dependencies
 rdflib>=7.0.0
-cdo-local-uuid>=0.5.0
+# Exact pin: 0.5.0 is the fixed release for CVE-2024-22194 / GHSA-rgrf-6mf5-m882.
+# pip-audit still flags it as PYSEC-2024-6 (scanner metadata false positive);
+# see the --ignore-vuln note in .github/workflows/release.yml.
+cdo-local-uuid==0.5.0
 
 # Code generator
 setuptools>=68.0
@@ -9,8 +12,8 @@ wheel
 # Validation (case_validate CLI)
 case-utils>=0.18.0
 
-# MCP server — pinned to FastMCP 3.4.4 (Context.sample string/SamplingMessage API)
-fastmcp==3.4.4
+# MCP server — pinned to FastMCP 3.4.10 (Context.sample string/SamplingMessage API)
+fastmcp==3.4.10
 
 # Dev / testing
 pytest>=7.0.0

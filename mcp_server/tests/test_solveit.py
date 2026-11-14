@@ -9,6 +9,7 @@ expected-invalid fixture.
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -38,6 +39,10 @@ class TestSolveItIndex:
         assert by_kind["technique"] >= 150
         assert by_kind["weakness"] >= 300
         assert by_kind["mitigation"] >= 250
+
+    def test_technique_count_matches_manifest(self):
+        provenance = json.loads((EXT_DIR / "manifest.json").read_text())["provenance"]
+        assert len(solveit_index.load_index().by_kind("technique")) == provenance["technique_count"]
 
     def test_exact_identifier_lookup_wins(self):
         result = solveit_index.search("DFT-1002")
@@ -251,10 +256,11 @@ class TestExtensionWiring:
     not graph_validator.validator_available(), reason="case_validate CLI not installed"
 )
 class TestExemplarConformance:
-    def test_exemplar_conforms(self):
+    @pytest.mark.parametrize("extension", ["solveit", "solveit:full"])
+    def test_exemplar_conforms(self, extension):
         report = graph_validator.validate_graph_file(
             EXT_DIR / "solveit-exemplar.ttl",
-            extensions=["solveit:full"],
+            extensions=[extension],
             project_root=PROJECT_ROOT,
         )
         assert report.conforms is True, report.safe_summary
@@ -266,3 +272,87 @@ class TestExemplarConformance:
             project_root=PROJECT_ROOT,
         )
         assert report.conforms is False
+        assert "contains must reference at least one Bitstream" in report.validator_diagnostics
+        assert "timelineEntryValue must be exactly one" in report.validator_diagnostics
+
+    @pytest.mark.parametrize("path,profiles", [
+        ("examples/solveit/laptop-acquisition-solveit.jsonld", None),
+        ("examples/sysdiagnose/ios-sysdiagnose-unified-logs.jsonld", None),
+        ("examples/upper-ontology/solveit-plan-execution/solveit-plan-execution.jsonld", ["prov-o", "time"]),
+    ])
+    def test_committed_examples_conform(self, path, profiles):
+        report = graph_validator.validate_graph_file(
+            PROJECT_ROOT / path, extensions=["solveit"], profiles=profiles,
+            project_root=PROJECT_ROOT,
+        )
+        assert report.conforms is True, report.safe_summary
+
+    def test_generated_package_builds_valid_graph(self, tmp_path, monkeypatch):
+        monkeypatch.syspath_prepend(str(PROJECT_ROOT / "packages/case-uco-solveit/python"))
+        import case_uco_solveit
+        from case_uco import CASEGraph
+        from case_uco.uco.observable import File
+        from case_uco_solveit.solveit_core import Mitigation, SolveitInvestigativeAction
+        from case_uco_solveit.solveit_observable import ArtifactSet, FileSet
+
+        assert case_uco_solveit.__version__ == "0.2.17"
+        assert len(case_uco_solveit.classes()) >= 207
+        graph = CASEGraph()
+        file = graph.create(File, id="kb:example-file")
+        graph.create(FileSet, id="kb:example-files", has_file=[file])
+        graph.create(ArtifactSet, id="kb:example-artifacts", has_artifact=[file])
+        mitigation = graph.create(Mitigation, id="kb:example-mitigation")
+        graph.create(SolveitInvestigativeAction, id="kb:example-action", applied_mitigation=[mitigation])
+        path = tmp_path / "generated-package.jsonld"
+        graph.write(str(path))
+        report = graph_validator.validate_graph_file(
+            path, extensions=["solveit"], project_root=PROJECT_ROOT,
+        )
+        assert report.conforms is True, report.safe_summary
+
+    @pytest.mark.parametrize("replacement,expected", [
+        (None, True),
+        (("so:hasFile kb:file", 'so:hasFile "file"'), False),
+        (("so:hasArtifact kb:file", 'so:hasArtifact "artifact"'), False),
+        (("sc:appliedMitigation kb:mitigation", 'sc:appliedMitigation "mitigation"'), False),
+        (("so:recoveredFromPage kb:page", 'so:recoveredFromPage "page"'), False),
+    ], ids=["valid", "file-membership", "artifact-membership", "mitigation-iri", "recovered-page"])
+    def test_updated_shapes(self, tmp_path, replacement, expected):
+        data = '''
+@prefix kb: <http://example.org/kb/> .
+@prefix so: <https://ontology.solveit-df.org/solveit/observable/> .
+@prefix sc: <https://ontology.solveit-df.org/solveit/core/> .
+@prefix sa: <https://ontology.solveit-df.org/solveit/analysis/> .
+@prefix uo: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+kb:file a uo:File .
+kb:files a so:FileSet ; so:hasFile kb:file .
+kb:artifacts a so:ArtifactSet ; so:hasArtifact kb:file .
+kb:action a sc:SolveitInvestigativeAction ; sc:appliedMitigation kb:mitigation .
+kb:mitigation a sc:Mitigation .
+kb:record a sa:HypothesisedRecord ; so:recoveredFromPage kb:page .
+kb:page a so:SQLitePage .
+kb:clock a so:ClockOffsetMeasurement ; so:referenceTimeSource kb:time-source .
+kb:time-source a uo:ObservableObject .
+kb:interface a so:WriteProtectedDeviceInterface ; so:writeProtectedBy kb:blocker .
+kb:blocker a uo:Device .
+'''
+        if replacement:
+            data = data.replace(*replacement)
+        path = tmp_path / "synthetic-shapes.ttl"
+        path.write_text(data)
+        report = graph_validator.validate_graph_file(
+            path, extensions=["solveit"], project_root=PROJECT_ROOT,
+        )
+        assert report.verification_status == "complete", report.safe_summary
+        assert report.conforms is expected, report.safe_summary
+
+
+def test_manifest_competency_queries():
+    from rdflib import Graph
+
+    manifest = json.loads((EXT_DIR / "manifest.json").read_text())
+    for query in manifest["competency_queries"]:
+        graph = Graph().parse(EXT_DIR / query["against"])
+        rows = list(graph.query((EXT_DIR / query["file"]).read_text()))
+        assert query["expect"] == "nonempty"
+        assert rows, query["file"]

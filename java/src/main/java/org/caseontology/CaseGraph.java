@@ -568,18 +568,34 @@ public class CaseGraph {
      * Validate this graph against CASE/UCO SHACL constraints using case_validate.
      * Requires case-utils ({@code pip install case-utils}) on PATH.
      *
-     * @param caseVersion the CASE built-version to validate against (e.g. "case-1.4.0")
+     * @param caseVersion the CASE built-version to validate against (e.g. "case-1.5.0")
      * @return the validation output on success
      * @throws IOException if the process cannot be started or temp file fails
      * @throws RuntimeException if validation fails or case_validate is not found
      */
     public String validate(String caseVersion) throws IOException {
+        return validate(caseVersion, true, false);
+    }
+
+    /**
+     * Validate with explicit handling of sh:Info and sh:Warning results. With
+     * {@code allowInfo}, sh:Info results such as UCO's suggestion that IRIs end
+     * in a UUID do not fail validation.
+     */
+    public String validate(String caseVersion, boolean allowInfo, boolean allowWarning) throws IOException {
         java.nio.file.Path tmp = java.nio.file.Files.createTempFile("case-uco-", ".jsonld");
         try {
             write(tmp.toAbsolutePath().toString());
             String caseValidateBin = resolveCommand("case_validate");
-            ProcessBuilder pb = new ProcessBuilder(
-                caseValidateBin, "--built-version", caseVersion, tmp.toAbsolutePath().toString());
+            List<String> command = new ArrayList<>(List.of(caseValidateBin, "--built-version", caseVersion));
+            if (allowInfo) {
+                command.add("--allow-info");
+            }
+            if (allowWarning) {
+                command.add("--allow-warning");
+            }
+            command.add(tmp.toAbsolutePath().toString());
+            ProcessBuilder pb = new ProcessBuilder(command);
             pb.redirectErrorStream(false);
             Process proc = pb.start();
             String stdout = new String(proc.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
@@ -613,14 +629,16 @@ public class CaseGraph {
     }
 
     /**
-     * Validate this graph using the default CASE version (case-1.4.0).
+     * Validate this graph using the default CASE version (case-1.5.0).
      */
     public String validate() throws IOException {
-        return validate("case-1.4.0");
+        return validate("case-1.5.0");
     }
 
     /**
      * Load a JSON-LD string into this graph, merging context and appending objects.
+     * If this graph is empty and still has the default {@code kb}, the document's
+     * {@code kb} binding is adopted; otherwise a different {@code kb} is a context collision.
      */
     public void load(String json) {
         load(json, null);
@@ -636,6 +654,7 @@ public class CaseGraph {
         Map<String, Integer> snapIndex = new LinkedHashMap<>(iriIndex);
         try {
             if (doc.containsKey("@context") && doc.get("@context") instanceof Map) {
+                adoptDocumentKb((Map<String, Object>) doc.get("@context"));
                 mergeContext((Map<String, Object>) doc.get("@context"));
             }
             if (doc.containsKey("@graph") && doc.get("@graph") instanceof List) {
@@ -708,6 +727,7 @@ public class CaseGraph {
         CaseGraph graph = new CaseGraph();
 
         if (doc.containsKey("@context") && doc.get("@context") instanceof Map) {
+            graph.adoptDocumentKb((Map<String, Object>) doc.get("@context"));
             graph.mergeContext((Map<String, Object>) doc.get("@context"));
         }
 
@@ -730,6 +750,19 @@ public class CaseGraph {
         }
 
         return new FromJsonLdResult(graph, typedObjects);
+    }
+
+    /**
+     * Take the document's {@code kb} binding if this graph is empty and still default,
+     * so load/fromJsonLd read output built with a custom kbPrefix. A populated
+     * graph, or one built with a non-default kbPrefix, keeps the collision error.
+     */
+    private void adoptDocumentKb(Map<String, Object> incoming) {
+        Object kb = incoming.get("kb");
+        if (kb instanceof String && objects.isEmpty()
+                && defaultContext().get("kb").equals(context.get("kb"))) {
+            context.put("kb", (String) kb);
+        }
     }
 
     private void mergeContext(Map<String, Object> incoming) {

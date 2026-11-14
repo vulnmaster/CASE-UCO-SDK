@@ -24,7 +24,7 @@ mega-S.
 2. **Domain alphabet** — phase vocabulary for that layer (`trafficking`, `elder-fraud`, `extortion`, `legalproc`, or `layered-vocab`)  
 3. **`layered`** — compose those machines into one ESM  
 
-`layered` depends on `trajectories` only. It does not import `means` or `expense`. `lay:hasGoal` and `lay:hasExpenseAssessment` are optional and ranged to `uco-core:UcoObject`. A legal-process machine omits `hasExpenseAssessment`.  
+`layered` depends on `trajectories` and on `forced-labor` (the `fl:` alphabet its Atkinson exemplar occupies). It does not import `means` or `expense`. `lay:hasGoal` and `lay:hasExpenseAssessment` are optional and ranged to `uco-core:UcoObject`. A legal-process machine omits `hasExpenseAssessment`.  
 
 ## Minimal shape
 

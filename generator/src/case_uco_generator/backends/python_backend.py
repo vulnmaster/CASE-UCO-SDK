@@ -94,6 +94,7 @@ class PythonBackend(CodegenBackend):
             "__all__ = [\n"
             '    "BoundedStreamingWriteMetrics",\n'
             '    "CASEGraph",\n'
+            '    "CASE_VERSION",\n'
             '    "DeserializationWarning",\n'
             '    "DuplicateClassIriError",\n'
             '    "DuplicateNodeError",\n'
@@ -103,6 +104,7 @@ class PythonBackend(CodegenBackend):
             '    "Ref",\n'
             '    "SharedFacetError",\n'
             '    "TypedLiteral",\n'
+            '    "UCO_VERSION",\n'
             '    "class_registry_cache_info",\n'
             '    "clear_class_registry_cache",\n'
             '    "deterministic_id",\n'
@@ -111,7 +113,9 @@ class PythonBackend(CodegenBackend):
             '    "register_extension_classes",\n'
             '    "unregister_extension_source",\n'
             "]\n"
-            f'__version__ = "{self._package_version()}"\n',
+            f'__version__ = "{self._package_version()}"\n'
+            f'UCO_VERSION = "{self.schema.ontology_versions.get("uco", "")}"\n'
+            f'CASE_VERSION = "{self.schema.ontology_versions.get("case", "")}"\n',
             encoding="utf-8",
         )
         created.append(top_init)

@@ -1293,7 +1293,7 @@ def build_graph() -> dict:
     # ------------------------------------------------------------------
     # Enterprise conduct (uco-action:Action). uco-action:performer has
     # max cardinality 1; the primary actor is the performer and
-    # co-actors are linked with Participated_In relationships.
+    # co-actors are uco-action:participant values.
     # ------------------------------------------------------------------
     def action(label: str, name: str, description: str, performer: str,
                participants: list[str] | None = None,
@@ -1310,6 +1310,8 @@ def build_graph() -> dict:
             "uco-core:description": description,
             "uco-action:performer": {"@id": performer},
         }
+        if participants:
+            node["uco-action:participant"] = [{"@id": p} for p in participants]
         if objects:
             node["uco-action:object"] = [{"@id": o} for o in objects]
         if instruments:
@@ -1323,8 +1325,6 @@ def build_graph() -> dict:
         if extra:
             node.update(extra)
         graph.append(node)
-        for p in participants or []:
-            rel(p, node["@id"], "Participated_In")
         rel(node["@id"], investigation, "part_of")
         return node["@id"]
 

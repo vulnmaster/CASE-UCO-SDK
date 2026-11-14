@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import shutil
 import subprocess
+
+from case_uco.validation.runtime import prepare_validator, validator_available
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -85,7 +87,7 @@ def test_two_acquisitions_of_one_phone_share_the_device():
     assert len(json.loads(graph.serialize())["@graph"]) == len(nodes)
 
 
-@pytest.mark.skipif(shutil.which("case_validate") is None, reason="case_validate not installed")
+@pytest.mark.skipif(not validator_available(), reason="case_validate not installed")
 def test_acquisition_graph_conforms(tmp_path):
     graph = CASEGraph()
     acquire_to_graph(graph, read_acquire_image_info(IOS_13_3))
@@ -93,7 +95,7 @@ def test_acquisition_graph_conforms(tmp_path):
     out = tmp_path / "magnet-acquire.jsonld"
     graph.write(str(out))
     result = subprocess.run(
-        ["case_validate", "--built-version", "case-1.5.0", str(out)],
+        [*prepare_validator("case-1.5.0").command, "--built-version", "case-1.5.0", str(out)],
         capture_output=True,
         text=True,
         timeout=300,

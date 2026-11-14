@@ -15,12 +15,12 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/observable/acquisition> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/acquisition/0.2.11> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/observable/acquisition/0.2.17> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/observable/1.5.0> ;
     dcterms:title "SOLVE-IT Observable Acquisition Module"@en ;
     dcterms:description "Classes for forensic data acquisition including forensic images, live captures, and extraction methods."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.2.11" ;
+    owl:versionInfo "0.2.17" ;
     rdfs:label "SOLVE-IT Observable Acquisition Module"@en .
 
 #################################################################

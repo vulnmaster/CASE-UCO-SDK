@@ -24,6 +24,7 @@ from case_uco.typed_literal import TypedLiteral
 __all__ = [
     "BoundedStreamingWriteMetrics",
     "CASEGraph",
+    "CASE_VERSION",
     "DeserializationWarning",
     "DuplicateClassIriError",
     "DuplicateNodeError",
@@ -33,6 +34,7 @@ __all__ = [
     "Ref",
     "SharedFacetError",
     "TypedLiteral",
+    "UCO_VERSION",
     "class_registry_cache_info",
     "clear_class_registry_cache",
     "deterministic_id",
@@ -41,4 +43,6 @@ __all__ = [
     "register_extension_classes",
     "unregister_extension_source",
 ]
-__version__ = "1.33.0"
+__version__ = "1.34.0"
+UCO_VERSION = "1.5.0"
+CASE_VERSION = "1.5.0"

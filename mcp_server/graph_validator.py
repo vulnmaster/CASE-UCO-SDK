@@ -8,12 +8,10 @@ from this directory. Prefer::
 
 from __future__ import annotations
 
+import shutil
 from typing import Any
 
 import case_uco.validation.graph as _impl
-
-# Exposed so existing tests can monkeypatch ``graph_validator.shutil.which``.
-shutil = _impl.shutil
 
 DEFAULT_BUILT_VERSION = _impl.DEFAULT_BUILT_VERSION
 DEFAULT_TIMEOUT_SECONDS = _impl.DEFAULT_TIMEOUT_SECONDS
@@ -30,8 +28,8 @@ resolve_extension_dependencies = _impl.resolve_extension_dependencies
 
 
 def validator_available() -> bool:
-    """Shim that honors monkeypatches of ``graph_validator.shutil``."""
-    return shutil.which(VALIDATOR_NAME) is not None
+    """Check the validator in the SDK interpreter."""
+    return _impl.validator_available()
 
 
 def validate_graph_file(*args: Any, **kwargs: Any):

@@ -123,10 +123,10 @@ validate_graph_file(
 )
 ```
 
-`depends_on` is `trajectories` only. The Atkinson exemplar declares the
-three forced-labor phase individuals it occupies, because this tree has no
-`forced-labor` package. Validate the legal-process exemplar without
-`expense` on the command line. Use `case-utils` 0.18.0 and
+`depends_on` is `trajectories` and `forced-labor`. The Atkinson exemplar's
+T3 layer occupies the `fl:` alphabet that
+[`forced-labor`](../forced-labor/) declares; selecting `layered` loads it.
+Validate the legal-process exemplar without `expense` on the command line. Use `case-utils` 0.18.0 and
 `--built-version case-1.5.0`.
 
 ## Design rules

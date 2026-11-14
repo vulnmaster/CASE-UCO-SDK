@@ -181,13 +181,13 @@ thread = graph.create(ObservableObject,
 # --- LAYER 2: Interpretation ---
 
 # Role objects (bearer → role pattern)
-offender_role = graph.add_node("kb:offender-role", [
+offender_role = graph.upsert_node("kb:offender-role", types=[
     "case-investigation:Subject", "cacontology:OffenderRole",
-], {"uco-core:name": "Offender - Subject of Investigation"})
+], properties={"uco-core:name": "Offender - Subject of Investigation"})
 
-victim_role = graph.add_node("kb:victim-role", [
+victim_role = graph.upsert_node("kb:victim-role", types=[
     "uco-victim:Victim", "cacontology:VictimRole",
-], {"uco-core:name": "Child Victim of Grooming"})
+], properties={"uco-core:name": "Child Victim of Grooming"})
 
 graph.create(Relationship, source=[offender_identity], target=offender_role,
     kind_of_relationship="Related_To", is_directional=True,
@@ -197,24 +197,24 @@ graph.create(Relationship, source=[victim_identity], target=victim_role,
     description="The source identity bears the target victim role.")
 
 # Grooming phases with temporal bounds
-initial_phase = graph.add_node("kb:phase-initial",
-    "cacontology-grooming:InitialContactPhase", {
+initial_phase = graph.upsert_node("kb:phase-initial",
+    types=["cacontology-grooming:InitialContactPhase"], properties={
     "uco-core:name": "Initial Contact Phase",
     "cacontology:hasPhaseBeginPoint": "2025-04-10T15:30:00-05:00",
     "cacontology:hasPhaseEndPoint": "2025-04-10T15:42:00-05:00",
 })
 
 # OnlineGrooming with direct properties
-grooming = graph.add_node("kb:grooming-1", "cacontology-grooming:OnlineGrooming", {
+grooming = graph.upsert_node("kb:grooming-1", types=["cacontology-grooming:OnlineGrooming"], properties={
     "cacontology-grooming:targetsVictim": {"@id": victim_identity.id},
     "cacontology-grooming:primaryPlatform": {"@id": snapchat.id},
     "cacontology:hasPhase": [{"@id": "kb:phase-initial"}],
 })
 
 # Grooming messages with dual phase membership
-msg = graph.add_node("kb:msg-1", [
+msg = graph.upsert_node("kb:msg-1", types=[
     "uco-observable:Message", "cacontology-grooming:GroomingMessage",
-], {
+], properties={
     "cacontology-grooming:groomingStage": "initial_contact",
     "cacontology-grooming:evidencesPhase": {"@id": "kb:phase-initial"},
     "cacontology-grooming:emotionalTone": "caring",

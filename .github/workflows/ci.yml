@@ -195,8 +195,8 @@ jobs:
           path: .
 
       - name: Install dependencies
-        # fastmcp==3.4.4 — Context.sample string/SamplingMessage API pin
-        run: pip install rdflib jinja2 pytest "mypy>=1.0,<2.5" jsonschema "fastmcp==3.4.4" "case-utils==0.18.0"
+        # fastmcp==3.4.10 — Context.sample string/SamplingMessage API pin
+        run: pip install rdflib jinja2 pytest "mypy>=1.0,<2.5" jsonschema "fastmcp==3.4.10" "case-utils==0.18.0"
 
       - name: Run tests
         run: PYTHONPATH=generator/src:python python -m pytest generator/tests python/tests -v
@@ -330,7 +330,7 @@ jobs:
           path: .
 
       - name: Install dependencies
-        run: pip install rdflib jinja2 pytest jsonschema "fastmcp==3.4.4" "case-utils==0.18.0"
+        run: pip install rdflib jinja2 pytest jsonschema "fastmcp==3.4.10" "case-utils==0.18.0"
 
       - name: FileLock + session smoke
         env:

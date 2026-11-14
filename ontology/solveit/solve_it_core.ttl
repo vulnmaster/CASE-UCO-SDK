@@ -17,7 +17,7 @@
 #################################################################
 
 <https://ontology.solveit-df.org/solveit/core> rdf:type owl:Ontology ;
-    owl:versionIRI <https://ontology.solveit-df.org/solveit/core/0.2.11> ;
+    owl:versionIRI <https://ontology.solveit-df.org/solveit/core/0.2.17> ;
     owl:imports <https://ontology.unifiedcyberontology.org/uco/core/1.5.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/observable/1.5.0> ,
                 <https://ontology.unifiedcyberontology.org/uco/action/1.5.0> ,
@@ -29,7 +29,7 @@
     dcterms:title "SOLVE-IT Digital Forensics Ontology"@en ;
     dcterms:description "A modular ontology extending UCO/CASE for the SOLVE-IT digital forensics project. This core ontology defines fundamental SOLVE-IT classes (Technique, Weakness, Mitigation) and imports modules for observables and analysis."@en ;
     dcterms:creator "SOLVE-IT Project" ;
-    owl:versionInfo "0.2.11" ;
+    owl:versionInfo "0.2.17" ;
     rdfs:label "SOLVE-IT Ontology"@en ;
     rdfs:comment "Core ontology file with fundamental SOLVE-IT classes. Use this file to import the complete SOLVE-IT ontology."@en .
 
@@ -47,12 +47,15 @@
 ###  which is itself a subclass of case-investigation:InvestigativeAction.
 ###
 ###  Note: Technique is NOT a subclass of InvestigativeAction. That would make
-###  every catalogue entry a performed action. It is the *instances* of each
-###  technique class that are performed actions.
+###  every catalogue entry an investigative action. It is the *instances* of
+###  each technique class that are investigative actions: something that may be
+###  done or performed, as CASE defines one. A planned instance is one that may
+###  be done (e.g. also typed uco-action:ActionPattern, or a workflow step); a
+###  performed instance has been done (times, status).
 solveit-core:Technique rdf:type owl:Class ;
     rdfs:subClassOf uco-action:Technique ;
     rdfs:label "SOLVE-IT Technique"@en ;
-    rdfs:comment "A digital forensic technique representing how one might achieve an objective by performing an action. Based on the SOLVE-IT knowledge base. This class is a metaclass: its instances are owl:Class entities whose own instances are performed investigative actions."@en .
+    rdfs:comment "A digital forensic technique representing how one might achieve an objective by performing an action. Based on the SOLVE-IT knowledge base. This class is a metaclass: its instances are owl:Class entities whose own instances are investigative actions, planned or performed."@en .
 
 ###  SOLVE-IT Weakness
 solveit-core:Weakness rdf:type owl:Class ;
@@ -80,8 +83,8 @@ solveit-core:Citation rdf:type owl:Class ;
 
 ###  SOLVE-IT Investigative Action
 ###
-###  The parent class of every SOLVE-IT technique class. A performed action is
-###  typed with the technique class(es) it implements; membership of this class
+###  The parent class of every SOLVE-IT technique class. An action, planned or
+###  performed, is typed with the technique class(es) it implements; membership of this class
 ###  then follows by inference, and with it membership of
 ###  case-investigation:InvestigativeAction and uco-action:Action.
 ###
@@ -91,7 +94,7 @@ solveit-core:Citation rdf:type owl:Class ;
 solveit-core:SolveitInvestigativeAction rdf:type owl:Class ;
     rdfs:subClassOf case-investigation:InvestigativeAction ;
     rdfs:label "SOLVE-IT Investigative Action"@en ;
-    rdfs:comment "An investigative action performed as an instance of one or more SOLVE-IT techniques, recording any mitigations applied on that occasion (0..n via appliedMitigation). The technique(s) used are expressed by rdf:type against the technique class(es), not by a separate property."@en .
+    rdfs:comment "An investigative action, which may be done or performed, as an instance of one or more SOLVE-IT techniques, recording any mitigations applied on that occasion (0..n via appliedMitigation). The technique(s) used are expressed by rdf:type against the technique class(es), not by a separate property."@en .
 
 #################################################################
 #    Object Properties
@@ -137,7 +140,7 @@ solveit-core:includesTechnique rdf:type owl:ObjectProperty ;
     rdfs:comment "Links an Objective to Techniques that can be used to achieve it."@en .
 
 ###  DEPRECATED as of the UCO 1.5.0 Technique metaclass alignment.
-###  A performed action now states the technique(s) it implements by rdf:type
+###  An action now states the technique(s) it implements by rdf:type
 ###  against the technique class(es), e.g.
 ###      kb:action-01 a solveit-data:techniqueDFT-1002 .
 ###  Retained so existing data continues to parse. Do not use in new data.

@@ -529,6 +529,8 @@ def build_graph() -> dict:
                 + src_ref("statement_of_offense", "paras. 18-23")
             ),
             "uco-action:performer": [{"@id": lichtenstein}],
+            # Morgan's assistance (Statement of the Offense paras. 20-23).
+            "uco-action:participant": [{"@id": morgan}],
             "uco-action:object": [{"@id": hack_wallet}],
             "cryptoinv:launderingTechnique": [
                 "peel-chain",
@@ -547,9 +549,6 @@ def build_graph() -> dict:
             ],
         }
     )
-    # uco-action:performer is max-1; Morgan's assistance is modeled as a
-    # relationship (Statement of the Offense paras. 20-23).
-    graph.append(rel(morgan, laundering, "Participated_In"))
     for org_id in (alphabay, hydra, *[m[1] for m in mixers.values()]):
         graph.append(rel(laundering, org_id, "Used"))
     graph.append(rel(laundering, hack_action, "Derived_From"))

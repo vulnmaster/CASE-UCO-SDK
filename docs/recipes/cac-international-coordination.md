@@ -17,7 +17,7 @@ Model transnational child exploitation investigations, Europol/Interpol coordina
 | `cacontology-multi-jurisdiction:ExtraditionRequest` | Formal extradition request |
 | `cacontology-international:InternationalEvidenceSharing` | Cross-border evidence transfer |
 | `cacontology-international:InternationalCoordination` / `EuropolCoordination` | General or Europol-specific coordination events |
-| `cacontology-taskforce:TaskForce` / `cacontology-multi-jurisdiction:JointInvestigation` | Domestic coordination structures |
+| `cacontology-multi-jurisdiction:TaskForce` / `cacontology-multi-jurisdiction:JointInvestigation` | Domestic coordination structures |
 
 ## Canonical pattern
 
@@ -44,7 +44,7 @@ from case_uco import CASEGraph
 graph = CASEGraph(extra_context={
     "cacontology-international": "https://cacontology.projectvic.org/international#",
 })
-op = graph.add_node("kb:op-1", "cacontology-international:CrossBorderOperation", {
+op = graph.upsert_node("kb:op-1", types=["cacontology-international:CrossBorderOperation"], properties={
     "uco-core:name": "Europol coordinated takedown",
 })
 graph.write("international-op.jsonld")

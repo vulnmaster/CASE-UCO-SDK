@@ -12,6 +12,8 @@ import document_processor as dp
 import server
 from case_uco.validation.coverage import check_graph_concepts
 from case_uco.validation.graph import (
+    parse_violation_details,
+    report_to_dict,
     required_extensions_for_graph,
     validate_graph_file,
     validator_available,
@@ -121,6 +123,45 @@ def test_required_extensions_names_extension_namespaces_only() -> None:
     assert required_extensions_for_graph({"@graph": [document["@graph"][0]], "@context": document["@context"]}) == []
 
 
+def test_required_extensions_counts_individuals_used_only_as_objects() -> None:
+    """#127: fl:Control appears only as an object, and forced-labor declares it."""
+    document = {
+        "@context": {
+            "kb": "http://example.org/kb/",
+            "traj": "http://example.org/ontology/trajectories/",
+            "fl": "http://example.org/ontology/forced-labor/",
+        },
+        "@graph": [
+            {
+                "@id": "kb:assertion-1",
+                "@type": "traj:PhaseAssertion",
+                "traj:assertsState": {"@id": "fl:Control"},
+            }
+        ],
+    }
+    assert required_extensions_for_graph(document) == ["forced-labor", "trajectories"]
+
+    expanded = {
+        "@graph": [
+            {
+                "@id": "http://example.org/kb/assertion-1",
+                "@type": "http://example.org/ontology/trajectories/PhaseAssertion",
+                "http://example.org/ontology/trajectories/assertsState": [
+                    {"@id": "http://example.org/ontology/forced-labor/Control"}
+                ],
+            }
+        ]
+    }
+    assert required_extensions_for_graph(expanded) == ["forced-labor", "trajectories"]
+
+    # A top-level node's own @id is not a reference, and kb IRIs match no extension.
+    own_id = {
+        "@context": document["@context"],
+        "@graph": [{"@id": "fl:Control", "@type": "traj:State"}],
+    }
+    assert required_extensions_for_graph(own_id) == ["trajectories"]
+
+
 def test_processed_csv_reports_cryptoinv_and_validates_with_it(tmp_path: Path) -> None:
     source = tmp_path / "wallets.csv"
     source.write_text(WALLET_CSV, encoding="utf-8")
@@ -183,3 +224,109 @@ def test_source_is_not_reread_for_hashing(tmp_path: Path, monkeypatch: pytest.Mo
     monkeypatch.setattr(Path, "read_bytes", counting_read_bytes)
     dp.process_document_file(source, tmp_path / "out" / "rows.jsonld")
     assert reads == []
+
+
+HUMAN_REPORT = """Validation Report
+Conforms: False
+Results (3):
+Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+\tSeverity: sh:Violation
+\tSource Shape: [ sh:path core:isDirectional ; sh:minCount Literal("1") ]
+\tFocus Node: kb:relationship-1
+\tResult Path: core:isDirectional
+\tMessage: Less than 1 values on kb:relationship-1->core:isDirectional
+Constraint Violation in DatatypeConstraintComponent (http://www.w3.org/ns/shacl#DatatypeConstraintComponent):
+\tSeverity: sh:Violation
+\tSource Shape: core:ShapeX
+\tFocus Node: [ core:name Literal("private name") ]
+\tValue Node: Literal("private name")
+\tResult Path: [ sh:inversePath core:source ]
+\tMessage: Value is not Literal with datatype xsd:string
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+\tSeverity: sh:Violation
+\tFocus Node: <http://example.org/kb/tool-1>
+\tResult Path: unknown:prop
+"""
+
+
+def test_violation_details_carry_identifiers_only() -> None:
+    prefixes = {
+        "kb": "http://example.org/kb/",
+        "core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "sh": "http://www.w3.org/ns/shacl#",
+    }
+    details, truncated = parse_violation_details(HUMAN_REPORT, prefixes)
+    assert not truncated
+    assert details == (
+        {
+            "focus_node": "http://example.org/kb/relationship-1",
+            "result_path": "https://ontology.unifiedcyberontology.org/uco/core/isDirectional",
+            "constraint_component": "http://www.w3.org/ns/shacl#MinCountConstraintComponent",
+            "severity": "http://www.w3.org/ns/shacl#Violation",
+        },
+        {
+            "focus_node": None,
+            "result_path": None,
+            "constraint_component": "http://www.w3.org/ns/shacl#DatatypeConstraintComponent",
+            "severity": "http://www.w3.org/ns/shacl#Violation",
+        },
+        {
+            "focus_node": "http://example.org/kb/tool-1",
+            "result_path": None,
+            "constraint_component": "http://www.w3.org/ns/shacl#ClassConstraintComponent",
+            "severity": "http://www.w3.org/ns/shacl#Violation",
+        },
+    )
+    assert "private name" not in json.dumps(details)
+    assert parse_violation_details(HUMAN_REPORT, prefixes, limit=2)[1] is True
+
+
+@needs_validator
+def test_nonconforming_finding_names_node_path_and_constraint(tmp_path: Path) -> None:
+    from critic.deterministic import _validation_findings
+    from critic.models import ValidationSummary
+
+    graph = tmp_path / "g.jsonld"
+    graph.write_text(json.dumps({
+        "@context": {
+            "kb": "http://example.org/kb/",
+            "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+            "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        },
+        "@graph": [
+            {"@id": "kb:person-7f9c2a3e-1b4d-4c6e-9a8f-0d1e2f3a4b5c",
+             "@type": "uco-identity:Person", "uco-core:name": "Alice Smith"},
+            {"@id": "kb:org-2c4e6a8b-3d5f-4a7c-8e9f-1a2b3c4d5e6f",
+             "@type": "uco-identity:Organization", "uco-core:name": "Acme"},
+            {"@id": "kb:relationship-1c4e6a8b-3d5f-4a7c-8e9f-1a2b3c4d5e6f",
+             "@type": "uco-core:Relationship",
+             "uco-core:source": {"@id": "kb:person-7f9c2a3e-1b4d-4c6e-9a8f-0d1e2f3a4b5c"},
+             "uco-core:target": {"@id": "kb:org-2c4e6a8b-3d5f-4a7c-8e9f-1a2b3c4d5e6f"},
+             "uco-core:kindOfRelationship": "Employed_By"},
+        ],
+    }), encoding="utf-8")
+    report = validate_graph_file(graph, strict_concepts=False)
+    relationship = "http://example.org/kb/relationship-1c4e6a8b-3d5f-4a7c-8e9f-1a2b3c4d5e6f"
+    expected = {
+        "focus_node": relationship,
+        "result_path": "https://ontology.unifiedcyberontology.org/uco/core/isDirectional",
+        "constraint_component": "http://www.w3.org/ns/shacl#MinCountConstraintComponent",
+        "severity": "http://www.w3.org/ns/shacl#Violation",
+    }
+    assert report.violation_details == (expected,)
+    payload = report_to_dict(report)
+    assert payload["violation_details"] == [expected]
+    assert payload["violation_details_truncated"] is False
+    assert "Alice Smith" not in json.dumps(payload["violation_details"])
+
+    summary = ValidationSummary(
+        conforms=report.conforms,
+        verification_status=report.verification_status,
+        violation_count=report.violation_count,
+        violation_details=[dict(d) for d in report.violation_details],
+    )
+    [finding] = [
+        f for f in _validation_findings(summary) if f.rule_id == "CRIT-V-NONCONFORMING"
+    ]
+    assert finding.target.node_id == relationship
+    assert any(expected["result_path"] in item for item in finding.evidence)

@@ -5,8 +5,8 @@ namespace CaseUco
     /// </summary>
     public static class CaseUcoMeta
     {
-        public const string Version = "0.1.0";
-        public const string UcoVersion = "1.4.0";
-        public const string CaseVersion = "1.4.0";
+        public const string Version = "1.34.0";
+        public const string UcoVersion = "1.5.0";
+        public const string CaseVersion = "1.5.0";
     }
 }

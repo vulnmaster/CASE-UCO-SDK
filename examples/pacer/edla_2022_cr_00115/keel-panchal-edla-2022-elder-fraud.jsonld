@@ -1165,7 +1165,12 @@
       "uco-action:startTime": {
         "@type": "xsd:dateTime",
         "@value": "2022-03-10T00:00:00-06:00"
-      }
+      },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:950b27f7-5fae-5445-bb13-e0fcc3aee2bb"
+        }
+      ]
     },
     {
       "@id": "urn:uuid:96ae6701-2e17-5632-9281-19b3cd5e0ed8",
@@ -1181,25 +1186,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:0eba7ca0-677f-56c1-b6b7-f624d6dbb8d1",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:950b27f7-5fae-5445-bb13-e0fcc3aee2bb"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:fbb7ee8d-44a3-5b3d-abc9-4f1796ec8dfa"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1229,6 +1215,11 @@
         {
           "@id": "urn:uuid:a3912f54-88e8-5f4d-8a2e-c7ac9ed27148"
         }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:950b27f7-5fae-5445-bb13-e0fcc3aee2bb"
+        }
       ]
     },
     {
@@ -1245,25 +1236,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:92052ac2-d35d-5466-896c-736744cc812d",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:950b27f7-5fae-5445-bb13-e0fcc3aee2bb"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:bd43fd1a-1ce5-54b0-82cf-2f4fb36c4b18"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1288,6 +1260,11 @@
         {
           "@id": "urn:uuid:f6249d3b-4b08-59ce-8b09-d9424f399852"
         }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:39ea84fe-2fe1-5890-823f-6933fde634b5"
+        }
       ]
     },
     {
@@ -1304,25 +1281,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:2199ad80-9818-5251-bea8-1a6bb62cc73a",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:39ea84fe-2fe1-5890-823f-6933fde634b5"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:4d257109-8900-57e1-9734-364546180eb9"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1347,6 +1305,11 @@
         {
           "@id": "urn:uuid:d284ddca-1a63-54f0-bde7-c23acbc5715d"
         }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:39ea84fe-2fe1-5890-823f-6933fde634b5"
+        }
       ]
     },
     {
@@ -1363,25 +1326,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:44833940-37fe-5c25-a15a-972aee2b60eb",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:39ea84fe-2fe1-5890-823f-6933fde634b5"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:8395a17c-5168-5531-8593-0adb9c8f5a92"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1406,6 +1350,11 @@
         {
           "@id": "urn:uuid:07c7b29a-102b-5431-9c35-ed4d5bad50b2"
         }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:950b27f7-5fae-5445-bb13-e0fcc3aee2bb"
+        }
       ]
     },
     {
@@ -1422,25 +1371,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Overt_Act_In_Furtherance_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:528bcc2d-0d62-5c41-afaf-8cb847bd76c1",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:950b27f7-5fae-5445-bb13-e0fcc3aee2bb"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:f082ad12-bb26-518d-8150-929af69aa563"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"
@@ -1821,6 +1751,11 @@
         {
           "@id": "urn:uuid:e862738d-af07-5914-b829-5272f0eddae9"
         }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:1295da51-aeb7-5ee2-b76c-03e87744262a"
+        }
       ]
     },
     {
@@ -1857,6 +1792,11 @@
       "uco-action:object": [
         {
           "@id": "urn:uuid:20c9aba3-885d-531e-9507-30f01b2395e3"
+        }
+      ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:1295da51-aeb7-5ee2-b76c-03e87744262a"
         }
       ]
     },
@@ -2154,44 +2094,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Member_Of",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:94e4a5d6-1e8f-5ce6-812b-138dc69eaf78",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:1295da51-aeb7-5ee2-b76c-03e87744262a"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:ac122ba1-c7ea-5f80-b846-d63590ee98b0"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:501dad6e-2a3e-5604-95ff-03c6bbee2c7a",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:1295da51-aeb7-5ee2-b76c-03e87744262a"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:48985fec-a54f-59d5-9f23-2f41bb524881"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"

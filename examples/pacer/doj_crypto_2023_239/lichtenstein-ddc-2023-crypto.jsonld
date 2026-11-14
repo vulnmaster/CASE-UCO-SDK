@@ -786,6 +786,11 @@
           "@id": "urn:uuid:9a9f6738-023d-5f12-b528-e89a8777bf41"
         }
       ],
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:f14eecaf-4771-5399-858e-46521c0cfab0"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:056a069c-4f2c-590b-b48c-dc70d19f9708"
@@ -806,25 +811,6 @@
         "nft-purchase",
         "precious-metals-purchase"
       ]
-    },
-    {
-      "@id": "urn:uuid:37f4007d-c442-50d8-842a-2d151e7d1253",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:f14eecaf-4771-5399-858e-46521c0cfab0"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:5ef3eb08-3d34-567a-8e8f-184d03420c81"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
     },
     {
       "@id": "urn:uuid:649568a7-d60a-5a3d-ba07-ccf7410e1623",

@@ -8,12 +8,76 @@ import pytest
 
 from recipe_lint import (
     OntologyCatalog,
+    build_catalog,
+    lint_python_graph_methods,
     lint_recipe_text,
     lint_recipes,
 )
 from relationship_kinds import known_relationship_kinds
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
+@pytest.mark.parametrize("receiver", ["graph", "g", "case_graph"])
+def test_python_snippet_rejects_nonexistent_graph_method(receiver):
+    text = f'''```python
+{receiver} = CASEGraph()
+{receiver}.add_node("kb:example", "uco-core:UcoObject", {{}})
+```'''
+    findings, _ = lint_recipe_text(
+        text, path="test.md", catalog=_catalog(), relationship_kinds=frozenset(),
+    )
+    assert any(f.code == "unknown_graph_method" and f.line == 3 for f in findings)
+
+
+def test_graph_method_lint_uses_class_introspection(monkeypatch):
+    from case_uco import CASEGraph
+
+    monkeypatch.setattr(CASEGraph, "example_method", lambda self: None, raising=False)
+    text = '''```python
+g.example_method()
+g.upsert_node("kb:example", types=["uco-core:UcoObject"], properties={})
+# g.add_node()
+message = "graph.add_node()"
+```
+```text
+graph.add_node()
+```'''
+    assert lint_python_graph_methods(text, path="test.md") == []
+
+
+def test_routing_skeletons_use_real_graph_methods():
+    from domain_index import MAPPING_GUIDE_INDEX
+
+    for entry in MAPPING_GUIDE_INDEX:
+        code = entry.get("code_skeleton", "")
+        assert not lint_python_graph_methods(f"```python\n{code}\n```", path="routing")
+
+
+@pytest.fixture(scope="module")
+def repository_catalog():
+    return build_catalog(PROJECT_ROOT)
+
+
+@pytest.mark.parametrize("template", [
+    "| Class | Role |\n|---|---|\n| `{term}` | Recovery |",
+    "| Term | Role |\n|---|---|\n| {term} | Recovery |",
+    '```mermaid\ngraph TD\n  A["{term}"]\n```',
+    "```\nInvestigation\n  └── cacontology:hasStep ──▶ {term}\n```",
+])
+def test_shape_only_recovery_term_in_tables_and_diagrams(repository_catalog, template):
+    for term, valid in [
+        ("cacontology-stranger-abduction:VictimRecovery", False),
+        ("cacontology:VictimRescueAction", True),
+    ]:
+        findings, _ = lint_recipe_text(
+            template.format(term=term), path="test.md", catalog=repository_catalog,
+            relationship_kinds=known_relationship_kinds(),
+        )
+        errors = [f for f in findings if not f.excluded]
+        assert (not errors) == valid, errors
+        if not valid:
+            assert any(f.term == term and f.code.startswith("undeclared_") for f in errors)
 
 
 def _catalog() -> OntologyCatalog:

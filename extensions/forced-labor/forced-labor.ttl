@@ -1,0 +1,180 @@
+# Forced-Labour Exploitation State Machine Extension (T-Box + phase/action vocabulary)
+#
+# Narrow, machine-only extension: contributes ONLY what the trajectories
+# (traj:) Exploitation State Machine needs to run on a forced-labour /
+# labour-trafficking offense — a skos:ConceptScheme of traj:State phases
+# and a small catalog of uco-action:Technique-typed action classes. No
+# domain taxonomy beyond the UCO 1.5.0 uco-action:Technique metaclass
+# punning pattern. These are offense-conduct techniques, not MITRE ATT&CK
+# hacking techniques; the attack-technique catalog is not a dependency.
+#
+# The fl: alphabet predates this file. extensions/layered has occupied
+# fl:Recruitment, fl:Control and fl:ForcedLabor and typed actions with
+# fl:a_coerce (renamed fl:a_coerce_labor here, so the registry local name
+# does not collide with trafficking:a_coerce) and fl:a_compel_labor since
+# layered 0.2.0, declaring the
+# states inline in its Atkinson exemplar because no forced-labor package
+# existed. This extension declares that alphabet once, keeps every IRI the
+# layered exemplar already uses, and adds the two phases and two techniques
+# a complete labour-exploitation chain needs.
+#
+# CAC crosswalk policy (same as extensions/layered). No CAC class is
+# retyped and CAC is never owl:imported. CAC has no forced-labour module,
+# and its trafficking module (cacontology-sex-trafficking.ttl, CAC 3.1.0)
+# is scoped to sex trafficking of children, so skos:exactMatch is not
+# used. Two phases overlap classes that module declares and carry a
+# documentation-only skos:closeMatch:
+#   fl:Recruitment -> cacontology-trafficking:VictimRecruitment
+#   fl:Control     -> cacontology-trafficking:VictimControlSituation
+# fl:Control is a state, so it is matched to the Situation class rather
+# than to the VictimControl event. ForcedLabor and WageAppropriation have
+# no CAC counterpart.
+#
+# Alphabet grounding. The states follow the ILO definition of forced
+# labour (Convention No. 29, 1930: work "exacted from any person under the
+# menace of any penalty and for which the said person has not offered
+# himself voluntarily") and the ILO's eleven indicators of forced labour
+# (ILO/SAP-FL, 2012; revised edition 2025): abuse of vulnerability,
+# deception, restriction of movement, isolation, physical and sexual
+# violence, intimidation and threats, retention of identity documents,
+# withholding of wages, debt bondage, abusive working and living
+# conditions, excessive overtime. Forced labour is defined by Convention
+# No. 29 and exists with or without trafficking. The UN Trafficking in
+# Persons Protocol (Palermo, 2000, art. 3(a)) applies when a chain also
+# has a trafficking act: it defines trafficking as act (recruitment,
+# transportation, transfer, harbouring, receipt), means (threat or use of
+# force, coercion, fraud, deception, abuse of a position of vulnerability)
+# and purpose, and lists "forced labour or services" among the purposes.
+# A chain that includes a recruitment-type act, carried out by a listed
+# means, for the purpose of forced labour, falls within that definition.
+# Occupying fl:Recruitment establishes none of those three on its own: the
+# act is the enacted action, the means is what its instrument records, and
+# the purpose is the terminal state the chain reaches. A chain that starts
+# at Control with no recruitment act in the source (the Cyprus case) is
+# forced labour under Convention No. 29 and makes no trafficking claim.
+#
+#   Recruitment        -- Palermo act (recruitment); ILO indicator
+#                          "deception" when the promise is false.
+#   Control            -- ILO indicators "retention of identity documents",
+#                          "intimidation and threats", "restriction of
+#                          movement", "isolation", "abuse of vulnerability",
+#                          "debt bondage"; Palermo means.
+#   ForcedLabor        -- ILO definition (work exacted under menace of a
+#                          penalty); indicators "abusive working and living
+#                          conditions", "excessive overtime".
+#   WageAppropriation  -- ILO indicator "withholding of wages"; Palermo
+#                          purpose ("forced labour or services").
+#
+# Instances grounded in the Europol newsroom release "27 arrests and 248
+# potential victims identified in action week against labour exploitation"
+# (2026-10-23, Europol and the European Labour Authority; action week
+# 14-20 September 2026). Two highlighted cases supply the exemplar; no
+# suspect or victim is named in the source and none is named here.
+#
+#   Recruitment        -- Romania: workers, some of them minors, taken
+#                          on for farm work under a false promise of
+#                          fair pay.
+#   Control            -- Cyprus: the employer kept the worker's
+#                          passport, so he could not leave or go to the
+#                          authorities.
+#   ForcedLabor        -- Cyprus: ten-hour days with no rest days;
+#                          Romania: working days over twelve hours.
+#   WageAppropriation  -- Cyprus and Romania: no wages paid.
+#
+# A press release is thin source material: no phase, action, amount or
+# affordance is asserted beyond what the release states.
+
+@prefix fl: <http://example.org/ontology/forced-labor/> .
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix cacontology-trafficking: <https://cacontology.projectvic.org/trafficking#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology/forced-labor>
+	a owl:Ontology ;
+	rdfs:label "Forced-Labour Exploitation State Machine Extension"@en ;
+	rdfs:comment "Phase vocabulary (traj:State plug-in) and Technique-typed action catalog for a forced-labour / labour-trafficking Exploitation State Machine. Declares the fl: alphabet that the layered extension's Atkinson exemplar occupies. Grounded in the Europol/ELA labour-exploitation action week of 14-20 September 2026. Depends on the trajectories extension and the UCO 1.5.0 uco-action:Technique metaclass; mints no domain taxonomy beyond phases and actions; no CAC class is retyped or imported; Recruitment and Control carry a skos:closeMatch to CAC 3.1.0 trafficking classes."@en ;
+	dcterms:source
+		"https://www.ilo.org/publications/ilo-indicators-forced-labour"^^xsd:anyURI ,
+		"https://www.ohchr.org/en/instruments-mechanisms/instruments/protocol-prevent-suppress-and-punish-trafficking-persons"^^xsd:anyURI ,
+		"https://www.europol.europa.eu/media-press/newsroom/news/27-arrests-and-248-potential-victims-identified-in-action-week-against-labour-exploitation"^^xsd:anyURI ;
+	owl:imports
+		<http://example.org/ontology/trajectories> ,
+		<https://ontology.unifiedcyberontology.org/uco/action> .
+
+#################################################################
+# Phase vocabulary: traj:State instances in a SKOS scheme
+#################################################################
+
+fl:PhaseScheme
+	a skos:ConceptScheme ;
+	skos:prefLabel "Forced-labour offense phases"@en ;
+	dcterms:source "Europol newsroom, 27 arrests and 248 potential victims identified in action week against labour exploitation, 2026-10-23"@en .
+
+fl:Recruitment
+	a traj:State , skos:Concept ;
+	uco-core:name "Recruitment" ;
+	skos:prefLabel "Recruitment"@en ;
+	skos:definition "The worker is engaged for the labour, often on a false basis. Source: Europol 2026-10-23, Romania ('deceived into agricultural work with promises of fair pay')."@en ;
+	skos:closeMatch cacontology-trafficking:VictimRecruitment ;
+	skos:inScheme fl:PhaseScheme .
+
+fl:Control
+	a traj:State , skos:Concept ;
+	uco-core:name "Control" ;
+	skos:prefLabel "Control"@en ;
+	skos:definition "The worker's freedom to leave, complain or seek help is restricted: identity documents withheld, threats, housing or food dependency, irregular immigration status. Source: Europol 2026-10-23, Cyprus ('withheld the victim's passport'), Netherlands ('used threats'), Poland ('exploiting their irregular immigration status to prevent them from reporting abuse')."@en ;
+	skos:closeMatch cacontology-trafficking:VictimControlSituation ;
+	skos:inScheme fl:PhaseScheme .
+
+fl:ForcedLabor
+	a traj:State , skos:Concept ;
+	uco-core:name "Forced labor" ;
+	skos:prefLabel "Forced labor"@en ;
+	skos:definition "The worker performs labour under hours and conditions they cannot refuse. Source: Europol 2026-10-23, Cyprus ('10-hour days with no pay or days off'), Romania ('over 12 hours working days')."@en ;
+	skos:inScheme fl:PhaseScheme .
+
+fl:WageAppropriation
+	a traj:State , skos:Concept ;
+	uco-core:name "Wage appropriation" ;
+	skos:prefLabel "Wage appropriation"@en ;
+	skos:definition "Wages for the labour performed are withheld or underpaid and the value is retained by the offender. Source: Europol 2026-10-23, Cyprus and Romania ('no pay'), Netherlands ('underpaid them ... to generate at least EUR 4 million in profits')."@en ;
+	skos:inScheme fl:PhaseScheme .
+
+#################################################################
+# Action catalog: Technique-typed uco-action:Action subclasses
+# (UCO 1.5.0 uco-action:Technique metaclass punning pattern)
+#################################################################
+
+fl:a_deceive_recruit
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Recruit by deception"@en ;
+	rdfs:comment "Engaging a worker with a false promise about pay or conditions. Affordance abused: the job offer. Source: Europol 2026-10-23, Romania ('deceived ... with promises of fair pay')."@en ;
+	uco-action:techniqueID "FL.T1" .
+
+fl:a_coerce_labor
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Coerce continued labour"@en ;
+	rdfs:comment "Compelling a worker's continued labour by document retention, threats, dependency or immigration status. Affordance abused: the withheld document, the threat, or the dependency. Source: Europol 2026-10-23, Cyprus and Netherlands."@en ;
+	uco-action:techniqueID "FL.T2" .
+
+fl:a_compel_labor
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Compel labour"@en ;
+	rdfs:comment "Imposing working hours and conditions the worker cannot refuse. Affordance abused: the job placement. Source: Europol 2026-10-23, Cyprus and Romania."@en ;
+	uco-action:techniqueID "FL.T3" .
+
+fl:a_appropriate_wages
+	a owl:Class , uco-action:Technique ;
+	rdfs:subClassOf uco-action:Action ;
+	rdfs:label "Appropriate wages"@en ;
+	rdfs:comment "Withholding or underpaying wages for the labour performed and retaining the value. Affordance abused: control of the payroll. Source: Europol 2026-10-23, Cyprus, Romania and Netherlands."@en ;
+	uco-action:techniqueID "FL.T4" .

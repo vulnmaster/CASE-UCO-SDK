@@ -664,25 +664,6 @@
       }
     },
     {
-      "@id": "urn:uuid:dc4b6c87-2aaf-5555-9186-a59183b6d8a8",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:5212870d-7010-521d-98e2-51fdc2151e8a"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:c2c54bb7-dfae-517f-a403-d48a4c3c7139"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:c2c54bb7-dfae-517f-a403-d48a4c3c7139",
       "@type": "uco-action:Action",
       "uco-core:name": "Offer the Memphis couple money to kill three people (Dallas meeting)",
@@ -690,6 +671,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:f343525b-ac3b-5796-8466-167e4308ef07"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:5212870d-7010-521d-98e2-51fdc2151e8a"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:4a77fc19-e38f-5826-914d-88a5ecefa828"
@@ -741,25 +727,6 @@
       }
     },
     {
-      "@id": "urn:uuid:3bbd1f86-80da-502c-99bb-3a804804f430",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:b4744b9f-59b4-5c84-a1a7-9a5019eb9fb8"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:57f9a6f5-41fd-549a-9ff3-7f51ab1a8cff"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:57f9a6f5-41fd-549a-9ff3-7f51ab1a8cff",
       "@type": "uco-action:Action",
       "uco-core:name": "Stage a failed murder attempt with a police-lights photo and demand $10,000",
@@ -767,6 +734,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:92774010-3d0e-59ae-bb35-42093de3aa6f"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:b4744b9f-59b4-5c84-a1a7-9a5019eb9fb8"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:f343525b-ac3b-5796-8466-167e4308ef07"
@@ -782,25 +754,6 @@
       }
     },
     {
-      "@id": "urn:uuid:b382726e-af76-50a0-a2dd-936e192b1c91",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:5212870d-7010-521d-98e2-51fdc2151e8a"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:2c020a11-1cff-5858-933a-9869b10cafb7"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:2c020a11-1cff-5858-933a-9869b10cafb7",
       "@type": "uco-action:Action",
       "uco-core:name": "Pay the Memphis couple $10,000 for the staged 'attempt' (Dallas meeting)",
@@ -808,6 +761,11 @@
       "uco-action:performer": {
         "@id": "urn:uuid:f343525b-ac3b-5796-8466-167e4308ef07"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:5212870d-7010-521d-98e2-51fdc2151e8a"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:2fac0009-083e-5351-9d62-26c68c97e4bb"
@@ -818,25 +776,6 @@
       }
     },
     {
-      "@id": "urn:uuid:1eb4d44f-1ebf-5be3-b280-23f3c5d7d0b2",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:3069da35-7ffd-5ead-86dd-8121df6546ba"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:a8228cea-a94f-5899-b418-e826e3762363"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
       "@id": "urn:uuid:a8228cea-a94f-5899-b418-e826e3762363",
       "@type": "uco-action:Action",
       "uco-core:name": "Investigate the murder-for-hire plot",
@@ -844,6 +783,14 @@
       "uco-action:performer": {
         "@id": "urn:uuid:65b23ff9-f619-5a17-858d-26282e150607"
       },
+      "uco-action:participant": [
+        {
+          "@id": "urn:uuid:3069da35-7ffd-5ead-86dd-8121df6546ba"
+        },
+        {
+          "@id": "urn:uuid:fa9fc6ec-dc5e-5582-acad-e089548bbd09"
+        }
+      ],
       "uco-action:object": [
         {
           "@id": "urn:uuid:f343525b-ac3b-5796-8466-167e4308ef07"
@@ -1019,25 +966,6 @@
         }
       ],
       "uco-core:kindOfRelationship": "Relates_To",
-      "uco-core:isDirectional": {
-        "@type": "xsd:boolean",
-        "@value": "true"
-      }
-    },
-    {
-      "@id": "urn:uuid:28c3ae48-c7d4-5122-a130-41ad3565fa9b",
-      "@type": "uco-core:Relationship",
-      "uco-core:source": [
-        {
-          "@id": "urn:uuid:fa9fc6ec-dc5e-5582-acad-e089548bbd09"
-        }
-      ],
-      "uco-core:target": [
-        {
-          "@id": "urn:uuid:a8228cea-a94f-5899-b418-e826e3762363"
-        }
-      ],
-      "uco-core:kindOfRelationship": "Participated_In",
       "uco-core:isDirectional": {
         "@type": "xsd:boolean",
         "@value": "true"

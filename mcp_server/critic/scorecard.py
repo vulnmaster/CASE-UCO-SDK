@@ -18,9 +18,23 @@ def _evaluated_rule_ids(rule_executions: list[dict] | None) -> set[str]:
     return evaluated
 
 
+# CRIT-C rules that check where the source file came from (its hash, the
+# provenance manifest) rather than whether the graph agrees with its text.
+_PROVENANCE_RULE_PREFIXES = ("CRIT-C-SOURCE-HASH", "CRIT-C-PROVENANCE-MANIFEST")
+
+
+def _is_provenance_rule(rule_id: str | None) -> bool:
+    return str(rule_id or "").startswith(_PROVENANCE_RULE_PREFIXES)
+
+
+def _is_provenance_finding(finding: CriticFinding) -> bool:
+    return _is_provenance_rule(finding.rule_id) or _is_provenance_rule(finding.verifier_rule_id)
+
+
 def _coverage_rules_evaluated(rule_executions: list[dict] | None) -> bool:
     return any(
         str(execution.get("rule_id", "")).startswith("CRIT-C-")
+        and not _is_provenance_rule(execution.get("rule_id"))
         and execution.get("status") == "evaluated"
         for execution in rule_executions or []
     )
@@ -29,6 +43,15 @@ def _coverage_rules_evaluated(rule_executions: list[dict] | None) -> bool:
 def _coverage_rules_attempted(rule_executions: list[dict] | None) -> bool:
     return any(
         str(execution.get("rule_id", "")).startswith("CRIT-C-")
+        and not _is_provenance_rule(execution.get("rule_id"))
+        for execution in rule_executions or []
+    )
+
+
+def _provenance_rules_evaluated(rule_executions: list[dict] | None) -> bool:
+    return any(
+        _is_provenance_rule(execution.get("rule_id"))
+        and execution.get("status") == "evaluated"
         for execution in rule_executions or []
     )
 
@@ -77,9 +100,13 @@ def build_deterministic_scorecard(
             evidence=["validation_complete_conforming"],
         )
 
-    # Source fidelity — only when CRIT-C-* rules actually evaluated
+    # Source fidelity — only when CRIT-C-* rules that compare the graph with
+    # source content evaluated (a matching hash is provenance, not fidelity)
     if has_sources or has_coverage_contract:
-        src_findings = [f for f in findings if f.category in {"source_fidelity", "coverage"}]
+        src_findings = [
+            f for f in findings
+            if f.category in {"source_fidelity", "coverage"} and not _is_provenance_finding(f)
+        ]
         if _coverage_rules_evaluated(rule_executions):
             if src_findings:
                 score.source_fidelity = ScoreDimension(
@@ -150,7 +177,10 @@ def build_deterministic_scorecard(
         score.markings_authorization = ScoreDimension(assessed=False)
 
     # Provenance / custody
-    prov = [f for f in findings if f.category in {"provenance", "custody"}]
+    prov = [
+        f for f in findings
+        if f.category in {"provenance", "custody"} or _is_provenance_finding(f)
+    ]
     if prov:
         score.provenance_custody = ScoreDimension(
             score=2,
@@ -158,6 +188,12 @@ def build_deterministic_scorecard(
             evidence=[f.finding_id for f in prov[:5]],
             hard_cap=2,
             cap_reason="provenance_or_custody_findings",
+        )
+    elif _provenance_rules_evaluated(rule_executions):
+        score.provenance_custody = ScoreDimension(
+            score=4,
+            assessed=True,
+            evidence=["source_hash_or_manifest_verified"],
         )
     else:
         score.provenance_custody = ScoreDimension(assessed=False)

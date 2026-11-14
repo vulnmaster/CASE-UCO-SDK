@@ -23,6 +23,14 @@ import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / "python"))
+
+from case_uco.validation.runtime import (
+    ValidatorError,
+    prepare_validator,
+    validator_error_code,
+    validator_error_message,
+)
 # Extensions live under either root; see mcp_server/extension_paths.py.
 EXTENSION_ROOTS = ("extensions", "ontology")
 
@@ -117,7 +125,13 @@ def main() -> int:
     print(f"  Ontology graphs: {len(ontology_graphs)}")
     print(f"  Data file: {data_path}")
 
-    cmd = ["case_validate"]
+    try:
+        runtime = prepare_validator()
+    except ValidatorError as exc:
+        print(f"{exc.code}: {exc}", file=sys.stderr)
+        return 2
+    print(f"  Validator version: {runtime.version}")
+    cmd = list(runtime.command)
     for graph_path in ontology_graphs:
         cmd.extend(["--ontology-graph", graph_path])
     if ns.inference:
@@ -129,7 +143,16 @@ def main() -> int:
     cmd.append(str(data_path))
 
     print(f"  Running: {' '.join(cmd[:6])} ... ({len(cmd) - 1} args total)")
-    result = subprocess.run(cmd)
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    except OSError:
+        print("validator_execution_failed: CASE validator could not run", file=sys.stderr)
+        return 2
+    print(result.stdout, end="")
+    print(result.stderr, end="", file=sys.stderr)
+    code = validator_error_code(result.returncode, result.stderr)
+    if code:
+        print(f"{code}: {validator_error_message(code, None)}", file=sys.stderr)
     return result.returncode
 
 

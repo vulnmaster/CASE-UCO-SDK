@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -29,7 +30,7 @@ def validate_partition_set(
     manifest: Mapping[str, Any],
     *,
     source_graph: CASEGraph | None = None,
-    project_root: str | Path | None = None,
+    project_root: str | os.PathLike[str] | None = None,
     strict_concepts: bool = True,
     allow_warning: bool = True,
 ) -> PartitionValidationReport:

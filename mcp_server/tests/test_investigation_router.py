@@ -402,3 +402,72 @@ def test_multi_family_guidance_requires_evidence() -> None:
     steps = " ".join(payload["recommended_workflow"])
     assert "matched_keywords against the" in steps
     assert "unrelated by default" in steps
+
+
+def test_long_keywords_match_whole_words_not_word_parts() -> None:
+    """#125: ``count`` must not hit ``accounts``; plurals and stems still match."""
+    from investigation_router import INVESTIGATION_FAMILIES, keyword_in_text, score_family
+
+    assert not keyword_in_text("the victim accounts were drained", "count")
+    assert not keyword_in_text("she was harmed and alarmed", "armed")
+    assert not keyword_in_text("a forerunner of the scheme", "runner")
+    assert keyword_in_text("two counts of wire fraud", "count")
+    assert keyword_in_text("an armed robbery", "armed")
+    assert keyword_in_text("the abduction was reported", "abduct")
+    assert keyword_in_text("all schedule ii controlled substances", "schedule i")
+    assert keyword_in_text("ttps", "ttp") is False
+
+    docket = next(f for f in INVESTIGATION_FAMILIES if f.family_id == "legal-filings-docket")
+    assert score_family("Her bank accounts in another country were closed.", docket) == (0, [])
+
+    crypto = next(f for f in INVESTIGATION_FAMILIES if f.family_id == "financial-crime-crypto")
+    graph_text = '{"@type": "cryptoinv:CryptocurrencyAddressFacet", "d": "x\\n\\npeel chains"}'
+    _, hits = score_family(graph_text, crypto)
+    assert "cryptocurrency" in hits
+    assert "peel chain" in hits
+
+
+FIAT_FRAUD_TEXT = (
+    "The indictment charges the defendant with wire fraud and bank fraud. "
+    "He induced investors to wire money into a fund and spent it on "
+    "personal expenses."
+)
+
+
+def test_fiat_fraud_does_not_require_cryptoinv() -> None:
+    payload = route_investigation_content(PROJECT_ROOT, content_text=FIAT_FRAUD_TEXT)
+    ordered = payload["ordered_recommendations"]
+    assert ordered["required_extensions"] == ["legalproc"]
+    assert "cryptoinv" in ordered["optional_extensions"]
+
+    crypto = route_investigation_content(
+        PROJECT_ROOT,
+        content_text=FIAT_FRAUD_TEXT + " The proceeds were laundered through a bitcoin mixer.",
+    )
+    assert "cryptoinv" in crypto["ordered_recommendations"]["required_extensions"]
+
+
+def test_semantic_only_family_does_not_require_extensions() -> None:
+    payload = route_investigation_content(
+        PROJECT_ROOT,
+        content_text="The indictment charges wire fraud. No weapon, threat, or violence is alleged.",
+    )
+    semantic_only = [
+        m for m in payload["matched_families"] if m["match_stages"] == ["semantic"]
+        and not m["matched_keywords"]
+    ]
+    assert any(m["family_id"] == "violent-crime" for m in semantic_only)
+    for match in semantic_only:
+        assert match["extensions"] == []
+    ordered = payload["ordered_recommendations"]
+    assert "weapons" not in ordered["required_extensions"]
+    assert "weapons" in ordered["optional_extensions"]
+
+
+def test_violent_crime_note_links_co_actors_with_participant() -> None:
+    """#109: co-actors use uco-action:participant, as the recipes say."""
+    from investigation_router import INVESTIGATION_FAMILIES
+
+    family = next(f for f in INVESTIGATION_FAMILIES if f.family_id == "violent-crime")
+    assert "uco-action:participant" in family.notes
+    assert "Participated_In" not in family.notes

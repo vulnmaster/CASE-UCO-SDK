@@ -36,7 +36,7 @@ from critic.review_schema import validate_critic_review
 from critic.scorecard import build_deterministic_scorecard, merge_scorecards
 from critic.serializer_python import SerializerTooComplexError, analyze_python_serializer
 
-RULE_VERSION = "1.1.0"
+RULE_VERSION = "1.1.1"
 MAX_SERIALIZER_AST_BYTES = 256 * 1024
 
 
@@ -608,6 +608,8 @@ def _run_validation(
         profile_not_selected=list(report.profile_not_selected),
         role_mismatches=[list(t) for t in report.role_mismatches],
         safe_summary=report.safe_summary,
+        violation_details=[dict(d) for d in report.violation_details],
+        violation_details_truncated=report.violation_details_truncated,
         error_code=(
             None
             if report.verification_status == "complete"
@@ -674,7 +676,7 @@ def _validation_findings(validation: ValidationSummary) -> list[CriticFinding]:
             evidence=["validator_unavailable"],
             rationale="Required validation stage could not run (case_validate missing).",
             recommended_change="Install case-utils and re-run the critic.",
-            verification_method="shutil.which('case_validate')",
+            verification_method="case_uco.validation.validator_available()",
             rule_id="CRIT-V-UNAVAILABLE",
             verifier_rule_id="CRIT-V-SHACL",
             rule_version=RULE_VERSION,
@@ -683,18 +685,32 @@ def _validation_findings(validation: ValidationSummary) -> list[CriticFinding]:
         f.ensure_identity_key()
         findings.append(f)
     elif validation.verification_status != "complete" or validation.conforms is not True:
+        focus_nodes = {d.get("focus_node") for d in validation.violation_details}
         f = CriticFinding(
             finding_id="",
             severity="critical",
             category="validation",
             confidence=1.0,
             status="new",
-            target=CriticTarget(),
+            target=CriticTarget(
+                node_id=next(iter(focus_nodes)) if len(focus_nodes) == 1 else None
+            ),
             evidence_kind="deterministic",
             evidence=[
                 f"conforms={validation.conforms}",
                 f"verification_status={validation.verification_status}",
                 f"violations={validation.violation_count}",
+                *(
+                    "violation: focus_node={focus_node} result_path={result_path} "
+                    "constraint_component={constraint_component} severity={severity}"
+                    .format(**d)
+                    for d in validation.violation_details
+                ),
+                *(
+                    ["violation_details_truncated=True"]
+                    if validation.violation_details_truncated
+                    else []
+                ),
             ],
             rationale="Graph validation is incomplete or non-conforming.",
             recommended_change="Resolve SHACL/coverage failures before acceptance.",
@@ -807,10 +823,21 @@ def _populate_occurrences(
 def _bounded_source_excerpts(
     aliases: dict[str, Path], *, max_chars: int = 800, max_read: int = 4096
 ) -> list[dict[str, Any]]:
+    """First ``max_chars`` of each source's document text.
+
+    ``extraction`` says where the text came from: ``<kind>_text`` from the
+    document processor's extractors, ``raw_bytes`` (UTF-8 decoded) only for
+    formats with no extractor, or ``no_text_extracted`` (empty text) when a
+    supported document yields none, such as a scanned PDF.
+    """
+    import document_processor
+
     out: list[dict[str, Any]] = []
     for alias, path in list(aliases.items())[:5]:
-        raw = path.read_bytes()[:max_read]
-        text = raw.decode("utf-8", errors="replace")
+        text, extraction = document_processor.review_text(path)
+        if extraction == "no_extractor":
+            text = path.read_bytes()[:max_read].decode("utf-8", errors="replace")
+            extraction = "raw_bytes"
         if len(text) > max_chars:
             text = text[: max_chars - 1] + "…"
         out.append(
@@ -818,6 +845,7 @@ def _bounded_source_excerpts(
                 "path": alias,
                 "sha256": sha256_file(path),
                 "text": text,
+                "extraction": extraction,
             }
         )
     return out

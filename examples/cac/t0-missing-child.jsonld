@@ -43,11 +43,11 @@
       "@id": "urn:uuid:b22c33d4-e55f-6677-8899-00aabbccddee",
       "@type": "case-investigation:InvestigativeAction",
       "uco-core:name": "Receive missing-child report",
-      "uco-core:startTime": {
+      "uco-action:startTime": {
         "@type": "xsd:dateTime",
         "@value": "2026-09-01T12:00:00Z"
       },
-      "uco-core:endTime": {
+      "uco-action:endTime": {
         "@type": "xsd:dateTime",
         "@value": "2026-09-01T12:05:00Z"
       }

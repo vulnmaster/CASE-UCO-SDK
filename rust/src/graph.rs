@@ -8,6 +8,7 @@ use std::io::Write;
 use uuid::Uuid;
 
 const KIND_SLUG_MAX_LEN: usize = 64;
+const DEFAULT_KB_PREFIX: &str = "http://example.org/kb/";
 
 /// Named duplicate `@id` policies (parity with Python / C# / Java).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -542,6 +543,9 @@ impl CaseGraph {
     }
 
     /// Load a JSON-LD string into this graph (transactional).
+    ///
+    /// If this graph is empty and still has the default `kb`, the document's
+    /// `kb` binding is adopted; otherwise a different `kb` is a context collision.
     pub fn load(&mut self, json: &str) -> Result<(), LoadError> {
         self.load_with_policy(json, self.on_duplicate)
     }
@@ -555,6 +559,7 @@ impl CaseGraph {
         let snapshot = self.snapshot();
         let result = (|| -> Result<(), LoadError> {
             if let Some(ctx) = doc.get("@context").and_then(|c| c.as_object()) {
+                self.adopt_document_kb(ctx);
                 self.merge_context(ctx)?;
             }
             if let Some(arr) = doc.get("@graph").and_then(|g| g.as_array()) {
@@ -584,6 +589,20 @@ impl CaseGraph {
         self.objects = snap.objects;
         self.iri_index = snap.iri_index;
         self.used_prefix_set = snap.used_prefix_set;
+    }
+
+    /// Take the document's `kb` binding if this graph is empty and still default,
+    /// so `load`/`from_jsonld` read output built with a custom `kb_prefix`.
+    /// A populated graph, or one built with a non-default `kb_prefix`, keeps
+    /// the collision error.
+    fn adopt_document_kb(&mut self, incoming: &Map<String, Value>) {
+        if let Some(kb) = incoming.get("kb").and_then(|v| v.as_str()) {
+            if self.objects.is_empty()
+                && self.context.get("kb").map(String::as_str) == Some(DEFAULT_KB_PREFIX)
+            {
+                self.context.insert("kb".to_string(), kb.to_string());
+            }
+        }
     }
 
     fn merge_context(&mut self, incoming: &Map<String, Value>) -> Result<(), LoadError> {
@@ -625,9 +644,10 @@ impl CaseGraph {
         let doc: Value =
             serde_json::from_str(json).map_err(|e| format!("Failed to parse JSON: {e}"))?;
 
-        let mut graph = CaseGraph::new("http://example.org/kb/");
+        let mut graph = CaseGraph::new(DEFAULT_KB_PREFIX);
 
         if let Some(ctx) = doc.get("@context").and_then(|c| c.as_object()) {
+            graph.adopt_document_kb(ctx);
             graph.merge_context(ctx).map_err(|e| e.to_string())?;
         }
 
@@ -747,18 +767,40 @@ impl CaseGraph {
     }
 
     /// Validate this graph against CASE/UCO SHACL constraints using `case_validate`.
+    ///
+    /// `sh:Info` results (such as UCO's suggestion that IRIs end in a UUID)
+    /// do not fail validation; use [`Self::validate_with_options`] to change that.
     pub fn validate(&self, case_version: &str) -> Result<String, String> {
+        self.validate_with_options(case_version, true, false)
+    }
+
+    /// Validate with explicit handling of `sh:Info` and `sh:Warning` results.
+    pub fn validate_with_options(
+        &self,
+        case_version: &str,
+        allow_info: bool,
+        allow_warning: bool,
+    ) -> Result<String, String> {
         use std::io::Write;
         let json = self
             .serialize()
             .map_err(|e| format!("Serialization failed: {e}"))?;
-        let mut tmp = tempfile::NamedTempFile::new()
+        // case_validate picks the RDF parser from the file extension.
+        let mut tmp = tempfile::Builder::new()
+            .suffix(".jsonld")
+            .tempfile()
             .map_err(|e| format!("Failed to create temp file: {e}"))?;
         tmp.write_all(json.as_bytes())
             .map_err(|e| format!("Failed to write temp file: {e}"))?;
-        let output = std::process::Command::new("case_validate")
-            .arg("--built-version")
-            .arg(case_version)
+        let mut command = std::process::Command::new("case_validate");
+        command.arg("--built-version").arg(case_version);
+        if allow_info {
+            command.arg("--allow-info");
+        }
+        if allow_warning {
+            command.arg("--allow-warning");
+        }
+        let output = command
             .arg(tmp.path())
             .output()
             .map_err(|e| {
@@ -1991,7 +2033,7 @@ fn default_context() -> HashMap<String, String> {
         "case-investigation".into(),
         "https://ontology.caseontology.org/case/investigation/".into(),
     );
-    ctx.insert("kb".into(), "http://example.org/kb/".into());
+    ctx.insert("kb".into(), DEFAULT_KB_PREFIX.into());
     ctx.insert(
         "uco-action".into(),
         "https://ontology.unifiedcyberontology.org/uco/action/".into(),

@@ -39,7 +39,7 @@ Call `process_document_file` once per PDF. The tool:
 
 - Extracts text (pdftotext → pypdf → OCR ladder)
 - Writes CASE/UCO JSON-LD with source `ObservableObject`, hashes, and `InvestigativeAction` provenance
-- Emits `extracted-content.json` and `annotations.jsonld` beside the graph
+- Emits `<graph-stem>.extracted-content.json` and `<graph-stem>.annotations.jsonld` beside the graph and returns those paths. The shared `extracted-content.json` and `annotations.jsonld` are also written, and hold the last document processed into the directory
 - Maps high-confidence spans to core UCO types (Person, Organization, Location, ApplicationAccount, Event, statute references)
 
 **Honest failures:** `pdf_text_missing`, `source_missing`, `source_oversized` — do not fabricate content.

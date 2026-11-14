@@ -96,7 +96,12 @@ def test_validate_graph_file_attributes_sparql_crash_to_shape(tmp_path, monkeypa
     shapes.write_text("# shapes\n", encoding="utf-8")
 
     monkeypatch.setattr(vg, "validator_available", lambda: True)
-    monkeypatch.setattr(vg, "_validator_package_version", lambda: "0.18.0")
+    from case_uco.validation.runtime import ValidatorRuntime, validator_command
+
+    monkeypatch.setattr(
+        vg, "prepare_validator",
+        lambda version: ValidatorRuntime(validator_command(), "0.18.0"),
+    )
     # strict_concepts=False uses extension_ontology_args, not the bundle planner.
     monkeypatch.setattr(
         vg,

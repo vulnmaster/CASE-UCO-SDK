@@ -8,6 +8,7 @@ fingerprint (CQ-27–CQ-36).
 
 from __future__ import annotations
 
+import os
 import hashlib
 import json
 import os
@@ -398,12 +399,13 @@ def resolve_validation_bundle(
     extensions: list[str] | None = None,
     profiles: list[str] | None = None,
     *,
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
     allow_foundational_pair: bool = False,
     extra_ontology_graphs: list[str | Path] | None = None,
     use_cache: bool = True,
 ) -> ResolvedValidationBundle:
     """Resolve extension + profile ontology graphs into one fingerprinted bundle."""
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     extensions = list(extensions or [])
     profiles = list(profiles or [])
@@ -638,7 +640,7 @@ def hash_validation_bundle_identity(
     extensions: list[str] | None = None,
     profiles: list[str] | None = None,
     extra_ontology_graphs: list[str | Path] | None = None,
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
     force_rdfs_inference: bool = False,
     use_cache: bool = False,
 ) -> dict[str, Any]:
@@ -647,6 +649,7 @@ def hash_validation_bundle_identity(
     Defaults to ``use_cache=False`` so callers that reverify at finalization
     always rehash selected ontology/shapes/bridge/auxiliary resources.
     """
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     bundle = resolve_validation_bundle(
         extensions=list(extensions or []),

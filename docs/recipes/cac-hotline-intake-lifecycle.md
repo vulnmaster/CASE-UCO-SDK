@@ -43,10 +43,10 @@ from case_uco import CASEGraph
 graph = CASEGraph(extra_context={
     "cacontology-hotlines": "https://cacontology.projectvic.org/hotlines#",
 })
-report = graph.add_node("kb:report-1", "cacontology-hotlines:HotlineReport", {
+report = graph.upsert_node("kb:report-1", types=["cacontology-hotlines:HotlineReport"], properties={
     "uco-core:name": "CyberTipline report",
 })
-review = graph.add_node("kb:review-1", "cacontology-hotlines:ReportReviewAction", {
+review = graph.upsert_node("kb:review-1", types=["cacontology-hotlines:ReportReviewAction"], properties={
     "uco-core:name": "Hotline triage review",
     "uco-action:object": {"@id": "kb:report-1"},
 })

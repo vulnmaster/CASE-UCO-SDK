@@ -138,6 +138,17 @@ puts the verified substring in the description. A collector label is an
 Do not set `uco-core:createdBy` to the public official who signed a document.
 That property is the identity that created the UCO record.
 
+## From `process_document_file`
+
+`process_document_file` (MCP tool, Python function, and CLI
+`--source-url` / `--retrieved-at` / `--http-status`) emits the URL and
+retrieval nodes above for one captured file. Pass `source_url` (absolute
+`http`/`https`, no credentials), and optionally `retrieved_at` and
+`http_status`. A full ISO 8601 timestamp becomes `uco-action:endTime`; a date
+alone goes into the action's description. Without `source_url` the output is
+unchanged. Redirects, failed rows, and the work the file is about are still
+added by hand.
+
 ## Anti-patterns
 
 - Do not type an executive order as `legalproc:ChargingInstrument`.

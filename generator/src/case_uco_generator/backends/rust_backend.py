@@ -74,7 +74,13 @@ class RustBackend(CodegenBackend):
             "pub mod registry;\n"
             "pub mod streaming;\n"
             "pub mod uco;\n"
-            "pub mod case;\n",
+            "pub mod case;\n\n"
+            "/// Version of this crate.\n"
+            'pub const VERSION: &str = env!("CARGO_PKG_VERSION");\n'
+            "/// UCO ontology version the bindings were generated from.\n"
+            f'pub const UCO_VERSION: &str = "{self.schema.ontology_versions.get("uco", "")}";\n'
+            "/// CASE ontology version the bindings were generated from.\n"
+            f'pub const CASE_VERSION: &str = "{self.schema.ontology_versions.get("case", "")}";\n',
             encoding="utf-8",
         )
         created.append(lib_rs)

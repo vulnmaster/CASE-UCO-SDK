@@ -46,7 +46,7 @@ from case_uco import CASEGraph
 graph = CASEGraph(extra_context={
     "cacontology-victim-impact": "https://cacontology.projectvic.org/victim-impact#",
 })
-extraction = graph.add_node("kb:extract-1", "cacontology-victim-impact:VictimExtraction", {
+extraction = graph.upsert_node("kb:extract-1", types=["cacontology-victim-impact:VictimExtraction"], properties={
     "uco-core:name": "Victim extraction at motel",
 })
 graph.write("victim-rescue.jsonld")

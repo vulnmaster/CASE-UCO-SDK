@@ -1,0 +1,334 @@
+# Forced-Labour extension — real exemplar
+# Source: Europol newsroom, "27 arrests and 248 potential victims identified
+# in action week against labour exploitation", 2026-10-23 ("PR"), reporting
+# the Europol/ELA action week of 14-20 September 2026.
+#   https://www.europol.europa.eu/media-press/newsroom/news/27-arrests-and-248-potential-victims-identified-in-action-week-against-labour-exploitation
+#
+# Two highlighted cases, each one trajectory, paraphrased from the release.
+# No suspect, victim, farm or employer is named in the source, so none is
+# named here. Neither case
+# gives a start date; every interval is bounded only on the right by the
+# end of the action week, when the conduct was uncovered. Both chains are
+# therefore terminal "disrupted", not "completed".
+#
+#   Cyprus   Control -> ForcedLabor -> WageAppropriation
+#            (recruitment not described in PR; coverage partial)
+#   Romania  Recruitment -> ForcedLabor -> WageAppropriation
+#            (PR describes deception at recruitment and the conditions,
+#            but no control act; coverage partial)
+
+@prefix fl: <http://example.org/ontology/forced-labor/> .
+@prefix flx: <http://example.org/forced-labor/europol-2026/> .
+@prefix traj: <http://example.org/ontology/trajectories/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-tool: <https://ontology.unifiedcyberontology.org/uco/tool/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Actors (unnamed in source)
+#################################################################
+
+flx:person-cy-employer
+	a uco-identity:Person , uco-core:UcoObject ;
+	uco-core:name "Cyprus livestock farm employer (suspect; unnamed)" ;
+	uco-core:description "Employer at a livestock farm who kept the worker's passport, paid no wages, and provided only basic food staples and substandard housing. Source: PR, Cyprus." .
+
+flx:person-cy-worker
+	a uco-identity:Person , uco-core:UcoObject ;
+	uco-core:name "Cyprus livestock farm worker (victim; unnamed)" ;
+	uco-core:description "Foreign worker at a livestock farm, made to work ten-hour days with no rest days and no wages; passport kept by the employer. Nationality not given. Source: PR, Cyprus." .
+
+flx:org-ro-recruiters
+	a uco-identity:Organization , uco-core:UcoObject ;
+	uco-core:name "Romania agricultural-work recruiters (unnamed)" ;
+	uco-core:description "Party that took on vulnerable people, some of them minors, for farm work under a false promise of fair pay. The release does not say whether this was one person or a group; modelled as an Organization because the conduct spans recruitment, placement and payroll. Source: PR, Romania." .
+
+#################################################################
+# Evidence nodes (document-level citations)
+#################################################################
+
+flx:evidence-pr
+	a uco-core:UcoObject ;
+	uco-core:name "Europol newsroom release, 2026-10-23" ;
+	uco-core:description "Results of the EMPACT action week against labour exploitation, 14-20 September 2026, co-led by Europol and the European Labour Authority. Document-level citation. URL: https://www.europol.europa.eu/media-press/newsroom/news/27-arrests-and-248-potential-victims-identified-in-action-week-against-labour-exploitation" .
+
+flx:evidence-cyprus
+	a uco-core:UcoObject ;
+	uco-core:name "Cyprus: farm worker, passport kept, no wages" ;
+	uco-core:description "During the action week, inspectors in Cyprus found a livestock farm worker in substandard housing who was made to work ten-hour days with no rest days and no wages. His employer had kept his passport and gave him only basic food staples. Source: PR, highlighted cases, Cyprus." ;
+	prov:wasDerivedFrom flx:evidence-pr .
+
+flx:evidence-romania
+	a uco-core:UcoObject ;
+	uco-core:name "Romania: false promise of fair pay for farm work" ;
+	uco-core:description "In Romania, vulnerable people, some of them minors, were taken on for farm work under a false promise of fair pay and then made to work days of over twelve hours with no wages and in very poor living conditions. Source: PR, highlighted cases, Romania." ;
+	prov:wasDerivedFrom flx:evidence-pr .
+
+#################################################################
+# Instruments (abused affordances) and enacted actions
+#################################################################
+
+flx:instrument-cy-passport
+	a uco-core:UcoObject ;
+	uco-core:name "Withheld passport" ;
+	uco-core:description "The victim's passport, withheld by the suspect. Source: PR, Cyprus." .
+
+flx:instrument-cy-farm-work
+	a uco-core:UcoObject ;
+	uco-core:name "Livestock farm work, ten-hour days, no rest days" ;
+	uco-core:description "Source: PR, Cyprus." .
+
+flx:instrument-cy-payroll
+	a uco-core:UcoObject ;
+	uco-core:name "Farm payroll (no wages paid)" ;
+	uco-core:description "Source: PR, Cyprus ('no pay')." .
+
+flx:action-cy-withhold-passport
+	a uco-action:Action , fl:a_coerce_labor ;
+	uco-core:name "Withhold the worker's passport" ;
+	uco-action:performer flx:person-cy-employer ;
+	uco-action:instrument flx:instrument-cy-passport ;
+	prov:wasDerivedFrom flx:evidence-cyprus .
+
+flx:action-cy-compel-labor
+	a uco-action:Action , fl:a_compel_labor ;
+	uco-core:name "Impose ten-hour days with no rest days" ;
+	uco-action:performer flx:person-cy-employer ;
+	uco-action:instrument flx:instrument-cy-farm-work ;
+	prov:wasDerivedFrom flx:evidence-cyprus .
+
+flx:action-cy-no-pay
+	a uco-action:Action , fl:a_appropriate_wages ;
+	uco-core:name "Pay no wages" ;
+	uco-action:performer flx:person-cy-employer ;
+	uco-action:instrument flx:instrument-cy-payroll ;
+	prov:wasDerivedFrom flx:evidence-cyprus .
+
+flx:instrument-ro-job-offer
+	a uco-core:UcoObject ;
+	uco-core:name "Agricultural job offer with a promise of fair pay" ;
+	uco-core:description "Source: PR, Romania." .
+
+flx:instrument-ro-farm-work
+	a uco-core:UcoObject ;
+	uco-core:name "Farm work, days of over twelve hours" ;
+	uco-core:description "Source: PR, Romania." .
+
+flx:instrument-ro-payroll
+	a uco-core:UcoObject ;
+	uco-core:name "Agricultural payroll (no wages paid)" ;
+	uco-core:description "Source: PR, Romania ('no pay')." .
+
+flx:action-ro-deceive-recruit
+	a uco-action:Action , fl:a_deceive_recruit ;
+	uco-core:name "Recruit with a false promise of fair pay" ;
+	uco-action:performer flx:org-ro-recruiters ;
+	uco-action:instrument flx:instrument-ro-job-offer ;
+	prov:wasDerivedFrom flx:evidence-romania .
+
+flx:action-ro-compel-labor
+	a uco-action:Action , fl:a_compel_labor ;
+	uco-core:name "Impose working days of over twelve hours" ;
+	uco-action:performer flx:org-ro-recruiters ;
+	uco-action:instrument flx:instrument-ro-farm-work ;
+	prov:wasDerivedFrom flx:evidence-romania .
+
+flx:action-ro-no-pay
+	a uco-action:Action , fl:a_appropriate_wages ;
+	uco-core:name "Pay no wages" ;
+	uco-action:performer flx:org-ro-recruiters ;
+	uco-action:instrument flx:instrument-ro-payroll ;
+	prov:wasDerivedFrom flx:evidence-romania .
+
+#################################################################
+# Intervals: no start stated; bounded on the right by the action week
+#################################################################
+
+flx:instant-action-week-end
+	a time:Instant ;
+	time:inXSDDateTimeStamp "2026-09-20T23:59:59Z"^^xsd:dateTimeStamp .
+
+flx:interval-cyprus
+	a time:ProperInterval ;
+	uco-core:name "Cyprus farm employment: start not stated; uncovered during the action week" ;
+	time:hasEnd flx:instant-action-week-end .
+
+flx:interval-romania
+	a time:ProperInterval ;
+	uco-core:name "Romania agricultural work: start not stated; uncovered during the action week" ;
+	time:hasEnd flx:instant-action-week-end .
+
+#################################################################
+# Trajectory 1 — Cyprus (Control -> ForcedLabor -> WageAppropriation)
+#################################################################
+
+flx:confidence-cy-1 a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+flx:confidence-cy-2 a uco-core:ConfidenceFacet ; uco-core:confidence "85"^^xsd:nonNegativeInteger .
+flx:confidence-cy-3 a uco-core:ConfidenceFacet ; uco-core:confidence "85"^^xsd:nonNegativeInteger .
+
+flx:phase-cy-1
+	a traj:PhaseAssertion ;
+	uco-core:name "Cyprus occupancy 0: Control" ;
+	uco-core:description "Passport kept by the employer; basic food staples and substandard housing. Recruitment is not described in the source, so the trajectory starts at Control." ;
+	traj:assertsState fl:Control ;
+	traj:atInterval flx:interval-cyprus ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom flx:evidence-cyprus ;
+	uco-core:hasFacet flx:confidence-cy-1 .
+
+flx:phase-cy-2
+	a traj:PhaseAssertion ;
+	uco-core:name "Cyprus occupancy 1: ForcedLabor" ;
+	uco-core:description "Ten-hour days with no rest days." ;
+	traj:assertsState fl:ForcedLabor ;
+	traj:atInterval flx:interval-cyprus ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom flx:evidence-cyprus ;
+	uco-core:hasFacet flx:confidence-cy-2 .
+
+flx:phase-cy-3
+	a traj:PhaseAssertion ;
+	uco-core:name "Cyprus occupancy 2: WageAppropriation (terminal, disrupted)" ;
+	uco-core:description "No pay. The chain was cut by the inspection during the action week, so terminalPolarity is disrupted." ;
+	traj:assertsState fl:WageAppropriation ;
+	traj:atInterval flx:interval-cyprus ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "disrupted" ;
+	prov:wasDerivedFrom flx:evidence-cyprus ;
+	uco-core:hasFacet flx:confidence-cy-3 .
+
+flx:trajectory-cyprus
+	a traj:Trajectory ;
+	uco-core:name "Forced-labour trajectory: Cyprus livestock farm worker" ;
+	uco-core:description "Control -> ForcedLabor -> WageAppropriation; disrupted by the action-week inspection. Source: PR, Cyprus." ;
+	traj:hasPhaseAssertion flx:phase-cy-1 , flx:phase-cy-2 , flx:phase-cy-3 .
+
+flx:trigger-cy-1 a uco-core:UcoObject ; uco-core:name "Trigger: worker unable to leave (passport withheld)" .
+flx:trigger-cy-2 a uco-core:UcoObject ; uco-core:name "Trigger: labour performed, no wages paid" .
+
+flx:transition-cy-1
+	a traj:Transition ;
+	uco-core:name "Control -> ForcedLabor (Cyprus)" ;
+	traj:fromState fl:Control ;
+	traj:toState fl:ForcedLabor ;
+	traj:trigger flx:trigger-cy-1 ;
+	traj:enactsAction flx:action-cy-compel-labor , flx:action-cy-withhold-passport .
+
+flx:transition-cy-2
+	a traj:Transition ;
+	uco-core:name "ForcedLabor -> WageAppropriation (Cyprus)" ;
+	traj:fromState fl:ForcedLabor ;
+	traj:toState fl:WageAppropriation ;
+	traj:trigger flx:trigger-cy-2 ;
+	traj:enactsAction flx:action-cy-no-pay .
+
+#################################################################
+# Trajectory 2 — Romania (Recruitment -> ForcedLabor -> WageAppropriation)
+#################################################################
+
+flx:confidence-ro-1 a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+flx:confidence-ro-2 a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+flx:confidence-ro-3 a uco-core:ConfidenceFacet ; uco-core:confidence "80"^^xsd:nonNegativeInteger .
+
+flx:phase-ro-1
+	a traj:PhaseAssertion ;
+	uco-core:name "Romania occupancy 0: Recruitment" ;
+	uco-core:description "Vulnerable people, some of them minors, taken on for farm work under a false promise of fair pay." ;
+	traj:assertsState fl:Recruitment ;
+	traj:atInterval flx:interval-romania ;
+	traj:sequenceIndex "0"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom flx:evidence-romania ;
+	uco-core:hasFacet flx:confidence-ro-1 .
+
+flx:phase-ro-2
+	a traj:PhaseAssertion ;
+	uco-core:name "Romania occupancy 1: ForcedLabor" ;
+	uco-core:description "Working days of over twelve hours in very poor living conditions. The source describes no control act, so Control is not occupied." ;
+	traj:assertsState fl:ForcedLabor ;
+	traj:atInterval flx:interval-romania ;
+	traj:sequenceIndex "1"^^xsd:nonNegativeInteger ;
+	prov:wasDerivedFrom flx:evidence-romania ;
+	uco-core:hasFacet flx:confidence-ro-2 .
+
+flx:phase-ro-3
+	a traj:PhaseAssertion ;
+	uco-core:name "Romania occupancy 2: WageAppropriation (terminal, disrupted)" ;
+	uco-core:description "No pay. Uncovered during the action week; terminalPolarity is disrupted." ;
+	traj:assertsState fl:WageAppropriation ;
+	traj:atInterval flx:interval-romania ;
+	traj:sequenceIndex "2"^^xsd:nonNegativeInteger ;
+	traj:isTerminal true ;
+	traj:terminalPolarity "disrupted" ;
+	prov:wasDerivedFrom flx:evidence-romania ;
+	uco-core:hasFacet flx:confidence-ro-3 .
+
+flx:trajectory-romania
+	a traj:Trajectory ;
+	uco-core:name "Forced-labour trajectory: Romania agricultural workers" ;
+	uco-core:description "Recruitment -> ForcedLabor -> WageAppropriation; disrupted by the action week. Source: PR, Romania." ;
+	traj:hasPhaseAssertion flx:phase-ro-1 , flx:phase-ro-2 , flx:phase-ro-3 .
+
+flx:trigger-ro-1 a uco-core:UcoObject ; uco-core:name "Trigger: recruited workers placed in agricultural work" .
+flx:trigger-ro-2 a uco-core:UcoObject ; uco-core:name "Trigger: labour performed, no wages paid" .
+
+flx:transition-ro-1
+	a traj:Transition ;
+	uco-core:name "Recruitment -> ForcedLabor (Romania)" ;
+	traj:fromState fl:Recruitment ;
+	traj:toState fl:ForcedLabor ;
+	traj:trigger flx:trigger-ro-1 ;
+	traj:enactsAction flx:action-ro-compel-labor .
+
+flx:transition-ro-2
+	a traj:Transition ;
+	uco-core:name "ForcedLabor -> WageAppropriation (Romania)" ;
+	traj:fromState fl:ForcedLabor ;
+	traj:toState fl:WageAppropriation ;
+	traj:trigger flx:trigger-ro-2 ;
+	traj:enactsAction flx:action-ro-no-pay .
+
+#################################################################
+# Inferred StateMachineModel (illustrative estimates, as in the
+# sibling alphabets; the shapes require >=1 TransitionEstimate)
+#################################################################
+
+flx:tool-esm-estimator
+	a uco-tool:Tool ;
+	uco-core:name "ESM trajectory estimator (illustrative)" ;
+	uco-core:description "version 0.1.0-dev" .
+
+flx:action-estimate-transitions
+	a uco-action:Action ;
+	uco-core:name "Estimate forced-labour transition probabilities (illustrative)" ;
+	uco-action:instrument flx:tool-esm-estimator ;
+	prov:wasAssociatedWith flx:tool-esm-estimator .
+
+flx:estimate-1
+	a traj:TransitionEstimate ;
+	uco-core:name "P(Control -> ForcedLabor)" ;
+	traj:ofTransition flx:transition-cy-1 ;
+	traj:transitionProbability "0.85"^^xsd:decimal ;
+	traj:sampleBasis "Illustrative estimate for ESM demonstration; not derived from case-specific frequency data."^^xsd:string ;
+	prov:wasGeneratedBy flx:action-estimate-transitions .
+
+flx:estimate-2
+	a traj:TransitionEstimate ;
+	uco-core:name "P(ForcedLabor -> WageAppropriation)" ;
+	traj:ofTransition flx:transition-cy-2 ;
+	traj:transitionProbability "0.90"^^xsd:decimal ;
+	traj:sampleBasis "Illustrative estimate for ESM demonstration; not derived from case-specific frequency data."^^xsd:string ;
+	prov:wasGeneratedBy flx:action-estimate-transitions .
+
+flx:model-cyprus
+	a traj:StateMachineModel ;
+	uco-core:name "Forced-labour (Cyprus) state-machine estimate (v0)" ;
+	traj:initialState fl:Control ;
+	traj:learnedFrom flx:trajectory-cyprus ;
+	traj:hasTransition flx:transition-cy-1 , flx:transition-cy-2 ;
+	traj:hasTransitionEstimate flx:estimate-1 , flx:estimate-2 ;
+	prov:wasGeneratedBy flx:action-estimate-transitions .

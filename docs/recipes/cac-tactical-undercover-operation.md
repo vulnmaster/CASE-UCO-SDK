@@ -54,7 +54,7 @@ graph = CASEGraph(extra_context={
     "cacontology-tactical": "https://cacontology.projectvic.org/tactical#",
     "cacontology-undercover": "https://cacontology.projectvic.org/undercover#",
 })
-arrest = graph.add_node("kb:arrest-1", "cacontology-tactical:HighRiskArrest", {
+arrest = graph.upsert_node("kb:arrest-1", types=["cacontology-tactical:HighRiskArrest"], properties={
     "uco-core:name": "Arrest of subject X",
 })
 graph.write("tactical-arrest.jsonld")

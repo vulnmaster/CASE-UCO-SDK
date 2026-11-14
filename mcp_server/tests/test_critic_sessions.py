@@ -63,6 +63,34 @@ def _copy_gold(read: Path) -> Path:
     return dest
 
 
+def _copy_gold_with_open_finding(read: Path) -> Path:
+    """Gold plus one relationship between observables with an unregistered kind.
+
+    CRIT-V-RELATIONSHIP-LINT reports it at medium severity, so the session
+    has an open finding to carry across passes.
+    """
+    doc = json.loads((FIXTURES / "gold-charged-with.jsonld").read_text(encoding="utf-8"))
+    doc["@context"]["uco-observable"] = "https://ontology.unifiedcyberontology.org/uco/observable/"
+    file_a = "urn:uuid:77777777-7777-4777-8777-777777777777"
+    file_b = "urn:uuid:88888888-8888-4888-8888-888888888888"
+    doc["@graph"][0]["uco-core:object"].extend([{"@id": file_a}, {"@id": file_b}])
+    doc["@graph"].extend([
+        {"@id": file_a, "@type": "uco-observable:ObservableObject", "uco-core:name": "a.bin"},
+        {"@id": file_b, "@type": "uco-observable:ObservableObject", "uco-core:name": "b.bin"},
+        {
+            "@id": "urn:uuid:99999999-9999-4999-8999-999999999999",
+            "@type": "uco-core:Relationship",
+            "uco-core:kindOfRelationship": "Synthetic_Unregistered_Kind",
+            "uco-core:isDirectional": True,
+            "uco-core:source": [{"@id": file_a}],
+            "uco-core:target": [{"@id": file_b}],
+        },
+    ])
+    dest = read / "gold.jsonld"
+    dest.write_text(json.dumps(doc, indent=2), encoding="utf-8")
+    return dest
+
+
 def _empty_critic_response(started: dict) -> dict:
     package = started["prompt_package"]
     return {
@@ -270,6 +298,46 @@ def test_manual_response_rejects_wrong_hash(workspace):
     }
 
 
+def test_manual_response_to_published_schema_lists_missing_bindings(workspace):
+    """A response written to the on-disk schema omits the per-pass bindings.
+
+    The schema says where the bound contract lives, and the rejection names
+    every missing field in one message.
+    """
+    from critic.schema_util import model_response_schema
+
+    read, _ = workspace
+    graph = _copy_gold(read)
+    started = start_critic_review(graph_path=str(graph), critic_scope="graph")
+    package = started["prompt_package"]
+    published = model_response_schema()
+    bound_only = set(package["response_schema"]["required"]) - set(
+        published["required"]
+    )
+    assert bound_only == {
+        "session_id",
+        "pass_number",
+        "review_request_sha256",
+        "review_config_sha256",
+    }
+    assert "response_schema" in published["description"]
+    for name in bound_only:
+        assert name in published["description"]
+
+    response = {
+        "schema_version": package["response_schema_version"],
+        "graph_sha256": package["artifact_hashes"]["graph_sha256"],
+        "prompt_package_hash": package["prompt_package_hash"],
+        "findings": [],
+        "scorecard": {},
+    }
+    with pytest.raises(CriticSessionError) as exc:
+        submit_manual_critic_response(started["session_id"], response)
+    assert exc.value.code == "critic_response_schema_mismatch"
+    for name in bound_only:
+        assert f"'{name}' is a required property" in str(exc.value)
+
+
 def test_extend_uses_returned_challenge(workspace):
     read, _ = workspace
     graph = _copy_gold(read)
@@ -354,7 +422,7 @@ def test_finalize_rejects_post_review_file_modification(workspace):
 def test_handoff_preview_and_write(workspace, monkeypatch):
     read, write = workspace
     monkeypatch.setenv("CASE_UCO_CRITIC_HANDOFF_TOKEN", "handoff-secret")
-    graph = _copy_gold(read)
+    graph = _copy_gold_with_open_finding(read)
     started = start_critic_review(graph_path=str(graph), critic_scope="graph")
     sid = started["session_id"]
     submit_manual_critic_response(sid, _empty_critic_response(started))
@@ -627,7 +695,7 @@ def test_handoff_offline_allows_preview_denies_write(workspace, monkeypatch):
     read, write = workspace
     monkeypatch.setenv("CASE_UCO_CRITIC_HANDOFF_TOKEN", "handoff-secret")
     monkeypatch.setenv("CASE_UCO_MCP_PROFILE", "offline-investigation")
-    graph = _copy_gold(read)
+    graph = _copy_gold_with_open_finding(read)
     started = start_critic_review(graph_path=str(graph), critic_scope="graph")
     sid = started["session_id"]
     submit_manual_critic_response(sid, _empty_critic_response(started))
@@ -882,7 +950,7 @@ def _two_pass_awaiting_revision(workspace):
     """Drive a manual session through pass 2 completed → awaiting_revision."""
 
     read, write = workspace
-    graph = _copy_gold(read)
+    graph = _copy_gold_with_open_finding(read)
     started = start_critic_review(
         graph_path=str(graph), critic_scope="graph", model_policy="manual"
     )

@@ -247,7 +247,9 @@ namespace CaseUco
         /// <summary>Return the number of objects in the graph.</summary>
         public int Count => _objects.Count;
 
-        /// <summary>Load a JSON-LD string into this graph (transactional; named OnDuplicate policy).</summary>
+        /// <summary>Load a JSON-LD string into this graph (transactional; named OnDuplicate policy).
+        /// If this graph is empty and still has the default <c>kb</c>, the document's <c>kb</c> binding
+        /// is adopted; otherwise a different <c>kb</c> is a context collision.</summary>
         public void Load(string json, string onDuplicate = null)
         {
             var policy = NormalizeDuplicatePolicy(onDuplicate ?? OnDuplicate);
@@ -258,7 +260,10 @@ namespace CaseUco
             try
             {
                 if (doc.TryGetValue("@context", out var ctxObj) && ctxObj is Dictionary<string, object> ctx)
+                {
+                    AdoptDocumentKb(ctx);
                     MergeContext(ctx);
+                }
                 if (doc.TryGetValue("@graph", out var graphObj) && graphObj is List<object> graphList)
                 {
                     foreach (var item in graphList.OfType<Dictionary<string, object>>())
@@ -288,6 +293,7 @@ namespace CaseUco
 
             if (doc.TryGetValue("@context", out var ctxObj) && ctxObj is Dictionary<string, object> ctx)
             {
+                graph.AdoptDocumentKb(ctx);
                 graph.MergeContext(ctx);
             }
 
@@ -306,6 +312,19 @@ namespace CaseUco
             }
 
             return new FromJsonLdResult { Graph = graph, Objects = objects };
+        }
+
+        /// <summary>Take the document's <c>kb</c> binding if this graph is empty and still default,
+        /// so Load/FromJsonLd read output built with a custom kbPrefix. A populated graph,
+        /// or one built with a non-default kbPrefix, keeps the collision error.</summary>
+        private void AdoptDocumentKb(Dictionary<string, object> incoming)
+        {
+            if (incoming.TryGetValue("kb", out var kbObj) && kbObj is string kb
+                && _objects.Count == 0 && _context.TryGetValue("kb", out var current)
+                && current == DefaultContext["kb"])
+            {
+                _context["kb"] = kb;
+            }
         }
 
         private void MergeContext(Dictionary<string, object> incoming)
@@ -734,6 +753,20 @@ namespace CaseUco
                     }
                 }
             }
+            else if (node is Dictionary<string, string> literal)
+            {
+                // Typed literals ({"@type": "xsd:boolean", "@value": ...}) need their datatype prefix.
+                foreach (var kv in literal)
+                {
+                    var p = ExtractPrefix(kv.Key, contextKeys);
+                    if (p != null) output.Add(p);
+                    if (kv.Key == "@type" && kv.Value != null)
+                    {
+                        p = ExtractPrefix(kv.Value, contextKeys);
+                        if (p != null) output.Add(p);
+                    }
+                }
+            }
             else if (node is List<object> list)
             {
                 foreach (var item in list)
@@ -922,10 +955,12 @@ namespace CaseUco
 
         /// <summary>Validate this graph against CASE/UCO SHACL constraints using case_validate.
         /// Requires case-utils (pip install case-utils) to be installed and case_validate on PATH.</summary>
-        /// <param name="caseVersion">The CASE built-version to validate against (default "case-1.4.0").</param>
+        /// <param name="caseVersion">The CASE built-version to validate against (default "case-1.5.0").</param>
+        /// <param name="allowInfo">When true (the default), sh:Info results such as UCO's suggestion that IRIs end in a UUID do not fail validation.</param>
+        /// <param name="allowWarning">When true, sh:Warning results do not fail validation.</param>
         /// <returns>The validation output on success.</returns>
         /// <exception cref="InvalidOperationException">Thrown if validation fails or case_validate is not found.</exception>
-        public string ValidateGraph(string caseVersion = "case-1.4.0")
+        public string ValidateGraph(string caseVersion = "case-1.5.0", bool allowInfo = true, bool allowWarning = false)
         {
             var tmpPath = System.IO.Path.GetTempFileName() + ".jsonld";
             try
@@ -934,7 +969,10 @@ namespace CaseUco
                 var psi = new System.Diagnostics.ProcessStartInfo
                 {
                     FileName = "case_validate",
-                    Arguments = $"--built-version {caseVersion} \"{tmpPath}\"",
+                    Arguments = $"--built-version {caseVersion}"
+                        + (allowInfo ? " --allow-info" : "")
+                        + (allowWarning ? " --allow-warning" : "")
+                        + $" \"{tmpPath}\"",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,

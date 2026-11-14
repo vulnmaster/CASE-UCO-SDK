@@ -379,11 +379,29 @@ def _load_jsonld(path: Path) -> CanonicalGraphView:
     )
 
 
+class _TurtleGraph(Graph):
+    """Capture parser bindings before RDFLib renames or collapses aliases."""
+
+    def __init__(self) -> None:
+        self.document_prefixes: dict[str, str] = {}
+        super().__init__(bind_namespaces="none")
+
+    def bind(
+        self,
+        prefix: str | None,
+        namespace: Any,
+        override: bool = True,
+        replace: bool = False,
+    ) -> None:
+        self.document_prefixes[prefix or ""] = str(namespace)
+        super().bind(prefix, namespace, override=override, replace=replace)
+
+
 def _load_turtle(path: Path) -> CanonicalGraphView:
     path_name = path.name
     prefixes = dict(DEFAULT_PREFIXES)
     try:
-        rdf_graph = Graph()
+        rdf_graph = _TurtleGraph()
         rdf_graph.parse(path, format="turtle")
     except Exception as exc:  # noqa: BLE001
         return CanonicalGraphView(
@@ -398,6 +416,10 @@ def _load_turtle(path: Path) -> CanonicalGraphView:
             raw_document=None,
             errors=[type(exc).__name__],
         )
+
+    # Keep document bindings as JSON-LD loading does for @context. Using the
+    # parser's bind calls preserves kb even when another prefix aliases it.
+    prefixes.update(rdf_graph.document_prefixes)
 
     nodes: dict[str, CanonicalNode] = {}
     order: list[str] = []
@@ -514,9 +536,24 @@ def lint_kind_of_relationship(
     *,
     allow_open_vocabulary: bool = True,
 ) -> dict[str, Any]:
-    """Lint kindOfRelationship via canonical graph (JSON-LD and Turtle)."""
+    """Lint kindOfRelationship via canonical graph (JSON-LD and Turtle).
 
-    from relationship_kinds import known_relationship_kinds
+    Only ObservableRelationship edges are checked; see
+    ``relationship_kinds.in_vocabulary_scope``.
+    """
+
+    from relationship_kinds import (
+        in_vocabulary_scope,
+        known_relationship_kinds,
+        unknown_kind_message,
+    )
+
+    def endpoint_types(node: CanonicalNode) -> list[set[str]]:
+        out: list[set[str]] = []
+        for ref in node.refs(IRI_SOURCE) + node.refs(IRI_TARGET):
+            target = view.get(ref)
+            out.append(set(target.types) if target else set())
+        return out
 
     known = known_relationship_kinds()
     findings: list[dict[str, Any]] = []
@@ -532,6 +569,8 @@ def lint_kind_of_relationship(
                     values.extend(cv.iris)
         if not values:
             continue
+        if not in_vocabulary_scope(set(node.types), endpoint_types(node)):
+            continue
         for text in values:
             checked += 1
             if text in known:
@@ -540,10 +579,7 @@ def lint_kind_of_relationship(
                 "node_id": node.iri,
                 "kind": text,
                 "severity": "warning" if allow_open_vocabulary else "error",
-                "message": (
-                    f"kindOfRelationship {text!r} is not in "
-                    "ObservableObjectRelationshipVocab / ActionRelationshipVocab"
-                ),
+                "message": unknown_kind_message(text),
             })
     errors = [f for f in findings if f["severity"] == "error"]
     return {

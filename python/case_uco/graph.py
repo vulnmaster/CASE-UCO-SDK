@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import copy
 import hashlib
 import json
@@ -525,12 +526,18 @@ class CASEGraph:
 
         Context and node merges are staged and committed only if the entire
         document succeeds (transactional load).
+
+        If this graph is empty and still has the default ``kb``, the
+        document's ``kb`` binding is adopted (including ``kb_prefix``), so
+        later ``create`` calls mint IRIs in that namespace. Otherwise a
+        different ``kb`` raises a context prefix collision.
         """
         policy = self._normalize_duplicate_policy(on_duplicate or self.on_duplicate)
         doc = json.loads(json_str)
         snapshot = self._snapshot_state()
         try:
             if "@context" in doc and isinstance(doc["@context"], dict):
+                self._adopt_document_kb(doc["@context"])
                 self._merge_context(doc["@context"])
             if "@graph" in doc and isinstance(doc["@graph"], list):
                 for raw in doc["@graph"]:
@@ -545,12 +552,22 @@ class CASEGraph:
         with open(path, "r", encoding="utf-8") as f:
             self.load(f.read(), on_duplicate=on_duplicate)
 
-    def validate(self, *, case_version: str = "case-1.5.0") -> str:
+    def validate(
+        self,
+        *,
+        case_version: str = "case-1.5.0",
+        allow_info: bool = True,
+        allow_warning: bool = False,
+    ) -> str:
         """Validate this graph against CASE/UCO SHACL constraints.
 
         Thin CLI wrapper that returns ``case_validate`` stdout. For the rich
         structured report (extensions, profiles, concept coverage), use
         :meth:`validate_report` or ``case_uco.validation.validate_graph_file``.
+
+        ``sh:Info`` results (such as UCO's suggestion that IRIs end in a
+        UUID) do not fail validation unless ``allow_info=False``; pass
+        ``allow_warning=True`` to accept ``sh:Warning`` results too.
 
         Requires ``case-utils`` to be installed::
 
@@ -558,31 +575,43 @@ class CASEGraph:
 
         Returns the validation output on success.
         Raises ``RuntimeError`` if validation fails or ``case_validate``
-        is not available on PATH.
+        is not available in the SDK interpreter.
         """
         import os
-        import shutil
         import subprocess
         import tempfile
 
-        if not shutil.which("case_validate"):
-            raise RuntimeError(
-                "case_validate not found on PATH. "
-                "Install with: pip install case-uco[validation]"
-            )
+        from case_uco.validation.runtime import (
+            ValidatorError,
+            prepare_validator,
+            validator_error_code,
+        )
+
+        try:
+            runtime = prepare_validator(case_version)
+        except ValidatorError as exc:
+            raise RuntimeError(f"{exc.code}: {exc}") from exc
         fd, tmp = tempfile.mkstemp(suffix=".jsonld")
         try:
             with os.fdopen(fd, "w", encoding="utf-8") as f:
                 f.write(self.serialize())
+            flags = ["--built-version", case_version]
+            if allow_info:
+                flags.append("--allow-info")
+            if allow_warning:
+                flags.append("--allow-warning")
             result = subprocess.run(
-                ["case_validate", "--built-version", case_version, tmp],
+                [*runtime.command, *flags, tmp],
                 capture_output=True,
                 text=True,
             )
             if result.returncode != 0:
                 msg = result.stderr.strip() or result.stdout.strip()
-                raise RuntimeError(f"Validation failed:\n{msg}")
+                code = validator_error_code(result.returncode, result.stderr)
+                raise RuntimeError(f"{code or 'Validation failed'}:\n{msg}")
             return result.stdout
+        except OSError as exc:
+            raise RuntimeError("validator_execution_failed: CASE validator could not run") from exc
         finally:
             os.unlink(tmp)
 
@@ -592,7 +621,7 @@ class CASEGraph:
         extensions: list[str] | None = None,
         profiles: list[str] | None = None,
         strict_concepts: bool = True,
-        project_root: str | Path | None = None,
+        project_root: str | os.PathLike[str] | None = None,
         extra_ontology_graphs: list[str | Path] | None = None,
         force_rdfs_inference: bool = False,
         allow_warning: bool = True,
@@ -1350,8 +1379,9 @@ class CASEGraph:
     ) -> CASEGraph:
         """Load and merge multiple JSON-LD graph files into a single graph.
 
-        Contexts are merged (later files override earlier ones for
-        conflicting prefixes). All objects are concatenated.
+        Files must agree on context prefixes; a conflicting binding raises.
+        If ``kb_prefix`` is left at the default, the first file's ``kb`` is
+        adopted. All objects are concatenated.
         """
         merged = cls(kb_prefix=kb_prefix)
         for path in paths:
@@ -1389,6 +1419,7 @@ class CASEGraph:
 
     def _snapshot_state(self) -> dict[str, Any]:
         return {
+            "kb_prefix": self.kb_prefix,
             "context": dict(self._context),
             "objects": copy.deepcopy(self._objects),
             "iri_index": dict(self._iri_index),
@@ -1398,6 +1429,7 @@ class CASEGraph:
         }
 
     def _restore_state(self, snapshot: dict[str, Any]) -> None:
+        self.kb_prefix = snapshot["kb_prefix"]
         self._context = snapshot["context"]
         self._objects = snapshot["objects"]
         self._iri_index = snapshot["iri_index"]
@@ -1466,6 +1498,22 @@ class CASEGraph:
         if obj is None:
             raise KeyError(f"No node with @id {node_id!r}")
         return obj
+
+    def _adopt_document_kb(self, incoming: dict[str, Any]) -> None:
+        """Take the document's ``kb`` binding if this graph is empty and still default.
+
+        Lets ``load``/``from_jsonld`` read output from ``CASEGraph(kb_prefix=...)``
+        without repeating the prefix. A populated graph, or one built
+        with a non-default ``kb_prefix``, keeps the collision error.
+        """
+        kb = incoming.get("kb")
+        if (
+            isinstance(kb, str)
+            and not self._objects
+            and self._context.get("kb") == DEFAULT_CONTEXT["kb"]
+        ):
+            self.kb_prefix = kb
+            self._context["kb"] = kb
 
     def _merge_context(self, incoming: dict[str, Any]) -> None:
         for prefix, ns in incoming.items():
@@ -1935,7 +1983,9 @@ class CASEGraph:
             json_str: A JSON-LD string containing ``@context`` and ``@graph``.
             extra_classes: Additional classes (e.g. extension dataclasses)
                 to include in the type registry alongside the built-in ones.
-            kb_prefix: Knowledge-base prefix for the returned graph.
+            kb_prefix: Knowledge-base prefix for the returned graph. If left
+                at the default, the document's ``kb`` binding is used; a
+                different non-default value raises on a mismatch.
             on_duplicate: Duplicate policy (default ``reject``).
         """
         iri_to_class = _build_class_registry(extra_classes)
@@ -1946,6 +1996,7 @@ class CASEGraph:
 
         graph = cls(kb_prefix=kb_prefix)
         if isinstance(context, dict):
+            graph._adopt_document_kb(context)
             graph._merge_context(context)
 
         policy = graph._normalize_duplicate_policy(on_duplicate or graph.on_duplicate)

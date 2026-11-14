@@ -1,0 +1,94 @@
+{
+  "extension": "forced-labor",
+  "modules": [
+    "forced-labor"
+  ],
+  "classes": {
+    "a_deceive_recruit": {
+      "iri": "http://example.org/ontology/forced-labor/a_deceive_recruit",
+      "module": "forced-labor",
+      "description": "Recruit-by-deception technique (uco-action:Technique class). techniqueID FL.T1.",
+      "parents": [
+        "Action"
+      ],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labour Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    },
+    "a_coerce_labor": {
+      "iri": "http://example.org/ontology/forced-labor/a_coerce_labor",
+      "module": "forced-labor",
+      "description": "Coerce-continued-labour technique (uco-action:Technique class): document retention, threats, dependency or immigration status. techniqueID FL.T2.",
+      "parents": [
+        "Action"
+      ],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labour Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    },
+    "a_compel_labor": {
+      "iri": "http://example.org/ontology/forced-labor/a_compel_labor",
+      "module": "forced-labor",
+      "description": "Compel-labour technique (uco-action:Technique class): hours and conditions the worker cannot refuse. techniqueID FL.T3.",
+      "parents": [
+        "Action"
+      ],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labour Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    },
+    "a_appropriate_wages": {
+      "iri": "http://example.org/ontology/forced-labor/a_appropriate_wages",
+      "module": "forced-labor",
+      "description": "Appropriate-wages technique (uco-action:Technique class): wages withheld or underpaid and retained. techniqueID FL.T4.",
+      "parents": [
+        "Action"
+      ],
+      "is_facet": false,
+      "properties": [
+        {
+          "name": "instrument",
+          "type": "UcoObject",
+          "type_iri": "https://ontology.unifiedcyberontology.org/uco/core/UcoObject",
+          "cardinality": "one_or_more",
+          "required": true,
+          "description": "Abused affordance (φ seam). Domain SHACL requires >=1 uco-action:instrument on every forced-labour Technique action instance."
+        }
+      ],
+      "source": "forced-labor"
+    }
+  },
+  "vocabs": {
+    "PhaseScheme": {
+      "iri": "http://example.org/ontology/forced-labor/PhaseScheme",
+      "description": "skos:ConceptScheme of traj:State phase instances: Recruitment, Control, ForcedLabor, WageAppropriation."
+    }
+  }
+}

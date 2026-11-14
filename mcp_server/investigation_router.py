@@ -17,7 +17,8 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -94,6 +95,25 @@ class InvestigationFamily:
     # Semantic retrieval text when the keywords contain common words
     # ("count", "record", "flight") that would pull in unrelated filings.
     semantic_terms: tuple[str, ...] = ()
+    # (extension, trigger keywords): the extension is required only when one
+    # of its triggers matched; otherwise it is listed as optional.
+    extension_triggers: tuple[tuple[str, tuple[str, ...]], ...] = ()
+
+    def split_extensions(self, keyword_hits: list[str]) -> tuple[list[str], list[str]]:
+        """(required, optional) extensions for a match with these keyword hits.
+
+        A family admitted without any keyword hit (semantic stage only)
+        requires nothing: its extensions are optional.
+        """
+        if not keyword_hits:
+            return [], list(self.extensions)
+        hits = set(keyword_hits)
+        triggers = dict(self.extension_triggers)
+        required = [
+            ext for ext in self.extensions
+            if ext not in triggers or hits & set(triggers[ext])
+        ]
+        return required, [ext for ext in self.extensions if ext not in required]
 
 
 @dataclass
@@ -109,6 +129,9 @@ class OrderedRoutingRecommendations:
     validation_bundle_preview: dict[str, Any] | None
     compatibility_warnings: list[str]
     ontology_gap_workflow: dict[str, Any] | None = None
+    # Extensions of matched families that the text does not require (no
+    # trigger keyword, or a family matched only semantically).
+    optional_extensions: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -180,8 +203,8 @@ INVESTIGATION_FAMILIES: tuple[InvestigationFamily, ...] = (
             "gufo:FunctionalComplex. Seized/charged drug quantities use "
             "the drugs extension (drug:ControlledSubstance, ChEBI IRI via "
             "drug:substance, gufo:Quantity grounding). uco-action:performer "
-            "is max-1: primary actor as performer, co-actors linked with "
-            "Participated_In relationships. Digital overt acts (social "
+            "is max-1: primary actor as performer, co-actors as "
+            "uco-action:participant values. Digital overt acts (social "
             "posts, texts, ransom calls as uco-observable:Call) are UCO "
             "observables. Exemplars: examples/pacer/wdmo_2022_cr_04065/ "
             "(militia) and examples/pacer/ndnd_2025_cr_00005/ (kidnapping "
@@ -245,6 +268,14 @@ INVESTIGATION_FAMILIES: tuple[InvestigationFamily, ...] = (
             "docs/recipes/qudt-quantities-and-units.md",
         ),
         extensions=("cryptoinv", "legalproc"),
+        extension_triggers=(
+            ("cryptoinv", (
+                "cryptocurrency", "bitcoin", "btc", "ethereum", "blockchain",
+                "wallet", "mixer", "darknet market", "peel chain",
+                "chain hopping", "virtual asset", "exchange account",
+                "pig butchering", "pig-butchering",
+            )),
+        ),
         core_namespaces=("case-investigation", "uco-observable", "uco-action", "uco-identity"),
         upper_profiles=("PROV-O",),
         notes=(
@@ -331,7 +362,7 @@ INVESTIGATION_FAMILIES: tuple[InvestigationFamily, ...] = (
         title="Network Intrusion and Cyber Attack",
         keywords=(
             "pcap", "packet capture", "intrusion", "malware", "ransomware",
-            "phishing", "spear phishing", "command and control", "c2 server",
+            "phishing", "spear phishing", "spearphishing", "command and control", "c2 server",
             "ip address", "exfiltration", "lateral movement", "botnet",
             "ddos", "vulnerability", "exploit", "backdoor", "compromise",
             # Industrial control systems / operational technology.
@@ -932,24 +963,58 @@ def _installed_extensions(
     return found
 
 
-def keyword_in_text(normalized: str, keyword: str) -> bool:
-    """Substring match, but short tokens need token boundaries.
+# Keywords written as stems on purpose: they match any continuation
+# (``abduct`` -> ``abduction``). Every other single-word keyword matches
+# whole words.
+STEM_KEYWORDS = frozenset(
+    {"abduct", "cybertip", "declassif", "exfiltrat", "exploit", "victim"}
+)
+_INFLECTION = r"(?:s|es|d|ed|ing)?"
+_CAMEL_BOUNDARY = re.compile(r"(?<=[a-z])(?=[A-Z])")
+# Raw JSON text puts an escape letter before a word (`\n\npeel chains`).
+_JSON_ESCAPE = re.compile(r"\\(?:[nrt]|u[0-9a-fA-F]{4})")
 
-    Otherwise ``ttp`` hits every ``https://`` IRI when a Layer-1 graph is
+
+def keyword_in_text(normalized: str, keyword: str) -> bool:
+    """Match a keyword on token boundaries.
+
+    Short tokens and ones that start with a digit must match exactly;
+    otherwise ``ttp`` hits every ``https://`` IRI when a Layer-1 graph is
     routed, and ``c2`` / ``846`` / ``554`` collide with statute fragments
-    and hex hashes.
+    and hex hashes. Longer single-word keywords may carry a plain
+    inflection (``count`` -> ``counts``) but never match inside another
+    word, so ``count`` misses ``accounts`` and ``armed`` misses ``harmed``.
+    Multi-word keywords and those in ``STEM_KEYWORDS`` must start on a
+    boundary but may run on (``schedule i`` -> ``schedule ii``).
     """
 
-    needle = keyword.casefold()
-    haystack = normalized.casefold()
-    if len(needle) <= 4 or needle[0].isdigit():
-        return re.search(rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z0-9])", haystack) is not None
-    return needle in haystack
+    return _keyword_pattern(keyword.casefold()).search(normalized.casefold()) is not None
+
+
+@lru_cache(maxsize=None)
+def _keyword_pattern(needle: str) -> re.Pattern[str]:
+    lead = r"(?<![a-z0-9])" if needle[:1].isalnum() else ""
+    if not needle[-1:].isalnum() or needle in STEM_KEYWORDS or " " in needle:
+        tail = ""
+    elif len(needle) <= 4 or needle[0].isdigit():
+        tail = r"(?![a-z0-9])"
+    else:
+        tail = _INFLECTION + r"(?![a-z0-9])"
+    return re.compile(lead + re.escape(needle) + tail)
 
 
 def score_family(text: str, family: InvestigationFamily) -> tuple[int, list[str]]:
+    text = _JSON_ESCAPE.sub(" ", text)
     normalized = _normalize_text(text)
-    hits = [kw for kw in family.keywords if keyword_in_text(normalized, kw)]
+    # Graph text carries camelCase local names (CryptocurrencyAddressFacet);
+    # a second pass with them split lets their words match on boundaries.
+    split = _normalize_text(_CAMEL_BOUNDARY.sub(" ", text))
+    hits = [
+        kw
+        for kw in family.keywords
+        if keyword_in_text(normalized, kw)
+        or (split != normalized and keyword_in_text(split, kw))
+    ]
     return len(hits), hits
 
 
@@ -975,6 +1040,7 @@ def _family_match_payload(
     stages: list[str],
 ) -> dict[str, Any]:
     confidence = semantic_retrieval.combined_confidence(keyword_score, semantic)
+    required, optional = family.split_extensions(keyword_hits)
     return {
         "family_id": family.family_id,
         "title": family.title,
@@ -988,7 +1054,8 @@ def _family_match_payload(
         },
         "semantic_evidence": semantic_evidence,
         "recipes": list(family.recipes),
-        "extensions": list(family.extensions),
+        "extensions": required,
+        "optional_extensions": optional,
         "core_namespaces": list(family.core_namespaces),
         "upper_profiles": list(family.upper_profiles),
         "notes": family.notes,
@@ -1044,13 +1111,15 @@ def detect_families(text: str) -> list[dict[str, Any]]:
     for family in INVESTIGATION_FAMILIES:
         score, hits = score_family(text, family)
         if score >= MIN_FAMILY_SCORE:
+            required, optional = family.split_extensions(hits)
             matches.append({
                 "family_id": family.family_id,
                 "title": family.title,
                 "score": score,
                 "matched_keywords": hits[:12],
                 "recipes": list(family.recipes),
-                "extensions": list(family.extensions),
+                "extensions": required,
+                "optional_extensions": optional,
                 "core_namespaces": list(family.core_namespaces),
                 "upper_profiles": list(family.upper_profiles),
                 "notes": family.notes,
@@ -1171,6 +1240,9 @@ def _build_ordered_recommendations_model(
     required_extensions = sorted({
         ext for m in matches for ext in m.get("extensions", [])
     })
+    optional_extensions = sorted({
+        ext for m in matches for ext in m.get("optional_extensions", [])
+    } - set(required_extensions))
     supporting: list[str] = []
     seen_recipes: set[str] = set()
     for m in matches:
@@ -1326,6 +1398,7 @@ def _build_ordered_recommendations_model(
         validation_bundle_preview=preview,
         compatibility_warnings=warnings,
         ontology_gap_workflow=None,
+        optional_extensions=optional_extensions,
     )
 
 

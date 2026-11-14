@@ -95,9 +95,13 @@ def parse_critic_model_response(
     validator = Draft202012Validator(schema)
     errors = sorted(validator.iter_errors(payload), key=lambda e: list(e.path))
     if errors:
+        # Report every missing top-level field at once, not one per round trip.
+        missing = [
+            e.message for e in errors if e.validator == "required" and not e.path
+        ]
         raise CriticResponseError(
             "critic_response_schema_mismatch",
-            errors[0].message,
+            "; ".join(missing) if missing else errors[0].message,
         )
 
     if payload.get("schema_version") != SUPPORTED_SCHEMA_VERSION:

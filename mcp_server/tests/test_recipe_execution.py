@@ -403,13 +403,18 @@ def test_recipe_execution_rejects_unregistered_relationship_kind(tmp_path):
                 "@context": {
                     "kb": "http://example.org/kb/",
                     "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+                    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
                 },
                 "@graph": [
+                    {"@id": "kb:a", "@type": "uco-observable:ObservableObject"},
+                    {"@id": "kb:b", "@type": "uco-observable:ObservableObject"},
                     {
                         "@id": "kb:rel",
                         "@type": "uco-core:Relationship",
                         "uco-core:kindOfRelationship": "Relates_To",
-                    }
+                        "uco-core:source": {"@id": "kb:a"},
+                        "uco-core:target": {"@id": "kb:b"},
+                    },
                 ],
             }
         ),

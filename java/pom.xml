@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.33.0</version>
+    <version>1.34.0</version>
     <packaging>jar</packaging>
     <name>CASE/UCO Standard Library</name>
     <description>Standard library for constructing CASE/UCO ontology graphs</description>
@@ -57,7 +57,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.6.4</version>
+                <version>3.7.0</version>
                 <configuration>
                     <mainClass>org.caseontology.SmokeTest</mainClass>
                 </configuration>

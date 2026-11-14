@@ -1,7 +1,7 @@
-# Pinned to FastMCP 3.4.4 (Context.sample string/SamplingMessage API)
-fastmcp==3.4.4
+# Pinned to FastMCP 3.4.10 (security fixes 3.4.5-3.4.10; Context.sample string/SamplingMessage API)
+fastmcp==3.4.10
 # PDF text extraction fallback for the document processor (used when the
 # poppler `pdftotext` CLI is not installed). Pure-Python; offline-safe.
-pypdf
+pypdf==7.0.1
 # Recipe-execution manifest validation (CQ-07).
 jsonschema>=4.0.0

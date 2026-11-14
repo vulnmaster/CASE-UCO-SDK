@@ -30,6 +30,12 @@ CASE_INVESTIGATION = "https://ontology.caseontology.org/case/investigation/"
 
 FACET_IRI = UCO_CORE + "Facet"
 
+# Ontology IRIs whose owl:versionInfo the generated libraries report.
+ONTOLOGY_IRIS = {
+    "uco": "https://ontology.unifiedcyberontology.org/uco/uco",
+    "case": "https://ontology.caseontology.org/case/case",
+}
+
 # Namespace prefix -> ontology module name mapping
 PREFIX_TO_MODULE: dict[str, tuple[str, str]] = {
     "https://ontology.unifiedcyberontology.org/uco/core/": ("uco", "core"),
@@ -693,6 +699,11 @@ def parse_ontology(
         ext_modules = load_extensions(g, extensions_dir, catalogs, include_private)
 
     schema = OntologySchema(catalog_extensions=catalogs)
+
+    for key, ontology_iri in ONTOLOGY_IRIS.items():
+        version = g.value(URIRef(ontology_iri), OWL.versionInfo)
+        if version is not None:
+            schema.ontology_versions[key] = str(version)
 
     # Extract namespace prefixes from the graph
     for prefix, ns_uri in g.namespaces():

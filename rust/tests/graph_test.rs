@@ -187,6 +187,44 @@ fn test_load_rejects_context_collision() {
     assert!(err.to_string().contains("Context prefix collision"));
 }
 
+const CUSTOM_KB: &str = "http://example.org/kb/case-42/";
+
+fn custom_kb_json() -> String {
+    let mut graph = CaseGraph::new(CUSTOM_KB);
+    graph.create(&Tool::builder().build());
+    graph.serialize().expect("serialize")
+}
+
+fn context_kb(json: &str) -> String {
+    let doc: Value = serde_json::from_str(json).expect("json");
+    doc["@context"]["kb"].as_str().expect("kb").to_string()
+}
+
+#[test]
+fn test_from_jsonld_custom_kb_prefix_roundtrip() {
+    // The SDK's own output with a custom kb reads back.
+    let (graph, objects) = CaseGraph::from_jsonld(&custom_kb_json()).expect("from_jsonld");
+    assert_eq!(objects.len(), 1);
+    assert_eq!(context_kb(&graph.serialize().expect("serialize")), CUSTOM_KB);
+}
+
+#[test]
+fn test_load_custom_kb_prefix_into_empty_graph() {
+    let mut graph = CaseGraph::new("http://example.org/kb/");
+    graph.load(&custom_kb_json()).expect("load");
+    assert_eq!(graph.len(), 1);
+    assert_eq!(context_kb(&graph.serialize().expect("serialize")), CUSTOM_KB);
+}
+
+#[test]
+fn test_load_custom_kb_prefix_into_populated_graph_still_collides() {
+    let mut graph = CaseGraph::new("http://example.org/kb/");
+    graph.create(&Tool::builder().build());
+    let err = graph.load(&custom_kb_json()).expect_err("kb collision should fail");
+    assert!(err.to_string().contains("Context prefix collision for 'kb'"));
+    assert_eq!(graph.len(), 1);
+}
+
 #[test]
 fn test_get_is_owned_deep_copy() {
     let mut graph = CaseGraph::new("http://example.org/kb/");
@@ -544,4 +582,41 @@ fn test_used_prefix_set_maintained_on_create() {
     let ctx = parsed.get("@context").unwrap().as_object().unwrap();
     assert!(ctx.contains_key("uco-tool"));
     assert!(!ctx.contains_key("uco-identity"));
+}
+
+fn case_validate_on_path() -> bool {
+    std::process::Command::new("case_validate")
+        .arg("--help")
+        .output()
+        .map(|o| o.status.success())
+        .unwrap_or(false)
+}
+
+/// #111: create_relationship mints a non-UUID IRI that UCO reports at sh:Info.
+#[test]
+fn test_validate_accepts_info_from_relationship_ids() {
+    if !case_validate_on_path() {
+        eprintln!("skipping: case_validate not on PATH");
+        return;
+    }
+    let mut graph = CaseGraph::new("http://example.org/kb/");
+    let a = "kb:person-7f9c2a3e-1b4d-4c6e-9a8f-0d1e2f3a4b5c";
+    let b = "kb:org-2c4e6a8b-3d5f-4a7c-8e9f-1a2b3c4d5e6f";
+    let mut name_a = serde_json::Map::new();
+    name_a.insert("uco-core:name".into(), Value::String("A".into()));
+    let mut name_b = serde_json::Map::new();
+    name_b.insert("uco-core:name".into(), Value::String("B".into()));
+    graph
+        .upsert_node(a, Some(Value::String("uco-identity:Person".into())), Some(name_a))
+        .unwrap();
+    graph
+        .upsert_node(b, Some(Value::String("uco-identity:Organization".into())), Some(name_b))
+        .unwrap();
+    graph
+        .create_relationship(a, b, "Employed_By", true, None, None)
+        .unwrap();
+
+    let report = graph.validate("case-1.5.0").expect("sh:Info must not fail validate");
+    assert!(report.contains("sh:Info"));
+    assert!(graph.validate_with_options("case-1.5.0", false, false).is_err());
 }

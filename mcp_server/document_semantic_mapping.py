@@ -219,7 +219,12 @@ def _is_plausible_nanp_phone(value: str) -> bool:
     npa, nxx = digits[0], digits[3]
     return npa not in "01" and nxx not in "01"
 URL_RE = re.compile(r"https?://[^\s<>\"']+|www\.[A-Za-z0-9.\-/]+")
-MONEY_RE = re.compile(r"\$\s?\d{1,6}(?:,\d{3})*(?:\.\d{2})?")
+# Whole number (grouped or not), any decimal places, and an optional scale
+# word or suffix: "$1.97 million" must not shrink to "$1.97".
+MONEY_RE = re.compile(
+    r"\$\s?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
+    r"(?:\s?(?i:thousand|million|billion|trillion)\b|(?:bn|mn|[kKmMbB])\b)?"
+)
 DATE_RE = re.compile(
     r"\b(?:"
     r"\d{1,2}/\d{1,2}/\d{2,4}|"
@@ -1002,13 +1007,13 @@ def extract_semantic_entities(
         )
 
     for match in MONEY_RE.finditer(full_text):
-        value = match.group(0).replace(" ", "")
+        value = re.sub(r"^\$\s+", "$", match.group(0))
         _add_match(
             matches,
             seen_spans,
             ontology_class="uco-observable:ObservableObject",
             label=f"Amount {value}",
-            matched_text=value,
+            matched_text=match.group(0),
             start=match.start(),
             end=match.end(),
             section_id=section_id,

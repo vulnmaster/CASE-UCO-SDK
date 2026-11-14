@@ -18,6 +18,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from case_uco import CASEGraph
+from case_uco.validation.runtime import prepare_validator
 from case_uco import __version__ as CASE_UCO_VERSION
 from case_uco.case.investigation import (
     Investigation,
@@ -443,23 +444,6 @@ def build() -> Path:
         tag=[SOURCE_VERBATIM],
         has_facet=[tyler_acct_facet, tyler_app_facet],
     )
-    make_rel(
-        kid("Person", "evan-brooks"),
-        kid("ApplicationAccount", "evan_b17"),
-        "Has_Account",
-        SOURCE_NORMALIZED,
-        "evan-has-account",
-        "Person–account association from transcript participant table.",
-    )
-    make_rel(
-        kid("Person", "tyler-reed"),
-        kid("ApplicationAccount", "ty_reed09"),
-        "Has_Account",
-        SOURCE_NORMALIZED,
-        "tyler-has-account",
-        "Person–account association from transcript participant table.",
-    )
-
     accounts = {"evan": evan_acct, "tyler": tyler_acct}
     peer = {"evan": tyler_acct, "tyler": evan_acct}
     message_ids: list[str] = []
@@ -793,7 +777,7 @@ def build() -> Path:
 
     proc = subprocess.run(
         [
-            "case_validate",
+            *prepare_validator("case-1.5.0").command,
             "--built-version",
             "case-1.5.0",
             str(OUT_PATH),

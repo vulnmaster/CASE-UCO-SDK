@@ -134,26 +134,26 @@ graph = CASEGraph(extra_context={
     "cacontology-usa-federal-law": "https://cacontology.projectvic.org/usa-federal-law#",
 })
 
-platform = graph.add_node("kb:platform-snapchat", "cacontology-sextortion:InstantMessagingPlatform", {
+platform = graph.upsert_node("kb:platform-snapchat", types=["cacontology-sextortion:InstantMessagingPlatform"], properties={
     "uco-core:name": "Snapchat",
 })
 
-incident = graph.add_node("kb:sextort-1", "cacontology-sextortion:SextortionIncident", {
+incident = graph.upsert_node("kb:sextort-1", types=["cacontology-sextortion:SextortionIncident"], properties={
     "uco-core:name": "Snapchat sextortion incident",
     "cacontology-sextortion:conductsOnPlatform": {"@id": "kb:platform-snapchat"},
 })
 
-charge_cyber = graph.add_node("kb:charge-6", "cacontology-legal-outcomes:FederalCharge", {
+charge_cyber = graph.upsert_node("kb:charge-6", types=["cacontology-legal-outcomes:FederalCharge"], properties={
     "uco-core:name": "Count 6 — Cyberstalking (18 U.S.C. 2261A)",
     "cacontology-legal-outcomes:chargeCount": {"@type": "xsd:nonNegativeInteger", "@value": "6"},
 })
 
-defendant = graph.add_node("kb:defendant-1", "uco-identity:Person", {
+defendant = graph.upsert_node("kb:defendant-1", types=["uco-identity:Person"], properties={
     "uco-core:name": "Defendant-1",
     "cacontology-legal-outcomes:chargedWith": [{"@id": "kb:charge-6"}],
 })
 
-graph.add_node("kb:rel-charge-scheme", "uco-core:Relationship", {
+graph.upsert_node("kb:rel-charge-scheme", types=["uco-core:Relationship"], properties={
     "uco-core:source": {"@id": "kb:charge-6"},
     "uco-core:target": {"@id": "kb:sextort-1"},
     "uco-core:kindOfRelationship": "Related_To",

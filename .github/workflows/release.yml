@@ -81,7 +81,10 @@ jobs:
         run: |
           pip install pip-audit
           pip install -e python/
-          pip-audit --format=cyclonedx-json --output=python/dist/sbom-python.cdx.json 2>/dev/null || true
+          # PYSEC-2024-6 (cdo-local-uuid): scanner false positive. GHSA-rgrf-6mf5-m882
+          # names cdo-local-uuid 0.5.0 as the fix; PyPI advisory metadata wrongly lists
+          # 0.5.0 as affected. Risk-accepted by Cybersecurity on Nov 10, 2026.
+          pip-audit --ignore-vuln PYSEC-2024-6 --format=cyclonedx-json --output=python/dist/sbom-python.cdx.json 2>/dev/null || true
           pip freeze > python/dist/requirements-frozen.txt
 
       - name: Upload Python artifacts

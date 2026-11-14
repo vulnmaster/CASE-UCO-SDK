@@ -158,22 +158,22 @@ graph = CASEGraph(extra_context={
     "cacontology-usa-federal-law": "https://cacontology.projectvic.org/usa-federal-law#",
 })
 
-original = graph.add_node("kb:indictment-original", "cacontology:MultiDefendantIndictment", {
+original = graph.upsert_node("kb:indictment-original", types=["cacontology:MultiDefendantIndictment"], properties={
     "uco-core:name": "Original indictment — Doc 1",
     "uco-core:description": "Filed 2023-08-24; 2 counts.",
 })
 
-superseding = graph.add_node("kb:indictment-superseding", "cacontology:MultiDefendantIndictment", {
+superseding = graph.upsert_node("kb:indictment-superseding", types=["cacontology:MultiDefendantIndictment"], properties={
     "uco-core:name": "Superseding indictment — Doc 70",
     "uco-core:description": "Filed 2024-07-25; 12 counts.",
     "cacontology:indictmentCounts": {"@type": "xsd:nonNegativeInteger", "@value": "12"},
 })
 
-prosecution = graph.add_node("kb:prosecution-1", "cacontology-usa-federal-law:FederalProsecution", {
+prosecution = graph.upsert_node("kb:prosecution-1", types=["cacontology-usa-federal-law:FederalProsecution"], properties={
     "uco-core:name": "Federal prosecution — 1:23-cr-00071-JMS",
 })
 
-graph.add_node("kb:rel-supersede", "uco-core:Relationship", {
+graph.upsert_node("kb:rel-supersede", types=["uco-core:Relationship"], properties={
     "uco-core:source": {"@id": "kb:indictment-original"},
     "uco-core:target": {"@id": "kb:indictment-superseding"},
     "uco-core:kindOfRelationship": "Related_To",
@@ -181,7 +181,7 @@ graph.add_node("kb:rel-supersede", "uco-core:Relationship", {
     "uco-core:isDirectional": {"@type": "xsd:boolean", "@value": "true"},
 })
 
-graph.add_node("kb:rel-prosecution-current", "uco-core:Relationship", {
+graph.upsert_node("kb:rel-prosecution-current", types=["uco-core:Relationship"], properties={
     "uco-core:source": {"@id": "kb:prosecution-1"},
     "uco-core:target": {"@id": "kb:indictment-superseding"},
     "uco-core:kindOfRelationship": "Related_To",

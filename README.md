@@ -1,4 +1,4 @@
-# This CASE/UCO SDK was funded by the nonprofit charity [Project VIC International](https://www.projectvic.org) with the view that these ontologies will be used in conjuction with the [Crimes Against Children Ontology](https://site.cacontology.projectvic.org) and other technical efforts to help the entire world find and safeguard children from sexual exploitation. While this may not be your focus, if you find this CASE/UCO SDK useful and if you use it to make money, please take a minute to become a monthly financial sponsor of Project VIC International via [Our Give Lively](https://secure.givelively.org/donate/project-vic-international-inc).
+# This CASE/UCO SDK is funded by the nonprofit charity [Project VIC International](https://www.projectvic.org) with the view that these ontologies will be used in conjuction with the [Crimes Against Children Ontology](https://site.cacontology.projectvic.org) and other technical efforts to help the entire world find and safeguard children from sexual exploitation. While this may not be your focus, if you find this CASE/UCO SDK useful and if you use it to make money, please take a minute to become a monthly financial sponsor of Project VIC International via [Our Give Lively](https://secure.givelively.org/donate/project-vic-international-inc).
 
 # CASE/UCO SDK
 
@@ -8,7 +8,7 @@
 [![Upstream Freshness](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml/badge.svg?branch=main)](https://github.com/vulnmaster/CASE-UCO-SDK/actions/workflows/upstream-freshness.yml)
 [![Release](https://img.shields.io/github/v/release/vulnmaster/CASE-UCO-SDK)](https://github.com/vulnmaster/CASE-UCO-SDK/releases/latest)
 
-**v1.33.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1330---2026-10-23)
+**v1.34.0** · CASE 1.5.0 · UCO 1.5.0 · CAC 3.1.0 · [Changelog](CHANGELOG.md#1340---2026-11-14)
 
 A multi-language data modeling library for digital forensics, cyber-investigation, and cyber-observable data. If your software produces or consumes forensic evidence, this SDK gives you typed, validated builders in **Python**, **C#**, **Java**, and **Rust** — so you can model investigation data in your language and produce interoperable [CASE/UCO](https://caseontology.org/) JSON-LD output.
 
@@ -41,7 +41,7 @@ Beyond the generated code, the repository provides:
 
 Install the SDK package for your language. No need to clone the repo or run the generator.
 
-[**v1.33.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.33.0) makes the same file reported by several forensic tools converge on shared nodes. It adds deterministic IDs, owner-derived facet IDs, a guard against sharing one facet between objects, and node references from `rdflib.URIRef` or `case_uco.Ref`. Every UCO and CASE vocabulary now sits in one namespace per language, and new readers handle Cellebrite `.ufd`/`.ufdx` summaries, multi-gigabyte UFED `report.xml` files, and Magnet ACQUIRE `image_info.txt`, tested against real Digital Corpora output. A new cross-report file identity recipe covers the modeling. Python callers that passed a plain string where a node is expected now get a `TypeError` (see the [Changelog](CHANGELOG.md#1330---2026-10-23)). It builds on v1.32.2, which routes sensor, telemetry, and measurement evidence to the QUDT and SOSA/SSN recipes. Validation stays pinned to [case-utils 0.18.0](https://pypi.org/project/case-utils/) (`--built-version case-1.5.0`) for CASE/UCO 1.5.0 and CAC 3.1.0. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
+[**v1.34.0**](https://github.com/vulnmaster/CASE-UCO-SDK/releases/tag/v1.34.0) makes validation and the critic say which node and constraint failed, and `validate()` no longer fails on informational results such as UUID suggestions. Investigation routing matches keywords on word boundaries and requires only the extensions the text supports, listing the rest as optional. `process_document_file` keeps whole money amounts, returns per-document sidecar paths, and can record the URL and time a document was captured. Critic sessions started on v1.33.0 must be finished before upgrading (see the [Changelog](CHANGELOG.md#1340---2026-11-14)). It builds on v1.33.0, which makes the same file reported by several forensic tools converge on shared nodes and adds readers for Cellebrite and Magnet output. Validation stays pinned to [case-utils 0.18.0](https://pypi.org/project/case-utils/) (`--built-version case-1.5.0`) for CASE/UCO 1.5.0 and CAC 3.1.0. You can also build from source via the CLI or MCP (see [Getting Started](#getting-started) below).
 
 
 When registry packages are published in a later release:
@@ -58,7 +58,7 @@ For Java (once on Maven Central), add to your `pom.xml`:
 <dependency>
     <groupId>org.caseontology</groupId>
     <artifactId>case-uco</artifactId>
-    <version>1.33.0</version>
+    <version>1.34.0</version>
 </dependency>
 ```
 
@@ -299,7 +299,9 @@ For detailed benchmarks, partitioning strategies, validation tool comparisons, a
 
 ## Bundled Extension Ontologies
 
-Core CASE/UCO covers cyber-observables and investigation management, but real investigations reach into domains the core ontology doesn't cover. The SDK bundles ten extension ontologies, all queryable through the same registry, CLI explorer, and MCP tools as core classes (set `CASE_UCO_EXTENSIONS` or use the `scope` parameter to include them). Upstream-maintained ontologies (`cac`, `aeo`, `solveit`) are vendored under `ontology/` alongside CASE and UCO and refreshed with `make sync-upstream`; SDK-developed extensions live under `extensions/`:
+The weekly freshness workflow runs `python3 scripts/check_upstream_freshness.py`. It checks SOLVE-IT vendored SHA-256 digests and fails if upstream ontology `VERSION` changes or main is more than five commits ahead. Set `--ontology-ahead-threshold N` or `SOLVEIT_ONTOLOGY_AHEAD_THRESHOLD` to adjust that limit (the flag takes precedence); smaller drift warns. CAC and SOLVE-IT KB release staleness still fails, while CASE/UCO/AEO/CDO-Shapes branch drift warns. Run `python3 scripts/check_upstream_freshness.py --offline` for local checksum validation without network access; refresh with `make sync-upstream` and review the changes.
+
+Core CASE/UCO covers cyber-observables and investigation management, but real investigations reach into domains the core ontology doesn't cover. The SDK bundles the extension ontologies below, all queryable through the same registry, CLI explorer, and MCP tools as core classes (set `CASE_UCO_EXTENSIONS` or use the `scope` parameter to include them). Upstream-maintained ontologies (`cac`, `aeo`, `solveit`) are vendored under `ontology/` alongside CASE and UCO and refreshed with `make sync-upstream`; SDK-developed extensions live under `extensions/`:
 
 | Extension | Version | Domain |
 |-----------|---------|--------|
@@ -307,13 +309,28 @@ Core CASE/UCO covers cyber-observables and investigation management, but real in
 | [`aeo`](ontology/aeo/) | 0.2.1 | [Adversary Engagement Ontology](https://github.com/UNHSAILLab/Adversary-Engagement-Ontology) — cyber deception, honeypots, and adversary engagement operations |
 | [`attack-technique`](extensions/attack-technique/) | 1.0.0 | Complete [MITRE ATT&CK](https://attack.mitre.org) v19.2 technique catalog (Enterprise, Mobile, ICS; 1,166 techniques and sub-techniques) as `uco-action:Technique` classes (UCO 1.5.0 metaclass), for intrusion tradecraft in CTI and incident graphs |
 | [`atlas-technique`](extensions/atlas-technique/) | 1.0.0 | Complete [MITRE ATLAS](https://atlas.mitre.org) 2026.09 technique catalog (208 techniques and sub-techniques) as `uco-action:Technique` classes, for attacks on AI systems |
-| [`solveit`](ontology/solveit/) | 0.2.11 | [SOLVE-IT](https://solveit-df.org) digital forensics knowledge base — objectives, techniques, weaknesses (ASTM E3016-18), mitigations, citations; pinned upstream snapshot with `SolveitInvestigativeAction`, technique classes bridged to the UCO `uco-action:Technique` metaclass, method-centric observables, hypotheses, and weakness assessment |
-| [`cryptoinv`](extensions/cryptoinv/) | 0.1.0 | Cryptocurrency and financial-crime investigation — typed crypto facets, blockchain tracing, exchange records |
-| [`legalproc`](extensions/legalproc/) | 0.1.0 | Legal process — charges, verdicts, pleas, sentences, forfeiture, restitution for any investigation type |
+| [`solveit`](ontology/solveit/) | 0.2.17 | [SOLVE-IT](https://solveit-df.org) digital forensics knowledge base — objectives, techniques, weaknesses (ASTM E3016-18), mitigations, citations; pinned upstream snapshot with `SolveitInvestigativeAction`, technique classes bridged to the UCO `uco-action:Technique` metaclass, method-centric observables, hypotheses, and weakness assessment |
+| [`cryptoinv`](extensions/cryptoinv/) | 0.2.0 | Cryptocurrency and financial-crime investigation — typed crypto facets, blockchain tracing, exchange records |
+| [`legalproc`](extensions/legalproc/) | 0.3.0 | Legal process — charges, verdicts, pleas, sentences, forfeiture, restitution for any investigation type |
 | [`rico`](extensions/rico/) | 0.1.0 | Racketeering and criminal enterprise — association-in-fact enterprises, enterprise roles, predicate statutes |
 | [`weapons`](extensions/weapons/) | 0.1.0 | Firearms and ammunition evidence (CCO Artifact Ontology + gUFO bridges) |
 | [`drugs`](extensions/drugs/) | 0.1.0 | Controlled-substance evidence — ChEBI identity, CSA schedules, mass and purity |
 | [`toolcap`](extensions/toolcap/) | 0.4.0 | Forensic tool capability benchmarking — decomposed Tool → Module → Capability model with IR metrics and AutoDFBench provenance |
+| [`smishviz`](extensions/smishviz/) | 0.1.0 | SMS phishing (smishing) campaign and social-engineering annotation |
+
+Candidate extensions can be used and validated today, but their terms may still change before they are promoted (see the knowledge lifecycle under [AI-Assisted Development](#ai-assisted-development)):
+
+| Candidate extension | Version | Domain |
+|---------------------|---------|--------|
+| [`trajectories`](extensions/trajectories/) | 0.3.1 | State machines and trajectories — states, transitions and evidence-backed phase assertions |
+| [`layered`](extensions/layered/) | 0.2.0 | Layered composition of Exploitation State Machines |
+| [`means`](extensions/means/) | 0.1.0 | Means action space |
+| [`expense`](extensions/expense/) | 0.5.0 | Benefit-at-expense test |
+| [`trafficking`](extensions/trafficking/) | 0.1.0 | Sex-trafficking Exploitation State Machine alphabet |
+| [`forced-labor`](extensions/forced-labor/) | 0.1.0 | Forced-labour Exploitation State Machine alphabet |
+| [`elder-fraud`](extensions/elder-fraud/) | 0.1.0 | Elder-fraud Exploitation State Machine alphabet |
+| [`extortion`](extensions/extortion/) | 0.1.0 | Cyber-extortion Exploitation State Machine alphabet |
+| [`uas`](extensions/uas/) | 0.1.0 | Unmanned aircraft systems |
 
 Extensions compose: a single graph can combine core observables with CAC victim identification, `legalproc` charges, and `cryptoinv` blockchain traces. See the [cross-ontology composition recipe](docs/recipes/cross-ontology-composition.md).
 
@@ -592,7 +609,7 @@ CASE-UCO-SDK/
 | Typed deserialization | `from_jsonld()` | `FromJsonLd()` | `fromJsonLd()` | `from_jsonld()` |
 | Graph validation (SHACL) | `validate()` | `ValidateGraph()` | `validate()` | `validate()` |
 | Runtime introspection | `case_uco.registry` | `OntologyRegistry` | `OntologyRegistry` | `registry` module |
-| Provenance metadata | `UCO_VERSION` | `CaseUcoMeta` | `CaseUcoMeta` | `VERSION` |
+| Provenance metadata | `UCO_VERSION`, `CASE_VERSION` | `CaseUcoMeta` | `CaseUcoMeta` | `VERSION`, `UCO_VERSION`, `CASE_VERSION` |
 
 ## Version Matrix
 
@@ -600,6 +617,7 @@ All four language packages are released in lockstep from the same ontology sourc
 
 | SDK Version | UCO | CASE | Python `case-uco` | C# `CaseUco` | Java `case-uco` | Rust `case-uco` |
 |-------------|-----|------|-------------------|--------------|-----------------|-----------------|
+| 1.34.0 | 1.5.0 | 1.5.0 | 1.34.0 | 1.34.0 | 1.34.0 | 1.34.0 |
 | 1.33.0 | 1.5.0 | 1.5.0 | 1.33.0 | 1.33.0 | 1.33.0 | 1.33.0 |
 | 1.32.2 | 1.5.0 | 1.5.0 | 1.32.2 | 1.32.2 | 1.32.2 | 1.32.2 |
 | 1.32.1 | 1.5.0 | 1.5.0 | 1.32.1 | 1.32.1 | 1.32.1 | 1.32.1 |
@@ -638,8 +656,8 @@ To check at runtime:
 
 ```python
 import case_uco
-print(case_uco.UCO_VERSION)   # "1.4.0"
-print(case_uco.CASE_VERSION)  # "1.4.0"
+print(case_uco.UCO_VERSION)   # "1.5.0"
+print(case_uco.CASE_VERSION)  # "1.5.0"
 ```
 
 ## AI-Assisted Development
@@ -650,11 +668,11 @@ The MCP server is the centerpiece. It carries a working knowledge of the entire 
 
 - **Core + extension discovery** — every tool accepts a `scope` parameter, so the agent can search core CASE/UCO, the CAC Ontology, the Adversary Engagement Ontology, or any bundled extension with the same calls.
 - **Upper-ontology profiles** — `get_uco_profiles` surfaces UCO's alignments with BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, and PROF, plus SDK-pinned QUDT 3.5.2 and W3C SOSA/SSN profiles for quantities, units, and sensor observations, so graphs can interoperate with formal-reasoning, provenance, temporal, geospatial, social-network, and measurement tooling. Since v1.19.0 the upper-ontology sources and CDO-Shapes SHACL profiles are vendored under `ontology/upper/` (each profile reports its `local_source` / `local_shapes` paths), so profile inspection, conformance checks, and registry rebuilds all work fully offline. Remote SPARQL is an optional, explicitly controlled network capability rather than a prerequisite for local modeling or validation.
-- **Investigation routing** — `route_investigation_content` classifies any submission (text, documents, partial graphs) into investigation families and returns the matching recipes, extensions, namespaces, and profiles; `route_cac_content` does deep routing within the crimes-against-children domain. Since v1.16.0 routing is hybrid: a deterministic keyword baseline plus an offline lexical-semantic stage with synonym expansion, per-family confidence scores, explainable match evidence, and calibrated abstention — colloquial phrasings route correctly, unknown content gets extension-gap guidance instead of a weak guess.
-- **Forensic method planning** — `plan_solveit_workflow` maps an investigation goal to [SOLVE-IT](https://solveit-df.org) objectives, candidate techniques, and per-technique weakness/mitigation checklists (ASTM E3016-18 Error Mitigation Analysis); `search_solveit` and `get_solveit_details` query the pinned knowledge base (24 objectives, 200 techniques, 441 weaknesses, 336 mitigations, 164 citations), and the `solveit` extension records the method in the graph by typing each `SolveitInvestigativeAction` with the technique class it performed (the `uco-action:Technique` metaclass shared with ATT&CK and ATLAS) — kept current against SOLVE-IT's rapid release cycle with `make sync-solveit` and a weekly CI freshness check.
-- **Document processing** — `process_document_file` turns images, PDFs, Office documents, CSV tables, and PACER court filings into bounded CASE/UCO JSON-LD for human review. All extracted content is labeled untrusted evidence data, scanned for prompt-injection patterns, and confined by the configurable filesystem workspace policy (see [SECURITY.md](SECURITY.md)).
+- **Investigation routing** — `route_investigation_content` classifies any submission (text, documents, partial graphs) into investigation families and returns the matching recipes, extensions, namespaces, and profiles; `route_cac_content` does deep routing within the crimes-against-children domain. Since v1.16.0 routing is hybrid: a deterministic keyword baseline plus an offline lexical-semantic stage with synonym expansion, per-family confidence scores, explainable match evidence, and calibrated abstention — colloquial phrasings route correctly, unknown content gets extension-gap guidance instead of a weak guess. Since v1.34.0 keywords match on word boundaries (`count` no longer hits `accounts`), and a family's extensions that the text does not support are listed in `optional_extensions` instead of being required.
+- **Forensic method planning** — `plan_solveit_workflow` maps an investigation goal to [SOLVE-IT](https://solveit-df.org) objectives, candidate techniques, and per-technique weakness/mitigation checklists (ASTM E3016-18 Error Mitigation Analysis); `search_solveit` and `get_solveit_details` query the pinned knowledge base (24 objectives, 207 techniques, 454 weaknesses, 348 mitigations, 165 citations), and the `solveit` extension records the method in the graph by typing each `SolveitInvestigativeAction` with the technique class it performed (the `uco-action:Technique` metaclass shared with ATT&CK and ATLAS) — kept current against SOLVE-IT's rapid release cycle with `make sync-solveit` and a weekly CI freshness check.
+- **Document processing** — `process_document_file` turns images, PDFs, Office documents, CSV tables, and PACER court filings into bounded CASE/UCO JSON-LD for human review. All extracted content is labeled untrusted evidence data, scanned for prompt-injection patterns, and confined by the configurable filesystem workspace policy (see [SECURITY.md](SECURITY.md)). Each document gets its own `<graph-stem>.extracted-content.json` and `<graph-stem>.annotations.jsonld` sidecars, and the optional `source_url`, `retrieved_at` and `http_status` parameters record where and when the document was captured ([public-record capture](docs/recipes/public-record-capture.md)).
 - **Remote SPARQL query and analysis** — `execute_sparql_query` combines local ontology discovery with a bounded query-only SPARQL 1.1 client. It targets CaseLinker's public CASE/UCO/CAC corpus by default, accepts other standards-compliant endpoints, normalizes bindings/ASK/RDF results, and labels every remote value as untrusted external data. See [Remote SPARQL Query and Graph-Store Roadmap](docs/SPARQL.md).
-- **Validation** — the public Python API `case_uco.validation.validate_graph_file` (and MCP `validate_graph`) runs SHACL validation plus a closed-world concept-coverage check against core, loaded extensions, and profiled upper ontologies. Coverage is exact-term and role-aware: profiled upper-ontology terms (BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, PROF) are checked against pinned releases (`python/case_uco/validation/upper_ontology_registry.json`) so fabricated terms fail, and declared terms used in the wrong RDF position (a class as a predicate, a property as a type) are reported as role mismatches. The declared-term set refreshes automatically when ontology files change mid-process. Since v1.17.0 strict validation fails closed: reports carry a `verification_status`, and a missing or invalid registry, malformed extension manifest, missing dependency, or dependency cycle is a typed error rather than a silent pass. **Named extensions are an external-bundle contract:** the PyPI/GitHub wheel does not vendor `extensions/` Turtle files; pass `project_root=` (or explicit ontology paths) pointing at a CASE-UCO-Libraries checkout when using names such as `attack-technique:full`.
+- **Validation** — the public Python API `case_uco.validation.validate_graph_file` (and MCP `validate_graph`) runs SHACL validation plus a closed-world concept-coverage check against core, loaded extensions, and profiled upper ontologies. Coverage is exact-term and role-aware: profiled upper-ontology terms (BFO, gUFO, PROV-O, OWL-Time, GeoSPARQL, FOAF, ORG, PROF) are checked against pinned releases (`python/case_uco/validation/upper_ontology_registry.json`) so fabricated terms fail, and declared terms used in the wrong RDF position (a class as a predicate, a property as a type) are reported as role mismatches. The declared-term set refreshes automatically when ontology files change mid-process. Since v1.17.0 strict validation fails closed: reports carry a `verification_status`, and a missing or invalid registry, malformed extension manifest, missing dependency, or dependency cycle is a typed error rather than a silent pass. Since v1.34.0 a nonconforming report names up to 20 SHACL results in `violation_details` (focus node, result path, constraint component and severity), and MCP `validate_graph` accepts `extra_ontology_graphs` for local candidate ontologies, as the SDK does. **Named extensions are an external-bundle contract:** the PyPI/GitHub wheel does not vendor `extensions/` Turtle files; pass `project_root=` (or explicit ontology paths) pointing at a CASE-UCO-Libraries checkout when using names such as `attack-technique:full`.
 - **Knowledge lifecycle** — learned recipes and extension ontologies follow a staged candidate → validated → operational → deprecated lifecycle with validation-gated promotion, recorded provenance, emergency revocation, and one-command git rollback (`make promote-extension` / `promote-recipe` / `deprecate-extension` / `deprecate-recipe` / `rollback-extension` / `lifecycle-status`). Promotion gates require conforming exemplars, failing negative fixtures when SHACL shapes ship, subclass anchoring to declared classes, and (when declared) passing competency queries; promotion authority follows the deployment profile.
 - **Secure deployment** — a filesystem workspace policy confines file-handling tools to configured read/write roots, and deployment profiles (`development`, `offline-investigation`, `production-authoring`, `production-review`) make it enforceable: in secure mode the server refuses to start on a misconfigured policy and fails closed at runtime, and `get_security_profile` reports the active posture. Routing quality is guarded by a held-out external evaluation corpus (`evaluation/routing/`, `make eval-routing`) that runs in CI with a governance rule preventing silent co-modification of router and corpus.
 - **CDO community awareness** — the server knows the [Community Playground](https://docs.google.com/document/d/1EiXQiAeUGk-629xdKx7HZHVn927k891LGkPcQzNLLr8/edit?usp=sharing) submission requirements and the UCO/CASE/CAC change-proposal process, so its output is aimed at upstream adoption rather than one-off hacks.

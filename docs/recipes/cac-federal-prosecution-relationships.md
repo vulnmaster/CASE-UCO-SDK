@@ -327,53 +327,53 @@ graph = CASEGraph(extra_context={
     "cacontology-asset-forfeiture": "https://cacontology.projectvic.org/asset-forfeiture#",
 })
 
-inv = graph.add_node("kb:inv-1", [
+inv = graph.upsert_node("kb:inv-1", types=[
     "case-investigation:Investigation", "cacontology:CACInvestigation",
-], {
+], properties={
     "uco-core:name": "U.S. v. Defendant-1 — 3:24-cr-00091",
     "case-investigation:focus": ["CSAM Production", "Multi-District Prosecution"],
 })
 
-court_ak = graph.add_node("kb:court-ak", "uco-location:Location", {
+court_ak = graph.upsert_node("kb:court-ak", types=["uco-location:Location"], properties={
     "uco-core:name": "U.S. District Court, District of Alaska",
 })
-court_tx = graph.add_node("kb:court-tx", "uco-location:Location", {
+court_tx = graph.upsert_node("kb:court-tx", types=["uco-location:Location"], properties={
     "uco-core:name": "U.S. District Court, Western District of Texas (El Paso)",
 })
 
-indictment = graph.add_node("kb:indictment-1", "cacontology:MultiDefendantIndictment", {
+indictment = graph.upsert_node("kb:indictment-1", types=["cacontology:MultiDefendantIndictment"], properties={
     "uco-core:name": "Federal indictment — D. Alaska and W.D. Texas",
     "cacontology:indictmentCounts": {"@type": "xsd:nonNegativeInteger", "@value": "5"},
 })
 
-prosecution = graph.add_node("kb:prosecution-1", "cacontology-usa-federal-law:FederalProsecution", {
+prosecution = graph.upsert_node("kb:prosecution-1", types=["cacontology-usa-federal-law:FederalProsecution"], properties={
     "uco-core:name": "Federal prosecution — D. Alaska",
 })
 
-charge_ak1 = graph.add_node("kb:charge-ak-1", "cacontology-legal-outcomes:FederalCharge", {
+charge_ak1 = graph.upsert_node("kb:charge-ak-1", types=["cacontology-legal-outcomes:FederalCharge"], properties={
     "uco-core:name": "Count AK-1 — Transportation of CSAM",
     "cacontology-legal-outcomes:chargeCount": {"@type": "xsd:nonNegativeInteger", "@value": "1"},
 })
 
-device = graph.add_node("kb:device-1", [
+device = graph.upsert_node("kb:device-1", types=[
     "uco-observable:ObservableObject",
     "cacontology-production:MobileRecordingDevice",
-], {
+], properties={
     "uco-core:name": "Samsung Galaxy S21 Ultra",
     "cacontology-production:deviceBrand": "Samsung",
     "cacontology-production:deviceModel": "Galaxy S21 Ultra",
 })
 
-csam = graph.add_node("kb:csam-1", "cacontology:CSAMIncident", {
+csam = graph.upsert_node("kb:csam-1", types=["cacontology:CSAMIncident"], properties={
     "uco-core:name": "Alleged CSAM production and possession",
 })
 
-defendant = graph.add_node("kb:defendant-1", "uco-identity:Person", {
+defendant = graph.upsert_node("kb:defendant-1", types=["uco-identity:Person"], properties={
     "uco-core:name": "Defendant-1",
     "cacontology-legal-outcomes:chargedWith": [{"@id": "kb:charge-ak-1"}],
 })
 
-forfeiture = graph.add_node("kb:forfeiture-1", "cacontology-asset-forfeiture:AssetForfeitureAction", {
+forfeiture = graph.upsert_node("kb:forfeiture-1", types=["cacontology-asset-forfeiture:AssetForfeitureAction"], properties={
     "uco-core:name": "Alleged asset forfeiture under 18 U.S.C. 2253",
     "cacontology-asset-forfeiture:targetedAsset": {"@id": "kb:device-1"},
     "cacontology-asset-forfeiture:relatedCriminalCharges": [{"@id": "kb:charge-ak-1"}],
@@ -389,7 +389,7 @@ for rel_id, src, tgt, description in [
     ("rel-inv-parallel", "kb:inv-1", "kb:court-tx", "Parallel jurisdiction"),
     ("rel-conduct-device", "kb:csam-1", "kb:device-1", "Equipment allegedly used in conduct"),
 ]:
-    graph.add_node(f"kb:{rel_id}", "uco-core:Relationship", {
+    graph.upsert_node(f"kb:{rel_id}", types=["uco-core:Relationship"], properties={
         "uco-core:source": {"@id": src},
         "uco-core:target": {"@id": tgt},
         "uco-core:kindOfRelationship": "Related_To",

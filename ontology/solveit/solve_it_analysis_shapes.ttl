@@ -2,6 +2,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix solveit-analysis: <https://ontology.solveit-df.org/solveit/analysis/> .
 @prefix solveit-observable: <https://ontology.solveit-df.org/solveit/observable/> .
 @prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
@@ -59,7 +60,39 @@
 # thereby typed a Hypothesis, and an observable object put in a set
 # would be silently made one rather than rejected. The requirement is
 # therefore stated once, here, where it is checked. The same reasoning
-# removed the rdfs:domain from solveit-observable:recoveredFromPage.
+# removed the rdfs:domain from solveit-observable:recoveredFromPage,
+# which is checked by the HypothesisedRecord constraint below.
+
+#################################################################
+#    HypothesisedRecord constraint
+#
+#    Where the bytes of a hypothesised record were found. The page is
+#    optional: a record carved from unallocated disk space may not be
+#    traceable to a page of any known database file, and there the page
+#    is unknown rather than missing.
+#
+#    Unlike the other shapes in this file, the constraint sits on the
+#    class itself rather than on a separate shape with sh:targetClass.
+#    SHACL treats a class that is also a NodeShape as targeting its own
+#    instances, so validation is the same either way. The difference is
+#    in the documentation: ontospy only connects a property without an
+#    rdfs:domain to a class through sh:property on the class node. With
+#    a separate shape, recoveredFromPage was listed under owl:Thing on
+#    every class page. This is also how UCO writes its shapes.
+#
+#    The owl:Class type repeats the declaration in solve_it_analysis.ttl
+#    and is needed: SHACL only applies the implicit target when the
+#    shapes graph itself says the node is a class, and without it the
+#    constraint was never applied.
+#################################################################
+
+solveit-analysis:HypothesisedRecord a owl:Class , sh:NodeShape ;
+    sh:property [
+        sh:path solveit-observable:recoveredFromPage ;
+        sh:class solveit-observable:SQLitePage ;
+        sh:nodeKind sh:IRI ;
+        sh:message "The page a hypothesised record was recovered from must be a SQLitePage, typed as such in the data."@en ;
+    ] .
 
 #################################################################
 #    HypothesisedTableAttribution Shape

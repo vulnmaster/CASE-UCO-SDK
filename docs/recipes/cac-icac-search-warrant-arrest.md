@@ -31,7 +31,7 @@ Do **not** use `HighRiskArrest` or `DynamicEntry` when the narrative explicitly 
 
 | Class | Role |
 |---|---|
-| `MarylandICACtaskForce` / `ICACtaskForce` | State ICAC task force container |
+| `MarylandICACtaskForce` / `cacontology-taskforce:ICACtaskForce` | Source-identified OJJDP-funded Internet Crimes Against Children task force; use the Maryland type only for Maryland |
 | `MarylandStatePoliceComputerCrimesUnit` | Lead investigative unit |
 | `GovernorsOfficeCrimePreventionFunding` | State grant funding |
 | `StateLocalFundingCombination` | Combined state + federal DOJ funding |
@@ -94,15 +94,15 @@ graph = CASEGraph(extra_context={
     "cacontology-legal-outcomes": "https://cacontology.projectvic.org/legal-outcomes#",
 })
 
-inv = graph.add_node("kb:inv-1", [
+inv = graph.upsert_node("kb:inv-1", types=[
     "case-investigation:Investigation", "cacontology:CACInvestigation",
-], {"uco-core:name": "Maryland ICAC Annapolis Solicitation Case"})
+], properties={"uco-core:name": "Maryland ICAC Annapolis Solicitation Case"})
 
-arrest = graph.add_node("kb:arrest-1", [
+arrest = graph.upsert_node("kb:arrest-1", types=[
     "case-investigation:InvestigativeAction",
     "cac-core:InvestigativeAction",
     "cacontology-tactical:ArrestOperation",
-], {
+], properties={
     "cacontology-tactical:arrestType": "warrant_arrest",
     "cacontology-tactical:targetCount": {"@type": "xsd:nonNegativeInteger", "@value": "1"},
     "cacontology-tactical:resistanceExpected": {"@type": "xsd:boolean", "@value": "false"},
@@ -138,4 +138,4 @@ make validate-extension EXT=cac DATA=icac-warrant-arrest.jsonld
 - [cac-tactical-undercover-operation.md](cac-tactical-undercover-operation.md) — high-risk / undercover only
 - [cac-grooming-chat-modeling.md](cac-grooming-chat-modeling.md)
 - [cac-legal-sentencing-outcomes.md](cac-legal-sentencing-outcomes.md)
-- [caselinker-icac-remodel.md](caselinker-icac-remodel.md) — generic `ICACtaskForce`, phase end points, victim-count integrity
+- [caselinker-icac-remodel.md](caselinker-icac-remodel.md) — OJJDP-funded ICAC task forces (`cacontology-taskforce:ICACtaskForce`), phase end points, victim-count integrity

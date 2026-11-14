@@ -7,6 +7,93 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.34.0] - 2026-11-14
+
+Validation and the critic now say which node and constraint failed, and `validate()` no longer fails on informational results. Investigation routing matches keywords on word boundaries and requires only the extensions the text supports. `process_document_file` keeps whole money amounts, returns per-document sidecar paths, and can record where and when a document was captured. Most of these fixes answer issues reported by @mrinaalr.
+
+### Upgrading
+
+- Finish or discard critic sessions started on 1.33.0 before upgrading. The model response schema changed, so rebuilding such a session's prompt package fails with `critic_session_prompt_rebuild_mismatch` (`response_schema_sha256`). The deterministic and graph-integrity critic rules are now version 1.1.1.
+- Code that reads `extracted_content_path` or `annotations_path` from a `process_document_file` result now gets `<graph-stem>.extracted-content.json` and `<graph-stem>.annotations.jsonld`.
+- `ordered_recommendations.required_extensions` from investigation routing can be shorter than before. Extensions a family carries that the text does not support are in the new `optional_extensions` list.
+- `validate()` passes `--allow-info` in all four languages, and C# and Java validate against `case-1.5.0` by default. To keep the old behavior, pass `allow_info=False` in Python or `allowInfo: false` in C#, call `validate(caseVersion, false, false)` in Java, or call `validate_with_options` with `allow_info` false in Rust.
+
+### Added
+
+- `process_document_file` (MCP tool, Python and CLI) takes optional capture provenance: `source_url`, `retrieved_at` and `http_status`. With a URL, the graph records a `uco-observable:URL` and a `case-investigation:InvestigativeAction` that retrieved it, with the source file as its result, `uco-action:endTime` only for a full timestamp, and the status as an `ActionArgumentFacet`, as in `docs/recipes/public-record-capture.md`. The URL must be absolute `http`/`https` without credentials (requested by @mrinaalr).
+- Candidate extension `forced-labor` 0.1.0 (by @mrinaalr): the `fl:` alphabet for a
+  forced-labour / labour-trafficking Exploitation State Machine. Four
+  `traj:State` phases (`Recruitment`, `Control`, `ForcedLabor`,
+  `WageAppropriation`) in `fl:PhaseScheme` and four `uco-action:Technique`
+  classes (`a_deceive_recruit`, `a_coerce_labor`, `a_compel_labor`,
+  `a_appropriate_wages`), each required to carry an instrument. Grounded in
+  the Europol/ELA labour-exploitation action week of 14–20 September 2026;
+  the exemplar models the Cyprus and Romania cases from the Europol release
+  of 2026-10-23, which names no suspect or victim. `extensions/layered` has
+  occupied this alphabet since 0.2.0 with the states declared inline in its
+  Atkinson exemplar and the two techniques undeclared, so that exemplar failed
+  strict concept coverage under the recipe's own validation call. The inline
+  declarations are removed, `layered` now `depends_on` `forced-labor`, and
+  `mcp_server/tests/test_forced_labor.py` validates both exemplars. No CAC
+  class is retyped or imported; `fl:Recruitment` and `fl:Control` carry a
+  `skos:closeMatch` to `cacontology-trafficking:VictimRecruitment` and
+  `cacontology-trafficking:VictimControlSituation`, both declared in CAC
+  3.1.0.
+
+### Changed
+
+- `extensions/layered/layered-exemplar.ttl` types its forced-labour
+  coercion action `fl:a_coerce_labor` instead of `fl:a_coerce`. The class
+  was never declared, so no graph could have validated against the old
+  name; the new name keeps the registry local name distinct from
+  `trafficking`'s `a_coerce`.
+- Updated SOLVE-IT ontology from 0.2.11 to 0.2.17 at upstream commit `3fe762c7` (untagged upstream). The KB release remains `v0.2026-06`; the compiled snapshot contains 207 techniques. Corrected the manifest's technique-catalog checksum. The freshness check now fails on material ontology drift (a changed VERSION or more than five commits ahead by default) and vendored checksum mismatches, with an offline integrity mode. Only commits touching upstream ontology module files count toward the threshold; automated KB/doc commits do not. The `case-uco-solveit` package is now 0.2.17, matching the ontology version (previously 0.3.0). The freshness change answers [#173](https://github.com/vulnmaster/CASE-UCO-SDK/issues/173).
+
+### Fixed
+
+- `from_jsonld` and `load` read back a graph serialized with a custom `kb_prefix`. An empty graph that still has the default `kb` now takes the document's `kb` binding instead of raising a prefix collision, in Python, Rust, C# and Java. A populated graph, or one built with a different non-default `kb_prefix`, still raises (by @mrinaalr).
+- `process_document_file` returns the stem-specific sidecar paths (`<graph-stem>.extracted-content.json`, `<graph-stem>.annotations.jsonld`) in `extracted_content_path` and `annotations_path`, in the SDK result, the MCP tool and the CLI. It used to return the shared `extracted-content.json` and `annotations.jsonld`, which the next document processed into the same directory overwrote. The shared files are still written for single-document directories. A worksheet partition's annotations now target its own content file; they pointed at a shared `extracted-content.json` that worksheet runs never write (by @mrinaalr).
+- Recipe Python skeletons use `upsert_node` instead of unsupported `add_node` calls ([#167](https://github.com/vulnmaster/CASE-UCO-SDK/issues/167)).
+- Recovery recipes use the declared `cacontology:VictimRescueAction` class ([#168](https://github.com/vulnmaster/CASE-UCO-SDK/issues/168)).
+- The `cac:missing-child` profile loads pinned local gUFO terms and omits stranger-abduction shapes whose required properties remain undeclared ([#169](https://github.com/vulnmaster/CASE-UCO-SDK/issues/169)).
+- T0 missing-child action timestamps use `uco-action:startTime` and `uco-action:endTime` ([#170](https://github.com/vulnmaster/CASE-UCO-SDK/issues/170)).
+- Generic task-force recipes use `cacontology-multi-jurisdiction:TaskForce`; ICAC typing is reserved for source-identified OJJDP-funded task forces.
+- Python validation, bundle, and coverage helpers accept string and `os.PathLike` project roots ([#171](https://github.com/vulnmaster/CASE-UCO-SDK/issues/171)).
+- Validation invokes the CASE Utilities console entry point through the SDK interpreter, checks supported built versions, and distinguishes validator failures from graph nonconformance.
+- `critic-model-response.schema.json` states that each review pass binds `session_id`, `pass_number` and the review hashes as required fields and points to `prompt_package.response_schema`. `critic_response_schema_mismatch` lists every missing top-level field in one message (by @mrinaalr).
+- The `validate_graph` MCP tool takes `extra_ontology_graphs` and `force_rdfs_inference` and forwards them to `validate_graph_file`, as `start_critic_review` and `submit_critic_revision` already do. A graph that uses a local candidate ontology now gets the same answer from the tool as from the SDK, where the tool used to report its terms as undeclared. Each extra path follows the same read policy, suffix list and size limit as `graph_path`, with typed errors `extra_ontology_graph_outside_read_roots`, `extra_ontology_graph_missing`, `extra_ontology_graph_unsupported_extension` and `extra_ontology_graph_oversized`. The result echoes both parameters when set (by @mrinaalr).
+- The critic keeps Turtle namespace bindings (the default namespace, document overrides of fallback and RDFLib built-in prefixes, and aliases of `kb`) as it already did for JSON-LD contexts, so a declared Turtle `kb` namespace gets the same local-reference checks as equivalent JSON-LD (by @forest-savage1234, [#163](https://github.com/vulnmaster/CASE-UCO-SDK/pull/163)).
+- The document processor keeps the whole money amount: a scale word or suffix (`$1.97 million`, `$3.2M`), any number of decimal places and unseparated numbers longer than six digits. It used to record `$1.97 million` as `$1.97` and `$2.5 billion` as `$2`. The amount's text anchor now quotes the source exactly (reported by @mrinaalr).
+- Investigation routing matches keywords on word boundaries: `count` no longer hits `accounts` or `country`, `armed` no longer hits `harmed`, and `runner` no longer hits `forerunner`. Single-word keywords may carry a plain inflection (`counts`), multi-word keywords and a short list of deliberate stems (`abduct`, `cybertip`, `exploit`) may run on, and camelCase local names and JSON escapes in graph text are split before matching (reported by @mrinaalr).
+- Investigation routing requires only the extensions the text supports. `cryptoinv` is required only when a cryptocurrency term matches, so fiat-only wire or bank fraud requires `legalproc` alone, and a family matched by the semantic stage without any keyword hit (such as violent crime from "No weapon, threat, or violence is alleged") lists its extensions as optional. The ordered recommendations report these in a new `optional_extensions` list (reported by @mrinaalr).
+- `required_extensions_for_graph` counts IRIs used only as the object of a property, so a graph that points at an extension's state or vocabulary individual (for example `fl:Control`) gets that extension (reported by @mrinaalr).
+- `case_uco.UCO_VERSION` and `case_uco.CASE_VERSION`, which the README documented but Python never defined, now exist, and Rust gains `VERSION`, `UCO_VERSION` and `CASE_VERSION`. The generator reads both ontology versions from the vendored UCO and CASE `owl:versionInfo`. The hand-written C# and Java `CaseUcoMeta` reported UCO/CASE 1.4.0 and SDK version 0.1.0; they now report 1.5.0 and the package version, and a generator test keeps all four languages in step. The README extension table lists every distributed extension at its manifest version, with candidates in their own table, and a test keeps it in step (reported by @mrinaalr).
+- `validate_graph`, `validate_graph_file` and the critic's `CRIT-V-NONCONFORMING` finding name each SHACL result: up to 20 `violation_details` records give the focus node, result path, constraint component and severity as IRIs, with no value nodes or messages, and `violation_details_truncated` flags more. The finding's evidence lists them, and its target is the focus node when only one node fails (reported by @mrinaalr).
+- `validate()` in all four SDKs passes `--allow-info`, so `sh:Info` results (such as UCO's suggestion that IRIs end in a UUID, which the SDK's own relationship IDs trigger) no longer fail it. `validate_report()` already accepted them. Python takes `allow_info` / `allow_warning`, Rust adds `validate_with_options`, C# `ValidateGraph` takes `allowInfo` / `allowWarning`, and Java adds `validate(caseVersion, allowInfo, allowWarning)`. C# and Java default to `case-1.5.0` instead of `case-1.4.0` (reported by @mrinaalr).
+- Rust `validate()` wrote its temporary graph without a `.jsonld` suffix, so `case_validate` could not detect the format and every call failed.
+- C# serialization dropped the `xsd` prefix from `@context` when it appeared only in a typed literal's `@type`, so `CreateRelationship` graphs failed SHACL on `uco-core:isDirectional`.
+- The relationship-kind lint (`CRIT-V-RELATIONSHIP-LINT` in the critic, and the recipe-execution check) applies `ObservableObjectRelationshipVocab` only to `uco-observable:ObservableRelationship` nodes and to relationships whose sources and targets are all observable objects, as the registry's governance says. Identity, legal-process and state-machine kinds such as `Charged_With`, `Member_Of` or a coupling kind are no longer flagged, and the message names only the vocabularies the registry loads (reported by @mrinaalr).
+- Co-actors of an action are `uco-action:participant` values, as the recipes already said. The `violent-crime` routing note said to link them with `Participated_In` relationships, and six PACER exemplars did (32 links, including two on investigative actions); the builders now set `participant` and their graphs are regenerated and validated. The chat-loop scenario drops `Has_Account` edges that duplicated `AccountFacet.owner`. A fixture lint flags `Participated_In` relationships that point at an action with a performer (reported by @mrinaalr).
+- Critic source excerpts carry each source's document text, extracted the way `process_document_file` does, instead of the first bytes of the file, so a model reviewer sees a PDF's text rather than PDF object syntax. Each excerpt says how its text was obtained (`extraction`). A matching source hash now scores `provenance_custody`; `source_fidelity` and `coverage_completeness` stay unassessed unless a rule compared the graph with source content, where a hash match used to score them 4/5 (reported by @mrinaalr).
+
+### Dependencies
+
+- FastMCP 3.4.10, which carries the security fixes from 3.4.5 through 3.4.10. CI and the release workflow install the same pin.
+- Rust `uuid` 1.29.0.
+- `pypdf` is pinned to 7.0.1 and `cdo-local-uuid` to 0.5.0, the release that fixes CVE-2024-22194 ([GHSA-rgrf-6mf5-m882](https://github.com/advisories/GHSA-rgrf-6mf5-m882)). `pip-audit` still reports 0.5.0 as PYSEC-2024-6 because of an error in the advisory metadata, so the release SBOM step ignores that one ID.
+- Bump Java `exec-maven-plugin` from 3.6.4 to 3.7.0; Maven 3.9.0 or later is required by the plugin.
+- Bump C# `Microsoft.NET.Test.Sdk` from 18.11.0 to 18.12.0.
+
+### Known limitations
+
+- The `cac:missing-child` profile does not yet model the abduction response (AMBER activation, CART deployment, search operations). A `cac:child-abduction-response` profile is planned for 1.35.0.
+
+### Credits
+
+- @mrinaalr reported the issues behind most of the fixes above and contributed the critic response schema, sidecar path, `validate_graph` ontology and `kb_prefix` fixes and the `forced-labor` extension.
+- @forest-savage1234 contributed Turtle prefix handling in the critic.
+- Grokbot Ontology Expert started the recipe, missing-child profile, project-root, dependency and SOLVE-IT work, which was finished for this release.
+
 ## [1.33.0] - 2026-10-23
 
 When several forensic tools report the same file, the graphs built from each report now converge on shared nodes, and re-running an ingest adds nothing. New readers handle Cellebrite and Magnet acquisition summaries and stream multi-gigabyte UFED `report.xml` files, and the UFED, XRY/XAMN, and AXIOM recipes are checked against real tool output from the Digital Corpora mobile datasets. This release responds to feedback from a forensic examiner working with these tools.

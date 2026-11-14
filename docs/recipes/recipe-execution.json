@@ -1690,7 +1690,9 @@
       "builder": "examples/recipes/build_solve_it_investigation_planning.py",
       "output": "examples/recipes/solve-it-investigation-planning.jsonld",
       "profiles": [],
-      "extensions": [],
+      "extensions": [
+        "solveit"
+      ],
       "strict_concepts": true
     },
     {

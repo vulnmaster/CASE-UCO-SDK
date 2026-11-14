@@ -1402,8 +1402,15 @@
 <https://ontology.solveit-df.org/solveit/data/techniqueDFT-1206>
 	a action:Technique ;
 	rdfs:label "DFT-1206: Decode a number from raw data"@en ;
-	rdfs:comment "SOLVE-IT technique DFT-1206: Decode a number from raw data. Objective(s): Extract data from specific formats. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1206: Decode a number from raw data. See https://solveit-df.org for weaknesses and mitigations."@en ;
 	action:techniqueID "DFT-1206" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1207>
+	a action:Technique ;
+	rdfs:label "DFT-1207: Decode a string from raw data"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1207: Decode a string from raw data. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1207" ;
 	.
 
 <https://ontology.solveit-df.org/solveit/data/techniqueDFT-1208>
@@ -1411,4 +1418,46 @@
 	rdfs:label "DFT-1208: Store acquisition metadata along with a forensic image format"@en ;
 	rdfs:comment "SOLVE-IT technique DFT-1208: Store acquisition metadata along with a forensic image format. Objective(s): Store acquired data. See https://solveit-df.org for weaknesses and mitigations."@en ;
 	action:techniqueID "DFT-1208" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1209>
+	a action:Technique ;
+	rdfs:label "DFT-1209: Extract artifacts from data provided by a service provider"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1209: Extract artifacts from data provided by a service provider. Objective(s): Extract specific artifact types. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1209" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1210>
+	a action:Technique ;
+	rdfs:label "DFT-1210: Obtain approval for a digital forensic activity"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1210: Obtain approval for a digital forensic activity. Objective(s): Document digital forensic activities. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1210" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1211>
+	a action:Technique ;
+	rdfs:label "DFT-1211: Create a case-type keyword list"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1211: Create a case-type keyword list. Objective(s): Prepare for a digital investigation. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1211" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1212>
+	a action:Technique ;
+	rdfs:label "DFT-1212: Create a case-specific keyword list"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1212: Create a case-specific keyword list. Objective(s): Locate potentially relevant content. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1212" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1213>
+	a action:Technique ;
+	rdfs:label "DFT-1213: Generate reference data by performing and recording actions"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1213: Generate reference data by performing and recording actions. Objective(s): Prepare for a digital investigation. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1213" ;
+	.
+
+<https://ontology.solveit-df.org/solveit/data/techniqueDFT-1215>
+	a action:Technique ;
+	rdfs:label "DFT-1215: Store content in logical forensic container file(s)"@en ;
+	rdfs:comment "SOLVE-IT technique DFT-1215: Store content in logical forensic container file(s). Objective(s): Store acquired data. See https://solveit-df.org for weaknesses and mitigations."@en ;
+	action:techniqueID "DFT-1215" ;
 	.

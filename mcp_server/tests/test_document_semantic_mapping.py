@@ -398,3 +398,27 @@ def test_phone_re_keeps_space_dot_hyphen_separators() -> None:
     ]
     for text, expected in cases:
         assert _phone_texts(text, f"sep-{expected}") == [expected]
+
+
+def test_money_amounts_keep_scale_words_and_all_digits() -> None:
+    """#124: a scale word or long number must not be cut off the amount."""
+    text = (
+        "The scheme caused losses of $1.97 million. One investor lost $1.9 million. "
+        "The fund claimed $2.5 billion in assets. A refund of $64,500 was wired. "
+        "A later filing lists $12345678. A fee of $ 40 and $3.2M were noted."
+    )
+    entities = [
+        e for e in extract_semantic_entities(text, run_seed="money-t0")
+        if e.label.startswith("Amount ")
+    ]
+    assert [e.label for e in entities] == [
+        "Amount $1.97 million",
+        "Amount $1.9 million",
+        "Amount $2.5 billion",
+        "Amount $64,500",
+        "Amount $12345678",
+        "Amount $40",
+        "Amount $3.2M",
+    ]
+    for entity in entities:
+        assert text[entity.start : entity.end] == entity.matched_text

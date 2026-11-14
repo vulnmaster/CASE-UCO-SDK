@@ -12,13 +12,21 @@ installed, callers receive ``validator_unavailable`` instead of a fake pass.
 
 from __future__ import annotations
 
+import os
 import json
-import shutil
+import re
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from case_uco.validation.runtime import (
+    ValidatorError,
+    prepare_validator,
+    validator_available,
+    validator_error_code,
+    validator_error_message,
+)
 from case_uco.validation.extension_paths import extension_dir as _extension_dir
 from case_uco.validation.extension_paths import find_extension_dir as _find_extension_dir
 
@@ -96,12 +104,12 @@ class GraphValidationReport:
     # Truncated case_validate stdout/stderr for negative-fixture matching
     # (expected violation / constraint identifiers). Empty when unavailable.
     validator_diagnostics: str = ""
-
-
-def validator_available() -> bool:
-    """Return True when the case_validate CLI is on PATH."""
-
-    return shutil.which(VALIDATOR_NAME) is not None
+    error_code: str | None = None
+    # One {focus_node, result_path, constraint_component, severity} record
+    # of IRIs per SHACL result (no values or messages), capped at
+    # MAX_VIOLATION_DETAILS.
+    violation_details: tuple[dict[str, str | None], ...] = ()
+    violation_details_truncated: bool = False
 
 
 def _case_validate_sparql_crashes(cmd: list[str], *, timeout_seconds: int) -> bool:
@@ -177,15 +185,6 @@ def _isolate_sparql_crash_shape_files(
     return []
 
 
-def _validator_package_version() -> str | None:
-    try:
-        import importlib.metadata as metadata
-
-        return metadata.version("case-utils")
-    except Exception:  # noqa: BLE001
-        return None
-
-
 def parse_extension_token(name: str) -> tuple[str, str]:
     """Split ``cac``, ``cac:full``, or ``cac:missing-child`` into (name, mode).
 
@@ -216,7 +215,7 @@ def load_extension_ontology_paths(
     ext_name: str,
     *,
     mode: str = "subset",
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
 ) -> list[Path]:
     """Return ontology graph paths for an extension.
 
@@ -226,6 +225,7 @@ def load_extension_ontology_paths(
     ``validation-subset-<mode>.json``. Extension directories are resolved
     across both vendoring roots (``extensions/`` and ``ontology/``).
     """
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     ext_dir = _extension_dir(ext_name, project_root)
     paths: list[Path] = []
@@ -262,7 +262,7 @@ def load_extension_ontology_paths(
 
 def resolve_extension_dependencies(
     extension_names: list[str],
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
 ) -> list[str]:
     """Expand an extension list with manifest ``depends_on`` entries.
 
@@ -279,6 +279,7 @@ def resolve_extension_dependencies(
     has no manifest), ``extension_manifest_malformed`` (unparseable
     manifest), ``extension_dependency_cycle`` (circular ``depends_on``).
     """
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     def _manifest_for(clean: str) -> dict[str, Any] | None:
         ext_dir = _find_extension_dir(clean, project_root)
@@ -318,8 +319,12 @@ def resolve_extension_dependencies(
     return resolved
 
 
-def extension_has_validation_subset(ext_name: str, project_root: Path = PROJECT_ROOT) -> bool:
+def extension_has_validation_subset(
+    ext_name: str,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
+) -> bool:
     """Return True when an extension publishes a validation-subset manifest."""
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     ext_dir = _find_extension_dir(ext_name, project_root)
     return ext_dir is not None and (ext_dir / "validation-subset.json").is_file()
@@ -355,15 +360,18 @@ def _extension_namespaces(project_root: Path) -> list[tuple[str, str]]:
 
 def required_extensions_for_graph(
     document: dict[str, Any],
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
 ) -> list[str]:
-    """Extension names whose namespaces the graph's types or properties use.
+    """Extension names whose namespaces the graph's types, properties or object references use.
 
+    An IRI that appears only as the object of a property (``{"@id": ...}``),
+    such as a state or vocabulary individual an extension declares, counts.
     Pass the result as ``extensions=`` to ``validate_graph_file`` (or one
     ``--ontology-graph`` set per extension to ``case_validate``); core-only
     validation rejects extension facets that are not ``core:Facet`` in the
     CASE closure.
     """
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     context = document.get("@context")
     prefixes = (
@@ -380,13 +388,16 @@ def required_extensions_for_graph(
 
     used: set[str] = set()
 
-    def visit(value: Any) -> None:
+    def visit(value: Any, is_object: bool = False) -> None:
         if isinstance(value, list):
             for item in value:
-                visit(item)
+                visit(item, is_object)
             return
         if not isinstance(value, dict):
             return
+        node_id = value.get("@id")
+        if is_object and isinstance(node_id, str):
+            used.add(expand(node_id))
         for key, item in value.items():
             if key == "@type":
                 for type_name in item if isinstance(item, list) else [item]:
@@ -396,7 +407,9 @@ def required_extensions_for_graph(
                 continue
             elif not key.startswith("@"):
                 used.add(expand(key))
-            visit(item)
+                visit(item, is_object=True)
+                continue
+            visit(item, is_object)
 
     visit(document.get("@graph", document))
     namespaces = _extension_namespaces(project_root)
@@ -411,9 +424,10 @@ def required_extensions_for_graph(
 
 def extension_ontology_args(
     extension_names: list[str] | None,
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
 ) -> list[str]:
     """Build case_validate flags for one or more extension manifests."""
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     if not extension_names:
         return []
@@ -447,7 +461,7 @@ def validate_graph_file(
     allow_warning: bool = True,
     timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS,
     extensions: list[str] | None = None,
-    project_root: Path = PROJECT_ROOT,
+    project_root: str | os.PathLike[str] | None = PROJECT_ROOT,
     strict_concepts: bool = True,
     extra_ontology_graphs: list[str | Path] | None = None,
     force_rdfs_inference: bool = False,
@@ -472,6 +486,7 @@ def validate_graph_file(
     ``validator_unavailable``, ``graph_missing``, ``unsupported_graph_extension``,
     ``graph_oversized``, ``validation_timeout``.
     """
+    project_root = PROJECT_ROOT if project_root is None else Path(project_root).expanduser()
 
     if not validator_available():
         raise ValueError("validator_unavailable")
@@ -492,8 +507,8 @@ def validate_graph_file(
     if graph.stat().st_size > MAX_GRAPH_BYTES:
         raise ValueError("graph_oversized")
 
-    validator_version = _validator_package_version()
-    args = [VALIDATOR_NAME]
+    validator_version = None
+    args: list[str] = []
     if allow_warning:
         args.append("--allow-warning")
 
@@ -534,8 +549,18 @@ def validate_graph_file(
             args.extend(["--inference", "rdfs"])
 
     args.append(str(graph))
+    built_version = (
+        args[args.index("--built-version") + 1] if "--built-version" in args else None
+    )
     shacl_execution_status = "complete"
+    error_code = None
+    error_message = ""
+    validator_command: list[str] = []
     try:
+        runtime = prepare_validator(built_version)
+        validator_version = runtime.version
+        validator_command = list(runtime.command)
+        args = validator_command + args
         completed = subprocess.run(
             args,
             capture_output=True,
@@ -543,17 +568,43 @@ def validate_graph_file(
             timeout=timeout_seconds,
             check=False,
         )
+    except ValidatorError as exc:
+        error_code = exc.code
+        error_message = str(exc)
+        validator_version = exc.version
+        completed = subprocess.CompletedProcess(args, 2, stdout="", stderr=error_message)
+    except OSError:
+        error_code = "validator_execution_failed"
+        error_message = validator_error_message(error_code, built_version)
+        completed = subprocess.CompletedProcess(args, 127, stdout="", stderr=error_message)
     except subprocess.TimeoutExpired as exc:
         raise ValueError("validation_timeout") from exc
+
+    error_code = error_code or validator_error_code(completed.returncode, completed.stderr)
+    if error_code and not error_message:
+        error_message = validator_error_message(error_code, built_version)
 
     combined = f"{completed.stdout}\n{completed.stderr}"
     conforms = _parse_conforms(combined)
     violation_count = combined.count(_VIOLATION_MARKER)
     warning_count = combined.count(_WARNING_MARKER)
     exit_code = completed.returncode
+    violation_details: tuple[dict[str, str | None], ...] = ()
+    violation_details_truncated = False
+    if not error_code and violation_count:
+        loaded_graphs = [
+            Path(args[i + 1]) for i, arg in enumerate(args[:-1]) if arg == "--ontology-graph"
+        ]
+        violation_details, violation_details_truncated = parse_violation_details(
+            completed.stdout, _validation_prefixes(graph, loaded_graphs)
+        )
 
     sparql_crash_files: tuple[Path, ...] = ()
-    if "ParseException" in combined or "Expected SelectQuery" in combined:
+    if error_code:
+        conforms = None
+        shacl_execution_status = "failed"
+        shacl_conformance_status = "could_not_verify"
+    elif "ParseException" in combined or "Expected SelectQuery" in combined:
         # case_validate/pyshacl crashed while parsing a SHACL SPARQL constraint.
         # Blame the shape file, not the caller's graph.
         ontology_paths: list[Path] = []
@@ -564,7 +615,7 @@ def validate_graph_file(
                 if arg == "--ontology-graph" and i + 1 < len(args):
                     ontology_paths.append(Path(args[i + 1]))
         # Strip trailing graph path and ontology-graph pairs for the isolator.
-        base_args = [VALIDATOR_NAME]
+        base_args = list(validator_command)
         if allow_warning:
             base_args.append("--allow-warning")
         base_args.extend(["--built-version", DEFAULT_BUILT_VERSION, "--allow-info"])
@@ -604,7 +655,9 @@ def validate_graph_file(
         shacl_conformance_status = "unknown"
         shacl_execution_status = "failed"
 
-    if sparql_crash_files or (
+    if error_code:
+        summary = error_message
+    elif sparql_crash_files or (
         "ParseException" in combined or "Expected SelectQuery" in combined
     ):
         pass  # summary already set above
@@ -640,8 +693,8 @@ def validate_graph_file(
     unknown_upper: tuple[str, ...] = ()
     role_mismatches: tuple[tuple[str, str, str], ...] = ()
     profile_not_selected: tuple[dict[str, Any], ...] = ()
-    verification_status = "complete"
-    verification_errors: tuple[str, ...] = ()
+    verification_status = "could_not_verify" if error_code else "complete"
+    verification_errors: tuple[str, ...] = (error_code,) if error_code else ()
     coverage_execution_status = "skipped"
     coverage_conformance_status = "skipped"
 
@@ -809,6 +862,9 @@ def validate_graph_file(
         stage_status=tuple(stage_status),
         validator_version=validator_version,
         validator_diagnostics=diagnostics,
+        error_code=error_code,
+        violation_details=violation_details,
+        violation_details_truncated=violation_details_truncated,
     )
 
 
@@ -831,10 +887,15 @@ def report_to_dict(report: GraphValidationReport) -> dict[str, Any]:
             "case_utils": report.validator_version,
         },
     }
+    if report.error_code:
+        payload["error_code"] = report.error_code
     if report.validator_version:
         payload["validator_version"] = report.validator_version
     if report.verification_errors:
         payload["verification_errors"] = list(report.verification_errors)
+    if report.violation_details:
+        payload["violation_details"] = [dict(d) for d in report.violation_details]
+        payload["violation_details_truncated"] = report.violation_details_truncated
     if report.undeclared_concepts:
         payload["undeclared_concepts"] = list(report.undeclared_concepts)
     if report.unknown_upper_ontology_terms:
@@ -873,6 +934,109 @@ def report_to_dict(report: GraphValidationReport) -> dict[str, Any]:
     return payload
 
 
+MAX_VIOLATION_DETAILS = 20
+
+# Prefixes the pinned case-1.5.0 build binds; pyshacl prints result paths
+# with them (``core:isDirectional``).
+_BUILT_ONTOLOGY_PREFIXES = {
+    "action": "https://ontology.unifiedcyberontology.org/uco/action/",
+    "analysis": "https://ontology.unifiedcyberontology.org/uco/analysis/",
+    "configuration": "https://ontology.unifiedcyberontology.org/uco/configuration/",
+    "core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+    "investigation": "https://ontology.caseontology.org/case/investigation/",
+    "location": "https://ontology.unifiedcyberontology.org/uco/location/",
+    "marking": "https://ontology.unifiedcyberontology.org/uco/marking/",
+    "observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "pattern": "https://ontology.unifiedcyberontology.org/uco/pattern/",
+    "role": "https://ontology.unifiedcyberontology.org/uco/role/",
+    "time1": "https://ontology.unifiedcyberontology.org/uco/time/",
+    "tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+    "types": "https://ontology.unifiedcyberontology.org/uco/types/",
+    "victim": "https://ontology.unifiedcyberontology.org/uco/victim/",
+    "vocab": "https://ontology.caseontology.org/case/vocabulary/",
+    "vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+}
+_RESULT_HEADER_RE = re.compile(r"^Constraint Violation in \S+ \((?P<component>[^()\s]+)\):", re.M)
+_RESULT_FIELD_RE = re.compile(r"^\s+(Severity|Focus Node|Result Path):\s*(.*?)\s*$", re.M)
+_TURTLE_PREFIX_RE = re.compile(r"@prefix\s+([A-Za-z][\w.-]*)?\s*:\s*<([^<>\s]+)>", re.I)
+_CURIE_RE = re.compile(r"([A-Za-z][\w.-]*)?:([^\s\[\]()<>\"'{}|\\^`]*)")
+
+
+def _file_prefixes(path: Path) -> dict[str, str]:
+    """Namespace prefixes declared by a Turtle or JSON-LD file."""
+    try:
+        if path.suffix.lower() in {".jsonld", ".json"}:
+            contexts = json.loads(path.read_text(encoding="utf-8")).get("@context", {})
+            prefixes: dict[str, str] = {}
+            for context in contexts if isinstance(contexts, list) else [contexts]:
+                if isinstance(context, dict):
+                    prefixes.update(
+                        (name, value) for name, value in context.items()
+                        if isinstance(value, str) and not name.startswith("@")
+                        and value.endswith(("/", "#", ":"))
+                    )
+            return prefixes
+        with path.open(encoding="utf-8", errors="replace") as handle:
+            head = handle.read(1_000_000)
+        return {name or "": iri for name, iri in _TURTLE_PREFIX_RE.findall(head)}
+    except (OSError, ValueError, AttributeError):
+        return {}
+
+
+def _validation_prefixes(graph_path: Path, ontology_paths: list[Path]) -> dict[str, str]:
+    prefixes = dict(_BUILT_ONTOLOGY_PREFIXES)
+    for path in ontology_paths:
+        prefixes.update(_file_prefixes(path))
+    prefixes.update(_file_prefixes(graph_path))
+    return prefixes
+
+
+def _expand_term(term: str, prefixes: dict[str, str]) -> str | None:
+    """Expand a printed IRI or prefixed name; ``None`` for anything else
+    (blank nodes, literals, complex paths) so no values leak."""
+    if term.startswith("<") and term.endswith(">") and " " not in term:
+        return term[1:-1]
+    if re.fullmatch(r"(?:https?|urn):[^\s\[\]()<>\"']+", term):
+        return term
+    match = _CURIE_RE.fullmatch(term)
+    if match and match.group(1) != "_" and (match.group(1) or "") in prefixes:
+        return prefixes[match.group(1) or ""] + match.group(2)
+    return None
+
+
+def parse_violation_details(
+    output: str,
+    prefixes: dict[str, str],
+    *,
+    limit: int = MAX_VIOLATION_DETAILS,
+) -> tuple[tuple[dict[str, str | None], ...], bool]:
+    """Identify each SHACL result in ``case_validate``'s human output.
+
+    Returns up to ``limit`` ``{focus_node, result_path,
+    constraint_component, severity}`` records with expanded IRIs, and
+    whether more results were left out. Value nodes, messages and source
+    shapes are never read, because they can echo graph literals.
+    """
+    headers = list(_RESULT_HEADER_RE.finditer(output))
+    details: list[dict[str, str | None]] = []
+    for index, header in enumerate(headers[:limit]):
+        end = headers[index + 1].start() if index + 1 < len(headers) else len(output)
+        fields = dict(_RESULT_FIELD_RE.findall(output[header.end():end]))
+        details.append({
+            "focus_node": _expand_term(fields.get("Focus Node", ""), prefixes),
+            "result_path": _expand_term(fields.get("Result Path", ""), prefixes),
+            "constraint_component": _expand_term(header.group("component"), prefixes),
+            "severity": _expand_term(fields.get("Severity", ""), prefixes),
+        })
+    return tuple(details), len(headers) > limit
+
+
 def _parse_conforms(output: str) -> bool | None:
     for line in output.splitlines():
         key, sep, value = line.partition(":")
@@ -898,6 +1062,7 @@ __all__ = [
     "load_extension_ontology_paths",
     "named_subset_manifest_path",
     "parse_extension_token",
+    "parse_violation_details",
     "report_to_dict",
     "required_extensions_for_graph",
     "resolve_extension_dependencies",

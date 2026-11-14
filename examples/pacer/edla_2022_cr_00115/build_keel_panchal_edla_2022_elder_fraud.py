@@ -1088,10 +1088,10 @@ def build_graph() -> dict:
             node["uco-action:object"] = [{"@id": o} for o in act["objects"]]
         if act.get("results"):
             node["uco-action:result"] = [{"@id": r} for r in act["results"]]
+        if act.get("also"):
+            node["uco-action:participant"] = [{"@id": o} for o in act["also"]]
         graph.append(node)
         graph.append(rel(uid(act["label"]), conspiracy_charge, "Overt_Act_In_Furtherance_Of"))
-        for other in act.get("also", []):
-            graph.append(rel(other, uid(act["label"]), "Participated_In"))
 
     # Location and victim edges for the scheme timeline.
     graph.append(rel(uid("act-victima-handoff-60k"), loc_hammond, "Occurred_At"))
@@ -1162,6 +1162,7 @@ def build_graph() -> dict:
             "label": "ia-tpso-interview",
             "name": "TPSO complaint intake and interview of Victim A (2022-04-04)",
             "performer": tpso,
+            "participants": [det_damato],
             "start": "2022-04-04",
             "objects": [victim_a_phone],
             "desc": (
@@ -1175,6 +1176,7 @@ def build_graph() -> dict:
             "label": "ia-controlled-delivery",
             "name": "TPSO controlled-delivery sting at Hammond Square Mall (2022-04-04)",
             "performer": tpso,
+            "participants": [det_damato],
             "start": "2022-04-04",
             "objects": [decoy_box],
             "desc": (
@@ -1274,14 +1276,14 @@ def build_graph() -> dict:
             node["uco-action:result"] = [{"@id": r} for r in ia["results"]]
         if ia.get("authorization"):
             node["case-investigation:relevantAuthorization"] = [{"@id": ia["authorization"]}]
+        if ia.get("participants"):
+            node["uco-action:participant"] = [{"@id": p} for p in ia["participants"]]
         graph.append(node)
         graph.append(rel(uid(ia["label"]), investigation, "part_of"))
     graph.append(rel(uid("ia-controlled-delivery"), loc_hammond, "Occurred_At"))
     graph.append(rel(uid("ia-hotel-search"), loc_laquinta, "Occurred_At"))
     graph.append(rel(det_damato, tpso, "Member_Of"))
     graph.append(rel(sa_candebat, hsi, "Member_Of"))
-    graph.append(rel(det_damato, uid("ia-controlled-delivery"), "Participated_In"))
-    graph.append(rel(det_damato, uid("ia-tpso-interview"), "Participated_In"))
 
     # ------------------------------------------------------------------
     # Charging instruments (complaint, indictment, superseding indictment)

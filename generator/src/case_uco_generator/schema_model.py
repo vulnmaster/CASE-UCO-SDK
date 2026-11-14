@@ -244,6 +244,8 @@ class OntologySchema:
     modules: dict[str, list[str]] = field(default_factory=dict)
     # Extensions whose manifest sets ``class_registry: false``: name -> display name.
     catalog_extensions: dict[str, str] = field(default_factory=dict)
+    # owl:versionInfo of the UCO and CASE ontologies: {"uco": "1.5.0", "case": "1.5.0"}.
+    ontology_versions: dict[str, str] = field(default_factory=dict)
 
     def without_extensions(self) -> OntologySchema:
         """Return a copy of this schema excluding extension (ext.*) modules."""
@@ -258,6 +260,7 @@ class OntologySchema:
             vocabs=dict(self.vocabs),
             namespaces=dict(self.namespaces),
             modules=filtered_modules,
+            ontology_versions=dict(self.ontology_versions),
         )
 
     def classes_in_module(self, module: str) -> list[OntologyClass]:

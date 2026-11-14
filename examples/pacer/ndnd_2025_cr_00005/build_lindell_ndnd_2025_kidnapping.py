@@ -808,8 +808,7 @@ def build_graph() -> dict:
                loc: str | None = None,
                start: str | None = None, end: str | None = None) -> str:
         # uco-action:performer has max cardinality 1; the first performer is
-        # the primary actor and co-actors are linked with Participated_In
-        # relationships.
+        # the primary actor and co-actors are uco-action:participant values.
         node: dict = {
             "@id": uid(label),
             "@type": "uco-action:Action",
@@ -817,8 +816,8 @@ def build_graph() -> dict:
             "uco-core:description": description,
             "uco-action:performer": {"@id": performers[0]},
         }
-        for co_actor in performers[1:]:
-            graph.append(rel(co_actor, uid(label), "Participated_In"))
+        if performers[1:]:
+            node["uco-action:participant"] = [{"@id": p} for p in performers[1:]]
         if objects:
             node["uco-action:object"] = [{"@id": o} for o in objects]
         if instruments:

@@ -92,6 +92,8 @@ manually migrating state.
 
 Source-path coverage (`CRIT-C-SOURCE-HASH`, coverage v1.2.0): when a submitted source file is **not** embedded as a domain-graph node, the rule is `not_applicable` — builders/recipes belong in the critic session manifest, not the investigation graph. Embedded source nodes are still hash-checked when present.
 
+A matching hash shows the file is the one named, not that the graph agrees with its contents, so `CRIT-C-SOURCE-HASH` and `CRIT-C-PROVENANCE-MANIFEST` results score `provenance_custody`. `source_fidelity` and `coverage_completeness` are scored only from coverage rules that compare the graph with source content (the coverage contract), and stay unassessed otherwise. The prompt package's `source_excerpts` hold each source's document text from the document processor's extractors (`extraction`: `<kind>_text`), raw bytes only for formats with no extractor (`raw_bytes`), or empty text when a supported document yields none (`no_text_extracted`).
+
 Provenance sidecar (`CRIT-C-PROVENANCE-MANIFEST*`, coverage v1.3.1): when `provenance_manifest_path` is set (one-shot or session), verify schema-1.1 `artifacts[]` (or legacy builder/recipe/output) hashes via workspace policy; require exactly one `output_artifact` whose digest equals the graph under review; empty manifests fail closed. The manifest digest is bound into `ArtifactHashes` / artifact-set / review-config hashes and replayed across multi-pass sessions.
 
 Serializer modes: `typed_sdk` | `raw_fixture` | `casegraph_raw` | `auto`. Public `CASEGraph` builders that use `upsert_node` without generated dataclass `create()` should declare `casegraph_raw`.

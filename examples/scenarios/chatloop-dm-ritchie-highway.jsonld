@@ -17,11 +17,11 @@
             "@id": "kb:Tool-0b223916-23eb-5d6f-9a97-e285630e54bf",
             "@type": "uco-tool:Tool",
             "uco-core:description": [
-                "Built with case-uco 1.31.0; validate with case_validate --built-version case-1.5.0 (CASE 1.5.0 / UCO 1.5.0)."
+                "Built with case-uco 1.34.0; validate with case_validate --built-version case-1.5.0 (CASE 1.5.0 / UCO 1.5.0)."
             ],
             "uco-core:name": "case-uco (Python SDK)",
             "uco-tool:toolType": "CASE/UCO graph serialization",
-            "uco-tool:version": "1.31.0"
+            "uco-tool:version": "1.34.0"
         },
         {
             "@id": "kb:Hash-afc95fe7-df72-584f-9420-9e91417b8fbc",
@@ -342,56 +342,6 @@
             "uco-core:name": "ty_reed09",
             "uco-core:tag": [
                 "source-verbatim"
-            ]
-        },
-        {
-            "@id": "kb:Relationship-102b843e-b460-5f1e-86a5-ff2f1e4569d8",
-            "@type": "uco-core:Relationship",
-            "uco-core:source": [
-                {
-                    "@id": "kb:Person-2e067455-df65-5b66-8072-31b970e2fe3c"
-                }
-            ],
-            "uco-core:target": [
-                {
-                    "@id": "kb:ApplicationAccount-6e1ce906-46d3-5292-b0dc-d69bf0d3caa3"
-                }
-            ],
-            "uco-core:kindOfRelationship": "Has_Account",
-            "uco-core:isDirectional": {
-                "@type": "xsd:boolean",
-                "@value": "true"
-            },
-            "uco-core:tag": [
-                "source-normalized"
-            ],
-            "uco-core:description": [
-                "Person\u2013account association from transcript participant table."
-            ]
-        },
-        {
-            "@id": "kb:Relationship-19422431-d5be-53fc-b51e-d575959d07b3",
-            "@type": "uco-core:Relationship",
-            "uco-core:source": [
-                {
-                    "@id": "kb:Person-31e8e6fe-bfa0-5bb1-991a-cd72e767105d"
-                }
-            ],
-            "uco-core:target": [
-                {
-                    "@id": "kb:ApplicationAccount-08048ec6-c968-59a0-8496-7a36ce4f47aa"
-                }
-            ],
-            "uco-core:kindOfRelationship": "Has_Account",
-            "uco-core:isDirectional": {
-                "@type": "xsd:boolean",
-                "@value": "true"
-            },
-            "uco-core:tag": [
-                "source-normalized"
-            ],
-            "uco-core:description": [
-                "Person\u2013account association from transcript participant table."
             ]
         },
         {
@@ -11406,7 +11356,7 @@
             "@id": "kb:ObservableObject-78c6a679-9336-5fed-bfde-dd638df32d75",
             "@type": "uco-observable:ObservableObject",
             "uco-core:description": [
-                "JSON-LD graph produced by transforming the source transcript with case-uco 1.31.0. SHA-256 of this file is recorded in chatloop-dm-ritchie-highway.validation.txt (not embedded here \u2014 circular otherwise)."
+                "JSON-LD graph produced by transforming the source transcript with case-uco 1.34.0. SHA-256 of this file is recorded in chatloop-dm-ritchie-highway.validation.txt (not embedded here \u2014 circular otherwise)."
             ],
             "uco-core:hasFacet": [
                 {
@@ -11494,7 +11444,7 @@
             "@type": "case-investigation:Investigation",
             "uco-core:description": [
                 "Fictional ChatLoop direct-message transcript (Tier T0). All persons, accounts, locations, and events are synthetic.",
-                "Builder: case-uco 1.31.0; CASE/UCO 1.5.0 validation target."
+                "Builder: case-uco 1.34.0; CASE/UCO 1.5.0 validation target."
             ],
             "uco-core:name": "ChatLoop DM \u2014 Target / Ritchie Highway (fictional)",
             "uco-core:tag": [

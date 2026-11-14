@@ -75,7 +75,7 @@ fastmcp dev mcp_server/server.py
 | `build_acquisition_package_graph` | `package_root, output_path, profile?, max_event_records?, shareable?, event_excerpt_path?, event_message_policy?, extensions?` | Write a bounded Apple/SOLVE-IT package graph with optional CSV/JSONL event sample and share-safe path/identifier/message handling |
 | `list_all_vocabs` | (none) | All vocabulary/enum types with members |
 | `process_document_file` | `source_path, output_path, file_kind?, upload_id?, progress_output?` | Process a supported local synthetic document (receipt image, PDF, Office, CSV/table) into bounded CASE/UCO-shaped JSON-LD |
-| `validate_graph` | `graph_path: str, allow_warning?: bool, extensions?: list[str]` | Run `case_validate` against JSON-LD/Turtle; `extensions=['cac']` uses the press-release subset; `extensions=['cac:full']` uses the full manifest |
+| `validate_graph` | `graph_path: str, allow_warning?: bool, extensions?: list[str], strict_concepts?: bool, profiles?: list[str], extra_ontology_graphs?: list[str], force_rdfs_inference?: bool` | Run `case_validate` against JSON-LD/Turtle; `extensions=['cac']` uses the press-release subset; `extensions=['cac:full']` uses the full manifest; `extra_ontology_graphs` adds local ontology or shapes files (a candidate T-Box) to SHACL and concept coverage |
 | `execute_sparql_query` | `query, endpoint_url?, timeout_seconds?` | Execute bounded query-only SPARQL 1.1 against CaseLinker by default or another standards-compliant endpoint; normalizes bindings, ASK booleans, and RDF graph results |
 
 Python API (v1.22 / #75): `from critic import analyze_artifact, CriticArtifactRequest` — deterministic graph/serializer critic with bounded prompt packages. MCP session tools arrive in #76.
@@ -251,7 +251,11 @@ symlink escapes are rejected. Violations return typed, non-sensitive errors:
 `source_outside_read_roots`, `output_outside_write_roots`,
 `progress_outside_write_roots`, `output_exists`, `source_output_conflict`.
 `validate_graph` may read from both root sets (it validates graphs the
-server just produced). When neither variable is set, no policy is active —
+server just produced). Its `extra_ontology_graphs` paths follow the same
+read policy, suffix list and size limit as `graph_path`, with their own
+typed errors: `extra_ontology_graph_outside_read_roots`,
+`extra_ontology_graph_missing`, `extra_ontology_graph_unsupported_extension`
+and `extra_ontology_graph_oversized`. When neither variable is set, no policy is active —
 acceptable for local development, not for agent-connected case work. Run
 the server process under an account with no filesystem access beyond these
 roots; keep evidence roots read-only at the OS level.
